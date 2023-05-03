@@ -28,7 +28,7 @@ specifiers:
   eslint: 8.35.0
   framer-motion: ^10.3.4
   husky: 8.0.3
-  immer: ^9.0.21
+  immer: ^10.0.1
   js-cookie: 3.0.5
   js-yaml: 4.1.0
   lint-staged: 13.1.4
@@ -67,7 +67,7 @@ dependencies:
   clsx: 1.2.1
   dayjs: 1.11.7
   framer-motion: 10.12.6_biqbaboplfbrettd7655fr4n2y
-  immer: 9.0.21
+  immer: 10.0.1
   js-cookie: 3.0.5
   lodash-es: 4.17.21
   markdown-escape: 2.0.0
@@ -84,7 +84,7 @@ dependencies:
   socket.io-client: 4.6.1
   swr: 2.0.4_react@18.2.0
   validator: 13.9.0
-  zustand: 4.3.7_immer@9.0.21+react@18.2.0
+  zustand: 4.3.7_immer@10.0.1+react@18.2.0
 
 devDependencies:
   '@innei/eslint-config-react-ts': 0.9.9_typescript@4.9.5
@@ -3096,8 +3096,8 @@ packages:
     engines: {node: '>= 4'}
     dev: true
 
-  /immer/9.0.21:
-    resolution: {integrity: sha512-bc4NBHqOqSfRW7POMkHd51LvClaeMXpm8dx0e8oE2GORbq5aRK7Bxl4FyzVLdGtLmvLKL7BTDBG5ACQm4HWjTA==}
+  /immer/10.0.1:
+    resolution: {integrity: sha512-zg++jJLsKKTwXGeSYIw0HgChSYQGtu0UDTnbKx5aGLYgte4CwTmH9eJDYyQ6FheyUtBe+lQW9FrGxya1G+Dtmg==}
     dev: false
 
   /import-fresh/3.3.0:
@@ -5540,7 +5540,7 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zustand/4.3.7_immer@9.0.21+react@18.2.0:
+  /zustand/4.3.7_immer@10.0.1+react@18.2.0:
     resolution: {integrity: sha512-dY8ERwB9Nd21ellgkBZFhudER8KVlelZm8388B5nDAXhO/+FZDhYMuRnqDgu5SYyRgz/iaf8RKnbUs/cHfOGlQ==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
@@ -5552,7 +5552,7 @@ packages:
       react:
         optional: true
     dependencies:
-      immer: 9.0.21
+      immer: 10.0.1
       react: 18.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
