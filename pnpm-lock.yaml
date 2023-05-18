@@ -14,7 +14,7 @@ specifiers:
   '@types/js-cookie': 3.0.3
   '@types/lodash-es': 4.17.7
   '@types/markdown-escape': 1.1.0
-  '@types/node': 18.16.9
+  '@types/node': 18.16.13
   '@types/react': 18.2.6
   '@types/react-collapse': 5.0.1
   '@types/react-dom': 18.2.4
@@ -26,7 +26,7 @@ specifiers:
   dayjs: 1.11.7
   dotenv: 16.0.3
   eslint: 8.40.0
-  framer-motion: ^10.12.10
+  framer-motion: ^10.12.12
   husky: 8.0.3
   immer: ^10.0.2
   js-cookie: 3.0.5
@@ -46,7 +46,7 @@ specifiers:
   react-intersection-observer: 9.4.3
   react-masonry-css: 1.0.16
   react-message-popup: 1.1.3
-  react-toastify: 9.1.2
+  react-toastify: 9.1.3
   react-use: 17.4.0
   remove-markdown: 0.5.0
   rimraf: 3.0.2
@@ -66,7 +66,7 @@ dependencies:
   axios: 1.4.0
   clsx: 1.2.1
   dayjs: 1.11.7
-  framer-motion: 10.12.10_biqbaboplfbrettd7655fr4n2y
+  framer-motion: 10.12.12_biqbaboplfbrettd7655fr4n2y
   immer: 10.0.2
   js-cookie: 3.0.5
   lodash-es: 4.17.21
@@ -78,7 +78,7 @@ dependencies:
   react-intersection-observer: 9.4.3_react@18.2.0
   react-masonry-css: 1.0.16_react@18.2.0
   react-message-popup: 1.1.3_biqbaboplfbrettd7655fr4n2y
-  react-toastify: 9.1.2_biqbaboplfbrettd7655fr4n2y
+  react-toastify: 9.1.3_biqbaboplfbrettd7655fr4n2y
   react-use: 17.4.0_biqbaboplfbrettd7655fr4n2y
   remove-markdown: 0.5.0
   socket.io-client: 4.6.1
@@ -94,7 +94,7 @@ devDependencies:
   '@types/js-cookie': 3.0.3
   '@types/lodash-es': 4.17.7
   '@types/markdown-escape': 1.1.0
-  '@types/node': 18.16.9
+  '@types/node': 18.16.13
   '@types/react': 18.2.6
   '@types/react-collapse': 5.0.1
   '@types/react-dom': 18.2.4
@@ -1364,7 +1364,7 @@ packages:
     resolution: {integrity: sha512-MxObHvNl4A69ofaTRU8DFqvgzzv8s9yRtaPPm5gud9HDNvpB3GPQFvNuTWAI59B9huVGV5jXYJwbCsmBsOGYWA==}
     dependencies:
       '@types/jsonfile': 6.1.1
-      '@types/node': 18.16.9
+      '@types/node': 18.16.13
     dev: true
 
   /@types/js-cookie/2.2.7:
@@ -1386,7 +1386,7 @@ packages:
   /@types/jsonfile/6.1.1:
     resolution: {integrity: sha512-GSgiRCVeapDN+3pqA35IkQwasaCh/0YFH5dEF6S88iDvEn901DjOeH3/QPY+XYP1DFzDZPvIvfeEgk+7br5png==}
     dependencies:
-      '@types/node': 18.16.9
+      '@types/node': 18.16.13
     dev: true
 
   /@types/lodash-es/4.17.7:
@@ -1407,8 +1407,8 @@ packages:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
     dev: true
 
-  /@types/node/18.16.9:
-    resolution: {integrity: sha512-IeB32oIV4oGArLrd7znD2rkHQ6EDCM+2Sr76dJnrHwv9OHBTTM6nuDLK9bmikXzPa0ZlWMWtRGo/Uw4mrzQedA==}
+  /@types/node/18.16.13:
+    resolution: {integrity: sha512-uZRomboV1vBL61EBXneL4j9/hEn+1Yqa4LQdpGrKmXFyJmVfWc9JV9+yb2AlnOnuaDnb2PDO3hC6/LKmzJxP1A==}
     dev: true
 
   /@types/parse-author/2.0.1:
@@ -2624,7 +2624,7 @@ packages:
     resolution: {integrity: sha512-EzV94NYKoO09GLXGjXj9JIlXijVck4ONSr5wiCWDvhsvj5jxSrzTmRU/9C1DyB6uToszLs8aifA6NQ7lEQdvFw==}
     engines: {node: '>= 0.8'}
     dependencies:
-      '@types/node': 18.16.9
+      '@types/node': 18.16.13
       require-like: 0.1.2
     dev: true
 
@@ -2788,8 +2788,8 @@ packages:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: true
 
-  /framer-motion/10.12.10_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-f/VkrpxfG4xSmBi105/NCfcTt219IgglQEUR0BsuFZAg+be6N3QAcujFyBEvBvbDOSP9Ccv6OMiaY0HFMnBoMA==}
+  /framer-motion/10.12.12_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-DDCqp60U6hR7aUrXj/BXc/t0Sd/U4ep6w/NZQkw898K+u7s+Vv/P8yxq4WTNA86kU9QCsqOgn1Qhz2DpYK0Oag==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -4540,8 +4540,8 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /react-toastify/9.1.2_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-PBfzXO5jMGEtdYR5jxrORlNZZe/EuOkwvwKijMatsZZm8IZwLj01YvobeJYNjFcA6uy6CVrx2fzL9GWbhWPTDA==}
+  /react-toastify/9.1.3_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-fPfb8ghtn/XMxw3LkxQBk3IyagNpF/LIKjOBflbexr2AWxAH1MJgvnESwEwBn9liLFXgTKWgBSdZpw9m4OTHTg==}
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
@@ -5560,7 +5560,7 @@ packages:
     dependencies:
       '@types/fs-extra': 11.0.1
       '@types/minimist': 1.2.2
-      '@types/node': 18.16.9
+      '@types/node': 18.16.13
       '@types/ps-tree': 1.1.2
       '@types/which': 3.0.0
       chalk: 5.2.0
