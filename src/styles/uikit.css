@@ -1,0 +1,53 @@
+@layer base {
+  .uk-material-thick-light {
+    background: linear-gradient(0deg, #5c5c5c, #5c5c5c),
+      rgba(153, 153, 153, 0.97);
+    background-blend-mode: color-dodge, normal;
+    backdrop-filter: blur(20px);
+  }
+
+  .uk-material-thick-dark {
+    background: linear-gradient(0deg, #7c7c7c, #7c7c7c), rgba(37, 37, 37, 0.9);
+    background-blend-mode: overlay, normal;
+    backdrop-filter: blur(50px);
+  }
+
+  .uk-material-default-light {
+    background: linear-gradient(0deg, #383838, #383838),
+      rgba(179, 179, 179, 0.82);
+    background-blend-mode: color-dodge, normal;
+    backdrop-filter: blur(17.5px);
+  }
+
+  .uk-material-default-dark {
+    background: linear-gradient(0deg, #8c8c8c, #8c8c8c), rgba(37, 37, 37, 0.82);
+    background-blend-mode: overlay, normal;
+    backdrop-filter: blur(50px);
+  }
+
+  .uk-material-thin-light {
+    background: linear-gradient(0deg, #333333, #333333),
+      rgba(166, 166, 166, 0.7);
+    background-blend-mode: color-dodge, normal;
+    backdrop-filter: blur(15px);
+  }
+
+  .uk-material-thin-dark {
+    background: linear-gradient(0deg, #9c9c9c, #9c9c9c), rgba(37, 37, 37, 0.7);
+    background-blend-mode: overlay, normal;
+    backdrop-filter: blur(50px);
+  }
+
+  .uk-material-ultrathin-light {
+    background: linear-gradient(0deg, #0d0d0d, #0d0d0d),
+      rgba(191, 191, 191, 0.44);
+    background-blend-mode: color-dodge, normal;
+    backdrop-filter: blur(15px);
+  }
+
+  .uk-material-ultrathin-dark {
+    background: linear-gradient(0deg, #9c9c9c, #9c9c9c), rgba(37, 37, 37, 0.55);
+    background-blend-mode: overlay, normal;
+    backdrop-filter: blur(50px);
+  }
+}

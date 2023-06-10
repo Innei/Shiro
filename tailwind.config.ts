@@ -1,3 +1,4 @@
+import daisyui from 'daisyui'
 import {
   createVariableColors,
   variableColorsPlugin,
@@ -167,8 +168,6 @@ const UIKitColors = {
   },
 }
 
-const UIKitMaterials = {}
-
 export default resolveConfig({
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   darkMode: 'class',
@@ -204,16 +203,31 @@ export default resolveConfig({
         screen: '100vh',
       },
 
-      zIndex: {
-        '-1': '-1',
-        1: '1',
-        99: '99',
-      },
       colors: {
         uk: UIKitColors,
         always: { ...twColors },
+        accent: '#39C5BB',
+        // hover: '#b1f2ed',
       },
     },
+  },
+
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+          primary: '#570df8',
+          secondary: '#f000b8',
+          accent: '#39C5BB', // MIKU
+          neutral: '#2b3440',
+          'base-100': '#ffffff',
+          info: '#66CCFF',
+          success: '#36d399',
+          warning: '#fbbd23',
+          error: '#f87272',
+        },
+      },
+    ],
   },
 
   plugins: [
@@ -221,7 +235,8 @@ export default resolveConfig({
     addShortcutPlugin,
 
     variableColorsPlugin(twColors),
-
+    daisyui,
+    daisyui,
     // ColorPlugin,
   ],
 })
