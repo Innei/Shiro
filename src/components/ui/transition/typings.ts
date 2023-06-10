@@ -1,10 +1,7 @@
 import type {
   HTMLMotionProps,
-  Inertia,
-  Keyframes,
-  Spring,
-  Tween,
   motion,
+  TargetAndTransition,
 } from 'framer-motion'
 
 export interface BaseTransitionProps extends HTMLMotionProps<'div'> {
@@ -19,8 +16,8 @@ export interface BaseTransitionProps extends HTMLMotionProps<'div'> {
   }
 
   animation?: {
-    enter?: Tween | Spring | Keyframes | Inertia
-    exit?: Tween | Spring | Keyframes | Inertia
+    enter?: TargetAndTransition['transition']
+    exit?: TargetAndTransition['transition']
   }
   /**
    * @default true

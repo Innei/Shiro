@@ -1,11 +1,10 @@
-import type { Target } from 'framer-motion'
-import { AnimatePresence, motion } from 'framer-motion'
-import type { FC, PropsWithChildren } from 'react'
 import { Fragment } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import type { Target, TargetAndTransition } from 'framer-motion'
+import type { FC, PropsWithChildren } from 'react'
+import type { BaseTransitionProps } from './typings'
 
 import { microReboundPreset } from '~/constants/spring'
-
-import type { BaseTransitionProps } from './typings'
 
 interface TransitionViewParams {
   from: Target
@@ -76,7 +75,7 @@ export const createTransitionView = (
                   duration,
                   ...animation.exit,
                   delay: exit / 1000,
-                },
+                } as TargetAndTransition['transition'],
               }}
               transition={{
                 duration,

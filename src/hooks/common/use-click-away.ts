@@ -1,6 +1,6 @@
 // @copy https://github.com/streamich/react-use/blob/master/src/useClickAway.ts
-import type { RefObject } from 'react'
 import { useEffect, useRef } from 'react'
+import type { RefObject } from 'react'
 
 function on<T extends Window | Document | HTMLElement | EventTarget>(
   obj: T | null,
@@ -38,9 +38,11 @@ const useClickAway = <E extends Event = Event>(
     savedCallback.current = onClickAway
   }, [onClickAway])
   useEffect(() => {
-    const handler = (event) => {
+    const handler = (event: React.MouseEvent) => {
       const { current: el } = ref
-      el && !el.contains(event.target) && savedCallback.current(event)
+      el &&
+        !el.contains(event.target as any) &&
+        savedCallback.current(event as any)
     }
     for (const eventName of events) {
       on(document, eventName, handler)
