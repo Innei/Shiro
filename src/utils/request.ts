@@ -24,9 +24,11 @@ export const apiClient = createClient(axiosAdaptor)(API_URL, {
 export const $axios = axiosAdaptor.default as AxiosInstance
 
 $axios.defaults.timeout = 10000
-$axios.defaults.headers.common[
-  'User-Agent'
-] = `NextJS/v${PKG.dependencies.next} ${PKG.name}/${PKG.version}`
+
+if (typeof window === 'undefined')
+  $axios.defaults.headers.common[
+    'User-Agent'
+  ] = `NextJS/v${PKG.dependencies.next} ${PKG.name}/${PKG.version}`
 
 $axios.interceptors.request.use((config) => {
   const token = getToken()

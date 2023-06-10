@@ -8,6 +8,7 @@ import resolveConfig from 'tailwindcss/resolveConfig'
 import type { PluginAPI } from 'tailwindcss/types/config'
 
 import { addDynamicIconSelectors } from '@iconify/tailwind'
+import typography from '@tailwindcss/typography'
 
 const UIKitColors = {
   red: {
@@ -170,7 +171,7 @@ const UIKitColors = {
 
 export default resolveConfig({
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
-  darkMode: 'class',
+  darkMode: ['class', 'html.dark'],
   theme: {
     colors: createVariableColors(twColors),
 
@@ -206,28 +207,17 @@ export default resolveConfig({
       colors: {
         uk: UIKitColors,
         always: { ...twColors },
-        accent: '#39C5BB',
-        // hover: '#b1f2ed',
+        themed: {
+          accent: '#39C5BB',
+          // hover: '#b1f2ed',
+        },
       },
     },
   },
 
   daisyui: {
-    themes: [
-      {
-        mytheme: {
-          primary: '#570df8',
-          secondary: '#f000b8',
-          accent: '#39C5BB', // MIKU
-          neutral: '#2b3440',
-          'base-100': '#ffffff',
-          info: '#66CCFF',
-          success: '#36d399',
-          warning: '#fbbd23',
-          error: '#f87272',
-        },
-      },
-    ],
+    themes: ['cupcake', 'dracula'],
+    darkTheme: 'dracula',
   },
 
   plugins: [
@@ -236,7 +226,7 @@ export default resolveConfig({
 
     variableColorsPlugin(twColors),
     daisyui,
-    daisyui,
+    typography,
     // ColorPlugin,
   ],
 })

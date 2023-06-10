@@ -2,6 +2,6 @@ import { useQuery } from '@tanstack/react-query'
 
 import { aggregation } from '../definition/aggregation'
 
-export const useAggregation = () => {
+export const useAggregationQuery = () => {
   return useQuery(aggregation.root())
 }

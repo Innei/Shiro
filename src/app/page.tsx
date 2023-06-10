@@ -1,8 +1,8 @@
 'use client'
 
-import { useAggregation } from '~/queries/hooks/useAggregation'
+import { useAggregationQuery } from '~/queries/hooks/useAggregationQuery'
 
 export default function Home() {
-  const { data } = useAggregation()
+  const { data } = useAggregationQuery()
   return <main>{data!.user.avatar}</main>
 }

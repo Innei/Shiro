@@ -21,7 +21,13 @@ export default async function RootLayout({
   await queryClient.fetchQuery(queries.aggregation.root())
   $axios.defaults.headers.common['User-Agent'] = ua
 
-  const dehydratedState = dehydrate(queryClient)
+  const dehydratedState = dehydrate(queryClient, {
+    shouldDehydrateQuery: (query) => {
+      if (query.state.error) return false
+      // TODO dehydrate by route, pass header to filter
+      return true
+    },
+  })
   return (
     <html lang="zh-Hans" suppressHydrationWarning>
       <head />

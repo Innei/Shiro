@@ -1,7 +1,7 @@
 html {
   --border-color: #eee;
   --font-fans: theme('fontFamily.sans');
-  --theme-color: var(--auto-theme-color, theme('colors.accent'));
+  --theme-color: var(--auto-theme-color, theme('colors.themed.accent'));
   --hover-color: var(--auto-hover-color, theme('colors.zinc.100'));
   --header-height: auto;
   /* Accent color for form controls */
@@ -12,6 +12,11 @@ html {
   /*  for firefox */
   scrollbar-color: var(--theme-color) transparent;
   scrollbar-width: thin;
+}
+
+::selection {
+  background-color: var(--theme-color);
+  color: var(--hover-color);
 }
 
 html.dark {

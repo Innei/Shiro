@@ -8,7 +8,7 @@ import { DebugProvider } from './debug-provider'
 
 export function Providers({ children }: PropsWithChildren) {
   return (
-    <ThemeProvider>
+    <ThemeProvider attribute="class">
       <ReactQueryProvider>
         <DebugProvider>{children}</DebugProvider>
       </ReactQueryProvider>
