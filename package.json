@@ -6,15 +6,6 @@
   "engines": {
     "node": ">=14"
   },
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "react",
-        "next-pwa",
-        "next"
-      ]
-    }
-  },
   "bump": {
     "before": [
       "git pull --rebase",
@@ -59,6 +50,8 @@
     "@formkit/auto-animate": "1.0.0-beta.6",
     "@headlessui/react": "1.7.15",
     "@mx-space/api-client": "1.4.1",
+    "@sentry/nextjs": "7.53.1",
+    "@sentry/webpack-plugin": "2.2.1",
     "@tanstack/react-query": "4.29.12",
     "@tanstack/react-query-devtools": "4.29.12",
     "@tanstack/react-query-persist-client": "4.29.12",
@@ -66,6 +59,7 @@
     "clsx": "1.2.1",
     "daisyui": "3.0.25",
     "dayjs": "1.11.8",
+    "foxact": "0.2.8",
     "framer-motion": "^10.12.16",
     "idb-keyval": "6.2.1",
     "immer": "^10.0.2",

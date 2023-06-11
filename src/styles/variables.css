@@ -2,7 +2,7 @@ html {
   --border-color: #eee;
   --font-fans: theme('fontFamily.sans');
   --theme-color: var(--auto-theme-color, theme('colors.accent'));
-  --hover-color: var(--auto-hover-color, theme('colors.zinc.100'));
+  --hover-color: var(--auto-hover-color, theme('colors.accent-focus'));
   --header-height: auto;
   /* Accent color for form controls */
   accent-color: var(--theme-color);
@@ -16,7 +16,7 @@ html {
 
 ::selection {
   background-color: var(--theme-color);
-  color: var(--hover-color);
+  color: theme(colors.neutral-content);
 }
 
 html.dark {

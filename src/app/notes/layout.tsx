@@ -4,10 +4,13 @@ import { NoteTimelineSidebar } from '~/components/widgets/note/NoteTimelineSideb
 
 export default async (props: PropsWithChildren) => {
   return (
-    <div className="relative mx-auto min-h-screen max-w-7xl lg:px-8">
-      <NoteTimelineSidebar />
+    <div className="relative mx-auto grid min-h-screen max-w-[50rem] gap-4 md:grid-cols-1 lg:max-w-[calc(50rem+400px)] lg:grid-cols-[1fr_minmax(auto,50rem)_1fr]">
+      <NoteTimelineSidebar className="hidden lg:block" />
 
-      <div className="relative m-auto max-w-[50rem]">{props.children}</div>
+      <div className="relative md:col-start-1 lg:col-auto">
+        {props.children}
+      </div>
+      <div className="hidden lg:block" />
     </div>
   )
 }

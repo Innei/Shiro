@@ -1,31 +1,21 @@
 import '../styles/index.css'
 
 import { dehydrate } from '@tanstack/react-query'
-import { headers } from 'next/dist/client/components/headers'
-import type { Metadata } from 'next'
 
+import { defineMetadata } from '~/lib/define-metadata'
 import { sansFont } from '~/lib/fonts'
-import { queries } from '~/queries/definition'
 import { getQueryClient } from '~/utils/query-client.server'
-import { $axios } from '~/utils/request'
 
 import { Providers } from '../providers/root'
 import { Hydrate } from './hydrate'
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  const { get } = headers()
-  const queryClient = getQueryClient()
-  const ua = get('user-agent')
-  const { seo, url, user } = await queryClient.fetchQuery({
-    ...queries.aggregation.root(),
-  })
-  $axios.defaults.headers.common['User-Agent'] = ua
-
+export const generateMetadata = defineMetadata(async (_, getData) => {
+  const { seo, url, user } = await getData()
   return {
     metadataBase: new URL(url.webUrl),
     title: {
       template: `%s | ${seo.title}`,
-      default: seo.title,
+      default: `${seo.title} - ${seo.description}`,
     },
     description: seo.description,
     keywords: seo.keywords?.join(',') || '',
@@ -63,7 +53,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
       description: seo.description,
     },
   }
-}
+})
 
 export default async function RootLayout({
   children,

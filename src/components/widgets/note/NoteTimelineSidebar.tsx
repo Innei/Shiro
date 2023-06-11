@@ -1,13 +1,17 @@
+import { OnlyLg } from '~/components/ui/viewport/OnlyLg'
+import { clsxm } from '~/utils/helper'
+
 import { NoteTimeline } from './NoteTimeline'
 import { NoteTopicInfo } from './NoteTopicInfo'
 
-// TODO hide if viewport width less than 768px
-export const NoteTimelineSidebar = () => {
+export const NoteTimelineSidebar: Component = ({ className }) => {
   return (
-    <div className="absolute left-0">
-      <NoteTimeline />
+    <div className={clsxm(className)}>
+      <OnlyLg>
+        <NoteTimeline />
 
-      <NoteTopicInfo />
+        <NoteTopicInfo />
+      </OnlyLg>
     </div>
   )
 }

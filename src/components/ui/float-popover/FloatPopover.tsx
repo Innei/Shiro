@@ -223,7 +223,7 @@ export const FloatPopover: FC<
             {open && (
               <div
                 className={clsxm(
-                  ' bg-slate-50 dark:bg-always-zinc-950',
+                  'bg-slate-50 dark:bg-always-zinc-950',
                   headless ? styles['headless'] : styles['popover-root'],
                   animate && styles['animate'],
                 )}

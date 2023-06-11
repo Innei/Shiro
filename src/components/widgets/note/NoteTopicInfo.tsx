@@ -26,15 +26,15 @@ export const NoteTopicInfo = () => {
       <p className="text-gray-1 flex min-w-0 flex-col overflow-hidden">
         此文章收录于专栏：
         <br />
-        <FloatPopover
-          placement="right"
-          strategy="fixed"
-          wrapperClassNames="flex flex-grow flex-shrink min-w-0"
-          triggerComponent={ToTopicLink}
-        >
-          <InnerTopicDetail topic={note.topic} />
-        </FloatPopover>
       </p>
+      <FloatPopover
+        placement="right"
+        strategy="fixed"
+        wrapperClassNames="flex flex-grow flex-shrink min-w-0"
+        triggerComponent={ToTopicLink}
+      >
+        <InnerTopicDetail topic={note.topic} />
+      </FloatPopover>
     </>
   )
 }
