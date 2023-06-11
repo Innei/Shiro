@@ -1,7 +1,14 @@
 'use client'
 
 import { flip, offset, shift, useFloating } from '@floating-ui/react-dom'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, {
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import clsx from 'clsx'
 import type { UseFloatingOptions } from '@floating-ui/react-dom'
 import type { FC, PropsWithChildren } from 'react'
@@ -184,12 +191,13 @@ export const FloatPopover: FC<
     // @ts-ignore
     <As
       role={trigger === 'both' || trigger === 'click' ? 'button' : 'note'}
-      tabIndex={0}
       className={clsx('inline-block', wrapperClassNames)}
       ref={refs.setReference}
       {...listener}
     >
-      <TriggerComponent />
+      {React.cloneElement(<TriggerComponent />, {
+        tabIndex: 0,
+      })}
     </As>
   )
 
@@ -211,6 +219,9 @@ export const FloatPopover: FC<
             )}
             {...(trigger === 'hover' || trigger === 'both' ? listener : {})}
             ref={containerRef}
+            tabIndex={0}
+            role="tooltip"
+            aria-modal="true"
           >
             <div ref={setContainerAnchorRef} />
             {open && (
@@ -227,7 +238,6 @@ export const FloatPopover: FC<
                   left: x ?? '',
                   visibility: isPositioned && x !== null ? 'visible' : 'hidden',
                 }}
-                role="dialog"
               >
                 {props.children}
               </div>

@@ -8,6 +8,8 @@ import remarkRehype from 'remark-rehype'
 import { unified } from 'unified'
 import type { ReactNode } from 'react'
 
+import { ZoomedImage } from '~/components/ui/image/ZoomedImage'
+
 import { rehypeWrapCode } from './rehype-wrap-code'
 
 interface ParserResult {
@@ -58,7 +60,9 @@ export const parseMarkdown = (markdownText: string): ParserResult => {
     .use(rehypeReact, {
       createElement,
       Fragment,
-      components: {} as any,
+      components: {
+        img: ZoomedImage,
+      } as any,
     })
 
   result.jsx = pipeline.processSync(markdownText).result as ReactNode

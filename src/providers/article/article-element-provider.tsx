@@ -7,7 +7,7 @@ const [
   ArticleElementContextProviderInternal,
   useArticleElement,
   useSetArticleElement,
-] = createContextState<HTMLDivElement | null>(null)
+] = createContextState<HTMLDivElement | null>(undefined as any)
 
 const ArticleElementContextProvider: Component = ({ children, className }) => {
   return (

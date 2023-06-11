@@ -15,6 +15,10 @@ export type TocProps = {
 export const Toc: Component<TocProps> = ({ useAsWeight, className }) => {
   const containerRef = useRef<HTMLUListElement>(null)
   const $article = useArticleElement()
+
+  if (typeof $article === 'undefined') {
+    throw new Error('<Toc /> must be used in <ArticleElementContextProvider />')
+  }
   const $headings = useMemo(() => {
     if (!$article) {
       return []

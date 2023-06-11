@@ -14,3 +14,12 @@ html {
 * {
   @apply duration-200;
 }
+
+*:focus {
+  outline: none;
+}
+
+*:not(input):not(textarea):not([contenteditable='true']):focus-visible {
+  outline: 0 !important;
+  box-shadow: theme(colors.accent) 0px 0px 0px 2px !important;
+}

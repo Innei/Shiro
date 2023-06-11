@@ -20,6 +20,7 @@ const PageImpl = () => {
       <header>
         <h1>{data?.data?.title}</h1>
       </header>
+
       <ArticleElementContextProvider>
         {mardownResult.jsx}
         <NoteLayoutRightSidePortal>

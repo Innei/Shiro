@@ -53,8 +53,10 @@ const InnerTopicDetail: FC<{ topic: TopicModel }> = (props) => {
 
   return (
     <div className="flex w-[400px] flex-col">
-      <Link href={`/notes/topics/${topic.slug}`}>
-        <h1 className="!m-0 py-2 text-lg font-medium">{topic.name}</h1>
+      <Link href={`/notes/topics/${topic.slug}`} tabIndex={99}>
+        <h1 className="!m-0 inline-block py-2 text-lg font-medium">
+          {topic.name}
+        </h1>
       </Link>
 
       <p className="line-clamp-2 break-all text-neutral-content">
@@ -83,6 +85,7 @@ const InnerTopicDetail: FC<{ topic: TopicModel }> = (props) => {
             <DividerVertical />
             <span className="inline-flex min-w-0 flex-shrink">
               <Link
+                tabIndex={99}
                 href={`/data?.data/${data?.data[0].nid}`}
                 className="truncate"
               >
