@@ -20,3 +20,7 @@ export const useNoteData = () => {
 export const useNoteNId = () => {
   return (useParams() as { id?: string }).id
 }
+
+export const useNoteByNidQuery = (nid: string) => {
+  return useQuery(queries.note.byNid(nid))
+}

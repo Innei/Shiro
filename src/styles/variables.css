@@ -1,7 +1,7 @@
 html {
   --border-color: #eee;
   --font-fans: theme('fontFamily.sans');
-  --theme-color: var(--auto-theme-color, theme('colors.themed.accent'));
+  --theme-color: var(--auto-theme-color, theme('colors.accent'));
   --hover-color: var(--auto-hover-color, theme('colors.zinc.100'));
   --header-height: auto;
   /* Accent color for form controls */

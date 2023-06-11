@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 import { MaterialSymbolsArrowCircleRightOutlineRounded } from '~/components/icons/MaterialSymbolsArrowCircleRightOutlineRounded'
 import { LeftToRightTransitionView } from '~/components/ui/transition/LeftToRightTransitionView'
-import { useNoteData } from '~/hooks/biz/use-note'
+import { useNoteData } from '~/hooks/data/use-note'
 import { apiClient } from '~/utils/request'
 
 export const NoteTimeline = () => {
@@ -27,16 +27,18 @@ export const NoteTimeline = () => {
     },
   )
 
-  if (!noteId || !note) return null
+  if (!noteId) return null
 
-  const initialData = [
-    {
-      title: note.title,
-      nid: note.nid,
-      id: note.id,
-      created: note.created,
-    },
-  ]
+  const initialData = note
+    ? [
+        {
+          title: note.title,
+          nid: note.nid,
+          id: note.id,
+          created: note.created,
+        },
+      ]
+    : []
 
   return (
     <ul ref={animationParent}>

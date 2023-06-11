@@ -5,7 +5,7 @@ import type { UseQueryResult } from '@tanstack/react-query'
 import type { FC } from 'react'
 
 import { Loading } from '~/components/ui/loading'
-import { useNoteByNidQuery } from '~/queries/hooks/useNoteQuery'
+import { useNoteByNidQuery } from '~/hooks/data/use-note'
 import { parseMarkdown } from '~/remark'
 
 const LoadingComponent = () => <Loading />

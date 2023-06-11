@@ -7,6 +7,7 @@ import { API_URL } from '~/constants/env'
 
 import PKG from '../../package.json'
 import { getToken } from './cookie'
+import { isDev } from './env'
 
 const genUUID = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
@@ -37,6 +38,10 @@ $axios.interceptors.request.use((config) => {
       config.headers['Authorization'] = token
     }
     config.headers['x-uuid'] = uuid
+  }
+
+  if (isDev) {
+    console.log(`[Request]: ${config.url}`)
   }
 
   return config

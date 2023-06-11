@@ -12,7 +12,7 @@ import { Divider, DividerVertical } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { Loading } from '~/components/ui/loading'
 import { RelativeTime } from '~/components/ui/relative-time'
-import { useNoteData } from '~/hooks/biz/use-note'
+import { useNoteData } from '~/hooks/data/use-note'
 import { apiClient } from '~/utils/request'
 
 export const NoteTopicInfo = () => {

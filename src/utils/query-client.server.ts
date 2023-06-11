@@ -5,6 +5,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       // cacheTime: 0,
+      staleTime: 1000 * 3,
     },
   },
 })

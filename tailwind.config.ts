@@ -207,17 +207,57 @@ export default resolveConfig({
       colors: {
         uk: UIKitColors,
         always: { ...twColors },
-        themed: {
-          accent: '#39C5BB',
-          // hover: '#b1f2ed',
-        },
       },
     },
   },
 
   daisyui: {
-    themes: ['cupcake', 'dracula'],
-    darkTheme: 'dracula',
+    themes: [
+      {
+        light: {
+          'color-scheme': 'light',
+          primary: '#39C5BB',
+          // 'primary-focus': '#25CCA0',
+          // 'primary-content': UIKitColors.label.primary.light,
+          secondary: '#6495ed',
+          // 'secondary-foucs': '#92bbff',
+          // 'secondary-content': UIKitColors.label.secondary.light,
+          accent: '#39C5BB',
+          // 'accent-focus': '#25CCA0',
+          // 'accent-content': UIKitColors.label.primary.light,
+
+          neutral: UIKitColors.grey3.light,
+
+          'base-100': UIKitColors.background.primary.light,
+
+          'base-content': UIKitColors.label.primary.light,
+
+          info: UIKitColors.blue.light,
+          success: UIKitColors.green.light,
+          warning: UIKitColors.orange.light,
+          error: UIKitColors.red.light,
+        },
+      },
+      {
+        dark: {
+          'color-scheme': 'dark',
+          primary: '#1f8f93',
+          secondary: '#92bbff',
+          accent: '#1f8f93',
+
+          neutral: UIKitColors.grey3.dark,
+
+          'base-100': UIKitColors.background.primary.dark,
+          'base-content': UIKitColors.label.primary.dark,
+
+          info: UIKitColors.blue.dark,
+          success: UIKitColors.green.dark,
+          warning: UIKitColors.orange.dark,
+          error: UIKitColors.red.dark,
+        },
+      },
+    ],
+    darkTheme: 'dark',
   },
 
   plugins: [

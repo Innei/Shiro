@@ -4,7 +4,7 @@ body::-webkit-scrollbar {
 
 ::-webkit-scrollbar-thumb,
 ::-webkit-scrollbar-thumb:hover {
-  background-color: theme(colors.themed.accent);
+  background-color: theme(colors.accent);
   border: 3px solid theme(colors.white);
   border-radius: 5px;
 }
@@ -16,7 +16,7 @@ body::-webkit-scrollbar {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: theme(colors.themed.accent);
+  background: theme(colors.accent);
 }
 
 ::-webkit-scrollbar-thumb:hover {
