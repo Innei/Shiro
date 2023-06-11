@@ -18,9 +18,8 @@ export default async (props: PropsWithChildren) => {
       <div className="relative md:col-start-1 lg:col-auto">
         {props.children}
       </div>
-      <div className="hidden lg:block">
-        <NoteLayoutRightSideProvider />
-      </div>
+
+      <NoteLayoutRightSideProvider className="relative hidden lg:block" />
     </div>
   )
 }

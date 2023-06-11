@@ -1,20 +1,41 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import type { TocItem as ITocItem } from '~/remark'
+import type { ITocItem } from './TocItem'
 
 import { RightToLeftTransitionView } from '~/components/ui/transition/RightToLeftTransitionView'
 import { throttle } from '~/lib/_'
+import { useArticleElement } from '~/providers/article/article-element-provider'
 import { clsxm } from '~/utils/helper'
 
 import { TocItem } from './TocItem'
 
 export type TocProps = {
-  toc: ITocItem[]
-
   useAsWeight?: boolean
 }
 
-export const Toc: Component<TocProps> = ({ toc, useAsWeight, className }) => {
+export const Toc: Component<TocProps> = ({ useAsWeight, className }) => {
   const containerRef = useRef<HTMLUListElement>(null)
+  const $article = useArticleElement()
+  const $headings = useMemo(() => {
+    if (!$article) {
+      return []
+    }
+    return $article.querySelectorAll('h1,h2,h3,h4,h5,h6')
+  }, [$article])
+  const toc: ITocItem[] = useMemo(() => {
+    return Array.from($headings).map((el, idx) => {
+      const depth = +el.tagName.slice(1)
+      const title = el.textContent || ''
+
+      const index = idx
+
+      return {
+        depth,
+        index: isNaN(index) ? -1 : index,
+        title,
+        url: `#${el.id}`,
+      }
+    })
+  }, [$headings])
 
   const [index, setIndex] = useState(-1)
   // useEffect(() => {
@@ -75,7 +96,7 @@ export const Toc: Component<TocProps> = ({ toc, useAsWeight, className }) => {
         {toc?.map((heading) => {
           return (
             <MemoedItem
-              containerRef={useAsWeight ? undefined : containerRef}
+              // containerRef={useAsWeight ? undefined : containerRef}
               heading={heading}
               isActive={heading.index === index}
               onClick={handleItemClick}
@@ -94,9 +115,15 @@ const MemoedItem = memo<{
   heading: ITocItem
   rootDepth: number
   onClick: (i: number) => void
-  containerRef: any
+  // containerRef: any
 }>((props) => {
-  const { heading, isActive, onClick, rootDepth, containerRef } = props
+  const {
+    heading,
+    isActive,
+    onClick,
+    rootDepth,
+    // containerRef
+  } = props
 
   return (
     <RightToLeftTransitionView
@@ -111,7 +138,8 @@ const MemoedItem = memo<{
       className="leading-none"
     >
       <TocItem
-        containerRef={containerRef}
+        anchorId={heading.url}
+        // containerRef={containerRef}
         index={heading.index}
         onClick={onClick}
         active={isActive}

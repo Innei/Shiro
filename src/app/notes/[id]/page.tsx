@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation'
 import { Toc } from '~/components/widgets/toc'
 import { useNoteByNidQuery } from '~/hooks/data/use-note'
 import { PageDataHolder } from '~/lib/page-holder'
+import { ArticleElementContextProvider } from '~/providers/article/article-element-provider'
 import { NoteLayoutRightSidePortal } from '~/providers/note/right-side-provider'
 import { parseMarkdown } from '~/remark'
 
@@ -19,10 +20,12 @@ const PageImpl = () => {
       <header>
         <h1>{data?.data?.title}</h1>
       </header>
-      {mardownResult.jsx}
-      <NoteLayoutRightSidePortal>
-        <Toc toc={mardownResult.toc} className="sticky top-20 mt-20" />
-      </NoteLayoutRightSidePortal>
+      <ArticleElementContextProvider>
+        {mardownResult.jsx}
+        <NoteLayoutRightSidePortal>
+          <Toc className="sticky top-20 mt-20" />
+        </NoteLayoutRightSidePortal>
+      </ArticleElementContextProvider>
     </article>
   )
 }

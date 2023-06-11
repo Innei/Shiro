@@ -1,30 +1,32 @@
 'use client'
 
 import React, { useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
-import type { FC } from 'react'
 
-const rightSideAtom = atom<FC | JSX.Element | null>(null)
+import { useIsClient } from '~/hooks/common/use-is-client'
 
-const useSetNoteLayoutRightSideElement = () => useSetAtom(rightSideAtom)
+const rightSideElementAtom = atom<null | HTMLDivElement>(null)
+export const NoteLayoutRightSideProvider: Component = ({ className }) => {
+  const setElement = useSetAtom(rightSideElementAtom)
 
-export const NoteLayoutRightSideProvider = () => {
-  const ReactNodeOrComponent = useAtomValue(rightSideAtom)
+  useEffect(() => {
+    return () => {
+      // GC
+      setElement(null)
+    }
+  }, [])
 
-  if (!ReactNodeOrComponent) return null
-
-  if (React.isValidElement(ReactNodeOrComponent)) return ReactNodeOrComponent
-  else if (typeof ReactNodeOrComponent === 'function')
-    return <ReactNodeOrComponent />
-  else return null
+  return <div ref={setElement} className={className} />
 }
 
 export const NoteLayoutRightSidePortal: Component = ({ children }) => {
-  const setter = useSetNoteLayoutRightSideElement()
+  const rightSideElement = useAtomValue(rightSideElementAtom)
 
-  useEffect(() => {
-    setter(<>{children}</>)
-  }, [children])
+  const isClient = useIsClient()
+  if (!isClient) return null
 
-  return null
+  if (!rightSideElement) return null
+
+  return createPortal(children, rightSideElement)
 }
