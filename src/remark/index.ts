@@ -32,17 +32,21 @@ export const parseMarkdown = (markdownText: string): ParserResult => {
     // })
     .use(rehypeAutolinkHeadings, {
       properties: {
-        className: ['springtide-anchor'],
+        className: [
+          'springtide-anchor opacity-0 hover:opacity-100 transition-opacity duration-200 ease-in-out text-sm relative -bottom-2',
+        ],
         ariaHidden: true,
         tabIndex: -1,
       },
-      content(node) {
+      content() {
         return [
           {
             type: 'element',
             tagName: 'span',
             properties: {
-              className: ['icon-[mingcute--link-line]'],
+              className: [
+                'icon-[mingcute--link-line] -translate-x-full absolute -left-2 ',
+              ],
             },
             children: [],
           },
