@@ -4,10 +4,11 @@ import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { useQuery } from '@tanstack/react-query'
 import { memo } from 'react'
 import Link from 'next/link'
+import { tv } from 'tailwind-variants'
 
-import { MaterialSymbolsArrowCircleRightOutlineRounded } from '~/components/icons/MaterialSymbolsArrowCircleRightOutlineRounded'
 import { LeftToRightTransitionView } from '~/components/ui/transition/LeftToRightTransitionView'
 import { useNoteData } from '~/hooks/data/use-note'
+import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
 
 export const NoteTimeline = () => {
@@ -41,7 +42,7 @@ export const NoteTimeline = () => {
     : []
 
   return (
-    <ul ref={animationParent}>
+    <ul ref={animationParent} className="space-y-1">
       {(timelineData || initialData)?.map((item) => {
         const isCurrent = item.id === noteId
         return (
@@ -56,6 +57,16 @@ export const NoteTimeline = () => {
     </ul>
   )
 }
+
+const styles = tv({
+  base: 'text-neutral-content min-w-0 truncate text-left opacity-50 w-[10rem] transition-all tabular-nums hover:opacity-80',
+  variants: {
+    status: {
+      active: 'ml-2 opacity-100',
+    },
+  },
+})
+
 const MemoedItem = memo<{
   active: boolean
   title: string
@@ -65,11 +76,21 @@ const MemoedItem = memo<{
 
   return (
     <li className="flex items-center">
-      <LeftToRightTransitionView in={active} as="span">
-        <MaterialSymbolsArrowCircleRightOutlineRounded className="text-secondary" />
+      <LeftToRightTransitionView
+        in={active}
+        as="span"
+        className="inline-flex items-center"
+      >
+        <i className="icon-[material-symbols--arrow-circle-right-outline-rounded] text-accent" />
       </LeftToRightTransitionView>
       <Link
-        // className={clsx(active ? styles['active'] : null, styles.item)}
+        className={clsxm(
+          active
+            ? styles({
+                status: 'active',
+              })
+            : styles(),
+        )}
         href={`/notes/${nid}`}
         scroll={false}
       >

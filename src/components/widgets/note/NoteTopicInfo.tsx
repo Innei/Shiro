@@ -8,6 +8,8 @@ import type { TopicModel } from '@mx-space/api-client'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { FC } from 'react'
 
+import { MdiClockOutline } from '~/components/icons/clock'
+import { MdiFountainPenTip } from '~/components/icons/pen'
 import { Divider, DividerVertical } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { Loading } from '~/components/ui/loading'
@@ -23,9 +25,8 @@ export const NoteTopicInfo = () => {
   return (
     <>
       <Divider className="!w-3/4" />
-      <p className="text-gray-1 flex min-w-0 flex-col overflow-hidden">
+      <p className="mb-1 flex min-w-0 flex-col overflow-hidden text-neutral-content/50">
         此文章收录于专栏：
-        <br />
       </p>
       <FloatPopover
         placement="right"
@@ -56,7 +57,7 @@ const InnerTopicDetail: FC<{ topic: TopicModel }> = (props) => {
         <h1 className="!m-0 py-2 text-lg font-medium">{topic.name}</h1>
       </Link>
 
-      <p className="text-gray-2 line-clamp-2 break-all">
+      <p className="line-clamp-2 break-all text-neutral-content">
         <NoteTopicMarkdownRender>{topic.introduce}</NoteTopicMarkdownRender>
       </p>
       {topic.description && (
@@ -76,7 +77,7 @@ const InnerTopicDetail: FC<{ topic: TopicModel }> = (props) => {
       ) : (
         data?.data[0] && (
           <p className="flex items-center">
-            {/* <MdiClockOutline /> */}
+            <MdiClockOutline />
             <DividerVertical />
             <span className="flex-shrink-0">最近更新</span>
             <DividerVertical />
@@ -104,7 +105,7 @@ const InnerTopicDetail: FC<{ topic: TopicModel }> = (props) => {
         <>
           <Divider />
           <p className="flex items-center">
-            {/* <MdiFountainPenTip /> */}
+            <MdiFountainPenTip />
             <DividerVertical />
             共有文章：
             {data?.pagination?.total} 篇
@@ -143,7 +144,9 @@ const ToTopicLink: FC = () => {
   if (!note?.topic) return null
   return (
     <Link href={`/notes/topics/${note?.topic?.slug}`}>
-      <span className="flex-grow truncate">{note?.topic?.name}</span>
+      <span className="flex-grow truncate opacity-80 hover:opacity-100">
+        {note?.topic?.name}
+      </span>
     </Link>
   )
 }

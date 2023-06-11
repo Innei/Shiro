@@ -29,3 +29,29 @@ export const debounce = <F extends (...args: any[]) => any>(
     }
   }
 }
+
+export const throttle = <F extends (...args: any[]) => any>(
+  func: F,
+  wait: number,
+): ((...args: Parameters<F>) => void) => {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined
+  let lastArgs: Parameters<F> | undefined
+
+  const doLater = () => {
+    timeoutId = undefined
+    if (lastArgs !== undefined) {
+      func.apply(this, lastArgs)
+      lastArgs = undefined
+      timeoutId = setTimeout(doLater, wait)
+    }
+  }
+
+  return function (this: any, ...args: Parameters<F>) {
+    if (timeoutId === undefined) {
+      func.apply(this, args)
+      timeoutId = setTimeout(doLater, wait)
+    } else {
+      lastArgs = args
+    }
+  }
+}

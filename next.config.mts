@@ -1,6 +1,7 @@
 import { config } from 'dotenv'
 import type { NextConfig } from 'next'
 
+import NextBundleAnalyzer from '@next/bundle-analyzer'
 import { withSentryConfig } from '@sentry/nextjs'
 import { sentryWebpackPlugin } from '@sentry/webpack-plugin'
 import { createVanillaExtractPlugin } from '@vanilla-extract/next-plugin'
@@ -79,5 +80,10 @@ if (process.env.SENTRY === 'true' && isProd) {
 }
 
 nextConfig = withVanillaExtract(nextConfig)
+if (process.env.ANALYZE === 'true') {
+  nextConfig = NextBundleAnalyzer({
+    enabled: true,
+  })(nextConfig)
+}
 
 export default nextConfig

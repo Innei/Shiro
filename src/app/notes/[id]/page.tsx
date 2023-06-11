@@ -1,39 +1,28 @@
 'use client'
 
 import { useParams } from 'next/navigation'
-import type { UseQueryResult } from '@tanstack/react-query'
-import type { FC } from 'react'
 
-import { Loading } from '~/components/ui/loading'
+import { Toc } from '~/components/widgets/toc'
 import { useNoteByNidQuery } from '~/hooks/data/use-note'
+import { PageDataHolder } from '~/lib/page-holder'
+import { NoteLayoutRightSidePortal } from '~/providers/note/right-side-provider'
 import { parseMarkdown } from '~/remark'
-
-const LoadingComponent = () => <Loading />
-const PageDataHolder = (
-  PageImpl: FC<any>,
-  useQuery: () => UseQueryResult<any>,
-) => {
-  const Component: FC = (props) => {
-    const { data, isLoading } = useQuery()
-
-    if (isLoading || data === null) {
-      return <LoadingComponent />
-    }
-    return <PageImpl {...props} />
-  }
-  return Component
-}
 
 const PageImpl = () => {
   const { id } = useParams() as { id: string }
   const { data } = useNoteByNidQuery(id)
+
+  const mardownResult = parseMarkdown(data?.data?.text ?? '')
 
   return (
     <article className="prose">
       <header>
         <h1>{data?.data?.title}</h1>
       </header>
-      {parseMarkdown(data?.data?.text || ' ').result}
+      {mardownResult.jsx}
+      <NoteLayoutRightSidePortal>
+        <Toc toc={mardownResult.toc} className="sticky top-20 mt-20" />
+      </NoteLayoutRightSidePortal>
     </article>
   )
 }

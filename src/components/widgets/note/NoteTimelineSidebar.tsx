@@ -1,16 +1,17 @@
-import { OnlyLg } from '~/components/ui/viewport/OnlyLg'
-import { clsxm } from '~/utils/helper'
+import { OnlyLg } from '~/components/ui/viewport'
 
 import { NoteTimeline } from './NoteTimeline'
 import { NoteTopicInfo } from './NoteTopicInfo'
 
 export const NoteTimelineSidebar: Component = ({ className }) => {
   return (
-    <div className={clsxm(className)}>
+    <div className={className}>
       <OnlyLg>
-        <NoteTimeline />
+        <div className="sticky top-20 mt-20">
+          <NoteTimeline />
 
-        <NoteTopicInfo />
+          <NoteTopicInfo />
+        </div>
       </OnlyLg>
     </div>
   )

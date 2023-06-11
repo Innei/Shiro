@@ -265,6 +265,7 @@ export default resolveConfig({
 
     daisyui,
     typography,
+    require('tailwind-scrollbar'),
     // variableColorsPlugin(twColors),
     // ColorPlugin,
   ],

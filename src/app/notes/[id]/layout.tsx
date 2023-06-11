@@ -27,6 +27,6 @@ export default async (
     id: string
   }>,
 ) => {
-  await getQueryClient().fetchQuery(queries.note.byNid(props.params.id))
+  await getQueryClient().prefetchQuery(queries.note.byNid(props.params.id))
   return <>{props.children}</>
 }

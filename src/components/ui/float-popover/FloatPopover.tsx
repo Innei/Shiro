@@ -1,14 +1,7 @@
 'use client'
 
 import { flip, offset, shift, useFloating } from '@floating-ui/react-dom'
-import React, {
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import clsx from 'clsx'
 import type { UseFloatingOptions } from '@floating-ui/react-dom'
 import type { FC, PropsWithChildren } from 'react'
@@ -39,7 +32,7 @@ export const FloatPopover: FC<
     as?: keyof HTMLElementTagNameMap
   }> &
     UseFloatingOptions
-> = memo((props) => {
+> = (props) => {
   const {
     headless = false,
     wrapperClassNames,
@@ -223,7 +216,7 @@ export const FloatPopover: FC<
             {open && (
               <div
                 className={clsxm(
-                  'bg-slate-50 dark:bg-always-zinc-950',
+                  'bg-neutral',
                   headless ? styles['headless'] : styles['popover-root'],
                   animate && styles['animate'],
                 )}
@@ -244,4 +237,4 @@ export const FloatPopover: FC<
       )}
     </>
   )
-})
+}
