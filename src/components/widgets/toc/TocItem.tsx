@@ -77,7 +77,7 @@ export const TocItem: FC<{
           ) as any as HTMLElement
 
           if ($el) {
-            springScrollToElement($el, -(window.innerHeight / 2))
+            springScrollToElement($el, -100)
           }
         },
         [onClick, index, $article, anchorId],

@@ -151,13 +151,13 @@ function useActiveId($headings: HTMLHeadingElement[]) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const state = history.state
-
+            console.log(entry.target.id, 'id')
             history.replaceState({ ...state }, '', `#${entry.target.id}`)
             setActiveId(entry.target.id)
           }
         })
       },
-      { rootMargin: `0% 0% 50% 0%` },
+      { rootMargin: `-100px 0px -100px 0px` },
     )
     $headings.forEach(($heading) => {
       observer.observe($heading)
