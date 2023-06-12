@@ -28,11 +28,12 @@ export const NoteTopicInfo = () => {
       <p className="mb-1 flex min-w-0 flex-col overflow-hidden text-neutral-content/50">
         此文章收录于专栏：
       </p>
+
       <FloatPopover
         placement="right"
         strategy="fixed"
         wrapperClassNames="flex flex-grow flex-shrink min-w-0"
-        triggerComponent={ToTopicLink}
+        TriggerComponent={ToTopicLink}
       >
         <InnerTopicDetail topic={note.topic} />
       </FloatPopover>
@@ -53,8 +54,8 @@ const InnerTopicDetail: FC<{ topic: TopicModel }> = (props) => {
 
   return (
     <div className="flex w-[400px] flex-col">
-      <Link href={`/notes/topics/${topic.slug}`} tabIndex={99}>
-        <h1 className="!m-0 inline-block py-2 text-lg font-medium">
+      <Link href={`/notes/topics/${topic.slug}`}>
+        <h1 className="!m-0 inline-block pb-2 text-lg font-medium">
           {topic.name}
         </h1>
       </Link>
@@ -85,7 +86,6 @@ const InnerTopicDetail: FC<{ topic: TopicModel }> = (props) => {
             <DividerVertical />
             <span className="inline-flex min-w-0 flex-shrink">
               <Link
-                tabIndex={99}
                 href={`/data?.data/${data?.data[0].nid}`}
                 className="truncate"
               >

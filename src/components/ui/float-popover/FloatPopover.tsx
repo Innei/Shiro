@@ -1,14 +1,7 @@
 'use client'
 
 import { flip, offset, shift, useFloating } from '@floating-ui/react-dom'
-import React, {
-  Fragment,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import clsx from 'clsx'
 import type { UseFloatingOptions } from '@floating-ui/react-dom'
 import type { FC, PropsWithChildren } from 'react'
@@ -21,7 +14,7 @@ import styles from './index.module.css'
 
 export const FloatPopover: FC<
   PropsWithChildren<{
-    triggerComponent: FC
+    TriggerComponent: FC
     headless?: boolean
     wrapperClassNames?: string
     trigger?: 'click' | 'hover' | 'both'
@@ -43,7 +36,7 @@ export const FloatPopover: FC<
   const {
     headless = false,
     wrapperClassNames,
-    triggerComponent: TriggerComponent,
+    TriggerComponent,
     trigger = 'hover',
     padding,
     offset: offsetValue,
@@ -96,10 +89,10 @@ export const FloatPopover: FC<
 
       if (status === 'in') {
         nextElementSibling.ontransitionend = null
-        nextElementSibling?.classList.add(styles.show)
+        nextElementSibling.classList.add(styles.show)
       } else {
-        nextElementSibling?.classList.remove(styles.show)
-        nextElementSibling!.ontransitionend = () => {
+        nextElementSibling.classList.remove(styles.show)
+        nextElementSibling.ontransitionend = () => {
           setOpen(false)
           setMounted(false)
         }
@@ -201,6 +194,12 @@ export const FloatPopover: FC<
     </As>
   )
 
+  useEffect(() => {
+    if (containerRef.current && open) {
+      containerRef.current.focus()
+    }
+  }, [open])
+
   if (!props.children) {
     return TriggerWrapper
   }
@@ -219,15 +218,15 @@ export const FloatPopover: FC<
             )}
             {...(trigger === 'hover' || trigger === 'both' ? listener : {})}
             ref={containerRef}
-            tabIndex={0}
-            role="tooltip"
+            tabIndex={-1}
+            role="dialog"
             aria-modal="true"
           >
             <div ref={setContainerAnchorRef} />
             {open && (
               <div
                 className={clsxm(
-                  'bg-neutral',
+                  'bg-base-100',
                   headless ? styles['headless'] : styles['popover-root'],
                   animate && styles['animate'],
                 )}

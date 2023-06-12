@@ -81,7 +81,7 @@ const MemoedItem = memo<{
         as="span"
         className="inline-flex items-center"
       >
-        <i className="icon-[material-symbols--arrow-circle-right-outline-rounded]" />
+        <i className="icon-[material-symbols--arrow-circle-right-outline-rounded] duration-200" />
       </LeftToRightTransitionView>
       <Link
         className={clsxm(
