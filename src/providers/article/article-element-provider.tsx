@@ -22,7 +22,6 @@ const Content: Component = ({ children, className }) => {
   const setter = useSetArticleElement()
   useEffect(() => {
     setter(contentRef)
-    console.log(contentRef)
   }, [contentRef, setter])
   return (
     <div className={clsxm('relative', className)} ref={setContentRef}>

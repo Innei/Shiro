@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { memo, useEffect, useMemo, useRef, useState } from 'react'
 import type { ITocItem } from './TocItem'
 
 import { RightToLeftTransitionView } from '~/components/ui/transition/RightToLeftTransitionView'
@@ -23,7 +23,9 @@ export const Toc: Component<TocProps> = ({ useAsWeight, className }) => {
     if (!$article) {
       return []
     }
-    return $article.querySelectorAll('h1,h2,h3,h4,h5,h6')
+    return [
+      ...$article.querySelectorAll('h1,h2,h3,h4,h5,h6'),
+    ] as HTMLHeadingElement[]
   }, [$article])
   const toc: ITocItem[] = useMemo(() => {
     return Array.from($headings).map((el, idx) => {
@@ -36,21 +38,10 @@ export const Toc: Component<TocProps> = ({ useAsWeight, className }) => {
         depth,
         index: isNaN(index) ? -1 : index,
         title,
-        url: `#${el.id}`,
+        anchorId: el.id,
       }
     })
   }, [$headings])
-
-  const [index, setIndex] = useState(-1)
-  // useEffect(() => {
-  //   const handler = (index: number) => {
-  //     setIndex(index)
-  //   }
-  //   eventBus.on(CustomEventTypes.TOC, handler)
-  //   return () => {
-  //     eventBus.off(CustomEventTypes.TOC, handler)
-  //   }
-  // }, [])
 
   useEffect(() => {
     if (useAsWeight) {
@@ -73,12 +64,6 @@ export const Toc: Component<TocProps> = ({ useAsWeight, className }) => {
     }
   }, [useAsWeight])
 
-  const handleItemClick = useCallback((i: number) => {
-    setTimeout(() => {
-      setIndex(i)
-    }, 350)
-  }, [])
-
   const rootDepth = useMemo(
     () =>
       toc?.length
@@ -90,20 +75,20 @@ export const Toc: Component<TocProps> = ({ useAsWeight, className }) => {
     [toc],
   )
 
+  const activeId = useActiveId($headings)
+
   return (
     <aside className={clsxm('st-toc z-[3]', 'relative font-sans', className)}>
       <ul
-        className="absolute max-h-[75vh] overflow-y-auto scrollbar-none"
+        className="absolute max-h-[75vh] overflow-y-auto font-medium scrollbar-none"
         key={`${toc.map((i) => i.title).join('')}`}
         ref={containerRef}
       >
         {toc?.map((heading) => {
           return (
             <MemoedItem
-              // containerRef={useAsWeight ? undefined : containerRef}
               heading={heading}
-              isActive={heading.index === index}
-              onClick={handleItemClick}
+              isActive={heading.anchorId === activeId}
               key={heading.title}
               rootDepth={rootDepth}
             />
@@ -118,7 +103,7 @@ const MemoedItem = memo<{
   isActive: boolean
   heading: ITocItem
   rootDepth: number
-  onClick: (i: number) => void
+  onClick?: (i: number) => void
   // containerRef: any
 }>((props) => {
   const {
@@ -142,7 +127,7 @@ const MemoedItem = memo<{
       className="leading-none"
     >
       <TocItem
-        anchorId={heading.url}
+        anchorId={heading.anchorId}
         // containerRef={containerRef}
         index={heading.index}
         onClick={onClick}
@@ -157,3 +142,33 @@ const MemoedItem = memo<{
 })
 
 MemoedItem.displayName = 'MemoedItem'
+
+function useActiveId($headings: HTMLHeadingElement[]) {
+  const [activeId, setActiveId] = useState<string | null>()
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const state = history.state
+
+            history.replaceState({ ...state }, '', `#${entry.target.id}`)
+            setActiveId(entry.target.id)
+          }
+        })
+      },
+      { rootMargin: `0% 0% 50% 0%` },
+    )
+    $headings.forEach(($heading) => {
+      observer.observe($heading)
+    })
+    return () => {
+      $headings.forEach(($heading) => {
+        observer.unobserve($heading)
+      })
+
+      observer.disconnect()
+    }
+  }, [$headings])
+  return activeId
+}

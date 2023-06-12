@@ -70,7 +70,7 @@ export default async function RootLayout({
     },
   })
   return (
-    <html lang="zh-CN" suppressHydrationWarning>
+    <html lang="zh-CN" className="noise" suppressHydrationWarning>
       <body
         className={`${sansFont.variable} m-0 h-full p-0 font-sans antialiased`}
       >

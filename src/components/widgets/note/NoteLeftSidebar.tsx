@@ -3,7 +3,7 @@ import { OnlyLg } from '~/components/ui/viewport'
 import { NoteTimeline } from './NoteTimeline'
 import { NoteTopicInfo } from './NoteTopicInfo'
 
-export const NoteTimelineSidebar: Component = ({ className }) => {
+export const NoteLeftSidebar: Component = ({ className }) => {
   return (
     <div className={className}>
       <OnlyLg>

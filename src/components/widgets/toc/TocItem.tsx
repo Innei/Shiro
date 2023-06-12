@@ -20,7 +20,7 @@ const styles = tv({
 export interface ITocItem {
   depth: number
   title: string
-  url: string
+  anchorId: string
   index: number
 }
 
@@ -30,7 +30,7 @@ export const TocItem: FC<{
   depth: number
   active: boolean
   rootDepth: number
-  onClick: (i: number) => void
+  onClick?: (i: number) => void
   index: number
   // containerRef?: RefObject<HTMLDivElement>
 }> = memo((props) => {
@@ -40,9 +40,9 @@ export const TocItem: FC<{
   useEffect(() => {
     if (active) {
       const state = history.state
-      history.replaceState(state, '', `#${title}`)
+      history.replaceState(state, '', `#${anchorId}`)
     }
-  }, [active, title])
+  }, [active, anchorId])
 
   const renderDepth = useMemo(() => {
     const result = depth - rootDepth
@@ -54,7 +54,7 @@ export const TocItem: FC<{
     <a
       ref={$ref}
       data-index={index}
-      href={`#${title}`}
+      href={`#${anchorId}`}
       className={clsxm(
         styles({
           status: active && 'active',
@@ -71,13 +71,13 @@ export const TocItem: FC<{
       onClick={useCallback(
         (e: MouseEvent) => {
           e.preventDefault()
-          onClick(index)
+          onClick?.(index)
           const $el = $article?.querySelector(
-            `${anchorId}`,
+            `#${anchorId}`,
           ) as any as HTMLElement
-          console.log($el)
+
           if ($el) {
-            springScrollToElement($el, -100)
+            springScrollToElement($el, -(window.innerHeight / 2))
           }
         },
         [onClick, index, $article, anchorId],

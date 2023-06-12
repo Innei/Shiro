@@ -1,3 +1,3 @@
 export * from './NoteTimeline'
-export * from './NoteTimelineSidebar'
+export * from './NoteLeftSidebar'
 export * from './NoteTopicInfo'

@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react'
 
-import { NoteTimelineSidebar } from '~/components/widgets/note/NoteTimelineSidebar'
+import { NoteLeftSidebar } from '~/components/widgets/note/NoteLeftSidebar'
 import { NoteLayoutRightSideProvider } from '~/providers/note/right-side-provider'
 import { clsxm } from '~/utils/helper'
 
@@ -13,7 +13,7 @@ export default async (props: PropsWithChildren) => {
         'mt-24',
       )}
     >
-      <NoteTimelineSidebar className="relative hidden lg:block" />
+      <NoteLeftSidebar className="relative hidden lg:block" />
 
       <div className="relative md:col-start-1 lg:col-auto">
         {props.children}

@@ -75,13 +75,13 @@ const MemoedItem = memo<{
   const { active, nid, title } = props
 
   return (
-    <li className="flex items-center">
+    <li className="flex items-center [&_i]:hover:text-accent">
       <LeftToRightTransitionView
         in={active}
         as="span"
         className="inline-flex items-center"
       >
-        <i className="icon-[material-symbols--arrow-circle-right-outline-rounded] text-accent" />
+        <i className="icon-[material-symbols--arrow-circle-right-outline-rounded]" />
       </LeftToRightTransitionView>
       <Link
         className={clsxm(
