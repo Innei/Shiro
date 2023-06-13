@@ -3,9 +3,9 @@
 import { useRef } from 'react'
 import { useParams } from 'next/navigation'
 
+import { PageDataHolder } from '~/components/common/PageHolder'
 import { Toc, TocAutoScroll } from '~/components/widgets/toc'
 import { useNoteByNidQuery } from '~/hooks/data/use-note'
-import { PageDataHolder } from '~/lib/page-holder'
 import { ArticleElementProvider } from '~/providers/article/article-element-provider'
 import { useSetCurrentNoteId } from '~/providers/note/current-note-id-provider'
 import { NoteLayoutRightSidePortal } from '~/providers/note/right-side-provider'
