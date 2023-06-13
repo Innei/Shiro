@@ -1,6 +1,5 @@
 import Link from 'next/link'
 
-import { ThemeSwitcher } from '~/components/ui/theme-switcher'
 import { clsxm } from '~/utils/helper'
 
 import { GatewayCount } from './GatewayCount'
@@ -74,46 +73,42 @@ export const linkSections: LinkSection[] = [
 
 export const FooterInfo = () => {
   return (
-    <div className="px-4 sm:px-8">
-      <div className="relative mx-auto max-w-7xl lg:px-8">
-        <div className="space-x-0 space-y-3 md:space-x-6 md:space-y-0">
-          {linkSections.map((section) => {
-            return (
-              <div
-                className="block space-x-4 md:inline-flex"
-                key={section.name}
-              >
-                <b className="font-medium">{section.name}</b>
-                <span className="space-x-4 text-neutral-content/90">
-                  {section.links.map((link) => {
-                    return (
-                      <StyledLink
-                        external={link.external}
-                        className="link-hover link"
-                        href={link.href}
-                        key={link.name}
-                      >
-                        {link.name}
-                      </StyledLink>
-                    )
-                  })}
-                </span>
-              </div>
-            )
-          })}
-        </div>
+    <>
+      <FooterLinkSection />
 
-        {/*  */}
+      <FooterBottom />
+    </>
+  )
+}
 
-        <FooterBottom />
-
-        <div className="mt-6 block text-center md:absolute md:bottom-0 md:right-0 md:mt-0">
-          <ThemeSwitcher />
-        </div>
-      </div>
+const FooterLinkSection = () => {
+  return (
+    <div className="space-x-0 space-y-3 md:space-x-6 md:space-y-0">
+      {linkSections.map((section) => {
+        return (
+          <div className="block space-x-4 md:inline-flex" key={section.name}>
+            <b className="font-medium">{section.name}</b>
+            <span className="space-x-4 text-neutral-content/90">
+              {section.links.map((link) => {
+                return (
+                  <StyledLink
+                    external={link.external}
+                    className="link-hover link"
+                    href={link.href}
+                    key={link.name}
+                  >
+                    {link.name}
+                  </StyledLink>
+                )
+              })}
+            </span>
+          </div>
+        )
+      })}
     </div>
   )
 }
+
 const StyledLink = (
   props: JSX.IntrinsicElements['a'] & {
     external?: boolean

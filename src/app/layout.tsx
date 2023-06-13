@@ -2,7 +2,7 @@ import '../styles/index.css'
 
 import { dehydrate } from '@tanstack/react-query'
 
-import { Footer } from '~/components/layout/footer'
+import { Root } from '~/components/layout/root/Root'
 import { defineMetadata } from '~/lib/define-metadata'
 import { sansFont } from '~/lib/fonts'
 import { getQueryClient } from '~/utils/query-client.server'
@@ -79,9 +79,7 @@ export default async function RootLayout(props: Props) {
       >
         <Providers>
           <Hydrate state={dehydratedState}>
-            <main className="relative z-[1]">{children}</main>
-
-            <Footer />
+            <Root>{children}</Root>
           </Hydrate>
         </Providers>
       </body>

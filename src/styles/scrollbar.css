@@ -4,7 +4,7 @@ body::-webkit-scrollbar {
 
 ::-webkit-scrollbar-thumb,
 ::-webkit-scrollbar-thumb:hover {
-  background-color: theme(colors.accent);
+  background-color: theme(colors.neutral);
   border: 3px solid theme(colors.base-100);
   border-radius: 5px;
 }
@@ -16,11 +16,11 @@ body::-webkit-scrollbar {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: theme(colors.accent);
+  background: theme(colors.neutral);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: theme(colors.accent-focus);
+  background: theme(colors.neutral-focus);
 }
 
 ::-webkit-scrollbar-corner {
