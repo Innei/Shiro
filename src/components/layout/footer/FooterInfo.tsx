@@ -1,5 +1,9 @@
 import Link from 'next/link'
 
+import { clsxm } from '~/utils/helper'
+
+import { GatewayCount } from './GatewayCount'
+
 interface LinkSection {
   name: string
   links: {
@@ -100,7 +104,7 @@ export const FooterInfo = () => {
 
         {/*  */}
 
-        <div className="mt-6 space-y-3">
+        <div className="mt-12 space-y-3 text-center md:mt-6 md:text-left">
           <p>
             © 2020-2023 Innei.
             <span>
@@ -108,24 +112,15 @@ export const FooterInfo = () => {
               RSS
               <Divider />
               站点地图
-              <Divider />
+              <Divider className="hidden md:inline" />
             </span>
-            Stay hungry. Stay foolish.
+            <span className="mt-3 block md:mt-0 md:inline">
+              Stay hungry. Stay foolish.
+            </span>
           </p>
           <p>
-            Powered by{' '}
-            <StyledLink href="https://github.com/mx-space" target="_blank">
-              Mix Space
-            </StyledLink>
-            . <Divider />
-            <StyledLink
-              href="https://github.com/innei/springtide"
-              target="_blank"
-            >
-              springtide
-            </StyledLink>
-            .
-            <Divider />
+            <PoweredBy className="my-3 block md:my-0 md:inline" />
+            <Divider className="hidden md:inline" />
             <StyledLink
               href="http://beian.miit.gov.cn/"
               target="_blank"
@@ -142,9 +137,6 @@ export const FooterInfo = () => {
       </div>
     </div>
   )
-}
-const GatewayCount = () => {
-  return '1'
 }
 const StyledLink = (
   props: JSX.IntrinsicElements['a'] & {
@@ -164,6 +156,27 @@ const StyledLink = (
     </As>
   )
 }
-const Divider = () => {
-  return <span className="select-none whitespace-pre opacity-50"> | </span>
+const Divider: Component = ({ className }) => {
+  return (
+    <span className={clsxm('select-none whitespace-pre opacity-50', className)}>
+      {' '}
+      |{' '}
+    </span>
+  )
+}
+
+const PoweredBy: Component = ({ className }) => {
+  return (
+    <span className={className}>
+      Powered by{' '}
+      <StyledLink href="https://github.com/mx-space" target="_blank">
+        Mix Space
+      </StyledLink>
+      . <Divider />
+      <StyledLink href="https://github.com/innei/springtide" target="_blank">
+        springtide
+      </StyledLink>
+      .
+    </span>
+  )
 }
