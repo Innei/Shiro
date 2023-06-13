@@ -4,5 +4,6 @@ import { useAggregation } from '~/hooks/data/use-aggregation'
 
 export default function Home() {
   const { data } = useAggregation()
+  // throw new Error()
   return <main>{data?.user.avatar}</main>
 }

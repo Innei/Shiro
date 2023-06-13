@@ -72,6 +72,7 @@ export default async function RootLayout(props: Props) {
       return true
     },
   })
+  
   return (
     <html lang="zh-CN" className="noise" suppressHydrationWarning>
       <body
