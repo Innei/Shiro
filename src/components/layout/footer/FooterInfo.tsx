@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { ThemeSwitcher } from '~/components/ui/theme-switcher'
 import { clsxm } from '~/utils/helper'
 
 import { GatewayCount } from './GatewayCount'
@@ -74,7 +75,7 @@ export const linkSections: LinkSection[] = [
 export const FooterInfo = () => {
   return (
     <div className="px-4 sm:px-8">
-      <div className="mx-auto max-w-7xl lg:px-8">
+      <div className="relative mx-auto max-w-7xl lg:px-8">
         <div className="space-x-0 space-y-3 md:space-x-6 md:space-y-0">
           {linkSections.map((section) => {
             return (
@@ -104,35 +105,10 @@ export const FooterInfo = () => {
 
         {/*  */}
 
-        <div className="mt-12 space-y-3 text-center md:mt-6 md:text-left">
-          <p>
-            © 2020-2023 Innei.
-            <span>
-              <Divider />
-              RSS
-              <Divider />
-              站点地图
-              <Divider className="hidden md:inline" />
-            </span>
-            <span className="mt-3 block md:mt-0 md:inline">
-              Stay hungry. Stay foolish.
-            </span>
-          </p>
-          <p>
-            <PoweredBy className="my-3 block md:my-0 md:inline" />
-            <Divider className="hidden md:inline" />
-            <StyledLink
-              href="http://beian.miit.gov.cn/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              浙 ICP 备 20028356 号
-            </StyledLink>
-            <Divider />
-            <span>
-              <GatewayCount /> 个小伙伴正在浏览
-            </span>
-          </p>
+        <FooterBottom />
+
+        <div className="mt-6 block text-center md:absolute md:bottom-0 md:right-0 md:mt-0">
+          <ThemeSwitcher />
         </div>
       </div>
     </div>
@@ -178,5 +154,40 @@ const PoweredBy: Component = ({ className }) => {
       </StyledLink>
       .
     </span>
+  )
+}
+
+const FooterBottom = () => {
+  return (
+    <div className="mt-12 space-y-3 text-center md:mt-6 md:text-left">
+      <p>
+        © 2020-2023 Innei.
+        <span>
+          <Divider />
+          RSS
+          <Divider />
+          站点地图
+          <Divider className="hidden md:inline" />
+        </span>
+        <span className="mt-3 block md:mt-0 md:inline">
+          Stay hungry. Stay foolish.
+        </span>
+      </p>
+      <p>
+        <PoweredBy className="my-3 block md:my-0 md:inline" />
+        <Divider className="hidden md:inline" />
+        <StyledLink
+          href="http://beian.miit.gov.cn/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          浙 ICP 备 20028356 号
+        </StyledLink>
+        <Divider />
+        <span>
+          <GatewayCount /> 个小伙伴正在浏览
+        </span>
+      </p>
+    </div>
   )
 }

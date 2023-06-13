@@ -1,3 +1,7 @@
+'use client'
+
+import { useOnlineCount } from '~/atoms'
+
 export const GatewayCount = () => {
-  return '1'
+  return useOnlineCount()
 }

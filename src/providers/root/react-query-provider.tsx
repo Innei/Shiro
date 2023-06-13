@@ -2,7 +2,6 @@
 
 import { QueryClient } from '@tanstack/react-query'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
-import { useState } from 'react'
 import { del, get, set } from 'idb-keyval'
 import type {
   PersistedClient,
@@ -22,21 +21,18 @@ const persister = {
     await del(idbValidKey)
   },
 } as Persister
-export const ReactQueryProvider = ({ children }: PropsWithChildren) => {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            cacheTime: 1000 * 60 * 5, // 5 minutes
-            refetchInterval: 1000 * 60 * 5, // 5 minutes
-            refetchOnWindowFocus: false,
-            refetchIntervalInBackground: false,
-          },
-        },
-      }),
-  )
 
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: 1000 * 60 * 5, // 5 minutes
+      refetchInterval: 1000 * 60 * 5, // 5 minutes
+      refetchOnWindowFocus: false,
+      refetchIntervalInBackground: false,
+    },
+  },
+})
+export const ReactQueryProvider = ({ children }: PropsWithChildren) => {
   return (
     <PersistQueryClientProvider
       client={queryClient}
