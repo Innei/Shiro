@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { useNoteId } from '~/providers/note/note-id-provider'
+import { useCurrentNoteId } from '~/providers/note/current-note-id-provider'
 import { queries } from '~/queries/definition'
 
 export const useNoteData = () => {
@@ -18,7 +18,7 @@ export const useNoteData = () => {
 }
 
 export const useNoteNId = () => {
-  return useNoteId()
+  return useCurrentNoteId()
 }
 
 export const useNoteByNidQuery = (nid: string) => {

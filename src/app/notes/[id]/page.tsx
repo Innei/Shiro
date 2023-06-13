@@ -7,7 +7,7 @@ import { Toc, TocAutoScroll } from '~/components/widgets/toc'
 import { useNoteByNidQuery } from '~/hooks/data/use-note'
 import { PageDataHolder } from '~/lib/page-holder'
 import { ArticleElementProvider } from '~/providers/article/article-element-provider'
-import { useSetNoteId } from '~/providers/note/note-id-provider'
+import { useSetCurrentNoteId } from '~/providers/note/current-note-id-provider'
 import { NoteLayoutRightSidePortal } from '~/providers/note/right-side-provider'
 import { parseMarkdown } from '~/remark'
 import { isClientSide } from '~/utils/env'
@@ -22,7 +22,7 @@ const PageImpl = () => {
   // Because any router params or query changes, will cause components that use `useParams()` hook, this hook is a context hook,
   // For example, `ComA` use `useParams()` just want to get value `id`,
   // but if router params or query changes `page` params, will cause `CompA` re - render.
-  const setNoteId = useSetNoteId()
+  const setNoteId = useSetCurrentNoteId()
   const onceRef = useRef(false)
   if (isClientSide() && !onceRef.current) {
     onceRef.current = true
