@@ -18,7 +18,7 @@ const ProviderComposer: Component<{
 }
 
 const contexts: JSX.Element[] = [
-  <ThemeProvider attribute="class" key="themeProvider" />,
+  <ThemeProvider key="themeProvider" />,
   <ReactQueryProvider key="reactQueryProvider" />,
   <JotaiStoreProvider key="jotaiStoreProvider" />,
   <ViewportProvider key="viewportProvider" />,

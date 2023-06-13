@@ -167,7 +167,7 @@ const UIKitColors = {
 
 export default resolveConfig({
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
-  darkMode: ['class', 'html.dark'],
+  darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     // colors: createVariableColors(twColors),
 
