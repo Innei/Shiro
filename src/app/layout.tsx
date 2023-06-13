@@ -2,6 +2,7 @@ import '../styles/index.css'
 
 import { dehydrate } from '@tanstack/react-query'
 
+import { Footer } from '~/components/layout/footer'
 import { defineMetadata } from '~/lib/define-metadata'
 import { sansFont } from '~/lib/fonts'
 import { getQueryClient } from '~/utils/query-client.server'
@@ -55,11 +56,13 @@ export const generateMetadata = defineMetadata(async (_, getData) => {
   }
 })
 
-export default async function RootLayout({
-  children,
-}: {
+type Props = {
   children: React.ReactNode
-}) {
+}
+
+export default async function RootLayout(props: Props) {
+  const { children } = props
+
   const queryClient = getQueryClient()
 
   const dehydratedState = dehydrate(queryClient, {
@@ -75,7 +78,11 @@ export default async function RootLayout({
         className={`${sansFont.variable} m-0 h-full p-0 font-sans antialiased`}
       >
         <Providers>
-          <Hydrate state={dehydratedState}>{children}</Hydrate>
+          <Hydrate state={dehydratedState}>
+            <main className="relative z-[1]">{children}</main>
+
+            <Footer />
+          </Hydrate>
         </Providers>
       </body>
     </html>
