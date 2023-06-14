@@ -114,14 +114,15 @@ const StyledLink = (
     external?: boolean
   },
 ) => {
-  const As = props.external ? 'a' : Link
+  const { external, ...rest } = props
+  const As = external ? 'a' : Link
 
   return (
     // @ts-ignore
     <As
       className="link-hover link"
       target={props.external ? '_blank' : props.target}
-      {...props}
+      {...rest}
     >
       {props.children}
     </As>
