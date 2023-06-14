@@ -1,9 +1,13 @@
 'use client'
 
+import { useCallback } from 'react'
+import { atom } from 'jotai'
 import { useTheme } from 'next-themes'
 import { tv } from 'tailwind-variants'
 
 import { useIsClient } from '~/hooks/common/use-is-client'
+import { isUndefined } from '~/lib/_'
+import { jotaiStore } from '~/lib/store'
 
 const styles = tv({
   base: 'rounded-inherit inline-flex h-[32px] w-[32px] items-center justify-center border-0 text-current',
@@ -82,9 +86,17 @@ const DarkIcon = () => {
     </svg>
   )
 }
+
+const mousePositionAtom = atom({ x: 0, y: 0 })
 export const ThemeSwitcher = () => {
+  const handleClient: React.MouseEventHandler = useCallback((e) => {
+    jotaiStore.set(mousePositionAtom, {
+      x: e.clientX,
+      y: e.clientY,
+    })
+  }, [])
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block" onClick={handleClient}>
       <ButtonGroup />
       <ThemeIndicator />
     </div>
@@ -95,6 +107,7 @@ const ThemeIndicator = () => {
   const { theme } = useTheme()
 
   const isClient = useIsClient()
+
   if (!isClient) return null
   if (!theme) return null
   return (
@@ -109,6 +122,53 @@ const ThemeIndicator = () => {
 
 const ButtonGroup = () => {
   const { setTheme } = useTheme()
+
+  const buildThemeTransition = (theme: 'light' | 'dark') => {
+    if (
+      !('startViewTransition' in document) ||
+      window.matchMedia(`(prefers-reduced-motion: reduce)`).matches
+    ) {
+      setTheme(theme)
+      return
+    }
+
+    const $document = document.documentElement
+
+    const mousePosition = jotaiStore.get(mousePositionAtom)
+    const { x, y } = mousePosition
+
+    if (isUndefined(x) && isUndefined(y)) return
+
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y),
+    )
+
+    document
+      .startViewTransition(() => {
+        setTheme(theme)
+        return Promise.resolve()
+      })
+      ?.ready.then(() => {
+        if (mousePosition.x === 0) return
+        const clipPath = [
+          `circle(0px at ${x}px ${y}px)`,
+          `circle(${endRadius}px at ${x}px ${y}px)`,
+        ]
+
+        $document.animate(
+          {
+            clipPath,
+          },
+          {
+            duration: 300,
+            easing: 'ease-in',
+            pseudoElement: '::view-transition-new(root)',
+          },
+        )
+      })
+  }
+
   return (
     <div
       role="radiogroup"
@@ -123,7 +183,7 @@ const ButtonGroup = () => {
         type="button"
         className={styles({})}
         onClick={() => {
-          setTheme('light')
+          buildThemeTransition('light')
         }}
       >
         <SunIcon />
@@ -151,7 +211,7 @@ const ButtonGroup = () => {
         role="radio"
         type="button"
         onClick={() => {
-          setTheme('dark')
+          buildThemeTransition('dark')
         }}
       >
         <DarkIcon />

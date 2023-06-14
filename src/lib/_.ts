@@ -55,3 +55,6 @@ export const throttle = <F extends (...args: any[]) => any>(
     }
   }
 }
+
+export const isUndefined = (val: any): val is undefined =>
+  typeof val === 'undefined'

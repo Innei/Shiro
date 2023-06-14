@@ -16,23 +16,7 @@ html {
 
 ::selection {
   background-color: var(--theme-color);
-  color: theme(colors.neutral-content);
-}
-
-html.dark {
-  --border-color: #333;
-}
-
-@media (prefers-color-scheme: dark) {
-  html.not(.light) {
-    --border-color: #333;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  html.not(.dark) {
-    --border-color: #eee;
-  }
+  color: theme(colors.always.white);
 }
 
 ::view-transition-old(root),
@@ -40,11 +24,19 @@ html.dark {
   animation: none;
   mix-blend-mode: normal;
 }
-
-.dark::view-transition-old(root) {
+::view-transition-old(root) {
+  z-index: 9999;
+}
+::view-transition-new(root) {
+  z-index: 1;
+}
+[data-theme='dark']::view-transition-old(root) {
+  z-index: 1;
+}
+[data-theme='dark']::view-transition-new(root) {
   z-index: 9999;
 }
 
-.dark::view-transition-new(root) {
-  z-index: 1;
+[data-theme='light']::view-transition-new(root) {
+  z-index: 9999;
 }

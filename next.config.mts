@@ -17,7 +17,9 @@ const isProd = process.env.NODE_ENV === 'production'
 let nextConfig: NextConfig = {
   experimental: {
     appDir: true,
+    serverComponentsExternalPackages: ['socket.io-client', 'ws'],
   },
+
   webpack: (config, options) => {
     if (
       process.env.SENTRY === 'true' &&
@@ -26,10 +28,6 @@ let nextConfig: NextConfig = {
     ) {
       config.plugins.push(
         sentryWebpackPlugin({
-          include: '.next',
-          ignore: ['node_modules', 'cypress', 'test'],
-          urlPrefix: '~/_next',
-
           org: 'inneis-site',
           headers: {
             Authorization: `DSN ${process.env.NEXT_PUBLIC_SENTRY_DSN}`,
