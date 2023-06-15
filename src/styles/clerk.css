@@ -81,6 +81,15 @@
 }
 
 [data-theme='dark'] {
+  [class*='cl-internal-'] {
+    --accent: theme('colors.zinc.50');
+    --accentDark: theme('colors.zinc.200');
+    --border: hsla(0, 0%, 100%, 0.08);
+    --accentLightest: hsla(0, 0%, 100%, 0.04);
+    --accentLighter: hsla(0, 0%, 100%, 0.16);
+    --accentDarker: hsla(0, 0%, 100%, 0.64);
+  }
+
   .cl-userButtonPopoverActionButton:hover {
     background: theme('colors.zinc.800');
   }
@@ -95,15 +104,6 @@
   .cl-card,
   .cl-userButtonPopoverCard {
     @apply border-zinc-800 bg-zinc-900/80 text-zinc-200 shadow-zinc-900/20;
-  }
-
-  [class*='cl-internal-'] {
-    --accent: theme('colors.zinc.50');
-    --accentDark: theme('colors.zinc.200');
-    --border: hsla(0, 0%, 100%, 0.08);
-    --accentLightest: hsla(0, 0%, 100%, 0.04);
-    --accentLighter: hsla(0, 0%, 100%, 0.16);
-    --accentDarker: hsla(0, 0%, 100%, 0.64);
   }
 
   .cl-profileSectionTitleText {
