@@ -123,7 +123,7 @@ const ThemeIndicator = () => {
 const ButtonGroup = () => {
   const { setTheme } = useTheme()
 
-  const buildThemeTransition = (theme: 'light' | 'dark') => {
+  const buildThemeTransition = (theme: 'light' | 'dark' | 'system') => {
     if (
       !('startViewTransition' in document) ||
       window.matchMedia(`(prefers-reduced-motion: reduce)`).matches
@@ -197,7 +197,7 @@ const ButtonGroup = () => {
         role="radio"
         type="button"
         onClick={() => {
-          setTheme('system')
+          buildThemeTransition('system')
         }}
       >
         <SystemIcon />

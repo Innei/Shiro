@@ -17,10 +17,14 @@ const isProd = process.env.NODE_ENV === 'production'
 let nextConfig: NextConfig = {
   experimental: {
     appDir: true,
-    serverComponentsExternalPackages: ['socket.io-client', 'ws'],
   },
 
   webpack: (config, options) => {
+    config.externals.push({
+      'utf-8-validate': 'commonjs utf-8-validate',
+      bufferutil: 'commonjs bufferutil',
+    })
+
     if (
       process.env.SENTRY === 'true' &&
       process.env.NEXT_PUBLIC_SENTRY_DSN &&

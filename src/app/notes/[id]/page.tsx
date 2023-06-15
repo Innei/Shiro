@@ -1,16 +1,15 @@
 'use client'
 
-import { useRef } from 'react'
 import { useParams } from 'next/navigation'
 
 import { PageDataHolder } from '~/components/common/PageHolder'
 import { Toc, TocAutoScroll } from '~/components/widgets/toc'
+import { useBeforeMounted } from '~/hooks/common/use-before-mounted'
 import { useNoteByNidQuery } from '~/hooks/data/use-note'
 import { ArticleElementProvider } from '~/providers/article/article-element-provider'
 import { useSetCurrentNoteId } from '~/providers/note/current-note-id-provider'
 import { NoteLayoutRightSidePortal } from '~/providers/note/right-side-provider'
 import { parseMarkdown } from '~/remark'
-import { isClientSide } from '~/utils/env'
 
 const PageImpl = () => {
   const { id } = useParams() as { id: string }
@@ -23,11 +22,11 @@ const PageImpl = () => {
   // For example, `ComA` use `useParams()` just want to get value `id`,
   // but if router params or query changes `page` params, will cause `CompA` re - render.
   const setNoteId = useSetCurrentNoteId()
-  const onceRef = useRef(false)
-  if (isClientSide() && !onceRef.current) {
-    onceRef.current = true
+
+  useBeforeMounted(() => {
     setNoteId(id)
-  }
+  })
+
   return (
     <article className="prose">
       <header>

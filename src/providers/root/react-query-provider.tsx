@@ -2,10 +2,12 @@
 
 import { QueryClient } from '@tanstack/react-query'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
+import { useRef } from 'react'
 import { del, get, set } from 'idb-keyval'
 import type {
   PersistedClient,
   Persister,
+  PersistQueryClientOptions,
 } from '@tanstack/react-query-persist-client'
 import type { PropsWithChildren } from 'react'
 
@@ -36,19 +38,22 @@ export const ReactQueryProvider = ({ children }: PropsWithChildren) => {
   return (
     <PersistQueryClientProvider
       client={queryClient}
-      persistOptions={{
-        persister,
-        dehydrateOptions: {
-          shouldDehydrateQuery: (query) => {
-            const queryIsReadyForPersistance = query.state.status === 'success'
-            if (queryIsReadyForPersistance) {
-              return !((query.state?.data as any)?.pages?.length > 1)
-            } else {
-              return false
-            }
+      persistOptions={
+        useRef<Omit<PersistQueryClientOptions, 'queryClient'>>({
+          persister,
+          dehydrateOptions: {
+            shouldDehydrateQuery: (query) => {
+              const queryIsReadyForPersistance =
+                query.state.status === 'success'
+              if (queryIsReadyForPersistance) {
+                return !((query.state?.data as any)?.pages?.length > 1)
+              } else {
+                return false
+              }
+            },
           },
-        },
-      }}
+        }).current
+      }
     >
       {children}
     </PersistQueryClientProvider>

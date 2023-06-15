@@ -1,14 +1,15 @@
 'use client'
 
-import { createContext, useEffect } from 'react'
+import { useEffect } from 'react'
 
-import { socketClient } from '~/socket'
-
-const Context = createContext<typeof socketClient>(null as any)
+// const Context = createContext<TSocketClient>(null as any)
 export const SocketProvider: Component = ({ children }) => {
   useEffect(() => {
-    socketClient.initIO()
+    import('~/socket').then((module) => {
+      const { socketClient } = module
+      socketClient.initIO()
+    })
   }, [])
 
-  return <Context.Provider value={socketClient}>{children}</Context.Provider>
+  return <>{children}</>
 }

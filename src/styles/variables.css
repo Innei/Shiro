@@ -14,6 +14,14 @@ html {
   scrollbar-width: thin;
 }
 
+:root {
+  --bg-opacity: rgba(255, 255, 255, 0.72);
+}
+
+[data-theme='dark'] {
+  --bg-opacity: rgba(29, 29, 31, 0.72);
+}
+
 ::selection {
   background-color: var(--theme-color);
   color: theme(colors.always.white);

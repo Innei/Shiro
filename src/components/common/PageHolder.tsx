@@ -7,7 +7,7 @@ const LoadingComponent = () => <Loading loadingText="别着急，坐和放宽" /
 export const PageDataHolder = (
   PageImpl: FC<any>,
   useQuery: () => UseQueryResult<any>,
-) => {
+): FC => {
   const Component: FC = (props) => {
     const { data, isLoading } = useQuery()
 

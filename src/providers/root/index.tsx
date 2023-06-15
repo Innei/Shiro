@@ -7,8 +7,9 @@ import type { PropsWithChildren } from 'react'
 
 import { DebugProvider } from './debug-provider'
 import { JotaiStoreProvider } from './jotai-provider'
-import { ViewportProvider } from './viewport-provider'
+import { PageScrollInfoProvider } from './page-scroll-info-provider'
 import { SocketProvider } from './socket-provider'
+import { ViewportProvider } from './viewport-provider'
 
 const ProviderComposer: Component<{
   contexts: JSX.Element[]
@@ -24,6 +25,7 @@ const contexts: JSX.Element[] = [
   <JotaiStoreProvider key="jotaiStoreProvider" />,
   <ViewportProvider key="viewportProvider" />,
   <SocketProvider key="socketProvider" />,
+  <PageScrollInfoProvider key="PageScrollInfoProvider" />,
   <DebugProvider key="debugProvider" />,
 ]
 export function Providers({ children }: PropsWithChildren) {

@@ -198,6 +198,10 @@ export default resolveConfig({
       colors: {
         uk: UIKitColors,
         always: { ...twColors },
+
+        themed: {
+          bg_opacity: 'var(--bg-opacity)',
+        },
       },
     },
   },

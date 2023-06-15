@@ -11,7 +11,7 @@ export const TocAutoScroll: Component = () => {
     )
 
     if (!articleElement) return
-    console.log('hash', hash)
+
     if (hash) {
       const el = articleElement.querySelector(`#${hash}`)
       if (el) {
