@@ -46,10 +46,7 @@ const AnimatedMenu: Component = ({ children }) => {
   )
 }
 
-function ForDesktop({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+const ForDesktop: Component = ({ className }) => {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
   const radius = useMotionValue(0)
@@ -63,12 +60,11 @@ function ForDesktop({
     [mouseX, mouseY, radius],
   )
 
-  const pathname = usePathname()
-
   const { config: headerMenuConfig } = useHeaderConfig()
 
   return (
-    <nav
+    <motion.nav
+      layout="size"
       onMouseMove={handleMouseMove}
       className={clsxm(
         'relative',
@@ -78,43 +74,48 @@ function ForDesktop({
 
         className,
       )}
-      {...props}
     >
       <ul className="flex bg-transparent px-4 font-medium text-zinc-800 dark:text-zinc-200 ">
         {headerMenuConfig.map((section) => {
-          const href = section.path
-          const isActive = pathname === href || pathname.startsWith(`${href}/`)
-          return (
-            <MenuPopover subMenu={section.subMenu} key={href}>
-              <NavItem
-                href={href}
-                isActive={isActive}
-                className={clsxm(
-                  '[&:hover_.icon]:-translate-x-[calc(100%+6px)] [&:hover_.icon]:opacity-100',
-                  '[&.active_.icon]:-translate-x-[calc(100%+6px)] [&.active_.icon]:opacity-80',
-                  '[&.active]:pl-6',
-                )}
-              >
-                <span className="relative">
-                  <span
-                    className={clsxm(
-                      'pointer-events-none absolute bottom-0 left-0 top-0 flex items-center opacity-0 duration-200',
-                      'icon',
-                    )}
-                  >
-                    {section.icon}
-                  </span>
-                  {section.title}
-                </span>
-              </NavItem>
-            </MenuPopover>
-          )
+          return <HeaderMenuItem section={section} key={section.path} />
         })}
       </ul>
-    </nav>
+    </motion.nav>
   )
 }
 
+const HeaderMenuItem = memo<{
+  section: IHeaderMenu
+}>(({ section }) => {
+  const pathname = usePathname()
+  const href = section.path
+  const isActive = pathname === href || pathname.startsWith(`${href}/`)
+  return (
+    <MenuPopover subMenu={section.subMenu} key={href}>
+      <AnimatedItem
+        href={href}
+        isActive={isActive}
+        className={clsxm(
+          'transition-[padding] [&:hover_.icon]:-translate-x-[calc(100%+6px)] [&:hover_.icon]:opacity-100',
+          '[&.active_.icon]:-translate-x-[calc(100%+6px)] [&.active_.icon]:opacity-80',
+          '[&.active]:pl-6',
+        )}
+      >
+        <span className="relative">
+          <span
+            className={clsxm(
+              'pointer-events-none absolute bottom-0 left-0 top-0 flex items-center opacity-0 duration-200',
+              'icon',
+            )}
+          >
+            {section.icon}
+          </span>
+          {section.title}
+        </span>
+      </AnimatedItem>
+    </MenuPopover>
+  )
+})
 const MenuPopover: Component<{
   subMenu: IHeaderMenu['subMenu']
 }> = memo(({ children, subMenu }) => {
@@ -151,7 +152,7 @@ const MenuPopover: Component<{
   )
 })
 
-function NavItem({
+function AnimatedItem({
   href,
   children,
   className,

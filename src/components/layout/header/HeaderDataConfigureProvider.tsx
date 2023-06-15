@@ -3,7 +3,7 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 
-import { useAggregation } from '~/hooks/data/use-aggregation'
+import { useAggregationQuery } from '~/hooks/data/use-aggregation'
 import { cloneDeep } from '~/lib/_'
 
 import { headerMenuConfig as baseHeaderMenuConfig } from './config'
@@ -14,7 +14,7 @@ const HeaderMenuConfigContext = createContext({
 
 export const useHeaderConfig = () => useContext(HeaderMenuConfigContext)
 export const HeaderDataConfigureProvider: Component = ({ children }) => {
-  const { data } = useAggregation()
+  const { data } = useAggregationQuery()
   const [headerMenuConfig, setHeaderMenuConfig] = useState(baseHeaderMenuConfig)
 
   useEffect(() => {

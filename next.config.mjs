@@ -1,5 +1,4 @@
 import { config } from 'dotenv'
-import type { NextConfig } from 'next'
 
 import NextBundleAnalyzer from '@next/bundle-analyzer'
 import { withSentryConfig } from '@sentry/nextjs'
@@ -13,10 +12,25 @@ process.title = 'Springtide (NextJS)'
 const env = config().parsed || {}
 const isProd = process.env.NODE_ENV === 'production'
 
+/**
+ * @type {import('next').nextConfig}
+ */
 // eslint-disable-next-line import/no-mutable-exports
-let nextConfig: NextConfig = {
+let nextConfig = {
   experimental: {
     appDir: true,
+  },
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy:
+      "default-src 'self'; script-src 'none'; sandbox; style-src 'unsafe-inline';",
   },
 
   webpack: (config, options) => {
