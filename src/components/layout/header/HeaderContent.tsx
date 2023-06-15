@@ -1,9 +1,10 @@
 'use client'
 
-import React, { useMemo } from 'react'
+import React, { memo, useMemo } from 'react'
 import { motion, useMotionValue } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import type { IHeaderMenu } from './config'
 
 import { FloatPopover } from '~/components/ui/float-popover'
 import { OnlyLg } from '~/components/ui/viewport'
@@ -12,7 +13,6 @@ import { clsxm } from '~/utils/helper'
 
 import { useHeaderOpacity } from './BluredBackground'
 import { useHeaderConfig } from './HeaderDataConfigureProvider'
-import type { IHeaderMenu } from './config'
 
 export const HeaderContent = () => {
   return (
@@ -36,12 +36,10 @@ const AnimatedMenu: Component = ({ children }) => {
   return (
     <div
       className="duration-[100ms]"
-      style={
-        {
-          // opacity,
-          // visibility: opacity === 0 ? 'hidden' : 'visible',
-        }
-      }
+      style={{
+        opacity,
+        visibility: opacity === 0 ? 'hidden' : 'visible',
+      }}
     >
       {children}
     </div>
@@ -119,7 +117,7 @@ function ForDesktop({
 
 const MenuPopover: Component<{
   subMenu: IHeaderMenu['subMenu']
-}> = ({ children, subMenu }) => {
+}> = memo(({ children, subMenu }) => {
   const TriggerComponent = useMemo(() => () => children, [children])
   if (!subMenu) return children
   return (
@@ -151,7 +149,7 @@ const MenuPopover: Component<{
       )}
     </FloatPopover>
   )
-}
+})
 
 function NavItem({
   href,

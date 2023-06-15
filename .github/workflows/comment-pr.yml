@@ -1,0 +1,65 @@
+name: Comment on the pull request
+
+# read-write repo token
+# access to secrets
+on:
+  workflow_run:
+    workflows: ["Next.js Bundle Analysis"]
+    types:
+      - completed
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+    steps:
+      - name: download pr artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: ${{ github.event.workflow_run.workflow_id }}
+          name: pr
+
+      - name: save PR id
+        id: pr
+        run: echo "::set-output name=id::$(<pr-id.txt)"
+
+      - name: download analysis comment
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: ${{ github.event.workflow_run.workflow_id }}
+          name: analysis_comment
+          path: .next/analyze
+
+      - name: Get Comment Body
+        id: get-comment-body
+        if: success() && steps.pr.outputs.id
+        run: |
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          echo "$(cat .next/analyze/__bundle_analysis_comment.txt)" >> $GITHUB_OUTPUT
+          echo EOF >> $GITHUB_OUTPUT
+
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        if: success() && steps.pr.outputs.id
+        id: fc
+        with:
+          issue-number: ${{ steps.pr.outputs.id }}
+          body-includes: "<!-- __NEXTJS_BUNDLE -->"
+
+      - name: Create Comment
+        uses: peter-evans/create-or-update-comment@v2
+        if: success() && steps.pr.outputs.id && steps.fc.outputs.comment-id == 0
+        with:
+          issue-number: ${{ steps.pr.outputs.id }}
+          body: ${{ steps.get-comment-body.outputs.body }}
+
+      - name: Update Comment
+        uses: peter-evans/create-or-update-comment@v2
+        if: success() && steps.pr.outputs.id && steps.fc.outputs.comment-id != 0
+        with:
+          issue-number: ${{ steps.pr.outputs.id }}
+          body: ${{ steps.get-comment-body.outputs.body }}
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          edit-mode: replace
