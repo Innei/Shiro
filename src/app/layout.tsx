@@ -2,7 +2,10 @@ import '../styles/index.css'
 
 import { dehydrate } from '@tanstack/react-query'
 
+import { ClerkProvider } from '@clerk/nextjs'
+
 import { Root } from '~/components/layout/root/Root'
+import { ClerkZhCN } from '~/i18n/cherk-cn'
 import { defineMetadata } from '~/lib/define-metadata'
 import { sansFont } from '~/lib/fonts'
 import { getQueryClient } from '~/utils/query-client.server'
@@ -72,18 +75,20 @@ export default async function RootLayout(props: Props) {
       return true
     },
   })
-  
+
   return (
-    <html lang="zh-CN" className="noise" suppressHydrationWarning>
-      <body
-        className={`${sansFont.variable} m-0 h-full p-0 font-sans antialiased`}
-      >
-        <Providers>
-          <Hydrate state={dehydratedState}>
-            <Root>{children}</Root>
-          </Hydrate>
-        </Providers>
-      </body>
-    </html>
+    <ClerkProvider localization={ClerkZhCN}>
+      <html lang="zh-CN" className="noise" suppressHydrationWarning>
+        <body
+          className={`${sansFont.variable} m-0 h-full p-0 font-sans antialiased`}
+        >
+          <Providers>
+            <Hydrate state={dehydratedState}>
+              <Root>{children}</Root>
+            </Hydrate>
+          </Providers>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }

@@ -59,7 +59,7 @@ let nextConfig = {
   },
 }
 
-if (process.env.SENTRY === 'true' && isProd) {
+if (env.SENTRY === 'true' && isProd) {
   // @ts-expect-error
   nextConfig = withSentryConfig(
     nextConfig,

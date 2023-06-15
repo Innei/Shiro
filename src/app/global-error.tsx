@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 
 // TODO next.js not implement for now
-export default ({ error, reset }) => {
+export default ({ error, reset }: any) => {
   useEffect(() => {
     console.log(error, reset)
   }, [error])

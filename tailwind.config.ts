@@ -242,7 +242,7 @@ export default resolveConfig({
           'color-scheme': 'dark',
           primary: '#1f8f93',
           secondary: '#92bbff',
-          accent: '#1f8f93',
+          accent: '#39C5BB',
 
           neutral: UIKitColors.grey3.dark,
 

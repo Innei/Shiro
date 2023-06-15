@@ -1,6 +1,6 @@
 'use client'
 
-export default ({ error, reset }) => {
+export default ({ error, reset }: any) => {
   return (
     <html>
       <body>

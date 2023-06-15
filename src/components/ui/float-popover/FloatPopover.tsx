@@ -31,6 +31,11 @@ export const FloatPopover: FC<
     animate?: boolean
 
     as?: keyof HTMLElementTagNameMap
+
+    /**
+     * @default popover
+     */
+    type?: 'tooltip' | 'popover'
   }> &
     UseFloatingOptions
 > = (props) => {
@@ -46,6 +51,7 @@ export const FloatPopover: FC<
     debug,
     animate = true,
     as: As = 'div',
+    type = 'popover',
     ...floatingProps
   } = props
 
@@ -229,8 +235,11 @@ export const FloatPopover: FC<
                 aria-modal="true"
                 className={clsxm(
                   'bg-base-100 !shadow-out-sm focus:!shadow-out-sm focus-visible:!shadow-out-sm',
-                  headless ? styles['headless'] : styles['popover-root'],
+                  headless && styles['headless'],
                   animate && styles['animate'],
+                  type === 'tooltip'
+                    ? `rounded-full bg-base-100 px-4 py-2 ${styles['headless']}`
+                    : styles['popover-root'],
                   popoverClassNames,
                 )}
                 ref={refs.setFloating}
