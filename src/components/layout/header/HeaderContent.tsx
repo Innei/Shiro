@@ -11,7 +11,8 @@ import { usePageScrollDirection } from '~/providers/root/page-scroll-info-provid
 import { clsxm } from '~/utils/helper'
 
 import { useHeaderOpacity } from './BluredBackground'
-import { headerMenuConfig } from './config'
+import { useHeaderConfig } from './HeaderDataConfigureProvider'
+import type { IHeaderMenu } from './config'
 
 export const HeaderContent = () => {
   return (
@@ -66,6 +67,8 @@ function ForDesktop({
 
   const pathname = usePathname()
 
+  const { config: headerMenuConfig } = useHeaderConfig()
+
   return (
     <nav
       onMouseMove={handleMouseMove}
@@ -115,7 +118,7 @@ function ForDesktop({
 }
 
 const MenuPopover: Component<{
-  subMenu: (typeof headerMenuConfig)[number]['subMenu']
+  subMenu: IHeaderMenu['subMenu']
 }> = ({ children, subMenu }) => {
   const TriggerComponent = useMemo(() => () => children, [children])
   if (!subMenu) return children
@@ -130,7 +133,7 @@ const MenuPopover: Component<{
       TriggerComponent={TriggerComponent}
     >
       {!!subMenu.length && (
-        <div className="relative flex w-[100px] flex-col p-4">
+        <div className="relative flex w-[130px] flex-col p-4">
           {subMenu.map((m) => {
             return (
               <Link
@@ -139,7 +142,7 @@ const MenuPopover: Component<{
                 className="flex w-full items-center justify-around space-x-2 py-3 duration-200 first:pt-0 last:pb-0 hover:text-accent"
                 role="button"
               >
-                <span>{m.icon}</span>
+                {!!m.icon && <span>{m.icon}</span>}
                 <span>{m.title}</span>
               </Link>
             )
