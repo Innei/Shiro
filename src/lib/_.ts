@@ -58,3 +58,17 @@ export const throttle = <F extends (...args: any[]) => any>(
 
 export const isUndefined = (val: any): val is undefined =>
   typeof val === 'undefined'
+
+export const cloneDeep = <T>(val: T): T => {
+  if (Array.isArray(val)) {
+    return val.map(cloneDeep) as any
+  } else if (typeof val === 'object' && val !== null) {
+    const result: any = {}
+    for (const key in val) {
+      result[key] = cloneDeep(val[key])
+    }
+    return result
+  } else {
+    return val
+  }
+}

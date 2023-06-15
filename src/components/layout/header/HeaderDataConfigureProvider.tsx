@@ -1,15 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client'
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
+import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 
 import { useAggregation } from '~/hooks/data/use-aggregation'
+import { cloneDeep } from '~/lib/_'
 
 import { headerMenuConfig as baseHeaderMenuConfig } from './config'
 
@@ -24,9 +19,7 @@ export const HeaderDataConfigureProvider: Component = ({ children }) => {
 
   useEffect(() => {
     if (!data) return
-    const nextMenuConfig = JSON.parse(
-      JSON.stringify(baseHeaderMenuConfig),
-    ) as typeof baseHeaderMenuConfig
+    const nextMenuConfig = cloneDeep(baseHeaderMenuConfig)
     if (data.pageMeta) {
       const homeIndex = nextMenuConfig.findIndex((item) => item.type === 'Home')
       if (homeIndex !== -1) {
