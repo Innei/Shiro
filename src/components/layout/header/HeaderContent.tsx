@@ -1,10 +1,11 @@
 'use client'
 
-import React from 'react'
+import React, { useMemo } from 'react'
 import { motion, useMotionValue } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+import { FloatPopover } from '~/components/ui/float-popover'
 import { OnlyLg } from '~/components/ui/viewport'
 import { usePageScrollDirection } from '~/providers/root/page-scroll-info-provider'
 import { clsxm } from '~/utils/helper'
@@ -34,10 +35,12 @@ const AnimatedMenu: Component = ({ children }) => {
   return (
     <div
       className="duration-[100ms]"
-      style={{
-        opacity,
-        visibility: opacity === 0 ? 'hidden' : 'visible',
-      }}
+      style={
+        {
+          // opacity,
+          // visibility: opacity === 0 ? 'hidden' : 'visible',
+        }
+      }
     >
       {children}
     </div>
@@ -61,6 +64,8 @@ function ForDesktop({
     [mouseX, mouseY, radius],
   )
 
+  const pathname = usePathname()
+
   return (
     <nav
       onMouseMove={handleMouseMove}
@@ -69,31 +74,39 @@ function ForDesktop({
         'rounded-full bg-gradient-to-b from-zinc-50/70 to-white/90',
         'shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-md',
         'dark:from-zinc-900/70 dark:to-zinc-800/90 dark:ring-zinc-100/10',
-        '[--spotlight-color:rgb(236_252_203_/_0.6)] dark:[--spotlight-color:rgb(217_249_157_/_0.07)]',
+
         className,
       )}
       {...props}
     >
       <ul className="flex bg-transparent px-4 font-medium text-zinc-800 dark:text-zinc-200 ">
         {headerMenuConfig.map((section) => {
+          const href = section.path
+          const isActive = pathname === href || pathname.startsWith(`${href}/`)
           return (
-            <NavItem
-              key={section.path}
-              href={section.path}
-              className="[&:hover_.icon]:-translate-x-[calc(100%+6px)] [&:hover_.icon]:opacity-100"
-            >
-              <span className="relative">
-                <span
-                  className={clsxm(
-                    'pointer-events-none absolute bottom-0 left-0 top-0 flex items-center opacity-0 duration-200',
-                    'icon',
-                  )}
-                >
-                  {section.icon}
+            <MenuPopover subMenu={section.subMenu} key={href}>
+              <NavItem
+                href={href}
+                isActive={isActive}
+                className={clsxm(
+                  '[&:hover_.icon]:-translate-x-[calc(100%+6px)] [&:hover_.icon]:opacity-100',
+                  '[&.active_.icon]:-translate-x-[calc(100%+6px)] [&.active_.icon]:opacity-80',
+                  '[&.active]:pl-6',
+                )}
+              >
+                <span className="relative">
+                  <span
+                    className={clsxm(
+                      'pointer-events-none absolute bottom-0 left-0 top-0 flex items-center opacity-0 duration-200',
+                      'icon',
+                    )}
+                  >
+                    {section.icon}
+                  </span>
+                  {section.title}
                 </span>
-                {section.title}
-              </span>
-            </NavItem>
+              </NavItem>
+            </MenuPopover>
           )
         })}
       </ul>
@@ -101,17 +114,53 @@ function ForDesktop({
   )
 }
 
+const MenuPopover: Component<{
+  subMenu: (typeof headerMenuConfig)[number]['subMenu']
+}> = ({ children, subMenu }) => {
+  const TriggerComponent = useMemo(() => () => children, [children])
+  if (!subMenu) return children
+  return (
+    <FloatPopover
+      strategy="fixed"
+      headless
+      placement="bottom"
+      offset={10}
+      popoverWrapperClassNames="z-[19] relative"
+      popoverClassNames="rounded-xl"
+      TriggerComponent={TriggerComponent}
+    >
+      {!!subMenu.length && (
+        <div className="relative flex w-[100px] flex-col p-4">
+          {subMenu.map((m) => {
+            return (
+              <Link
+                key={m.title}
+                href={m.path}
+                className="flex w-full items-center justify-around space-x-2 py-3 duration-200 first:pt-0 last:pb-0 hover:text-accent"
+                role="button"
+              >
+                <span>{m.icon}</span>
+                <span>{m.title}</span>
+              </Link>
+            )
+          })}
+        </div>
+      )}
+    </FloatPopover>
+  )
+}
+
 function NavItem({
   href,
   children,
   className,
+  isActive,
 }: {
   href: string
   children: React.ReactNode
   className?: string
+  isActive?: boolean
 }) {
-  const isActive = usePathname() === href
-
   return (
     <li>
       <Link
@@ -119,6 +168,7 @@ function NavItem({
         className={clsxm(
           'relative block whitespace-nowrap px-4 py-2 transition',
           isActive ? 'text-accent' : 'hover:text-accent-focus',
+          isActive ? 'active' : '',
           className,
         )}
       >

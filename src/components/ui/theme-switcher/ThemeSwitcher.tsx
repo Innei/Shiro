@@ -97,8 +97,8 @@ export const ThemeSwitcher = () => {
   }, [])
   return (
     <div className="relative inline-block" onClick={handleClient}>
-      <ButtonGroup />
       <ThemeIndicator />
+      <ButtonGroup />
     </div>
   )
 }
@@ -112,7 +112,7 @@ const ThemeIndicator = () => {
   if (!theme) return null
   return (
     <div
-      className="absolute top-[4px] h-[32px] w-[32px] rounded-full bg-neutral/50 duration-200"
+      className="absolute top-[4px] z-[-1] h-[32px] w-[32px] rounded-full bg-base-100 shadow-[0_1px_2px_0_rgba(122,122,122,.2),_0_1px_3px_0_rgba(122,122,122,.1)] duration-200"
       style={{
         left: { light: 4, system: 36, dark: 68 }[theme],
       }}

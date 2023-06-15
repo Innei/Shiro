@@ -21,6 +21,7 @@ export const FloatPopover: FC<
     padding?: number
     offset?: number
     popoverWrapperClassNames?: string
+    popoverClassNames?: string
 
     /**
      * 不消失
@@ -41,6 +42,7 @@ export const FloatPopover: FC<
     padding,
     offset: offsetValue,
     popoverWrapperClassNames,
+    popoverClassNames,
     debug,
     animate = true,
     as: As = 'div',
@@ -181,8 +183,8 @@ export const FloatPopover: FC<
   ])
 
   const TriggerWrapper = (
-    // @ts-ignore
     <As
+      // @ts-ignore
       role={trigger === 'both' || trigger === 'click' ? 'button' : 'note'}
       className={clsx('inline-block', wrapperClassNames)}
       ref={refs.setReference}
@@ -195,8 +197,8 @@ export const FloatPopover: FC<
   )
 
   useEffect(() => {
-    if (containerRef.current && open) {
-      containerRef.current.focus()
+    if (refs.floating.current && open) {
+      refs.floating.current.focus()
     }
   }, [open])
 
@@ -218,17 +220,18 @@ export const FloatPopover: FC<
             )}
             {...(trigger === 'hover' || trigger === 'both' ? listener : {})}
             ref={containerRef}
-            tabIndex={-1}
-            role="dialog"
-            aria-modal="true"
           >
             <div ref={setContainerAnchorRef} />
             {open && (
               <div
+                tabIndex={-1}
+                role="dialog"
+                aria-modal="true"
                 className={clsxm(
-                  'bg-base-100',
+                  'bg-base-100 !shadow-out-sm focus:!shadow-out-sm focus-visible:!shadow-out-sm',
                   headless ? styles['headless'] : styles['popover-root'],
                   animate && styles['animate'],
+                  popoverClassNames,
                 )}
                 ref={refs.setFloating}
                 style={{

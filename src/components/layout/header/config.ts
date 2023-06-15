@@ -43,7 +43,7 @@ export const headerMenuConfig: IHeaderMenu[] = [
   {
     title: '记',
     type: 'Note',
-    path: '/notes/latest',
+    path: '/notes',
     icon: h(FaSolidFeatherAlt),
   },
   {
