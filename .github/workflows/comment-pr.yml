@@ -49,14 +49,14 @@ jobs:
           body-includes: "<!-- __NEXTJS_BUNDLE -->"
 
       - name: Create Comment
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         if: success() && steps.pr.outputs.id && steps.fc.outputs.comment-id == 0
         with:
           issue-number: ${{ steps.pr.outputs.id }}
           body: ${{ steps.get-comment-body.outputs.body }}
 
       - name: Update Comment
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         if: success() && steps.pr.outputs.id && steps.fc.outputs.comment-id != 0
         with:
           issue-number: ${{ steps.pr.outputs.id }}
