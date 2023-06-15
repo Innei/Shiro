@@ -1,4 +1,4 @@
-import { OnlyLg } from '~/components/ui/viewport'
+import { OnlyDesktop } from '~/components/ui/viewport'
 
 import { NoteTimeline } from './NoteTimeline'
 import { NoteTopicInfo } from './NoteTopicInfo'
@@ -6,13 +6,13 @@ import { NoteTopicInfo } from './NoteTopicInfo'
 export const NoteLeftSidebar: Component = ({ className }) => {
   return (
     <div className={className}>
-      <OnlyLg>
+      <OnlyDesktop>
         <div className="sticky top-20 mt-20">
           <NoteTimeline />
 
           <NoteTopicInfo />
         </div>
-      </OnlyLg>
+      </OnlyDesktop>
     </div>
   )
 }

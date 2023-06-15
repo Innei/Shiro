@@ -4,24 +4,19 @@ import React from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-  useUser,
-} from '@clerk/nextjs'
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
 
 import { appConfig } from '~/app.config'
 import { UserArrowLeftIcon } from '~/components/icons/user-arrow-left'
 import { FloatPopover } from '~/components/ui/float-popover'
+
+import { HeaderActionButton } from './HeaderActionButton'
 
 function url(path = '') {
   return new URL(path, appConfig.site.url)
 }
 
 export function UserAuth() {
-  console.log(useUser())
   const pathname = usePathname()
 
   return (
@@ -39,7 +34,11 @@ export function UserAuth() {
         </div>
       </SignedIn>
       <SignedOut key="sign-in">
-        <FloatPopover TriggerComponent={TriggerComponent} type="tooltip">
+        <FloatPopover
+          TriggerComponent={TriggerComponent}
+          wrapperClassNames="h-full w-full flex items-center justify-center"
+          type="tooltip"
+        >
           登陆
         </FloatPopover>
       </SignedOut>
@@ -51,12 +50,9 @@ const TriggerComponent = () => {
   const pathname = usePathname()
   return (
     <SignInButton mode="modal" redirectUrl={url(pathname).href}>
-      <button
-        type="button"
-        className="group h-10 rounded-full bg-gradient-to-b from-zinc-50/50 to-white/90 px-3 text-sm shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition dark:from-zinc-900/50 dark:to-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
-      >
+      <HeaderActionButton>
         <UserArrowLeftIcon className="h-4 w-4" />
-      </button>
+      </HeaderActionButton>
     </SignInButton>
   )
 }

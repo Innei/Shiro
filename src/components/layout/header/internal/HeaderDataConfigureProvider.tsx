@@ -6,7 +6,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { useAggregationQuery } from '~/hooks/data/use-aggregation'
 import { cloneDeep } from '~/lib/_'
 
-import { headerMenuConfig as baseHeaderMenuConfig } from './config'
+import { headerMenuConfig as baseHeaderMenuConfig } from '../config'
 
 const HeaderMenuConfigContext = createContext({
   config: baseHeaderMenuConfig,

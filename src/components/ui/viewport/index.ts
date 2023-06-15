@@ -1,1 +1,1 @@
-export * from './OnlyLg'
+export * from './OnlyDesktop'

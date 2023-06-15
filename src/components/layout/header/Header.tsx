@@ -1,11 +1,20 @@
 import { memo } from 'react'
 
-import { BluredBackground } from './BluredBackground'
-import { HeaderContent } from './HeaderContent'
-import { HeaderDataConfigureProvider } from './HeaderDataConfigureProvider'
-import { Logo } from './Logo'
-import { SiteOwnerAvatar } from './SiteOwnerAvatar'
-import { UserAuth } from './UserAuth'
+import { clsxm } from '~/utils/helper'
+
+import { BluredBackground } from './internal/BluredBackground'
+import { headerGrid } from './internal/grid.css'
+import {
+  HeaderCenterArea,
+  HeaderLeftButtonArea,
+  HeaderLogoArea,
+} from './internal/HeaderArea'
+import { HeaderContent } from './internal/HeaderContent'
+import { HeaderDataConfigureProvider } from './internal/HeaderDataConfigureProvider'
+import { HeaderDrawerButton } from './internal/HeaderDrawerButton'
+import { Logo } from './internal/Logo'
+import { SiteOwnerAvatar } from './internal/SiteOwnerAvatar'
+import { UserAuth } from './internal/UserAuth'
 
 export const Header = () => {
   return (
@@ -19,17 +28,26 @@ const MemoedHeader = memo(() => {
   return (
     <header className="fixed left-0 right-0 top-0 z-[9] h-[4.5rem]">
       <BluredBackground />
-      <div className="relative mx-auto grid h-full min-h-0 max-w-7xl grid-cols-[4.5rem_auto_4.5rem] lg:px-8">
-        <div className="relative">
+      <div
+        className={clsxm(
+          'relative mx-auto grid h-full min-h-0 max-w-7xl grid-cols-[4.5rem_auto_4.5rem] lg:px-8',
+          headerGrid,
+        )}
+      >
+        <HeaderLeftButtonArea>
+          <HeaderDrawerButton />
+        </HeaderLeftButtonArea>
+
+        <HeaderLogoArea>
           <Logo />
-          <SiteOwnerAvatar />
-        </div>
-        <div className="flex min-w-0 flex-grow">
-          <div className="flex flex-grow items-center justify-center">
-            <HeaderContent />
-          </div>
-        </div>
-        <div className="flex items-center">
+          <SiteOwnerAvatar className="hidden lg:inline-block" />
+        </HeaderLogoArea>
+
+        <HeaderCenterArea>
+          <HeaderContent />
+        </HeaderCenterArea>
+
+        <div className="flex h-full w-full items-center">
           <UserAuth />
         </div>
       </div>

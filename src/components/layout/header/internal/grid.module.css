@@ -1,0 +1,17 @@
+.header--grid {
+  grid-area: 'left center right';
+}
+
+.header--grid__logo {
+  grid-area: center;
+}
+
+.header--grid__left-button {
+  @apply hidden;
+}
+
+@screen lg {
+  .header--grid__logo {
+    grid-area: left;
+  }
+}

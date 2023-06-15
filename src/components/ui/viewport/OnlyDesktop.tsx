@@ -8,7 +8,7 @@ import { viewportAtom } from '~/atoms/viewport'
 import { useIsClient } from '~/hooks/common/use-is-client'
 
 const selector = (v: ExtractAtomValue<typeof viewportAtom>) => v.lg
-export const OnlyLg: Component = ({ children }) => {
+export const OnlyDesktop: Component = ({ children }) => {
   const isClient = useIsClient()
 
   const isLg = useAtomValue(selectAtom(viewportAtom, selector))
