@@ -1,5 +1,6 @@
 'use client'
 
+import dayjs from 'dayjs'
 import { useParams } from 'next/navigation'
 
 import { PageDataHolder } from '~/components/common/PageHolder'
@@ -27,17 +28,29 @@ const PageImpl = () => {
     setNoteId(id)
   })
 
+  const dateFormat = dayjs(data?.data.created)
+    .locale('cn')
+    .format('YYYY 年 M 月 D 日 dddd')
+
   return (
     <article className="prose">
       <header>
-        <h1>{data?.data?.title}</h1>
+        <div className="relative inline-flex items-center">
+          <div className="mr-2 inline-block h-[1rem] w-[2px] rounded-sm bg-accent" />
+          <span className="inline-flex items-center text-lg">
+            <time className="font-medium">{dateFormat}</time>
+          </span>
+        </div>
+        <h1 className="mt-8 text-center text-xl font-bold text-base-content/95">
+          {data?.data?.title}
+        </h1>
       </header>
 
       <ArticleElementProvider>
         {mardownResult.jsx}
 
         <NoteLayoutRightSidePortal>
-          <Toc className="sticky top-20 mt-20" />
+          <Toc className="sticky top-20 ml-4 mt-20" />
           <TocAutoScroll />
         </NoteLayoutRightSidePortal>
       </ArticleElementProvider>

@@ -3,7 +3,7 @@ import { memo } from 'react'
 import { clsxm } from '~/utils/helper'
 
 import { BluredBackground } from './internal/BluredBackground'
-import { headerGrid } from './internal/grid.css'
+import styles from './internal/grid.module.css'
 import {
   HeaderCenterArea,
   HeaderLeftButtonArea,
@@ -31,7 +31,7 @@ const MemoedHeader = memo(() => {
       <div
         className={clsxm(
           'relative mx-auto grid h-full min-h-0 max-w-7xl grid-cols-[4.5rem_auto_4.5rem] lg:px-8',
-          headerGrid,
+          styles['header--grid'],
         )}
       >
         <HeaderLeftButtonArea>

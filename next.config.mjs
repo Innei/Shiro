@@ -3,9 +3,6 @@ import { config } from 'dotenv'
 import NextBundleAnalyzer from '@next/bundle-analyzer'
 import { withSentryConfig } from '@sentry/nextjs'
 import { sentryWebpackPlugin } from '@sentry/webpack-plugin'
-import { createVanillaExtractPlugin } from '@vanilla-extract/next-plugin'
-
-const withVanillaExtract = createVanillaExtractPlugin()
 
 process.title = 'Springtide (NextJS)'
 
@@ -95,7 +92,6 @@ if (env.SENTRY === 'true' && isProd) {
   )
 }
 
-nextConfig = withVanillaExtract(nextConfig)
 if (process.env.ANALYZE === 'true') {
   nextConfig = NextBundleAnalyzer({
     enabled: true,

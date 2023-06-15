@@ -1,6 +1,6 @@
 html {
   --border-color: #eee;
-  --font-fans: theme('fontFamily.sans');
+  --font-sans: theme('fontFamily.sans');
   --theme-color: var(--auto-theme-color, theme('colors.accent'));
   --hover-color: var(--auto-hover-color, theme('colors.accent-focus'));
   --header-height: auto;
@@ -12,6 +12,8 @@ html {
   /*  for firefox */
   scrollbar-color: var(--theme-color) transparent;
   scrollbar-width: thin;
+
+  font-family: var(--font-sans);
 }
 
 :root {
