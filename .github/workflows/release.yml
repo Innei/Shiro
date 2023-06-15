@@ -71,24 +71,24 @@ jobs:
           asset_path: ./release.zip
           asset_name: release-ubuntu.zip
           asset_content_type: application/zip
-  deploy:
-    name: Deploy to server
-    runs-on: ubuntu-latest
-    needs: [build]
-    steps:
-      - name: Exec deploy script with SSH
-        uses: appleboy/ssh-action@master
-        with:
-          command_timeout: 10m
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          password: ${{ secrets.PASSWORD }}
-          script_stop: true
-          script: |
-            whoami
-            cd
-            source ~/.zshrc
-            cd mx/kami
-            git reset --hard
-            node scripts/fetch-build.mjs
-            # sh scripts/update-cdn.sh
+  # deploy:
+  #   name: Deploy to server
+  #   runs-on: ubuntu-latest
+  #   needs: [build]
+  #   steps:
+  #     - name: Exec deploy script with SSH
+  #       uses: appleboy/ssh-action@master
+  #       with:
+  #         command_timeout: 10m
+  #         host: ${{ secrets.HOST }}
+  #         username: ${{ secrets.USER }}
+  #         password: ${{ secrets.PASSWORD }}
+  #         script_stop: true
+  #         script: |
+  #           whoami
+  #           cd
+  #           source ~/.zshrc
+  #           cd mx/kami
+  #           git reset --hard
+  #           node scripts/fetch-build.mjs
+  #           # sh scripts/update-cdn.sh

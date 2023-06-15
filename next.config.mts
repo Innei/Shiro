@@ -8,7 +8,7 @@ import { createVanillaExtractPlugin } from '@vanilla-extract/next-plugin'
 
 const withVanillaExtract = createVanillaExtractPlugin()
 
-process.title = 'Kami (NextJS)'
+process.title = 'Springtide (NextJS)'
 
 const env = config().parsed || {}
 const isProd = process.env.NODE_ENV === 'production'
@@ -36,7 +36,7 @@ let nextConfig: NextConfig = {
           headers: {
             Authorization: `DSN ${process.env.NEXT_PUBLIC_SENTRY_DSN}`,
           },
-          project: 'kami',
+          project: 'springtide',
         }),
       )
     }
