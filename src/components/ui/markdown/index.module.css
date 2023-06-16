@@ -1,0 +1,55 @@
+.md {
+  &.code-fully pre > code {
+    max-height: unset !important;
+  }
+
+  summary {
+    list-style: none;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  summary::marker {
+    display: none;
+  }
+
+  details summary::before {
+    content: '+ ';
+  }
+
+  details[open] summary::before {
+    content: '- ';
+  }
+
+  details[open] summary::before,
+  details summary::before {
+    font-weight: 800;
+    font-family: var(--mono-font);
+  }
+
+  sub span,
+  sup span {
+    border: 0 !important;
+  }
+
+  sub,
+  sup {
+    & > a {
+      @apply inline-block;
+    }
+
+    & > a::first-letter {
+      @apply hidden;
+    }
+  }
+
+  li > p {
+    display: inline;
+  }
+
+  li {
+    margin: 0.5em 0;
+  }
+}

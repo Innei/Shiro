@@ -1,0 +1,15 @@
+.collapse {
+  @apply my-2;
+
+  :global(.ReactCollapse--collapse) {
+    transition: height 200ms;
+  }
+
+  .title {
+    @apply mb-2 pl-2 flex items-center;
+  }
+
+  p {
+    @apply !m-0;
+  }
+}

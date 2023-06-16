@@ -7,7 +7,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { Root } from '~/components/layout/root/Root'
 import { ClerkZhCN } from '~/i18n/cherk-cn'
 import { defineMetadata } from '~/lib/define-metadata'
-import { sansFont } from '~/lib/fonts'
+import { sansFont, serifFont } from '~/lib/fonts'
 import { getQueryClient } from '~/utils/query-client.server'
 
 import { Providers } from '../providers/root'
@@ -80,7 +80,7 @@ export default async function RootLayout(props: Props) {
     <ClerkProvider localization={ClerkZhCN}>
       <html lang="zh-CN" className="noise" suppressHydrationWarning>
         <body
-          className={`${sansFont.variable} m-0 h-full p-0 font-sans antialiased`}
+          className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans antialiased`}
         >
           <Providers>
             <Hydrate state={dehydratedState}>

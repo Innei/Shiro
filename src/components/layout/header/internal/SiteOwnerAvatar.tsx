@@ -12,7 +12,7 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
   return (
     <div
       className={clsxm(
-        'absolute bottom-[8px] right-[-5px] overflow-hidden rounded-full border-[1.5px] border-accent/50',
+        'overflow-hidden rounded-full border-[1.5px] border-accent/50',
         className,
       )}
     >

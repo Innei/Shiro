@@ -7,13 +7,13 @@ import { useParams } from 'next/navigation'
 import { PageDataHolder } from '~/components/common/PageHolder'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/internal/hooks'
 import { Loading } from '~/components/ui/loading'
+import { Markdown } from '~/components/ui/markdown'
 import { Toc, TocAutoScroll } from '~/components/widgets/toc'
 import { useBeforeMounted } from '~/hooks/common/use-before-mounted'
 import { useNoteByNidQuery } from '~/hooks/data/use-note'
 import { ArticleElementProvider } from '~/providers/article/article-element-provider'
 import { useSetCurrentNoteId } from '~/providers/note/current-note-id-provider'
 import { NoteLayoutRightSidePortal } from '~/providers/note/right-side-provider'
-import { parseMarkdown } from '~/remark'
 
 const PageImpl = () => {
   const { id } = useParams() as { id: string }
@@ -39,7 +39,7 @@ const PageImpl = () => {
     return <Loading className="mt-12" />
   }
 
-  const mardownResult = parseMarkdown(data?.data?.text ?? '')
+  // const mardownResult = parseMarkdown(note.text ?? '')
 
   // Why do this, I mean why do set NoteId to context, don't use `useParams().id` for children components.
   // Because any router params or query changes, will cause components that use `useParams()` hook, this hook is a context hook,
@@ -67,7 +67,7 @@ const PageImpl = () => {
       </header>
 
       <ArticleElementProvider>
-        {mardownResult.jsx}
+        <Markdown value={note.text} />
 
         <NoteLayoutRightSidePortal>
           <Toc className="sticky top-[120px] ml-4 mt-[120px]" />

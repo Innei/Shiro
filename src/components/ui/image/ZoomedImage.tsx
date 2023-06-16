@@ -8,6 +8,7 @@ type TImageProps = {
   'original-src'?: string
   imageRef?: React.MutableRefObject<HTMLImageElement>
   zoom?: boolean
+  accentColor?: string
 } & React.HTMLAttributes<HTMLImageElement> &
   ImageProps
 
