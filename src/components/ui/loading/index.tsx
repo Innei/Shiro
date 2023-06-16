@@ -18,7 +18,10 @@ export const Loading: Component<LoadingProps> = ({
     : loadingText
   return (
     <div
-      className={clsxm('flex flex-col items-center justify-start', className)}
+      className={clsxm(
+        'my-20 flex flex-col items-center justify-start',
+        className,
+      )}
     >
       <span className="loading loading-ball loading-lg" />
       {!!nextLoadingText && (

@@ -37,7 +37,7 @@ const PageImpl = () => {
   }, [note?.nid, note?.title, note?.topic?.name])
 
   if (!note) {
-    return <Loading useDefaultLoadingText className="my-12" />
+    return <Loading useDefaultLoadingText />
   }
 
   // const mardownResult = parseMarkdown(note.text ?? '')

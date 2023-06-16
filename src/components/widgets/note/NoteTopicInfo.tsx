@@ -76,7 +76,7 @@ const InnerTopicDetail: FC<{ topic: TopicModel }> = (props) => {
 
       <Divider />
       {isLoading ? (
-        <Loading />
+        <Loading className="my-4" />
       ) : (
         data?.data[0] && (
           <p className="flex items-center">

@@ -40,7 +40,7 @@ export default () => {
 
   return (
     <Paper>
-      <Loading useDefaultLoadingText className="mt-12" />
+      <Loading useDefaultLoadingText />
     </Paper>
   )
 }
