@@ -2,6 +2,7 @@ import RemoveMarkdown from 'remove-markdown'
 import type { Metadata } from 'next'
 
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
+import { attachUA } from '~/lib/attach-ua'
 import { queries } from '~/queries/definition'
 import { getQueryClient } from '~/utils/query-client.server'
 
@@ -15,6 +16,7 @@ export const generateMetadata = async ({
   }
 }): Promise<Metadata> => {
   try {
+    attachUA()
     const { data } = await getQueryClient().fetchQuery(
       queries.note.byNid(params.id),
     )
@@ -52,6 +54,7 @@ export default async (
     id: string
   }>,
 ) => {
+  attachUA()
   await getQueryClient().prefetchQuery(queries.note.byNid(props.params.id))
   return (
     <BottomToUpTransitionView>

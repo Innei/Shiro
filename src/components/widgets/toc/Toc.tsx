@@ -1,4 +1,5 @@
 import { memo, useEffect, useMemo, useRef, useState } from 'react'
+import { motion } from 'framer-motion'
 import type { ITocItem } from './TocItem'
 
 import { RightToLeftTransitionView } from '~/components/ui/transition/RightToLeftTransitionView'
@@ -80,7 +81,7 @@ export const Toc: Component<TocProps> = ({ useAsWeight, className }) => {
   return (
     <aside className={clsxm('st-toc z-[3]', 'relative font-sans', className)}>
       <ul
-        className="absolute max-h-[75vh] overflow-y-auto font-medium scrollbar-none"
+        className="absolute max-h-[75vh] overflow-y-auto px-2 font-medium scrollbar-none"
         key={`${toc.map((i) => i.title).join('')}`}
         ref={containerRef}
       >
@@ -124,8 +125,15 @@ const MemoedItem = memo<{
       }
       key={heading.title}
       as="li"
-      className="leading-none"
+      className="relative leading-none"
     >
+      {isActive && (
+        <motion.span
+          layoutId="active-toc-item"
+          layout
+          className="absolute -left-2 bottom-[3px] top-[3px] w-[2px] rounded-sm bg-accent"
+        />
+      )}
       <TocItem
         anchorId={heading.anchorId}
         // containerRef={containerRef}
