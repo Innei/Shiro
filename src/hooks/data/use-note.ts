@@ -7,7 +7,7 @@ export const useNoteData = () => {
   const nid = useNoteNId()
   const { data: noteAggregation } = useQuery({
     ...queries.note.byNid(nid || ''),
-    enabled: nid !== undefined,
+    enabled: !!nid,
     select(data) {
       return data.data
     },
@@ -22,5 +22,8 @@ export const useNoteNId = () => {
 }
 
 export const useNoteByNidQuery = (nid: string) => {
-  return useQuery(queries.note.byNid(nid))
+  return useQuery({
+    ...queries.note.byNid(nid),
+    enabled: !!nid,
+  })
 }

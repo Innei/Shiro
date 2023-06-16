@@ -4,11 +4,21 @@ import React from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+  useUser,
+} from '@clerk/nextjs'
 
 import { appConfig } from '~/app.config'
+import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
+import { GoogleBrandIcon } from '~/components/icons/platform/GoogleBrandIcon'
+import { MailIcon } from '~/components/icons/platform/MailIcon'
 import { UserArrowLeftIcon } from '~/components/icons/user-arrow-left'
 import { FloatPopover } from '~/components/ui/float-popover'
+import { clsxm } from '~/utils/helper'
 
 import { HeaderActionButton } from './HeaderActionButton'
 
@@ -23,14 +33,17 @@ export function UserAuth() {
     <AnimatePresence>
       <SignedIn key="user-info">
         <div className="pointer-events-auto flex h-10 w-full items-center justify-center">
-          <UserButton
-            afterSignOutUrl={url(pathname).href}
-            appearance={{
-              elements: {
-                logoBox: 'w-9 h-9 ring-2 ring-white/20 rounded-full',
-              },
-            }}
-          />
+          <div className="relative">
+            <UserButton
+              afterSignOutUrl={url(pathname).href}
+              appearance={{
+                elements: {
+                  logoBox: 'w-9 h-9 ring-2 ring-white/20 rounded-full',
+                },
+              }}
+            />
+            <UserAuthFromIcon className="absolute -bottom-1 -right-1" />
+          </div>
         </div>
       </SignedIn>
       <SignedOut key="sign-in">
@@ -43,6 +56,40 @@ export function UserAuth() {
         </FloatPopover>
       </SignedOut>
     </AnimatePresence>
+  )
+}
+
+const UserAuthFromIcon: Component = ({ className }) => {
+  const { user } = useUser()
+  const StrategyIcon = React.useMemo(() => {
+    const strategy = user?.primaryEmailAddress?.verification.strategy
+    if (!strategy) {
+      return null
+    }
+
+    switch (strategy) {
+      case 'from_oauth_github':
+        return GitHubBrandIcon
+      case 'from_oauth_google':
+        return GoogleBrandIcon
+      default:
+        return MailIcon
+    }
+  }, [user?.primaryEmailAddress?.verification.strategy])
+
+  if (!StrategyIcon) {
+    return null
+  }
+
+  return (
+    <span
+      className={clsxm(
+        'pointer-events-none flex h-4 w-4 select-none items-center justify-center rounded-full bg-white dark:bg-zinc-900',
+        className,
+      )}
+    >
+      <StrategyIcon className="h-3 w-3" />
+    </span>
   )
 }
 
