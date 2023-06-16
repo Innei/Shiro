@@ -3,7 +3,7 @@ import type { FC } from 'react'
 
 import { Loading } from '~/components/ui/loading'
 
-const LoadingComponent = () => <Loading loadingText="别着急，坐和放宽" />
+const LoadingComponent = () => <Loading className="mt-20" />
 export const PageDataHolder = (
   PageImpl: FC<any>,
   useQuery: () => UseQueryResult<any>,
