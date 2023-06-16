@@ -12,6 +12,7 @@ import {
 import { HeaderContent } from './internal/HeaderContent'
 import { HeaderDataConfigureProvider } from './internal/HeaderDataConfigureProvider'
 import { HeaderDrawerButton } from './internal/HeaderDrawerButton'
+import { HeaderMeta } from './internal/HeaderMeta'
 import { Logo } from './internal/Logo'
 import { SiteOwnerAvatar } from './internal/SiteOwnerAvatar'
 import { UserAuth } from './internal/UserAuth'
@@ -26,7 +27,7 @@ export const Header = () => {
 
 const MemoedHeader = memo(() => {
   return (
-    <header className="fixed left-0 right-0 top-0 z-[9] h-[4.5rem]">
+    <header className="fixed left-0 right-0 top-0 z-[9] h-[4.5rem] overflow-hidden">
       <BluredBackground />
       <div
         className={clsxm(
@@ -45,6 +46,7 @@ const MemoedHeader = memo(() => {
 
         <HeaderCenterArea>
           <HeaderContent />
+          <HeaderMeta />
         </HeaderCenterArea>
 
         <div className="flex h-full w-full items-center">

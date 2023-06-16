@@ -30,7 +30,7 @@ export const HeaderCenterArea: Component = ({ children }) => {
   return (
     <OnlyDesktop>
       <div className="flex min-w-0 flex-grow">
-        <div className="flex flex-grow items-center justify-center">
+        <div className="relative flex flex-grow items-center justify-center">
           {children}
         </div>
       </div>

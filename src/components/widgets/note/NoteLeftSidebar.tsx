@@ -7,7 +7,7 @@ export const NoteLeftSidebar: Component = ({ className }) => {
   return (
     <div className={className}>
       <OnlyDesktop>
-        <div className="sticky top-20 mt-20">
+        <div className="sticky top-[120px] mt-[120px]">
           <NoteTimeline />
 
           <NoteTopicInfo />

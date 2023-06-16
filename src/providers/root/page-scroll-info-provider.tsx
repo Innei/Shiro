@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
+import { selectAtom } from 'jotai/utils'
 import type { FC, PropsWithChildren } from 'react'
 
 const pageScrollLocationAtom = atom(0)
@@ -38,4 +39,18 @@ const ScrollDetector = () => {
 
 const usePageScrollLocation = () => useAtomValue(pageScrollLocationAtom)
 const usePageScrollDirection = () => useAtomValue(pageScrollDirectionAtom)
-export { usePageScrollDirection, usePageScrollLocation }
+const usePageScrollLocationSelector = <T,>(
+  selector: (scrollY: number) => T,
+): T =>
+  useAtomValue(
+    // @ts-ignore
+    selectAtom(
+      pageScrollLocationAtom,
+      useCallback(($) => selector($), []),
+    ),
+  )
+export {
+  usePageScrollDirection,
+  usePageScrollLocation,
+  usePageScrollLocationSelector,
+}

@@ -8,11 +8,10 @@ import { usePathname } from 'next/navigation'
 import type { IHeaderMenu } from '../config'
 
 import { FloatPopover } from '~/components/ui/float-popover'
-import { usePageScrollDirection } from '~/providers/root/page-scroll-info-provider'
 import { clsxm } from '~/utils/helper'
 
-import { useHeaderOpacity } from './BluredBackground'
 import { useHeaderConfig } from './HeaderDataConfigureProvider'
+import { useMenuOpacity } from './hooks'
 
 export const HeaderContent = () => {
   return (
@@ -23,13 +22,7 @@ export const HeaderContent = () => {
 }
 
 const AnimatedMenu: Component = ({ children }) => {
-  const scrollDirection = usePageScrollDirection()
-  const headerOpacity = useHeaderOpacity()
-  let opacity = 1 - headerOpacity
-
-  if (scrollDirection === 'up') {
-    opacity = 1
-  }
+  const opacity = useMenuOpacity()
 
   return (
     <div
