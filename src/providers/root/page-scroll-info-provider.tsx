@@ -41,12 +41,13 @@ const usePageScrollLocation = () => useAtomValue(pageScrollLocationAtom)
 const usePageScrollDirection = () => useAtomValue(pageScrollDirectionAtom)
 const usePageScrollLocationSelector = <T,>(
   selector: (scrollY: number) => T,
+  deps: any[] = [],
 ): T =>
   useAtomValue(
     // @ts-ignore
     selectAtom(
       pageScrollLocationAtom,
-      useCallback(($) => selector($), []),
+      useCallback(($) => selector($), deps),
     ),
   )
 export {
