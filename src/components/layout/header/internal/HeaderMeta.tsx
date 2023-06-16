@@ -35,7 +35,8 @@ export const HeaderMeta = () => {
     <AnimatePresence>
       {show && (
         <motion.div
-          className="absolute inset-0 flex min-w-0 items-center justify-between px-[4rem]"
+          className="absolute inset-0 flex min-w-0 items-center justify-between px-0 lg:px-[4rem]"
+          data-testid="header-meta"
           {...animationProps}
         >
           <div className="align-center flex min-w-0 flex-shrink flex-grow flex-col">
@@ -47,7 +48,7 @@ export const HeaderMeta = () => {
             </h2>
           </div>
 
-          <div className="flex min-w-0 flex-shrink-0 flex-col text-right leading-5">
+          <div className="hidden min-w-0 flex-shrink-0 flex-col text-right leading-5 lg:flex">
             <span className="whitespace-pre text-base-content"> {slug}</span>
             <span className="font-medium text-gray-400 dark:text-gray-600">
               {seoTitle}

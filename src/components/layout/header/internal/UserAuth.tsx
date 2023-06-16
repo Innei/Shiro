@@ -22,7 +22,7 @@ export function UserAuth() {
   return (
     <AnimatePresence>
       <SignedIn key="user-info">
-        <div className="pointer-events-auto flex h-10 items-center">
+        <div className="pointer-events-auto flex h-10 w-full items-center justify-center">
           <UserButton
             afterSignOutUrl={url(pathname).href}
             appearance={{

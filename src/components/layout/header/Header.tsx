@@ -1,7 +1,9 @@
 import { memo } from 'react'
 
+import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { clsxm } from '~/utils/helper'
 
+import { AnimatedLogo } from './internal/AnimatedLogo'
 import { BluredBackground } from './internal/BluredBackground'
 import styles from './internal/grid.module.css'
 import {
@@ -13,7 +15,6 @@ import { HeaderContent } from './internal/HeaderContent'
 import { HeaderDataConfigureProvider } from './internal/HeaderDataConfigureProvider'
 import { HeaderDrawerButton } from './internal/HeaderDrawerButton'
 import { HeaderMeta } from './internal/HeaderMeta'
-import { Logo } from './internal/Logo'
 import { SiteOwnerAvatar } from './internal/SiteOwnerAvatar'
 import { UserAuth } from './internal/UserAuth'
 
@@ -40,8 +41,11 @@ const MemoedHeader = memo(() => {
         </HeaderLeftButtonArea>
 
         <HeaderLogoArea>
-          <Logo />
+          <AnimatedLogo />
           <SiteOwnerAvatar className="hidden lg:inline-block" />
+          <OnlyMobile>
+            <HeaderMeta />
+          </OnlyMobile>
         </HeaderLogoArea>
 
         <HeaderCenterArea>
