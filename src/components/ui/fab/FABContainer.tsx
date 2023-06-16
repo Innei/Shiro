@@ -93,7 +93,7 @@ export const FABBase = (
   return (
     <button
       className={clsxm(
-        'mt-2 inline-flex h-8 w-8 items-center justify-center rounded-md border border-accent bg-white text-accent opacity-50 transition-all duration-300 hover:opacity-100 focus:opacity-100 focus:outline-none',
+        'mt-2 inline-flex h-8 w-8 items-center justify-center rounded-md border border-accent bg-base-100 text-accent opacity-50 transition-all duration-300 hover:opacity-100 focus:opacity-100 focus:outline-none',
         (!show || appearTransition) && 'translate-x-[60px]',
         !mounted && 'hidden',
         className,
