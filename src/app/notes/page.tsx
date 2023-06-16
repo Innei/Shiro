@@ -8,6 +8,8 @@ import { Loading } from '~/components/ui/loading'
 import { queries } from '~/queries/definition'
 import { apiClient } from '~/utils/request'
 
+import { Paper } from './Paper'
+
 export default () => {
   const { data } = useQuery(
     ['note', 'latest'],
@@ -36,5 +38,9 @@ export default () => {
     }
   }, [data])
 
-  return <Loading useDefaultLoadingText className="mt-12" />
+  return (
+    <Paper>
+      <Loading useDefaultLoadingText className="mt-12" />
+    </Paper>
+  )
 }

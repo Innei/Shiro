@@ -1,5 +1,7 @@
 'use client'
 
+import { Paper } from './Paper'
+
 const isRequestError = (error: Error) => {
   return error.message.startsWith(`Request failed with status code`)
 }
@@ -25,16 +27,18 @@ export default ({ error, reset }: { error: Error; reset: () => void }) => {
     )
   }
   return (
-    <div>
-      <h2>Something went wrong!</h2>
-      <button
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
-      >
-        Try again
-      </button>
-    </div>
+    <Paper>
+      <div className="mt-20">
+        <h2>Something went wrong!</h2>
+        <button
+          onClick={
+            // Attempt to recover by trying to re-render the segment
+            () => reset()
+          }
+        >
+          Try again
+        </button>
+      </div>
+    </Paper>
   )
 }

@@ -17,16 +17,7 @@ export default async (props: PropsWithChildren) => {
       >
         <NoteLeftSidebar className="relative hidden lg:block" />
 
-        <main
-          className={clsx(
-            'relative bg-base-100 md:col-start-1 lg:col-auto',
-            '-m-4 p-[2rem_1rem] lg:m-0 lg:p-[30px_45px]',
-            'rounded-[0_6px_6px_0] border border-[#bbb3]',
-            'note-layout-main',
-          )}
-        >
-          {props.children}
-        </main>
+        {props.children}
 
         <NoteLayoutRightSideProvider className="relative hidden lg:block" />
       </div>

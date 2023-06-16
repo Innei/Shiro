@@ -52,6 +52,7 @@ const ForDesktop: Component = ({ className }) => {
   )
 
   const { config: headerMenuConfig } = useHeaderConfig()
+  const pathname = usePathname()
 
   return (
     <motion.nav
@@ -68,7 +69,16 @@ const ForDesktop: Component = ({ className }) => {
     >
       <ul className="flex bg-transparent px-4 font-medium text-zinc-800 dark:text-zinc-200 ">
         {headerMenuConfig.map((section) => {
-          return <HeaderMenuItem section={section} key={section.path} />
+          return (
+            <HeaderMenuItem
+              section={section}
+              key={section.path}
+              isActive={
+                pathname === section.path ||
+                pathname.startsWith(`${section.path}/`)
+              }
+            />
+          )
         })}
       </ul>
     </motion.nav>
@@ -77,17 +87,18 @@ const ForDesktop: Component = ({ className }) => {
 
 const HeaderMenuItem = memo<{
   section: IHeaderMenu
-}>(({ section }) => {
-  const pathname = usePathname()
+  isActive: boolean
+}>(({ section, isActive }) => {
   const href = section.path
-  const isActive = pathname === href || pathname.startsWith(`${href}/`)
+
   return (
     <MenuPopover subMenu={section.subMenu} key={href}>
       <AnimatedItem
         href={href}
         isActive={isActive}
-        className={clsxm(
-          'transition-[padding] [&:hover_.icon]:-translate-x-[calc(100%+6px)] [&:hover_.icon]:opacity-100',
+        className={clsx(
+          'transition-[padding]',
+          // '[&:hover_.icon]:-translate-x-[calc(100%+6px)] [&:hover_.icon]:opacity-100',
           '[&.active_.icon]:-translate-x-[calc(100%+6px)] [&.active_.icon]:opacity-80',
           '[&.active]:pl-6',
         )}
@@ -107,6 +118,7 @@ const HeaderMenuItem = memo<{
     </MenuPopover>
   )
 })
+HeaderMenuItem.displayName = 'HeaderMenuItem'
 
 const MenuPopover: Component<{
   subMenu: IHeaderMenu['subMenu']
@@ -143,6 +155,7 @@ const MenuPopover: Component<{
     </FloatPopover>
   )
 })
+MenuPopover.displayName = 'MenuPopover'
 
 function AnimatedItem({
   href,

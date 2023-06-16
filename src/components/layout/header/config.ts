@@ -34,25 +34,21 @@ export const headerMenuConfig: IHeaderMenu[] = [
     subMenu: [],
   },
   {
-    title: '文',
+    title: '水文',
     path: '/posts',
     type: 'Post',
     subMenu: [],
     icon: h(IcTwotoneSignpost),
   },
   {
-    title: '记',
+    title: '手记',
     type: 'Note',
     path: '/notes',
     icon: h(FaSolidFeatherAlt),
   },
+
   {
-    title: '言',
-    path: '/says',
-    icon: h(FaSolidComments),
-  },
-  {
-    title: '览',
+    title: '速览',
     icon: h(FaSolidHistory),
     path: '/timeline',
     subMenu: [
@@ -74,25 +70,30 @@ export const headerMenuConfig: IHeaderMenu[] = [
     ],
   },
   {
-    title: '友',
+    title: '友链',
     icon: h(FaSolidUserFriends),
     path: '/friends',
   },
   {
-    title: '诉',
+    title: '之言',
     icon: h(FaSolidComment),
     path: '/recently',
   },
   {
-    title: '码',
+    title: '项目',
     icon: h(MdiFlask),
     path: '/projects',
   },
   {
-    title: '趣',
+    title: '其他',
     icon: h(FaSolidCircleNotch),
     path: '/favorite/music',
     subMenu: [
+      {
+        title: '一言',
+        path: '/says',
+        icon: h(FaSolidComments),
+      },
       {
         title: '听歌',
         icon: h(RiNeteaseCloudMusicLine),
