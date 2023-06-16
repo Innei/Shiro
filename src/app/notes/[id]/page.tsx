@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { Balancer } from 'react-wrap-balancer'
 import dayjs from 'dayjs'
 import { useParams } from 'next/navigation'
 
@@ -36,7 +37,7 @@ const PageImpl = () => {
   }, [note?.nid, note?.title, note?.topic?.name])
 
   if (!note) {
-    return <Loading className="mt-12" />
+    return <Loading useDefaultLoadingText className="my-12" />
   }
 
   // const mardownResult = parseMarkdown(note.text ?? '')
@@ -53,21 +54,19 @@ const PageImpl = () => {
   return (
     <article className="prose">
       <header>
-        <div className="relative inline-flex items-center">
-          <div className="mr-2 inline-block h-[1rem] w-[2px] rounded-sm bg-accent" />
-          <span className="inline-flex items-center text-lg">
-            <time className="font-medium" suppressHydrationWarning>
-              {dateFormat}
-            </time>
-          </span>
-        </div>
-        <h1 className="mt-8 text-center text-xl font-bold text-base-content/95">
-          {data?.data?.title}
+        <h1 className="mt-8 text-left font-bold text-base-content/95">
+          <Balancer>{note.title}</Balancer>
         </h1>
+
+        <span className="inline-flex items-center text-[13px] text-neutral-content/60">
+          <time className="font-medium" suppressHydrationWarning>
+            {dateFormat}
+          </time>
+        </span>
       </header>
 
       <ArticleElementProvider>
-        <Markdown value={note.text} />
+        <Markdown value={note.text} className="text-[1.05rem]" />
 
         <NoteLayoutRightSidePortal>
           <Toc className="sticky top-[120px] ml-4 mt-[120px]" />

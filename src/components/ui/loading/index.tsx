@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { useIsClient } from '~/hooks/common/use-is-client'
 import { clsxm } from '~/utils/helper'
 
 export type LoadingProps = {
@@ -14,8 +13,6 @@ export const Loading: Component<LoadingProps> = ({
   className,
   useDefaultLoadingText = false,
 }) => {
-  const isClient = useIsClient()
-  if (!isClient) return null
   const nextLoadingText = useDefaultLoadingText
     ? defaultLoadingText
     : loadingText

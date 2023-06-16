@@ -8,7 +8,7 @@ export const MParagraph: FC<
   const { children, ...other } = props
   const { className, ...rest } = other
   return (
-    <p className={clsx('paragraph', className)} {...rest}>
+    <p className={clsx('paragraph', className)} {...rest} suppressHydrationWarning>
       {children}
     </p>
   )
