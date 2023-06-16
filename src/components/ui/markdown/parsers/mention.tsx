@@ -1,9 +1,13 @@
-import type { MarkdownToJSX } from 'markdown-to-jsx'
-import { Priority, simpleInlineRegex } from 'markdown-to-jsx'
 import React from 'react'
-import { CodiconGithubInverted, MdiTwitter, IcBaselineTelegram } from '~/components/icons/menu-collection'
+import { Priority, simpleInlineRegex } from 'markdown-to-jsx'
+import type { MarkdownToJSX } from 'markdown-to-jsx'
 
- 
+import {
+  CodiconGithubInverted,
+  IcBaselineTelegram,
+  MdiTwitter,
+} from '~/components/icons/menu-collection'
+
 const prefixToIconMap = {
   GH: <CodiconGithubInverted />,
   TW: <MdiTwitter />,
@@ -42,17 +46,16 @@ export const MentionRule: MarkdownToJSX.Rule = {
     const { prefix, name } = content
     if (!name) {
       return null as any
-
     }
 
     // @ts-ignore
     const Icon = prefixToIconMap[prefix]
     // @ts-ignore
-    const urlPrefix = prefixToUrlMap[prefix] 
+    const urlPrefix = prefixToUrlMap[prefix]
 
     return (
-      <div
-        className="mr-2 inline-flex items-center space-x-2 align-bottom"
+      <span
+        className="mx-1 inline-flex items-center space-x-1 align-bottom"
         key={state?.key}
       >
         {Icon}
@@ -63,7 +66,7 @@ export const MentionRule: MarkdownToJSX.Rule = {
         >
           {name}
         </a>
-      </div>
+      </span>
     )
   },
 }
