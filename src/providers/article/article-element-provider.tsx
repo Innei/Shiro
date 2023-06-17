@@ -2,6 +2,7 @@ import { memo, useEffect, useRef } from 'react'
 import { createContextState } from 'foxact/create-context-state'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 
+import { ProviderComposer } from '~/components/common/ProviderComposer'
 import { clsxm } from '~/utils/helper'
 
 const [
@@ -25,16 +26,17 @@ const [
   useSetIsEOArticleElement,
 ] = createContextState<boolean>(false)
 
+const Providers = [
+  <ArticleElementProviderInternal key="ArticleElementProviderInternal" />,
+  <ArticleElementSizeProviderInternal key="ArticleElementSizeProviderInternal" />,
+  <IsEOArticleElementProviderInternal key="IsEOArticleElementProviderInternal" />,
+]
 const ArticleElementProvider: Component = ({ children, className }) => {
   return (
-    <ArticleElementProviderInternal>
-      <ArticleElementSizeProviderInternal>
-        <IsEOArticleElementProviderInternal>
-          <ArticleElementResizeObserver />
-          <Content className={className}>{children}</Content>
-        </IsEOArticleElementProviderInternal>
-      </ArticleElementSizeProviderInternal>
-    </ArticleElementProviderInternal>
+    <ProviderComposer contexts={Providers}>
+      <ArticleElementResizeObserver />
+      <Content className={className}>{children}</Content>
+    </ProviderComposer>
   )
 }
 const ArticleElementResizeObserver = () => {

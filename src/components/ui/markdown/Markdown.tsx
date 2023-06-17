@@ -5,6 +5,7 @@ import { compiler } from 'markdown-to-jsx'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { FC, PropsWithChildren } from 'react'
 
+import { FixedZoomedImage } from '../image'
 import styles from './index.module.css'
 import { CommentAtRule } from './parsers/comment-at'
 import { ContainerRule } from './parsers/container'
@@ -16,7 +17,6 @@ import { SpoilderRule } from './parsers/spoiler'
 import { MParagraph, MTableBody, MTableHead, MTableRow } from './renderers'
 import { MDetails } from './renderers/collapse'
 import { MFootNote } from './renderers/footnotes'
-import { ZoomedImage } from '../image'
 
 export interface MdProps {
   value?: string
@@ -66,7 +66,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           // FIXME: footer tag in raw html will renders not as expected, but footer tag in this markdown lib will wrapper as linkReferer footnotes
           footer: MFootNote,
           details: MDetails,
-          img: ZoomedImage,
+          img: FixedZoomedImage,
 
           // for custom react component
           // LinkCard,

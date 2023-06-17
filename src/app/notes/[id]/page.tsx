@@ -5,6 +5,7 @@ import { Balancer } from 'react-wrap-balancer'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 import { useParams } from 'next/navigation'
+import type { Image } from '@mx-space/api-client'
 import type { MarkdownToJSX } from '~/components/ui/markdown'
 
 import { PageDataHolder } from '~/components/common/PageHolder'
@@ -15,10 +16,13 @@ import { Toc, TocAutoScroll } from '~/components/widgets/toc'
 import { useBeforeMounted } from '~/hooks/common/use-before-mounted'
 import { useNoteByNidQuery } from '~/hooks/data/use-note'
 import { ArticleElementProvider } from '~/providers/article/article-element-provider'
+import { MarkdownImageRecordProvider } from '~/providers/article/markdown-image-record-provider'
 import { useSetCurrentNoteId } from '~/providers/note/current-note-id-provider'
 import { NoteLayoutRightSidePortal } from '~/providers/note/right-side-provider'
 
 import styles from './page.module.css'
+
+const noopArr = [] as Image[]
 
 const PageImpl = () => {
   const { id } = useParams() as { id: string }
@@ -72,7 +76,9 @@ const PageImpl = () => {
       </header>
 
       <ArticleElementProvider>
-        <Markdown as="main" renderers={Markdownrenderers} value={note.text} />
+        <MarkdownImageRecordProvider images={note.images || noopArr}>
+          <Markdown as="main" renderers={Markdownrenderers} value={note.text} />
+        </MarkdownImageRecordProvider>
 
         <NoteLayoutRightSidePortal>
           <Toc className="sticky top-[120px] ml-4 mt-[120px]" />
