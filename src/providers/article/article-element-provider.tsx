@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react'
+import { memo, useEffect, useRef } from 'react'
 import { createContextState } from 'foxact/create-context-state'
+import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 
 import { clsxm } from '~/utils/helper'
 
@@ -10,6 +11,15 @@ const [
 ] = createContextState<HTMLDivElement | null>(undefined as any)
 
 const [
+  ArticleElementSizeProviderInternal,
+  useArticleElementSize,
+  useSetArticleElementSize,
+] = createContextState({
+  h: 0,
+  w: 0,
+})
+
+const [
   IsEOArticleElementProviderInternal,
   useIsEOArticleElement,
   useSetIsEOArticleElement,
@@ -18,23 +28,50 @@ const [
 const ArticleElementProvider: Component = ({ children, className }) => {
   return (
     <ArticleElementProviderInternal>
-      <IsEOArticleElementProviderInternal>
-        <Content className={className}>{children}</Content>
-      </IsEOArticleElementProviderInternal>
+      <ArticleElementSizeProviderInternal>
+        <IsEOArticleElementProviderInternal>
+          <ArticleElementResizeObserver />
+          <Content className={className}>{children}</Content>
+        </IsEOArticleElementProviderInternal>
+      </ArticleElementSizeProviderInternal>
     </ArticleElementProviderInternal>
   )
 }
+const ArticleElementResizeObserver = () => {
+  const setSize = useSetArticleElementSize()
+  const $article = useArticleElement()
+  useIsomorphicLayoutEffect(() => {
+    if (!$article) return
+    const { height, width } = $article.getBoundingClientRect()
+    setSize({ h: height, w: width })
 
-const Content: Component = ({ children, className }) => {
-  const setter = useSetArticleElement()
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0]
+      const { height, width } = entry.contentRect
+      setSize({ h: height, w: width })
+    })
+    observer.observe($article)
+    return () => {
+      observer.unobserve($article)
+      observer.disconnect()
+    }
+  }, [$article])
+
+  return null
+}
+
+const Content: Component = memo(({ children, className }) => {
+  const setElement = useSetArticleElement()
 
   return (
-    <div className={clsxm('relative', className)} ref={setter}>
+    <div className={clsxm('relative', className)} ref={setElement}>
       {children}
       <EOADetector />
     </div>
   )
-}
+})
+
+Content.displayName = 'ArticleElementProviderContent'
 
 const EOADetector: Component = () => {
   const ref = useRef<HTMLDivElement>(null)
@@ -67,4 +104,5 @@ export {
   useSetArticleElement,
   useArticleElement,
   useIsEOArticleElement,
+  useArticleElementSize,
 }

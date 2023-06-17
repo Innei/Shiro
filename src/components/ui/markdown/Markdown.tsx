@@ -1,18 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, {
-  createElement,
-  memo,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import React, { memo, useMemo, useRef } from 'react'
 import { clsx } from 'clsx'
 import { compiler } from 'markdown-to-jsx'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { FC, PropsWithChildren } from 'react'
-
-import { range } from '~/lib/_'
 
 import styles from './index.module.css'
 import { CommentAtRule } from './parsers/comment-at'
@@ -25,6 +16,7 @@ import { SpoilderRule } from './parsers/spoiler'
 import { MParagraph, MTableBody, MTableHead, MTableRow } from './renderers'
 import { MDetails } from './renderers/collapse'
 import { MFootNote } from './renderers/footnotes'
+import { ZoomedImage } from '../image'
 
 export interface MdProps {
   value?: string
@@ -37,7 +29,7 @@ export interface MdProps {
   >
   codeBlockFully?: boolean
   className?: string
-  tocSlot?: (props: { headings: HTMLElement[] }) => JSX.Element | null
+  as?: React.ElementType
 }
 
 export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
@@ -52,30 +44,12 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
       overrides,
       extendsRules,
       additionalParserRules,
+      as: As = 'div',
 
       ...rest
     } = props
 
     const ref = useRef<HTMLDivElement>(null)
-    const [headings, setHeadings] = useState<HTMLElement[]>([])
-
-    useEffect(() => {
-      if (!ref.current) {
-        return
-      }
-
-      const $headings = ref.current.querySelectorAll(
-        range(1, 6)
-          .map((i) => `h${i}`)
-          .join(','),
-      ) as NodeListOf<HTMLHeadingElement>
-
-      setHeadings(Array.from($headings))
-
-      return () => {
-        setHeadings([])
-      }
-    }, [value, props.children])
 
     const node = useMemo(() => {
       if (!value && typeof props.children != 'string') return null
@@ -92,6 +66,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           // FIXME: footer tag in raw html will renders not as expected, but footer tag in this markdown lib will wrapper as linkReferer footnotes
           footer: MFootNote,
           details: MDetails,
+          img: ZoomedImage,
 
           // for custom react component
           // LinkCard,
@@ -163,20 +138,17 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
     ])
 
     return (
-      <div
-        id="write"
+      <As
         style={style}
         {...wrapperProps}
         ref={ref}
         className={clsx(
           styles['md'],
           codeBlockFully ? styles['code-fully'] : undefined,
-          wrapperProps.className,
+          className,
         )}
       >
-        {className ? <div className={className}>{node}</div> : node}
-
-        {props.tocSlot ? createElement(props.tocSlot, { headings }) : null}
-      </div>
+        {node}
+      </As>
     )
   })

@@ -2,8 +2,10 @@
 
 import { useEffect } from 'react'
 import { Balancer } from 'react-wrap-balancer'
+import clsx from 'clsx'
 import dayjs from 'dayjs'
 import { useParams } from 'next/navigation'
+import type { MarkdownToJSX } from '~/components/ui/markdown'
 
 import { PageDataHolder } from '~/components/common/PageHolder'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/internal/hooks'
@@ -15,6 +17,8 @@ import { useNoteByNidQuery } from '~/hooks/data/use-note'
 import { ArticleElementProvider } from '~/providers/article/article-element-provider'
 import { useSetCurrentNoteId } from '~/providers/note/current-note-id-provider'
 import { NoteLayoutRightSidePortal } from '~/providers/note/right-side-provider'
+
+import styles from './page.module.css'
 
 const PageImpl = () => {
   const { id } = useParams() as { id: string }
@@ -52,7 +56,9 @@ const PageImpl = () => {
     .format('YYYY 年 M 月 D 日 dddd')
 
   return (
-    <article className="prose">
+    <article
+      className={clsx('prose', styles['with-indent'], styles['with-serif'])}
+    >
       <header>
         <h1 className="mt-8 text-left font-bold text-base-content/95">
           <Balancer>{note.title}</Balancer>
@@ -66,7 +72,7 @@ const PageImpl = () => {
       </header>
 
       <ArticleElementProvider>
-        <Markdown value={note.text} className="text-[1.05rem]" />
+        <Markdown as="main" renderers={Markdownrenderers} value={note.text} />
 
         <NoteLayoutRightSidePortal>
           <Toc className="sticky top-[120px] ml-4 mt-[120px]" />
@@ -77,6 +83,17 @@ const PageImpl = () => {
   )
 }
 
+const Markdownrenderers: { [name: string]: Partial<MarkdownToJSX.Rule> } = {
+  text: {
+    react(node, _, state) {
+      return (
+        <span className="indent" key={state?.key}>
+          {node.content}
+        </span>
+      )
+    },
+  },
+}
 export default PageDataHolder(PageImpl, () => {
   const { id } = useParams() as { id: string }
   return useNoteByNidQuery(id)

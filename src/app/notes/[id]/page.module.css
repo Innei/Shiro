@@ -1,0 +1,36 @@
+.with-indent {
+  :global {
+    ul .indent,
+    .paragraph .indent {
+      border-bottom: 1px solid #00b8bb41;
+    }
+
+    .paragraph:not(:nth-child(1)) > span.indent {
+      &:nth-child(1) {
+        margin-left: 2rem;
+      }
+    }
+
+    main {
+      > p:first-child {
+        margin-bottom: 2rem;
+      }
+
+      .paragraph:first-child::first-letter {
+        float: left;
+        font-size: 2.4em;
+        margin: 0 0.2em 0 0;
+      }
+    }
+  }
+}
+
+.with-serif {
+  :global {
+    main {
+      @apply font-serif;
+
+      font-size: 16px;
+    }
+  }
+}

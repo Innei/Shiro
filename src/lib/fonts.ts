@@ -1,4 +1,4 @@
-import { Manrope, Noto_Serif } from 'next/font/google'
+import { Manrope, Noto_Serif_SC } from 'next/font/google'
 
 const sansFont = Manrope({
   subsets: ['latin'],
@@ -6,7 +6,7 @@ const sansFont = Manrope({
   variable: '--font-sans',
   display: 'swap',
 })
-const serifFont = Noto_Serif({
+const serifFont = Noto_Serif_SC({
   subsets: ['latin'],
   weight: ['400'],
   variable: '--font-serif',
