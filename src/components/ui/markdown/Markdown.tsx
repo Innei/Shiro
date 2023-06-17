@@ -66,7 +66,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           // FIXME: footer tag in raw html will renders not as expected, but footer tag in this markdown lib will wrapper as linkReferer footnotes
           footer: MFootNote,
           details: MDetails,
-          img: FixedZoomedImage,
+          img: MarkdownImage,
 
           // for custom react component
           // LinkCard,
@@ -152,3 +152,11 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
       </As>
     )
   })
+
+const MarkdownImage = (props: any) => {
+  const nextProps = {
+    ...props,
+  }
+  nextProps.alt = props.alt?.replace(/^[¡!]/, '')
+  return <FixedZoomedImage {...props} />
+}

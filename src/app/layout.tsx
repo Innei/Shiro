@@ -5,13 +5,15 @@ import { dehydrate } from '@tanstack/react-query'
 import { ClerkProvider } from '@clerk/nextjs'
 
 import { Root } from '~/components/layout/root/Root'
-import { ClerkZhCN } from '~/i18n/cherk-cn'
 import { defineMetadata } from '~/lib/define-metadata'
 import { sansFont, serifFont } from '~/lib/fonts'
 import { getQueryClient } from '~/utils/query-client.server'
 
 import { Providers } from '../providers/root'
 import { Hydrate } from './hydrate'
+import { init } from './init'
+
+init()
 
 export const generateMetadata = defineMetadata(async (_, getData) => {
   const { seo, url, user } = await getData()
@@ -77,7 +79,8 @@ export default async function RootLayout(props: Props) {
   })
 
   return (
-    <ClerkProvider localization={ClerkZhCN}>
+    // <ClerkProvider localization={ClerkZhCN}>
+    <ClerkProvider>
       <html lang="zh-CN" className="noise" suppressHydrationWarning>
         <body
           className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans antialiased`}

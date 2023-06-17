@@ -9,9 +9,9 @@ import {
 } from '~/components/icons/menu-collection'
 
 const prefixToIconMap = {
-  GH: <CodiconGithubInverted />,
-  TW: <MdiTwitter />,
-  TG: <IcBaselineTelegram />,
+  GH: <CodiconGithubInverted className="text-[#1D2127] dark:text-[#FFFFFF]" />,
+  TW: <MdiTwitter className="text-[#1DA1F2]" />,
+  TG: <IcBaselineTelegram className="text-[#2AABEE]" />,
 }
 
 const prefixToUrlMap = {

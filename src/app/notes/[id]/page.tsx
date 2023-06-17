@@ -8,17 +8,23 @@ import { useParams } from 'next/navigation'
 import type { Image } from '@mx-space/api-client'
 import type { MarkdownToJSX } from '~/components/ui/markdown'
 
+import { ClientOnly } from '~/components/common/ClientOnly'
 import { PageDataHolder } from '~/components/common/PageHolder'
+import { MdiClockOutline } from '~/components/icons/clock'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/internal/hooks'
+import { DividerVertical } from '~/components/ui/divider'
+import { FloatPopover } from '~/components/ui/float-popover'
 import { Loading } from '~/components/ui/loading'
 import { Markdown } from '~/components/ui/markdown'
 import { Toc, TocAutoScroll } from '~/components/widgets/toc'
 import { useBeforeMounted } from '~/hooks/common/use-before-mounted'
-import { useNoteByNidQuery } from '~/hooks/data/use-note'
+import { useNoteByNidQuery, useNoteData } from '~/hooks/data/use-note'
+import { mood2icon, weather2icon } from '~/lib/meta-icon'
 import { ArticleElementProvider } from '~/providers/article/article-element-provider'
 import { MarkdownImageRecordProvider } from '~/providers/article/markdown-image-record-provider'
 import { useSetCurrentNoteId } from '~/providers/note/current-note-id-provider'
 import { NoteLayoutRightSidePortal } from '~/providers/note/right-side-provider'
+import { parseDate } from '~/utils/datetime'
 
 import styles from './page.module.css'
 
@@ -28,6 +34,10 @@ const PageImpl = () => {
   const { id } = useParams() as { id: string }
   const { data } = useNoteByNidQuery(id)
 
+  // Why do this, I mean why do set NoteId to context, don't use `useParams().id` for children components.
+  // Because any router params or query changes, will cause components that use `useParams()` hook, this hook is a context hook,
+  // For example, `ComA` use `useParams()` just want to get value `id`,
+  // but if router params or query changes `page` params, will cause `CompA` re - render.
   const setNoteId = useSetCurrentNoteId()
   useBeforeMounted(() => {
     setNoteId(id)
@@ -48,30 +58,26 @@ const PageImpl = () => {
     return <Loading useDefaultLoadingText />
   }
 
-  // const mardownResult = parseMarkdown(note.text ?? '')
-
-  // Why do this, I mean why do set NoteId to context, don't use `useParams().id` for children components.
-  // Because any router params or query changes, will cause components that use `useParams()` hook, this hook is a context hook,
-  // For example, `ComA` use `useParams()` just want to get value `id`,
-  // but if router params or query changes `page` params, will cause `CompA` re - render.
-
-  const dateFormat = dayjs(data?.data.created)
-    .locale('cn')
-    .format('YYYY 年 M 月 D 日 dddd')
+  const tips = `创建于 ${parseDate(note.created, 'YYYY 年 M 月 D 日 dddd')}${
+    note.modified
+      ? `，修改于 ${parseDate(note.modified, 'YYYY 年 M 月 D 日 dddd')}`
+      : ''
+  }`
 
   return (
     <article
       className={clsx('prose', styles['with-indent'], styles['with-serif'])}
     >
       <header>
-        <h1 className="mt-8 text-left font-bold text-base-content/95">
-          <Balancer>{note.title}</Balancer>
-        </h1>
-
+        <NoteTitle />
         <span className="inline-flex items-center text-[13px] text-neutral-content/60">
-          <time className="font-medium" suppressHydrationWarning>
-            {dateFormat}
-          </time>
+          <FloatPopover TriggerComponent={NoteDateMeta}>{tips}</FloatPopover>
+
+          <DividerVertical className="!mx-2 scale-y-50" />
+
+          <ClientOnly>
+            <NoteMetaBar />
+          </ClientOnly>
         </span>
       </header>
 
@@ -89,6 +95,59 @@ const PageImpl = () => {
   )
 }
 
+const NoteTitle = () => {
+  const note = useNoteData()
+  if (!note) return null
+  const title = note.title
+  return (
+    <h1 className="mt-8 text-left font-bold text-base-content/95">
+      <Balancer>{title}</Balancer>
+    </h1>
+  )
+}
+
+const NoteMetaBar = () => {
+  const note = useNoteData()
+  if (!note) return null
+
+  return (
+    <>
+      {note.weather && (
+        <span className="inline-flex items-center space-x-1">
+          {weather2icon(note.weather)}
+          <span className="font-medium">{note.weather}</span>
+          <DividerVertical className="!mx-2 scale-y-50" />
+        </span>
+      )}
+
+      {note.mood && (
+        <span className="inline-flex items-center space-x-1">
+          {mood2icon(note.mood)}
+          <span className="font-medium">{note.mood}</span>
+          {/* <DividerVertical className="!mx-2 scale-y-50" /> */}
+        </span>
+      )}
+    </>
+  )
+}
+const NoteDateMeta = () => {
+  const note = useNoteData()
+  if (!note) return null
+
+  const dateFormat = dayjs(note.created)
+    .locale('zh-cn')
+    .format('YYYY 年 M 月 D 日 dddd')
+
+  return (
+    <span className="inline-flex items-center space-x-1">
+      <MdiClockOutline />
+      <time className="font-medium" suppressHydrationWarning>
+        {dateFormat}
+      </time>
+    </span>
+  )
+}
+
 const Markdownrenderers: { [name: string]: Partial<MarkdownToJSX.Rule> } = {
   text: {
     react(node, _, state) {
@@ -100,6 +159,7 @@ const Markdownrenderers: { [name: string]: Partial<MarkdownToJSX.Rule> } = {
     },
   },
 }
+
 export default PageDataHolder(PageImpl, () => {
   const { id } = useParams() as { id: string }
   return useNoteByNidQuery(id)

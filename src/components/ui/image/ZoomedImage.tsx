@@ -1,7 +1,13 @@
 'use client'
 
-import { useCallback, useMemo, useState } from 'react'
-import { motion, useAnimationControls } from 'framer-motion'
+import { useCallback, useId, useMemo, useRef, useState } from 'react'
+import {
+  AnimatePresence,
+  motion,
+  useAnimationControls,
+  useDomEvent,
+} from 'framer-motion'
+import { useTheme } from 'next-themes'
 import { tv } from 'tailwind-variants'
 import type { FC, ReactNode } from 'react'
 
@@ -13,6 +19,7 @@ import { useMarkdownImageRecord } from '~/providers/article/markdown-image-recor
 import { clsxm } from '~/utils/helper'
 
 import { Divider } from '../divider'
+import { RootPortal } from '../portal'
 
 type TImageProps = {
   src: string
@@ -47,6 +54,7 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
   alt,
   src,
   title,
+  zoom,
 
   placeholder,
 }) => {
@@ -65,6 +73,8 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
   )
 
   const controls = useAnimationControls()
+  const currentId = useId()
+  const [imageZooming, setImageZooming] = useState(false)
 
   return (
     <LazyLoad placeholder={placeholder}>
@@ -84,11 +94,15 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
                 // filter: 'blur(0px)',
               },
             }}
+            layoutId={currentId}
             initial="loading"
             animate={controls}
             src={src}
             title={title}
             alt={alt}
+            onClick={() => {
+              zoom && setImageZooming(true)
+            }}
             onLoad={() => {
               setImageLoadStatusSafe(ImageLoadStatus.Loaded)
               requestAnimationFrame(() => {
@@ -102,6 +116,15 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
           />
         </span>
 
+        <ImagePreview
+          id={currentId}
+          onClose={() => {
+            setImageZooming(false)
+          }}
+          show={imageZooming}
+          src={src}
+          alt={alt}
+        />
         {!!figcaption && (
           <figcaption className="mt-1 flex flex-col items-center justify-center">
             <Divider className="w-[80px] opacity-80" />
@@ -110,6 +133,58 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
         )}
       </figure>
     </LazyLoad>
+  )
+}
+
+const ImagePreview = (props: {
+  src?: string
+  show: boolean
+  onClose: () => void
+  alt?: string
+  id: string
+}) => {
+  const isDark = useTheme().theme === 'dark'
+  const { alt, show, onClose, src, id } = props
+  useDomEvent(useRef(window), 'scroll', () => show && onClose())
+
+  return (
+    <RootPortal>
+      <AnimatePresence>
+        {show && (
+          <motion.div
+            className="fixed inset-0 z-[98] flex cursor-zoom-out items-center justify-center"
+            animate={{
+              backgroundColor: [
+                `#${isDark ? '000000' : 'ffffff'}00`,
+                isDark ? '#111' : '#fff',
+              ],
+            }}
+            exit={{
+              backgroundColor: [
+                isDark ? '#111' : '#fff',
+                `#${isDark ? '000000' : 'ffffff'}00`,
+              ],
+              zIndex: 0,
+            }}
+          />
+        )}
+      </AnimatePresence>
+      {show && (
+        <div
+          className="fixed inset-0 z-[99] flex cursor-zoom-out items-center justify-center"
+          onClick={() => {
+            onClose()
+          }}
+        >
+          <motion.img
+            layoutId={id}
+            src={src}
+            alt={alt}
+            className="max-h-[95%] max-w-[95%]"
+          />
+        </div>
+      )}
+    </RootPortal>
   )
 }
 

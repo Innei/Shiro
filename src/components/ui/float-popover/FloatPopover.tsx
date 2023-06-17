@@ -2,7 +2,6 @@
 
 import { flip, offset, shift, useFloating } from '@floating-ui/react-dom'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import clsx from 'clsx'
 import type { UseFloatingOptions } from '@floating-ui/react-dom'
 import type { FC, PropsWithChildren } from 'react'
 
@@ -192,7 +191,7 @@ export const FloatPopover: FC<
     <As
       // @ts-ignore
       role={trigger === 'both' || trigger === 'click' ? 'button' : 'note'}
-      className={clsx('inline-block', wrapperClassNames)}
+      className={clsxm('inline-block', wrapperClassNames)}
       ref={refs.setReference}
       {...listener}
     >

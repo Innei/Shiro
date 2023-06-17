@@ -52,4 +52,8 @@
   li {
     margin: 0.5em 0;
   }
+
+  a {
+    @apply border-b-[0.5px] border-current no-underline duration-200 hover:text-accent;
+  }
 }
