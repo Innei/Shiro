@@ -7,6 +7,11 @@ html {
   line-height: 1.5;
 }
 
+[data-theme='light'] {
+  --sbg: #f9fdfd;
+  background-color: var(--sbg);
+}
+
 .prose {
   max-width: 100% !important;
 }

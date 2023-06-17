@@ -226,7 +226,7 @@ export default resolveConfig({
 
           neutral: UIKitColors.grey3.light,
 
-          'base-100': '#F9FDFD',
+          // 'base-100': '#eeeeee',
 
           'base-content': UIKitColors.label.primary.light,
 
