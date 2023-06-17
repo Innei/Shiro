@@ -1,9 +1,10 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import type { HTMLMotionProps } from 'framer-motion'
 import type { PropsWithChildren } from 'react'
 
-import { useStateToRef } from '~/hooks/common/use-state-ref'
 import { clsxm } from '~/utils/helper'
 
 export interface FABConfig {
@@ -59,53 +60,33 @@ export const FABBase = (
       id: string
       show?: boolean
       children: JSX.Element
-    } & React.DetailedHTMLProps<
-      React.ButtonHTMLAttributes<HTMLButtonElement>,
-      HTMLButtonElement
-    >
+    } & HTMLMotionProps<'button'>
   >,
 ) => {
   const { children, show = true, ...extra } = props
-  const { className, onTransitionEnd, ...rest } = extra
-
-  const [mounted, setMounted] = useState(true)
-  const [appearTransition, setAppearTransition] = useState(false)
-  const getMounted = useStateToRef(mounted)
-  const handleTransitionEnd: React.TransitionEventHandler<HTMLButtonElement> = (
-    e,
-  ) => {
-    onTransitionEnd?.(e)
-
-    !show && setMounted(false)
-  }
-
-  useEffect(() => {
-    if (show && !getMounted.current) {
-      setAppearTransition(true)
-      setMounted(true)
-
-      requestAnimationFrame(() => {
-        setAppearTransition(false)
-      })
-    }
-  }, [show])
+  const { className, ...rest } = extra
 
   return (
-    <button
-      className={clsxm(
-        'mt-2 inline-flex h-10 w-10 items-center justify-center',
-        'border border-accent transition-all duration-300 hover:opacity-100 focus:opacity-100 focus:outline-none',
-        'rounded-xl border border-zinc-400/20 bg-base-100/80 shadow-lg backdrop-blur-lg dark:border-zinc-500/30 dark:bg-zinc-800/80 dark:text-zinc-200',
-        'bg-base-100 shadow-lg',
-        (!show || appearTransition) && 'translate-x-[60px]',
-        !mounted && 'hidden',
-        className,
+    <AnimatePresence mode="wait">
+      {show && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          className={clsxm(
+            'mt-2 inline-flex h-10 w-10 items-center justify-center',
+            'border border-accent transition-all duration-300 hover:opacity-100 focus:opacity-100 focus:outline-none',
+            'rounded-xl border border-zinc-400/20 bg-base-100/80 shadow-lg backdrop-blur-lg dark:border-zinc-500/30 dark:bg-zinc-800/80 dark:text-zinc-200',
+            'bg-base-100 shadow-lg',
+
+            className,
+          )}
+          {...rest}
+        >
+          {children}
+        </motion.button>
       )}
-      onTransitionEnd={handleTransitionEnd}
-      {...rest}
-    >
-      {children}
-    </button>
+    </AnimatePresence>
   )
 }
 
