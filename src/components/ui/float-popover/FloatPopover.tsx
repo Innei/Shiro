@@ -235,6 +235,8 @@ export const FloatPopover: FC<
                 aria-modal="true"
                 className={clsxm(
                   'bg-base-100 !shadow-out-sm focus:!shadow-out-sm focus-visible:!shadow-out-sm',
+                  'rounded-xl border border-zinc-400/20 bg-base-100/80 p-4 shadow-lg outline-none backdrop-blur-lg dark:border-zinc-500/30',
+
                   headless && styles['headless'],
                   animate && styles['animate'],
                   type === 'tooltip'

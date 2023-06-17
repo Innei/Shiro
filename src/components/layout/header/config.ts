@@ -74,21 +74,22 @@ export const headerMenuConfig: IHeaderMenu[] = [
     icon: h(FaSolidUserFriends),
     path: '/friends',
   },
-  {
-    title: '之言',
-    icon: h(FaSolidComment),
-    path: '/recently',
-  },
-  {
-    title: '项目',
-    icon: h(MdiFlask),
-    path: '/projects',
-  },
+
   {
     title: '其他',
     icon: h(FaSolidCircleNotch),
     path: '/favorite/music',
     subMenu: [
+      {
+        title: '之言',
+        icon: h(FaSolidComment),
+        path: '/recently',
+      },
+      {
+        title: '项目',
+        icon: h(MdiFlask),
+        path: '/projects',
+      },
       {
         title: '一言',
         path: '/says',
