@@ -1,4 +1,6 @@
+import { useId } from 'react'
 import clsx from 'clsx'
+import { motion } from 'framer-motion'
 import type { FC } from 'react'
 import type { ToastProps, TypeOptions } from 'react-toastify/dist/types'
 
@@ -21,9 +23,11 @@ export const ToastCard: FC<{
   closeToast?: () => void
 }> = (props) => {
   const { iconElement, message, closeToast } = props
-
+  const id = useId()
   return (
-    <div
+    <motion.div
+      layoutId={id}
+      layout="position"
       className={clsx(
         'relative w-full overflow-hidden rounded-xl shadow-out-sm',
         'my-4 mr-4 px-4 py-5',
@@ -42,6 +46,6 @@ export const ToastCard: FC<{
       >
         <i className="icon-[mingcute--close-fill] p-2" />
       </MotionButtonBase>
-    </div>
+    </motion.div>
   )
 }

@@ -12,19 +12,15 @@ import {
   useUser,
 } from '@clerk/nextjs'
 
-import { appConfig } from '~/app.config'
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import { GoogleBrandIcon } from '~/components/icons/platform/GoogleBrandIcon'
 import { MailIcon } from '~/components/icons/platform/MailIcon'
 import { UserArrowLeftIcon } from '~/components/icons/user-arrow-left'
 import { FloatPopover } from '~/components/ui/float-popover'
+import { urlBuilder } from '~/lib/url-builder'
 import { clsxm } from '~/utils/helper'
 
 import { HeaderActionButton } from './HeaderActionButton'
-
-function url(path = '') {
-  return new URL(path, appConfig.site.url)
-}
 
 export function UserAuth() {
   const pathname = usePathname()
@@ -35,7 +31,7 @@ export function UserAuth() {
         <div className="pointer-events-auto flex h-10 w-full items-center justify-center">
           <div className="relative">
             <UserButton
-              afterSignOutUrl={url(pathname).href}
+              afterSignOutUrl={urlBuilder(pathname).href}
               appearance={{
                 elements: {
                   logoBox: 'w-9 h-9 ring-2 ring-white/20 rounded-full',
@@ -96,7 +92,7 @@ const UserAuthFromIcon: Component = ({ className }) => {
 const TriggerComponent = () => {
   const pathname = usePathname()
   return (
-    <SignInButton mode="modal" redirectUrl={url(pathname).href}>
+    <SignInButton mode="modal" redirectUrl={urlBuilder(pathname).href}>
       <HeaderActionButton>
         <UserArrowLeftIcon className="h-4 w-4" />
       </HeaderActionButton>

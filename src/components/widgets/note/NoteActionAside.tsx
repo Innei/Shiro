@@ -7,8 +7,11 @@ import type { NoteWrappedPayload } from '@mx-space/api-client'
 
 import { MotionButtonBase } from '~/components/ui/button'
 import { microReboundPreset } from '~/constants/spring'
+import { useIsClient } from '~/hooks/common/use-is-client'
 import { useNoteData } from '~/hooks/data/use-note'
 import { toast } from '~/lib/toast'
+import { urlBuilder } from '~/lib/url-builder'
+import { useAggregationData } from '~/providers/root/aggregation-data-provider'
 import { queries } from '~/queries/definition'
 import { apiClient } from '~/utils/request'
 
@@ -16,6 +19,7 @@ export const NoteActionAside = () => {
   return (
     <div className="absolute bottom-0 max-h-[300px] flex-col space-y-4">
       <LikeButton />
+      <ShareButton />
     </div>
   )
 }
@@ -64,6 +68,34 @@ const LikeButton = () => {
       }}
     >
       <i className="icon-[mingcute--heart-fill] text-[24px] opacity-80 duration-200 hover:text-uk-red-light hover:opacity-100" />
+    </MotionButtonBase>
+  )
+}
+
+const ShareButton = () => {
+  const hasShare = 'share' in navigator
+  const isClient = useIsClient()
+  const note = useNoteData()
+  const aggregation = useAggregationData()
+  if (!isClient) return null
+  if (!note) return null
+
+  if (!hasShare) {
+    return null
+  }
+  if (!aggregation) return null
+  return (
+    <MotionButtonBase
+      className="flex flex-col space-y-2"
+      onClick={() => {
+        navigator.share({
+          title: note.title,
+          text: note.text,
+          url: urlBuilder(`/notes/${note.nid}`).href,
+        })
+      }}
+    >
+      <i className="icon-[mingcute--share-forward-fill] text-[24px] opacity-80 duration-200 hover:text-uk-cyan-light hover:opacity-100" />
     </MotionButtonBase>
   )
 }
