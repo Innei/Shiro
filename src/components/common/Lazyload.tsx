@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 import type { FC, PropsWithChildren } from 'react'
 import type { IntersectionOptions } from 'react-intersection-observer'
@@ -14,9 +14,16 @@ export const LazyLoad: FC<PropsWithChildren & LazyLoadProps> = (props) => {
     rootMargin: `${offset || 0}px`,
     ...rest,
   })
+  const [isLoaded, setIsLoaded] = React.useState(false)
+  useEffect(() => {
+    if (inView) {
+      setIsLoaded(true)
+    }
+  }, [inView])
+
   return (
     <>
-      <span data-testid="lazyload-indicator" ref={ref} />
+      {!isLoaded && <span data-testid="lazyload-indicator" ref={ref} />}
       {!inView ? placeholder : props.children}
     </>
   )

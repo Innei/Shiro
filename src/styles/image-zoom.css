@@ -1,0 +1,16 @@
+/* image-zoom */
+.medium-zoom-overlay {
+  z-index: 9;
+}
+
+.medium-zoom-overlay + .medium-zoom-image {
+  z-index: 10;
+}
+
+.medium-zoom-image {
+  border-radius: 0.5rem;
+  transition: border-radius 0.3s ease-in-out;
+}
+.medium-zoom-image.medium-zoom-image--opened {
+  border-radius: 0;
+}

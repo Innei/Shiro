@@ -17,7 +17,9 @@ import { DividerVertical } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { Loading } from '~/components/ui/loading'
 import { Markdown } from '~/components/ui/markdown'
+import { NoteTopic } from '~/components/widgets/note/NoteTopic'
 import { Toc, TocAutoScroll } from '~/components/widgets/toc'
+import { XLogInfoForNote, XLogSummaryForNote } from '~/components/widgets/xlog'
 import { useBeforeMounted } from '~/hooks/common/use-before-mounted'
 import { useNoteByNidQuery, useNoteData } from '~/hooks/data/use-note'
 import { mood2icon, weather2icon } from '~/lib/meta-icon'
@@ -67,31 +69,41 @@ const PageImpl = () => {
   }`
 
   return (
-    <article
-      className={clsx('prose', styles['with-indent'], styles['with-serif'])}
-    >
-      <header>
-        <NoteTitle />
-        <span className="inline-flex items-center text-[13px] text-neutral-content/60">
-          <FloatPopover TriggerComponent={NoteDateMeta}>{tips}</FloatPopover>
+    <>
+      <article
+        className={clsx('prose', styles['with-indent'], styles['with-serif'])}
+      >
+        <header>
+          <NoteTitle />
+          <span className="inline-flex items-center text-[13px] text-neutral-content/60">
+            <FloatPopover TriggerComponent={NoteDateMeta}>{tips}</FloatPopover>
 
-          <ClientOnly>
-            <NoteMetaBar />
-          </ClientOnly>
-        </span>
-      </header>
+            <ClientOnly>
+              <NoteMetaBar />
+            </ClientOnly>
+          </span>
+        </header>
 
-      <ArticleElementProvider>
-        <MarkdownImageRecordProvider images={note.images || noopArr}>
-          <Markdown as="main" renderers={Markdownrenderers} value={note.text} />
-        </MarkdownImageRecordProvider>
+        <XLogSummaryForNote />
 
-        <NoteLayoutRightSidePortal>
-          <Toc className="sticky top-[120px] ml-4 mt-[120px]" />
-          <TocAutoScroll />
-        </NoteLayoutRightSidePortal>
-      </ArticleElementProvider>
-    </article>
+        <ArticleElementProvider>
+          <MarkdownImageRecordProvider images={note.images || noopArr}>
+            <Markdown
+              as="main"
+              renderers={MarkdownRenderers}
+              value={note.text}
+            />
+          </MarkdownImageRecordProvider>
+
+          <NoteLayoutRightSidePortal>
+            <Toc className="sticky top-[120px] ml-4 mt-[120px]" />
+            <TocAutoScroll />
+          </NoteLayoutRightSidePortal>
+        </ArticleElementProvider>
+      </article>
+      {!!note.topic && <NoteTopic topic={note.topic} />}
+      <XLogInfoForNote />
+    </>
   )
 }
 
@@ -111,7 +123,7 @@ const NoteMetaBar = () => {
   if (!note) return null
 
   const children = [] as ReactNode[]
-  if (note.weather || !note.mood) {
+  if (note.weather || note.mood) {
     children.push(<DividerVertical className="!mx-2 scale-y-50" key="d0" />)
   }
 
@@ -144,6 +156,16 @@ const NoteMetaBar = () => {
     )
   }
 
+  if (note.count.like > 0) {
+    children.push(
+      <DividerVertical className="!mx-2 scale-y-50" key="d2" />,
+      <span className="inline-flex items-center space-x-1" key="linkcount">
+        <i className="icon-[mingcute--heart-line]" />
+        <span className="font-medium">{note.count.like}</span>
+      </span>,
+    )
+  }
+
   return children
 }
 
@@ -165,7 +187,7 @@ const NoteDateMeta = () => {
   )
 }
 
-const Markdownrenderers: { [name: string]: Partial<MarkdownToJSX.Rule> } = {
+const MarkdownRenderers: { [name: string]: Partial<MarkdownToJSX.Rule> } = {
   text: {
     react(node, _, state) {
       return (

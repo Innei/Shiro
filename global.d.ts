@@ -37,3 +37,24 @@ declare global {
 }
 
 export {}
+
+declare module '@mx-space/api-client' {
+  export interface PostMeta {
+    style?: string
+    cover?: string
+    banner?: string | { type: string; message: string }
+  }
+  interface TextBaseModel extends BaseCommentIndexModel {
+    meta?: PostMeta
+  }
+
+  interface AggregateTopNote {
+    meta?: PostMeta
+  }
+
+  interface AggregateTopPost {
+    meta?: PostMeta
+  }
+}
+
+export {}

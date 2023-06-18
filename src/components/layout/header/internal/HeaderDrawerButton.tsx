@@ -8,8 +8,9 @@ import Link from 'next/link'
 import type { SVGProps } from 'react'
 
 import { CloseIcon } from '~/components/icons/close'
-import { MotionButtonBase } from '~/components/ui/button/MotionButton'
+import { MotionButtonBase } from '~/components/ui/button'
 import { reboundPreset } from '~/constants/spring'
+import { useIsClient } from '~/hooks/common/use-is-client'
 import { jotaiStore } from '~/lib/store'
 
 import { HeaderActionButton } from './HeaderActionButton'
@@ -30,50 +31,56 @@ const drawerOpenAtom = atom(false)
 export const HeaderDrawerButton = () => {
   const [open, setOpen] = useAtom(drawerOpenAtom)
 
+  const isClient = useIsClient()
+  const ButtonElement = (
+    <HeaderActionButton>
+      <IcBaselineMenuOpen />
+    </HeaderActionButton>
+  )
+  if (!isClient) return ButtonElement
+
   return (
     <Dialog.Root open={open} onOpenChange={(open) => setOpen(open)}>
-      <Dialog.Trigger asChild>
-        <HeaderActionButton>
-          <IcBaselineMenuOpen />
-        </HeaderActionButton>
-      </Dialog.Trigger>
+      <Dialog.Trigger asChild>{ButtonElement}</Dialog.Trigger>
       <Dialog.Portal forceMount>
-        <AnimatePresence>
-          {open && (
-            <>
-              <Dialog.Overlay asChild>
-                <motion.div
-                  className="fixed inset-0 z-[11] bg-slate-50/80 backdrop-blur-sm dark:bg-slate-900/80"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                />
-              </Dialog.Overlay>
+        <div>
+          <AnimatePresence>
+            {open && (
+              <>
+                <Dialog.Overlay asChild>
+                  <motion.div
+                    className="fixed inset-0 z-[11] bg-slate-50/80 backdrop-blur-sm dark:bg-slate-900/80"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  />
+                </Dialog.Overlay>
 
-              <Dialog.Content>
-                <motion.dialog
-                  className="fixed inset-0 z-[12] flex max-h-[100vh] min-h-0 items-center justify-center overflow-hidden rounded-xl bg-base-100/90"
-                  initial={{ opacity: 0.8 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <Dialog.DialogClose asChild>
-                    <MotionButtonBase
-                      className="absolute right-4 top-4 p-4"
-                      onClick={() => {
-                        setOpen(false)
-                      }}
-                    >
-                      <CloseIcon />
-                    </MotionButtonBase>
-                  </Dialog.DialogClose>
+                <Dialog.Content>
+                  <motion.dialog
+                    className="fixed inset-0 z-[12] flex max-h-[100vh] min-h-0 items-center justify-center overflow-hidden rounded-xl bg-base-100/90"
+                    initial={{ opacity: 0.8 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <Dialog.DialogClose asChild>
+                      <MotionButtonBase
+                        className="absolute right-4 top-4 p-4"
+                        onClick={() => {
+                          setOpen(false)
+                        }}
+                      >
+                        <CloseIcon />
+                      </MotionButtonBase>
+                    </Dialog.DialogClose>
 
-                  <HeaderDrawerContent />
-                </motion.dialog>
-              </Dialog.Content>
-            </>
-          )}
-        </AnimatePresence>
+                    <HeaderDrawerContent />
+                  </motion.dialog>
+                </Dialog.Content>
+              </>
+            )}
+          </AnimatePresence>
+        </div>
       </Dialog.Portal>
     </Dialog.Root>
   )

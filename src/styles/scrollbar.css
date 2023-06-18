@@ -2,6 +2,10 @@ body::-webkit-scrollbar {
   height: 0;
 }
 
+body {
+  overflow: overlay;
+}
+
 ::-webkit-scrollbar-thumb,
 ::-webkit-scrollbar-thumb:hover {
   background-color: theme(colors.neutral);
@@ -10,8 +14,8 @@ body::-webkit-scrollbar {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 5px !important;
+  height: 5px !important;
   background: theme(colors.base-100);
 }
 

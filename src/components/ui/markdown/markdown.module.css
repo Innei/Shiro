@@ -56,4 +56,8 @@
   a {
     @apply border-b-[0.5px] border-current no-underline duration-200 hover:text-accent;
   }
+
+  hr {
+    @apply mx-auto w-[60px];
+  }
 }

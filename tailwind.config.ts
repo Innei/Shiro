@@ -287,6 +287,12 @@ function addShortcutPlugin({ addUtilities }: PluginAPI) {
       'box-shadow':
         '0 0 10px rgb(120 120 120 / 10%), 0 5px 20px rgb(120 120 120 / 20%)',
     },
+    '.backface-hidden': {
+      '-webkit-backface-visibility': 'hidden',
+      '-moz-backface-visibility': 'hidden',
+      '-webkit-transform': 'translate3d(0, 0, 0)',
+      '-moz-transform': 'translate3d(0, 0, 0)',
+    },
   }
   addUtilities(styles)
 }

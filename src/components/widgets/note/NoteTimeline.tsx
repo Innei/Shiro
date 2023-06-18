@@ -1,8 +1,8 @@
 'use client'
 
-import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { useQuery } from '@tanstack/react-query'
 import { memo } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
 import { tv } from 'tailwind-variants'
 
@@ -14,7 +14,7 @@ import { apiClient } from '~/utils/request'
 export const NoteTimeline = () => {
   const note = useNoteData()
   const noteId = note?.id
-  const [animationParent] = useAutoAnimate<HTMLUListElement>()
+  // const [parent, enableAnimations] = useAutoAnimate<HTMLUListElement>()
   const { data: timelineData } = useQuery(
     ['notetimeline', noteId],
     async ({ queryKey }) => {
@@ -42,19 +42,21 @@ export const NoteTimeline = () => {
     : []
 
   return (
-    <ul ref={animationParent} className="space-y-1">
-      {(timelineData || initialData)?.map((item) => {
-        const isCurrent = item.id === noteId
-        return (
-          <MemoedItem
-            key={item.id}
-            active={isCurrent}
-            title={item.title}
-            nid={item.nid}
-          />
-        )
-      })}
-    </ul>
+    <AnimatePresence>
+      <ul className="space-y-1">
+        {(timelineData || initialData)?.map((item) => {
+          const isCurrent = item.id === noteId
+          return (
+            <MemoedItem
+              key={item.id}
+              active={isCurrent}
+              title={item.title}
+              nid={item.nid}
+            />
+          )
+        })}
+      </ul>
+    </AnimatePresence>
   )
 }
 
@@ -75,7 +77,11 @@ const MemoedItem = memo<{
   const { active, nid, title } = props
 
   return (
-    <li className="flex items-center [&_i]:hover:text-accent">
+    <motion.li
+      layout
+      className="flex items-center [&_i]:hover:text-accent"
+      layoutId={`note-${nid}`}
+    >
       <LeftToRightTransitionView
         in={active}
         as="span"
@@ -84,6 +90,7 @@ const MemoedItem = memo<{
         <i className="icon-[material-symbols--arrow-circle-right-outline-rounded] duration-200" />
       </LeftToRightTransitionView>
       <Link
+        prefetch={false}
         className={clsxm(
           active
             ? styles({
@@ -96,6 +103,6 @@ const MemoedItem = memo<{
       >
         {title}
       </Link>
-    </li>
+    </motion.li>
   )
 })

@@ -4,14 +4,23 @@ import { animateValue } from 'framer-motion'
 
 import { microdampingPreset } from '~/constants/spring'
 
+// TODO scroller lock
 export const springScrollTo = (y: number) => {
   const scrollTop =
     // FIXME latest version framer will ignore keyframes value `0`
     document.documentElement.scrollTop || document.body.scrollTop
+
+  const stopSpringScrollHandler = () => {
+    animation.stop()
+  }
   const animation = animateValue({
     keyframes: [scrollTop + 1, y],
     autoplay: true,
     ...microdampingPreset,
+    onPlay() {
+      window.addEventListener('wheel', stopSpringScrollHandler)
+      window.addEventListener('touchmove', stopSpringScrollHandler)
+    },
 
     onUpdate(latest) {
       if (latest <= 0) {
@@ -19,6 +28,11 @@ export const springScrollTo = (y: number) => {
       }
       window.scrollTo(0, latest)
     },
+  })
+
+  animation.then(() => {
+    window.removeEventListener('wheel', stopSpringScrollHandler)
+    window.removeEventListener('touchmove', stopSpringScrollHandler)
   })
   return animation
 }

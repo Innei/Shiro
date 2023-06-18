@@ -6,7 +6,7 @@ import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { FC, PropsWithChildren } from 'react'
 
 import { FixedZoomedImage } from '../image'
-import styles from './index.module.css'
+import styles from './markdown.module.css'
 import { CommentAtRule } from './parsers/comment-at'
 import { ContainerRule } from './parsers/container'
 import { InsertRule } from './parsers/ins'
