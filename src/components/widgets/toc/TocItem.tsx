@@ -4,7 +4,8 @@ import type { FC, MouseEvent } from 'react'
 
 import { useArticleElement } from '~/providers/article/article-element-provider'
 import { clsxm } from '~/utils/helper'
-import { springScrollToElement } from '~/utils/spring'
+
+import { escapeSelector } from './escapeSelector'
 
 const styles = tv({
   base: clsxm(
@@ -30,7 +31,7 @@ export const TocItem: FC<{
   depth: number
   active: boolean
   rootDepth: number
-  onClick?: (i: number) => void
+  onClick?: (i: number, $el: HTMLElement | null, anchorId: string) => void
   index: number
   // containerRef?: RefObject<HTMLDivElement>
 }> = memo((props) => {
@@ -71,14 +72,11 @@ export const TocItem: FC<{
       onClick={useCallback(
         (e: MouseEvent) => {
           e.preventDefault()
-          onClick?.(index)
           const $el = $article?.querySelector(
-            `#${anchorId}`,
+            `#${escapeSelector(anchorId)}`,
           ) as any as HTMLElement
 
-          if ($el) {
-            springScrollToElement($el, -100)
-          }
+          onClick?.(index, $el, anchorId)
         },
         [onClick, index, $article, anchorId],
       )}

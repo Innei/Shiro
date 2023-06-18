@@ -25,6 +25,7 @@ import { MarkdownImageRecordProvider } from '~/providers/article/markdown-image-
 import { useSetCurrentNoteId } from '~/providers/note/current-note-id-provider'
 import { NoteLayoutRightSidePortal } from '~/providers/note/right-side-provider'
 import { parseDate } from '~/utils/datetime'
+import { springScrollToTop } from '~/utils/scroller'
 
 import styles from './page.module.css'
 
@@ -162,5 +163,9 @@ const Markdownrenderers: { [name: string]: Partial<MarkdownToJSX.Rule> } = {
 
 export default PageDataHolder(PageImpl, () => {
   const { id } = useParams() as { id: string }
+
+  useEffect(() => {
+    springScrollToTop()
+  }, [id])
   return useNoteByNidQuery(id)
 })

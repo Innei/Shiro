@@ -1,11 +1,13 @@
-import { memo, useEffect, useMemo, useRef, useState } from 'react'
+import { memo, useCallback, useEffect, useMemo, useRef } from 'react'
 import { motion } from 'framer-motion'
+import { atom, useAtom } from 'jotai'
 import type { ITocItem } from './TocItem'
 
 import { RightToLeftTransitionView } from '~/components/ui/transition/RightToLeftTransitionView'
 import { throttle } from '~/lib/_'
 import { useArticleElement } from '~/providers/article/article-element-provider'
 import { clsxm } from '~/utils/helper'
+import { springScrollToElement } from '~/utils/scroller'
 
 import { TocItem } from './TocItem'
 
@@ -28,6 +30,7 @@ export const Toc: Component<TocProps> = ({ useAsWeight, className }) => {
       ...$article.querySelectorAll('h1,h2,h3,h4,h5,h6'),
     ] as HTMLHeadingElement[]
   }, [$article])
+
   const toc: ITocItem[] = useMemo(() => {
     return Array.from($headings).map((el, idx) => {
       const depth = +el.tagName.slice(1)
@@ -76,8 +79,18 @@ export const Toc: Component<TocProps> = ({ useAsWeight, className }) => {
     [toc],
   )
 
-  const activeId = useActiveId($headings)
+  const [activeId, setActiveId] = useActiveId($headings)
 
+  const handleScrollTo = useCallback(
+    (i: number, $el: HTMLElement | null, anchorId: string) => {
+      if ($el) {
+        springScrollToElement($el, -100).then(() => {
+          setActiveId(anchorId)
+        })
+      }
+    },
+    [],
+  )
   return (
     <aside className={clsxm('st-toc z-[3]', 'relative font-sans', className)}>
       <ul
@@ -92,6 +105,7 @@ export const Toc: Component<TocProps> = ({ useAsWeight, className }) => {
               isActive={heading.anchorId === activeId}
               key={heading.title}
               rootDepth={rootDepth}
+              onClick={handleScrollTo}
             />
           )
         })}
@@ -104,7 +118,7 @@ const MemoedItem = memo<{
   isActive: boolean
   heading: ITocItem
   rootDepth: number
-  onClick?: (i: number) => void
+  onClick?: (i: number, $el: HTMLElement | null, anchorId: string) => void
   // containerRef: any
 }>((props) => {
   const {
@@ -151,8 +165,10 @@ const MemoedItem = memo<{
 
 MemoedItem.displayName = 'MemoedItem'
 
+const tocActiveIdAtom = atom<string | null>(null)
+
 function useActiveId($headings: HTMLHeadingElement[]) {
-  const [activeId, setActiveId] = useState<string | null>()
+  const [activeId, setActiveId] = useAtom(tocActiveIdAtom)
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -177,5 +193,6 @@ function useActiveId($headings: HTMLHeadingElement[]) {
       observer.disconnect()
     }
   }, [$headings])
-  return activeId
+
+  return [activeId, setActiveId] as const
 }

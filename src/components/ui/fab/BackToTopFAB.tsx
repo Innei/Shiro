@@ -2,7 +2,7 @@
 
 import { useViewport } from '~/atoms'
 import { usePageScrollLocationSelector } from '~/providers/root/page-scroll-info-provider'
-import { springScrollToTop } from '~/utils/spring'
+import { springScrollToTop } from '~/utils/scroller'
 
 import { FABBase } from './FABContainer'
 

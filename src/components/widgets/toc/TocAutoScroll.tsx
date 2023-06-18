@@ -2,6 +2,8 @@ import { useEffect } from 'react'
 
 import { useArticleElement } from '~/providers/article/article-element-provider'
 
+import { escapeSelector } from './escapeSelector'
+
 export const TocAutoScroll: Component = () => {
   const articleElement = useArticleElement()
 
@@ -21,8 +23,4 @@ export const TocAutoScroll: Component = () => {
   }, [])
 
   return null
-}
-
-function escapeSelector(selector: string) {
-  return selector.replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '\\$&')
 }
