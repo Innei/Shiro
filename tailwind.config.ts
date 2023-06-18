@@ -293,6 +293,10 @@ function addShortcutPlugin({ addUtilities }: PluginAPI) {
       '-webkit-transform': 'translate3d(0, 0, 0)',
       '-moz-transform': 'translate3d(0, 0, 0)',
     },
+    '.center': {
+      'align-items': 'center',
+      'justify-content': 'center',
+    },
   }
   addUtilities(styles)
 }

@@ -11,11 +11,15 @@ import { springScrollToElement } from '~/utils/scroller'
 
 import { TocItem } from './TocItem'
 
-export type TocProps = {
-  useAsWeight?: boolean
+export type TocAsideProps = {
+  treeClassName?: string
 }
 
-export const Toc: Component<TocProps> = ({ useAsWeight, className }) => {
+export const TocAside: Component<TocAsideProps> = ({
+  className,
+  children,
+  treeClassName,
+}) => {
   const containerRef = useRef<HTMLUListElement>(null)
   const $article = useArticleElement()
 
@@ -48,9 +52,6 @@ export const Toc: Component<TocProps> = ({ useAsWeight, className }) => {
   }, [$headings])
 
   useEffect(() => {
-    if (useAsWeight) {
-      return
-    }
     const setMaxWidth = throttle(() => {
       if (containerRef.current) {
         containerRef.current.style.maxWidth = `${
@@ -66,7 +67,7 @@ export const Toc: Component<TocProps> = ({ useAsWeight, className }) => {
     return () => {
       window.removeEventListener('resize', setMaxWidth)
     }
-  }, [useAsWeight])
+  }, [])
 
   const rootDepth = useMemo(
     () =>
@@ -81,6 +82,37 @@ export const Toc: Component<TocProps> = ({ useAsWeight, className }) => {
 
   const [activeId, setActiveId] = useActiveId($headings)
 
+  return (
+    <aside className={clsxm('st-toc z-[3]', 'relative font-sans', className)}>
+      <TocTree
+        toc={toc}
+        activeId={activeId}
+        setActiveId={setActiveId}
+        rootDepth={rootDepth}
+        containerRef={containerRef}
+        className={clsxm('absolute max-h-[75vh]', treeClassName)}
+      >
+        {children}
+      </TocTree>
+    </aside>
+  )
+}
+
+const TocTree: Component<{
+  toc: ITocItem[]
+  activeId: string | null
+  setActiveId: (id: string | null) => void
+  rootDepth: number
+  containerRef: React.MutableRefObject<HTMLUListElement | null>
+}> = ({
+  toc,
+  activeId,
+  setActiveId,
+  rootDepth,
+  containerRef,
+  className,
+  children,
+}) => {
   const handleScrollTo = useCallback(
     (i: number, $el: HTMLElement | null, anchorId: string) => {
       if ($el) {
@@ -92,25 +124,27 @@ export const Toc: Component<TocProps> = ({ useAsWeight, className }) => {
     [],
   )
   return (
-    <aside className={clsxm('st-toc z-[3]', 'relative font-sans', className)}>
-      <ul
-        className="absolute max-h-[75vh] overflow-y-auto px-2 font-medium scrollbar-none"
-        key={`${toc.map((i) => i.title).join('')}`}
-        ref={containerRef}
-      >
-        {toc?.map((heading) => {
-          return (
-            <MemoedItem
-              heading={heading}
-              isActive={heading.anchorId === activeId}
-              key={heading.title}
-              rootDepth={rootDepth}
-              onClick={handleScrollTo}
-            />
-          )
-        })}
-      </ul>
-    </aside>
+    <ul
+      className={clsxm(
+        'overflow-y-auto px-2 font-medium scrollbar-none',
+        className,
+      )}
+      key={`${toc.map((i) => i.title).join('')}`}
+      ref={containerRef}
+    >
+      {toc?.map((heading) => {
+        return (
+          <MemoedItem
+            heading={heading}
+            isActive={heading.anchorId === activeId}
+            key={heading.title}
+            rootDepth={rootDepth}
+            onClick={handleScrollTo}
+          />
+        )
+      })}
+      {children}
+    </ul>
   )
 }
 

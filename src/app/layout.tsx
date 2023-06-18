@@ -1,6 +1,7 @@
 import '../styles/index.css'
 
 import { dehydrate } from '@tanstack/react-query'
+import { ToastContainer } from 'react-toastify'
 
 import { ClerkProvider } from '@clerk/nextjs'
 
@@ -90,6 +91,7 @@ export default async function RootLayout(props: Props) {
               <Root>{children}</Root>
             </Hydrate>
           </Providers>
+          <ToastContainer />
         </body>
       </html>
     </ClerkProvider>

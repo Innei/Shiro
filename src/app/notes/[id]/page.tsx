@@ -18,7 +18,7 @@ import { FloatPopover } from '~/components/ui/float-popover'
 import { Loading } from '~/components/ui/loading'
 import { Markdown } from '~/components/ui/markdown'
 import { NoteTopic } from '~/components/widgets/note/NoteTopic'
-import { Toc, TocAutoScroll } from '~/components/widgets/toc'
+import { TocAside, TocAutoScroll } from '~/components/widgets/toc'
 import { XLogInfoForNote, XLogSummaryForNote } from '~/components/widgets/xlog'
 import { useBeforeMounted } from '~/hooks/common/use-before-mounted'
 import { useNoteByNidQuery, useNoteData } from '~/hooks/data/use-note'
@@ -30,6 +30,7 @@ import { NoteLayoutRightSidePortal } from '~/providers/note/right-side-provider'
 import { parseDate } from '~/utils/datetime'
 import { springScrollToTop } from '~/utils/scroller'
 
+import { NoteActionAside } from '../../../components/widgets/note/NoteActionAside'
 import styles from './page.module.css'
 
 const noopArr = [] as Image[]
@@ -96,7 +97,12 @@ const PageImpl = () => {
           </MarkdownImageRecordProvider>
 
           <NoteLayoutRightSidePortal>
-            <Toc className="sticky top-[120px] ml-4 mt-[120px]" />
+            <TocAside
+              className="sticky top-[120px] ml-4 mt-[120px]"
+              treeClassName="max-h-[calc(100vh-6rem-4.5rem-300px)] h-[calc(100vh-6rem-4.5rem-300px)]"
+            >
+              <NoteActionAside />
+            </TocAside>
             <TocAutoScroll />
           </NoteLayoutRightSidePortal>
         </ArticleElementProvider>
