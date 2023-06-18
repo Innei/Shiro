@@ -91,9 +91,8 @@ export const TocAside: Component<TocAsideProps> = ({
         rootDepth={rootDepth}
         containerRef={containerRef}
         className={clsxm('absolute max-h-[75vh]', treeClassName)}
-      >
-        {children}
-      </TocTree>
+      />
+      {children}
     </aside>
   )
 }
@@ -104,15 +103,7 @@ const TocTree: Component<{
   setActiveId: (id: string | null) => void
   rootDepth: number
   containerRef: React.MutableRefObject<HTMLUListElement | null>
-}> = ({
-  toc,
-  activeId,
-  setActiveId,
-  rootDepth,
-  containerRef,
-  className,
-  children,
-}) => {
+}> = ({ toc, activeId, setActiveId, rootDepth, containerRef, className }) => {
   const handleScrollTo = useCallback(
     (i: number, $el: HTMLElement | null, anchorId: string) => {
       if ($el) {
@@ -143,7 +134,6 @@ const TocTree: Component<{
           />
         )
       })}
-      {children}
     </ul>
   )
 }

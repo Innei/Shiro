@@ -13,11 +13,17 @@ import { toast } from '~/lib/toast'
 import { urlBuilder } from '~/lib/url-builder'
 import { useAggregationData } from '~/providers/root/aggregation-data-provider'
 import { queries } from '~/queries/definition'
+import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
 
-export const NoteActionAside = () => {
+export const NoteActionAside: Component = ({ className }) => {
   return (
-    <div className="absolute bottom-0 max-h-[300px] flex-col space-y-4">
+    <div
+      className={clsxm(
+        'absolute bottom-0 max-h-[300px] flex-col space-y-4',
+        className,
+      )}
+    >
       <LikeButton />
       <ShareButton />
     </div>

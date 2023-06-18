@@ -5,6 +5,51 @@
       border-bottom: 1px solid #00b8bb41;
     }
 
+    blockquote {
+      & {
+        .paragraph > span.indent {
+          margin-left: 0 !important;
+        }
+
+        .paragraph:first-child::first-letter {
+          float: none;
+          font-size: 1em;
+          margin: 0;
+        }
+
+        .paragraph,
+        blockquote > ph {
+          padding: 10px 0;
+          margin: 0;
+        }
+      }
+
+      margin-left: calc(-3em + 2px);
+      margin-right: calc(-3em + 2px);
+      border: none;
+
+      line-height: 1.8;
+      padding: 1em 1em 1em 2em;
+      outline: none !important;
+      background: #f5fafd;
+      font-style: normal;
+
+      :global(html[data-theme='dark']) & {
+        background: theme(colors.base-100);
+      }
+
+      & span::first-letter {
+        font-size: 1em;
+        float: none;
+      }
+
+      @media screen and (max-width: 599px) {
+        margin-left: -1.25em;
+        margin-right: -1.25em;
+        padding: 1em 3em;
+      }
+    }
+
     .paragraph:not(:nth-child(1)) > span.indent {
       &:nth-child(1) {
         margin-left: 2rem;

@@ -25,7 +25,7 @@ import { useNoteByNidQuery, useNoteData } from '~/hooks/data/use-note'
 import { mood2icon, weather2icon } from '~/lib/meta-icon'
 import { ArticleElementProvider } from '~/providers/article/article-element-provider'
 import { MarkdownImageRecordProvider } from '~/providers/article/markdown-image-record-provider'
-import { useSetCurrentNoteId } from '~/providers/note/current-note-id-provider'
+import { CurrentNoteIdProvider, useSetCurrentNoteId } from '~/providers/note/current-note-id-provider'
 import { NoteLayoutRightSidePortal } from '~/providers/note/right-side-provider'
 import { parseDate } from '~/utils/datetime'
 import { springScrollToTop } from '~/utils/scroller'
@@ -70,7 +70,7 @@ const PageImpl = () => {
   }`
 
   return (
-    <>
+    <CurrentNoteIdProvider initialNoteId={id}>
       <article
         className={clsx('prose', styles['with-indent'], styles['with-serif'])}
       >
@@ -99,9 +99,9 @@ const PageImpl = () => {
           <NoteLayoutRightSidePortal>
             <TocAside
               className="sticky top-[120px] ml-4 mt-[120px]"
-              treeClassName="max-h-[calc(100vh-6rem-4.5rem-300px)] h-[calc(100vh-6rem-4.5rem-300px)]"
+              treeClassName="max-h-[calc(100vh-6rem-4.5rem-300px)] h-[calc(100vh-6rem-4.5rem-300px)] min-h-[120px] relative"
             >
-              <NoteActionAside />
+              <NoteActionAside className="translate-y-full" />
             </TocAside>
             <TocAutoScroll />
           </NoteLayoutRightSidePortal>
@@ -109,7 +109,7 @@ const PageImpl = () => {
       </article>
       {!!note.topic && <NoteTopic topic={note.topic} />}
       <XLogInfoForNote />
-    </>
+    </CurrentNoteIdProvider>
   )
 }
 

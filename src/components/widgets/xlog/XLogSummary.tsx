@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import type { FC, SVGProps } from 'react'
 
 import { AutoResizeHeight } from '~/components/common/AutoResizeHeight'
+import { useIsClient } from '~/hooks/common/use-is-client'
 import { useNoteData } from '~/hooks/data/use-note'
 import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
@@ -29,6 +30,11 @@ const XLogSummary: FC<{
       cacheTime: 10000,
     },
   )
+
+  const isClient = useIsClient()
+  if (!isClient) {
+    return null
+  }
 
   if (!cid) {
     return null
