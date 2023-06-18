@@ -158,5 +158,5 @@ const MarkdownImage = (props: any) => {
     ...props,
   }
   nextProps.alt = props.alt?.replace(/^[¡!]/, '')
-  return <FixedZoomedImage {...props} />
+  return <FixedZoomedImage {...nextProps} />
 }

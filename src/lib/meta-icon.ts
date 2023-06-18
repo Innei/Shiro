@@ -3,6 +3,7 @@ import type { FC } from 'react'
 
 import { PhSunBold } from '~/components/icons/appearance'
 import {
+  EmojiSmile,
   FaSolidAngry,
   FaSolidFlushed,
   FaSolidFrownOpen,
@@ -11,7 +12,6 @@ import {
   FaSolidMeh,
   FaSolidSadCry,
   FaSolidSadTear,
-  FaSolidSmile,
   FaSolidTired,
 } from '~/components/icons/emoji'
 import {
@@ -36,7 +36,7 @@ export const weather2icon = (weather: string) => {
 
 export const mood2icon = (mood: string) => {
   const map: Record<string, FC> = {
-    开心: FaSolidSmile,
+    开心: EmojiSmile,
     伤心: FaSolidSadTear,
     大哭: FaSolidSadCry,
     生气: FaSolidAngry,
@@ -50,5 +50,5 @@ export const mood2icon = (mood: string) => {
     绝望: FaSolidFrownOpen,
     焦虑: FaSolidFlushed,
   }
-  return React.createElement(map[mood] || FaSolidSmile)
+  return React.createElement(map[mood] || EmojiSmile)
 }

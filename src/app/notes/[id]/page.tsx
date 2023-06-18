@@ -7,6 +7,7 @@ import dayjs from 'dayjs'
 import { useParams } from 'next/navigation'
 import type { Image } from '@mx-space/api-client'
 import type { MarkdownToJSX } from '~/components/ui/markdown'
+import type { ReactNode } from 'react'
 
 import { ClientOnly } from '~/components/common/ClientOnly'
 import { PageDataHolder } from '~/components/common/PageHolder'
@@ -74,8 +75,6 @@ const PageImpl = () => {
         <span className="inline-flex items-center text-[13px] text-neutral-content/60">
           <FloatPopover TriggerComponent={NoteDateMeta}>{tips}</FloatPopover>
 
-          <DividerVertical className="!mx-2 scale-y-50" />
-
           <ClientOnly>
             <NoteMetaBar />
           </ClientOnly>
@@ -111,26 +110,43 @@ const NoteMetaBar = () => {
   const note = useNoteData()
   if (!note) return null
 
-  return (
-    <>
-      {note.weather && (
-        <span className="inline-flex items-center space-x-1">
-          {weather2icon(note.weather)}
-          <span className="font-medium">{note.weather}</span>
-          <DividerVertical className="!mx-2 scale-y-50" />
-        </span>
-      )}
+  const children = [] as ReactNode[]
+  if (note.weather || !note.mood) {
+    children.push(<DividerVertical className="!mx-2 scale-y-50" />)
+  }
 
-      {note.mood && (
-        <span className="inline-flex items-center space-x-1">
-          {mood2icon(note.mood)}
-          <span className="font-medium">{note.mood}</span>
-          {/* <DividerVertical className="!mx-2 scale-y-50" /> */}
-        </span>
-      )}
-    </>
-  )
+  if (note.weather) {
+    children.push(
+      <span className="inline-flex items-center space-x-1">
+        {weather2icon(note.weather)}
+        <span className="font-medium">{note.weather}</span>
+        <DividerVertical className="!mx-2 scale-y-50" />
+      </span>,
+    )
+  }
+
+  if (note.mood) {
+    children.push(
+      <span className="inline-flex items-center space-x-1">
+        {mood2icon(note.mood)}
+        <span className="font-medium">{note.mood}</span>
+      </span>,
+    )
+  }
+
+  if (note.count.read > 0) {
+    children.push(
+      <DividerVertical className="!mx-2 scale-y-50" />,
+      <span className="inline-flex items-center space-x-1">
+        <i className="icon-[mingcute--book-6-line]" />
+        <span className="font-medium">{note.count.read}</span>
+      </span>,
+    )
+  }
+
+  return children
 }
+
 const NoteDateMeta = () => {
   const note = useNoteData()
   if (!note) return null
