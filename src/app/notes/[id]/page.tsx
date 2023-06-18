@@ -112,12 +112,12 @@ const NoteMetaBar = () => {
 
   const children = [] as ReactNode[]
   if (note.weather || !note.mood) {
-    children.push(<DividerVertical className="!mx-2 scale-y-50" />)
+    children.push(<DividerVertical className="!mx-2 scale-y-50" key="d0" />)
   }
 
   if (note.weather) {
     children.push(
-      <span className="inline-flex items-center space-x-1">
+      <span className="inline-flex items-center space-x-1" key="weather">
         {weather2icon(note.weather)}
         <span className="font-medium">{note.weather}</span>
         <DividerVertical className="!mx-2 scale-y-50" />
@@ -127,7 +127,7 @@ const NoteMetaBar = () => {
 
   if (note.mood) {
     children.push(
-      <span className="inline-flex items-center space-x-1">
+      <span className="inline-flex items-center space-x-1" key="mood">
         {mood2icon(note.mood)}
         <span className="font-medium">{note.mood}</span>
       </span>,
@@ -136,8 +136,8 @@ const NoteMetaBar = () => {
 
   if (note.count.read > 0) {
     children.push(
-      <DividerVertical className="!mx-2 scale-y-50" />,
-      <span className="inline-flex items-center space-x-1">
+      <DividerVertical className="!mx-2 scale-y-50" key="d1" />,
+      <span className="inline-flex items-center space-x-1" key="readcount">
         <i className="icon-[mingcute--book-6-line]" />
         <span className="font-medium">{note.count.read}</span>
       </span>,

@@ -3,16 +3,16 @@ import type { FC } from 'react'
 
 import { PhSunBold } from '~/components/icons/appearance'
 import {
+  EmojiAngry,
+  EmojiFlushed,
+  EmojiFrownOpen,
+  EmojiGrimace,
+  EmojiGrinSquintTears,
+  EmojiMeh,
+  EmojiSadCry,
+  EmojiSadTear,
   EmojiSmile,
-  FaSolidAngry,
-  FaSolidFlushed,
-  FaSolidFrownOpen,
-  FaSolidGrimace,
-  FaSolidGrinSquintTears,
-  FaSolidMeh,
-  FaSolidSadCry,
-  FaSolidSadTear,
-  FaSolidTired,
+  EmojiTired,
 } from '~/components/icons/emoji'
 import {
   BiCloudLightningRainFill,
@@ -37,18 +37,18 @@ export const weather2icon = (weather: string) => {
 export const mood2icon = (mood: string) => {
   const map: Record<string, FC> = {
     开心: EmojiSmile,
-    伤心: FaSolidSadTear,
-    大哭: FaSolidSadCry,
-    生气: FaSolidAngry,
-    痛苦: FaSolidTired,
-    悲哀: FaSolidMeh,
-    不快: FaSolidMeh,
-    激动: FaSolidGrinSquintTears,
-    担心: FaSolidFrownOpen,
-    可怕: FaSolidGrimace,
-    可恶: FaSolidAngry,
-    绝望: FaSolidFrownOpen,
-    焦虑: FaSolidFlushed,
+    伤心: EmojiSadTear,
+    大哭: EmojiSadCry,
+    生气: EmojiAngry,
+    痛苦: EmojiTired,
+    悲哀: EmojiMeh,
+    不快: EmojiMeh,
+    激动: EmojiGrinSquintTears,
+    担心: EmojiFrownOpen,
+    可怕: EmojiGrimace,
+    可恶: EmojiAngry,
+    绝望: EmojiFrownOpen,
+    焦虑: EmojiFlushed,
   }
   return React.createElement(map[mood] || EmojiSmile)
 }

@@ -16,7 +16,7 @@ export function EmojiSmile() {
   )
 }
 
-export function FaSolidSadCry() {
+export function EmojiSadCry() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +32,7 @@ export function FaSolidSadCry() {
   )
 }
 
-export function FaSolidSadTear() {
+export function EmojiSadTear() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +48,7 @@ export function FaSolidSadTear() {
   )
 }
 
-export function FaSolidAngry() {
+export function EmojiAngry() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +64,7 @@ export function FaSolidAngry() {
   )
 }
 
-export function FaSolidTired() {
+export function EmojiTired() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@ export function FaSolidTired() {
   )
 }
 
-export function FaSolidMeh() {
+export function EmojiMeh() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +102,7 @@ export function FaSolidMeh() {
   )
 }
 
-export function FaSolidGrinSquintTears() {
+export function EmojiGrinSquintTears() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +118,7 @@ export function FaSolidGrinSquintTears() {
   )
 }
 
-export function FaSolidFrownOpen() {
+export function EmojiFrownOpen() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -134,7 +134,7 @@ export function FaSolidFrownOpen() {
   )
 }
 
-export function FaSolidGrimace() {
+export function EmojiGrimace() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -150,7 +150,7 @@ export function FaSolidGrimace() {
   )
 }
 
-export function FaSolidFlushed() {
+export function EmojiFlushed() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
