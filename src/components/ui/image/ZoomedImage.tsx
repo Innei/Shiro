@@ -1,9 +1,11 @@
 'use client'
 
+import { isServer } from '@tanstack/react-query'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { motion, useAnimationControls } from 'framer-motion'
 import mediumZoom from 'medium-zoom'
 import { tv } from 'tailwind-variants'
+import type { Zoom } from 'medium-zoom'
 import type { FC, ReactNode } from 'react'
 
 import { LazyLoad } from '~/components/common/Lazyload'
@@ -44,6 +46,8 @@ const styles = tv({
   },
 })
 
+let zoomer: Zoom
+
 export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
   alt,
   src,
@@ -52,6 +56,17 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
 
   placeholder,
 }) => {
+  // @ts-ignore
+  const [zoomer_] = useState(() => {
+    if (isServer) return null
+    if (zoomer) return zoomer
+    const zoom = mediumZoom(undefined, {
+      background: 'var(--sbg)',
+    })
+    zoomer = zoom
+    return zoom
+  }) as [Zoom]
+
   const figcaption = title || alt
   const [imageLoadStatus, setImageLoadStatus] = useState(
     ImageLoadStatus.Loading,
@@ -70,21 +85,22 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
 
   const imageRef = useRef<HTMLImageElement>(null)
   useEffect(() => {
+    if (imageLoadStatus !== ImageLoadStatus.Loaded) {
+      return
+    }
     if (!zoom) {
       return
     }
     const $image = imageRef.current
 
     if ($image) {
-      const zoom = mediumZoom($image, {
-        background: 'var(--sbg)',
-      })
+      zoomer_.attach($image)
 
       return () => {
-        zoom.detach(zoom.getImages())
+        zoomer_.detach($image)
       }
     }
-  }, [zoom])
+  }, [zoom, zoomer_, imageLoadStatus])
 
   return (
     <LazyLoad placeholder={placeholder}>
