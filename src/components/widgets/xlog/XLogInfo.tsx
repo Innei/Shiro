@@ -94,7 +94,10 @@ const XLogInfoBase: FC<{
       <div
         role="button"
         tabIndex={0}
-        className="-mx-2 flex w-[100%+0.5rem] items-center justify-between rounded-lg p-2 text-left transition-colors duration-300 hover:bg-zinc-100 dark:hover:bg-slate-800 md:rounded-xl"
+        className={clsx(
+          '-mx-2 flex w-[100%+0.5rem] items-center justify-between rounded-lg p-2 text-left transition-colors duration-300 md:rounded-xl',
+          'hover:bg-zinc-100 dark:hover:bg-neutral-800',
+        )}
         onClick={() => {
           setCollapse((c) => !c)
         }}
