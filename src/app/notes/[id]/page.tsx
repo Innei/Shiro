@@ -19,6 +19,7 @@ import { Loading } from '~/components/ui/loading'
 import { Markdown } from '~/components/ui/markdown'
 import { NoteFooterNavigationBarForMobile } from '~/components/widgets/note/NoteFooterNavigation'
 import { NoteTopic } from '~/components/widgets/note/NoteTopic'
+import { SubscribeBell } from '~/components/widgets/subscribe/SubscribeBell'
 import { TocAside, TocAutoScroll } from '~/components/widgets/toc'
 import { XLogInfoForNote, XLogSummaryForNote } from '~/components/widgets/xlog'
 import { useNoteByNidQuery, useNoteData } from '~/hooks/data/use-note'
@@ -120,6 +121,7 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
         </NoteHideIfSecret>
       </article>
 
+      <SubscribeBell defaultType="note_c" />
       <NoteTopic topic={note.topic} />
       <XLogInfoForNote />
       <NoteFooterNavigationBarForMobile id={note.id} />

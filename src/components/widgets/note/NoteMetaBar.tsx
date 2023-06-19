@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client'
 
+import { cloneElement } from 'react'
 import type { ReactNode } from 'react'
 
 import { CreativeCommonsIcon } from '~/components/icons/cc'
@@ -10,6 +11,8 @@ import { useNoteData } from '~/hooks/data/use-note'
 import { mood2icon, weather2icon } from '~/lib/meta-icon'
 
 const dividerVertical = <DividerVertical className="!mx-2 scale-y-50" />
+const dividerVerticalWithKey = () =>
+  cloneElement(dividerVertical, { key: `divider-${Math.random()}` })
 export const NoteMetaBar = () => {
   const note = useNoteData()
   if (!note) return null
@@ -18,7 +21,7 @@ export const NoteMetaBar = () => {
 
   if (note.weather) {
     children.push(
-      dividerVertical,
+      dividerVerticalWithKey(),
       <span className="inline-flex items-center space-x-1" key="weather">
         {weather2icon(note.weather)}
         <span className="font-medium">{note.weather}</span>
@@ -28,7 +31,7 @@ export const NoteMetaBar = () => {
 
   if (note.mood) {
     children.push(
-      dividerVertical,
+      dividerVerticalWithKey(),
       <span className="inline-flex items-center space-x-1" key="mood">
         {mood2icon(note.mood)}
         <span className="font-medium">{note.mood}</span>
@@ -38,7 +41,7 @@ export const NoteMetaBar = () => {
 
   if (note.count.read > 0) {
     children.push(
-      dividerVertical,
+      dividerVerticalWithKey(),
       <span className="inline-flex items-center space-x-1" key="readcount">
         <i className="icon-[mingcute--book-6-line]" />
         <span className="font-medium">{note.count.read}</span>
@@ -48,7 +51,7 @@ export const NoteMetaBar = () => {
 
   if (note.count.like > 0) {
     children.push(
-      dividerVertical,
+      dividerVerticalWithKey(),
       <span className="inline-flex items-center space-x-1" key="linkcount">
         <i className="icon-[mingcute--heart-line]" />
         <span className="font-medium">{note.count.like}</span>
@@ -57,7 +60,7 @@ export const NoteMetaBar = () => {
   }
 
   children.push(
-    dividerVertical,
+    dividerVerticalWithKey(),
     <span className="inline-flex items-center" key="cc">
       <a
         href="https://creativecommons.org/licenses/by-nc-nd/4.0/"

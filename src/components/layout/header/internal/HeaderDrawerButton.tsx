@@ -59,7 +59,7 @@ export const HeaderDrawerButton = () => {
                   >
                     <Dialog.DialogClose asChild>
                       <MotionButtonBase
-                        className="z-9 absolute right-0 top-0 p-8"
+                        className="absolute right-0 top-0 z-[9] p-8"
                         onClick={() => {
                           setOpen(false)
                         }}

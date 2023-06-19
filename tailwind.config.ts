@@ -222,7 +222,7 @@ export default resolveConfig({
           // 'secondary-content': UIKitColors.label.secondary.light,
           accent: '#39C5BB',
           // 'accent-focus': '#25CCA0',
-          // 'accent-content': UIKitColors.label.primary.light,
+          'accent-content': '#fafafa',
 
           neutral: UIKitColors.grey3.light,
 
