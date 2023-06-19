@@ -1,6 +1,5 @@
 'use client'
 
-import { memo } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import type { FC } from 'react'
@@ -16,7 +15,7 @@ import { useNoteByNidQuery } from '~/hooks/data/use-note'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { springScrollToTop } from '~/utils/scroller'
 
-export const NoteFooterNavigation: FC<{ id: string }> = memo(({ id }) => {
+export const NoteFooterNavigation: FC<{ id: string }> = ({ id }) => {
   const { data } = useNoteByNidQuery(id)
 
   const router = useRouter()
@@ -85,7 +84,7 @@ export const NoteFooterNavigation: FC<{ id: string }> = memo(({ id }) => {
       )}
     </>
   )
-})
+}
 
 export const NoteFooterNavigationBarForMobile: typeof NoteFooterNavigation = (
   props,

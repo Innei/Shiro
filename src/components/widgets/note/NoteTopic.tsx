@@ -19,8 +19,9 @@ const textToBigCharOrWord = (name: string | undefined) => {
   return bigChar
 }
 
-export const NoteTopic: FC<{ topic: TopicModel }> = (props) => {
+export const NoteTopic: FC<{ topic?: TopicModel }> = (props) => {
   const { topic } = props
+  if (!topic) return null
   const { icon, name, introduce } = topic
 
   return (

@@ -9,6 +9,13 @@ import { useIsClient } from '~/hooks/common/use-is-client'
 import { useConfig } from '~/hooks/data/use-config'
 import { clsxm } from '~/utils/helper'
 
+// TODO this component only use once in current page.
+const positionAtom = atom({
+  x: 0,
+  y: 0,
+})
+const overlayShowAtom = atom(false)
+
 export const DonateButton = () => {
   const isClient = useIsClient()
   const {
@@ -52,12 +59,6 @@ export const DonateButton = () => {
     </>
   )
 }
-
-const positionAtom = atom({
-  x: 0,
-  y: 0,
-})
-const overlayShowAtom = atom(false)
 
 const DonateButtonBelow = () => {
   const setPosition = useSetAtom(positionAtom)

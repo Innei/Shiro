@@ -57,7 +57,7 @@ export const TocAside: Component<TocAsideProps> = ({
         containerRef.current.style.maxWidth = `${
           document.documentElement.getBoundingClientRect().width -
           containerRef.current.getBoundingClientRect().x -
-          60
+          30
         }px`
       }
     }, 14)

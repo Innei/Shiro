@@ -23,7 +23,7 @@ export const NoteActionAside: Component = ({ className }) => {
   return (
     <div
       className={clsxm(
-        'absolute bottom-0 max-h-[300px] flex-col space-y-8',
+        'absolute bottom-0 left-0 max-h-[300px] flex-col space-y-8',
         className,
       )}
     >

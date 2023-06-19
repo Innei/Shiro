@@ -12,8 +12,8 @@
         }
 
         .paragraph:first-child::first-letter {
-          float: none;
-          font-size: 1em;
+          float: none !important;
+          font-size: inherit !important;
           margin: 0;
         }
 
