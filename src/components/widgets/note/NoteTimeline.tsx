@@ -15,7 +15,7 @@ import { apiClient } from '~/utils/request'
 export const NoteTimeline = () => {
   const note = useNoteData()
   const noteId = note?.id
-  // const [parent, enableAnimations] = useAutoAnimate<HTMLUListElement>()
+
   const { data: timelineData } = useQuery(
     ['notetimeline', noteId],
     async ({ queryKey }) => {

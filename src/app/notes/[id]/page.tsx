@@ -2,12 +2,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client'
 
-import { useEffect } from 'react'
+import { memo, useEffect } from 'react'
 import { Balancer } from 'react-wrap-balancer'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 import { useParams } from 'next/navigation'
-import type { Image } from '@mx-space/api-client'
+import type { Image, NoteModel } from '@mx-space/api-client'
 import type { MarkdownToJSX } from '~/components/ui/markdown'
 
 import { ClientOnly } from '~/components/common/ClientOnly'
@@ -67,14 +67,21 @@ const PageImpl = () => {
     return <Loading useDefaultLoadingText />
   }
 
+  return (
+    <CurrentNoteIdProvider initialNoteId={id}>
+      <NotePage note={note} />
+    </CurrentNoteIdProvider>
+  )
+}
+
+const NotePage = memo(({ note }: { note: NoteModel }) => {
   const tips = `创建于 ${parseDate(note.created, 'YYYY 年 M 月 D 日 dddd')}${
     note.modified
       ? `，修改于 ${parseDate(note.modified, 'YYYY 年 M 月 D 日 dddd')}`
       : ''
   }`
-
   return (
-    <CurrentNoteIdProvider initialNoteId={id}>
+    <>
       <article
         className={clsx('prose', styles['with-indent'], styles['with-serif'])}
       >
@@ -115,10 +122,10 @@ const PageImpl = () => {
 
       <NoteTopic topic={note.topic} />
       <XLogInfoForNote />
-      <NoteFooterNavigationBarForMobile id={id} />
-    </CurrentNoteIdProvider>
+      <NoteFooterNavigationBarForMobile id={note.id} />
+    </>
   )
-}
+})
 
 const NoteTitle = () => {
   const note = useNoteData()

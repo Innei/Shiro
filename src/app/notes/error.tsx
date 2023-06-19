@@ -1,5 +1,7 @@
 'use client'
 
+import { NotePasswordForm } from '~/components/widgets/note/NotePasswordForm'
+
 import { Paper } from './Paper'
 
 const isRequestError = (error: Error) => {
@@ -18,7 +20,11 @@ export default ({ error, reset }: { error: Error; reset: () => void }) => {
       return null
     }
     if (parseInt(code) === 403) {
-      return <div>Need password</div>
+      return (
+        <Paper>
+          <NotePasswordForm />
+        </Paper>
+      )
     }
     return (
       <div>

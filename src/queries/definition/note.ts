@@ -8,7 +8,7 @@ import { defineQuery } from './helper'
 
 const LATEST_KEY = 'latest'
 export const note = {
-  byNid: (nid: string) =>
+  byNid: (nid: string, password?: string) =>
     defineQuery({
       queryKey: ['note', nid],
       meta: {
@@ -27,7 +27,7 @@ export const note = {
         if (id === LATEST_KEY) {
           return (await apiClient.note.getLatest()).$serialized
         }
-        const data = await apiClient.note.getNoteById(+queryKey[1])
+        const data = await apiClient.note.getNoteById(+queryKey[1], password!)
 
         return { ...data }
       },

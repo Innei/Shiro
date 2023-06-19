@@ -1,6 +1,8 @@
+import { headers } from 'next/dist/client/components/headers'
 import type { Metadata } from 'next'
 
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
+import { REQUEST_QUERY } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
 import { getSummaryFromMd } from '~/lib/markdown'
 import { queries } from '~/queries/definition'
@@ -56,7 +58,14 @@ export default async (
   }>,
 ) => {
   attachUA()
-  await getQueryClient().prefetchQuery(queries.note.byNid(props.params.id))
+  const searchParams = new URLSearchParams(headers().get(REQUEST_QUERY) || '')
+
+  await getQueryClient().fetchQuery(
+    queries.note.byNid(
+      props.params.id,
+      searchParams.get('password') || undefined,
+    ),
+  )
   return (
     <BottomToUpTransitionView>
       <Paper>{props.children}</Paper>

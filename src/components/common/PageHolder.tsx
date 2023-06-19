@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import type { UseQueryResult } from '@tanstack/react-query'
 import type { FC } from 'react'
 
@@ -8,13 +9,15 @@ export const PageDataHolder = (
   PageImpl: FC<any>,
   useQuery: () => UseQueryResult<any>,
 ): FC => {
+  const MemoedPageImpl = memo(PageImpl)
+  MemoedPageImpl.displayName = `PageImplMemoed`
   const Component: FC = (props) => {
     const { data, isLoading } = useQuery()
 
     if (isLoading || data === null) {
       return <LoadingComponent />
     }
-    return <PageImpl {...props} />
+    return <MemoedPageImpl {...props} />
   }
   return Component
 }
