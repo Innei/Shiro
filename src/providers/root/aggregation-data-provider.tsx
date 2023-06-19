@@ -15,9 +15,12 @@ export const AggregationProvider: FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     if (!data) return
-    login()
     jotaiStore.set(aggregationDataAtom, data)
   }, [data])
+
+  useEffect(() => {
+    login()
+  }, [])
 
   return children
 }

@@ -3,10 +3,12 @@ import '../styles/index.css'
 import { dehydrate } from '@tanstack/react-query'
 import { Analytics } from '@vercel/analytics/react'
 import { ToastContainer } from 'react-toastify'
+import { headers } from 'next/dist/client/components/headers'
 
 import { ClerkProvider } from '@clerk/nextjs'
 
 import { Root } from '~/components/layout/root/Root'
+import { REQUEST_PATHNAME } from '~/constants/system'
 import { defineMetadata } from '~/lib/define-metadata'
 import { sansFont, serifFont } from '~/lib/fonts'
 import { getQueryClient } from '~/utils/query-client.server'
@@ -76,8 +78,27 @@ export default async function RootLayout(props: Props) {
   const dehydratedState = dehydrate(queryClient, {
     shouldDehydrateQuery: (query) => {
       if (query.state.error) return false
-      // TODO dehydrate by route, pass header to filter
-      return true
+      if (!query.meta) return true
+      const {
+        shouldHydration,
+        hydrationRoutePath,
+        skipHydration,
+        forceHydration,
+      } = query.meta
+
+      if (forceHydration) return true
+      if (hydrationRoutePath) {
+        const pathname = headers().get(REQUEST_PATHNAME)
+
+        if (pathname === query.meta?.hydrationRoutePath) {
+          if (!shouldHydration) return true
+          return (shouldHydration as Function)(query.state.data as any)
+        }
+      }
+
+      if (skipHydration) return false
+
+      return (shouldHydration as Function)?.(query.state.data as any) ?? false
     },
   })
 

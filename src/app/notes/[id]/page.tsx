@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Balancer } from 'react-wrap-balancer'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
@@ -9,6 +11,7 @@ import type { Image } from '@mx-space/api-client'
 import type { MarkdownToJSX } from '~/components/ui/markdown'
 import type { ReactNode } from 'react'
 
+import { useIsLogged } from '~/atoms/owner'
 import { ClientOnly } from '~/components/common/ClientOnly'
 import { PageDataHolder } from '~/components/common/PageHolder'
 import { MdiClockOutline } from '~/components/icons/clock'
@@ -20,12 +23,15 @@ import { Markdown } from '~/components/ui/markdown'
 import { NoteTopic } from '~/components/widgets/note/NoteTopic'
 import { TocAside, TocAutoScroll } from '~/components/widgets/toc'
 import { XLogInfoForNote, XLogSummaryForNote } from '~/components/widgets/xlog'
-import { useBeforeMounted } from '~/hooks/common/use-before-mounted'
 import { useNoteByNidQuery, useNoteData } from '~/hooks/data/use-note'
 import { mood2icon, weather2icon } from '~/lib/meta-icon'
+import { toast } from '~/lib/toast'
 import { ArticleElementProvider } from '~/providers/article/article-element-provider'
 import { MarkdownImageRecordProvider } from '~/providers/article/markdown-image-record-provider'
-import { CurrentNoteIdProvider, useSetCurrentNoteId } from '~/providers/note/current-note-id-provider'
+import {
+  CurrentNoteIdProvider,
+  useSetCurrentNoteId,
+} from '~/providers/note/current-note-id-provider'
 import { NoteLayoutRightSidePortal } from '~/providers/note/right-side-provider'
 import { parseDate } from '~/utils/datetime'
 import { springScrollToTop } from '~/utils/scroller'
@@ -44,9 +50,9 @@ const PageImpl = () => {
   // For example, `ComA` use `useParams()` just want to get value `id`,
   // but if router params or query changes `page` params, will cause `CompA` re - render.
   const setNoteId = useSetCurrentNoteId()
-  useBeforeMounted(() => {
+  useEffect(() => {
     setNoteId(id)
-  })
+  }, [id])
 
   const note = data?.data
   const setHeaderMetaInfo = useSetHeaderMetaInfo()
@@ -85,27 +91,28 @@ const PageImpl = () => {
           </span>
         </header>
 
-        <XLogSummaryForNote />
+        <NoteHideIfSecret>
+          <XLogSummaryForNote />
+          <ArticleElementProvider>
+            <MarkdownImageRecordProvider images={note.images || noopArr}>
+              <Markdown
+                as="main"
+                renderers={MarkdownRenderers}
+                value={note.text}
+              />
+            </MarkdownImageRecordProvider>
 
-        <ArticleElementProvider>
-          <MarkdownImageRecordProvider images={note.images || noopArr}>
-            <Markdown
-              as="main"
-              renderers={MarkdownRenderers}
-              value={note.text}
-            />
-          </MarkdownImageRecordProvider>
-
-          <NoteLayoutRightSidePortal>
-            <TocAside
-              className="sticky top-[120px] ml-4 mt-[120px]"
-              treeClassName="max-h-[calc(100vh-6rem-4.5rem-300px)] h-[calc(100vh-6rem-4.5rem-300px)] min-h-[120px] relative"
-            >
-              <NoteActionAside className="translate-y-full" />
-            </TocAside>
-            <TocAutoScroll />
-          </NoteLayoutRightSidePortal>
-        </ArticleElementProvider>
+            <NoteLayoutRightSidePortal>
+              <TocAside
+                className="sticky top-[120px] ml-4 mt-[120px]"
+                treeClassName="max-h-[calc(100vh-6rem-4.5rem-300px)] h-[calc(100vh-6rem-4.5rem-300px)] min-h-[120px] relative"
+              >
+                <NoteActionAside className="translate-y-full" />
+              </TocAside>
+              <TocAutoScroll />
+            </NoteLayoutRightSidePortal>
+          </ArticleElementProvider>
+        </NoteHideIfSecret>
       </article>
       {!!note.topic && <NoteTopic topic={note.topic} />}
       <XLogInfoForNote />
@@ -191,6 +198,66 @@ const NoteDateMeta = () => {
       </time>
     </span>
   )
+}
+
+const NoteHideIfSecret: Component = ({ children }) => {
+  const note = useNoteData()
+  const secretDate = useMemo(() => new Date(note?.secret!), [note?.secret])
+  const isSecret = note?.secret
+    ? dayjs(note?.secret).isAfter(new Date())
+    : false
+
+  const isLogged = useIsLogged()
+
+  useEffect(() => {
+    if (!note?.id) return
+    let timer: any
+    const timeout = +secretDate - +new Date()
+    // https://stackoverflow.com/questions/3468607/why-does-settimeout-break-for-large-millisecond-delay-values
+    const MAX_TIMEOUT = (2 ^ 31) - 1
+    if (isSecret && timeout && timeout < MAX_TIMEOUT) {
+      timer = setTimeout(() => {
+        toast('刷新以查看解锁的文章', 'info', { autoClose: false })
+      }, timeout)
+    }
+
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [isSecret, secretDate, note?.id])
+
+  if (!note) return null
+
+  if (isSecret) {
+    const dateFormat = note.secret
+      ? Intl.DateTimeFormat('zh-cn', {
+          hour12: false,
+          hour: 'numeric',
+          minute: 'numeric',
+          year: 'numeric',
+          day: 'numeric',
+          month: 'long',
+        }).format(new Date(note.secret))
+      : ''
+
+    if (isLogged) {
+      return (
+        <>
+          <div className="my-6 text-center">
+            <p>这是一篇非公开的文章。(将在 {dateFormat} 解锁)</p>
+            <p>现在处于登录状态，预览模式：</p>
+          </div>
+          {children}
+        </>
+      )
+    }
+    return (
+      <div className="my-6 text-center">
+        这篇文章暂时没有公开呢，将会在 {dateFormat} 解锁，再等等哦
+      </div>
+    )
+  }
+  return children
 }
 
 const MarkdownRenderers: { [name: string]: Partial<MarkdownToJSX.Rule> } = {

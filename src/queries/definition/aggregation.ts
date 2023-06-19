@@ -11,6 +11,9 @@ export const aggregation = {
       queryFn: async () =>
         apiClient.aggregate.getAggregateData().then((res) => res.$serialized),
       cacheTime: 1000 * 60 * 10,
+      meta: {
+        forceHydration: true,
+      },
       staleTime: isServer ? 1000 * 60 * 10 : undefined,
     }),
 }

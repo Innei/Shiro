@@ -43,7 +43,7 @@ const XLogSummary: FC<{
   return (
     <div
       className={clsxm(
-        `mt-4 space-y-2 rounded-xl border border-slate-100 p-4 dark:border-neutral-800`,
+        `mt-4 space-y-2 rounded-xl border border-slate-200 p-4 dark:border-neutral-800`,
         props.className,
       )}
     >
