@@ -8,7 +8,7 @@ import { headers } from 'next/dist/client/components/headers'
 import { ClerkProvider } from '@clerk/nextjs'
 
 import { Root } from '~/components/layout/root/Root'
-import { REQUEST_PATHNAME } from '~/constants/system'
+import { REQUEST_GEO, REQUEST_PATHNAME } from '~/constants/system'
 import { defineMetadata } from '~/lib/define-metadata'
 import { sansFont, serifFont } from '~/lib/fonts'
 import { getQueryClient } from '~/utils/query-client.server'
@@ -101,6 +101,7 @@ export default async function RootLayout(props: Props) {
       return (shouldHydration as Function)?.(query.state.data as any) ?? false
     },
   })
+  const geo = headers().get(REQUEST_GEO)
 
   return (
     // <ClerkProvider localization={ClerkZhCN}>
@@ -115,6 +116,7 @@ export default async function RootLayout(props: Props) {
             </Hydrate>
           </Providers>
           <ToastContainer />
+          {!!geo && <div>{geo}</div>}
         </body>
       </html>
       <Analytics />
