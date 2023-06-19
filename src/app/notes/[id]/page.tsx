@@ -88,8 +88,10 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
       >
         <header>
           <NoteTitle />
-          <span className="inline-flex items-center text-[13px] text-neutral-content/60">
-            <FloatPopover TriggerComponent={NoteDateMeta}>{tips}</FloatPopover>
+          <span className="flex flex-wrap items-center text-[13px] text-neutral-content/60">
+            <FloatPopover as="span" TriggerComponent={NoteDateMeta}>
+              {tips}
+            </FloatPopover>
 
             <ClientOnly>
               <NoteMetaBar />

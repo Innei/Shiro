@@ -13,6 +13,7 @@ import { mood2icon, weather2icon } from '~/lib/meta-icon'
 const dividerVertical = <DividerVertical className="!mx-2 scale-y-50" />
 const dividerVerticalWithKey = () =>
   cloneElement(dividerVertical, { key: `divider-${Math.random()}` })
+const sectionBlockClassName = 'flex items-center space-x-1 flex-shrink-0'
 export const NoteMetaBar = () => {
   const note = useNoteData()
   if (!note) return null
@@ -22,7 +23,7 @@ export const NoteMetaBar = () => {
   if (note.weather) {
     children.push(
       dividerVerticalWithKey(),
-      <span className="inline-flex items-center space-x-1" key="weather">
+      <span className={sectionBlockClassName} key="weather">
         {weather2icon(note.weather)}
         <span className="font-medium">{note.weather}</span>
       </span>,
@@ -32,7 +33,7 @@ export const NoteMetaBar = () => {
   if (note.mood) {
     children.push(
       dividerVerticalWithKey(),
-      <span className="inline-flex items-center space-x-1" key="mood">
+      <span className={sectionBlockClassName} key="mood">
         {mood2icon(note.mood)}
         <span className="font-medium">{note.mood}</span>
       </span>,
@@ -42,7 +43,7 @@ export const NoteMetaBar = () => {
   if (note.count.read > 0) {
     children.push(
       dividerVerticalWithKey(),
-      <span className="inline-flex items-center space-x-1" key="readcount">
+      <span className={sectionBlockClassName} key="readcount">
         <i className="icon-[mingcute--book-6-line]" />
         <span className="font-medium">{note.count.read}</span>
       </span>,
@@ -52,7 +53,7 @@ export const NoteMetaBar = () => {
   if (note.count.like > 0) {
     children.push(
       dividerVerticalWithKey(),
-      <span className="inline-flex items-center space-x-1" key="linkcount">
+      <span className={sectionBlockClassName} key="linkcount">
         <i className="icon-[mingcute--heart-line]" />
         <span className="font-medium">{note.count.like}</span>
       </span>,

@@ -9,7 +9,7 @@ import {
   REQUEST_QUERY,
 } from './constants/system'
 
-let lastGeo = ``
+const lastGeo = ``
 
 export default async function middleware(req: NextRequest) {
   const { pathname, search } = req.nextUrl
@@ -40,9 +40,7 @@ export default async function middleware(req: NextRequest) {
     const countryInfo = countries.find((x) => x.cca2 === country)
     if (countryInfo) {
       const flag = countryInfo.flag
-      requestHeaders.set(REQUEST_GEO, lastGeo)
-      lastGeo = `${country}-${city}-${flag}`
-      // getQueryClient().setQueryData(GEO_QUERY_KEY, { country, city, flag })
+      requestHeaders.set(REQUEST_GEO, `${country}-${city}-${flag}`)
     }
   }
 
