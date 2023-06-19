@@ -1,7 +1,7 @@
 'use client'
 
 import { useQueryClient } from '@tanstack/react-query'
-import { motion, useAnimationControls } from 'framer-motion'
+import { motion, useAnimationControls, useForceUpdate } from 'framer-motion'
 import { produce } from 'immer'
 import type { NoteWrappedPayload } from '@mx-space/api-client'
 
@@ -12,6 +12,7 @@ import { toast } from '~/lib/toast'
 import { urlBuilder } from '~/lib/url-builder'
 import { useAggregationData } from '~/providers/root/aggregation-data-provider'
 import { queries } from '~/queries/definition'
+import { isLikedBefore, setLikeId } from '~/utils/cookie'
 import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
 
@@ -21,7 +22,7 @@ export const NoteActionAside: Component = ({ className }) => {
   return (
     <div
       className={clsxm(
-        'absolute bottom-0 max-h-[300px] flex-col space-y-4',
+        'absolute bottom-0 max-h-[300px] flex-col space-y-8',
         className,
       )}
     >
@@ -37,10 +38,13 @@ const LikeButton = () => {
 
   const queryClient = useQueryClient()
   const control = useAnimationControls()
+  const [update] = useForceUpdate()
   if (!note) return null
   const id = note.id
   const handleLike = () => {
+    if (isLikedBefore(id)) return
     apiClient.note.likeIt(id).then(() => {
+      setLikeId(id)
       queryClient.setQueriesData(
         queries.note.byNid(note.nid.toString()),
         (old: any) => {
@@ -49,8 +53,11 @@ const LikeButton = () => {
           })
         },
       )
+      update()
     })
   }
+
+  const isLiked = isLikedBefore(id)
 
   return (
     <MotionButtonBase
@@ -82,7 +89,11 @@ const LikeButton = () => {
       }}
     >
       <motion.i
-        className="icon-[mingcute--heart-fill] text-[24px] opacity-80 duration-200 hover:text-uk-red-light hover:opacity-100"
+        className={clsxm(
+          'icon-[mingcute--heart-fill] text-[24px] opacity-80 duration-200 hover:text-uk-red-light hover:opacity-100',
+
+          isLiked && 'text-uk-red-light',
+        )}
         animate={control}
         variants={{
           tap: {
