@@ -1,12 +1,11 @@
 'use client'
 
 import { useQueryClient } from '@tanstack/react-query'
-import { motion } from 'framer-motion'
+import { motion, useAnimationControls } from 'framer-motion'
 import { produce } from 'immer'
 import type { NoteWrappedPayload } from '@mx-space/api-client'
 
 import { MotionButtonBase } from '~/components/ui/button'
-import { microReboundPreset } from '~/constants/spring'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { useNoteData } from '~/hooks/data/use-note'
 import { toast } from '~/lib/toast'
@@ -15,6 +14,8 @@ import { useAggregationData } from '~/providers/root/aggregation-data-provider'
 import { queries } from '~/queries/definition'
 import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
+
+import { DonateButton } from '../shared/DonateButton'
 
 export const NoteActionAside: Component = ({ className }) => {
   return (
@@ -26,6 +27,7 @@ export const NoteActionAside: Component = ({ className }) => {
     >
       <LikeButton />
       <ShareButton />
+      <DonateButton />
     </div>
   )
 }
@@ -34,6 +36,7 @@ const LikeButton = () => {
   const note = useNoteData()
 
   const queryClient = useQueryClient()
+  const control = useAnimationControls()
   if (!note) return null
   const id = note.id
   const handleLike = () => {
@@ -48,11 +51,15 @@ const LikeButton = () => {
       )
     })
   }
+
   return (
     <MotionButtonBase
       className="flex flex-col space-y-2"
       onClick={() => {
         handleLike()
+        control.start('tap', {
+          repeat: 5,
+        })
         toast('谢谢你！', undefined, {
           iconElement: (
             <motion.i
@@ -61,19 +68,31 @@ const LikeButton = () => {
                 scale: 0.96,
               }}
               animate={{
-                scale: 1.12,
+                scale: 1.22,
               }}
               transition={{
-                ...microReboundPreset,
-                delay: 1,
+                easings: ['easeInOut'],
+                delay: 0.3,
                 repeat: 5,
+                repeatDelay: 0.3,
               }}
             />
           ),
         })
       }}
     >
-      <i className="icon-[mingcute--heart-fill] text-[24px] opacity-80 duration-200 hover:text-uk-red-light hover:opacity-100" />
+      <motion.i
+        className="icon-[mingcute--heart-fill] text-[24px] opacity-80 duration-200 hover:text-uk-red-light hover:opacity-100"
+        animate={control}
+        variants={{
+          tap: {
+            scale: 1.3,
+          },
+        }}
+        transition={{
+          easings: ['easeInOut'],
+        }}
+      />
     </MotionButtonBase>
   )
 }
