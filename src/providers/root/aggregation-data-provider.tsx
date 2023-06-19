@@ -35,7 +35,7 @@ export const useAggregationSelector = <T,>(
   deps: any[] = [],
 ): T | null =>
   useAtomValue(
-    // @ts-expect-error
+    // @ts-ignore
     selectAtom(
       aggregationDataAtom,
       useCallback(

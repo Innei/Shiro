@@ -58,7 +58,7 @@ export const TocItem: FC<{
       href={`#${anchorId}`}
       className={clsxm(
         styles({
-          status: active && 'active',
+          status: active ? 'active' : undefined,
         }),
       )}
       style={useMemo(
