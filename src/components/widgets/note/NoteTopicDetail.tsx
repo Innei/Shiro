@@ -12,6 +12,7 @@ import { Loading } from '~/components/ui/loading'
 import { RelativeTime } from '~/components/ui/relative-time'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { useNoteData } from '~/hooks/data/use-note'
+import { routeBuilder, Routes } from '~/lib/route-builder'
 import { apiClient } from '~/utils/request'
 
 import { NoteTopicMarkdownRender } from './NoteTopicMarkdownRender'
@@ -34,7 +35,11 @@ export const NoteTopicDetail: FC<{ topic: TopicModel }> = (props) => {
 
   return (
     <div className="flex w-[400px] flex-col">
-      <Link href={`/notes/topics/${topic.slug}`}>
+      <Link
+        href={routeBuilder(Routes.NoteTopic, {
+          slug: topic.slug,
+        })}
+      >
         <h1 className="!m-0 inline-block pb-2 text-lg font-medium">
           {topic.name}
         </h1>
@@ -103,9 +108,13 @@ export const ToTopicLink: FC = () => {
   const note = useNoteData()
   if (!note?.topic) return null
   return (
-    <Link href={`/notes/topics/${note?.topic?.slug}`}>
+    <Link
+      href={routeBuilder(Routes.NoteTopic, {
+        slug: note.topic.slug,
+      })}
+    >
       <span className="flex-grow truncate opacity-80 hover:opacity-100">
-        {note?.topic?.name}
+        {note.topic.name}
       </span>
     </Link>
   )

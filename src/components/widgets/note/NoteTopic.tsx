@@ -5,6 +5,7 @@ import type { FC } from 'react'
 import { Avatar } from '~/components/ui/avatar'
 import { Divider } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'
+import { routeBuilder, Routes } from '~/lib/route-builder'
 
 import { NoteTopicDetail } from './NoteTopicDetail'
 import { NoteTopicMarkdownRender } from './NoteTopicMarkdownRender'
@@ -41,7 +42,11 @@ export const NoteTopic: FC<{ topic: TopicModel }> = (props) => {
             <FloatPopover
               strategy="absolute"
               TriggerComponent={() => (
-                <Link href={`/notes/topics/${topic.slug}`}>
+                <Link
+                  href={routeBuilder(Routes.NoteTopic, {
+                    slug: topic.slug,
+                  })}
+                >
                   <span>{name}</span>
                 </Link>
               )}

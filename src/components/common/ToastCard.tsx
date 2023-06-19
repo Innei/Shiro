@@ -1,3 +1,5 @@
+'use client'
+
 import { useId } from 'react'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'

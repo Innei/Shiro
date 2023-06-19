@@ -13,6 +13,7 @@ import { MdiClockTimeThreeOutline } from '~/components/icons/clock'
 import { Divider } from '~/components/ui/divider'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { useNoteByNidQuery } from '~/hooks/data/use-note'
+import { routeBuilder, Routes } from '~/lib/route-builder'
 import { springScrollToTop } from '~/utils/scroller'
 
 export const NoteFooterNavigation: FC<{ id: string }> = memo(({ id }) => {
@@ -33,10 +34,12 @@ export const NoteFooterNavigation: FC<{ id: string }> = memo(({ id }) => {
         <>
           <Divider className="!w-15 m-auto" />
           <section className="relative mt-4 py-2 text-center" data-hide-print>
-            <div className="children:inline-flex flex items-center justify-between [&>*]:items-center [&>*]:space-x-2 [&>*]:px-2 [&>*]:py-2">
+            <div className="flex items-center justify-between [&>*]:inline-flex [&>*]:items-center [&>*]:space-x-2 [&>*]:px-2 [&>*]:py-2">
               {!!nextNid && (
                 <Link
-                  href={`/notes/${nextNid}`}
+                  href={routeBuilder(Routes.Note, {
+                    id: nextNid.toString(),
+                  })}
                   className="hover:text-primary"
                   scroll={false}
                   prefetch={false}
@@ -48,7 +51,9 @@ export const NoteFooterNavigation: FC<{ id: string }> = memo(({ id }) => {
 
               {!!prevNid && (
                 <Link
-                  href={`/notes/${prevNid}`}
+                  href={routeBuilder(Routes.Note, {
+                    id: prevNid.toString(),
+                  })}
                   prefetch={false}
                   scroll={false}
                   className="hover:text-primary"
@@ -64,7 +69,12 @@ export const NoteFooterNavigation: FC<{ id: string }> = memo(({ id }) => {
               className="absolute bottom-0 left-1/2 top-0 flex -translate-x-1/2 transform items-center space-x-2 text-accent opacity-80 hover:text-primary"
               onClick={() => {
                 springScrollToTop()
-                router.push(`/timeline?type=note&id=${id}`)
+                router.push(
+                  routeBuilder(Routes.Timelime, {
+                    type: 'note',
+                    selectId: id,
+                  }),
+                )
               }}
             >
               <span>时间线</span>

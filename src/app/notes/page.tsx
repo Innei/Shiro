@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { Loading } from '~/components/ui/loading'
+import { routeBuilder, Routes } from '~/lib/route-builder'
 import { queries } from '~/queries/definition'
 import { apiClient } from '~/utils/request'
 
@@ -31,7 +32,11 @@ export default () => {
     )
     onceRef.current = true
     const id = setTimeout(() => {
-      router.replace(`/notes/${data.data.nid.toString()}`)
+      router.replace(
+        routeBuilder(Routes.Note, {
+          id: data.data.nid.toString(),
+        }),
+      )
     }, 1)
     return () => {
       clearTimeout(id)

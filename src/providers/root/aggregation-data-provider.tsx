@@ -4,16 +4,18 @@ import { selectAtom } from 'jotai/utils'
 import type { AggregateRoot } from '@mx-space/api-client'
 import type { FC, PropsWithChildren } from 'react'
 
+import { login } from '~/atoms/owner'
 import { useAggregationQuery } from '~/hooks/data/use-aggregation'
 import { jotaiStore } from '~/lib/store'
 
-const aggregationDataAtom = atom<null | AggregateRoot>(null)
+export const aggregationDataAtom = atom<null | AggregateRoot>(null)
 
 export const AggregationProvider: FC<PropsWithChildren> = ({ children }) => {
   const { data } = useAggregationQuery()
 
   useEffect(() => {
     if (!data) return
+    login()
     jotaiStore.set(aggregationDataAtom, data)
   }, [data])
 

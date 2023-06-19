@@ -8,6 +8,7 @@ import type { NoteWrappedPayload } from '@mx-space/api-client'
 import { MotionButtonBase } from '~/components/ui/button'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { useNoteData } from '~/hooks/data/use-note'
+import { routeBuilder, Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
 import { urlBuilder } from '~/lib/url-builder'
 import { useAggregationData } from '~/providers/root/aggregation-data-provider'
@@ -127,7 +128,11 @@ const ShareButton = () => {
         navigator.share({
           title: note.title,
           text: note.text,
-          url: urlBuilder(`/notes/${note.nid}`).href,
+          url: urlBuilder(
+            routeBuilder(Routes.Note, {
+              id: note.nid.toString(),
+            }),
+          ).href,
         })
       }}
     >

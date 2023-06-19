@@ -18,6 +18,7 @@ init()
 
 export const generateMetadata = defineMetadata(async (_, getData) => {
   const { seo, url, user } = await getData()
+
   return {
     metadataBase: new URL(url.webUrl),
     title: {
