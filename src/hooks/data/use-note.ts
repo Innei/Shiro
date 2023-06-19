@@ -9,7 +9,7 @@ export const useNoteData = () => {
   const nid = useNoteNId()
 
   const searchParams = useMemo(
-    () => (isClientSide() ? new URLSearchParams(location.search) : null),
+    () => (isClientSide ? new URLSearchParams(location.search) : null),
     [nid],
   )
   const password = searchParams?.get('password')
@@ -31,7 +31,7 @@ export const useNoteNId = () => {
 
 export const useNoteByNidQuery = (nid: string) => {
   const searchParams = useMemo(
-    () => (isClientSide() ? new URLSearchParams(location.search) : null),
+    () => (isClientSide ? new URLSearchParams(location.search) : null),
     [nid],
   )
   const password = searchParams?.get('password')

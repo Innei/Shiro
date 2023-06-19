@@ -4,7 +4,7 @@ import { isClientSide } from '~/utils/env'
 
 export const useRootPortal = () => {
   const ctx = useContext(RootPortalContext)
-  if (!isClientSide()) {
+  if (!isClientSide) {
     return null
   }
   return ctx.to || document.body
