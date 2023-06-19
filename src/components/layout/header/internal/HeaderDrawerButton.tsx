@@ -9,6 +9,7 @@ import type { SVGProps } from 'react'
 
 import { CloseIcon } from '~/components/icons/close'
 import { MotionButtonBase } from '~/components/ui/button'
+import { DialogOverlay } from '~/components/ui/dlalog/DialogOverlay'
 import { reboundPreset } from '~/constants/spring'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { jotaiStore } from '~/lib/store'
@@ -47,14 +48,7 @@ export const HeaderDrawerButton = () => {
           <AnimatePresence>
             {open && (
               <>
-                <Dialog.Overlay asChild>
-                  <motion.div
-                    className="fixed inset-0 z-[11] bg-slate-50/80 backdrop-blur-sm dark:bg-slate-900/80"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  />
-                </Dialog.Overlay>
+                <DialogOverlay />
 
                 <Dialog.Content>
                   <motion.dialog
@@ -65,7 +59,7 @@ export const HeaderDrawerButton = () => {
                   >
                     <Dialog.DialogClose asChild>
                       <MotionButtonBase
-                        className="absolute right-4 top-4 p-4"
+                        className="z-9 absolute right-0 top-0 p-8"
                         onClick={() => {
                           setOpen(false)
                         }}

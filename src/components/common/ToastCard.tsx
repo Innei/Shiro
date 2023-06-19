@@ -33,7 +33,7 @@ export const ToastCard: FC<{
       className={clsx(
         'relative w-full overflow-hidden rounded-xl shadow-out-sm',
         'my-4 mr-4 px-4 py-5',
-        'bg-base-100/90 backdrop-blur-sm',
+        'bg-slate-50/90 backdrop-blur-sm dark:bg-neutral-900/90',
         'border border-slate-100/80 dark:border-neutral-900/80',
         'space-x-4',
         'flex items-center',
