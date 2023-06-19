@@ -1,6 +1,7 @@
 import '../styles/index.css'
 
 import { dehydrate } from '@tanstack/react-query'
+import { Analytics } from '@vercel/analytics/react'
 import { ToastContainer } from 'react-toastify'
 
 import { ClerkProvider } from '@clerk/nextjs'
@@ -95,6 +96,7 @@ export default async function RootLayout(props: Props) {
           <ToastContainer />
         </body>
       </html>
+      <Analytics />
     </ClerkProvider>
   )
 }

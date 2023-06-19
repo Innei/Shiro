@@ -1,10 +1,15 @@
-export const Logo = () => {
+import type { SVGProps } from 'react'
+
+import { clsxm } from '~/utils/helper'
+
+export const Logo = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
-      className="inline-block h-[4.5rem] p-3"
       viewBox="0 0 220 220"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
+      className={clsxm('inline-block h-[4.5rem] p-3', props.className)}
     >
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g id="forest-black" transform="translate(25.000000, 25.000000)">
