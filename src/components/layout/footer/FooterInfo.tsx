@@ -91,12 +91,12 @@ const FooterBottom = () => {
   return (
     <div className="mt-12 space-y-3 text-center md:mt-6 md:text-left">
       <p>
-        © 2020-2023 Innei.
+        © 2020-2023 <a href="/">Innei</a>.
         <span>
           <Divider />
-          RSS
+          <a href="/feed">RSS</a>
           <Divider />
-          站点地图
+          <a href="/sitemap.xml">站点地图</a>
           <Divider className="hidden md:inline" />
         </span>
         <span className="mt-3 block md:mt-0 md:inline">
