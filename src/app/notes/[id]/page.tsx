@@ -14,7 +14,6 @@ import { ClientOnly } from '~/components/common/ClientOnly'
 import { PageDataHolder } from '~/components/common/PageHolder'
 import { MdiClockOutline } from '~/components/icons/clock'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/internal/hooks'
-import { Divider } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { Loading } from '~/components/ui/loading'
 import { Markdown } from '~/components/ui/markdown'
@@ -116,7 +115,7 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
               <TocAside
                 className="sticky top-[120px] ml-4 mt-[120px]"
                 treeClassName="max-h-[calc(100vh-6rem-4.5rem-300px)] h-[calc(100vh-6rem-4.5rem-300px)] min-h-[120px] relative"
-                accessory={NoteReadIndicator}
+                accessory={ReadIndicator}
               >
                 <NoteActionAside className="translate-y-full" />
               </TocAside>
@@ -133,14 +132,6 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
     </Suspense>
   )
 })
-const NoteReadIndicator = () => {
-  return (
-    <li>
-      <Divider />
-      <ReadIndicator className="text-sm" />
-    </li>
-  )
-}
 
 const NoteTitle = () => {
   const note = useNoteData()

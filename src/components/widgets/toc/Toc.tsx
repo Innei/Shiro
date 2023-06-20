@@ -4,6 +4,7 @@ import { atom, useAtom } from 'jotai'
 import type { FC } from 'react'
 import type { ITocItem } from './TocItem'
 
+import { Divider } from '~/components/ui/divider'
 import { RightToLeftTransitionView } from '~/components/ui/transition/RightToLeftTransitionView'
 import { throttle } from '~/lib/_'
 import { useArticleElement } from '~/providers/article/article-element-provider'
@@ -130,6 +131,12 @@ const TocTree: Component<
     },
     [],
   )
+  const accessoryElement = useMemo(() => {
+    if (!accessory) return null
+    return React.isValidElement(accessory)
+      ? accessory
+      : React.createElement(accessory as FC)
+  }, [accessory])
   return (
     <ul
       className={clsxm(
@@ -150,9 +157,12 @@ const TocTree: Component<
           />
         )
       })}
-      {React.isValidElement(accessory)
-        ? accessory
-        : React.createElement(accessory as FC)}
+      {accessoryElement && (
+        <li>
+          {!!toc.length && <Divider />}
+          {accessoryElement}
+        </li>
+      )}
     </ul>
   )
 }
