@@ -31,9 +31,13 @@ export const useCalculateNaturalSize = () => {
       const w = imageEl.naturalWidth,
         h = imageEl.naturalHeight
       if (w && h) {
-        const calculated = calculateDimensions(w, h, {
-          height: Infinity,
-          width: +parentElWidth,
+        const calculated = calculateDimensions({
+          width: w,
+          height: h,
+          max: {
+            height: Infinity,
+            width: +parentElWidth,
+          },
         })
 
         dispatch({

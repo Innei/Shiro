@@ -1,0 +1,25 @@
+.markdown-body {
+  & > h1,
+  & > h2,
+  & > h3,
+  & > h4,
+  & > h5,
+  & > h6 {
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 12px 0;
+    padding: 0;
+  }
+
+  & > p {
+    margin: 12px 0;
+  }
+}
+
+.markdown-body h1 {
+  font-size: 24px;
+}
+
+.markdown-body h2 {
+  font-size: 20px;
+}

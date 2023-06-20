@@ -3,8 +3,8 @@
 import type { ElementType } from 'react'
 
 import {
-  useArticleElementPositsion,
-  useArticleElementSize,
+  useElementPositsion,
+  useElementSize,
 } from '~/providers/article/article-element-provider'
 import { usePageScrollLocationSelector } from '~/providers/root/page-scroll-info-provider'
 import { clsxm } from '~/utils/helper'
@@ -12,8 +12,8 @@ import { clsxm } from '~/utils/helper'
 export const ReadIndicator: Component<{
   as?: ElementType
 }> = ({ className, as }) => {
-  const { y } = useArticleElementPositsion()
-  const { h } = useArticleElementSize()
+  const { y } = useElementPositsion()
+  const { h } = useElementSize()
   const readPercent = usePageScrollLocationSelector((scrollTop) => {
     return Math.floor(Math.min(Math.max(0, ((scrollTop - y) / h) * 100), 100))
   })

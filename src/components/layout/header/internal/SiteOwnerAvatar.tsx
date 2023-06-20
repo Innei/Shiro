@@ -12,17 +12,11 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
   return (
     <div
       className={clsxm(
-        'overflow-hidden rounded-full border-[1.5px] border-accent/50',
+        'overflow-hidden rounded-md border-[1.5px] border-slate-300 dark:border-neutral-800',
         className,
       )}
     >
-      <Image
-        src={avatar}
-        alt=""
-        width={25}
-        height={25}
-        className="rounded-full border-[1.5px] border-base-100"
-      />
+      <Image src={avatar} alt="Site Owner Avatar" width={25} height={25} />
     </div>
   )
 }

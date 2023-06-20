@@ -11,19 +11,16 @@ const [
   useSetArticleElement,
 ] = createContextState<HTMLDivElement | null>(undefined as any)
 
-const [
-  ArticleElementSizeProviderInternal,
-  useArticleElementSize,
-  useSetArticleElementSize,
-] = createContextState({
-  h: 0,
-  w: 0,
-})
+const [ElementSizeProviderInternal, useElementSize, useSetElementSize] =
+  createContextState({
+    h: 0,
+    w: 0,
+  })
 
 const [
-  ArticleElementPositsionProviderInternal,
-  useArticleElementPositsion,
-  useSetArticleElementPositsion,
+  ElementPositsionProviderInternal,
+  useElementPositsion,
+  useSetElementPositsion,
 ] = createContextState({
   x: 0,
   y: 0,
@@ -37,8 +34,8 @@ const [
 
 const Providers = [
   <ArticleElementProviderInternal key="ArticleElementProviderInternal" />,
-  <ArticleElementSizeProviderInternal key="ArticleElementSizeProviderInternal" />,
-  <ArticleElementPositsionProviderInternal key="ArticleElementPositsionProviderInternal" />,
+  <ElementSizeProviderInternal key="ElementSizeProviderInternal" />,
+  <ElementPositsionProviderInternal key="ElementPositsionProviderInternal" />,
   <IsEOArticleElementProviderInternal key="IsEOArticleElementProviderInternal" />,
 ]
 const ArticleElementProvider: Component = ({ children, className }) => {
@@ -50,8 +47,8 @@ const ArticleElementProvider: Component = ({ children, className }) => {
   )
 }
 const ArticleElementResizeObserver = () => {
-  const setSize = useSetArticleElementSize()
-  const setPos = useSetArticleElementPositsion()
+  const setSize = useSetElementSize()
+  const setPos = useSetElementPositsion()
   const $article = useArticleElement()
   useIsomorphicLayoutEffect(() => {
     if (!$article) return
@@ -119,6 +116,6 @@ export {
   useSetArticleElement,
   useArticleElement,
   useIsEOArticleElement,
-  useArticleElementSize,
-  useArticleElementPositsion,
+  useElementSize,
+  useElementPositsion,
 }

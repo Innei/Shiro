@@ -2,7 +2,6 @@
 
 import { isServer } from '@tanstack/react-query'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useAnimationControls } from 'framer-motion'
 import mediumZoom from 'medium-zoom'
 import { tv } from 'tailwind-variants'
 import type { Zoom } from 'medium-zoom'
@@ -11,7 +10,6 @@ import type { FC, ReactNode } from 'react'
 import { LazyLoad } from '~/components/common/Lazyload'
 import { useIsUnMounted } from '~/hooks/common/use-is-unmounted'
 import { calculateDimensions } from '~/lib/calc-image'
-import { useArticleElementSize } from '~/providers/article/article-element-provider'
 import { useMarkdownImageRecord } from '~/providers/article/markdown-image-record-provider'
 import { clsxm } from '~/utils/helper'
 
@@ -82,8 +80,6 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
     [isUnmount],
   )
 
-  const controls = useAnimationControls()
-
   const imageRef = useRef<HTMLImageElement>(null)
   useEffect(() => {
     if (imageLoadStatus !== ImageLoadStatus.Loaded) {
@@ -125,7 +121,9 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
             })}
             onAnimationEnd={(e) => {
               if (ImageLoadStatus.Loaded) {
-               (e.target as HTMLElement).classList.remove(imageStyles[ImageLoadStatus.Loaded]) 
+                ;(e.target as HTMLElement).classList.remove(
+                  imageStyles[ImageLoadStatus.Loaded],
+                )
               }
             }}
           />
@@ -150,40 +148,42 @@ export const ZoomedImage: Component<TImageProps> = (props) => {
   )
 }
 
-export const FixedZoomedImage: Component<TImageProps> = (props) => {
+interface FixedImageProps extends TImageProps {
+  containerWidth: number
+}
+export const FixedZoomedImage: Component<FixedImageProps> = (props) => {
   const placeholder = useMemo(() => {
-    return <Placeholder src={props.src} />
-  }, [props.src])
+    return <Placeholder containerWidth={props.containerWidth} src={props.src} />
+  }, [props.containerWidth, props.src])
   return <ImageLazy zoom placeholder={placeholder} {...props} />
 }
 
-const Placeholder: FC<{
-  src: string
-}> = ({ src }) => {
-  const { h, w } = useArticleElementSize()
+const Placeholder: FC<Pick<FixedImageProps, 'src' | 'containerWidth'>> = ({
+  src,
+  containerWidth,
+}) => {
   const imageMeta = useMarkdownImageRecord(src)
 
   const scaledSize = useMemo(() => {
-    if (!h || !w) return
     if (!imageMeta) return
     const { height, width } = imageMeta
-    const { height: scaleHeight, width: scaleWidth } = calculateDimensions(
+    const { height: scaleHeight, width: scaleWidth } = calculateDimensions({
       width,
       height,
-      {
-        width: w,
+      max: {
+        width: containerWidth,
         height: Infinity,
       },
-    )
+    })
 
     return {
       scaleHeight,
       scaleWidth,
     }
-  }, [h, w, imageMeta])
+  }, [imageMeta, containerWidth])
 
-  if (!scaledSize) return <NoFixedPlaceholder />
-  if (h === 0 || w === 0) return <NoFixedPlaceholder />
+  if (!scaledSize) return <NoFixedPlaceholder accent={imageMeta?.accent} />
+  console.log(scaledSize, containerWidth)
   return (
     <span
       className={styles.base}
@@ -196,13 +196,16 @@ const Placeholder: FC<{
   )
 }
 
-const NoFixedPlaceholder = () => {
+const NoFixedPlaceholder = ({ accent }: { accent?: string }) => {
   return (
     <span
       className={clsxm(
         styles.base,
-        'h-[150px] w-full bg-slate-300 dark:bg-slate-700',
+        'h-[300px] w-full bg-slate-300 dark:bg-slate-700',
       )}
+      style={{
+        backgroundColor: accent,
+      }}
     />
   )
 }

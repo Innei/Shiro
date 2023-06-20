@@ -71,9 +71,6 @@ dependencies:
   js-cookie:
     specifier: 3.0.5
     version: 3.0.5
-  lodash-es:
-    specifier: 4.17.21
-    version: 4.17.21
   markdown-escape:
     specifier: 2.0.0
     version: 2.0.0
@@ -151,9 +148,6 @@ devDependencies:
   '@types/js-cookie':
     specifier: 3.0.3
     version: 3.0.3
-  '@types/lodash-es':
-    specifier: 4.17.7
-    version: 4.17.7
   '@types/markdown-escape':
     specifier: 1.1.0
     version: 1.1.0
@@ -2533,16 +2527,6 @@ packages:
   /@types/keygrip@1.0.2:
     resolution: {integrity: sha512-GJhpTepz2udxGexqos8wgaBx4I/zWIDPh/KOGEwAqtuGDkOUJu5eFvwmdBX4AmB8Odsr+9pHCQqiAqDL/yKMKw==}
     dev: false
-
-  /@types/lodash-es@4.17.7:
-    resolution: {integrity: sha512-z0ptr6UI10VlU6l5MYhGwS4mC8DZyYer2mCoyysZtSF7p26zOX8UpbrV0YpNYLGS8K4PUFIyEr62IMFFjveSiQ==}
-    dependencies:
-      '@types/lodash': 4.14.195
-    dev: true
-
-  /@types/lodash@4.14.195:
-    resolution: {integrity: sha512-Hwx9EUgdwf2GLarOjQp5ZH8ZmblzcbTBC2wtQWNKARBSxM9ezRIAUpeDTgoQRAFB0+8CNWXVA9+MaSOzOF3nPg==}
-    dev: true
 
   /@types/markdown-escape@1.1.0:
     resolution: {integrity: sha512-bJZh73L6fSt8MmTON/btR8hiKRipoIoPfLO41lxr6l65QXdG1rwUjR8Hu5xU7XYHBwKHiJZ+sTQ8L2TKkQrBpw==}
@@ -5104,10 +5088,6 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       p-locate: 5.0.0
-
-  /lodash-es@4.17.21:
-    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
-    dev: false
 
   /lodash.castarray@4.4.0:
     resolution: {integrity: sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==}

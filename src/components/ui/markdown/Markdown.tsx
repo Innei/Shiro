@@ -5,6 +5,9 @@ import { compiler } from 'markdown-to-jsx'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { FC, PropsWithChildren } from 'react'
 
+import { useElementSize } from '~/providers/article/article-element-provider'
+
+import { Gallery } from '../Gallery'
 import { FixedZoomedImage } from '../image'
 import styles from './markdown.module.css'
 import { CommentAtRule } from './parsers/comment-at'
@@ -70,6 +73,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
 
           // for custom react component
           // LinkCard,
+          Gallery,
           ...overrides,
         },
 
@@ -121,6 +125,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           ins: InsertRule,
           kateX: KateXRule,
           container: ContainerRule,
+
           ...additionalParserRules,
         },
         ...rest,
@@ -158,5 +163,6 @@ const MarkdownImage = (props: any) => {
     ...props,
   }
   nextProps.alt = props.alt?.replace(/^[¡!]/, '')
-  return <FixedZoomedImage {...nextProps} />
+  const { w } = useElementSize()
+  return <FixedZoomedImage {...nextProps} containerWidth={w} />
 }
