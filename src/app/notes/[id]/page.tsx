@@ -86,7 +86,11 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
   return (
     <Suspense>
       <article
-        className={clsx('prose', styles['with-indent'], styles['with-serif'])}
+        className={clsx(
+          'prose relative',
+          styles['with-indent'],
+          styles['with-serif'],
+        )}
       >
         <header>
           <NoteTitle />

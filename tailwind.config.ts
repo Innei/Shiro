@@ -246,7 +246,7 @@ const twConfig = resolveConfig({
           'color-scheme': 'dark',
           primary: '#1f8f93',
           secondary: '#92bbff',
-          accent: '#39C5BB',
+          accent: '#91bef0',
 
           neutral: UIKitColors.grey3.dark,
 

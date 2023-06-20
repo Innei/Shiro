@@ -1,9 +1,13 @@
 'use client'
 
-import { useAggregationQuery } from '~/hooks/data/use-aggregation'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
-  const { data } = useAggregationQuery()
+  const router = useRouter()
+  useEffect(() => {
+    router.push('/notes')
+  }, [])
 
   return null
 }

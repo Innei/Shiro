@@ -2,7 +2,9 @@
   :global {
     ul .indent,
     .paragraph .indent {
-      border-bottom: 1px solid #00b8bb41;
+      border-bottom: 1px solid;
+
+      @apply border-accent/20 dark:border-accent/40;
     }
 
     blockquote {
@@ -26,21 +28,15 @@
 
       margin-left: calc(-3em + 2px);
       margin-right: calc(-3em + 2px);
-      border: none;
 
       line-height: 1.8;
       padding: 1em 1em 1em 2em;
-      outline: none !important;
-      background: #f5fafd;
-      font-style: normal;
 
-      :global(html[data-theme='dark']) & {
-        background: theme(colors.base-100);
-      }
+      @apply bg-uk-cyan-light/10 font-normal dark:bg-uk-teal-light/10;
+      @apply border-none px-12 !outline-none;
 
       & span::first-letter {
-        font-size: 1em;
-        float: none;
+        @apply !float-none !text-[1em];
       }
 
       @media screen and (max-width: 599px) {

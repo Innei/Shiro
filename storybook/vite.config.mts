@@ -1,5 +1,7 @@
-import { resolve } from 'node:path'
+import { readFileSync } from 'node:fs'
+import path, { resolve } from 'node:path'
 import react from '@vitejs/plugin-react'
+import { parse } from 'dotenv'
 import { defineConfig } from 'vite'
 import ViteRestart from 'vite-plugin-restart'
 import tsConfigPaths from 'vite-tsconfig-paths'
@@ -7,6 +9,7 @@ import tsConfigPaths from 'vite-tsconfig-paths'
 import mdx from '@mdx-js/rollup'
 
 const __dirname = new URL('.', import.meta.url).pathname
+const env = parse(readFileSync(path.resolve(__dirname, '../.env')))
 
 // `options` are passed to `@mdx-js/mdx`
 const options = {
@@ -33,10 +36,12 @@ export default defineConfig({
   define: {
     __ROOT__: `"${__dirname}"`,
     __COMPONENT_ROOT__: `"${resolve(__dirname, '..')}"`,
+    'process.env': { ...env },
   },
   resolve: {
     alias: {
       'next/image': resolve(__dirname, './mock-packages/next_image'),
+      'next/link': resolve(__dirname, './mock-packages/next_link'),
       '~': resolve(__dirname, '../src'),
     },
   },

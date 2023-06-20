@@ -9,6 +9,7 @@ import { useElementSize } from '~/providers/article/article-element-provider'
 
 import { Gallery } from '../gallery'
 import { FixedZoomedImage } from '../image'
+import { LinkCard } from '../link-card'
 import styles from './markdown.module.css'
 import { CommentAtRule } from './parsers/comment-at'
 import { ContainerRule } from './parsers/container'
@@ -72,7 +73,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           img: MarkdownImage,
 
           // for custom react component
-          // LinkCard,
+          LinkCard,
           Gallery,
           ...overrides,
         },

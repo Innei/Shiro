@@ -1,0 +1,108 @@
+.card-grid {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  align-items: center;
+  width: 390px;
+  min-height: 84px;
+  border-radius: 8px;
+  max-width: 100%;
+  overflow: hidden;
+  margin: 16px auto;
+  padding: 12px 18px;
+
+  @apply cursor-pointer font-sans;
+
+  background-color: #f3f3f380;
+  backdrop-filter: blur(20px) saturate(180%);
+  transition: background-color 0.2s ease-in-out;
+}
+
+:global([data-theme='dark']) .card-grid {
+  background-color: #28282880;
+}
+
+.contents {
+  flex: 1 1 auto;
+  position: relative;
+  display: block;
+  min-width: 0;
+}
+
+.title {
+  line-height: 20px;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.desc {
+  @apply truncate text-neutral-500 dark:text-neutral-400;
+
+  display: block;
+  margin-top: 6px;
+  min-width: 0;
+  font-size: 13px;
+  height: 18px;
+  line-height: 18px;
+}
+
+.image {
+  @apply aspect-square flex-shrink-0 bg-cover bg-center bg-no-repeat;
+  @apply bg-gray-600 dark:bg-gray-50;
+
+  height: 60px;
+  width: 60px;
+  margin-left: 20px;
+  border-radius: 8px;
+}
+
+.skeleton {
+  & .title,
+  & .desc {
+    border-radius: 99px;
+  }
+
+  & .title {
+    width: 50%;
+    height: 20px;
+
+    @apply bg-gray-200 dark:bg-neutral-700;
+  }
+
+  & .desc {
+    width: 100%;
+    margin-top: 12px;
+    height: 14px;
+
+    @apply bg-gray-200 dark:bg-neutral-700;
+  }
+
+  & .image {
+    height: 50px;
+    width: 50px;
+
+    @apply bg-gray-200 dark:bg-neutral-700;
+  }
+
+  &.error {
+    background-color: #e1534a20 !important;
+
+    & .title,
+    & .desc,
+    & .image {
+      background-color: #e1534a79;
+      color: transparent;
+    }
+
+    & .image {
+      background-image: none !important;
+    }
+  }
+}

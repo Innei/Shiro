@@ -100,7 +100,7 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
   }, [zoom, zoomer_, imageLoadStatus])
 
   return (
-    <LazyLoad placeholder={placeholder}>
+    <LazyLoad placeholder={placeholder} offset={30}>
       <figure suppressHydrationWarning>
         <span className="relative block">
           <span>
@@ -167,6 +167,7 @@ const Placeholder: FC<Pick<FixedImageProps, 'src' | 'containerWidth'>> = ({
   const scaledSize = useMemo(() => {
     if (!imageMeta) return
     const { height, width } = imageMeta
+    if (containerWidth <= 0) return
     const { height: scaleHeight, width: scaleWidth } = calculateDimensions({
       width,
       height,
@@ -183,7 +184,7 @@ const Placeholder: FC<Pick<FixedImageProps, 'src' | 'containerWidth'>> = ({
   }, [imageMeta, containerWidth])
 
   if (!scaledSize) return <NoFixedPlaceholder accent={imageMeta?.accent} />
-  console.log(scaledSize, containerWidth)
+
   return (
     <span
       className={styles.base}

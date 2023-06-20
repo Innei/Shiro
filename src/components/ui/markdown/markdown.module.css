@@ -54,7 +54,7 @@
   }
 
   a {
-    @apply border-b-[0.5px] border-current no-underline duration-200 hover:text-accent;
+    @apply border-b-[0.5px] border-current text-inherit no-underline duration-200 hover:text-accent;
   }
 
   hr {
@@ -63,5 +63,14 @@
 
   a {
     @apply break-all;
+  }
+
+  input[type='checkbox'] {
+    @apply checkbox;
+  }
+
+  input[type='checkbox']:disabled,
+  input[type='checkbox']:read-only {
+    @apply cursor-not-allowed;
   }
 }
