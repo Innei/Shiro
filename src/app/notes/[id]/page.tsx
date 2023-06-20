@@ -14,6 +14,7 @@ import { ClientOnly } from '~/components/common/ClientOnly'
 import { PageDataHolder } from '~/components/common/PageHolder'
 import { MdiClockOutline } from '~/components/icons/clock'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/internal/hooks'
+import { Divider } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { Loading } from '~/components/ui/loading'
 import { Markdown } from '~/components/ui/markdown'
@@ -33,6 +34,7 @@ import { NoteLayoutRightSidePortal } from '~/providers/note/right-side-provider'
 import { parseDate } from '~/utils/datetime'
 import { springScrollToTop } from '~/utils/scroller'
 
+import { ReadIndicator } from '../../../components/common/ReadIndicator'
 import { NoteActionAside } from '../../../components/widgets/note/NoteActionAside'
 import { NoteHideIfSecret } from '../../../components/widgets/note/NoteHideIfSecret'
 import { NoteMetaBar } from '../../../components/widgets/note/NoteMetaBar'
@@ -114,6 +116,7 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
               <TocAside
                 className="sticky top-[120px] ml-4 mt-[120px]"
                 treeClassName="max-h-[calc(100vh-6rem-4.5rem-300px)] h-[calc(100vh-6rem-4.5rem-300px)] min-h-[120px] relative"
+                accessory={NoteReadIndicator}
               >
                 <NoteActionAside className="translate-y-full" />
               </TocAside>
@@ -130,6 +133,14 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
     </Suspense>
   )
 })
+const NoteReadIndicator = () => {
+  return (
+    <li>
+      <Divider />
+      <ReadIndicator className="text-sm" />
+    </li>
+  )
+}
 
 const NoteTitle = () => {
   const note = useNoteData()

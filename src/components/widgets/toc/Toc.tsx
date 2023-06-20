@@ -1,6 +1,7 @@
-import { memo, useCallback, useEffect, useMemo, useRef } from 'react'
+import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { atom, useAtom } from 'jotai'
+import type { FC } from 'react'
 import type { ITocItem } from './TocItem'
 
 import { RightToLeftTransitionView } from '~/components/ui/transition/RightToLeftTransitionView'
@@ -15,10 +16,14 @@ export type TocAsideProps = {
   treeClassName?: string
 }
 
-export const TocAside: Component<TocAsideProps> = ({
+interface TocSharedProps {
+  accessory?: React.ReactNode | React.FC
+}
+export const TocAside: Component<TocAsideProps & TocSharedProps> = ({
   className,
   children,
   treeClassName,
+  accessory,
 }) => {
   const containerRef = useRef<HTMLUListElement>(null)
   const $article = useArticleElement()
@@ -91,19 +96,30 @@ export const TocAside: Component<TocAsideProps> = ({
         rootDepth={rootDepth}
         containerRef={containerRef}
         className={clsxm('absolute max-h-[75vh]', treeClassName)}
+        accessory={accessory}
       />
       {children}
     </aside>
   )
 }
 
-const TocTree: Component<{
-  toc: ITocItem[]
-  activeId: string | null
-  setActiveId: (id: string | null) => void
-  rootDepth: number
-  containerRef: React.MutableRefObject<HTMLUListElement | null>
-}> = ({ toc, activeId, setActiveId, rootDepth, containerRef, className }) => {
+const TocTree: Component<
+  {
+    toc: ITocItem[]
+    activeId: string | null
+    setActiveId: (id: string | null) => void
+    rootDepth: number
+    containerRef: React.MutableRefObject<HTMLUListElement | null>
+  } & TocSharedProps
+> = ({
+  toc,
+  activeId,
+  setActiveId,
+  rootDepth,
+  containerRef,
+  className,
+  accessory,
+}) => {
   const handleScrollTo = useCallback(
     (i: number, $el: HTMLElement | null, anchorId: string) => {
       if ($el) {
@@ -134,6 +150,9 @@ const TocTree: Component<{
           />
         )
       })}
+      {React.isValidElement(accessory)
+        ? accessory
+        : React.createElement(accessory as FC)}
     </ul>
   )
 }

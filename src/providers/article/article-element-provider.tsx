@@ -21,6 +21,15 @@ const [
 })
 
 const [
+  ArticleElementPositsionProviderInternal,
+  useArticleElementPositsion,
+  useSetArticleElementPositsion,
+] = createContextState({
+  x: 0,
+  y: 0,
+})
+
+const [
   IsEOArticleElementProviderInternal,
   useIsEOArticleElement,
   useSetIsEOArticleElement,
@@ -29,6 +38,7 @@ const [
 const Providers = [
   <ArticleElementProviderInternal key="ArticleElementProviderInternal" />,
   <ArticleElementSizeProviderInternal key="ArticleElementSizeProviderInternal" />,
+  <ArticleElementPositsionProviderInternal key="ArticleElementPositsionProviderInternal" />,
   <IsEOArticleElementProviderInternal key="IsEOArticleElementProviderInternal" />,
 ]
 const ArticleElementProvider: Component = ({ children, className }) => {
@@ -41,16 +51,19 @@ const ArticleElementProvider: Component = ({ children, className }) => {
 }
 const ArticleElementResizeObserver = () => {
   const setSize = useSetArticleElementSize()
+  const setPos = useSetArticleElementPositsion()
   const $article = useArticleElement()
   useIsomorphicLayoutEffect(() => {
     if (!$article) return
-    const { height, width } = $article.getBoundingClientRect()
+    const { height, width, x, y } = $article.getBoundingClientRect()
     setSize({ h: height, w: width })
+    setPos({ x, y })
 
     const observer = new ResizeObserver((entries) => {
       const entry = entries[0]
-      const { height, width } = entry.contentRect
+      const { height, width, x, y } = entry.contentRect
       setSize({ h: height, w: width })
+      setPos({ x, y })
     })
     observer.observe($article)
     return () => {
@@ -107,4 +120,5 @@ export {
   useArticleElement,
   useIsEOArticleElement,
   useArticleElementSize,
+  useArticleElementPositsion,
 }
