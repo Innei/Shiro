@@ -37,7 +37,7 @@ export const DonateButton = () => {
               {overlayOpen && (
                 <>
                   <DialogOverlay />
-                  <DialogContent className="fixed inset-0 z-[11] flex max-h-[70vh] max-w-[80vw] flex-wrap space-x-4 overflow-auto center">
+                  <DialogContent className="fixed inset-0 z-[11] flex flex-wrap space-x-4 overflow-auto center">
                     {donate.qrcode.map((src) => (
                       <motion.img
                         exit={{ opacity: 0 }}
