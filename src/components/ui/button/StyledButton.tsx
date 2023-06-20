@@ -13,10 +13,11 @@ const variantStyles = tv({
         'bg-zinc-800 text-zinc-100 hover:bg-zinc-700 dark:text-black dark:hover:bg-zinc-300',
         'active:bg-zinc-800 active:text-zinc-100/70 dark:bg-zinc-200 dark:active:bg-zinc-300/70',
         'font-semibold',
-        'disabled:bg-gray-400 disabled:text-opacity-75 disabled:dark:bg-gray-800 disabled:dark:text-slate-50/70',
+        'disabled:bg-gray-400 disabled:opacity-30 disabled:dark:bg-gray-800 disabled:dark:text-slate-50 disabled:cursor-not-allowed',
       ),
       secondary: clsx(
         'group rounded-full bg-gradient-to-b from-zinc-50/50 to-white/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition dark:from-zinc-900/50 dark:to-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20',
+        'disabled:bg-gray-400 disabled:opacity-30 disabled:dark:bg-gray-800 disabled:dark:text-slate-50 disabled:cursor-not-allowed',
       ),
     },
   },
