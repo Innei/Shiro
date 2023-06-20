@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 
 // const Context = createContext<TSocketClient>(null as any)
-export const SocketProvider: Component = ({ children }) => {
+export const SocketContainer: Component = () => {
   useEffect(() => {
     import('~/socket').then((module) => {
       const { socketClient } = module
@@ -11,5 +11,5 @@ export const SocketProvider: Component = ({ children }) => {
     })
   }, [])
 
-  return <>{children}</>
+  return null
 }

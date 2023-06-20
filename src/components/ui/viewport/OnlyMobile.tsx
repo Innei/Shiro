@@ -18,5 +18,5 @@ export const OnlyMobile: Component = ({ children }) => {
 
   if (!isMobile) return null
 
-  return <>{children}</>
+  return children
 }

@@ -11,7 +11,7 @@ import { JotaiStoreProvider } from './jotai-provider'
 import { ModalStackProvider } from './modal-stack-provider'
 import { PageScrollInfoProvider } from './page-scroll-info-provider'
 import { SentryProvider } from './sentry-provider'
-import { SocketProvider } from './socket-provider'
+import { SocketContainer } from './socket-provider'
 import { ViewportProvider } from './viewport-provider'
 
 const contexts: JSX.Element[] = [
@@ -21,11 +21,16 @@ const contexts: JSX.Element[] = [
   <JotaiStoreProvider key="jotaiStoreProvider" />,
   <AggregationProvider key="aggregationProvider" />,
   <ViewportProvider key="viewportProvider" />,
-  <SocketProvider key="socketProvider" />,
+
   <PageScrollInfoProvider key="PageScrollInfoProvider" />,
   <DebugProvider key="debugProvider" />,
   <ModalStackProvider key="modalStackProvider" />,
 ]
 export function Providers({ children }: PropsWithChildren) {
-  return <ProviderComposer contexts={contexts}>{children}</ProviderComposer>
+  return (
+    <>
+      <SocketContainer />
+      <ProviderComposer contexts={contexts}>{children}</ProviderComposer>
+    </>
+  )
 }

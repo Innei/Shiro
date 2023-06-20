@@ -20,5 +20,5 @@ export const SentryProvider = ({ children }: PropsWithChildren) => {
       window.onerror = null
     }
   }, [])
-  return <>{children}</>
+  return children
 }

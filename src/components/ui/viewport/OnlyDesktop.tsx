@@ -16,5 +16,5 @@ export const OnlyDesktop: Component = ({ children }) => {
 
   if (!isLg) return null
 
-  return <>{children}</>
+  return children
 }
