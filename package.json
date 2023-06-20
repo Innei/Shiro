@@ -37,10 +37,6 @@
     "prod:stop": "pm2 stop ecosystem.config.js",
     "prod:reload": "pm2 reload ecosystem.config.js"
   },
-  "browserslist": [
-    "chrome >=110",
-    "last 2 Firefox versions"
-  ],
   "dependencies": {
     "@clerk/nextjs": "4.21.3",
     "@floating-ui/react-dom": "2.0.1",

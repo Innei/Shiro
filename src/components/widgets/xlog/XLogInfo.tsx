@@ -118,7 +118,7 @@ const XLogInfoBase: FC<{
         </div>
       </div>
       <Collapse isOpened={collapse}>
-        <div className="text-gray-2 w-full overflow-hidden py-2 text-sm">
+        <div className="text-gray-2 w-full overflow-hidden py-2 text-sm [&_a]:break-all">
           {sections}
         </div>
       </Collapse>

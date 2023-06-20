@@ -29,5 +29,10 @@ Sentry.init({
       maskAllText: true,
       blockAllMedia: true,
     }),
+    // eslint-disable-next-line import/namespace
+    new Sentry.BrowserTracing({
+      // Set `tracePropagationTargets` to control for which URLs distributed tracing should be enabled
+      tracePropagationTargets: ['localhost', /^https:\/\/api\.innei\.ren/],
+    }),
   ],
 })

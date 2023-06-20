@@ -1,5 +1,9 @@
 'use client'
 
+import { useEffect } from 'react'
+
+import { captureException } from '@sentry/nextjs'
+
 import { NotePasswordForm } from '~/components/widgets/note/NotePasswordForm'
 
 import { Paper } from './Paper'
@@ -13,6 +17,10 @@ const pickStatusCode = (error: Error) => {
 }
 // TODO Catch if 404 or 403
 export default ({ error, reset }: { error: Error; reset: () => void }) => {
+  useEffect(() => {
+    if (!isRequestError(error)) captureException(error)
+  }, [error])
+
   if (isRequestError(error)) {
     const code = pickStatusCode(error)
 
@@ -32,6 +40,7 @@ export default ({ error, reset }: { error: Error; reset: () => void }) => {
       </div>
     )
   }
+
   return (
     <Paper>
       <div className="mt-20">

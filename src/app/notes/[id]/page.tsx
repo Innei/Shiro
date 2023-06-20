@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client'
 
-import { memo, useEffect } from 'react'
+import { Suspense, memo, useEffect } from 'react'
 import { Balancer } from 'react-wrap-balancer'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
@@ -82,7 +82,7 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
       : ''
   }`
   return (
-    <>
+    <Suspense>
       <article
         className={clsx('prose', styles['with-indent'], styles['with-serif'])}
       >
@@ -127,7 +127,7 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
       <NoteTopic topic={note.topic} />
       <XLogInfoForNote />
       <NoteFooterNavigationBarForMobile id={note.id} />
-    </>
+    </Suspense>
   )
 })
 

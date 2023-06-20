@@ -85,6 +85,7 @@ const LinkInternal: typeof Link = memo(({ children, ...rest }) => {
   return (
     <Link
       {...rest}
+      prefetch={false}
       onClick={() => {
         jotaiStore.set(drawerOpenAtom, false)
       }}
@@ -98,7 +99,7 @@ const HeaderDrawerContent = () => {
   const { config } = useHeaderConfig()
 
   return (
-    <div className="h-[100vh] w-[90vw] space-y-4 overflow-auto py-8 scrollbar-none">
+    <div className="h-[100vh] w-[90vw] space-y-4 overflow-auto pb-8 pt-14 scrollbar-none">
       {config.map((section, index) => {
         return (
           <motion.section

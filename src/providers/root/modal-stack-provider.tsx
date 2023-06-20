@@ -113,7 +113,7 @@ export const Modal: Component<{
               animate={enterStyle}
               transition={modalTransition}
               className={clsxm(
-                'flex flex-col overflow-hidden rounded-lg',
+                'relative flex flex-col overflow-hidden rounded-lg',
                 'bg-slate-50/90 dark:bg-neutral-900/90',
                 'p-2 shadow-2xl shadow-stone-300 backdrop-blur-sm dark:shadow-neutral-700',
                 'max-h-[70vh] min-w-[300px] max-w-[90vw] lg:max-h-[50vh] lg:max-w-[50vw]',
