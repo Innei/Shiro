@@ -2,7 +2,7 @@
 
 import { isServer } from '@tanstack/react-query'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { motion, useAnimationControls } from 'framer-motion'
+import { useAnimationControls } from 'framer-motion'
 import mediumZoom from 'medium-zoom'
 import { tv } from 'tailwind-variants'
 import type { Zoom } from 'medium-zoom'
@@ -16,6 +16,7 @@ import { useMarkdownImageRecord } from '~/providers/article/markdown-image-recor
 import { clsxm } from '~/utils/helper'
 
 import { Divider } from '../divider'
+import imageStyles from './ZoomedImage.module.css'
 
 type TImageProps = {
   src: string
@@ -109,33 +110,24 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
           <span>
             {imageLoadStatus !== ImageLoadStatus.Loaded && placeholder}
           </span>
-          <motion.img
-            variants={{
-              loading: {
-                opacity: 0,
-                // filter: 'blur(10px)',
-              },
-              loaded: {
-                opacity: 1,
-                // filter: 'blur(0px)',
-              },
-            }}
-            initial="loading"
-            animate={controls}
+          <img
             src={src}
             title={title}
             alt={alt}
             ref={imageRef}
             onLoad={() => {
               setImageLoadStatusSafe(ImageLoadStatus.Loaded)
-              requestAnimationFrame(() => {
-                controls.start('loaded')
-              })
             }}
             onError={() => setImageLoadStatusSafe(ImageLoadStatus.Error)}
             className={styles({
               status: imageLoadStatus,
+              className: imageStyles[ImageLoadStatus.Loaded],
             })}
+            onAnimationEnd={(e) => {
+              if (ImageLoadStatus.Loaded) {
+               (e.target as HTMLElement).classList.remove(imageStyles[ImageLoadStatus.Loaded]) 
+              }
+            }}
           />
         </span>
 

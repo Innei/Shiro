@@ -1,0 +1,21 @@
+.error,
+.loading {
+  @apply opacity-0;
+}
+
+.loaded {
+  animation: zoomIn 500ms ease-in-out forwards;
+}
+
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    clip-path: inset(5%);
+    transform: scale(111.11%);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0);
+    transform: scale(1);
+  }
+}

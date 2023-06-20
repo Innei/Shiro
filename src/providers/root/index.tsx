@@ -1,6 +1,7 @@
 'use client'
 
 import { ReactQueryProvider } from './react-query-provider'
+import { Provider as BalancerProvider } from 'react-wrap-balancer'
 import { ThemeProvider } from 'next-themes'
 import type { PropsWithChildren } from 'react'
 
@@ -24,6 +25,7 @@ const contexts: JSX.Element[] = [
 
   <PageScrollInfoProvider key="PageScrollInfoProvider" />,
   <DebugProvider key="debugProvider" />,
+  <BalancerProvider key="balancerProvider" />,
   <ModalStackProvider key="modalStackProvider" />,
 ]
 export function Providers({ children }: PropsWithChildren) {

@@ -31,7 +31,7 @@ export const ToastCard: FC<{
       layoutId={id}
       layout="position"
       className={clsx(
-        'relative w-full overflow-hidden rounded-xl shadow-out-sm',
+        'relative w-full overflow-hidden rounded-xl shadow-md shadow-slate-200 dark:shadow-stone-800',
         'my-4 mr-4 px-4 py-5',
         'bg-slate-50/90 backdrop-blur-sm dark:bg-neutral-900/90',
         'border border-slate-100/80 dark:border-neutral-900/80',
