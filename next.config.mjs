@@ -44,10 +44,9 @@ let nextConfig = {
       config.plugins.push(
         sentryWebpackPlugin({
           org: 'inneis-site',
-          headers: {
-            Authorization: `DSN ${process.env.NEXT_PUBLIC_SENTRY_DSN}`,
-          },
+
           project: 'springtide',
+          authToken: process.env.NEXT_PUBLIC_SENTRY_AUTH_TOKEN,
         }),
       )
     }
