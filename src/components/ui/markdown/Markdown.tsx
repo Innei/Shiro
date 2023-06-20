@@ -7,7 +7,7 @@ import type { FC, PropsWithChildren } from 'react'
 
 import { useElementSize } from '~/providers/article/article-element-provider'
 
-import { Gallery } from '../Gallery'
+import { Gallery } from '../gallery'
 import { FixedZoomedImage } from '../image'
 import styles from './markdown.module.css'
 import { CommentAtRule } from './parsers/comment-at'

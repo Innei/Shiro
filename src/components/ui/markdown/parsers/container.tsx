@@ -3,7 +3,7 @@ import { blockRegex, Priority } from 'markdown-to-jsx'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 
 import { Banner } from '../../banner/Banner'
-import { Gallery } from '../../gallery'
+import { Gallery } from '../../gallery/Gallery'
 import { pickImagesFromMarkdown } from '../utils/image'
 
 const shouldCatchContainerName = ['gallery', 'banner', 'carousel'].join('|')
