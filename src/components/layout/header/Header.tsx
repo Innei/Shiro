@@ -15,6 +15,7 @@ import { HeaderContent } from './internal/HeaderContent'
 import { HeaderDataConfigureProvider } from './internal/HeaderDataConfigureProvider'
 import { HeaderDrawerButton } from './internal/HeaderDrawerButton'
 import { HeaderMeta } from './internal/HeaderMeta'
+import { HeaderWithShadow } from './internal/HeaderWithShadow'
 import { SiteOwnerAvatar } from './internal/SiteOwnerAvatar'
 import { UserAuth } from './internal/UserAuth'
 
@@ -25,10 +26,9 @@ export const Header = () => {
     </HeaderDataConfigureProvider>
   )
 }
-
 const MemoedHeader = memo(() => {
   return (
-    <header className="fixed left-0 right-0 top-0 z-[9] h-[4.5rem] overflow-hidden">
+    <HeaderWithShadow>
       <BluredBackground />
       <div
         className={clsxm(
@@ -57,7 +57,7 @@ const MemoedHeader = memo(() => {
           <UserAuth />
         </div>
       </div>
-    </header>
+    </HeaderWithShadow>
   )
 })
 

@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { memo, useMemo, useRef } from 'react'
+import React, { Fragment, memo, useMemo, useRef } from 'react'
 import { clsx } from 'clsx'
-import { compiler } from 'markdown-to-jsx'
+import { compiler, sanitizeUrl } from 'markdown-to-jsx'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { FC, PropsWithChildren } from 'react'
 
 import { useElementSize } from '~/providers/article/article-element-provider'
+import { isDev } from '~/utils/env'
+import { springScrollToElement } from '~/utils/scroller'
 
 import { Gallery } from '../gallery'
 import { FixedZoomedImage } from '../image'
@@ -21,6 +23,7 @@ import { SpoilderRule } from './parsers/spoiler'
 import { MParagraph, MTableBody, MTableHead, MTableRow } from './renderers'
 import { MDetails } from './renderers/collapse'
 import { MFootNote } from './renderers/footnotes'
+import { MLink } from './renderers/link'
 
 export interface MdProps {
   value?: string
@@ -91,6 +94,74 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
               )
             },
           },
+
+          link: {
+            react(node, output, state) {
+              const { target, title } = node
+              return (
+                <MLink
+                  href={sanitizeUrl(target)!}
+                  title={title}
+                  key={state?.key}
+                >
+                  {output(node.content, state!)}
+                </MLink>
+              )
+            },
+          },
+
+          footnoteReference: {
+            react(node, output, state) {
+              const { footnoteMap, target, content } = node
+              const footnote = footnoteMap.get(content)
+              const linkCardId = (() => {
+                try {
+                  const thisUrl = new URL(footnote?.footnote?.replace(': ', ''))
+                  const isCurrentHost =
+                    thisUrl.hostname === window.location.hostname
+
+                  if (!isCurrentHost && !isDev) {
+                    return undefined
+                  }
+                  const pathname = thisUrl.pathname
+                  return pathname.slice(1)
+                } catch {
+                  return undefined
+                }
+              })()
+
+              return (
+                <Fragment key={state?.key}>
+                  <a
+                    href={sanitizeUrl(target)!}
+                    onClick={(e) => {
+                      e.preventDefault()
+
+                      springScrollToElement(
+                        document.getElementById(content)!,
+
+                        -window.innerHeight / 2,
+                      )
+                    }}
+                  >
+                    <sup key={state?.key}>^{content}</sup>
+                  </a>
+                  {linkCardId && <LinkCard id={linkCardId} source="mx-space" />}
+                </Fragment>
+              )
+            },
+          },
+          // codeBlock: {
+          //   react(node, output, state) {
+          //     return (
+          //       <CodeBlock
+          //         key={state?.key}
+          //         content={node.content}
+          //         lang={node.lang}
+          //       />
+          //     )
+          //   },
+          // },
 
           list: {
             react(node, output, state) {

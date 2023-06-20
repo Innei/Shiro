@@ -1,0 +1,13 @@
+.anchor {
+  @apply relative inline cursor-alias overflow-hidden text-accent;
+}
+
+.anchor::after {
+  @apply absolute -bottom-0.5 left-1/2 w-0 -translate-x-1/2 border-b-[1px] border-current text-center transition-[width] duration-500 ease-in-out;
+
+  content: '';
+}
+
+.anchor:hover::after {
+  width: 100%;
+}

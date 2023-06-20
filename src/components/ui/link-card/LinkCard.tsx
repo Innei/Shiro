@@ -163,12 +163,12 @@ export const LinkCard: FC<LinkCardProps> = (props) => {
         className,
       )}
     >
-      <div className={styles['contents']}>
-        <div className={styles['title']}>{cardInfo?.title}</div>
-        <div className={styles['desc']}>{cardInfo?.desc}</div>
-      </div>
+      <span className={styles['contents']}>
+        <span className={styles['title']}>{cardInfo?.title}</span>
+        <span className={styles['desc']}>{cardInfo?.desc}</span>
+      </span>
       {(loading || cardInfo?.image) && (
-        <div
+        <span
           className={styles['image']}
           data-image={cardInfo?.image || ''}
           style={{
