@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client'
 
-import { Suspense, memo, useEffect } from 'react'
+import { memo, Suspense, useEffect } from 'react'
 import { Balancer } from 'react-wrap-balancer'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
@@ -126,7 +126,7 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
       <SubscribeBell defaultType="note_c" />
       <NoteTopic topic={note.topic} />
       <XLogInfoForNote />
-      <NoteFooterNavigationBarForMobile id={note.id} />
+      <NoteFooterNavigationBarForMobile noteId={note.nid.toString()} />
     </Suspense>
   )
 })

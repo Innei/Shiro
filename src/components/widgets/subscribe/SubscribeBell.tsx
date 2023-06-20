@@ -1,6 +1,8 @@
 import type { SubscribeTypeToBitMap } from '@mx-space/api-client'
 import type { FC } from 'react'
 
+import { MotionButtonBase } from '~/components/ui/button'
+
 import { useIsEnableSubscribe, usePresentSubscribeModal } from './hooks'
 
 type SubscribeType = keyof typeof SubscribeTypeToBitMap
@@ -20,7 +22,7 @@ export const SubscribeBell: FC<SubscribeBellProps> = (props) => {
 
   return (
     <div className="mb-6 flex justify-center">
-      <button
+      <MotionButtonBase
         className="flex flex-col items-center justify-center p-4"
         onClick={present}
       >
@@ -29,7 +31,7 @@ export const SubscribeBell: FC<SubscribeBellProps> = (props) => {
         </p>
 
         <i className="icon-[material-symbols--notifications-active-outline] mt-4 scale-150 transform text-3xl text-accent opacity-50 transition-opacity hover:opacity-100" />
-      </button>
+      </MotionButtonBase>
     </div>
   )
 }

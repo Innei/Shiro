@@ -1,23 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import clsx from 'clsx'
 import Link from 'next/link'
-
-import { clsxm } from '~/utils/helper'
+import { tv } from 'tailwind-variants'
 
 import { MotionButtonBase } from './MotionButton'
 
-const variantStyles = {
-  primary:
-    'bg-zinc-800 font-semibold text-zinc-100 hover:bg-zinc-700 active:bg-zinc-800 active:text-zinc-100/70 dark:bg-zinc-200 dark:text-black dark:hover:bg-zinc-300 dark:active:bg-zinc-300/70',
-  secondary:
-    'group rounded-full bg-gradient-to-b from-zinc-50/50 to-white/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition dark:from-zinc-900/50 dark:to-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20',
-}
-
+const variantStyles = tv({
+  base: 'inline-flex items-center gap-2 justify-center rounded-lg py-2 px-3 text-sm outline-offset-2 transition active:transition-none',
+  variants: {
+    variant: {
+      primary: clsx(
+        'bg-zinc-800 text-zinc-100 hover:bg-zinc-700 dark:text-black dark:hover:bg-zinc-300',
+        'active:bg-zinc-800 active:text-zinc-100/70 dark:bg-zinc-200 dark:active:bg-zinc-300/70',
+        'font-semibold',
+        'disabled:bg-gray-400 disabled:text-opacity-75 disabled:dark:bg-gray-800 disabled:dark:text-slate-50/70',
+      ),
+      secondary: clsx(
+        'group rounded-full bg-gradient-to-b from-zinc-50/50 to-white/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition dark:from-zinc-900/50 dark:to-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20',
+      ),
+    },
+  },
+})
 type NativeButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   href?: string
 }
 type NativeLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>
 type SharedProps = {
-  variant?: keyof typeof variantStyles
+  variant?: 'primary' | 'secondary'
   className?: string
 }
 type ButtonProps = SharedProps & (NativeButtonProps | NativeLinkProps)
@@ -27,15 +36,22 @@ export function StyledButton({
   href,
   ...props
 }: ButtonProps) {
-  const cn = clsxm(
-    'inline-flex items-center gap-2 justify-center rounded-lg py-2 px-3 text-sm outline-offset-2 transition active:transition-none',
-    variantStyles[variant],
-    className,
-  )
-
   return href ? (
-    <Link href={href} className={cn} {...(props as any)} />
+    <Link
+      href={href}
+      className={variantStyles({
+        variant,
+        className,
+      })}
+      {...(props as any)}
+    />
   ) : (
-    <MotionButtonBase className={cn} {...(props as any)} />
+    <MotionButtonBase
+      className={variantStyles({
+        variant,
+        className,
+      })}
+      {...(props as any)}
+    />
   )
 }

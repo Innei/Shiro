@@ -2,6 +2,7 @@ import { useEffect, useReducer } from 'react'
 import type { SubscribeTypeToBitMap } from '@mx-space/api-client'
 import type { FC } from 'react'
 
+import { StyledButton } from '~/components/ui/button'
 import { Input } from '~/components/ui/input/Input'
 import { useStateToRef } from '~/hooks/common/use-state-ref'
 import { toast } from '~/lib/toast'
@@ -153,9 +154,7 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
         </a>{' '}
         订阅「{title}」的 RSS 流。
       </p>
-      <button className="btn-accent btn-md btn" disabled={!state.email}>
-        订阅
-      </button>
+      <StyledButton disabled={!state.email}>订阅</StyledButton>
     </form>
   )
 }

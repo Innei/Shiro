@@ -115,7 +115,7 @@ export const Modal: Component<{
               className={clsxm(
                 'relative flex flex-col overflow-hidden rounded-lg',
                 'bg-slate-50/90 dark:bg-neutral-900/90',
-                'p-2 shadow-2xl shadow-stone-300 backdrop-blur-sm dark:shadow-neutral-700',
+                'p-2 shadow-2xl shadow-stone-300 backdrop-blur-sm dark:shadow-stone-800',
                 'max-h-[70vh] min-w-[300px] max-w-[90vw] lg:max-h-[50vh] lg:max-w-[50vw]',
                 'border border-slate-200 dark:border-neutral-800',
                 item.modalClassName,

@@ -1,9 +1,12 @@
 'use client'
+
+import { StyledButton } from "~/components/ui/button"
+
 export default () => {
   return (
     // @ts-expect-error
-    <button onClick={() => globalThis.methodDoesNotExist()}>
+    <StyledButton onClick={() => globalThis.methodDoesNotExist()}>
       Break the world
-    </button>
+    </StyledButton>
   )
 }

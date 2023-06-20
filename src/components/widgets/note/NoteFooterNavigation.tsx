@@ -15,12 +15,14 @@ import { useNoteByNidQuery } from '~/hooks/data/use-note'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { springScrollToTop } from '~/utils/scroller'
 
-export const NoteFooterNavigation: FC<{ id: string }> = ({ id }) => {
+export const NoteFooterNavigation: FC<{ noteId: string }> = ({
+  noteId: id,
+}) => {
   const { data } = useNoteByNidQuery(id)
 
   const router = useRouter()
 
-  if (!data) return
+  if (!data) return null
 
   const { prev, next } = data
   const prevNid = prev?.nid
