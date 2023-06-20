@@ -6,7 +6,7 @@ export const Root = () => {
   return (
     <div>
       <Sidebar />
-      <main className="markdown-body relative ml-[250px] p-4">
+      <main className="relative ml-[250px] max-h-[100vh] overflow-auto p-4">
         <Outlet />
         <ScrollRestoration />
       </main>

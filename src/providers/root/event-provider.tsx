@@ -1,12 +1,14 @@
 'use client'
 
+import { useEffect } from 'react'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 
+import { setIsPrintMode } from '~/atoms/css-media'
 import { viewportAtom } from '~/atoms/viewport'
 import { throttle } from '~/lib/_'
 import { jotaiStore } from '~/lib/store'
 
-export const ViewportProvider: Component = ({ children }) => {
+export const EventProvider: Component = ({ children }) => {
   useIsomorphicLayoutEffect(() => {
     const readViewport = throttle(() => {
       const { innerWidth: w, innerHeight: h } = window
@@ -31,6 +33,26 @@ export const ViewportProvider: Component = ({ children }) => {
     window.addEventListener('resize', readViewport)
     return () => {
       window.removeEventListener('resize', readViewport)
+    }
+  }, [])
+
+  useEffect(() => {
+    const getMediaType = <T extends { matches: boolean }>(e: T) => {
+      setIsPrintMode(!e.matches)
+    }
+
+    getMediaType(window.matchMedia('screen'))
+
+    const callback = (e: MediaQueryListEvent): void => {
+      getMediaType(e)
+    }
+    try {
+      window.matchMedia('screen').addEventListener('change', callback)
+      // eslint-disable-next-line no-empty
+    } catch {}
+
+    return () => {
+      window.matchMedia('screen').removeEventListener('change', callback)
     }
   }, [])
 

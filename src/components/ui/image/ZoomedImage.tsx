@@ -150,6 +150,9 @@ export const ZoomedImage: Component<TImageProps> = (props) => {
 
 interface FixedImageProps extends TImageProps {
   containerWidth: number
+
+  height?: number
+  width?: number
 }
 export const FixedZoomedImage: Component<FixedImageProps> = (props) => {
   const placeholder = useMemo(() => {
@@ -158,19 +161,27 @@ export const FixedZoomedImage: Component<FixedImageProps> = (props) => {
   return <ImageLazy zoom placeholder={placeholder} {...props} />
 }
 
-const Placeholder: FC<Pick<FixedImageProps, 'src' | 'containerWidth'>> = ({
-  src,
-  containerWidth,
-}) => {
+const Placeholder: FC<
+  Pick<FixedImageProps, 'src' | 'containerWidth' | 'height' | 'width'>
+> = ({ src, containerWidth, height: manualHeight, width: manualWidth }) => {
   const imageMeta = useMarkdownImageRecord(src)
 
   const scaledSize = useMemo(() => {
-    if (!imageMeta) return
-    const { height, width } = imageMeta
+    let nextHeight = manualHeight
+    let nextWidth = manualWidth
+
+    if (!nextHeight || !nextWidth) {
+      if (!imageMeta) {
+        return
+      }
+      nextHeight = imageMeta.height
+      nextWidth = imageMeta.width
+    }
+
     if (containerWidth <= 0) return
     const { height: scaleHeight, width: scaleWidth } = calculateDimensions({
-      width,
-      height,
+      width: nextHeight,
+      height: nextWidth,
       max: {
         width: containerWidth,
         height: Infinity,
@@ -181,7 +192,7 @@ const Placeholder: FC<Pick<FixedImageProps, 'src' | 'containerWidth'>> = ({
       scaleHeight,
       scaleWidth,
     }
-  }, [imageMeta, containerWidth])
+  }, [manualHeight, manualWidth, containerWidth, imageMeta])
 
   if (!scaledSize) return <NoFixedPlaceholder accent={imageMeta?.accent} />
 

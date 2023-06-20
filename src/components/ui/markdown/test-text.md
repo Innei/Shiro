@@ -69,7 +69,9 @@ flowchart TD
     6([直接运行或使用 PM2 托管])
 ```
 
-GH Mention: (GH@Innei)
+GH Mention: {GH@Innei}
+TW Mention: {TW@Innei}
+TG Mention: {TG@Innei}
 
 > _夕暮れ_
 >

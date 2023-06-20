@@ -24,6 +24,7 @@ import { MParagraph, MTableBody, MTableHead, MTableRow } from './renderers'
 import { MDetails } from './renderers/collapse'
 import { MFootNote } from './renderers/footnotes'
 import { MLink } from './renderers/link'
+import { CodeBlock } from '~/components/common/CodeBlock'
 
 export interface MdProps {
   value?: string
@@ -151,17 +152,17 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
               )
             },
           },
-          // codeBlock: {
-          //   react(node, output, state) {
-          //     return (
-          //       <CodeBlock
-          //         key={state?.key}
-          //         content={node.content}
-          //         lang={node.lang}
-          //       />
-          //     )
-          //   },
-          // },
+          codeBlock: {
+            react(node, output, state) {
+              return (
+                <CodeBlock
+                  key={state?.key}
+                  content={node.content}
+                  lang={node.lang}
+                />
+              )
+            },
+          },
 
           list: {
             react(node, output, state) {

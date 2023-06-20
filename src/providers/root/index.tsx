@@ -8,12 +8,12 @@ import type { PropsWithChildren } from 'react'
 import { ProviderComposer } from '../../components/common/ProviderComposer'
 import { AggregationProvider } from './aggregation-data-provider'
 import { DebugProvider } from './debug-provider'
+import { EventProvider } from './event-provider'
 import { JotaiStoreProvider } from './jotai-provider'
 import { ModalStackProvider } from './modal-stack-provider'
 import { PageScrollInfoProvider } from './page-scroll-info-provider'
 import { SentryProvider } from './sentry-provider'
 import { SocketContainer } from './socket-provider'
-import { ViewportProvider } from './viewport-provider'
 
 const contexts: JSX.Element[] = [
   <SentryProvider key="SentryProvider" />,
@@ -21,7 +21,7 @@ const contexts: JSX.Element[] = [
   <ReactQueryProvider key="reactQueryProvider" />,
   <JotaiStoreProvider key="jotaiStoreProvider" />,
   <AggregationProvider key="aggregationProvider" />,
-  <ViewportProvider key="viewportProvider" />,
+  <EventProvider key="viewportProvider" />,
 
   <PageScrollInfoProvider key="PageScrollInfoProvider" />,
   <DebugProvider key="debugProvider" />,

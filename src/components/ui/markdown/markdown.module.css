@@ -1,4 +1,20 @@
 .md {
+  :global {
+    & .spoiler {
+      position: relative;
+
+      transition: background 0.5s;
+      text-decoration: none;
+      border-radius: 3px;
+
+      @apply bg-current text-stone-700 dark:text-neutral-500;
+
+      &:hover {
+        background: transparent;
+      }
+    }
+  }
+
   &.code-fully pre > code {
     max-height: unset !important;
   }

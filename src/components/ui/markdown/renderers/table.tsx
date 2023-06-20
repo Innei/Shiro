@@ -2,11 +2,10 @@ import React from 'react'
 import clsx from 'clsx'
 import type { FC } from 'react'
 
-// TODO re-style
 export const MTableHead: FC<JSX.IntrinsicElements['thead']> = (props) => {
   const { children, className, ...rest } = props
   return (
-    <thead className={clsx(className, 'bg-accent/30')} {...rest}>
+    <thead className={clsx(className, 'bg-accent/20')} {...rest}>
       {children}
     </thead>
   )
