@@ -1,5 +1,8 @@
+import dayjs from 'dayjs'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+
+import { kv } from '@vercel/kv'
 
 import countries from '~/data/countries.json'
 
@@ -9,11 +12,9 @@ import {
   REQUEST_QUERY,
 } from './constants/system'
 
-const lastGeo = ``
-
 export default async function middleware(req: NextRequest) {
   const { pathname, search } = req.nextUrl
-  const { geo } = req
+  const { geo, ip } = req
 
   // console.debug(`${req.method} ${req.nextUrl.pathname}${req.nextUrl.search}`)
 
@@ -41,6 +42,10 @@ export default async function middleware(req: NextRequest) {
     if (countryInfo) {
       const flag = countryInfo.flag
       requestHeaders.set(REQUEST_GEO, `${country}-${city}-${flag}`)
+      await kv.hset('visitor_geo', {
+        [new Date().toISOString()]: `${country}-${city}-${flag}`,
+      })
+      await kv.sadd(`visitor_ip_${dayjs().format('MM-DD')}`, ip)
     }
   }
 

@@ -71,20 +71,23 @@ export const MLink: FC<{
     <FloatPopover
       as="span"
       wrapperClassNames="!inline"
-      TriggerComponent={() => (
-        <>
-          <a
-            className={clsx(styles['anchor'], 'is-link')}
-            href={props.href}
-            target="_blank"
-            onClick={handleRedirect}
-            title={props.title}
-          >
-            {props.children}
-          </a>
+      TriggerComponent={useCallback(
+        () => (
+          <>
+            <a
+              className={clsx(styles['anchor'], 'is-link')}
+              href={props.href}
+              target="_blank"
+              onClick={handleRedirect}
+              title={props.title}
+            >
+              {props.children}
+            </a>
 
-          {ExtendIcon}
-        </>
+            {ExtendIcon}
+          </>
+        ),
+        [handleRedirect, props.children, props.href, props.title],
       )}
     >
       <span>{props.href}</span>

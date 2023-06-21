@@ -172,7 +172,7 @@ const ButtonGroup = () => {
   return (
     <div
       role="radiogroup"
-      className="w-fit-content inline-flex rounded-full border border-slate-100 p-[3px] dark:border-neutral-800"
+      className="w-fit-content inline-flex rounded-full border border-slate-200 p-[3px] dark:border-neutral-800"
     >
       <button
         aria-checked="false"

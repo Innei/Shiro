@@ -1,3 +1,5 @@
+'use client'
+
 import { forwardRef, memo } from 'react'
 import { motion } from 'framer-motion'
 import type { ForwardRefComponent, HTMLMotionProps } from 'framer-motion'

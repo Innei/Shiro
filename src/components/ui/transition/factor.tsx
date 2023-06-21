@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, memo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { Target, TargetAndTransition } from 'framer-motion'
 import type { FC, PropsWithChildren } from 'react'
@@ -30,7 +30,7 @@ export const createTransitionView = (
   params: TransitionViewParams,
 ): FC<PropsWithChildren<BaseTransitionProps>> => {
   const { from, to, initial } = params
-  return (props) => {
+  return memo((props) => {
     const {
       timeout = {},
       duration = 0.5,
@@ -38,11 +38,12 @@ export const createTransitionView = (
       in: In = true,
       animation = {},
       as = 'div',
+      delay = 0,
       useAnimatePresence = false,
       ...rest
     } = props
 
-    const { enter = 0, exit = 0 } = timeout
+    const { enter = delay, exit = delay } = timeout
     const MotionComponent = motion[as]
 
     return (
@@ -87,5 +88,5 @@ export const createTransitionView = (
           ))}
       </PresenceFC>
     )
-  }
+  })
 }

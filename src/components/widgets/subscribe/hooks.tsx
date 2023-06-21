@@ -17,6 +17,7 @@ export const useSubscribeStatusQuery = () => {
 export const useIsEnableSubscribe = () =>
   useQuery({
     queryKey: SWR_CHECK_SUBSCRIBE_KEY,
+    queryFn: apiClient.subscribe.check,
     select: (data: { enable: boolean }) => data?.enable,
   })
 

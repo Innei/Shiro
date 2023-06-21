@@ -15,6 +15,8 @@ export interface BaseTransitionProps extends HTMLMotionProps<'div'> {
     enter?: number
   }
 
+  delay?: number
+
   animation?: {
     enter?: TargetAndTransition['transition']
     exit?: TargetAndTransition['transition']

@@ -46,7 +46,7 @@ export const NoteTimeline = () => {
     <AnimatePresence>
       <ul className="space-y-1">
         {(timelineData || initialData)?.map((item) => {
-          const isCurrent = item.id === noteId
+          const isCurrent = item.nid === note.nid
           return (
             <MemoedItem
               key={item.id}
