@@ -50,12 +50,11 @@ export default () => {
     <div>
       <article className="prose">
         <header className="mb-8">
-          <h1>
+          <h1 className="text-center">
             <Balancer>{data.title}</Balancer>
           </h1>
-          <div>
-            <PostMetaBar data={data} />
-          </div>
+
+          <PostMetaBar data={data} className="mb-8 justify-center" />
 
           <XLogSummaryForPost />
         </header>
@@ -63,9 +62,7 @@ export default () => {
           <MarkdownImageRecordProvider
             images={data.images || (noopArr as Image[])}
           >
-            <main className="relative">
-              <Markdown value={data.text} />
-            </main>
+            <Markdown value={data.text} as="main" />
           </MarkdownImageRecordProvider>
 
           <LayoutRightSidePortal>

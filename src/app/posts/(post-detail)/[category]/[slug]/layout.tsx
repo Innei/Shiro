@@ -60,7 +60,7 @@ export default async (props: NextPageParams<PageParams>) => {
   } = props
   await getQueryClient().fetchQuery(queries.post.bySlug(category, slug))
   return (
-    <div className="relative flex grid-cols-[auto,200px] lg:grid">
+    <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
       <BottomToUpTransitionView>{props.children}</BottomToUpTransitionView>
 
       <LayoutRightSideProvider className="relative hidden lg:block" />

@@ -3,10 +3,19 @@ import type { PostModel } from '@mx-space/api-client'
 import { MdiClockOutline } from '~/components/icons/clock'
 import { FeHash } from '~/components/icons/fa-hash'
 import { RelativeTime } from '~/components/ui/relative-time'
+import { clsxm } from '~/utils/helper'
 
-export function PostMetaBar({ data }: { data: PostModel }) {
+export const PostMetaBar: Component<{ data: PostModel }> = ({
+  data,
+  className,
+}) => {
   return (
-    <div className="flex min-w-0 flex-shrink flex-grow space-x-2 text-sm">
+    <div
+      className={clsxm(
+        'flex min-w-0 flex-shrink flex-grow space-x-2 text-sm',
+        className,
+      )}
+    >
       <div className="flex min-w-0 items-center space-x-1">
         <MdiClockOutline />
         <span>
