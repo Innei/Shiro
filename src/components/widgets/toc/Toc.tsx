@@ -7,7 +7,7 @@ import type { ITocItem } from './TocItem'
 import { Divider } from '~/components/ui/divider'
 import { RightToLeftTransitionView } from '~/components/ui/transition/RightToLeftTransitionView'
 import { throttle } from '~/lib/_'
-import { useArticleElement } from '~/providers/article/article-element-provider'
+import { useWrappedElement } from '~/providers/shared/WrappedElementProvider'
 import { clsxm } from '~/utils/helper'
 import { springScrollToElement } from '~/utils/scroller'
 
@@ -27,7 +27,7 @@ export const TocAside: Component<TocAsideProps & TocSharedProps> = ({
   accessory,
 }) => {
   const containerRef = useRef<HTMLUListElement>(null)
-  const $article = useArticleElement()
+  const $article = useWrappedElement()
 
   if (typeof $article === 'undefined') {
     throw new Error('<Toc /> must be used in <ArticleElementContextProvider />')

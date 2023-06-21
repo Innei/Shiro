@@ -13,10 +13,8 @@
     ],
     "changelog": true
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -25,6 +23,7 @@
     ]
   },
   "scripts": {
+    "prepare": "pnpm exec simple-git-hooks",
     "start": "npm run dev",
     "prebuild": "rimraf .next",
     "dev": "cross-env NODE_ENV=development next dev -p 2323",
@@ -116,6 +115,7 @@
     "tailwindcss": "^3.3.2",
     "tailwindcss-variable-colors": "0.0.1",
     "tilg": "0.1.1",
+    "simple-git-hooks": "2.8.1",
     "typescript": "5.1.3",
     "typewind": "^0.1.3",
     "zx": "7.2.2"

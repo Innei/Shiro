@@ -23,13 +23,13 @@ import { SubscribeBell } from '~/components/widgets/subscribe/SubscribeBell'
 import { TocAside, TocAutoScroll } from '~/components/widgets/toc'
 import { XLogInfoForNote, XLogSummaryForNote } from '~/components/widgets/xlog'
 import { useNoteByNidQuery, useNoteData } from '~/hooks/data/use-note'
-import { ArticleElementProvider } from '~/providers/article/article-element-provider'
-import { MarkdownImageRecordProvider } from '~/providers/article/markdown-image-record-provider'
+import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
 import {
   CurrentNoteIdProvider,
   useSetCurrentNoteId,
-} from '~/providers/note/current-note-id-provider'
-import { NoteLayoutRightSidePortal } from '~/providers/note/right-side-provider'
+} from '~/providers/note/CurrentNoteIdProvider'
+import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
+import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 import { parseDate } from '~/utils/datetime'
 import { springScrollToTop } from '~/utils/scroller'
 
@@ -107,7 +107,7 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
 
         <NoteHideIfSecret>
           <XLogSummaryForNote />
-          <ArticleElementProvider>
+          <WrappedElementProvider>
             <MarkdownImageRecordProvider images={note.images || noopArr}>
               <Markdown
                 as="main"
@@ -116,7 +116,7 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
               />
             </MarkdownImageRecordProvider>
 
-            <NoteLayoutRightSidePortal>
+            <LayoutRightSidePortal>
               <TocAside
                 className="sticky top-[120px] ml-4 mt-[120px]"
                 treeClassName="max-h-[calc(100vh-6rem-4.5rem-300px)] h-[calc(100vh-6rem-4.5rem-300px)] min-h-[120px] relative"
@@ -125,8 +125,8 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
                 <NoteActionAside className="translate-y-full" />
               </TocAside>
               <TocAutoScroll />
-            </NoteLayoutRightSidePortal>
-          </ArticleElementProvider>
+            </LayoutRightSidePortal>
+          </WrappedElementProvider>
         </NoteHideIfSecret>
       </article>
 

@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 
-import { useArticleElement } from '~/providers/article/article-element-provider'
+import { useWrappedElement } from '~/providers/shared/WrappedElementProvider'
 
 import { escapeSelector } from './escapeSelector'
 
 export const TocAutoScroll: Component = () => {
-  const articleElement = useArticleElement()
+  const articleElement = useWrappedElement()
 
   useEffect(() => {
     const hash = escapeSelector(

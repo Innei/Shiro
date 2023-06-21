@@ -1,7 +1,7 @@
 import type { DocumentComponent } from 'storybook/typings'
 
-import { ArticleElementProvider } from '~/providers/article/article-element-provider'
-import { MarkdownImageRecordProvider } from '~/providers/article/markdown-image-record-provider'
+import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
+import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
 import { Gallery } from './Gallery'
 
@@ -25,7 +25,7 @@ export const Demo1: DocumentComponent = () => {
         width: '600px',
       }}
     >
-      <ArticleElementProvider>
+      <WrappedElementProvider>
         <MarkdownImageRecordProvider images={images}>
           <Gallery
             images={images.map((image) => ({
@@ -36,7 +36,7 @@ export const Demo1: DocumentComponent = () => {
             }))}
           />
         </MarkdownImageRecordProvider>
-      </ArticleElementProvider>
+      </WrappedElementProvider>
     </div>
   )
 }

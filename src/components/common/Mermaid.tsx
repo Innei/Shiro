@@ -2,7 +2,7 @@ import { useEffect, useId, useState } from 'react'
 import { useTheme } from 'next-themes'
 import type { FC } from 'react'
 
-import { useElementSize } from '~/providers/article/article-element-provider'
+import { useWrappedElementSize } from '~/providers/shared/WrappedElementProvider'
 
 import { FixedZoomedImage } from '../ui/image'
 
@@ -71,7 +71,7 @@ export const Mermaid: FC<{
       }
     })
   }, [id, props.content])
-  const { w } = useElementSize()
+  const { w } = useWrappedElementSize()
 
   const encoder = new TextEncoder()
   const data = encoder.encode(svg)

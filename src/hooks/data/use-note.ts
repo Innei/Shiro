@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 
-import { useCurrentNoteId } from '~/providers/note/current-note-id-provider'
+import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
 import { queries } from '~/queries/definition'
 import { isClientSide } from '~/utils/env'
 

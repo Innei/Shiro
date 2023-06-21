@@ -10,7 +10,7 @@ import type { FC, ReactNode } from 'react'
 import { LazyLoad } from '~/components/common/Lazyload'
 import { useIsUnMounted } from '~/hooks/common/use-is-unmounted'
 import { calculateDimensions } from '~/lib/calc-image'
-import { useMarkdownImageRecord } from '~/providers/article/markdown-image-record-provider'
+import { useMarkdownImageRecord } from '~/providers/article/MarkdownImageRecordProvider'
 import { clsxm } from '~/utils/helper'
 
 import { Divider } from '../divider'

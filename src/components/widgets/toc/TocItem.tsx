@@ -2,7 +2,7 @@ import { memo, useCallback, useEffect, useMemo, useRef } from 'react'
 import { tv } from 'tailwind-variants'
 import type { FC, MouseEvent } from 'react'
 
-import { useArticleElement } from '~/providers/article/article-element-provider'
+import { useWrappedElement } from '~/providers/shared/WrappedElementProvider'
 import { clsxm } from '~/utils/helper'
 
 import { escapeSelector } from './escapeSelector'
@@ -50,7 +50,7 @@ export const TocItem: FC<{
 
     return result
   }, [depth, rootDepth])
-  const $article = useArticleElement()
+  const $article = useWrappedElement()
   return (
     <a
       ref={$ref}

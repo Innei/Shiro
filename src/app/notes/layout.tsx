@@ -2,8 +2,8 @@ import clsx from 'clsx'
 import type { PropsWithChildren } from 'react'
 
 import { NoteLeftSidebar } from '~/components/widgets/note/NoteLeftSidebar'
-import { CurrentNoteIdProvider } from '~/providers/note/current-note-id-provider'
-import { NoteLayoutRightSideProvider } from '~/providers/note/right-side-provider'
+import { CurrentNoteIdProvider } from '~/providers/note/CurrentNoteIdProvider'
+import { LayoutRightSideProvider } from '~/providers/shared/LayoutRightSideProvider'
 
 export default async (props: PropsWithChildren) => {
   return (
@@ -19,7 +19,7 @@ export default async (props: PropsWithChildren) => {
 
         {props.children}
 
-        <NoteLayoutRightSideProvider className="relative hidden lg:block" />
+        <LayoutRightSideProvider className="relative hidden lg:block" />
       </div>
     </CurrentNoteIdProvider>
   )

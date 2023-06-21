@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { FC, PropsWithChildren } from 'react'
 
-import { useElementSize } from '~/providers/article/article-element-provider'
+import { useWrappedElementSize } from '~/providers/shared/WrappedElementProvider'
 import { isDev } from '~/utils/env'
 import { springScrollToElement } from '~/utils/scroller'
 
@@ -238,6 +238,6 @@ const MarkdownImage = (props: any) => {
     ...props,
   }
   nextProps.alt = props.alt?.replace(/^[¡!]/, '')
-  const { w } = useElementSize()
+  const { w } = useWrappedElementSize()
   return <FixedZoomedImage {...nextProps} containerWidth={w} />
 }

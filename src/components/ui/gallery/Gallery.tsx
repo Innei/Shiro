@@ -5,8 +5,8 @@ import type { FC, UIEventHandler } from 'react'
 
 import { useStateToRef } from '~/hooks/common/use-state-ref'
 import { throttle } from '~/lib/_'
-import { useElementSize } from '~/providers/article/article-element-provider'
-import { useMarkdownImageRecord } from '~/providers/article/markdown-image-record-provider'
+import { useMarkdownImageRecord } from '~/providers/article/MarkdownImageRecordProvider'
+import { useWrappedElementSize } from '~/providers/shared/WrappedElementProvider'
 
 import { FixedZoomedImage } from '../image'
 import styles from './Gallery.module.css'
@@ -192,7 +192,7 @@ const GalleryItem: FC<{
     title ||
     (['!', '¡'].some((ch) => ch == alt?.[0]) ? alt?.slice(1) : '') ||
     ''
-  const { w } = useElementSize()
+  const { w } = useWrappedElementSize()
   return (
     <div
       style={childStyle}

@@ -6,16 +6,19 @@ import { ProviderComposer } from '~/components/common/ProviderComposer'
 import { clsxm } from '~/utils/helper'
 
 const [
-  ArticleElementProviderInternal,
-  useArticleElement,
-  useSetArticleElement,
+  WrappedElementProviderInternal,
+  useWrappedElement,
+  useSetWrappedElement,
 ] = createContextState<HTMLDivElement | null>(undefined as any)
 
-const [ElementSizeProviderInternal, useElementSize, useSetElementSize] =
-  createContextState({
-    h: 0,
-    w: 0,
-  })
+const [
+  ElementSizeProviderInternal,
+  useWrappedElementSize,
+  useSetWrappedElementSize,
+] = createContextState({
+  h: 0,
+  w: 0,
+})
 
 const [
   ElementPositsionProviderInternal,
@@ -28,17 +31,17 @@ const [
 
 const [
   IsEOArticleElementProviderInternal,
-  useIsEOArticleElement,
+  useIsEOWrappedElement,
   useSetIsEOArticleElement,
 ] = createContextState<boolean>(false)
 
 const Providers = [
-  <ArticleElementProviderInternal key="ArticleElementProviderInternal" />,
+  <WrappedElementProviderInternal key="ArticleElementProviderInternal" />,
   <ElementSizeProviderInternal key="ElementSizeProviderInternal" />,
   <ElementPositsionProviderInternal key="ElementPositsionProviderInternal" />,
   <IsEOArticleElementProviderInternal key="IsEOArticleElementProviderInternal" />,
 ]
-const ArticleElementProvider: Component = ({ children, className }) => {
+const WrappedElementProvider: Component = ({ children, className }) => {
   return (
     <ProviderComposer contexts={Providers}>
       <ArticleElementResizeObserver />
@@ -47,9 +50,9 @@ const ArticleElementProvider: Component = ({ children, className }) => {
   )
 }
 const ArticleElementResizeObserver = () => {
-  const setSize = useSetElementSize()
+  const setSize = useSetWrappedElementSize()
   const setPos = useSetElementPositsion()
-  const $article = useArticleElement()
+  const $article = useWrappedElement()
   useIsomorphicLayoutEffect(() => {
     if (!$article) return
     const { height, width, x, y } = $article.getBoundingClientRect()
@@ -73,7 +76,7 @@ const ArticleElementResizeObserver = () => {
 }
 
 const Content: Component = memo(({ children, className }) => {
-  const setElement = useSetArticleElement()
+  const setElement = useSetWrappedElement()
 
   return (
     <div className={clsxm('relative', className)} ref={setElement}>
@@ -112,10 +115,10 @@ const EOADetector: Component = () => {
 }
 
 export {
-  ArticleElementProvider,
-  useSetArticleElement,
-  useArticleElement,
-  useIsEOArticleElement,
-  useElementSize,
-  useElementPositsion,
+  WrappedElementProvider,
+  useSetWrappedElement,
+  useWrappedElement,
+  useIsEOWrappedElement,
+  useWrappedElementSize,
+  useElementPositsion as useWrappedElementPositsion,
 }

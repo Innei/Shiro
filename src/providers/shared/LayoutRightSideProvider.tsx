@@ -7,7 +7,7 @@ import { atom, useAtomValue, useSetAtom } from 'jotai'
 import { useIsClient } from '~/hooks/common/use-is-client'
 
 const rightSideElementAtom = atom<null | HTMLDivElement>(null)
-export const NoteLayoutRightSideProvider: Component = ({ className }) => {
+export const LayoutRightSideProvider: Component = ({ className }) => {
   const setElement = useSetAtom(rightSideElementAtom)
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export const NoteLayoutRightSideProvider: Component = ({ className }) => {
   return <div ref={setElement} className={className} />
 }
 
-export const NoteLayoutRightSidePortal: Component = ({ children }) => {
+export const LayoutRightSidePortal: Component = ({ children }) => {
   const rightSideElement = useAtomValue(rightSideElementAtom)
 
   const isClient = useIsClient()
