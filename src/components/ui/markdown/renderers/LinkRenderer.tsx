@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react'
+import dynamic from 'next/dynamic'
 
 import { LinkCard } from '../../link-card'
 import { MLink } from './link'
-import { Tweet } from './paragraph'
 
+const Tweet = dynamic(() => import('~/components/common/Tweet'))
 export const LinkRenderer = ({ href }: { href: string }) => {
   const url = useMemo(() => {
     try {

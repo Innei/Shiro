@@ -1,11 +1,9 @@
 import React from 'react'
 import clsx from 'clsx'
-import dynamic from 'next/dynamic'
 import type { DetailedHTMLProps, FC, HTMLAttributes } from 'react'
 
 import { LinkRenderer } from './LinkRenderer'
 
-export const Tweet = dynamic(() => import('~/components/common/Tweet'))
 export const MParagraph: FC<
   DetailedHTMLProps<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>
 > = (props) => {

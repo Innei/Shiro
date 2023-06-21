@@ -12,3 +12,5 @@ export const CodeBlock = (props: {
     return <HighLighter {...props} />
   }
 }
+
+export default CodeBlock

@@ -2,6 +2,7 @@
 import React, { Fragment, memo, useMemo, useRef } from 'react'
 import { clsx } from 'clsx'
 import { compiler, sanitizeUrl } from 'markdown-to-jsx'
+import dynamic from 'next/dynamic'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { FC, PropsWithChildren } from 'react'
 
@@ -24,7 +25,8 @@ import { MParagraph, MTableBody, MTableHead, MTableRow } from './renderers'
 import { MDetails } from './renderers/collapse'
 import { MFootNote } from './renderers/footnotes'
 import { MLink } from './renderers/link'
-import { CodeBlock } from '~/components/common/CodeBlock'
+
+const CodeBlock = dynamic(() => import('~/components/common/CodeBlock'))
 
 export interface MdProps {
   value?: string
