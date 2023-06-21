@@ -42,6 +42,7 @@ export default defineConfig({
     alias: {
       'next/image': resolve(__dirname, './mock-packages/next_image'),
       'next/link': resolve(__dirname, './mock-packages/next_link'),
+      'next/dynamic': resolve(__dirname, './mock-packages/next_dynamic'),
       '~': resolve(__dirname, '../src'),
     },
   },

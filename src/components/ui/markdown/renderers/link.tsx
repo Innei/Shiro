@@ -1,4 +1,5 @@
 import { memo, useCallback } from 'react'
+import clsx from 'clsx'
 import Router from 'next/router'
 import type { FC } from 'react'
 
@@ -73,7 +74,7 @@ export const MLink: FC<{
       TriggerComponent={() => (
         <>
           <a
-            className={styles['anchor']}
+            className={clsx(styles['anchor'], 'is-link')}
             href={props.href}
             target="_blank"
             onClick={handleRedirect}

@@ -69,16 +69,12 @@
     margin: 0.5em 0;
   }
 
-  a {
-    @apply border-b-[0.5px] border-current text-inherit no-underline duration-200 hover:text-accent;
+  :global(a.is-link) {
+    @apply break-all border-b-[0.5px] border-current text-inherit no-underline duration-200  hover:text-accent;
   }
 
   hr {
     @apply mx-auto w-[60px];
-  }
-
-  a {
-    @apply break-all;
   }
 
   input[type='checkbox'] {
