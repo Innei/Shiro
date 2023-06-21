@@ -13,7 +13,7 @@ import type { MarkdownToJSX } from '~/components/ui/markdown'
 import { ClientOnly } from '~/components/common/ClientOnly'
 import { PageDataHolder } from '~/components/common/PageHolder'
 import { MdiClockOutline } from '~/components/icons/clock'
-import { useSetHeaderMetaInfo } from '~/components/layout/header/internal/hooks'
+import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { Loading } from '~/components/ui/loading'
 import { Markdown } from '~/components/ui/markdown'
@@ -22,7 +22,8 @@ import { NoteTopic } from '~/components/widgets/note/NoteTopic'
 import { SubscribeBell } from '~/components/widgets/subscribe/SubscribeBell'
 import { TocAside, TocAutoScroll } from '~/components/widgets/toc'
 import { XLogInfoForNote, XLogSummaryForNote } from '~/components/widgets/xlog'
-import { useNoteByNidQuery, useNoteData } from '~/hooks/data/use-note'
+import { useCurrentNoteData, useNoteByNidQuery } from '~/hooks/data/use-note'
+import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
 import {
   CurrentNoteIdProvider,
@@ -38,8 +39,6 @@ import { NoteActionAside } from '../../../components/widgets/note/NoteActionAsid
 import { NoteHideIfSecret } from '../../../components/widgets/note/NoteHideIfSecret'
 import { NoteMetaBar } from '../../../components/widgets/note/NoteMetaBar'
 import styles from './page.module.css'
-
-const noopArr = [] as Image[]
 
 const PageImpl = () => {
   const { id } = useParams() as { id: string }
@@ -108,7 +107,9 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
         <NoteHideIfSecret>
           <XLogSummaryForNote />
           <WrappedElementProvider>
-            <MarkdownImageRecordProvider images={note.images || noopArr}>
+            <MarkdownImageRecordProvider
+              images={note.images || (noopArr as Image[])}
+            >
               <Markdown
                 as="main"
                 renderers={MarkdownRenderers}
@@ -139,7 +140,7 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
 })
 
 const NoteTitle = () => {
-  const note = useNoteData()
+  const note = useCurrentNoteData()
   if (!note) return null
   const title = note.title
   return (
@@ -150,7 +151,7 @@ const NoteTitle = () => {
 }
 
 const NoteDateMeta = () => {
-  const note = useNoteData()
+  const note = useCurrentNoteData()
   if (!note) return null
 
   const dateFormat = dayjs(note.created)

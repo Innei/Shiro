@@ -48,9 +48,12 @@ export const HeaderMeta = () => {
             </h2>
           </div>
 
-          <div className="hidden min-w-0 flex-shrink-0 flex-col text-right leading-5 lg:flex">
-            <span className="whitespace-pre text-base-content"> {slug}</span>
-            <span className="font-medium text-gray-400 dark:text-gray-600">
+          <div className="hidden min-w-0 flex-shrink flex-col text-right leading-5 lg:flex">
+            <span className="min-w-0 truncate whitespace-pre text-gray-600/60 dark:text-gray-300/60">
+              {' '}
+              {slug}
+            </span>
+            <span className="font-medium text-gray-600 dark:text-gray-300">
               {seoTitle}
             </span>
           </div>

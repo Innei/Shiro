@@ -5,20 +5,20 @@ import type { XLogMeta } from './types'
 
 import { Collapse } from '~/components/ui/collapse'
 import { useIsClient } from '~/hooks/common/use-is-client'
-import { useNoteData } from '~/hooks/data/use-note'
+import { useCurrentNoteData } from '~/hooks/data/use-note'
+import { useCurrentPostData } from '~/hooks/data/use-post'
 
-// export const XLogInfoForPost: FC<{
-//   id: string
-// }> = ({ id }) => {
-//   const meta = usePostCollection((state) => state.data.get(id)?.meta?.xLog)
+export const XLogInfoForPost: FC = () => {
+  const data = useCurrentPostData()
 
-//   if (!meta) return null
+  if (!data) return null
 
-//   return <XLogInfoBase meta={meta} />
-// }
+  const meta = data.meta?.xLog
+  return <XLogInfoBase meta={meta} />
+}
 
 export const XLogInfoForNote: FC = () => {
-  const data = useNoteData()
+  const data = useCurrentNoteData()
 
   if (!data) return null
 

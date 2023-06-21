@@ -2,12 +2,12 @@
 
 import { Divider } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'
-import { useNoteData } from '~/hooks/data/use-note'
+import { useCurrentNoteData } from '~/hooks/data/use-note'
 
 import { NoteTopicDetail, ToTopicLink } from './NoteTopicDetail'
 
 export const NoteTopicInfo = () => {
-  const note = useNoteData()
+  const note = useCurrentNoteData()
 
   if (!note?.topic) return null
 

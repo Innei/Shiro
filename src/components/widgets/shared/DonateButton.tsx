@@ -83,6 +83,7 @@ const DonateButtonTop = () => {
   const buttonPos = useAtomValue(positionAtom)
   return (
     <DonateButtonInternal
+      className="focus-visible:text-uk-brown-light focus-visible:!shadow-none"
       style={{
         position: 'fixed',
         left: buttonPos.x,

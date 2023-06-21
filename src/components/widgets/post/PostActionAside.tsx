@@ -5,9 +5,11 @@ import { motion, useAnimationControls, useForceUpdate } from 'framer-motion'
 import { produce } from 'immer'
 import type { NoteWrappedPayload } from '@mx-space/api-client'
 
+import { IonThumbsup } from '~/components/icons/thumbs-up'
 import { MotionButtonBase } from '~/components/ui/button'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { useCurrentNoteData } from '~/hooks/data/use-note'
+import { useCurrentPostData } from '~/hooks/data/use-post'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
 import { urlBuilder } from '~/lib/url-builder'
@@ -19,7 +21,7 @@ import { apiClient } from '~/utils/request'
 
 import { DonateButton } from '../shared/DonateButton'
 
-export const NoteActionAside: Component = ({ className }) => {
+export const PostActionAside: Component = ({ className }) => {
   return (
     <div
       className={clsxm(
@@ -35,19 +37,19 @@ export const NoteActionAside: Component = ({ className }) => {
 }
 
 const LikeButton = () => {
-  const note = useCurrentNoteData()
+  const post = useCurrentPostData()
 
   const queryClient = useQueryClient()
   const control = useAnimationControls()
   const [update] = useForceUpdate()
-  if (!note) return null
-  const id = note.id
+  if (!post) return null
+  const id = post.id
   const handleLike = () => {
     if (isLikedBefore(id)) return
     apiClient.note.likeIt(id).then(() => {
       setLikeId(id)
       queryClient.setQueriesData(
-        queries.note.byNid(note.nid.toString()),
+        queries.post.bySlug(post.category.slug, post.slug),
         (old: any) => {
           return produce(old as NoteWrappedPayload, (draft) => {
             draft.data.count.like += 1
@@ -68,32 +70,28 @@ const LikeButton = () => {
         control.start('tap', {
           repeat: 5,
         })
-        toast('谢谢你！', undefined, {
+        toast('捕捉一只大佬！', undefined, {
           iconElement: (
             <motion.i
-              className="icon-[mingcute--heart-fill] text-uk-red-light"
+              className="text-uk-orange-light"
               initial={{
                 scale: 0.96,
               }}
               animate={{
                 scale: 1.22,
               }}
-              transition={{
-                easings: ['easeInOut'],
-                delay: 0.3,
-                repeat: 5,
-                repeatDelay: 0.3,
-              }}
-            />
+            >
+              <IonThumbsup />
+            </motion.i>
           ),
         })
       }}
     >
       <motion.i
         className={clsxm(
-          'icon-[mingcute--heart-fill] text-[24px] opacity-80 duration-200 hover:text-uk-red-light hover:opacity-100',
+          'text-[24px] opacity-80 duration-200 hover:text-uk-orange-light hover:opacity-100',
 
-          isLiked && 'text-uk-red-light',
+          isLiked && 'text-uk-orange-dark',
         )}
         animate={control}
         variants={{
@@ -104,7 +102,9 @@ const LikeButton = () => {
         transition={{
           easings: ['easeInOut'],
         }}
-      />
+      >
+        <IonThumbsup />
+      </motion.i>
     </MotionButtonBase>
   )
 }

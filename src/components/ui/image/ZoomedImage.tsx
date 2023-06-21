@@ -59,9 +59,7 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
   const [zoomer_] = useState(() => {
     if (isServer) return null
     if (zoomer) return zoomer
-    const zoom = mediumZoom(undefined, {
-      background: 'var(--sbg)',
-    })
+    const zoom = mediumZoom(undefined)
     zoomer = zoom
     return zoom
   }) as [Zoom]
@@ -180,8 +178,8 @@ const Placeholder: FC<
 
     if (containerWidth <= 0) return
     const { height: scaleHeight, width: scaleWidth } = calculateDimensions({
-      width: nextHeight,
-      height: nextWidth,
+      width: nextWidth,
+      height: nextHeight,
       max: {
         width: containerWidth,
         height: Infinity,
@@ -199,6 +197,11 @@ const Placeholder: FC<
   return (
     <span
       className={styles.base}
+      data-width={scaledSize.scaleWidth}
+      data-height={scaledSize.scaleHeight}
+      data-from-record-height={imageMeta?.height}
+      data-from-record-width={imageMeta?.width}
+      data-src={src}
       style={{
         height: scaledSize.scaleHeight,
         width: scaledSize.scaleWidth,

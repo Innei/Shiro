@@ -6,12 +6,10 @@ import RemoveMarkdown from 'remove-markdown'
 import type { PostModel } from '@mx-space/api-client'
 
 import { IcRoundKeyboardDoubleArrowRight } from '~/components/icons/arrow'
-import { MdiClockOutline } from '~/components/icons/clock'
-import { FeHash } from '~/components/icons/fa-hash'
-import { RelativeTime } from '~/components/ui/relative-time'
 import { PostPinIcon } from '~/components/widgets/post/PostPinIcon'
 
 import { PostItemHoverOverlay } from './PostItemHoverOverlay'
+import { PostMetaBar } from './PostMetaBar'
 
 export const PostItem = memo<{ data: PostModel }>(({ data }) => {
   const displayText =
@@ -54,35 +52,7 @@ export const PostItem = memo<{ data: PostModel }>(({ data }) => {
       </div>
 
       <div className="post-meta-bar flex select-none items-center gap-4 text-base-content/60">
-        <div className="flex min-w-0 flex-shrink flex-grow space-x-2 text-sm">
-          <div className="flex min-w-0 items-center space-x-1">
-            <MdiClockOutline />
-            <span>
-              <RelativeTime date={data.created} />
-            </span>
-          </div>
-
-          <div className="flex min-w-0 items-center space-x-1">
-            <FeHash className="translate-y-[0.5px]" />
-            <span className="min-w-0 truncate">
-              {data.category.name}
-              {data.tags.length ? ` / ${data.tags.join(', ')}` : ''}
-            </span>
-          </div>
-
-          {!!data.count?.read && (
-            <div className="flex min-w-0 items-center space-x-1">
-              <i className="icon-[mingcute--eye-2-line]" />
-              <span className="min-w-0 truncate">{data.count.read}</span>
-            </div>
-          )}
-          {!!data.count?.like && (
-            <div className="flex min-w-0 items-center space-x-1">
-              <i className="icon-[mingcute--heart-fill]" />
-              <span className="min-w-0 truncate">{data.count.like}</span>
-            </div>
-          )}
-        </div>
+        <PostMetaBar data={data} />
         <span className="flex flex-shrink-0 select-none items-center space-x-1 text-accent hover:text-accent [&>svg]:hover:ml-2">
           <span>阅读全文</span>
           <IcRoundKeyboardDoubleArrowRight className="text-lg transition-[margin]" />

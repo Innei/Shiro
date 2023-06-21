@@ -6,11 +6,11 @@ import { useEffect, useMemo } from 'react'
 import dayjs from 'dayjs'
 
 import { useIsLogged } from '~/atoms/owner'
-import { useNoteData } from '~/hooks/data/use-note'
+import { useCurrentNoteData } from '~/hooks/data/use-note'
 import { toast } from '~/lib/toast'
 
 export const NoteHideIfSecret: Component = ({ children }) => {
-  const note = useNoteData()
+  const note = useCurrentNoteData()
   const secretDate = useMemo(() => new Date(note?.secret!), [note?.secret])
   const isSecret = note?.secret
     ? dayjs(note?.secret).isAfter(new Date())

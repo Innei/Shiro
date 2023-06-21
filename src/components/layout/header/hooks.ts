@@ -2,7 +2,10 @@
 
 import { useEffect } from 'react'
 
-import { useSetHeaderShouldShowBg } from '~/components/layout/header/internal/hooks'
+import {
+  useSetHeaderMetaInfo,
+  useSetHeaderShouldShowBg,
+} from '~/components/layout/header/internal/hooks'
 
 export const useHideHeaderBgInRoute = () => {
   const setter = useSetHeaderShouldShowBg()
@@ -18,3 +21,5 @@ export const HeaderHideBg = () => {
   useHideHeaderBgInRoute()
   return null
 }
+
+export { useSetHeaderMetaInfo }

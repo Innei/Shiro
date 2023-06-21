@@ -7,7 +7,7 @@ import type { ReactNode } from 'react'
 
 import { CreativeCommonsIcon } from '~/components/icons/cc'
 import { DividerVertical } from '~/components/ui/divider'
-import { useNoteData } from '~/hooks/data/use-note'
+import { useCurrentNoteData } from '~/hooks/data/use-note'
 import { mood2icon, weather2icon } from '~/lib/meta-icon'
 
 const dividerVertical = <DividerVertical className="!mx-2 scale-y-50" />
@@ -15,7 +15,7 @@ const dividerVerticalWithKey = () =>
   cloneElement(dividerVertical, { key: `divider-${Math.random()}` })
 const sectionBlockClassName = 'flex items-center space-x-1 flex-shrink-0'
 export const NoteMetaBar = () => {
-  const note = useNoteData()
+  const note = useCurrentNoteData()
   if (!note) return null
 
   const children = [] as ReactNode[]

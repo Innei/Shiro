@@ -30,7 +30,7 @@ export const TocAside: Component<TocAsideProps & TocSharedProps> = ({
   const $article = useWrappedElement()
 
   if (typeof $article === 'undefined') {
-    throw new Error('<Toc /> must be used in <ArticleElementContextProvider />')
+    throw new Error('<Toc /> must be used in <WrappedElementProvider />')
   }
   const $headings = useMemo(() => {
     if (!$article) {

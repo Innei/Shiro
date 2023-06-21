@@ -7,13 +7,13 @@ import Link from 'next/link'
 import { tv } from 'tailwind-variants'
 
 import { LeftToRightTransitionView } from '~/components/ui/transition/LeftToRightTransitionView'
-import { useNoteData } from '~/hooks/data/use-note'
+import { useCurrentNoteData } from '~/hooks/data/use-note'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
 
 export const NoteTimeline = () => {
-  const note = useNoteData()
+  const note = useCurrentNoteData()
   const noteId = note?.id
 
   const { data: timelineData } = useQuery(

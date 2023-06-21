@@ -85,4 +85,8 @@
   input[type='checkbox']:read-only {
     @apply cursor-not-allowed;
   }
+
+  code {
+    @apply font-mono;
+  }
 }

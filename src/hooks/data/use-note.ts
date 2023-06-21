@@ -5,8 +5,8 @@ import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
 import { queries } from '~/queries/definition'
 import { isClientSide } from '~/utils/env'
 
-export const useNoteData = () => {
-  const nid = useNoteNId()
+export const useCurrentNoteData = () => {
+  const nid = useCurrentNoteNId()
 
   const searchParams = useMemo(
     () => (isClientSide ? new URLSearchParams(location.search) : null),
@@ -25,7 +25,7 @@ export const useNoteData = () => {
   return noteAggregation
 }
 
-export const useNoteNId = () => {
+export const useCurrentNoteNId = () => {
   return useCurrentNoteId()
 }
 

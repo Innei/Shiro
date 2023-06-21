@@ -4,6 +4,8 @@ export const appConfig = {
       process.env.NODE_ENV === 'production'
         ? 'https://innei.ren'
         : 'http://localhost:2323',
+
+    favicon: 'https://cdn.innei.ren/github_innei.svg',
   },
 
   module: {

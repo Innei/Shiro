@@ -11,7 +11,7 @@ import { Divider, DividerVertical } from '~/components/ui/divider'
 import { Loading } from '~/components/ui/loading'
 import { RelativeTime } from '~/components/ui/relative-time'
 import { useIsClient } from '~/hooks/common/use-is-client'
-import { useNoteData } from '~/hooks/data/use-note'
+import { useCurrentNoteData } from '~/hooks/data/use-note'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { apiClient } from '~/utils/request'
 
@@ -105,7 +105,7 @@ export const NoteTopicDetail: FC<{ topic: TopicModel }> = (props) => {
 }
 
 export const ToTopicLink: FC = () => {
-  const note = useNoteData()
+  const note = useCurrentNoteData()
   if (!note?.topic) return null
   return (
     <Link

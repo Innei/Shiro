@@ -7,6 +7,7 @@ import { headers } from 'next/dist/client/components/headers'
 
 import { ClerkProvider } from '@clerk/nextjs'
 
+import { appConfig } from '~/app.config'
 import { Root } from '~/components/layout/root/Root'
 import { REQUEST_GEO, REQUEST_PATHNAME } from '~/constants/system'
 import { defineMetadata } from '~/lib/define-metadata'
@@ -30,6 +31,8 @@ export const generateMetadata = defineMetadata(async (_, getData) => {
     },
     description: seo.description,
     keywords: seo.keywords?.join(',') || '',
+    icons: [appConfig.site.favicon],
+
     themeColor: [
       { media: '(prefers-color-scheme: dark)', color: '#000212' },
       { media: '(prefers-color-scheme: light)', color: '#fafafa' },
@@ -56,6 +59,10 @@ export const generateMetadata = defineMetadata(async (_, getData) => {
       locale: 'zh_CN',
       type: 'website',
       url: url.webUrl,
+      images: {
+        url: user.avatar,
+        username: user.name,
+      },
     },
     twitter: {
       creator: `@${user.username}`,
@@ -108,7 +115,7 @@ export default async function RootLayout(props: Props) {
     <ClerkProvider>
       <html lang="zh-CN" className="noise" suppressHydrationWarning>
         <body
-          className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans antialiased`}
+          className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
         >
           <Providers>
             <Hydrate state={dehydratedState}>
