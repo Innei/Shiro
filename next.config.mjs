@@ -46,7 +46,7 @@ let nextConfig = {
           org: 'inneis-site',
 
           project: 'springtide',
-          authToken: process.env.NEXT_PUBLIC_SENTRY_AUTH_TOKEN,
+          authToken: process.env.SENTRY_AUTH_TOKEN,
         }),
       )
     }

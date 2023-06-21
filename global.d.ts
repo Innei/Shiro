@@ -1,6 +1,10 @@
 import type { FC, PropsWithChildren } from 'react'
 
 declare global {
+  export type NextErrorProps = {
+    reset(): void
+    error: Error
+  }
   export type NextPageParams<P extends {}, Props = {}> = PropsWithChildren<
     {
       params: P
