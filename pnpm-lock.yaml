@@ -38,12 +38,12 @@ dependencies:
   '@uidotdev/usehooks':
     specifier: 2.0.1
     version: 2.0.1(react-dom@18.2.0)(react@18.2.0)
+  '@upstash/redis':
+    specifier: 1.21.0
+    version: 1.21.0
   '@vercel/analytics':
     specifier: 1.0.1
     version: 1.0.1
-  '@vercel/kv':
-    specifier: 0.2.1
-    version: 0.2.1
   axios:
     specifier: 1.4.0
     version: 1.4.0
@@ -2855,8 +2855,8 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@upstash/redis@1.20.6:
-    resolution: {integrity: sha512-q1izaYEUsq/WiXNOjf4oOjFZe8fIeBSZN8d5cEyOD4nem+zxc4jccieorQQrNlEahKPE1ZYLzVEkMODRUfch2g==}
+  /@upstash/redis@1.21.0:
+    resolution: {integrity: sha512-c6M+cl0LOgGK/7Gp6ooMkIZ1IDAJs8zFR+REPkoSkAq38o7CWFX5FYwYEqGZ6wJpUGBuEOr/7hTmippXGgL25A==}
     dependencies:
       isomorphic-fetch: 3.0.0
     transitivePeerDependencies:
@@ -2865,15 +2865,6 @@ packages:
 
   /@vercel/analytics@1.0.1:
     resolution: {integrity: sha512-Ux0c9qUfkcPqng3vrR0GTrlQdqNJ2JREn/2ydrVuKwM3RtMfF2mWX31Ijqo1opSjNAq6rK76PwtANw6kl6TAow==}
-    dev: false
-
-  /@vercel/kv@0.2.1:
-    resolution: {integrity: sha512-0O1CVh0maG/bduAE6DPKUTfGSnORgrcS5xBYZCb62sOU7PrVZrXhaPbUSBE4q5PXS5DC+cpN6FY2RWNlslUaWQ==}
-    engines: {node: '>=14.6'}
-    dependencies:
-      '@upstash/redis': 1.20.6
-    transitivePeerDependencies:
-      - encoding
     dev: false
 
   /@webassemblyjs/ast@1.11.6:

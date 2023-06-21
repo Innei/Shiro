@@ -2,9 +2,8 @@ import dayjs from 'dayjs'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-import { kv } from '@vercel/kv'
-
 import countries from '~/data/countries.json'
+import { redis } from '~/lib/redis.server'
 
 import {
   REQUEST_GEO,
@@ -42,10 +41,10 @@ export default async function middleware(req: NextRequest) {
     if (countryInfo) {
       const flag = countryInfo.flag
       requestHeaders.set(REQUEST_GEO, `${country}-${city}-${flag}`)
-      await kv.hset('visitor_geo', {
+      await redis.hset('visitor_geo', {
         [new Date().toISOString()]: `${country}-${city}-${flag}`,
       })
-      await kv.sadd(`visitor_ip_${dayjs().format('MM-DD')}`, ip)
+      await redis.sadd(`visitor_ip_${dayjs().format('MM-DD')}`, ip)
     }
   }
 
