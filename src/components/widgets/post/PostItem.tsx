@@ -70,6 +70,12 @@ export const PostItem = memo<{ data: PostModel }>(({ data }) => {
             </span>
           </div>
 
+          {!!data.count?.read && (
+            <div className="flex min-w-0 items-center space-x-1">
+              <i className="icon-[mingcute--eye-2-line]" />
+              <span className="min-w-0 truncate">{data.count.read}</span>
+            </div>
+          )}
           {!!data.count?.like && (
             <div className="flex min-w-0 items-center space-x-1">
               <i className="icon-[mingcute--heart-fill]" />

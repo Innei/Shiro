@@ -3,13 +3,9 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 import countries from '~/data/countries.json'
-import { redis } from '~/lib/redis.server'
+import { kvKeys, redis } from '~/lib/redis.server'
 
-import {
-  REQUEST_GEO,
-  REQUEST_PATHNAME,
-  REQUEST_QUERY,
-} from './constants/system'
+import { REQUEST_PATHNAME, REQUEST_QUERY } from './constants/system'
 
 export default async function middleware(req: NextRequest) {
   const { pathname, search } = req.nextUrl
@@ -39,12 +35,19 @@ export default async function middleware(req: NextRequest) {
 
     const countryInfo = countries.find((x) => x.cca2 === country)
     if (countryInfo) {
-      const flag = countryInfo.flag
-      requestHeaders.set(REQUEST_GEO, `${country}-${city}-${flag}`)
-      await redis.hset('visitor_geo', {
-        [new Date().toISOString()]: `${country}-${city}-${flag}`,
-      })
-      await redis.sadd(`visitor_ip_${dayjs().format('MM-DD')}`, ip)
+      try {
+        const ipKey = `visitor_ip_${dayjs().format('YYYY-MM-DD')}`
+
+        await redis.sadd(ipKey, ip)
+
+        const countryInfo = countries.find((x) => x.cca2 === country)
+        if (countryInfo) {
+          const flag = countryInfo.flag
+          await redis.set(kvKeys.currentVisitor, { country, city, flag })
+        }
+
+        await redis.expire(ipKey, 60 * 60 * 24 * 7)
+      } catch {}
     }
   }
 

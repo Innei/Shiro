@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import { kvKeys, redis } from '~/lib/redis.server'
+import { isDev } from '~/utils/env'
 import { clsxm } from '~/utils/helper'
 
 import { linkSections } from './config'
@@ -87,7 +89,28 @@ const PoweredBy: Component = ({ className }) => {
   )
 }
 
-const FooterBottom = () => {
+type VisitorGeolocation = {
+  country: string
+  city?: string
+  flag: string
+}
+const FooterBottom = async () => {
+  let lastVisitor: VisitorGeolocation | undefined = undefined
+  if (process.env.VERCEL_ENV === 'production') {
+    const [lv, cv] = await redis.mget<VisitorGeolocation[]>(
+      kvKeys.lastVisitor,
+      kvKeys.currentVisitor,
+    )
+    lastVisitor = lv
+    await redis.set(kvKeys.lastVisitor, cv)
+  }
+
+  if (isDev) {
+    lastVisitor = {
+      country: 'US',
+      flag: '🇺🇸',
+    }
+  }
   return (
     <div className="mt-12 space-y-3 text-center md:mt-6 md:text-left">
       <p>
@@ -117,6 +140,18 @@ const FooterBottom = () => {
         <span>
           <GatewayCount /> 个小伙伴正在浏览
         </span>
+        {!!lastVisitor && (
+          <>
+            <Divider />
+            <span>
+              最近访客来自&nbsp;
+              {lastVisitor.flag}&nbsp;
+              {[lastVisitor.city, lastVisitor.country]
+                .filter(Boolean)
+                .join(', ')}
+            </span>
+          </>
+        )}
       </p>
     </div>
   )
