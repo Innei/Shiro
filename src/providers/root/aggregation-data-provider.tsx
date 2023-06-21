@@ -1,9 +1,10 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { atom, useAtomValue } from 'jotai'
 import { selectAtom } from 'jotai/utils'
 import type { AggregateRoot } from '@mx-space/api-client'
 import type { FC, PropsWithChildren } from 'react'
 
+import { fetchAppUrl, isLogged } from '~/atoms'
 import { login } from '~/atoms/owner'
 import { useAggregationQuery } from '~/hooks/data/use-aggregation'
 import { jotaiStore } from '~/lib/store'
@@ -18,9 +19,16 @@ export const AggregationProvider: FC<PropsWithChildren> = ({ children }) => {
     jotaiStore.set(aggregationDataAtom, data)
   }, [data])
 
+  const callOnceRef = useRef(false)
   useEffect(() => {
-    login()
-  }, [])
+    if (callOnceRef.current) return
+    if (!data?.user) return
+    login().then(() => {
+      console.log(isLogged())
+      callOnceRef.current = true
+      return fetchAppUrl()
+    })
+  }, [data?.user])
 
   return children
 }

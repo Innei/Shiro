@@ -3,9 +3,10 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 
-import { useViewport } from '~/atoms'
+import { getAppUrl, isLogged, useViewport } from '~/atoms'
 import { useSingleAndDoubleClick } from '~/hooks/common/use-single-double-click'
 import { Routes } from '~/lib/route-builder'
+import { toast } from '~/lib/toast'
 
 import { useHeaderMetaShouldShow } from './hooks'
 import { Logo } from './Logo'
@@ -17,6 +18,14 @@ const TapableLogo = () => {
       router.push(Routes.Home)
     },
     () => {
+      if (isLogged()) {
+        const adminUrl = getAppUrl()?.adminUrl
+        if (adminUrl) location.href = adminUrl
+        else {
+          toast('Admin url not found', 'error')
+        }
+        return
+      }
       router.push(Routes.Login)
     },
   )

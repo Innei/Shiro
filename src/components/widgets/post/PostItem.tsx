@@ -9,6 +9,7 @@ import { IcRoundKeyboardDoubleArrowRight } from '~/components/icons/arrow'
 import { MdiClockOutline } from '~/components/icons/clock'
 import { FeHash } from '~/components/icons/fa-hash'
 import { RelativeTime } from '~/components/ui/relative-time'
+import { PostPinIcon } from '~/components/widgets/post/PostPinIcon'
 
 import { PostItemHoverOverlay } from './PostItemHoverOverlay'
 
@@ -27,8 +28,10 @@ export const PostItem = memo<{ data: PostModel }>(({ data }) => {
       className="relative flex flex-col space-y-2 py-6 focus-visible:!shadow-none"
     >
       <PostItemHoverOverlay />
-      <h2 className="text-2xl font-medium">
+      <h2 className="relative text-2xl font-medium">
         <Balancer>{data.title}</Balancer>
+
+        <PostPinIcon pin={!!data.pin} id={data.id} />
       </h2>
       {!!data.summary && (
         <p className="break-all leading-relaxed text-gray-900 dark:text-slate-50">

@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { login } from '~/atoms/owner'
 import { StyledButton } from '~/components/ui/button'
 import { Input } from '~/components/ui/input/Input'
 import { Routes } from '~/lib/route-builder'
@@ -13,8 +12,9 @@ export default () => {
   const [password, setPassword] = useState('')
   const router = useRouter()
 
-  const handleLogin = (e: any) => {
+  const handleLogin = async (e: any) => {
     e.preventDefault()
+    const { login } = await import('~/atoms/owner')
     login(username, password).then(() => {
       router.push(Routes.Home)
     })
