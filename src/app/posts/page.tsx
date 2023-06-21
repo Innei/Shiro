@@ -1,10 +1,10 @@
 import { EmptyIcon } from '~/components/icons/empty'
+import { HeaderHideBg } from '~/components/layout/header/hooks'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
+import { PostItem } from '~/components/widgets/post/PostItem'
 import { PostPagination } from '~/components/widgets/post/PostPagination'
 import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
-
-import { PostItem } from '../../components/widgets/post/PostItem'
 
 interface Props {
   searchParams: {
@@ -55,6 +55,7 @@ export default async (props: Props) => {
       </ul>
 
       <PostPagination pagination={pagination} />
+      <HeaderHideBg />
     </div>
   )
 }

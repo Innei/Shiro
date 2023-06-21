@@ -2,10 +2,15 @@
 
 import clsx from 'clsx'
 
+import { useHeaderBgOpacity } from '~/components/layout/header/internal/hooks'
 import { usePageScrollLocationSelector } from '~/providers/root/page-scroll-info-provider'
 
 export const HeaderWithShadow: Component = ({ children }) => {
-  const showShadow = usePageScrollLocationSelector((y) => y > 100)
+  const headerOpacity = useHeaderBgOpacity()
+  const showShadow = usePageScrollLocationSelector(
+    (y) => y > 100 && headerOpacity > 0.8,
+    [headerOpacity],
+  )
   return (
     <header
       className={clsx(

@@ -1,17 +1,22 @@
-import { atom, useAtomValue } from 'jotai'
+import { atom, useAtomValue, useSetAtom } from 'jotai'
 
 import { jotaiStore } from '~/lib/store'
 import { usePageScrollLocationSelector } from '~/providers/root/page-scroll-info-provider'
 
+const headerMetaTitleAtom = atom('')
+const headerMetaDescriptionAtom = atom('')
+const headerMetaSlugAtom = atom('')
+const headerShouldShowBgAtom = atom(true)
+
+export const useHeaderShouldShowBg = () => useAtomValue(headerShouldShowBgAtom)
+export const useSetHeaderShouldShowBg = () => useSetAtom(headerShouldShowBgAtom)
 export const useMenuOpacity = () => {
   // const scrollDirection = usePageScrollDirection()
   const headerOpacity = useHeaderBgOpacity()
-  const opacity = 1 - headerOpacity
-
   // if (scrollDirection === 'up') {
   //   opacity = 1
   // }
-  return opacity
+  return 1 - headerOpacity
 }
 
 export const useMenuVisibility = () => useMenuOpacity() > 0
@@ -19,16 +24,18 @@ export const useMenuVisibility = () => useMenuOpacity() > 0
 export const useHeaderBgOpacity = () => {
   const threshold = 50
 
-  const headerOpacity = usePageScrollLocationSelector((y) =>
-    y >= threshold ? 1 : Math.floor((y / threshold) * 100) / 100,
+  const headerShouldShowBg = useHeaderShouldShowBg()
+
+  return usePageScrollLocationSelector(
+    (y) =>
+      headerShouldShowBg
+        ? y >= threshold
+          ? 1
+          : Math.floor((y / threshold) * 100) / 100
+        : 0,
+    [headerShouldShowBg],
   )
-
-  return headerOpacity
 }
-
-const headerMetaTitleAtom = atom('')
-const headerMetaDescriptionAtom = atom('')
-const headerMetaSlugAtom = atom('')
 
 const headerMetaShouldShowAtom = atom((get) => {
   const title = get(headerMetaTitleAtom)
