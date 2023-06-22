@@ -53,7 +53,7 @@ export const PostItem = memo<{ data: PostModel }>(({ data }) => {
       </main>
 
       <div className="post-meta-bar mt-2 flex select-none flex-wrap items-center justify-end gap-4 text-base-content/60">
-        <PostMetaBar data={data} />
+        <PostMetaBar />
         <span className="flex flex-shrink-0 select-none items-center space-x-1 text-right text-accent hover:text-accent [&>svg]:hover:ml-2">
           <span>阅读全文</span>
           <i className="icon-[mingcute--arrow-right-line] text-lg transition-[margin]" />
