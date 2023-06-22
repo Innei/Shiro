@@ -11,7 +11,7 @@ import {
   getCurrentNoteData,
   setCurrentNoteData,
   useCurrentNoteDataSelector,
-} from '~/providers/note/CurrentNodeDataProvider'
+} from '~/providers/note/CurrentNoteDataProvider'
 import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
 import { useAggregationData } from '~/providers/root/aggregation-data-provider'
 import { isLikedBefore, setLikeId } from '~/utils/cookie'

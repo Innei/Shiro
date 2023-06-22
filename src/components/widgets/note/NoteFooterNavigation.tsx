@@ -8,7 +8,7 @@ import { MdiClockTimeThreeOutline } from '~/components/icons/clock'
 import { Divider } from '~/components/ui/divider'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { routeBuilder, Routes } from '~/lib/route-builder'
-import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNodeDataProvider'
+import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 import { springScrollToTop } from '~/utils/scroller'
 
 export const NoteFooterNavigation: FC<{ noteId: string }> = ({

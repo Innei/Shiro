@@ -7,7 +7,7 @@ import dayjs from 'dayjs'
 
 import { useIsLogged } from '~/atoms/owner'
 import { toast } from '~/lib/toast'
-import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNodeDataProvider'
+import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
 
 export const NoteHideIfSecret: Component = ({ children }) => {

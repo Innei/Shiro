@@ -1,21 +1,20 @@
 'use client'
 
-import { useQueryClient } from '@tanstack/react-query'
 import { motion, useAnimationControls, useForceUpdate } from 'framer-motion'
-import { produce } from 'immer'
-import type { NoteWrappedPayload } from '@mx-space/api-client'
 
 import { IonThumbsup } from '~/components/icons/thumbs-up'
 import { MotionButtonBase } from '~/components/ui/button'
 import { useIsClient } from '~/hooks/common/use-is-client'
-import { useCurrentPostData } from '~/hooks/data/use-post'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
 import { urlBuilder } from '~/lib/url-builder'
-import { getCurrentNoteData } from '~/providers/note/CurrentNodeDataProvider'
+import { getCurrentNoteData } from '~/providers/note/CurrentNoteDataProvider'
 import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
+import {
+  setCurrentPostData,
+  useCurrentPostDataSelector,
+} from '~/providers/post/CurrentPostDataProvider'
 import { useAggregationData } from '~/providers/root/aggregation-data-provider'
-import { queries } from '~/queries/definition'
 import { isLikedBefore, setLikeId } from '~/utils/cookie'
 import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
@@ -38,25 +37,20 @@ export const PostActionAside: Component = ({ className }) => {
 }
 
 const LikeButton = () => {
-  const post = useCurrentPostData()
-
-  const queryClient = useQueryClient()
   const control = useAnimationControls()
   const [update] = useForceUpdate()
-  if (!post) return null
-  const id = post.id
+
+  const id = useCurrentPostDataSelector((data) => data?.id)
+  const nid = useCurrentNoteId()
+  if (!id) return null
   const handleLike = () => {
     if (isLikedBefore(id)) return
+    if (!nid) return
     apiClient.note.likeIt(id).then(() => {
       setLikeId(id)
-      queryClient.setQueriesData(
-        queries.post.bySlug(post.category.slug, post.slug),
-        (old: any) => {
-          return produce(old as NoteWrappedPayload, (draft) => {
-            draft.data.count.like += 1
-          })
-        },
-      )
+      setCurrentPostData((draft) => {
+        draft.count.like += 1
+      })
       update()
     })
   }
