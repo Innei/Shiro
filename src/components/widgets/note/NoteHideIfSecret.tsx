@@ -6,20 +6,20 @@ import { useEffect, useMemo } from 'react'
 import dayjs from 'dayjs'
 
 import { useIsLogged } from '~/atoms/owner'
-import { useCurrentNoteData } from '~/hooks/data/use-note'
 import { toast } from '~/lib/toast'
+import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNodeDataProvider'
+import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
 
 export const NoteHideIfSecret: Component = ({ children }) => {
-  const note = useCurrentNoteData()
-  const secretDate = useMemo(() => new Date(note?.secret!), [note?.secret])
-  const isSecret = note?.secret
-    ? dayjs(note?.secret).isAfter(new Date())
-    : false
+  const noteSecret = useCurrentNoteDataSelector((data) => data?.data.secret)
+  const nodeId = useCurrentNoteId()
+  const secretDate = useMemo(() => new Date(noteSecret!), [noteSecret])
+  const isSecret = noteSecret ? dayjs(noteSecret).isAfter(new Date()) : false
 
   const isLogged = useIsLogged()
 
   useEffect(() => {
-    if (!note?.id) return
+    if (!nodeId) return
     let timer: any
     const timeout = +secretDate - +new Date()
     // https://stackoverflow.com/questions/3468607/why-does-settimeout-break-for-large-millisecond-delay-values
@@ -33,12 +33,12 @@ export const NoteHideIfSecret: Component = ({ children }) => {
     return () => {
       clearTimeout(timer)
     }
-  }, [isSecret, secretDate, note?.id])
+  }, [isSecret, secretDate, nodeId])
 
-  if (!note) return null
+  if (!nodeId) return null
 
   if (isSecret) {
-    const dateFormat = note.secret
+    const dateFormat = noteSecret
       ? Intl.DateTimeFormat('zh-cn', {
           hour12: false,
           hour: 'numeric',
@@ -46,7 +46,7 @@ export const NoteHideIfSecret: Component = ({ children }) => {
           year: 'numeric',
           day: 'numeric',
           month: 'long',
-        }).format(new Date(note.secret))
+        }).format(new Date(noteSecret))
       : ''
 
     if (isLogged) {

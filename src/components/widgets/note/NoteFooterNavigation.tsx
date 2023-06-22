@@ -7,17 +7,21 @@ import type { FC } from 'react'
 import { MdiClockTimeThreeOutline } from '~/components/icons/clock'
 import { Divider } from '~/components/ui/divider'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
-import { useNoteByNidQuery } from '~/hooks/data/use-note'
 import { routeBuilder, Routes } from '~/lib/route-builder'
+import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNodeDataProvider'
 import { springScrollToTop } from '~/utils/scroller'
 
 export const NoteFooterNavigation: FC<{ noteId: string }> = ({
   noteId: id,
 }) => {
-  const { data } = useNoteByNidQuery(id, (data) => ({
-    nextNid: data.next?.nid,
-    prevNid: data.prev?.nid,
-  }))
+  const data = useCurrentNoteDataSelector((data) =>
+    !data
+      ? null
+      : {
+          nextNid: data?.next?.nid,
+          prevNid: data?.prev?.nid,
+        },
+  )
 
   const router = useRouter()
 

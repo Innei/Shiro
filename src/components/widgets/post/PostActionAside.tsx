@@ -8,11 +8,12 @@ import type { NoteWrappedPayload } from '@mx-space/api-client'
 import { IonThumbsup } from '~/components/icons/thumbs-up'
 import { MotionButtonBase } from '~/components/ui/button'
 import { useIsClient } from '~/hooks/common/use-is-client'
-import { useCurrentNoteData } from '~/hooks/data/use-note'
 import { useCurrentPostData } from '~/hooks/data/use-post'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
 import { urlBuilder } from '~/lib/url-builder'
+import { getCurrentNoteData } from '~/providers/note/CurrentNodeDataProvider'
+import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
 import { useAggregationData } from '~/providers/root/aggregation-data-provider'
 import { queries } from '~/queries/definition'
 import { isLikedBefore, setLikeId } from '~/utils/cookie'
@@ -113,7 +114,8 @@ const LikeButton = () => {
 const ShareButton = () => {
   const hasShare = 'share' in navigator
   const isClient = useIsClient()
-  const note = useCurrentNoteData()
+  void useCurrentNoteId()
+  const note = getCurrentNoteData()?.data
   const aggregation = useAggregationData()
   if (!isClient) return null
   if (!note) return null
