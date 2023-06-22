@@ -6,6 +6,7 @@ import { memo, Suspense, useEffect } from 'react'
 import { Balancer } from 'react-wrap-balancer'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
+import dynamic from 'next/dynamic'
 import { useParams } from 'next/navigation'
 import type { Image, NoteModel } from '@mx-space/api-client'
 import type { MarkdownToJSX } from '~/components/ui/markdown'
@@ -18,10 +19,6 @@ import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { Loading } from '~/components/ui/loading'
 import { Markdown } from '~/components/ui/markdown'
-import { NoteFooterNavigationBarForMobile } from '~/components/widgets/note/NoteFooterNavigation'
-import { NoteTopic } from '~/components/widgets/note/NoteTopic'
-import { SubscribeBell } from '~/components/widgets/subscribe/SubscribeBell'
-import { TocAside, TocAutoScroll } from '~/components/widgets/toc'
 import { XLogInfoForNote, XLogSummaryForNote } from '~/components/widgets/xlog'
 import { useCurrentNoteData, useNoteByNidQuery } from '~/hooks/data/use-note'
 import { noopArr } from '~/lib/noop'
@@ -36,10 +33,47 @@ import { parseDate } from '~/utils/datetime'
 import { springScrollToTop } from '~/utils/scroller'
 
 import { ReadIndicator } from '../../../components/common/ReadIndicator'
-import { NoteActionAside } from '../../../components/widgets/note/NoteActionAside'
 import { NoteHideIfSecret } from '../../../components/widgets/note/NoteHideIfSecret'
 import { NoteMetaBar } from '../../../components/widgets/note/NoteMetaBar'
 import styles from './page.module.css'
+
+const NoteActionAside = dynamic(
+  () =>
+    import('~/components/widgets/note/NoteActionAside').then(
+      (mod) => mod.NoteActionAside,
+    ),
+  { ssr: false },
+)
+
+const NoteFooterNavigationBarForMobile = dynamic(
+  () =>
+    import('~/components/widgets/note/NoteFooterNavigation').then(
+      (mod) => mod.NoteFooterNavigationBarForMobile,
+    ),
+  { ssr: false },
+)
+
+const NoteTopic = dynamic(
+  () =>
+    import('~/components/widgets/note/NoteTopic').then((mod) => mod.NoteTopic),
+  { ssr: false },
+)
+
+const SubscribeBell = dynamic(
+  () =>
+    import('~/components/widgets/subscribe/SubscribeBell').then(
+      (mod) => mod.SubscribeBell,
+    ),
+  { ssr: false },
+)
+const TocAside = dynamic(
+  () => import('~/components/widgets/toc').then((mod) => mod.TocAside),
+  { ssr: false },
+)
+const TocAutoScroll = dynamic(
+  () => import('~/components/widgets/toc').then((mod) => mod.TocAutoScroll),
+  { ssr: false },
+)
 
 const PageImpl = () => {
   const { id } = useParams() as { id: string }

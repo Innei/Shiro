@@ -2,25 +2,36 @@
 
 import React from 'react'
 import { AnimatePresence } from 'framer-motion'
+import dynamic from 'next/dynamic'
 import { usePathname } from 'next/navigation'
 
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-  useUser,
-} from '@clerk/nextjs'
-
-import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
-import { GoogleBrandIcon } from '~/components/icons/platform/GoogleBrandIcon'
-import { MailIcon } from '~/components/icons/platform/MailIcon'
 import { UserArrowLeftIcon } from '~/components/icons/user-arrow-left'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { urlBuilder } from '~/lib/url-builder'
-import { clsxm } from '~/utils/helper'
 
 import { HeaderActionButton } from './HeaderActionButton'
+
+const UserAuthFromIcon = dynamic(
+  () => import('./UserAuthFromIcon').then((mod) => mod.UserAuthFromIcon),
+  { ssr: false },
+)
+
+const SignedIn = dynamic(
+  () => import('@clerk/nextjs').then((mod) => mod.SignedIn),
+  { ssr: false },
+)
+const SignedOut = dynamic(
+  () => import('@clerk/nextjs').then((mod) => mod.SignedOut),
+  { ssr: false },
+)
+const UserButton = dynamic(
+  () => import('@clerk/nextjs').then((mod) => mod.UserButton),
+  { ssr: false },
+)
+const SignInButton = dynamic(
+  () => import('@clerk/nextjs').then((mod) => mod.SignInButton),
+  { ssr: false },
+)
 
 export function UserAuth() {
   const pathname = usePathname()
@@ -52,40 +63,6 @@ export function UserAuth() {
         </FloatPopover>
       </SignedOut>
     </AnimatePresence>
-  )
-}
-
-const UserAuthFromIcon: Component = ({ className }) => {
-  const { user } = useUser()
-  const StrategyIcon = React.useMemo(() => {
-    const strategy = user?.primaryEmailAddress?.verification.strategy
-    if (!strategy) {
-      return null
-    }
-
-    switch (strategy) {
-      case 'from_oauth_github':
-        return GitHubBrandIcon
-      case 'from_oauth_google':
-        return GoogleBrandIcon
-      default:
-        return MailIcon
-    }
-  }, [user?.primaryEmailAddress?.verification.strategy])
-
-  if (!StrategyIcon) {
-    return null
-  }
-
-  return (
-    <span
-      className={clsxm(
-        'pointer-events-none flex h-4 w-4 select-none items-center justify-center rounded-full bg-white dark:bg-zinc-900',
-        className,
-      )}
-    >
-      <StrategyIcon className="h-3 w-3" />
-    </span>
   )
 }
 

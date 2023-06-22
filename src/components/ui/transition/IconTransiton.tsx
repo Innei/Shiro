@@ -1,10 +1,10 @@
 'use client'
 
+import React, { useEffect, useState } from 'react'
 import { useAnimationControls } from 'framer-motion'
 import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
-import {FadeInOutTransitionView} from "~/components/ui/transition/FadeInOutTransitionView";
 
+import { FadeInOutTransitionView } from '~/components/ui/transition/FadeInOutTransitionView'
 
 interface IconTransitionProps {
   solidIcon: JSX.Element
@@ -22,7 +22,7 @@ export const IconTransition: FC<IconTransitionProps> = (props) => {
   const controls = useAnimationControls()
 
   useEffect(() => {
-    controls.start({ opacity: 0 }).then(() => {
+    controls.start({ opacity: 0.001 }).then(() => {
       setCurrentIcon(map[currentState])
       requestAnimationFrame(() => {
         controls.start({ opacity: 1 })

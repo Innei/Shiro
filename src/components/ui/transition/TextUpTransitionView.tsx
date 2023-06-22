@@ -1,8 +1,8 @@
 'use client'
 
+import React from 'react'
 import { motion } from 'framer-motion'
 import type { FC } from 'react'
-import React from 'react'
 
 import { microReboundPreset } from '~/constants/spring'
 
@@ -19,7 +19,7 @@ export const TextUpTransitionView: FC<
 > = (props) => {
   const {
     appear = true,
-    eachDelay = 0.1,
+    eachDelay = 0.001,
     initialDelay = 0,
     children,
     text,
@@ -43,7 +43,7 @@ export const TextUpTransitionView: FC<
             opacity: 1,
             transition: {
               ...microReboundPreset,
-              duration: 0.1,
+              duration: 0.001,
               delay: i * eachDelay + initialDelay,
             },
           }}
