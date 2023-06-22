@@ -1,5 +1,9 @@
 .with-indent {
   :global {
+    .paragraph:first-child {
+      margin-bottom: 4rem;
+    }
+
     ul .indent,
     .paragraph .indent {
       border-bottom: 1px solid;
@@ -23,6 +27,10 @@
         blockquote > ph {
           padding: 10px 0;
           margin: 0;
+        }
+
+        .paragraph:first-child {
+          margin-bottom: 0;
         }
       }
 
