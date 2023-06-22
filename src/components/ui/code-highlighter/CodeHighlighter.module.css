@@ -1,5 +1,5 @@
 .code-wrap {
-  position: relative;
+  @apply relative flex w-full flex-col overflow-auto;
 
   pre > code {
     @apply block bg-base-100 font-mono text-[14px] font-medium;

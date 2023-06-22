@@ -22,7 +22,7 @@ export const MDetails: FC<{ children: ReactNode[] }> = (props) => {
       >
         <i
           className={clsx(
-            'mr-2 transform transition-transform duration-500',
+            'icon-[mingcute--align-arrow-down-line] mr-2 transform transition-transform duration-500',
             open && 'rotate-90',
           )}
         >

@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef } from 'react'
+import { startTransition, useCallback, useEffect, useRef } from 'react'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 import { selectAtom } from 'jotai/utils'
 import type { FC, PropsWithChildren } from 'react'
@@ -21,17 +21,26 @@ const ScrollDetector = () => {
   const setPageScrollLocation = useSetAtom(pageScrollLocationAtom)
   const setPageScrollDirection = useSetAtom(pageScrollDirectionAtom)
   const prevScrollY = useRef(0)
+
   useEffect(() => {
-    window.addEventListener('scroll', () => {
+    const scrollHandler = () => {
       const currentTop = document.documentElement.scrollTop
 
       setPageScrollDirection(
         prevScrollY.current - currentTop > 0 ? 'up' : 'down',
       )
       prevScrollY.current = currentTop
+      startTransition(() => {
+        setPageScrollLocation(prevScrollY.current)
+      })
+    }
+    window.addEventListener('scroll', scrollHandler)
 
-      setPageScrollLocation(prevScrollY.current)
-    })
+    scrollHandler()
+
+    return () => {
+      window.removeEventListener('scroll', scrollHandler)
+    }
   }, [])
 
   return null

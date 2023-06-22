@@ -27,7 +27,7 @@ export const PostPinIcon = memo(({ pin, id }: { pin: boolean; id: string }) => {
   return (
     <MotionButtonBase
       className={clsxm(
-        'absolute bottom-0 right-0 top-0 z-[10] -m-4 box-content hidden h-5 w-5 items-center p-4',
+        'absolute bottom-0 right-0 top-[4px] z-[10] -m-5 box-content hidden h-5 w-5 items-center p-5',
         isLogged && 'inline-flex cursor-pointer',
         !isLogged && pinState && 'pointer-events-none',
         pinState && '!inline-flex text-uk-red-light',

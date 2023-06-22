@@ -5,7 +5,6 @@ import Link from 'next/link'
 import RemoveMarkdown from 'remove-markdown'
 import type { PostModel } from '@mx-space/api-client'
 
-import { IcRoundKeyboardDoubleArrowRight } from '~/components/icons/arrow'
 import { PostPinIcon } from '~/components/widgets/post/PostPinIcon'
 
 import { PostItemHoverOverlay } from './PostItemHoverOverlay'
@@ -23,39 +22,41 @@ export const PostItem = memo<{ data: PostModel }>(({ data }) => {
   return (
     <Link
       href={postLink}
-      className="relative flex flex-col space-y-2 py-6 focus-visible:!shadow-none"
+      className="relative flex flex-col py-6 focus-visible:!shadow-none"
     >
       <PostItemHoverOverlay />
-      <h2 className="relative text-2xl font-medium">
+      <h2 className="relative text-center text-2xl font-medium lg:text-left">
         <Balancer>{data.title}</Balancer>
 
         <PostPinIcon pin={!!data.pin} id={data.id} />
       </h2>
-      {!!data.summary && (
-        <p className="break-all leading-relaxed text-gray-900 dark:text-slate-50">
-          摘要： {data.summary}
-        </p>
-      )}
-      <div className="relative overflow-hidden">
-        {hasImage && (
-          <div
-            className={clsx(
-              'float-right h-24 w-24 overflow-hidden rounded-md',
-              'bg-contain bg-center bg-no-repeat',
-            )}
-            style={{ backgroundImage: `url(${hasImage})` }}
-          />
+      <main className="relative mt-8 space-y-2">
+        {!!data.summary && (
+          <p className="break-all leading-relaxed text-gray-900 dark:text-slate-50">
+            摘要： {data.summary}
+          </p>
         )}
-        <p className="break-all leading-loose text-gray-800/90 dark:text-gray-200/90">
-          {displayText}
-        </p>
-      </div>
+        <div className="relative overflow-hidden">
+          {hasImage && (
+            <div
+              className={clsx(
+                'float-right h-24 w-24 overflow-hidden rounded-md',
+                'bg-contain bg-center bg-no-repeat',
+              )}
+              style={{ backgroundImage: `url(${hasImage})` }}
+            />
+          )}
+          <p className="break-all leading-loose text-gray-800/90 dark:text-gray-200/90">
+            {displayText}
+          </p>
+        </div>
+      </main>
 
-      <div className="post-meta-bar flex select-none items-center gap-4 text-base-content/60">
+      <div className="post-meta-bar mt-2 flex select-none flex-wrap items-center justify-end gap-4 text-base-content/60">
         <PostMetaBar data={data} />
-        <span className="flex flex-shrink-0 select-none items-center space-x-1 text-accent hover:text-accent [&>svg]:hover:ml-2">
+        <span className="flex flex-shrink-0 select-none items-center space-x-1 text-right text-accent hover:text-accent [&>svg]:hover:ml-2">
           <span>阅读全文</span>
-          <IcRoundKeyboardDoubleArrowRight className="text-lg transition-[margin]" />
+          <i className="icon-[mingcute--arrow-right-line] text-lg transition-[margin]" />
         </span>
       </div>
     </Link>

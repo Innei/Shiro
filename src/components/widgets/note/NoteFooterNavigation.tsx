@@ -4,10 +4,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import type { FC } from 'react'
 
-import {
-  IcRoundKeyboardDoubleArrowLeft,
-  IcRoundKeyboardDoubleArrowRight,
-} from '~/components/icons/arrow'
 import { MdiClockTimeThreeOutline } from '~/components/icons/clock'
 import { Divider } from '~/components/ui/divider'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
@@ -45,7 +41,7 @@ export const NoteFooterNavigation: FC<{ noteId: string }> = ({
                   scroll={false}
                   prefetch={false}
                 >
-                  <IcRoundKeyboardDoubleArrowLeft />
+                  <i className="icon-[mingcute--arrow-left-line]" />
                   <span>前一篇</span>
                 </Link>
               )}
@@ -60,7 +56,7 @@ export const NoteFooterNavigation: FC<{ noteId: string }> = ({
                   className="hover:text-primary"
                 >
                   <span>后一篇</span>
-                  <IcRoundKeyboardDoubleArrowRight />
+                  <i className="icon-[mingcute--arrow-right-line]" />
                 </Link>
               )}
             </div>

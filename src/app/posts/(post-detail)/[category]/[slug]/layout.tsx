@@ -1,5 +1,7 @@
+import React from 'react'
 import type { Metadata } from 'next'
 
+import { QueryHydration } from '~/components/common/QueryHydration'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { attachUA } from '~/lib/attach-ua'
 import { getSummaryFromMd } from '~/lib/markdown'
@@ -58,12 +60,18 @@ export default async (props: NextPageParams<PageParams>) => {
   const {
     params: { category, slug },
   } = props
-  await getQueryClient().fetchQuery(queries.post.bySlug(category, slug))
+  const query = queries.post.bySlug(category, slug)
+  const queryKey = query.queryKey
+  const data = await getQueryClient().fetchQuery(query)
   return (
-    <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
-      <BottomToUpTransitionView>{props.children}</BottomToUpTransitionView>
+    <QueryHydration queryKey={queryKey} data={data}>
+      <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
+        <BottomToUpTransitionView className="min-w-0">
+          {props.children}
+        </BottomToUpTransitionView>
 
-      <LayoutRightSideProvider className="relative hidden lg:block" />
-    </div>
+        <LayoutRightSideProvider className="relative hidden lg:block" />
+      </div>
+    </QueryHydration>
   )
 }

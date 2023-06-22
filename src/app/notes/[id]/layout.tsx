@@ -1,6 +1,7 @@
 import { headers } from 'next/dist/client/components/headers'
 import type { Metadata } from 'next'
 
+import { QueryHydration } from '~/components/common/QueryHydration'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { REQUEST_QUERY } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
@@ -59,16 +60,16 @@ export default async (
 ) => {
   attachUA()
   const searchParams = new URLSearchParams(headers().get(REQUEST_QUERY) || '')
-
-  await getQueryClient().fetchQuery(
-    queries.note.byNid(
-      props.params.id,
-      searchParams.get('password') || undefined,
-    ),
+  const query = queries.note.byNid(
+    props.params.id,
+    searchParams.get('password') || undefined,
   )
+  const { data } = await getQueryClient().fetchQuery(query)
   return (
-    <BottomToUpTransitionView>
-      <Paper>{props.children}</Paper>
-    </BottomToUpTransitionView>
+    <QueryHydration queryKey={query.queryKey} data={data}>
+      <BottomToUpTransitionView className="min-w-0">
+        <Paper>{props.children}</Paper>
+      </BottomToUpTransitionView>
+    </QueryHydration>
   )
 }

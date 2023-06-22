@@ -6,7 +6,6 @@ import type { Image, PostModel } from '@mx-space/api-client'
 
 import { ReadIndicator } from '~/components/common/ReadIndicator'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
-import { Loading } from '~/components/ui/loading'
 import { Markdown } from '~/components/ui/markdown'
 import { PostActionAside } from '~/components/widgets/post/PostActionAside'
 import { PostMetaBar } from '~/components/widgets/post/PostMetaBar'
@@ -18,6 +17,8 @@ import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
+
+import Loading from './loading'
 
 const useHeaderMeta = (data?: PostModel | null) => {
   const setHeader = useSetHeaderMetaInfo()
@@ -38,12 +39,12 @@ const useHeaderMeta = (data?: PostModel | null) => {
     data?.slug,
   ])
 }
-export default () => {
+const PostPage = () => {
   const data = useCurrentPostData()
 
   useHeaderMeta(data)
   if (!data) {
-    return <Loading useDefaultLoadingText />
+    return <Loading />
   }
 
   return (
@@ -62,7 +63,11 @@ export default () => {
           <MarkdownImageRecordProvider
             images={data.images || (noopArr as Image[])}
           >
-            <Markdown value={data.text} as="main" />
+            <Markdown
+              value={data.text}
+              as="main"
+              className="min-w-0 overflow-hidden"
+            />
           </MarkdownImageRecordProvider>
 
           <LayoutRightSidePortal>
@@ -83,3 +88,4 @@ export default () => {
     </div>
   )
 }
+export default PostPage

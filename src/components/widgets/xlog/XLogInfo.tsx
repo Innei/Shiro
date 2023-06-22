@@ -96,14 +96,14 @@ const XLogInfoBase: FC<{
         tabIndex={0}
         className={clsx(
           '-mx-2 flex w-[100%+0.5rem] items-center justify-between rounded-lg p-2 text-left transition-colors duration-300 md:rounded-xl',
-          'hover:bg-zinc-100 dark:hover:bg-neutral-800',
+          'hover:bg-zinc-200 dark:hover:bg-neutral-800',
         )}
         onClick={() => {
           setCollapse((c) => !c)
         }}
       >
         <div className="flex w-full items-center justify-between">
-          <span className="flex flex-grow space-x-2">
+          <span className="flex flex-grow items-center space-x-2">
             <SafeIcon />
             <span>
               此数据所有权由区块链加密技术和智能合约保障仅归创作者所有。

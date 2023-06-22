@@ -1,5 +1,7 @@
+import { useEffect } from 'react'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 
+import { useViewport } from '~/atoms'
 import { jotaiStore } from '~/lib/store'
 import { usePageScrollLocationSelector } from '~/providers/root/page-scroll-info-provider'
 
@@ -23,8 +25,8 @@ export const useMenuVisibility = () => useMenuOpacity() > 0
 
 export const useHeaderBgOpacity = () => {
   const threshold = 50
-
-  const headerShouldShowBg = useHeaderShouldShowBg()
+  const isMobile = useViewport((v) => v.sm || !v.sm)
+  const headerShouldShowBg = useHeaderShouldShowBg() || isMobile
 
   return usePageScrollLocationSelector(
     (y) =>
@@ -49,6 +51,13 @@ export const useHeaderMetaShouldShow = () => {
   return useAtomValue(headerMetaShouldShowAtom) && !v
 }
 export const useSetHeaderMetaInfo = () => {
+  useEffect(() => {
+    return () => {
+      jotaiStore.set(headerMetaTitleAtom, '')
+      jotaiStore.set(headerMetaDescriptionAtom, '')
+      jotaiStore.set(headerMetaSlugAtom, '')
+    }
+  }, [])
   return ({
     title,
     description,
