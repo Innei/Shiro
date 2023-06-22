@@ -14,15 +14,16 @@ import { springScrollToTop } from '~/utils/scroller'
 export const NoteFooterNavigation: FC<{ noteId: string }> = ({
   noteId: id,
 }) => {
-  const { data } = useNoteByNidQuery(id)
+  const { data } = useNoteByNidQuery(id, (data) => ({
+    nextNid: data.next?.nid,
+    prevNid: data.prev?.nid,
+  }))
 
   const router = useRouter()
 
   if (!data) return null
 
-  const { prev, next } = data
-  const prevNid = prev?.nid
-  const nextNid = next?.nid
+  const { nextNid, prevNid } = data
 
   return (
     <>

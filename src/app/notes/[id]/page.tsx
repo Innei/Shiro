@@ -7,88 +7,60 @@ import { Balancer } from 'react-wrap-balancer'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 import dynamic from 'next/dynamic'
-import { useParams } from 'next/navigation'
 import type { Image, NoteModel } from '@mx-space/api-client'
 import type { MarkdownToJSX } from '~/components/ui/markdown'
 
 import { BanCopyWrapper } from '~/components/common/BanCopyWrapper'
 import { ClientOnly } from '~/components/common/ClientOnly'
-import { PageDataHolder } from '~/components/common/PageHolder'
 import { MdiClockOutline } from '~/components/icons/clock'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { Loading } from '~/components/ui/loading'
 import { Markdown } from '~/components/ui/markdown'
 import { XLogInfoForNote, XLogSummaryForNote } from '~/components/widgets/xlog'
-import { useCurrentNoteData, useNoteByNidQuery } from '~/hooks/data/use-note'
+import { useCurrentNoteData } from '~/hooks/data/use-note'
 import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
-import {
-  CurrentNoteIdProvider,
-  useSetCurrentNoteId,
-} from '~/providers/note/CurrentNoteIdProvider'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 import { parseDate } from '~/utils/datetime'
-import { springScrollToTop } from '~/utils/scroller'
 
 import { ReadIndicator } from '../../../components/common/ReadIndicator'
 import { NoteHideIfSecret } from '../../../components/widgets/note/NoteHideIfSecret'
 import { NoteMetaBar } from '../../../components/widgets/note/NoteMetaBar'
 import styles from './page.module.css'
 
-const NoteActionAside = dynamic(
-  () =>
-    import('~/components/widgets/note/NoteActionAside').then(
-      (mod) => mod.NoteActionAside,
-    ),
-  { ssr: false },
+const NoteActionAside = dynamic(() =>
+  import('~/components/widgets/note/NoteActionAside').then(
+    (mod) => mod.NoteActionAside,
+  ),
 )
 
-const NoteFooterNavigationBarForMobile = dynamic(
-  () =>
-    import('~/components/widgets/note/NoteFooterNavigation').then(
-      (mod) => mod.NoteFooterNavigationBarForMobile,
-    ),
-  { ssr: false },
+const NoteFooterNavigationBarForMobile = dynamic(() =>
+  import('~/components/widgets/note/NoteFooterNavigation').then(
+    (mod) => mod.NoteFooterNavigationBarForMobile,
+  ),
 )
 
-const NoteTopic = dynamic(
-  () =>
-    import('~/components/widgets/note/NoteTopic').then((mod) => mod.NoteTopic),
-  { ssr: false },
+const NoteTopic = dynamic(() =>
+  import('~/components/widgets/note/NoteTopic').then((mod) => mod.NoteTopic),
 )
 
-const SubscribeBell = dynamic(
-  () =>
-    import('~/components/widgets/subscribe/SubscribeBell').then(
-      (mod) => mod.SubscribeBell,
-    ),
-  { ssr: false },
+const SubscribeBell = dynamic(() =>
+  import('~/components/widgets/subscribe/SubscribeBell').then(
+    (mod) => mod.SubscribeBell,
+  ),
 )
-const TocAside = dynamic(
-  () => import('~/components/widgets/toc').then((mod) => mod.TocAside),
-  { ssr: false },
+const TocAside = dynamic(() =>
+  import('~/components/widgets/toc').then((mod) => mod.TocAside),
 )
-const TocAutoScroll = dynamic(
-  () => import('~/components/widgets/toc').then((mod) => mod.TocAutoScroll),
-  { ssr: false },
+const TocAutoScroll = dynamic(() =>
+  import('~/components/widgets/toc').then((mod) => mod.TocAutoScroll),
 )
 
 const PageImpl = () => {
-  const { id } = useParams() as { id: string }
-  const { data } = useNoteByNidQuery(id)
+  const note = useCurrentNoteData()
 
-  // Why do this, I mean why do set NoteId to context, don't use `useParams().id` for children components.
-  // Because any router params or query changes, will cause components that use `useParams()` hook, this hook is a context hook,
-  // For example, `ComA` use `useParams()` just want to get value `id`,
-  // but if router params or query changes `page` params, will cause `CompA` re - render.
-  const setNoteId = useSetCurrentNoteId()
-  useEffect(() => {
-    setNoteId(id)
-  }, [id])
-
-  const note = data?.data
   const setHeaderMetaInfo = useSetHeaderMetaInfo()
   useEffect(() => {
     if (!note?.title) return
@@ -103,11 +75,8 @@ const PageImpl = () => {
     return <Loading useDefaultLoadingText />
   }
 
-  return (
-    <CurrentNoteIdProvider initialNoteId={id}>
-      <NotePage note={note} />
-    </CurrentNoteIdProvider>
-  )
+  // return null
+  return <NotePage note={note} />
 }
 
 const NotePage = memo(({ note }: { note: NoteModel }) => {
@@ -217,11 +186,12 @@ const MarkdownRenderers: { [name: string]: Partial<MarkdownToJSX.Rule> } = {
   },
 }
 
-export default PageDataHolder(PageImpl, () => {
-  const { id } = useParams() as { id: string }
+export default PageImpl
+// export default PageDataHolder(PageImpl, () => {
+//   const { id } = useParams() as { id: string }
 
-  useEffect(() => {
-    springScrollToTop()
-  }, [id])
-  return useNoteByNidQuery(id)
-})
+//   useEffect(() => {
+//     springScrollToTop()
+//   }, [id])
+//   return useNoteByNidQuery(id)
+// })

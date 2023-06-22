@@ -1,36 +1,32 @@
 'use client'
 
-import { createContext, memo, useContext, useState } from 'react'
-import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react'
+import { memo, useEffect } from 'react'
+import { atom, useAtomValue, useSetAtom } from 'jotai'
+import type { FC, PropsWithChildren } from 'react'
 
-// export const [CurrentNoteIdProvider, useCurrentNoteId, useSetCurrentNoteId] =
-//   createContextState<undefined | string>(undefined)
+import { useBeforeMounted } from '~/hooks/common/use-before-mounted'
+import { jotaiStore } from '~/lib/store'
 
-const CurrentNoteIdContext = createContext(undefined as undefined | string)
-
-const SetCurrentNoteIdContext = createContext<
-  Dispatch<SetStateAction<string | undefined>>
->(() => void 0)
-
+const currentNoteIdAtom = atom<null | string>(null)
 const CurrentNoteIdProvider: FC<
   {
-    initialNoteId?: string
+    noteId: string
   } & PropsWithChildren
-> = memo(({ initialNoteId, children }) => {
-  const [currentNoteId, setCurrentNoteId] = useState(initialNoteId)
-  return (
-    <CurrentNoteIdContext.Provider value={currentNoteId}>
-      <SetCurrentNoteIdContext.Provider value={setCurrentNoteId}>
-        {children}
-      </SetCurrentNoteIdContext.Provider>
-    </CurrentNoteIdContext.Provider>
-  )
+> = memo(({ noteId, children }) => {
+  const setNoteId = useSetAtom(currentNoteIdAtom)
+  useBeforeMounted(() => {
+    // setNoteId(noteId)
+    jotaiStore.set(currentNoteIdAtom, noteId)
+  })
+
+  useEffect(() => {
+    setNoteId(noteId)
+  }, [noteId])
+
+  return children
 })
 const useCurrentNoteId = () => {
-  return useContext(CurrentNoteIdContext)
-}
-const useSetCurrentNoteId = () => {
-  return useContext(SetCurrentNoteIdContext)
+  return useAtomValue(currentNoteIdAtom)
 }
 
-export { useCurrentNoteId, useSetCurrentNoteId, CurrentNoteIdProvider }
+export { useCurrentNoteId, CurrentNoteIdProvider }

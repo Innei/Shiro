@@ -43,6 +43,31 @@ const LikeButton = () => {
   if (!note) return null
   const id = note.id
   const handleLike = () => {
+    // queryClient.setQueriesData(
+    //   queries.note.byNid(note.nid.toString()),
+    //   (old: any) => {
+    //     // return produce(old as NoteWrappedPayload, (draft) => {
+    //     //   draft.data.count.like += 1
+    //     //   draft
+    //     // })
+    //     // old.data.count.like += 1
+    //     // old.data.count = { ...old.data.count }
+    //     // old.data = { ...old.data }
+    //     return {
+    //       ...old,
+    //       data: {
+    //         ...old.data,
+    //         text: `1${Math.random()}`,
+    //         // count: {
+    //         //   ...old.data.count,
+    //         //   like: old.data.count.like + 1,
+    //         // },
+    //       },
+    //     }
+    //   },
+    // )
+
+    // return
     if (isLikedBefore(id)) return
     apiClient.note.likeIt(id).then(() => {
       setLikeId(id)
