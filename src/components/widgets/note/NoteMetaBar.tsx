@@ -3,7 +3,7 @@
 import { CreativeCommonsIcon } from '~/components/icons/cc'
 import { DividerVertical } from '~/components/ui/divider'
 import { mood2icon, weather2icon } from '~/lib/meta-icon'
-import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNodeDataProvider'
+import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 
 const dividerVertical = <DividerVertical className="!mx-2 scale-y-50" />
 

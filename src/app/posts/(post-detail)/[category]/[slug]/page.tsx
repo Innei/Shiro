@@ -2,7 +2,8 @@
 
 import { useEffect } from 'react'
 import { Balancer } from 'react-wrap-balancer'
-import type { Image, PostModel } from '@mx-space/api-client'
+import type { Image } from '@mx-space/api-client'
+import type { PropsWithChildren } from 'react'
 
 import { ReadIndicator } from '~/components/common/ReadIndicator'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
@@ -12,63 +13,77 @@ import { PostMetaBar } from '~/components/widgets/post/PostMetaBar'
 import { SubscribeBell } from '~/components/widgets/subscribe/SubscribeBell'
 import { TocAside, TocAutoScroll } from '~/components/widgets/toc'
 import { XLogInfoForPost, XLogSummaryForPost } from '~/components/widgets/xlog'
-import { useCurrentPostData } from '~/hooks/data/use-post'
 import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
+import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
 import Loading from './loading'
 
-const useHeaderMeta = (data?: PostModel | null) => {
-  const setHeader = useSetHeaderMetaInfo()
-  useEffect(() => {
-    if (!data) return
-    setHeader({
+const PostMarkdown = () => {
+  const text = useCurrentPostDataSelector((data) => data?.text)
+  if (!text) return null
+
+  return <Markdown value={text} as="main" className="min-w-0 overflow-hidden" />
+}
+const PostMarkdownImageRecordProvider = (props: PropsWithChildren) => {
+  const images = useCurrentPostDataSelector(
+    (data) => data?.images || (noopArr as Image[]),
+  )
+  if (!images) return null
+
+  return (
+    <MarkdownImageRecordProvider images={images}>
+      {props.children}
+    </MarkdownImageRecordProvider>
+  )
+}
+
+const HeaderMetaInfoSetting = () => {
+  const setHeaderMetaInfo = useSetHeaderMetaInfo()
+  const meta = useCurrentPostDataSelector((data) => {
+    if (!data) return null
+
+    return {
       title: data.title,
       description:
         data.category.name +
         (data.tags.length > 0 ? ` / ${data.tags.join(', ')}` : ''),
       slug: `${data.category.slug}/${data.slug}`,
-    })
-  }, [
-    data?.title,
-    data?.category.name,
-    data?.tags.length,
-    data?.category.slug,
-    data?.slug,
-  ])
+    }
+  })
+
+  useEffect(() => {
+    if (meta) setHeaderMetaInfo(meta)
+  }, [meta])
+
+  return null
 }
 const PostPage = () => {
-  const data = useCurrentPostData()
-
-  useHeaderMeta(data)
-  if (!data) {
+  const id = useCurrentPostDataSelector((p) => p?.id)
+  const title = useCurrentPostDataSelector((p) => p?.title)
+  if (!id) {
     return <Loading />
   }
 
   return (
     <div>
+      <HeaderMetaInfoSetting />
       <article className="prose">
         <header className="mb-8">
           <h1 className="text-center">
-            <Balancer>{data.title}</Balancer>
+            <Balancer>{title}</Balancer>
           </h1>
 
-          <PostMetaBar data={data} className="mb-8 justify-center" />
+          <PostMetaBar className="mb-8 justify-center" />
 
           <XLogSummaryForPost />
         </header>
         <WrappedElementProvider>
-          <MarkdownImageRecordProvider
-            images={data.images || (noopArr as Image[])}
-          >
-            <Markdown
-              value={data.text}
-              as="main"
-              className="min-w-0 overflow-hidden"
-            />
-          </MarkdownImageRecordProvider>
+          <PostMarkdownImageRecordProvider>
+            <PostMarkdown />
+          </PostMarkdownImageRecordProvider>
 
           <LayoutRightSidePortal>
             <TocAside

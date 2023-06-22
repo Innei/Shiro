@@ -2,7 +2,7 @@
 
 import { Divider } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'
-import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNodeDataProvider'
+import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 
 import { NoteTopicDetail, ToTopicLink } from './NoteTopicDetail'
 

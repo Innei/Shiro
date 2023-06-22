@@ -8,10 +8,11 @@ import { tv } from 'tailwind-variants'
 
 import { LeftToRightTransitionView } from '~/components/ui/transition/LeftToRightTransitionView'
 import { routeBuilder, Routes } from '~/lib/route-builder'
-import { getCurrentNoteData } from '~/providers/note/CurrentNodeDataProvider'
+import { getCurrentNoteData } from '~/providers/note/CurrentNoteDataProvider'
 import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
 import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
+import { springScrollToTop } from '~/utils/scroller'
 
 export const NoteTimeline = () => {
   const noteId = useCurrentNoteId()
@@ -99,6 +100,7 @@ const MemoedItem = memo<{
         <i className="icon-[material-symbols--arrow-circle-right-outline-rounded] duration-200" />
       </LeftToRightTransitionView>
       <Link
+        onClick={springScrollToTop}
         prefetch={false}
         className={clsxm(
           active

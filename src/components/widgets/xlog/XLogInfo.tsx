@@ -5,15 +5,11 @@ import type { XLogMeta } from './types'
 
 import { Collapse } from '~/components/ui/collapse'
 import { useIsClient } from '~/hooks/common/use-is-client'
-import { useCurrentPostData } from '~/hooks/data/use-post'
-import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNodeDataProvider'
+import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
+import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
 
 export const XLogInfoForPost: FC = () => {
-  const data = useCurrentPostData()
-
-  if (!data) return null
-
-  const meta = data.meta?.xLog
+  const meta = useCurrentPostDataSelector((data) => data?.meta?.xLog)
   return <XLogInfoBase meta={meta} />
 }
 

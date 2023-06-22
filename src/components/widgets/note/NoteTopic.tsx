@@ -5,7 +5,7 @@ import { Avatar } from '~/components/ui/avatar'
 import { Divider } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { routeBuilder, Routes } from '~/lib/route-builder'
-import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNodeDataProvider'
+import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 
 import { NoteTopicDetail } from './NoteTopicDetail'
 import { NoteTopicMarkdownRender } from './NoteTopicMarkdownRender'
