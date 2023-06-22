@@ -7,20 +7,21 @@ import { Balancer } from 'react-wrap-balancer'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 import dynamic from 'next/dynamic'
-import type { Image, NoteModel } from '@mx-space/api-client'
+import type { Image } from '@mx-space/api-client'
 import type { MarkdownToJSX } from '~/components/ui/markdown'
+import type { PropsWithChildren } from 'react'
 
 import { BanCopyWrapper } from '~/components/common/BanCopyWrapper'
 import { ClientOnly } from '~/components/common/ClientOnly'
 import { MdiClockOutline } from '~/components/icons/clock'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { FloatPopover } from '~/components/ui/float-popover'
-import { Loading } from '~/components/ui/loading'
 import { Markdown } from '~/components/ui/markdown'
 import { XLogInfoForNote, XLogSummaryForNote } from '~/components/widgets/xlog'
-import { useCurrentNoteData } from '~/hooks/data/use-note'
 import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
+import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNodeDataProvider'
+import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 import { parseDate } from '~/utils/datetime'
@@ -59,32 +60,75 @@ const TocAutoScroll = dynamic(() =>
 )
 
 const PageImpl = () => {
-  const note = useCurrentNoteData()
+  return (
+    <>
+      <NotePage />
+      <NoteHeaderMetaInfoSetting />
+    </>
+  )
+}
 
+const NoteHeaderMetaInfoSetting = () => {
   const setHeaderMetaInfo = useSetHeaderMetaInfo()
-  useEffect(() => {
-    if (!note?.title) return
-    setHeaderMetaInfo({
+  const meta = useCurrentNoteDataSelector((data) => {
+    if (!data) return null
+    const note = data.data
+
+    return {
       title: note?.title,
       description: `手记${note.topic?.name ? ` / ${note.topic?.name}` : ''}`,
       slug: note?.nid.toString(),
-    })
-  }, [note?.nid, note?.title, note?.topic?.name])
+    }
+  })
 
-  if (!note) {
-    return <Loading useDefaultLoadingText />
-  }
+  useEffect(() => {
+    if (meta) setHeaderMetaInfo(meta)
+  }, [meta])
 
-  // return null
-  return <NotePage note={note} />
+  return null
 }
 
-const NotePage = memo(({ note }: { note: NoteModel }) => {
-  const tips = `创建于 ${parseDate(note.created, 'YYYY 年 M 月 D 日 dddd')}${
-    note.modified
-      ? `，修改于 ${parseDate(note.modified, 'YYYY 年 M 月 D 日 dddd')}`
+const NoteHeaderDate = () => {
+  const date = useCurrentNoteDataSelector((data) => ({
+    created: data?.data.created,
+    modified: data?.data.modified,
+  }))
+  if (!date?.created) return null
+
+  const tips = `创建于 ${parseDate(date.created, 'YYYY 年 M 月 D 日 dddd')}${
+    date.modified
+      ? `，修改于 ${parseDate(date.modified, 'YYYY 年 M 月 D 日 dddd')}`
       : ''
   }`
+
+  return (
+    <FloatPopover as="span" TriggerComponent={NoteDateMeta}>
+      {tips}
+    </FloatPopover>
+  )
+}
+
+const NoteMarkdown = () => {
+  const text = useCurrentNoteDataSelector((data) => data?.data.text)
+  if (!text) return null
+
+  return <Markdown as="main" renderers={MarkdownRenderers} value={text} />
+}
+const NoteMarkdownImageRecordProvider = (props: PropsWithChildren) => {
+  const images = useCurrentNoteDataSelector(
+    (data) => data?.data.images || (noopArr as Image[]),
+  )
+  if (!images) return null
+
+  return (
+    <MarkdownImageRecordProvider images={images}>
+      {props.children}
+    </MarkdownImageRecordProvider>
+  )
+}
+const NotePage = memo(() => {
+  const noteId = useCurrentNoteId()
+  if (!noteId) return null
 
   return (
     <Suspense>
@@ -98,9 +142,7 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
         <header>
           <NoteTitle />
           <span className="flex flex-wrap items-center text-[13px] text-neutral-content/60">
-            <FloatPopover as="span" TriggerComponent={NoteDateMeta}>
-              {tips}
-            </FloatPopover>
+            <NoteHeaderDate />
 
             <ClientOnly>
               <NoteMetaBar />
@@ -111,17 +153,11 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
         <NoteHideIfSecret>
           <XLogSummaryForNote />
           <WrappedElementProvider>
-            <MarkdownImageRecordProvider
-              images={note.images || (noopArr as Image[])}
-            >
+            <NoteMarkdownImageRecordProvider>
               <BanCopyWrapper>
-                <Markdown
-                  as="main"
-                  renderers={MarkdownRenderers}
-                  value={note.text}
-                />
+                <NoteMarkdown />
               </BanCopyWrapper>
-            </MarkdownImageRecordProvider>
+            </NoteMarkdownImageRecordProvider>
 
             <LayoutRightSidePortal>
               <TocAside
@@ -138,17 +174,16 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
       </article>
 
       <SubscribeBell defaultType="note_c" />
-      <NoteTopic topic={note.topic} />
+      <NoteTopic />
       <XLogInfoForNote />
-      <NoteFooterNavigationBarForMobile noteId={note.nid.toString()} />
+      <NoteFooterNavigationBarForMobile noteId={noteId} />
     </Suspense>
   )
 })
 
 const NoteTitle = () => {
-  const note = useCurrentNoteData()
-  if (!note) return null
-  const title = note.title
+  const title = useCurrentNoteDataSelector((data) => data?.data.title)
+  if (!title) return null
   return (
     <h1 className="mt-8 text-left font-bold text-base-content/95">
       <Balancer>{title}</Balancer>
@@ -157,10 +192,9 @@ const NoteTitle = () => {
 }
 
 const NoteDateMeta = () => {
-  const note = useCurrentNoteData()
-  if (!note) return null
-
-  const dateFormat = dayjs(note.created)
+  const created = useCurrentNoteDataSelector((data) => data?.data.created)
+  if (!created) return null
+  const dateFormat = dayjs(created)
     .locale('zh-cn')
     .format('YYYY 年 M 月 D 日 dddd')
 
@@ -187,11 +221,3 @@ const MarkdownRenderers: { [name: string]: Partial<MarkdownToJSX.Rule> } = {
 }
 
 export default PageImpl
-// export default PageDataHolder(PageImpl, () => {
-//   const { id } = useParams() as { id: string }
-
-//   useEffect(() => {
-//     springScrollToTop()
-//   }, [id])
-//   return useNoteByNidQuery(id)
-// })

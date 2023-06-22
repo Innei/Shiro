@@ -2,20 +2,19 @@
 
 import { Divider } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'
-import { useCurrentNoteData } from '~/hooks/data/use-note'
-import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
+import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNodeDataProvider'
 
 import { NoteTopicDetail, ToTopicLink } from './NoteTopicDetail'
 
+// export const NoteTopicInfo = () => {
+//   const noteId = useCurrentNoteId()
+//   if (!noteId) return null
+//   return <NoteTopicInfoImpl />
+// }
 export const NoteTopicInfo = () => {
-  const noteId = useCurrentNoteId()
-  if (!noteId) return null
-  return <NoteTopicInfoImpl />
-}
-const NoteTopicInfoImpl = () => {
-  const note = useCurrentNoteData()
+  const topic = useCurrentNoteDataSelector((data) => data?.data.topic)
 
-  if (!note?.topic) return null
+  if (!topic) return null
 
   return (
     <>
@@ -30,7 +29,7 @@ const NoteTopicInfoImpl = () => {
         wrapperClassNames="flex flex-grow flex-shrink min-w-0"
         TriggerComponent={ToTopicLink}
       >
-        <NoteTopicDetail topic={note.topic} />
+        <NoteTopicDetail topic={topic} />
       </FloatPopover>
     </>
   )

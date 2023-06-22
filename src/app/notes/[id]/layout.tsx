@@ -1,11 +1,11 @@
 import { headers } from 'next/dist/client/components/headers'
 import type { Metadata } from 'next'
 
-import { QueryHydration } from '~/components/common/QueryHydration'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { REQUEST_QUERY } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
 import { getSummaryFromMd } from '~/lib/markdown'
+import { CurrentNoteDataProvider } from '~/providers/note/CurrentNodeDataProvider'
 import { CurrentNoteIdProvider } from '~/providers/note/CurrentNoteIdProvider'
 import { queries } from '~/queries/definition'
 import { getQueryClient } from '~/utils/query-client.server'
@@ -71,9 +71,8 @@ export default async (
   return (
     <>
       <CurrentNoteIdProvider noteId={id} />
-      {/* <CurrentNoteDataProvider data={data} /> */}
+      <CurrentNoteDataProvider data={data} />
 
-      <QueryHydration queryKey={query.queryKey} data={data} />
       <BottomToUpTransitionView className="min-w-0">
         <Paper>{props.children}</Paper>
       </BottomToUpTransitionView>

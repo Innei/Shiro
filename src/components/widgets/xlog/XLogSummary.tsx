@@ -3,8 +3,8 @@ import type { FC, SVGProps } from 'react'
 
 import { AutoResizeHeight } from '~/components/common/AutoResizeHeight'
 import { useIsClient } from '~/hooks/common/use-is-client'
-import { useCurrentNoteData } from '~/hooks/data/use-note'
 import { useCurrentPostData } from '~/hooks/data/use-post'
+import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNodeDataProvider'
 import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
 
@@ -81,8 +81,8 @@ export const XLogSummaryForPost: FC = () => {
 }
 
 export const XLogSummaryForNote: FC = () => {
-  const data = useCurrentNoteData()
-  const cid = data?.meta?.xLog?.cid
+  const cid = useCurrentNoteDataSelector((data) => data?.data.meta?.xLog?.cid)
+
   if (!cid) return null
 
   return <XLogSummary cid={cid} />

@@ -1,18 +1,19 @@
 'use client'
 
-import { useQueryClient } from '@tanstack/react-query'
 import { motion, useAnimationControls, useForceUpdate } from 'framer-motion'
-import { produce } from 'immer'
-import type { NoteWrappedPayload } from '@mx-space/api-client'
 
 import { MotionButtonBase } from '~/components/ui/button'
 import { useIsClient } from '~/hooks/common/use-is-client'
-import { useCurrentNoteData } from '~/hooks/data/use-note'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
 import { urlBuilder } from '~/lib/url-builder'
+import {
+  getCurrentNoteData,
+  setCurrentNoteData,
+  useCurrentNoteDataSelector,
+} from '~/providers/note/CurrentNodeDataProvider'
+import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
 import { useAggregationData } from '~/providers/root/aggregation-data-provider'
-import { queries } from '~/queries/definition'
 import { isLikedBefore, setLikeId } from '~/utils/cookie'
 import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
@@ -35,50 +36,20 @@ export const NoteActionAside: Component = ({ className }) => {
 }
 
 const LikeButton = () => {
-  const note = useCurrentNoteData()
-
-  const queryClient = useQueryClient()
   const control = useAnimationControls()
   const [update] = useForceUpdate()
-  if (!note) return null
-  const id = note.id
-  const handleLike = () => {
-    // queryClient.setQueriesData(
-    //   queries.note.byNid(note.nid.toString()),
-    //   (old: any) => {
-    //     // return produce(old as NoteWrappedPayload, (draft) => {
-    //     //   draft.data.count.like += 1
-    //     //   draft
-    //     // })
-    //     // old.data.count.like += 1
-    //     // old.data.count = { ...old.data.count }
-    //     // old.data = { ...old.data }
-    //     return {
-    //       ...old,
-    //       data: {
-    //         ...old.data,
-    //         text: `1${Math.random()}`,
-    //         // count: {
-    //         //   ...old.data.count,
-    //         //   like: old.data.count.like + 1,
-    //         // },
-    //       },
-    //     }
-    //   },
-    // )
 
-    // return
+  const id = useCurrentNoteDataSelector((data) => data?.data.id)
+  const nid = useCurrentNoteId()
+  if (!id) return null
+  const handleLike = () => {
     if (isLikedBefore(id)) return
+    if (!nid) return
     apiClient.note.likeIt(id).then(() => {
       setLikeId(id)
-      queryClient.setQueriesData(
-        queries.note.byNid(note.nid.toString()),
-        (old: any) => {
-          return produce(old as NoteWrappedPayload, (draft) => {
-            draft.data.count.like += 1
-          })
-        },
-      )
+      setCurrentNoteData((draft) => {
+        draft.data.count.like += 1
+      })
       update()
     })
   }
@@ -138,10 +109,9 @@ const LikeButton = () => {
 const ShareButton = () => {
   const hasShare = 'share' in navigator
   const isClient = useIsClient()
-  const note = useCurrentNoteData()
+
   const aggregation = useAggregationData()
   if (!isClient) return null
-  if (!note) return null
 
   if (!hasShare) {
     return null
@@ -152,6 +122,10 @@ const ShareButton = () => {
       aria-label="Share This Note Button"
       className="flex flex-col space-y-2"
       onClick={() => {
+        const note = getCurrentNoteData()?.data
+
+        if (!note) return
+
         navigator.share({
           title: note.title,
           text: note.text,

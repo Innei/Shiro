@@ -19,6 +19,8 @@ export const useIsEnableSubscribe = () =>
     queryKey: SWR_CHECK_SUBSCRIBE_KEY,
     queryFn: apiClient.subscribe.check,
     select: (data: { enable: boolean }) => data?.enable,
+    cacheTime: 60_000 * 10,
+    staleTime: 60_000 * 10,
   })
 
 export const usePresentSubscribeModal = (

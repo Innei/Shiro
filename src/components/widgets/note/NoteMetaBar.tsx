@@ -2,28 +2,26 @@
 
 import { CreativeCommonsIcon } from '~/components/icons/cc'
 import { DividerVertical } from '~/components/ui/divider'
-import { useCurrentNoteData } from '~/hooks/data/use-note'
 import { mood2icon, weather2icon } from '~/lib/meta-icon'
+import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNodeDataProvider'
 
 const dividerVertical = <DividerVertical className="!mx-2 scale-y-50" />
 
 const sectionBlockClassName = 'flex items-center space-x-1 flex-shrink-0'
 export const NoteMetaBar = () => {
-  const note = useCurrentNoteData()
-  if (!note) return null
-  const { weather, mood, count } = note
   return (
     <>
-      <NoteMetaWeather weather={weather} />
-      <NoteMetaMood mood={mood} />
-      <NoteMetaReadCount read={count.read} />
-      <NoteMetaLikeCount like={count.like} />
+      <NoteMetaWeather />
+      <NoteMetaMood />
+      <NoteMetaReadCount />
+      <NoteMetaLikeCount />
       <NoteMetaCC />
     </>
   )
 }
 
-export const NoteMetaWeather = ({ weather }: { weather?: string }) => {
+export const NoteMetaWeather = () => {
+  const weather = useCurrentNoteDataSelector((data) => data?.data.weather)
   if (!weather) return null
   return (
     <>
@@ -36,7 +34,9 @@ export const NoteMetaWeather = ({ weather }: { weather?: string }) => {
   )
 }
 
-export const NoteMetaMood = ({ mood }: { mood?: string }) => {
+export const NoteMetaMood = () => {
+  const mood = useCurrentNoteDataSelector((data) => data?.data.mood)
+
   if (!mood) return null
   return (
     <>
@@ -49,7 +49,8 @@ export const NoteMetaMood = ({ mood }: { mood?: string }) => {
   )
 }
 
-export const NoteMetaReadCount = ({ read }: { read?: number }) => {
+export const NoteMetaReadCount = () => {
+  const read = useCurrentNoteDataSelector((data) => data?.data.count.read)
   if (!read) return null
   return (
     <>
@@ -62,7 +63,8 @@ export const NoteMetaReadCount = ({ read }: { read?: number }) => {
   )
 }
 
-export const NoteMetaLikeCount = ({ like }: { like?: number }) => {
+export const NoteMetaLikeCount = () => {
+  const like = useCurrentNoteDataSelector((data) => data?.data.count.like)
   if (!like) return null
   return (
     <>

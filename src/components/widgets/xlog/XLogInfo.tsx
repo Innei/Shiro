@@ -5,8 +5,8 @@ import type { XLogMeta } from './types'
 
 import { Collapse } from '~/components/ui/collapse'
 import { useIsClient } from '~/hooks/common/use-is-client'
-import { useCurrentNoteData } from '~/hooks/data/use-note'
 import { useCurrentPostData } from '~/hooks/data/use-post'
+import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNodeDataProvider'
 
 export const XLogInfoForPost: FC = () => {
   const data = useCurrentPostData()
@@ -18,16 +18,12 @@ export const XLogInfoForPost: FC = () => {
 }
 
 export const XLogInfoForNote: FC = () => {
-  const data = useCurrentNoteData()
-
-  if (!data) return null
-
-  const meta = data.meta?.xLog
+  const meta = useCurrentNoteDataSelector((data) => data?.data.meta?.xLog)
   return <XLogInfoBase meta={meta} />
 }
 
 const XLogInfoBase: FC<{
-  meta?: XLogMeta
+  meta?: XLogMeta | null
 }> = ({ meta }) => {
   const [collapse, setCollapse] = useState(false)
 
