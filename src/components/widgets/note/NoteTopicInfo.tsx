@@ -3,10 +3,16 @@
 import { Divider } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { useCurrentNoteData } from '~/hooks/data/use-note'
+import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
 
 import { NoteTopicDetail, ToTopicLink } from './NoteTopicDetail'
 
 export const NoteTopicInfo = () => {
+  const noteId = useCurrentNoteId()
+  if (!noteId) return null
+  return <NoteTopicInfoImpl />
+}
+const NoteTopicInfoImpl = () => {
   const note = useCurrentNoteData()
 
   if (!note?.topic) return null

@@ -67,7 +67,7 @@ const ForDesktop: Component = ({ className }) => {
         className,
       )}
     >
-      <ul className="flex bg-transparent px-4 font-medium text-zinc-800 dark:text-zinc-200 ">
+      <div className="flex bg-transparent px-4 font-medium text-zinc-800 dark:text-zinc-200 ">
         {headerMenuConfig.map((section) => {
           return (
             <HeaderMenuItem
@@ -80,7 +80,7 @@ const ForDesktop: Component = ({ className }) => {
             />
           )
         })}
-      </ul>
+      </div>
     </motion.nav>
   )
 }
@@ -127,7 +127,6 @@ const MenuPopover: Component<{
   if (!subMenu) return children
   return (
     <FloatPopover
-      as="li"
       strategy="fixed"
       headless
       placement="bottom"
@@ -170,7 +169,7 @@ function AnimatedItem({
   isActive?: boolean
 }) {
   return (
-    <li>
+    <div>
       <Link
         href={href}
         className={clsxm(
@@ -191,6 +190,6 @@ function AnimatedItem({
           />
         )}
       </Link>
-    </li>
+    </div>
   )
 }

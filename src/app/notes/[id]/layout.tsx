@@ -6,6 +6,7 @@ import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpT
 import { REQUEST_QUERY } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
 import { getSummaryFromMd } from '~/lib/markdown'
+import { CurrentNoteIdProvider } from '~/providers/note/CurrentNoteIdProvider'
 import { queries } from '~/queries/definition'
 import { getQueryClient } from '~/utils/query-client.server'
 
@@ -60,16 +61,22 @@ export default async (
 ) => {
   attachUA()
   const searchParams = new URLSearchParams(headers().get(REQUEST_QUERY) || '')
+  const id = props.params.id
   const query = queries.note.byNid(
-    props.params.id,
+    id,
     searchParams.get('password') || undefined,
   )
   const data = await getQueryClient().fetchQuery(query)
+
   return (
-    <QueryHydration queryKey={query.queryKey} data={data}>
+    <>
+      <CurrentNoteIdProvider noteId={id} />
+      {/* <CurrentNoteDataProvider data={data} /> */}
+
+      <QueryHydration queryKey={query.queryKey} data={data} />
       <BottomToUpTransitionView className="min-w-0">
         <Paper>{props.children}</Paper>
       </BottomToUpTransitionView>
-    </QueryHydration>
+    </>
   )
 }

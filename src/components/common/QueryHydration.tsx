@@ -12,6 +12,8 @@ export const QueryHydration = memo(
     const client = useQueryClient()
     useBeforeMounted(() => {
       client.setQueriesData(props.queryKey, props.data)
+
+      console.log('QueryHydration', props.queryKey, props.data)
     })
 
     return props.children

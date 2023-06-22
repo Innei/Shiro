@@ -11,26 +11,21 @@ import { urlBuilder } from '~/lib/url-builder'
 
 import { HeaderActionButton } from './HeaderActionButton'
 
-const UserAuthFromIcon = dynamic(
-  () => import('./UserAuthFromIcon').then((mod) => mod.UserAuthFromIcon),
-  { ssr: false },
+const UserAuthFromIcon = dynamic(() =>
+  import('./UserAuthFromIcon').then((mod) => mod.UserAuthFromIcon),
 )
 
-const SignedIn = dynamic(
-  () => import('@clerk/nextjs').then((mod) => mod.SignedIn),
-  { ssr: false },
+const SignedIn = dynamic(() =>
+  import('@clerk/nextjs').then((mod) => mod.SignedIn),
 )
-const SignedOut = dynamic(
-  () => import('@clerk/nextjs').then((mod) => mod.SignedOut),
-  { ssr: false },
+const SignedOut = dynamic(() =>
+  import('@clerk/nextjs').then((mod) => mod.SignedOut),
 )
-const UserButton = dynamic(
-  () => import('@clerk/nextjs').then((mod) => mod.UserButton),
-  { ssr: false },
+const UserButton = dynamic(() =>
+  import('@clerk/nextjs').then((mod) => mod.UserButton),
 )
-const SignInButton = dynamic(
-  () => import('@clerk/nextjs').then((mod) => mod.SignInButton),
-  { ssr: false },
+const SignInButton = dynamic(() =>
+  import('@clerk/nextjs').then((mod) => mod.SignInButton),
 )
 
 export function UserAuth() {

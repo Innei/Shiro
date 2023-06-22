@@ -9,10 +9,17 @@ import { tv } from 'tailwind-variants'
 import { LeftToRightTransitionView } from '~/components/ui/transition/LeftToRightTransitionView'
 import { useCurrentNoteData } from '~/hooks/data/use-note'
 import { routeBuilder, Routes } from '~/lib/route-builder'
+import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
 import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
 
 export const NoteTimeline = () => {
+  const noteId = useCurrentNoteId()
+  if (!noteId) return null
+  return <NoteTimelineImpl />
+}
+
+const NoteTimelineImpl = () => {
   const note = useCurrentNoteData()
   const noteId = note?.id
 
