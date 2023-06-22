@@ -55,7 +55,11 @@ export const Sidebar: FC = () => {
 
 const DarkModeToggle: FC = () => {
   const { value, toggle } = useDarkModeDetector()
-  return <button onClick={toggle}>{!value ? <SunIcon /> : <DarkIcon />}</button>
+  return (
+    <button aria-label="Toggle Dark Mode" onClick={toggle}>
+      {!value ? <SunIcon /> : <DarkIcon />}
+    </button>
+  )
 }
 
 const SunIcon = () => {

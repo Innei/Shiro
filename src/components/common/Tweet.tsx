@@ -18,8 +18,8 @@ export default async function Tweet({ id }: { id: string }) {
   const { Tweet: ReactTweet } = await import('react-tweet')
 
   return (
-    <div className="flex justify-center">
+    <span className="flex justify-center">
       <ReactTweet id={id} components={components} />
-    </div>
+    </span>
   )
 }

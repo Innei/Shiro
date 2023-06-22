@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useMemo } from 'react'
 
 import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
@@ -35,8 +35,12 @@ export const useNoteByNidQuery = (nid: string) => {
     [nid],
   )
   const password = searchParams?.get('password')
+  const key = queries.note.byNid(nid, password!).queryKey
+  const queryClient = useQueryClient()
+
   return useQuery({
     ...queries.note.byNid(nid, password!),
     enabled: !!nid,
+    initialData: queryClient.getQueryData(key),
   })
 }

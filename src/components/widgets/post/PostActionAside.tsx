@@ -64,6 +64,7 @@ const LikeButton = () => {
 
   return (
     <MotionButtonBase
+      aria-label="Like this post"
       className="flex flex-col space-y-2"
       onClick={() => {
         handleLike()
@@ -123,6 +124,7 @@ const ShareButton = () => {
   if (!aggregation) return null
   return (
     <MotionButtonBase
+      aria-label="Share this post"
       className="flex flex-col space-y-2"
       onClick={() => {
         navigator.share({

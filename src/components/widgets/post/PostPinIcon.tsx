@@ -26,6 +26,7 @@ export const PostPinIcon = memo(({ pin, id }: { pin: boolean; id: string }) => {
   }
   return (
     <MotionButtonBase
+      aria-label="Pin this post"
       className={clsxm(
         'absolute bottom-0 right-0 top-[4px] z-[10] -m-5 box-content hidden h-5 w-5 items-center p-5',
         isLogged && 'inline-flex cursor-pointer',

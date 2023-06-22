@@ -59,6 +59,7 @@ export const HeaderDrawerButton = () => {
                   >
                     <Dialog.DialogClose asChild>
                       <MotionButtonBase
+                        aria-label="Close Header Drawer"
                         className="absolute right-0 top-0 z-[9] p-8"
                         onClick={() => {
                           setOpen(false)

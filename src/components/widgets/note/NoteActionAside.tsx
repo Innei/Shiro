@@ -62,6 +62,7 @@ const LikeButton = () => {
 
   return (
     <MotionButtonBase
+      aria-label="Like This Note Button"
       className="flex flex-col space-y-2"
       onClick={() => {
         handleLike()
@@ -123,6 +124,7 @@ const ShareButton = () => {
   if (!aggregation) return null
   return (
     <MotionButtonBase
+      aria-label="Share This Note Button"
       className="flex flex-col space-y-2"
       onClick={() => {
         navigator.share({

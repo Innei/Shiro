@@ -110,6 +110,7 @@ const DonateButtonInternal: Component<HTMLMotionProps<'button'>> = ({
   if (!donate) return null
   return (
     <MotionButtonBase
+      aria-label="Donate to author"
       className={clsxm('flex flex-col space-y-2', className)}
       onClick={() => {
         window.open(donate.link, '_blank')

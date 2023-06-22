@@ -127,6 +127,7 @@ const MenuPopover: Component<{
   if (!subMenu) return children
   return (
     <FloatPopover
+      as="li"
       strategy="fixed"
       headless
       placement="bottom"

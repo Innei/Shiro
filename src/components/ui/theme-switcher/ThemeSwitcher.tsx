@@ -177,11 +177,9 @@ const ButtonGroup = () => {
       <button
         aria-checked="false"
         aria-label="Switch to light theme"
-        data-active="false"
-        data-theme-switcher="true"
         role="radio"
         type="button"
-        className={styles({})}
+        className={styles.base}
         onClick={() => {
           buildThemeTransition('light')
         }}
@@ -191,9 +189,7 @@ const ButtonGroup = () => {
       <button
         aria-checked="true"
         aria-label="Switch to system theme"
-        className={styles({})}
-        data-active="true"
-        data-theme-switcher="true"
+        className={styles.base}
         role="radio"
         type="button"
         onClick={() => {
@@ -205,9 +201,7 @@ const ButtonGroup = () => {
       <button
         aria-checked="false"
         aria-label="Switch to dark theme"
-        className={styles({})}
-        data-active="false"
-        data-theme-switcher="true"
+        className={styles.base}
         role="radio"
         type="button"
         onClick={() => {

@@ -43,6 +43,7 @@ export const ToastCard: FC<{
       <span>{message}</span>
 
       <MotionButtonBase
+        aria-label="Close toast"
         className="absolute bottom-0 right-3 top-0 flex items-center text-sm text-base-content/40 duration-200 hover:text-base-content/80"
         onClick={closeToast}
       >

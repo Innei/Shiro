@@ -100,7 +100,7 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
   return (
     <LazyLoad placeholder={placeholder} offset={30}>
       <figure suppressHydrationWarning>
-        <span className="relative block">
+        <span className="relative flex justify-center">
           <span>
             {imageLoadStatus !== ImageLoadStatus.Loaded && placeholder}
           </span>

@@ -10,6 +10,7 @@ import { useParams } from 'next/navigation'
 import type { Image, NoteModel } from '@mx-space/api-client'
 import type { MarkdownToJSX } from '~/components/ui/markdown'
 
+import { BanCopyWrapper } from '~/components/common/BanCopyWrapper'
 import { ClientOnly } from '~/components/common/ClientOnly'
 import { PageDataHolder } from '~/components/common/PageHolder'
 import { MdiClockOutline } from '~/components/icons/clock'
@@ -110,11 +111,13 @@ const NotePage = memo(({ note }: { note: NoteModel }) => {
             <MarkdownImageRecordProvider
               images={note.images || (noopArr as Image[])}
             >
-              <Markdown
-                as="main"
-                renderers={MarkdownRenderers}
-                value={note.text}
-              />
+              <BanCopyWrapper>
+                <Markdown
+                  as="main"
+                  renderers={MarkdownRenderers}
+                  value={note.text}
+                />
+              </BanCopyWrapper>
             </MarkdownImageRecordProvider>
 
             <LayoutRightSidePortal>

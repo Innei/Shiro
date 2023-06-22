@@ -93,7 +93,7 @@ const TriggerComponent = () => {
   const pathname = usePathname()
   return (
     <SignInButton mode="modal" redirectUrl={urlBuilder(pathname).href}>
-      <HeaderActionButton>
+      <HeaderActionButton aria-label="Guest Login">
         <UserArrowLeftIcon className="h-4 w-4" />
       </HeaderActionButton>
     </SignInButton>

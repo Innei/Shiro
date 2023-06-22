@@ -64,7 +64,7 @@ export default async (
     props.params.id,
     searchParams.get('password') || undefined,
   )
-  const { data } = await getQueryClient().fetchQuery(query)
+  const data = await getQueryClient().fetchQuery(query)
   return (
     <QueryHydration queryKey={query.queryKey} data={data}>
       <BottomToUpTransitionView className="min-w-0">
