@@ -1,3 +1,5 @@
+import type { NoteModel } from '@mx-space/api-client'
+
 export enum EventTypes {
   GATEWAY_CONNECT = 'GATEWAY_CONNECT',
   GATEWAY_DISCONNECT = 'GATEWAY_DISCONNECT',
@@ -26,5 +28,11 @@ export enum EventTypes {
   DANMAKU_CREATE = 'DANMAKU_CREATE',
 
   RECENTLY_CREATE = 'RECENTLY_CREATE',
-  RECENTLY_DElETE = 'RECENTLY_DElETE',
+  RECENTLY_DELETE = 'RECENTLY_DELETE',
+}
+
+export interface EventTypesPayload {
+  [EventTypes.VISITOR_ONLINE]: { online: number }
+  [EventTypes.VISITOR_OFFLINE]: { online: number }
+  [EventTypes.NOTE_UPDATE]: NoteModel
 }

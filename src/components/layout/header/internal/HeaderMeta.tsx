@@ -41,7 +41,9 @@ export const HeaderMeta = () => {
         >
           <div className="align-center flex min-w-0 flex-shrink flex-grow flex-col">
             <small className="min-w-0 truncate">
-              <span className="text-gray-500">{description}</span>
+              <span className="text-gray-600/60 dark:text-gray-300/60">
+                {description}
+              </span>
             </small>
             <h2 className="min-w-0 truncate text-[1.2rem] font-medium leading-[1.5]">
               {title}
@@ -49,10 +51,10 @@ export const HeaderMeta = () => {
           </div>
 
           <div className="hidden min-w-0 flex-shrink flex-col text-right leading-5 lg:flex">
-            <span className="min-w-0 truncate whitespace-pre text-gray-600/60 dark:text-gray-300/60">
+            <small className="min-w-0 truncate whitespace-pre text-gray-600/60 dark:text-gray-300/60">
               {' '}
               {slug}
-            </span>
+            </small>
             <span className="font-medium text-gray-600 dark:text-gray-300">
               {seoTitle}
             </span>

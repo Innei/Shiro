@@ -20,7 +20,7 @@ export const fetchAppUrl = async () => {
   jotaiStore.set(adminUrlAtom, data.adminUrl)
 }
 
-export const getAppUrl = () => jotaiStore.get(adminUrlAtom)
+export const getAdminUrl = () => jotaiStore.get(adminUrlAtom)
 export const useAppUrl = () => {
   const url = useAggregationSelector((a) => a.url)
   const adminUrl = useAtomValue(adminUrlAtom)

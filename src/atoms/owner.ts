@@ -6,6 +6,8 @@ import { aggregationDataAtom } from '~/providers/root/aggregation-data-provider'
 import { getToken, removeToken, setToken } from '~/utils/cookie'
 import { apiClient } from '~/utils/request'
 
+import { fetchAppUrl } from './url'
+
 const ownerAtom = atom((get) => {
   return get(aggregationDataAtom)?.user
 })
@@ -23,6 +25,7 @@ export const login = async (username?: string, password?: string) => {
       setToken(token)
       jotaiStore.set(isLoggedAtom, true)
 
+      await fetchAppUrl()
       toast(`欢迎回来，${jotaiStore.get(ownerAtom)?.name}`, 'success')
     }
 
