@@ -1,20 +1,13 @@
+import type { PostModel } from '@mx-space/api-client'
+
 import { MdiClockOutline } from '~/components/icons/clock'
 import { FeHash } from '~/components/icons/fa-hash'
 import { RelativeTime } from '~/components/ui/relative-time'
-import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
 import { clsxm } from '~/utils/helper'
 
-export const PostMetaBar: Component = ({ className }) => {
-  const meta = useCurrentPostDataSelector((data) => {
-    if (!data) return
-    return {
-      created: data.created,
-      category: data.category,
-      tags: data.tags,
-      count: data.count,
-    }
-  })
-  if (!meta) return null
+export const PostMetaBar: Component<{
+  meta: Pick<PostModel, 'created' | 'category' | 'tags' | 'count'>
+}> = ({ className, meta }) => {
   return (
     <div
       className={clsxm(

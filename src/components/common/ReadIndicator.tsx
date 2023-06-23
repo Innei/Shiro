@@ -15,7 +15,9 @@ export const ReadIndicator: Component<{
   const { y } = useWrappedElementPositsion()
   const { h } = useWrappedElementSize()
   const readPercent = usePageScrollLocationSelector((scrollTop) => {
-    return Math.floor(Math.min(Math.max(0, ((scrollTop - y) / h) * 100), 100))
+    return (
+      Math.floor(Math.min(Math.max(0, ((scrollTop - y) / h) * 100), 100)) || 0
+    )
   })
   const As = as || 'span'
   return (

@@ -1,7 +1,11 @@
-import { Mermaid } from '~/components/common/Mermaid'
+import dynamic from 'next/dynamic'
 
-import { HighLighter } from '../ui/code-highlighter'
-
+const Mermaid = dynamic(() => import('./Mermaid').then((mod) => mod.Mermaid))
+const HighLighter = dynamic(() =>
+  import('~/components/ui/code-highlighter/CodeHighlighter').then(
+    (mod) => mod.HighLighter,
+  ),
+)
 export const CodeBlock = (props: {
   lang: string | undefined
   content: string

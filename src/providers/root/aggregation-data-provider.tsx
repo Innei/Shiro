@@ -23,9 +23,9 @@ export const AggregationProvider: FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     if (callOnceRef.current) return
     if (!data?.user) return
+    callOnceRef.current = true
     login().then((logged) => {
       if (logged) {
-        callOnceRef.current = true
         // FIXME
         setTimeout(() => {
           fetchAppUrl()

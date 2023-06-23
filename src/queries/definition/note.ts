@@ -8,7 +8,7 @@ import { defineQuery } from './helper'
 
 const LATEST_KEY = 'latest'
 export const note = {
-  byNid: (nid: string, password?: string) =>
+  byNid: (nid: string, password?: string | null) =>
     defineQuery({
       queryKey: ['note', nid],
       meta: {

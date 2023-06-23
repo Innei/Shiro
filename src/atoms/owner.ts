@@ -46,6 +46,7 @@ export const login = async (username?: string, password?: string) => {
 
   if (!validated) {
     outdateToast()
+    removeToken()
     return
   }
 
