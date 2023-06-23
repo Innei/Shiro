@@ -1,5 +1,8 @@
 import React from 'react'
+import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+
+import { RequestError } from '@mx-space/api-client'
 
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { attachUA } from '~/lib/attach-ua'
@@ -62,7 +65,15 @@ export default async (props: NextPageParams<PageParams>) => {
   } = props
   const query = queries.post.bySlug(category, slug)
   // const queryKey = query.queryKey
-  const data = await getQueryClient().fetchQuery(query)
+  const data = await getQueryClient()
+    .fetchQuery(query)
+    .catch((error) => {
+      if (error instanceof RequestError && error.status === 404) {
+        return notFound()
+      }
+      throw error
+    })
+
   return (
     <>
       <CurrentPostDataProvider data={data} />

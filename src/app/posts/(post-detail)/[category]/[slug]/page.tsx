@@ -60,6 +60,20 @@ const HeaderMetaInfoSetting = () => {
 
   return null
 }
+
+const PostMetaBarInternal: Component = ({ className }) => {
+  const meta = useCurrentPostDataSelector((data) => {
+    if (!data) return
+    return {
+      created: data.created,
+      category: data.category,
+      tags: data.tags,
+      count: data.count,
+    }
+  })
+  if (!meta) return null
+  return <PostMetaBar meta={meta} className={className} />
+}
 const PostPage = () => {
   const id = useCurrentPostDataSelector((p) => p?.id)
   const title = useCurrentPostDataSelector((p) => p?.title)
@@ -76,7 +90,7 @@ const PostPage = () => {
             <Balancer>{title}</Balancer>
           </h1>
 
-          <PostMetaBar className="mb-8 justify-center" />
+          <PostMetaBarInternal className="mb-8 justify-center" />
 
           <XLogSummaryForPost />
         </header>

@@ -68,64 +68,6 @@ const PageImpl = () => {
   )
 }
 
-const NoteHeaderMetaInfoSetting = () => {
-  const setHeaderMetaInfo = useSetHeaderMetaInfo()
-  const meta = useCurrentNoteDataSelector((data) => {
-    if (!data) return null
-    const note = data.data
-
-    return {
-      title: note?.title,
-      description: `手记${note.topic?.name ? ` / ${note.topic?.name}` : ''}`,
-      slug: note?.nid.toString(),
-    }
-  })
-
-  useEffect(() => {
-    if (meta) setHeaderMetaInfo(meta)
-  }, [meta])
-
-  return null
-}
-
-const NoteHeaderDate = () => {
-  const date = useCurrentNoteDataSelector((data) => ({
-    created: data?.data.created,
-    modified: data?.data.modified,
-  }))
-  if (!date?.created) return null
-
-  const tips = `创建于 ${parseDate(date.created, 'YYYY 年 M 月 D 日 dddd')}${
-    date.modified
-      ? `，修改于 ${parseDate(date.modified, 'YYYY 年 M 月 D 日 dddd')}`
-      : ''
-  }`
-
-  return (
-    <FloatPopover as="span" TriggerComponent={NoteDateMeta}>
-      {tips}
-    </FloatPopover>
-  )
-}
-
-const NoteMarkdown = () => {
-  const text = useCurrentNoteDataSelector((data) => data?.data.text)
-  if (!text) return null
-
-  return <Markdown as="main" renderers={MarkdownRenderers} value={text} />
-}
-const NoteMarkdownImageRecordProvider = (props: PropsWithChildren) => {
-  const images = useCurrentNoteDataSelector(
-    (data) => data?.data.images || (noopArr as Image[]),
-  )
-  if (!images) return null
-
-  return (
-    <MarkdownImageRecordProvider images={images}>
-      {props.children}
-    </MarkdownImageRecordProvider>
-  )
-}
 const NotePage = memo(() => {
   const noteId = useCurrentNoteId()
   if (!noteId) return null
@@ -206,6 +148,65 @@ const NoteDateMeta = () => {
       </time>
     </span>
   )
+}
+
+const NoteHeaderDate = () => {
+  const date = useCurrentNoteDataSelector((data) => ({
+    created: data?.data.created,
+    modified: data?.data.modified,
+  }))
+  if (!date?.created) return null
+
+  const tips = `创建于 ${parseDate(date.created, 'YYYY 年 M 月 D 日 dddd')}${
+    date.modified
+      ? `，修改于 ${parseDate(date.modified, 'YYYY 年 M 月 D 日 dddd')}`
+      : ''
+  }`
+
+  return (
+    <FloatPopover as="span" TriggerComponent={NoteDateMeta}>
+      {tips}
+    </FloatPopover>
+  )
+}
+
+const NoteMarkdown = () => {
+  const text = useCurrentNoteDataSelector((data) => data?.data.text)
+  if (!text) return null
+
+  return <Markdown as="main" renderers={MarkdownRenderers} value={text} />
+}
+const NoteMarkdownImageRecordProvider = (props: PropsWithChildren) => {
+  const images = useCurrentNoteDataSelector(
+    (data) => data?.data.images || (noopArr as Image[]),
+  )
+  if (!images) return null
+
+  return (
+    <MarkdownImageRecordProvider images={images}>
+      {props.children}
+    </MarkdownImageRecordProvider>
+  )
+}
+
+const NoteHeaderMetaInfoSetting = () => {
+  const setHeaderMetaInfo = useSetHeaderMetaInfo()
+  const meta = useCurrentNoteDataSelector((data) => {
+    if (!data) return null
+    const note = data.data
+
+    return {
+      title: note?.title,
+      description: `手记${note.topic?.name ? ` / ${note.topic?.name}` : ''}`,
+      slug: note?.nid.toString(),
+    }
+  })
+
+  useEffect(() => {
+    if (meta) setHeaderMetaInfo(meta)
+  }, [meta])
+
+  return null
 }
 
 const MarkdownRenderers: { [name: string]: Partial<MarkdownToJSX.Rule> } = {

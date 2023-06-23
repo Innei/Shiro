@@ -5,7 +5,10 @@ import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpT
 import { REQUEST_QUERY } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
 import { getSummaryFromMd } from '~/lib/markdown'
-import { CurrentNoteDataProvider } from '~/providers/note/CurrentNoteDataProvider'
+import {
+  CurrentNoteDataProvider,
+  SyncNoteDataAfterLoggedIn,
+} from '~/providers/note/CurrentNoteDataProvider'
 import { CurrentNoteIdProvider } from '~/providers/note/CurrentNoteIdProvider'
 import { queries } from '~/queries/definition'
 import { getQueryClient } from '~/utils/query-client.server'
@@ -72,6 +75,7 @@ export default async (
     <>
       <CurrentNoteIdProvider noteId={id} />
       <CurrentNoteDataProvider data={data} />
+      <SyncNoteDataAfterLoggedIn />
 
       <BottomToUpTransitionView className="min-w-0">
         <Paper>{props.children}</Paper>
