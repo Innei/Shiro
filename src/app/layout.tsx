@@ -31,7 +31,13 @@ export const generateMetadata = defineMetadata(async (_, getData) => {
     },
     description: seo.description,
     keywords: seo.keywords?.join(',') || '',
-    icons: [appConfig.site.favicon],
+    icons: [
+      {
+        url: appConfig.site.favicon,
+        type: 'image/svg+xml',
+        sizes: 'any',
+      },
+    ],
 
     themeColor: [
       { media: '(prefers-color-scheme: dark)', color: '#000212' },
