@@ -1,6 +1,7 @@
 import { atom, useAtomValue } from 'jotai'
 
 import { jotaiStore } from '~/lib/store'
+import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 import { apiClient } from '~/utils/request'
 
 export interface UrlConfig {
@@ -9,15 +10,22 @@ export interface UrlConfig {
   webUrl: string
 }
 
-const appUrlAtom = atom<UrlConfig | null>(null)
+const adminUrlAtom = atom<string | null>(null)
 
 export const fetchAppUrl = async () => {
   const { data } = await apiClient.proxy.options.url.get<{
     data: UrlConfig
   }>()
 
-  jotaiStore.set(appUrlAtom, data)
+  jotaiStore.set(adminUrlAtom, data.adminUrl)
 }
 
-export const getAppUrl = () => jotaiStore.get(appUrlAtom)
-export const useAppUrl = () => useAtomValue(appUrlAtom)
+export const getAppUrl = () => jotaiStore.get(adminUrlAtom)
+export const useAppUrl = () => {
+  const url = useAggregationSelector((a) => a.url)
+  const adminUrl = useAtomValue(adminUrlAtom)
+  return {
+    adminUrl,
+    ...url,
+  }
+}

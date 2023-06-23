@@ -1,3 +1,5 @@
+'use client'
+
 import type { PostModel } from '@mx-space/api-client'
 
 import { MdiClockOutline } from '~/components/icons/clock'

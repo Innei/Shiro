@@ -8,17 +8,18 @@ import { useIsClient } from '~/hooks/common/use-is-client'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
 import { urlBuilder } from '~/lib/url-builder'
-import { getCurrentNoteData } from '~/providers/note/CurrentNoteDataProvider'
-import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
 import {
+  getCurrentPostData,
   setCurrentPostData,
   useCurrentPostDataSelector,
 } from '~/providers/post/CurrentPostDataProvider'
+import { useModalStack } from '~/providers/root/modal-stack-provider'
 import { isLikedBefore, setLikeId } from '~/utils/cookie'
 import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
 
 import { DonateButton } from '../shared/DonateButton'
+import { ShareModal } from '../shared/ShareModal'
 
 export const PostActionAside: Component = ({ className }) => {
   return (
@@ -40,12 +41,12 @@ const LikeButton = () => {
   const [update] = useForceUpdate()
 
   const id = useCurrentPostDataSelector((data) => data?.id)
-  const nid = useCurrentNoteId()
+
   if (!id) return null
   const handleLike = () => {
     if (isLikedBefore(id)) return
-    if (!nid) return
-    apiClient.note.likeIt(id).then(() => {
+
+    apiClient.post.thumbsUp(id).then(() => {
       setLikeId(id)
       setCurrentPostData((draft) => {
         draft.count.like += 1
@@ -105,32 +106,44 @@ const LikeButton = () => {
 }
 
 const ShareButton = () => {
-  const hasShare = 'share' in navigator
   const isClient = useIsClient()
-  void useCurrentNoteId()
-  const note = getCurrentNoteData()?.data
+  const { present } = useModalStack()
 
   if (!isClient) return null
-  if (!note) return null
-
-  if (!hasShare) {
-    return null
-  }
 
   return (
     <MotionButtonBase
-      aria-label="Share this post"
+      aria-label="Share This Post Button"
       className="flex flex-col space-y-2"
       onClick={() => {
-        navigator.share({
-          title: note.title,
-          text: note.text,
-          url: urlBuilder(
-            routeBuilder(Routes.Note, {
-              id: note.nid.toString(),
-            }),
-          ).href,
-        })
+        const post = getCurrentPostData()
+
+        if (!post) return
+
+        const hasShare = 'share' in navigator
+
+        const title = '分享一片宝藏文章'
+        const url = urlBuilder(
+          routeBuilder(Routes.Post, {
+            slug: post.slug,
+            category: post.category.slug,
+          }),
+        ).href
+
+        const text = `嘿，我发现了一片宝藏文章「${post.title}」哩，快来看看吧！${url}`
+
+        if (hasShare)
+          navigator.share({
+            title: post.title,
+            text: post.text,
+            url,
+          })
+        else {
+          present({
+            title: '分享此内容',
+            content: () => <ShareModal text={text} title={title} url={url} />,
+          })
+        }
       }}
     >
       <i className="icon-[mingcute--share-forward-fill] text-[24px] opacity-80 duration-200 hover:text-uk-cyan-light hover:opacity-100" />

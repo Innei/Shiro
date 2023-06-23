@@ -13,11 +13,13 @@ import {
   useCurrentNoteDataSelector,
 } from '~/providers/note/CurrentNoteDataProvider'
 import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
+import { useModalStack } from '~/providers/root/modal-stack-provider'
 import { isLikedBefore, setLikeId } from '~/utils/cookie'
 import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
 
 import { DonateButton } from '../shared/DonateButton'
+import { ShareModal } from '../shared/ShareModal'
 
 export const NoteActionAside: Component = ({ className }) => {
   return (
@@ -107,6 +109,7 @@ const LikeButton = () => {
 
 const ShareButton = () => {
   const isClient = useIsClient()
+  const { present } = useModalStack()
 
   if (!isClient) return null
 
@@ -120,16 +123,28 @@ const ShareButton = () => {
         if (!note) return
 
         const hasShare = 'share' in navigator
+
+        const title = '分享一片宝藏文章'
+        const url = urlBuilder(
+          routeBuilder(Routes.Note, {
+            id: note.nid.toString(),
+          }),
+        ).href
+
+        const text = `嘿，我发现了一片宝藏文章「${note.title}」哩，快来看看吧！${url}`
+
         if (hasShare)
           navigator.share({
             title: note.title,
             text: note.text,
-            url: urlBuilder(
-              routeBuilder(Routes.Note, {
-                id: note.nid.toString(),
-              }),
-            ).href,
+            url,
           })
+        else {
+          present({
+            title: '分享此内容',
+            content: () => <ShareModal text={text} title={title} url={url} />,
+          })
+        }
       }}
     >
       <i className="icon-[mingcute--share-forward-fill] text-[24px] opacity-80 duration-200 hover:text-uk-cyan-light hover:opacity-100" />

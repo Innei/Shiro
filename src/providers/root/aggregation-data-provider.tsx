@@ -61,3 +61,5 @@ export const useAggregationSelector = <T,>(
       ),
     ),
   )
+
+export const getAggregationData = () => jotaiStore.get(aggregationDataAtom)
