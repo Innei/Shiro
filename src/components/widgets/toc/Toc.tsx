@@ -139,10 +139,7 @@ const TocTree: Component<
   }, [accessory])
   return (
     <ul
-      className={clsxm(
-        'overflow-y-auto px-2 font-medium scrollbar-none',
-        className,
-      )}
+      className={clsxm('overflow-y-auto px-2 scrollbar-none', className)}
       key={`${toc.map((i) => i.title).join('')}`}
       ref={containerRef}
     >

@@ -26,7 +26,7 @@ export const NoteTopicInfo = () => {
       <FloatPopover
         placement="right"
         strategy="fixed"
-        wrapperClassNames="flex flex-grow flex-shrink min-w-0"
+        wrapperClassName="flex flex-grow flex-shrink min-w-0"
         TriggerComponent={ToTopicLink}
       >
         <NoteTopicDetail topic={topic} />

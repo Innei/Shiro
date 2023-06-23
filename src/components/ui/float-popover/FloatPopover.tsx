@@ -15,7 +15,7 @@ export const FloatPopover: FC<
   PropsWithChildren<{
     TriggerComponent: FC
     headless?: boolean
-    wrapperClassNames?: string
+    wrapperClassName?: string
     trigger?: 'click' | 'hover' | 'both'
     padding?: number
     offset?: number
@@ -40,7 +40,7 @@ export const FloatPopover: FC<
 > = (props) => {
   const {
     headless = false,
-    wrapperClassNames,
+    wrapperClassName: wrapperClassNames,
     TriggerComponent,
     trigger = 'hover',
     padding,

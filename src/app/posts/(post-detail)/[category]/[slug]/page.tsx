@@ -118,6 +118,7 @@ const PostMetaBarInternal: Component = ({ className }) => {
       category: data.category,
       tags: data.tags,
       count: data.count,
+      modified: data.modified,
     }
   })
   if (!meta) return null

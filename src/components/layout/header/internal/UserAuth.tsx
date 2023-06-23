@@ -51,7 +51,7 @@ export function UserAuth() {
       <SignedOut key="sign-in">
         <FloatPopover
           TriggerComponent={TriggerComponent}
-          wrapperClassNames="h-full w-full flex items-center justify-center"
+          wrapperClassName="h-full w-full flex items-center justify-center"
           type="tooltip"
         >
           登陆

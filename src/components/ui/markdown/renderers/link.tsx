@@ -70,7 +70,7 @@ export const MLink: FC<{
   return (
     <FloatPopover
       as="span"
-      wrapperClassNames="!inline"
+      wrapperClassName="!inline"
       TriggerComponent={useCallback(
         () => (
           <>
