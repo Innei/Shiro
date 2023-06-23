@@ -1,21 +1,19 @@
 import '../styles/index.css'
 
-import { dehydrate } from '@tanstack/react-query'
 import { Analytics } from '@vercel/analytics/react'
 import { ToastContainer } from 'react-toastify'
-import { headers } from 'next/dist/client/components/headers'
 
 import { ClerkProvider } from '@clerk/nextjs'
 
 import { appConfig } from '~/app.config'
 import { Root } from '~/components/layout/root/Root'
-import { REQUEST_GEO, REQUEST_PATHNAME } from '~/constants/system'
 import { defineMetadata } from '~/lib/define-metadata'
 import { sansFont, serifFont } from '~/lib/fonts'
+import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
+import { queries } from '~/queries/definition'
 import { getQueryClient } from '~/utils/query-client.server'
 
 import { Providers } from '../providers/root'
-import { Hydrate } from './hydrate'
 import { init } from './init'
 
 init()
@@ -88,33 +86,36 @@ export default async function RootLayout(props: Props) {
 
   const queryClient = getQueryClient()
 
-  const dehydratedState = dehydrate(queryClient, {
-    shouldDehydrateQuery: (query) => {
-      if (query.state.error) return false
-      if (!query.meta) return true
-      const {
-        shouldHydration,
-        hydrationRoutePath,
-        skipHydration,
-        forceHydration,
-      } = query.meta
+  // const dehydratedState = dehydrate(queryClient, {
+  //   shouldDehydrateQuery: (query) => {
+  //     if (query.state.error) return false
+  //     if (!query.meta) return true
+  //     const {
+  //       shouldHydration,
+  //       hydrationRoutePath,
+  //       skipHydration,
+  //       forceHydration,
+  //     } = query.meta
 
-      if (forceHydration) return true
-      if (hydrationRoutePath) {
-        const pathname = headers().get(REQUEST_PATHNAME)
+  //     if (forceHydration) return true
+  //     if (hydrationRoutePath) {
+  //       const pathname = headers().get(REQUEST_PATHNAME)
 
-        if (pathname === query.meta?.hydrationRoutePath) {
-          if (!shouldHydration) return true
-          return (shouldHydration as Function)(query.state.data as any)
-        }
-      }
+  //       if (pathname === query.meta?.hydrationRoutePath) {
+  //         if (!shouldHydration) return true
+  //         return (shouldHydration as Function)(query.state.data as any)
+  //       }
+  //     }
 
-      if (skipHydration) return false
+  //     if (skipHydration) return false
 
-      return (shouldHydration as Function)?.(query.state.data as any) ?? false
-    },
+  //     return (shouldHydration as Function)?.(query.state.data as any) ?? false
+  //   },
+  // })
+
+  const data = await queryClient.fetchQuery({
+    ...queries.aggregation.root(),
   })
-  const geo = headers().get(REQUEST_GEO)
 
   return (
     // <ClerkProvider localization={ClerkZhCN}>
@@ -124,12 +125,12 @@ export default async function RootLayout(props: Props) {
           className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
         >
           <Providers>
-            <Hydrate state={dehydratedState}>
-              <Root>{children}</Root>
-            </Hydrate>
+            <AggregationProvider aggregationData={data} />
+            {/* <Hydrate state={dehydratedState}> */}
+            <Root>{children}</Root>
+            {/* </Hydrate> */}
           </Providers>
           <ToastContainer />
-          {!!geo && <div>{geo}</div>}
         </body>
       </html>
       <Analytics />

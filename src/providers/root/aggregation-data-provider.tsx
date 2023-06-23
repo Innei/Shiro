@@ -1,3 +1,5 @@
+'use client'
+
 import { useCallback, useEffect, useRef } from 'react'
 import { atom, useAtomValue } from 'jotai'
 import { selectAtom } from 'jotai/utils'
@@ -6,23 +8,24 @@ import type { FC, PropsWithChildren } from 'react'
 
 import { fetchAppUrl } from '~/atoms'
 import { login } from '~/atoms/owner'
-import { useAggregationQuery } from '~/hooks/data/use-aggregation'
 import { jotaiStore } from '~/lib/store'
 
 export const aggregationDataAtom = atom<null | AggregateRoot>(null)
 
-export const AggregationProvider: FC<PropsWithChildren> = ({ children }) => {
-  const { data } = useAggregationQuery()
-
+export const AggregationProvider: FC<
+  PropsWithChildren<{
+    aggregationData: AggregateRoot
+  }>
+> = ({ children, aggregationData }) => {
   useEffect(() => {
-    if (!data) return
-    jotaiStore.set(aggregationDataAtom, data)
-  }, [data])
+    if (!aggregationData) return
+    jotaiStore.set(aggregationDataAtom, aggregationData)
+  }, [aggregationData])
 
   const callOnceRef = useRef(false)
   useEffect(() => {
     if (callOnceRef.current) return
-    if (!data?.user) return
+    if (!aggregationData?.user) return
     callOnceRef.current = true
     login().then((logged) => {
       if (logged) {
@@ -32,7 +35,7 @@ export const AggregationProvider: FC<PropsWithChildren> = ({ children }) => {
         }, 1000)
       }
     })
-  }, [data?.user])
+  }, [aggregationData?.user])
 
   return children
 }

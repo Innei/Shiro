@@ -6,7 +6,6 @@ import { ThemeProvider } from 'next-themes'
 import type { PropsWithChildren } from 'react'
 
 import { ProviderComposer } from '../../components/common/ProviderComposer'
-import { AggregationProvider } from './aggregation-data-provider'
 import { DebugProvider } from './debug-provider'
 import { EventProvider } from './event-provider'
 import { JotaiStoreProvider } from './jotai-provider'
@@ -20,7 +19,7 @@ const contexts: JSX.Element[] = [
   <ThemeProvider key="themeProvider" />,
   <ReactQueryProvider key="reactQueryProvider" />,
   <JotaiStoreProvider key="jotaiStoreProvider" />,
-  <AggregationProvider key="aggregationProvider" />,
+
   <EventProvider key="viewportProvider" />,
 
   <PageScrollInfoProvider key="PageScrollInfoProvider" />,
