@@ -33,6 +33,7 @@ export const AggregationProvider: FC<
     if (callOnceRef.current) return
     if (!aggregationData?.user) return
     callOnceRef.current = true
+
     login().then((logged) => {
       if (logged) {
         // FIXME

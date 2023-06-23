@@ -75,7 +75,7 @@ export const MLink: FC<{
         () => (
           <>
             <a
-              className={clsx(styles['anchor'], 'is-link')}
+              className={clsx(styles['link'])}
               href={props.href}
               target="_blank"
               onClick={handleRedirect}

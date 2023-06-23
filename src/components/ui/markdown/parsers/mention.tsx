@@ -23,7 +23,7 @@ const prefixToUrlMap = {
 // {GH@Innei} {TW@Innei} {TG@Innei}
 export const MentionRule: MarkdownToJSX.Rule = {
   match: simpleInlineRegex(
-    /^\{((?<prefix>(GH)|(TW)|(TG))@(?<name>\w+\b))\}\s?(?!\[.*?\])/,
+    /^(\[(?<displayName>.*?)\])?\{((?<prefix>(GH)|(TW)|(TG))@(?<name>\w+\b))\}\s?(?!\[.*?\])/,
   ),
   order: Priority.MIN,
   parse(capture) {
@@ -33,7 +33,7 @@ export const MentionRule: MarkdownToJSX.Rule = {
       return {}
     }
     return {
-      content: { prefix: groups.prefix, name: groups.name },
+      content: { ...groups },
       type: 'mention',
     }
   },
@@ -43,7 +43,7 @@ export const MentionRule: MarkdownToJSX.Rule = {
       return null as any
     }
 
-    const { prefix, name } = content
+    const { prefix, name, displayName } = content
     if (!name) {
       return null as any
     }
@@ -63,8 +63,9 @@ export const MentionRule: MarkdownToJSX.Rule = {
           target="_blank"
           rel="noreferrer nofollow"
           href={`${urlPrefix}${name}`}
+          className="no-underline"
         >
-          {name}
+          {displayName || name}
         </a>
       </span>
     )

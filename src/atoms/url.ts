@@ -5,9 +5,8 @@ import { apiClient } from '~/utils/request'
 
 export interface UrlConfig {
   adminUrl: string
-  backendUrl: string
 
-  frontendUrl: string
+  webUrl: string
 }
 
 const appUrlAtom = atom<UrlConfig | null>(null)
