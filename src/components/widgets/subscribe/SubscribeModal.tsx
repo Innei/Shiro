@@ -6,7 +6,7 @@ import { StyledButton } from '~/components/ui/button'
 import { Input } from '~/components/ui/input/Input'
 import { useStateToRef } from '~/hooks/common/use-state-ref'
 import { toast } from '~/lib/toast'
-import { useAggregationData } from '~/providers/root/aggregation-data-provider'
+import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 import { apiClient } from '~/utils/request'
 
 import { useSubscribeStatusQuery } from './hooks'
@@ -94,11 +94,8 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
     dispatch({ type: 'reset' })
     onConfirm()
   }
-  const aggregation = useAggregationData()
-  if (!aggregation) return null
-  const {
-    seo: { title },
-  } = aggregation
+  const title = useAggregationSelector((data) => data.seo.title)
+
   return (
     <form action="#" onSubmit={handleSubList} className="flex flex-col gap-5">
       <p className="text-gray-1 text-sm">
