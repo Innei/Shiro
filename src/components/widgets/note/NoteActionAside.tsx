@@ -13,7 +13,6 @@ import {
   useCurrentNoteDataSelector,
 } from '~/providers/note/CurrentNoteDataProvider'
 import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
-import { useAggregationData } from '~/providers/root/aggregation-data-provider'
 import { isLikedBefore, setLikeId } from '~/utils/cookie'
 import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
@@ -110,13 +109,12 @@ const ShareButton = () => {
   const hasShare = 'share' in navigator
   const isClient = useIsClient()
 
-  const aggregation = useAggregationData()
   if (!isClient) return null
 
   if (!hasShare) {
     return null
   }
-  if (!aggregation) return null
+
   return (
     <MotionButtonBase
       aria-label="Share This Note Button"

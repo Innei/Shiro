@@ -3,8 +3,8 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 
-import { useAggregationQuery } from '~/hooks/data/use-aggregation'
 import { cloneDeep } from '~/lib/_'
+import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
 import { headerMenuConfig as baseHeaderMenuConfig } from '../config'
 
@@ -14,17 +14,22 @@ const HeaderMenuConfigContext = createContext({
 
 export const useHeaderConfig = () => useContext(HeaderMenuConfigContext)
 export const HeaderDataConfigureProvider: Component = ({ children }) => {
-  const { data } = useAggregationQuery()
+  const pageMeta = useAggregationSelector(
+    (aggregationData) => aggregationData.pageMeta,
+  )
+  const categories = useAggregationSelector(
+    (aggregationData) => aggregationData.categories,
+  )
   const [headerMenuConfig, setHeaderMenuConfig] = useState(baseHeaderMenuConfig)
 
   useEffect(() => {
-    if (!data) return
+    if (!pageMeta) return
     const nextMenuConfig = cloneDeep(baseHeaderMenuConfig)
-    if (data.pageMeta) {
+    if (pageMeta) {
       const homeIndex = nextMenuConfig.findIndex((item) => item.type === 'Home')
       if (homeIndex !== -1) {
         nextMenuConfig[homeIndex].subMenu = []
-        for (const page of data.pageMeta) {
+        for (const page of pageMeta) {
           nextMenuConfig[homeIndex].subMenu!.push({
             path: page.slug,
             title: page.title,
@@ -33,11 +38,11 @@ export const HeaderDataConfigureProvider: Component = ({ children }) => {
       }
     }
 
-    if (data.categories?.length) {
+    if (categories?.length) {
       const postIndex = nextMenuConfig.findIndex((item) => item.type === 'Post')
       if (postIndex !== -1) {
         nextMenuConfig[postIndex].subMenu = []
-        for (const category of data.categories) {
+        for (const category of categories) {
           nextMenuConfig[postIndex].subMenu!.push({
             path: `/categories/${category.slug}`,
             title: category.name,
@@ -47,7 +52,7 @@ export const HeaderDataConfigureProvider: Component = ({ children }) => {
     }
 
     setHeaderMenuConfig(nextMenuConfig)
-  }, [data])
+  }, [categories, pageMeta])
 
   return (
     <HeaderMenuConfigContext.Provider

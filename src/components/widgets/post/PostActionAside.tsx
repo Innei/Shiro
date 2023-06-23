@@ -14,7 +14,6 @@ import {
   setCurrentPostData,
   useCurrentPostDataSelector,
 } from '~/providers/post/CurrentPostDataProvider'
-import { useAggregationData } from '~/providers/root/aggregation-data-provider'
 import { isLikedBefore, setLikeId } from '~/utils/cookie'
 import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
@@ -110,14 +109,14 @@ const ShareButton = () => {
   const isClient = useIsClient()
   void useCurrentNoteId()
   const note = getCurrentNoteData()?.data
-  const aggregation = useAggregationData()
+
   if (!isClient) return null
   if (!note) return null
 
   if (!hasShare) {
     return null
   }
-  if (!aggregation) return null
+
   return (
     <MotionButtonBase
       aria-label="Share this post"

@@ -8,6 +8,7 @@ import type { FC, PropsWithChildren } from 'react'
 
 import { fetchAppUrl } from '~/atoms'
 import { login } from '~/atoms/owner'
+import { useBeforeMounted } from '~/hooks/common/use-before-mounted'
 import { jotaiStore } from '~/lib/store'
 
 export const aggregationDataAtom = atom<null | AggregateRoot>(null)
@@ -17,6 +18,11 @@ export const AggregationProvider: FC<
     aggregationData: AggregateRoot
   }>
 > = ({ children, aggregationData }) => {
+  useBeforeMounted(() => {
+    if (!aggregationData) return
+    jotaiStore.set(aggregationDataAtom, aggregationData)
+  })
+
   useEffect(() => {
     if (!aggregationData) return
     jotaiStore.set(aggregationDataAtom, aggregationData)
@@ -39,11 +45,6 @@ export const AggregationProvider: FC<
 
   return children
 }
-
-/**
- * Not recommended to use
- */
-export const useAggregationData = () => useAtomValue(aggregationDataAtom)
 
 export const useAggregationSelector = <T,>(
   selector: (atomValue: AggregateRoot) => T,
