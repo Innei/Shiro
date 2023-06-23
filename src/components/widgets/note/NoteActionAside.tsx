@@ -106,14 +106,9 @@ const LikeButton = () => {
 }
 
 const ShareButton = () => {
-  const hasShare = 'share' in navigator
   const isClient = useIsClient()
 
   if (!isClient) return null
-
-  if (!hasShare) {
-    return null
-  }
 
   return (
     <MotionButtonBase
@@ -124,15 +119,17 @@ const ShareButton = () => {
 
         if (!note) return
 
-        navigator.share({
-          title: note.title,
-          text: note.text,
-          url: urlBuilder(
-            routeBuilder(Routes.Note, {
-              id: note.nid.toString(),
-            }),
-          ).href,
-        })
+        const hasShare = 'share' in navigator
+        if (hasShare)
+          navigator.share({
+            title: note.title,
+            text: note.text,
+            url: urlBuilder(
+              routeBuilder(Routes.Note, {
+                id: note.nid.toString(),
+              }),
+            ).href,
+          })
       }}
     >
       <i className="icon-[mingcute--share-forward-fill] text-[24px] opacity-80 duration-200 hover:text-uk-cyan-light hover:opacity-100" />

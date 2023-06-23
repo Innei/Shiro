@@ -1,17 +1,14 @@
 'use client'
 
+import { memo } from 'react'
+
 import { Divider } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 
 import { NoteTopicDetail, ToTopicLink } from './NoteTopicDetail'
 
-// export const NoteTopicInfo = () => {
-//   const noteId = useCurrentNoteId()
-//   if (!noteId) return null
-//   return <NoteTopicInfoImpl />
-// }
-export const NoteTopicInfo = () => {
+export const NoteTopicInfo = memo(() => {
   const topic = useCurrentNoteDataSelector((data) => data?.data.topic)
 
   if (!topic) return null
@@ -33,4 +30,4 @@ export const NoteTopicInfo = () => {
       </FloatPopover>
     </>
   )
-}
+})

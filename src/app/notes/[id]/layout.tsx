@@ -2,6 +2,8 @@ import { headers } from 'next/dist/client/components/headers'
 import type { Metadata } from 'next'
 
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
+import { Comments } from '~/components/widgets/comment/Comments'
+import { NoteMainContainer } from '~/components/widgets/note/NoteMainContainer'
 import { REQUEST_QUERY } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
 import { getSummaryFromMd } from '~/lib/markdown'
@@ -78,7 +80,8 @@ export default async (
       <SyncNoteDataAfterLoggedIn />
 
       <BottomToUpTransitionView className="min-w-0">
-        <Paper>{props.children}</Paper>
+        <Paper as={NoteMainContainer}>{props.children}</Paper>
+        <Comments refId={id} />
       </BottomToUpTransitionView>
     </>
   )

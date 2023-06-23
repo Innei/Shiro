@@ -1,8 +1,10 @@
 import { clsxm } from '~/utils/helper'
 
-export const Paper: Component = ({ children, className }) => {
+export const Paper: Component<{
+  as?: keyof JSX.IntrinsicElements | Component
+}> = ({ children, className, as: As = 'main' }) => {
   return (
-    <main
+    <As
       className={clsxm(
         'relative bg-slate-50 dark:bg-zinc-900 md:col-start-1 lg:col-auto',
         '-m-4 p-[2rem_1rem] md:m-0 lg:p-[30px_45px]',
@@ -12,6 +14,6 @@ export const Paper: Component = ({ children, className }) => {
       )}
     >
       {children}
-    </main>
+    </As>
   )
 }

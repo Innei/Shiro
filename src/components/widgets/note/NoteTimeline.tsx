@@ -14,11 +14,11 @@ import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
 import { springScrollToTop } from '~/utils/scroller'
 
-export const NoteTimeline = () => {
+export const NoteTimeline = memo(() => {
   const noteId = useCurrentNoteId()
   if (!noteId) return null
   return <NoteTimelineImpl />
-}
+})
 
 const NoteTimelineImpl = () => {
   void useCurrentNoteId()
