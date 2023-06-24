@@ -20,6 +20,13 @@ html {
   box-shadow: theme(colors.accent) 0px 0px 0px 2px;
 }
 
+.prose {
+  :where(.image-placeholder):not(:where([class~='not-prose'] *)) {
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+}
+
 html.noise body::before {
   position: fixed;
   inset: 0;

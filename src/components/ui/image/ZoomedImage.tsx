@@ -11,6 +11,7 @@ import { LazyLoad } from '~/components/common/Lazyload'
 import { useIsUnMounted } from '~/hooks/common/use-is-unmounted'
 import { calculateDimensions } from '~/lib/calc-image'
 import { useMarkdownImageRecord } from '~/providers/article/MarkdownImageRecordProvider'
+import { isDev } from '~/utils/env'
 import { clsxm } from '~/utils/helper'
 
 import { Divider } from '../divider'
@@ -77,7 +78,6 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
     },
     [isUnmount],
   )
-
   const imageRef = useRef<HTMLImageElement>(null)
   useEffect(() => {
     if (imageLoadStatus !== ImageLoadStatus.Loaded) {
@@ -99,11 +99,12 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
 
   return (
     <LazyLoad placeholder={placeholder} offset={30}>
-      <figure suppressHydrationWarning>
+      <figure>
         <span className="relative flex justify-center">
           <span>
             {imageLoadStatus !== ImageLoadStatus.Loaded && placeholder}
           </span>
+
           <img
             src={src}
             title={title}
@@ -196,7 +197,7 @@ const Placeholder: FC<
 
   return (
     <span
-      className={styles.base}
+      className={`image-placeholder ${styles.base}`}
       data-width={scaledSize.scaleWidth}
       data-height={scaledSize.scaleHeight}
       data-from-record-height={imageMeta?.height}
@@ -215,11 +216,13 @@ const NoFixedPlaceholder = ({ accent }: { accent?: string }) => {
   return (
     <span
       className={clsxm(
+        'image-placeholder',
         styles.base,
         'h-[300px] w-full bg-slate-300 dark:bg-slate-700',
       )}
       style={{
         backgroundColor: accent,
+        outline: isDev ? '4px solid red' : undefined,
       }}
     />
   )

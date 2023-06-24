@@ -2,6 +2,8 @@
 
 import type { PostModel } from '@mx-space/api-client'
 
+import { isClientSide, isDev } from '~/utils/env'
+
 import { createDataProvider } from '../internal/createDataProvider'
 
 const {
@@ -10,6 +12,13 @@ const {
   setCurrentData,
   useCurrentDataSelector,
 } = createDataProvider<PostModel>()
+
+declare global {
+  interface Window {
+    getCurrentPostData: typeof getCurrentData
+  }
+}
+if (isDev && isClientSide) window.getCurrentPostData = getCurrentData
 
 export {
   CurrentDataProvider as CurrentPostDataProvider,
