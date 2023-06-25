@@ -37,6 +37,9 @@ const NoteTimelineImpl = () => {
       created: note.created,
     }
   })
+  const noteNid = useCurrentNoteId()
+
+  console.log(noteNid, 'noteNid')
   const noteId = note?.id
 
   const { data: timelineData } = useQuery(
@@ -52,7 +55,9 @@ const NoteTimelineImpl = () => {
     },
   )
 
-  if (!noteId) return null
+  if (!timelineData) {
+    return null
+  }
 
   const initialData = note
     ? [
@@ -69,7 +74,7 @@ const NoteTimelineImpl = () => {
     <AnimatePresence>
       <motion.ul className="space-y-1" animate={animateUl}>
         {(timelineData || initialData)?.map((item) => {
-          const isCurrent = item.nid === note.nid
+          const isCurrent = item.nid === parseInt(noteNid || '0')
           return (
             <MemoedItem
               key={item.id}
@@ -116,13 +121,14 @@ const MemoedItem = memo<{
       animate={animateLi}
       exit={initialLi}
     >
-      <LeftToRightTransitionView
-        in={active}
-        as="span"
-        className="inline-flex items-center"
-      >
-        <i className="icon-[material-symbols--arrow-circle-right-outline-rounded] duration-200" />
-      </LeftToRightTransitionView>
+      {active && (
+        <LeftToRightTransitionView
+          as="span"
+          className="inline-flex items-center"
+        >
+          <i className="icon-[material-symbols--arrow-circle-right-outline-rounded] duration-200" />
+        </LeftToRightTransitionView>
+      )}
       <Link
         onClick={springScrollToTop}
         prefetch={false}

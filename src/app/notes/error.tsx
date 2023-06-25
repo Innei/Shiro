@@ -1,12 +1,14 @@
 'use client'
 
 import { useEffect } from 'react'
+import { useParams } from 'next/navigation'
 
 import { captureException } from '@sentry/nextjs'
 
 import { NotFound404 } from '~/components/common/404'
 import { NotePasswordForm } from '~/components/widgets/note/NotePasswordForm'
 import { isRequestError, pickStatusCode } from '~/lib/is-error'
+import { setCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
 
 import { Paper } from './Paper'
 
@@ -26,6 +28,7 @@ export default ({ error, reset }: { error: Error; reset: () => void }) => {
       return (
         <Paper>
           <NotePasswordForm />
+          <NoteSetCurrnetId />
         </Paper>
       )
     }
@@ -59,4 +62,12 @@ export default ({ error, reset }: { error: Error; reset: () => void }) => {
       </div>
     </Paper>
   )
+}
+
+const NoteSetCurrnetId = () => {
+  const { id } = useParams()
+  useEffect(() => {
+    setCurrentNoteId(id)
+  }, [id])
+  return null
 }

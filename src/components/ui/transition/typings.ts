@@ -5,8 +5,6 @@ import type {
 } from 'framer-motion'
 
 export interface BaseTransitionProps extends HTMLMotionProps<'div'> {
-  in?: boolean
-  onExited?: () => void
   duration?: number
   onEntered?: () => void
   appear?: boolean

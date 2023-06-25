@@ -29,4 +29,11 @@ const useCurrentNoteId = () => {
   return useAtomValue(currentNoteIdAtom)
 }
 
-export { useCurrentNoteId, CurrentNoteIdProvider }
+/**
+ * Only used in error page to set current note id
+ */
+const setCurrentNoteId = (noteId: string) => {
+  jotaiStore.set(currentNoteIdAtom, noteId)
+}
+
+export { useCurrentNoteId, CurrentNoteIdProvider, setCurrentNoteId }
