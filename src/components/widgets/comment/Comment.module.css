@@ -58,7 +58,7 @@
   }
 }
 
-.dark .comment__message {
+[data-theme='dark'] .comment__message {
   hr {
     @apply border-zinc-100 opacity-20;
   }

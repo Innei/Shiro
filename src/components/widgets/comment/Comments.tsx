@@ -6,6 +6,7 @@ import type { FC } from 'react'
 import type { CommentBaseProps } from './types'
 
 import { Loading } from '~/components/ui/loading'
+import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { apiClient } from '~/utils/request'
 
 import { Comment } from './Comment'
@@ -43,11 +44,9 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
         {data?.pages.map((data) =>
           data.data.map((comment, index) => {
             return (
-              <Comment
-                comment={comment}
-                key={comment.id}
-                showLine={index > 0}
-              />
+              <BottomToUpSoftScaleTransitionView key={comment.id}>
+                <Comment comment={comment} showLine={index > 0} />
+              </BottomToUpSoftScaleTransitionView>
             )
           }),
         )}

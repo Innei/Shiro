@@ -65,9 +65,12 @@ export const Comment: Component<{
                 //       } `
                 //     : ''
                 // }${comment.text}`}
-                forceBlock
-                disableParsingRawHTML
-                disabledTypes={disableTypes}
+
+                options={{
+                  disabledTypes,
+                  disableParsingRawHTML: true,
+                  forceBlock: true,
+                }}
               >
                 {text}
               </Markdown>
@@ -91,7 +94,7 @@ export const Comment: Component<{
   )
 })
 
-const disableTypes = [
+const disabledTypes = [
   'heading',
   'blockQuote',
   'footnote',
