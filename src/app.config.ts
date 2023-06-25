@@ -5,7 +5,7 @@ export const appConfig = {
         ? 'https://innei.ren'
         : 'http://localhost:2323',
 
-    favicon: 'https://cdn.innei.ren/github_innei.svg',
+    favicon: '/innei.svg',
   },
 
   module: {

@@ -15,23 +15,24 @@ import { SentryProvider } from './sentry-provider'
 import { SocketContainer } from './socket-provider'
 
 const contexts: JSX.Element[] = [
-  <SentryProvider key="SentryProvider" />,
   <ThemeProvider key="themeProvider" />,
   <ReactQueryProvider key="reactQueryProvider" />,
   <JotaiStoreProvider key="jotaiStoreProvider" />,
 
-  <EventProvider key="viewportProvider" />,
-
-  <PageScrollInfoProvider key="PageScrollInfoProvider" />,
-  <DebugProvider key="debugProvider" />,
   <BalancerProvider key="balancerProvider" />,
-  <ModalStackProvider key="modalStackProvider" />,
 ]
 export function Providers({ children }: PropsWithChildren) {
   return (
     <>
       <SocketContainer />
-      <ProviderComposer contexts={contexts}>{children}</ProviderComposer>
+      <ProviderComposer contexts={contexts}>
+        {children}
+        <EventProvider key="viewportProvider" />
+        <SentryProvider key="SentryProvider" />
+        <PageScrollInfoProvider key="PageScrollInfoProvider" />
+        <DebugProvider key="debugProvider" />
+        <ModalStackProvider key="modalStackProvider" />
+      </ProviderComposer>
     </>
   )
 }

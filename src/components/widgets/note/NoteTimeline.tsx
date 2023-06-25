@@ -39,7 +39,6 @@ const NoteTimelineImpl = () => {
   })
   const noteNid = useCurrentNoteId()
 
-  console.log(noteNid, 'noteNid')
   const noteId = note?.id
 
   const { data: timelineData } = useQuery(
@@ -99,10 +98,10 @@ const styles = tv({
 })
 
 const initialLi: Target = {
-  filter: 'blur(10px)',
+  opacity: 0.0001,
 }
 const animateLi: TargetAndTransition = {
-  filter: 'blur(0px)',
+  opacity: 1,
 }
 
 const MemoedItem = memo<{

@@ -87,33 +87,6 @@ export default async function RootLayout(props: Props) {
 
   const queryClient = getQueryClient()
 
-  // const dehydratedState = dehydrate(queryClient, {
-  //   shouldDehydrateQuery: (query) => {
-  //     if (query.state.error) return false
-  //     if (!query.meta) return true
-  //     const {
-  //       shouldHydration,
-  //       hydrationRoutePath,
-  //       skipHydration,
-  //       forceHydration,
-  //     } = query.meta
-
-  //     if (forceHydration) return true
-  //     if (hydrationRoutePath) {
-  //       const pathname = headers().get(REQUEST_PATHNAME)
-
-  //       if (pathname === query.meta?.hydrationRoutePath) {
-  //         if (!shouldHydration) return true
-  //         return (shouldHydration as Function)(query.state.data as any)
-  //       }
-  //     }
-
-  //     if (skipHydration) return false
-
-  //     return (shouldHydration as Function)?.(query.state.data as any) ?? false
-  //   },
-  // })
-
   const data = await queryClient.fetchQuery({
     ...queries.aggregation.root(),
   })
@@ -127,9 +100,9 @@ export default async function RootLayout(props: Props) {
         >
           <Providers>
             <AggregationProvider aggregationData={data} />
-            {/* <Hydrate state={dehydratedState}> */}
+
             <Root>{children}</Root>
-            {/* </Hydrate> */}
+
             <TocAutoScroll />
           </Providers>
           <ToastContainer />
