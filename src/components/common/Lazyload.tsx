@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 import type { FC, PropsWithChildren } from 'react'

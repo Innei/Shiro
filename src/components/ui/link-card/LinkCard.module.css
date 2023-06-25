@@ -61,6 +61,8 @@
 }
 
 .skeleton {
+  @apply !cursor-auto;
+
   & .title,
   & .desc {
     border-radius: 99px;

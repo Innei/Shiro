@@ -8,6 +8,7 @@ import type { FC } from 'react'
 
 import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
 
+import { useIsClient } from '~/hooks/common/use-is-client'
 import { useIsUnMounted } from '~/hooks/common/use-is-unmounted'
 import { useSafeSetState } from '~/hooks/common/use-safe-setState'
 import { apiClient } from '~/utils/request'
@@ -20,7 +21,14 @@ export interface LinkCardProps {
   source?: LinkCardSource
   className?: string
 }
-export const LinkCard: FC<LinkCardProps> = (props) => {
+
+export const LinkCard = (props: LinkCardProps) => {
+  const isClient = useIsClient()
+  if (!isClient) return <LinkCardSkeleton />
+
+  return <LinkCardImpl {...props} />
+}
+export const LinkCardImpl: FC<LinkCardProps> = (props) => {
   const { id, source = 'self', className } = props
   const isUnMounted = useIsUnMounted()
 
@@ -179,5 +187,17 @@ export const LinkCard: FC<LinkCardProps> = (props) => {
         />
       )}
     </LinkComponent>
+  )
+}
+
+const LinkCardSkeleton = () => {
+  return (
+    <span className={clsx(styles['card-grid'], styles['skeleton'])}>
+      <span className={styles['contents']}>
+        <span className={styles['title']} />
+        <span className={styles['desc']} />
+      </span>
+      <span className={styles['image']} />
+    </span>
   )
 }

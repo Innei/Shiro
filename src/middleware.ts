@@ -5,7 +5,11 @@ import type { NextRequest } from 'next/server'
 import countries from '~/data/countries.json'
 import { kvKeys, redis } from '~/lib/redis.server'
 
-import { REQUEST_PATHNAME, REQUEST_QUERY } from './constants/system'
+import {
+  REQUEST_GEO,
+  REQUEST_PATHNAME,
+  REQUEST_QUERY,
+} from './constants/system'
 
 export default async function middleware(req: NextRequest) {
   const { pathname, search } = req.nextUrl
@@ -26,6 +30,7 @@ export default async function middleware(req: NextRequest) {
   const requestHeaders = new Headers(req.headers)
   requestHeaders.set(REQUEST_PATHNAME, pathname)
   requestHeaders.set(REQUEST_QUERY, search)
+  requestHeaders.set(REQUEST_GEO, geo?.country || 'unknown')
 
   const isApi = pathname.startsWith('/api/')
 

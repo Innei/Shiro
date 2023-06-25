@@ -1,0 +1,78 @@
+.comment__message {
+  * {
+    @apply leading-6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold tracking-tight;
+  }
+
+  h1 {
+    @apply text-lg font-bold;
+  }
+
+  h2 {
+    font-size: 1.065rem;
+    line-height: 1.75rem;
+    @apply font-bold;
+  }
+
+  hr {
+    @apply my-1.5 border-zinc-400 opacity-20;
+  }
+
+  ul {
+    @apply list-disc pl-4;
+  }
+
+  ol {
+    @apply list-decimal pl-4;
+  }
+
+  blockquote {
+    @apply my-1 border-l-4 border-zinc-400 pl-2;
+  }
+
+  img,
+  video {
+    @apply rounded-md;
+    max-height: 350px;
+  }
+
+  pre {
+    @apply my-1.5 whitespace-break-spaces;
+  }
+
+  pre,
+  code:not([class^='language-']) {
+    @apply rounded bg-zinc-700/10 px-1 py-0.5 text-zinc-900;
+  }
+
+  pre > code {
+    @apply bg-transparent px-0 py-0 !important;
+  }
+}
+
+.dark .comment__message {
+  hr {
+    @apply border-zinc-100 opacity-20;
+  }
+
+  blockquote {
+    @apply border-zinc-50/50;
+  }
+
+  pre,
+  code:not([class^='language-']) {
+    @apply bg-zinc-200/20 text-zinc-50;
+  }
+
+  pre > code {
+    @apply bg-transparent !important;
+  }
+}

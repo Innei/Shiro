@@ -25,6 +25,12 @@ export const createDataProvider = <Model,>() => {
       jotaiStore.set(currentDataAtom, data)
     }, [data])
 
+    useEffect(() => {
+      return () => {
+        jotaiStore.set(currentDataAtom, null)
+      }
+    }, [])
+
     return children
   })
   const useCurrentDataSelector = <T,>(
