@@ -88,7 +88,7 @@ export default async (props: NextPageParams<PageParams>) => {
           {props.children}
         </BottomToUpTransitionView>
 
-        <LayoutRightSideProvider className="relative hidden lg:block" />
+        <LayoutRightSideProvider className="absolute bottom-0 right-0 top-0 hidden translate-x-full lg:block" />
       </div>
       {isCN ? <NotSupport /> : <CommentRoot refId={data.id} />}
     </Container>
