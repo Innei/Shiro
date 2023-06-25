@@ -1,9 +1,12 @@
 'use client'
 
-import { startTransition, useCallback, useEffect, useRef } from 'react'
+import { startTransition, useCallback, useRef } from 'react'
+import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 import { selectAtom } from 'jotai/utils'
 import type { FC, PropsWithChildren } from 'react'
+
+import { setIsInteractive } from '~/atoms/is-interactive'
 
 const pageScrollLocationAtom = atom(0)
 const pageScrollDirectionAtom = atom<'up' | 'down' | null>(null)
@@ -21,9 +24,14 @@ const ScrollDetector = () => {
   const setPageScrollLocation = useSetAtom(pageScrollLocationAtom)
   const setPageScrollDirection = useSetAtom(pageScrollDirectionAtom)
   const prevScrollY = useRef(0)
+  const setIsInteractiveOnceRef = useRef(false)
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const scrollHandler = () => {
+      if (!setIsInteractiveOnceRef.current) {
+        setIsInteractive(true)
+        setIsInteractiveOnceRef.current = true
+      }
       const currentTop = document.documentElement.scrollTop
 
       setPageScrollDirection(

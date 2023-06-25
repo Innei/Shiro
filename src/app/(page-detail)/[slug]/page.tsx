@@ -7,7 +7,9 @@ import type { PropsWithChildren } from 'react'
 
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { Markdown } from '~/components/ui/markdown'
-import { TocAside, TocAutoScroll } from '~/components/widgets/toc'
+import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
+import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
+import { TocAside } from '~/components/widgets/toc'
 import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
 import { useCurrentPageDataSelector } from '~/providers/page/CurrentPageDataProvider'
@@ -29,17 +31,23 @@ const PageDetail = () => {
       <HeaderMetaInfoSetting />
       <article className="prose">
         <header className="mb-8">
-          <h1 className="text-center lg:text-left">
-            <Balancer>{title}</Balancer>
-          </h1>
+          <BottomToUpSoftScaleTransitionView delay={0}>
+            <h1 className="text-center lg:text-left">
+              <Balancer>{title}</Balancer>
+            </h1>
+          </BottomToUpSoftScaleTransitionView>
 
-          <desc className="text-center text-lg text-gray-600/70 dark:text-neutral-400 lg:text-left">
-            {subtitle}
-          </desc>
+          <BottomToUpSoftScaleTransitionView delay={200}>
+            <p className="text-center text-lg text-gray-600/70 dark:text-neutral-400 lg:text-left">
+              {subtitle}
+            </p>
+          </BottomToUpSoftScaleTransitionView>
         </header>
         <WrappedElementProvider>
           <MarkdownImageRecordProviderInternal>
-            <PostMarkdown />
+            <BottomToUpTransitionView delay={600}>
+              <PostMarkdown />
+            </BottomToUpTransitionView>
           </MarkdownImageRecordProviderInternal>
 
           <LayoutRightSidePortal>
@@ -47,7 +55,6 @@ const PageDetail = () => {
               className="sticky top-[120px] ml-4 mt-[120px]"
               treeClassName="max-h-[calc(100vh-6rem-4.5rem-300px)] h-[calc(100vh-6rem-4.5rem-300px)] min-h-[120px] relative"
             />
-            <TocAutoScroll />
           </LayoutRightSidePortal>
         </WrappedElementProvider>
       </article>

@@ -6,7 +6,6 @@ import type { Metadata } from 'next'
 import { RequestError } from '@mx-space/api-client'
 
 import { NotSupport } from '~/components/common/NotSupport'
-import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { CommentRoot } from '~/components/widgets/comment/CommentRoot'
 import { REQUEST_GEO } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
@@ -15,8 +14,6 @@ import { CurrentPageDataProvider } from '~/providers/page/CurrentPageDataProvide
 import { LayoutRightSideProvider } from '~/providers/shared/LayoutRightSideProvider'
 import { queries } from '~/queries/definition'
 import { getQueryClient } from '~/utils/query-client.server'
-
-import { Container } from './Container'
 
 export const generateMetadata = async ({
   params,
@@ -81,16 +78,14 @@ export default async (props: NextPageParams<PageParams>) => {
 
   const isCN = geo === 'CN'
   return (
-    <Container>
+    <>
       <CurrentPageDataProvider data={data} />
-      <div className="relative flex min-h-[120px]">
-        <BottomToUpTransitionView className="min-w-0">
-          {props.children}
-        </BottomToUpTransitionView>
+      <div className="relative flex min-h-[120px] w-full">
+        {props.children}
 
         <LayoutRightSideProvider className="absolute bottom-0 right-0 top-0 hidden translate-x-full lg:block" />
       </div>
       {isCN ? <NotSupport /> : <CommentRoot refId={data.id} />}
-    </Container>
+    </>
   )
 }

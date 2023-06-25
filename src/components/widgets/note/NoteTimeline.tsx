@@ -5,10 +5,11 @@ import { memo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
 import { tv } from 'tailwind-variants'
+import type { Target, TargetAndTransition } from 'framer-motion'
 
 import { LeftToRightTransitionView } from '~/components/ui/transition/LeftToRightTransitionView'
 import { routeBuilder, Routes } from '~/lib/route-builder'
-import { getCurrentNoteData } from '~/providers/note/CurrentNoteDataProvider'
+import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
 import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
@@ -20,9 +21,22 @@ export const NoteTimeline = memo(() => {
   return <NoteTimelineImpl />
 })
 
+const animateUl: TargetAndTransition = {
+  transition: {
+    staggerChildren: 0.5,
+  },
+}
 const NoteTimelineImpl = () => {
-  void useCurrentNoteId()
-  const note = getCurrentNoteData()?.data
+  const note = useCurrentNoteDataSelector((data) => {
+    const note = data?.data
+    if (!note) return null
+    return {
+      id: note.id,
+      nid: note.nid,
+      title: note.title,
+      created: note.created,
+    }
+  })
   const noteId = note?.id
 
   const { data: timelineData } = useQuery(
@@ -53,7 +67,7 @@ const NoteTimelineImpl = () => {
 
   return (
     <AnimatePresence>
-      <ul className="space-y-1">
+      <motion.ul className="space-y-1" animate={animateUl}>
         {(timelineData || initialData)?.map((item) => {
           const isCurrent = item.nid === note.nid
           return (
@@ -65,7 +79,7 @@ const NoteTimelineImpl = () => {
             />
           )
         })}
-      </ul>
+      </motion.ul>
     </AnimatePresence>
   )
 }
@@ -79,6 +93,13 @@ const styles = tv({
   },
 })
 
+const initialLi: Target = {
+  filter: 'blur(10px)',
+}
+const animateLi: TargetAndTransition = {
+  filter: 'blur(0px)',
+}
+
 const MemoedItem = memo<{
   active: boolean
   title: string
@@ -91,6 +112,9 @@ const MemoedItem = memo<{
       layout
       className="flex items-center [&_i]:hover:text-accent"
       layoutId={`note-${nid}`}
+      initial={initialLi}
+      animate={animateLi}
+      exit={initialLi}
     >
       <LeftToRightTransitionView
         in={active}

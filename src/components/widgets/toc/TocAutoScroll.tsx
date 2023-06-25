@@ -1,26 +1,32 @@
+'use client'
+
 import { useEffect } from 'react'
 
-import { useWrappedElement } from '~/providers/shared/WrappedElementProvider'
+import { usePageScrollLocationSelector } from '~/providers/root/page-scroll-info-provider'
 
 import { escapeSelector } from './escapeSelector'
 
 export const TocAutoScroll: Component = () => {
-  const articleElement = useWrappedElement()
-
   useEffect(() => {
     const hash = escapeSelector(
       decodeURIComponent(window.location.hash.slice(1)),
     )
 
-    if (!articleElement) return
-
     if (hash) {
-      const el = articleElement.querySelector(`#${hash}`)
+      const el = document.getElementById(hash)
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'center' })
       }
     }
   }, [])
+
+  const isTop = usePageScrollLocationSelector((y) => y < 10)
+
+  useEffect(() => {
+    if (isTop) {
+      history.replaceState(history.state, '', `#`)
+    }
+  }, [isTop])
 
   return null
 }

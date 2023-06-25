@@ -7,6 +7,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 
 import { appConfig } from '~/app.config'
 import { Root } from '~/components/layout/root/Root'
+import { TocAutoScroll } from '~/components/widgets/toc/TocAutoScroll'
 import { defineMetadata } from '~/lib/define-metadata'
 import { sansFont, serifFont } from '~/lib/fonts'
 import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
@@ -129,6 +130,7 @@ export default async function RootLayout(props: Props) {
             {/* <Hydrate state={dehydratedState}> */}
             <Root>{children}</Root>
             {/* </Hydrate> */}
+            <TocAutoScroll />
           </Providers>
           <ToastContainer />
         </body>

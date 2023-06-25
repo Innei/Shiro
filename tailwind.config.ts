@@ -298,6 +298,9 @@ function addShortcutPlugin({ addUtilities }: PluginAPI) {
       'align-items': 'center',
       'justify-content': 'center',
     },
+    '.fill-content': {
+      'min-height': `calc(100vh - 4.5rem - 120px)`,
+    },
   }
   addUtilities(styles)
 }

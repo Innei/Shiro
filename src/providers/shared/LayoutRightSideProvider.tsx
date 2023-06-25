@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { useLayoutEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 
@@ -9,15 +9,22 @@ import { useIsClient } from '~/hooks/common/use-is-client'
 const rightSideElementAtom = atom<null | HTMLDivElement>(null)
 export const LayoutRightSideProvider: Component = ({ className }) => {
   const setElement = useSetAtom(rightSideElementAtom)
-
-  useEffect(() => {
+  const divRef = React.useRef<HTMLDivElement>(null)
+  useLayoutEffect(() => {
+    setElement(divRef.current)
     return () => {
       // GC
       setElement(null)
     }
   }, [])
 
-  return <div ref={setElement} className={className} />
+  return (
+    <div
+      ref={divRef}
+      className={className}
+      // data-testid="LayoutRightSideProvider"
+    />
+  )
 }
 
 export const LayoutRightSidePortal: Component = ({ children }) => {

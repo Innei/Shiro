@@ -2,6 +2,7 @@ import { memo, useCallback, useEffect, useMemo, useRef } from 'react'
 import { tv } from 'tailwind-variants'
 import type { FC, MouseEvent } from 'react'
 
+import { getIsInteractive } from '~/atoms/is-interactive'
 import { useWrappedElement } from '~/providers/shared/WrappedElementProvider'
 import { clsxm } from '~/utils/helper'
 
@@ -38,11 +39,14 @@ export const TocItem: FC<{
   const { index, active, depth, title, rootDepth, onClick, anchorId } = props
 
   const $ref = useRef<HTMLAnchorElement>(null)
+
   useEffect(() => {
-    if (active) {
-      const state = history.state
-      history.replaceState(state, '', `#${anchorId}`)
+    if (!active) {
+      return
     }
+    if (!getIsInteractive()) return
+    const state = history.state
+    history.replaceState(state, '', `#${anchorId}`)
   }, [active, anchorId])
 
   const renderDepth = useMemo(() => {

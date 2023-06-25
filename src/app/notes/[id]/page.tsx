@@ -55,9 +55,6 @@ const SubscribeBell = dynamic(() =>
 const TocAside = dynamic(() =>
   import('~/components/widgets/toc').then((mod) => mod.TocAside),
 )
-const TocAutoScroll = dynamic(() =>
-  import('~/components/widgets/toc').then((mod) => mod.TocAutoScroll),
-)
 
 const PageImpl = () => {
   return (
@@ -109,7 +106,6 @@ const NotePage = memo(() => {
               >
                 <NoteActionAside className="translate-y-full" />
               </TocAside>
-              <TocAutoScroll />
             </LayoutRightSidePortal>
           </WrappedElementProvider>
         </NoteHideIfSecret>

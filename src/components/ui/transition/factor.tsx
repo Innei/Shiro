@@ -1,6 +1,11 @@
-import { Fragment, memo } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
-import type { Target, TargetAndTransition } from 'framer-motion'
+import { memo } from 'react'
+import { motion } from 'framer-motion'
+import type {
+  HTMLMotionProps,
+  Spring,
+  Target,
+  TargetAndTransition,
+} from 'framer-motion'
 import type { FC, PropsWithChildren } from 'react'
 import type { BaseTransitionProps } from './typings'
 
@@ -10,83 +15,61 @@ interface TransitionViewParams {
   from: Target
   to: Target
   initial?: Target
+  preset?: Spring
 }
 
-const PresenceFC = ({
-  children,
-  onExited,
-  useAnimatePresence,
-}: PropsWithChildren<{
-  useAnimatePresence: boolean
-  onExited?: () => void
-}>) => {
-  return useAnimatePresence ? (
-    <AnimatePresence onExitComplete={onExited}>{children}</AnimatePresence>
-  ) : (
-    <Fragment>{children}</Fragment>
-  )
-}
 export const createTransitionView = (
   params: TransitionViewParams,
 ): FC<PropsWithChildren<BaseTransitionProps>> => {
-  const { from, to, initial } = params
+  const { from, to, initial, preset } = params
   return memo((props) => {
     const {
       timeout = {},
       duration = 0.5,
       appear = true,
-      in: In = true,
+
       animation = {},
       as = 'div',
       delay = 0,
-      useAnimatePresence = false,
+
       ...rest
     } = props
 
     const { enter = delay, exit = delay } = timeout
-    const MotionComponent = motion[as]
+    const MotionComponent = motion[as] as FC<HTMLMotionProps<any>>
+
+    if (!appear) return props.children
 
     return (
-      <PresenceFC
-        useAnimatePresence={useAnimatePresence}
-        onExited={props.onExited}
+      <MotionComponent
+        initial={{ ...(initial || from) }}
+        animate={{
+          ...to,
+          transition: {
+            duration,
+            ...(preset || microReboundPreset),
+            ...animation.enter,
+            delay: enter / 1000,
+          },
+          onTransitionEnd() {
+            props.onEntered?.()
+          },
+        }}
+        exit={{
+          ...from,
+          transition: {
+            duration,
+            ...animation.exit,
+            delay: exit / 1000,
+          } as TargetAndTransition['transition'],
+        }}
+        transition={{
+          duration,
+        }}
+        {...rest}
       >
-        {In &&
-          (!appear ? (
-            props.children
-          ) : (
-            // @ts-ignore
-            <MotionComponent
-              initial={{ ...(initial || from) }}
-              animate={{
-                ...to,
-                transition: {
-                  duration,
-                  ...microReboundPreset,
-                  ...animation.enter,
-                  delay: enter / 1000,
-                },
-                onTransitionEnd() {
-                  props.onEntered?.()
-                },
-              }}
-              exit={{
-                ...from,
-                transition: {
-                  duration,
-                  ...animation.exit,
-                  delay: exit / 1000,
-                } as TargetAndTransition['transition'],
-              }}
-              transition={{
-                duration,
-              }}
-              {...rest}
-            >
-              {props.children}
-            </MotionComponent>
-          ))}
-      </PresenceFC>
+        {props.children}
+      </MotionComponent>
     )
   })
 }

@@ -13,7 +13,7 @@ import { PostActionAside } from '~/components/widgets/post/PostActionAside'
 import { PostCopyright } from '~/components/widgets/post/PostCopyright'
 import { PostMetaBar } from '~/components/widgets/post/PostMetaBar'
 import { SubscribeBell } from '~/components/widgets/subscribe/SubscribeBell'
-import { TocAside, TocAutoScroll } from '~/components/widgets/toc'
+import { TocAside } from '~/components/widgets/toc'
 import { XLogInfoForPost, XLogSummaryForPost } from '~/components/widgets/xlog'
 import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
@@ -56,7 +56,6 @@ const PostPage = () => {
             >
               <PostActionAside className="translate-y-full" />
             </TocAside>
-            <TocAutoScroll />
           </LayoutRightSidePortal>
         </WrappedElementProvider>
       </article>

@@ -21,10 +21,6 @@ export interface BaseTransitionProps extends HTMLMotionProps<'div'> {
     enter?: TargetAndTransition['transition']
     exit?: TargetAndTransition['transition']
   }
-  /**
-   * @default true
-   */
-  useAnimatePresence?: boolean
 
   as?: keyof typeof motion
 }

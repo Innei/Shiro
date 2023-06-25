@@ -1,4 +1,13 @@
-import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react'
+'use client'
+
+import React, {
+  memo,
+  startTransition,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react'
 import { motion } from 'framer-motion'
 import { atom, useAtom } from 'jotai'
 import type { FC } from 'react'
@@ -224,9 +233,9 @@ function useActiveId($headings: HTMLHeadingElement[]) {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const state = history.state
-            history.replaceState({ ...state }, '', `#${entry.target.id}`)
-            setActiveId(entry.target.id)
+            startTransition(() => {
+              setActiveId(entry.target.id)
+            })
           }
         })
       },
