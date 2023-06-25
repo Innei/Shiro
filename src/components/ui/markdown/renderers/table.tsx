@@ -5,7 +5,7 @@ import type { FC } from 'react'
 export const MTableHead: FC<JSX.IntrinsicElements['thead']> = (props) => {
   const { children, className, ...rest } = props
   return (
-    <thead className={clsx(className, 'bg-accent/20')} {...rest}>
+    <thead className={clsx(className, 'bg-base-content/20')} {...rest}>
       {children}
     </thead>
   )

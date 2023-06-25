@@ -8,7 +8,8 @@ import type { FC } from 'react'
 
 import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
 
-import { useIsClient } from '~/hooks/common/use-is-client'
+import { LazyLoad } from '~/components/common/Lazyload'
+import { useIsClientTransition } from '~/hooks/common/use-is-client'
 import { useIsUnMounted } from '~/hooks/common/use-is-unmounted'
 import { useSafeSetState } from '~/hooks/common/use-safe-setState'
 import { apiClient } from '~/utils/request'
@@ -23,12 +24,17 @@ export interface LinkCardProps {
 }
 
 export const LinkCard = (props: LinkCardProps) => {
-  const isClient = useIsClient()
-  if (!isClient) return <LinkCardSkeleton />
+  const isClient = useIsClientTransition()
 
-  return <LinkCardImpl {...props} />
+  if (!isClient) return null
+
+  return (
+    <LazyLoad placeholder={<LinkCardSkeleton />}>
+      <LinkCardImpl {...props} />
+    </LazyLoad>
+  )
 }
-export const LinkCardImpl: FC<LinkCardProps> = (props) => {
+const LinkCardImpl: FC<LinkCardProps> = (props) => {
   const { id, source = 'self', className } = props
   const isUnMounted = useIsUnMounted()
 

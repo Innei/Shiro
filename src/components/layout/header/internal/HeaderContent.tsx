@@ -1,17 +1,17 @@
 'use client'
 
-import React, { memo, useMemo } from 'react'
+import React, { memo } from 'react'
 import clsx from 'clsx'
 import { motion, useMotionValue } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import type { IHeaderMenu } from '../config'
 
-import { FloatPopover } from '~/components/ui/float-popover'
 import { clsxm } from '~/utils/helper'
 
 import { useHeaderConfig } from './HeaderDataConfigureProvider'
 import { useMenuOpacity } from './hooks'
+import { MenuPopover } from './MenuPopover'
 
 export const HeaderContent = () => {
   return (
@@ -119,43 +119,6 @@ const HeaderMenuItem = memo<{
   )
 })
 HeaderMenuItem.displayName = 'HeaderMenuItem'
-
-const MenuPopover: Component<{
-  subMenu: IHeaderMenu['subMenu']
-}> = memo(({ children, subMenu }) => {
-  const TriggerComponent = useMemo(() => () => children, [children])
-  if (!subMenu) return children
-  return (
-    <FloatPopover
-      strategy="fixed"
-      headless
-      placement="bottom"
-      offset={10}
-      popoverWrapperClassNames="z-[19] relative"
-      popoverClassNames="rounded-xl !p-0"
-      TriggerComponent={TriggerComponent}
-    >
-      {!!subMenu.length && (
-        <div className="relative flex w-[130px] flex-col px-4">
-          {subMenu.map((m) => {
-            return (
-              <Link
-                key={m.title}
-                href={m.path}
-                className="flex w-full items-center justify-around space-x-2 py-3 duration-200 hover:text-accent"
-                role="button"
-              >
-                {!!m.icon && <span>{m.icon}</span>}
-                <span>{m.title}</span>
-              </Link>
-            )
-          })}
-        </div>
-      )}
-    </FloatPopover>
-  )
-})
-MenuPopover.displayName = 'MenuPopover'
 
 function AnimatedItem({
   href,
