@@ -43,3 +43,12 @@ export const useViewport = <T>(
       useCallback((atomValue) => selector(atomValue), []),
     ),
   )
+
+export const useIsMobile = () =>
+  useViewport(
+    useCallback(
+      (v: ExtractAtomValue<typeof viewportAtom>) =>
+        (v.sm || v.md || !v.sm) && !v.lg,
+      [],
+    ),
+  )

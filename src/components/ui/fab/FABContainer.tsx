@@ -71,11 +71,12 @@ export const FABBase = (
       {show && (
         <motion.button
           aria-label="Floating action button"
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0.3, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
+          exit={{ opacity: 0.3, scale: 0.8 }}
           className={clsxm(
-            'mt-2 inline-flex h-10 w-10 items-center justify-center',
+            'mt-2 inline-flex items-center justify-center',
+            'h-12 w-12 text-lg md:h-10 md:w-10 md:text-base',
             'border border-accent transition-all duration-300 hover:opacity-100 focus:opacity-100 focus:outline-none',
             'rounded-xl border border-zinc-400/20 shadow-lg backdrop-blur-lg dark:border-zinc-500/30 dark:bg-zinc-800/80 dark:text-zinc-200',
             'bg-slate-50/80 shadow-lg dark:bg-neutral-900/80',

@@ -9,6 +9,10 @@ html {
 
 .prose {
   max-width: 100% !important;
+
+  p {
+    @apply break-words;
+  }
 }
 
 *:focus {

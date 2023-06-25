@@ -3,10 +3,7 @@ import { tv } from 'tailwind-variants'
 import type { FC, MouseEvent } from 'react'
 
 import { getIsInteractive } from '~/atoms/is-interactive'
-import { useWrappedElement } from '~/providers/shared/WrappedElementProvider'
 import { clsxm } from '~/utils/helper'
-
-import { escapeSelector } from './escapeSelector'
 
 const styles = tv({
   base: clsxm(
@@ -24,19 +21,19 @@ export interface ITocItem {
   title: string
   anchorId: string
   index: number
+
+  $heading: HTMLHeadingElement
 }
 
 export const TocItem: FC<{
-  title: string
-  anchorId: string
-  depth: number
+  heading: ITocItem
+
   active: boolean
   rootDepth: number
   onClick?: (i: number, $el: HTMLElement | null, anchorId: string) => void
-  index: number
-  // containerRef?: RefObject<HTMLDivElement>
 }> = memo((props) => {
-  const { index, active, depth, title, rootDepth, onClick, anchorId } = props
+  const { active, rootDepth, onClick, heading } = props
+  const { $heading, anchorId, depth, index, title } = heading
 
   const $ref = useRef<HTMLAnchorElement>(null)
 
@@ -49,12 +46,18 @@ export const TocItem: FC<{
     history.replaceState(state, '', `#${anchorId}`)
   }, [active, anchorId])
 
+  useEffect(() => {
+    if (active) {
+      $ref.current?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [])
+
   const renderDepth = useMemo(() => {
     const result = depth - rootDepth
 
     return result
   }, [depth, rootDepth])
-  const $article = useWrappedElement()
+
   return (
     <a
       ref={$ref}
@@ -76,13 +79,10 @@ export const TocItem: FC<{
       onClick={useCallback(
         (e: MouseEvent) => {
           e.preventDefault()
-          const $el = $article?.querySelector(
-            `#${escapeSelector(anchorId)}`,
-          ) as any as HTMLElement
 
-          onClick?.(index, $el, anchorId)
+          onClick?.(index, $heading, anchorId)
         },
-        [onClick, index, $article, anchorId],
+        [onClick, index, $heading, anchorId],
       )}
       title={title}
     >

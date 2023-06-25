@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { FC, PropsWithChildren } from 'react'
 
+import { MAIN_MARKDOWN_ID } from '~/constants/dom-id'
 import { useWrappedElementSize } from '~/providers/shared/WrappedElementProvider'
 import { isDev } from '~/utils/env'
 import { springScrollToElement } from '~/utils/scroller'
@@ -219,6 +220,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
 
     return (
       <As
+        id={MAIN_MARKDOWN_ID}
         style={style}
         {...wrapperProps}
         ref={ref}
