@@ -31,7 +31,7 @@ const PostPage = () => {
   }
 
   return (
-    <div>
+    <div className="relative w-full min-w-0">
       <HeaderMetaInfoSetting />
       <article className="prose">
         <header className="mb-8">
