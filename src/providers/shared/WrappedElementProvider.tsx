@@ -1,3 +1,5 @@
+'use client'
+
 import { memo, useEffect, useRef } from 'react'
 import { createContextState } from 'foxact/create-context-state'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
