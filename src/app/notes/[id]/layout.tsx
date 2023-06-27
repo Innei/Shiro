@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 import { NotSupport } from '~/components/common/NotSupport'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
-import { CommentRoot } from '~/components/widgets/comment/CommentRoot'
+import { CommentAreaRoot } from '~/components/widgets/comment'
 import { NoteMainContainer } from '~/components/widgets/note/NoteMainContainer'
 import { REQUEST_GEO, REQUEST_QUERY } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
@@ -86,7 +86,7 @@ export default async (
 
       <BottomToUpTransitionView className="min-w-0">
         <Paper as={NoteMainContainer}>{props.children}</Paper>
-        {isCN ? <NotSupport /> : <CommentRoot refId={data.data.id} />}
+        {isCN ? <NotSupport /> : <CommentAreaRoot refId={data.data.id} />}
       </BottomToUpTransitionView>
     </>
   )

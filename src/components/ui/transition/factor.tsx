@@ -22,7 +22,7 @@ export const createTransitionView = (
   params: TransitionViewParams,
 ): FC<PropsWithChildren<BaseTransitionProps>> => {
   const { from, to, initial, preset } = params
-  return memo((props) => {
+  const TransitionView = (props: PropsWithChildren<BaseTransitionProps>) => {
     const {
       timeout = {},
       duration = 0.5,
@@ -71,5 +71,8 @@ export const createTransitionView = (
         {props.children}
       </MotionComponent>
     )
-  })
+  }
+  const MemoedTransitionView = memo(TransitionView)
+  MemoedTransitionView.displayName = `MemoedTransitionView`
+  return MemoedTransitionView
 }

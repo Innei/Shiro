@@ -14,11 +14,14 @@ export const ReadIndicator: Component<{
 }> = ({ className, as }) => {
   const { y } = useWrappedElementPositsion()
   const { h } = useWrappedElementSize()
-  const readPercent = usePageScrollLocationSelector((scrollTop) => {
-    return (
-      Math.floor(Math.min(Math.max(0, ((scrollTop - y) / h) * 100), 100)) || 0
-    )
-  })
+  const readPercent = usePageScrollLocationSelector(
+    (scrollTop) => {
+      return (
+        Math.floor(Math.min(Math.max(0, ((scrollTop - y) / h) * 100), 100)) || 0
+      )
+    },
+    [y, h],
+  )
   const As = as || 'span'
   return (
     <As className={clsxm('text-gray-800 dark:text-neutral-300', className)}>

@@ -1,0 +1,1 @@
+export { CommentAreaRoot } from './CommentAreaRoot'

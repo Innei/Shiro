@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 import { RequestError } from '@mx-space/api-client'
 
 import { NotSupport } from '~/components/common/NotSupport'
-import { CommentRoot } from '~/components/widgets/comment/CommentRoot'
+import { CommentAreaRoot } from '~/components/widgets/comment/CommentAreaRoot'
 import { REQUEST_GEO } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
 import { getSummaryFromMd } from '~/lib/markdown'
@@ -85,7 +85,7 @@ export default async (props: NextPageParams<PageParams>) => {
 
         <LayoutRightSideProvider className="absolute bottom-0 right-0 top-0 hidden translate-x-full lg:block" />
       </div>
-      {isCN ? <NotSupport /> : <CommentRoot refId={data.id} />}
+      {isCN ? <NotSupport /> : <CommentAreaRoot refId={data.id} />}
     </>
   )
 }

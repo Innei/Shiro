@@ -60,7 +60,7 @@ const XLogSummary: FC<{
         {isLoading && (
           <p className="border-slate-200 text-right text-sm dark:border-slate-800 ">
             (此服务由{' '}
-            <a href="https://xlog.app" target="_blank">
+            <a href="https://xlog.app" target="_blank" rel="noreferrer">
               xLog
             </a>{' '}
             驱动)

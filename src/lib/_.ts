@@ -80,3 +80,7 @@ export const range = (start: number, end: number): number[] => {
   }
   return result
 }
+
+export const sample = <T>(arr: T[]): T => {
+  return arr[Math.floor(Math.random() * arr.length)]
+}

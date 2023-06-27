@@ -1,7 +1,7 @@
 import { memo, useCallback } from 'react'
 import clsx from 'clsx'
 import Router from 'next/router'
-import type { FC } from 'react'
+import type { FC, ReactNode } from 'react'
 
 import { FloatPopover } from '../../float-popover'
 import styles from './link.module.css'
@@ -33,7 +33,7 @@ const ExtendIcon = () => (
 export const MLink: FC<{
   href: string
   title?: string
-  children?: JSX.Element | JSX.Element[]
+  children?: ReactNode
 }> = memo((props) => {
   const handleRedirect = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -71,6 +71,7 @@ export const MLink: FC<{
     <FloatPopover
       as="span"
       wrapperClassName="!inline"
+      type="tooltip"
       TriggerComponent={useCallback(
         () => (
           <>
@@ -80,6 +81,7 @@ export const MLink: FC<{
               target="_blank"
               onClick={handleRedirect}
               title={props.title}
+              rel="noreferrer"
             >
               {props.children}
             </a>

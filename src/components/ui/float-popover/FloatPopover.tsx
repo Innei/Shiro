@@ -240,7 +240,7 @@ export const FloatPopover: FC<
                   headless && styles['headless'],
                   animate && styles['animate'],
                   type === 'tooltip'
-                    ? `rounded-full bg-base-100 px-4 py-2 ${styles['headless']}`
+                    ? `max-w-[25rem] break-all rounded-xl bg-base-100 px-4 py-2 ${styles['headless']}`
                     : styles['popover-root'],
                   popoverClassNames,
                 )}
