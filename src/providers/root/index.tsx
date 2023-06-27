@@ -25,13 +25,13 @@ export function Providers({ children }: PropsWithChildren) {
   return (
     <>
       <SocketContainer />
+      <ModalStackProvider key="modalStackProvider" />
       <ProviderComposer contexts={contexts}>
         {children}
         <EventProvider key="viewportProvider" />
         <SentryProvider key="SentryProvider" />
         <PageScrollInfoProvider key="PageScrollInfoProvider" />
         <DebugProvider key="debugProvider" />
-        <ModalStackProvider key="modalStackProvider" />
       </ProviderComposer>
     </>
   )

@@ -4,8 +4,8 @@ import { cache } from 'react'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // cacheTime: 0,
       staleTime: 1000 * 3,
+      cacheTime: 1000 * 3,
     },
   },
 })

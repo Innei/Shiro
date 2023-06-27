@@ -27,7 +27,8 @@ const persister = {
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      cacheTime: 1000 * 60 * 5, // 5 minutes
+      staleTime: 1000 * 60 * 5, // 5 minutes
+
       refetchInterval: 1000 * 60 * 5, // 5 minutes
       refetchOnWindowFocus: false,
       refetchIntervalInBackground: false,

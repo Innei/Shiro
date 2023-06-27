@@ -19,6 +19,7 @@ const createInitialValue = () => ({
   text: atom(''),
   refId: atom(''),
 })
+
 const CommentBoxContext = createContext(createInitialValue())
 
 const CommentBoxProvider = (props: PropsWithChildren) => {
@@ -33,6 +34,7 @@ const enum CommentBoxMode {
   'legacy',
   'with-auth',
 }
+
 export const CommentBox: FC<CommentBaseProps> = (props) => {
   const [mode, setMode] = useState<CommentBoxMode>(CommentBoxMode['with-auth'])
   return (
@@ -75,6 +77,7 @@ const CommentBoxWithAuth = () => {
     </AutoResizeHeight>
   )
 }
+
 const CommentAuthedInputSkeleton = () => {
   const color = 'bg-gray-200/50 dark:bg-zinc-800/50'
   return (
@@ -89,6 +92,7 @@ const CommentAuthedInputSkeleton = () => {
     </div>
   )
 }
+
 const CommentAuthedInput = () => {
   const { user } = useUser()
   if (!user) return <CommentAuthedInputSkeleton />
