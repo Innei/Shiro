@@ -5,11 +5,9 @@ import type { FC } from 'react'
 import { AutoResizeHeight } from '~/components/common/AutoResizeHeight'
 
 import { CommentBoxHolderPortal } from './Comment'
-import {
-  CommentIsReplyProvider,
-  useCommentBoxRefIdValue,
-} from './CommentBox/CommentBoxProvider'
-import { CommentBoxRoot } from './CommentBox/CommentBoxRoot'
+import { useCommentBoxRefIdValue } from './CommentBox/hooks'
+import { CommentIsReplyProvider } from './CommentBox/providers'
+import { CommentBoxRoot } from './CommentBox/Root'
 
 export const CommentReplyButton: FC<{
   commentId: string

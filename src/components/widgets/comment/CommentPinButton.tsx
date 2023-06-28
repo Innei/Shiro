@@ -8,7 +8,7 @@ import type { SVGProps } from 'react'
 import { apiClient } from '~/utils/request'
 
 import { PinIconToggle } from '../shared/PinIconToggle'
-import { useCommentBoxRefIdValue } from './CommentBox/CommentBoxProvider'
+import { useCommentBoxRefIdValue } from './CommentBox/hooks'
 import { buildQueryKey } from './Comments'
 
 export const CommentPinButton = ({ comment }: { comment: CommentModel }) => {

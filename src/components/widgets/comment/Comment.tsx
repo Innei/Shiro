@@ -25,7 +25,7 @@ import { CommentReplyButton } from './CommentReplyButton'
 export const Comment: Component<{
   comment: CommentModel
   showLine?: boolean
-}> = memo((props) => {
+}> = memo(function Comment(props) {
   const { comment, className, showLine } = props
   const elAtom = useMemo(() => atom<HTMLDivElement | null>(null), [])
   // FIXME 兜一下后端给的脏数据

@@ -82,7 +82,10 @@ export const HeaderDrawerButton = () => {
 }
 
 // @ts-ignore
-const LinkInternal: typeof Link = memo(({ children, ...rest }) => {
+const LinkInternal: typeof Link = memo(function LinkInternal({
+  children,
+  ...rest
+}) {
   return (
     <Link
       {...rest}

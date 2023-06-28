@@ -21,6 +21,7 @@ import { clsxm } from '~/utils/helper'
 import { apiClient, getErrorMessageFromRequestError } from '~/utils/request'
 
 import { buildQueryKey } from '../Comments'
+import { MAX_COMMENT_TEXT_LENGTH } from './constants'
 import {
   useCommentBoxHasText,
   useCommentBoxRefIdValue,
@@ -30,8 +31,7 @@ import {
   useCommentOriginalRefId,
   useGetCommentBoxAtomValues,
   useUseCommentReply,
-} from './CommentBoxProvider'
-import { MAX_COMMENT_TEXT_LENGTH } from './constants'
+} from './hooks'
 
 const TextLengthIndicator = () => {
   const isTextOversize = useCommentBoxTextIsOversize()

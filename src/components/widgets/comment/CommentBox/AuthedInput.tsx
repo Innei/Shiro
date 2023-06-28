@@ -6,15 +6,31 @@ import Image from 'next/image'
 
 import { useUser } from '@clerk/nextjs'
 
-import { CommentAuthedInputSkeleton } from './CommentAuthedInputSkeleton'
-import { CommentBoxActionBar } from './CommentBoxActionBar'
-import {
-  useCommentBoxTextValue,
-  useSetCommentBoxValues,
-} from './CommentBoxProvider'
+import { CommentBoxActionBar } from './ActionBar'
+import { CommentBoxAuthedInputSkeleton } from './AuthedInputSkeleton'
 import { getRandomPlaceholder } from './constants'
+import { useCommentBoxTextValue, useSetCommentBoxValues } from './hooks'
 
-export const CommentAuthedInput = () => {
+const TextArea = () => {
+  const placeholder = useRef(getRandomPlaceholder()).current
+  const setter = useSetCommentBoxValues()
+  const value = useCommentBoxTextValue()
+  return (
+    <textarea
+      value={value}
+      onChange={(e) => {
+        setter('text', e.target.value)
+      }}
+      placeholder={placeholder}
+      className={clsx(
+        'h-full w-full resize-none bg-transparent',
+        'overflow-auto px-3 py-4',
+        'text-neutral-900/80 dark:text-slate-100/80',
+      )}
+    />
+  )
+}
+export const CommentBoxAuthedInput = () => {
   const { user } = useUser()
   const setter = useSetCommentBoxValues()
 
@@ -28,27 +44,7 @@ export const CommentAuthedInput = () => {
     setter('mail', user.primaryEmailAddress?.emailAddress || '')
   }, [user])
 
-  const TextArea = useRef(function Textarea() {
-    const placeholder = useRef(getRandomPlaceholder()).current
-    const setter = useSetCommentBoxValues()
-    const value = useCommentBoxTextValue()
-    return (
-      <textarea
-        value={value}
-        onChange={(e) => {
-          setter('text', e.target.value)
-        }}
-        placeholder={placeholder}
-        className={clsx(
-          'h-full w-full resize-none bg-transparent',
-          'overflow-auto px-3 py-4',
-          'text-neutral-900/80 dark:text-slate-100/80',
-        )}
-      />
-    )
-  }).current
-
-  if (!user) return <CommentAuthedInputSkeleton />
+  if (!user) return <CommentBoxAuthedInputSkeleton />
   return (
     <div className="flex space-x-4">
       <div

@@ -2,7 +2,7 @@
 
 import clsx from 'clsx'
 
-export const CommentAuthedInputSkeleton = () => {
+export const CommentBoxAuthedInputSkeleton = () => {
   const color = 'bg-gray-200/50 dark:bg-zinc-800/50'
   return (
     <div className="flex animate-pulse gap-4">

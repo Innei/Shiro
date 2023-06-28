@@ -4,7 +4,7 @@ import type { CommentBaseProps } from './types'
 import { LazyLoad } from '~/components/common/Lazyload'
 import { Loading } from '~/components/ui/loading'
 
-import { CommentBoxRoot } from './CommentBox/CommentBoxRoot'
+import { CommentBoxRoot } from './CommentBox/Root'
 import { Comments } from './Comments'
 
 const LoadingElement = <Loading loadingText="评论区加载中..." />

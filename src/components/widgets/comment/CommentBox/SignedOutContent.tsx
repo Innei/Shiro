@@ -1,6 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
+import { tv } from 'tailwind-variants'
 
 import { SignInButton } from '@clerk/nextjs'
 
@@ -8,7 +9,15 @@ import { UserArrowLeftIcon } from '~/components/icons/user-arrow-left'
 import { StyledButton } from '~/components/ui/button'
 import { urlBuilder } from '~/lib/url-builder'
 
-import { inputStyles } from './inputStyles'
+const inputStyles = tv({
+  base: 'h-[150px] w-full rounded-lg bg-gray-100/80 dark:bg-zinc-900/80',
+  variants: {
+    type: {
+      auth: 'flex center',
+      input: '',
+    },
+  },
+})
 
 export function CommentBoxSignedOutContent() {
   const pathname = usePathname()

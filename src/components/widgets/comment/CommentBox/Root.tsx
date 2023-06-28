@@ -8,9 +8,9 @@ import { SignedIn, SignedOut } from '@clerk/nextjs'
 
 import { AutoResizeHeight } from '~/components/common/AutoResizeHeight'
 
-import { CommentAuthedInput } from './CommentAuthedInput'
-import { CommentBoxProvider } from './CommentBoxProvider'
-import { CommentBoxSignedOutContent } from './CommentBoxSignedOutContent'
+import { CommentBoxAuthedInput } from './AuthedInput'
+import { CommentBoxProvider } from './providers'
+import { CommentBoxSignedOutContent } from './SignedOutContent'
 
 const enum CommentBoxMode {
   'legacy',
@@ -45,7 +45,7 @@ const CommentBoxWithAuth = () => {
       </SignedOut>
 
       <SignedIn>
-        <CommentAuthedInput />
+        <CommentBoxAuthedInput />
       </SignedIn>
     </AutoResizeHeight>
   )

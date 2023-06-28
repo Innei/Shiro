@@ -1,1 +1,1 @@
-export { CommentBoxRoot } from './CommentBoxRoot'
+export { CommentBoxRoot } from './Root'

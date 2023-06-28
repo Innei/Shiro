@@ -11,7 +11,7 @@ import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/Bo
 import { apiClient } from '~/utils/request'
 
 import { Comment } from './Comment'
-import { CommentBoxProvider } from './CommentBox/CommentBoxProvider'
+import { CommentBoxProvider } from './CommentBox/providers'
 import { CommentSkeleton } from './CommentSkeleton'
 
 export const buildQueryKey = (refId: string) => ['comments', refId]
