@@ -119,11 +119,13 @@ export const Comment: Component<{
 
         <CommentBoxHolderProvider />
       </CommentHolderContext.Provider>
-      {comment.children &&
-        comment.children.length > 0 &&
-        comment.children.map((child) => (
-          <Comment key={child.id} comment={child} className="ml-9" />
-        ))}
+      {comment.children && comment.children.length > 0 && (
+        <ul className="my-2 space-y-2">
+          {comment.children.map((child) => (
+            <Comment key={child.id} comment={child} className="ml-9" />
+          ))}
+        </ul>
+      )}
     </>
   )
 })
