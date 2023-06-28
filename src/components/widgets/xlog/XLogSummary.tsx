@@ -28,7 +28,7 @@ const XLogSummary: FC<{
     },
     {
       enabled: !!cid,
-      cacheTime: 10000,
+      staleTime: 1000 * 60 * 60 * 24 * 7,
     },
   )
 
