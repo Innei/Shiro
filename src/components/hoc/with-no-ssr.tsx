@@ -7,7 +7,7 @@ export const withNoSSR = <P,>(
 ): FC<PropsWithChildren<P>> => {
   return (props: PropsWithChildren<P>) => {
     const isClient = useIsClientTransition()
-    if (!isClient) return props.children ?? null
+    if (!isClient) return null
     // @ts-ignore
     return <Component {...props} />
   }

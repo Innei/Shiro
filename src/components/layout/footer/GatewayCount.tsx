@@ -1,12 +1,15 @@
 'use client'
 
 import { useOnlineCount } from '~/atoms'
-import { withNoSSR } from '~/components/hoc/with-no-ssr'
 import { FloatPopover } from '~/components/ui/float-popover'
 
-export const GatewayCount = withNoSSR(() => {
+export const GatewayCount = () => {
   return (
-    <FloatPopover TriggerComponent={GatewayCountTrigger} type="tooltip">
+    <FloatPopover
+      as="span"
+      TriggerComponent={GatewayCountTrigger}
+      type="tooltip"
+    >
       <div className="space-y-2 leading-relaxed">
         <p className="flex items-center space-x-1 opacity-80">
           <i className="icon-[mingcute--question-line]" />
@@ -23,7 +26,7 @@ export const GatewayCount = withNoSSR(() => {
       </div>
     </FloatPopover>
   )
-})
+}
 const GatewayCountTrigger = () => {
   const count = useOnlineCount()
   return <span>正在被 {count} 人看爆</span>

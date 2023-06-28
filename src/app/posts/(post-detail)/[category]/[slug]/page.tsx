@@ -12,6 +12,7 @@ import { Markdown } from '~/components/ui/markdown'
 import { PostActionAside } from '~/components/widgets/post/PostActionAside'
 import { PostCopyright } from '~/components/widgets/post/PostCopyright'
 import { PostMetaBar } from '~/components/widgets/post/PostMetaBar'
+import { PostOutdate } from '~/components/widgets/post/PostOutdate'
 import { PostRelated } from '~/components/widgets/post/PostRelated'
 import { SubscribeBell } from '~/components/widgets/subscribe/SubscribeBell'
 import { TocAside } from '~/components/widgets/toc'
@@ -43,6 +44,8 @@ const PostPage = () => {
           <PostMetaBarInternal className="mb-8 justify-center" />
 
           <XLogSummaryForPost />
+
+          <PostOutdate />
         </header>
         <WrappedElementProvider>
           <PostMarkdownImageRecordProvider>
