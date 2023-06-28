@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect, useMemo, useRef } from 'react'
-import type { ITocItem } from './TocItem'
 
 import { throttle } from '~/lib/_'
 import { useWrappedElement } from '~/providers/shared/WrappedElementProvider'
@@ -36,22 +35,6 @@ export const TocAside: Component<TocAsideProps & TocSharedProps> = ({
       ...$article.querySelectorAll('h1,h2,h3,h4,h5,h6'),
     ] as HTMLHeadingElement[]
   }, [$article])
-
-  const toc: ITocItem[] = useMemo(() => {
-    return Array.from($headings).map((el, idx) => {
-      const depth = +el.tagName.slice(1)
-      const title = el.textContent || ''
-
-      const index = idx
-
-      return {
-        depth,
-        index: isNaN(index) ? -1 : index,
-        title,
-        anchorId: el.id,
-      }
-    })
-  }, [$headings])
 
   useEffect(() => {
     const setMaxWidth = throttle(() => {
