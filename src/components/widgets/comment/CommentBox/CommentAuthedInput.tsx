@@ -29,8 +29,9 @@ export const CommentAuthedInput = () => {
         }}
         placeholder={placeholder}
         className={clsx(
-          'h-full w-full rounded-lg text-neutral-900/80 dark:text-slate-100/80',
-          'overflow-auto bg-gray-200/50 px-3 py-4 dark:bg-zinc-800/50',
+          'h-full w-full bg-transparent',
+          'overflow-auto px-3 py-4',
+          'text-neutral-900/80 dark:text-slate-100/80',
         )}
       />
     )
@@ -54,11 +55,11 @@ export const CommentAuthedInput = () => {
           height={48}
         />
       </div>
-      <div className="relative h-[150px] w-full">
+      <div className="relative h-[150px] w-full rounded-lg bg-gray-200/50 pb-5 dark:bg-zinc-800/50">
         <TextArea />
       </div>
 
-      <CommentBoxActionBar className="absolute bottom-0 left-12 right-0 ml-4" />
+      <CommentBoxActionBar className="absolute bottom-0 left-12 right-0 mb-2 ml-4 w-auto px-4" />
     </div>
   )
 }

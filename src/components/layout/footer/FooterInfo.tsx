@@ -137,9 +137,7 @@ const FooterBottom = async () => {
           浙 ICP 备 20028356 号
         </StyledLink>
         <Divider />
-        <span>
-          <GatewayCount /> 个小伙伴正在浏览
-        </span>
+        <GatewayCount />
         {!!lastVisitor && (
           <>
             <Divider />

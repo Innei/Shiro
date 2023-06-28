@@ -1,10 +1,14 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { HTMLMotionProps } from 'framer-motion'
 import type { PropsWithChildren } from 'react'
 
+import { useIsMobile } from '~/atoms'
+import { useIsClient } from '~/hooks/common/use-is-client'
+import { usePageScrollDirectionSelector } from '~/providers/root/page-scroll-info-provider'
 import { clsxm } from '~/utils/helper'
 
 export interface FABConfig {
@@ -103,19 +107,25 @@ export const FABContainer = (props: {
     }
   }, [])
 
-  const [serverSide, setServerSide] = useState(true)
+  const isClient = useIsClient()
+  const isMobile = useIsMobile()
 
-  useEffect(() => {
-    setServerSide(false)
-  }, [])
+  const shouldHide = usePageScrollDirectionSelector(
+    (direction) => {
+      return isMobile && direction === 'down'
+    },
+    [isMobile],
+  )
 
-  if (serverSide) return null
+  if (!isClient) return null
 
   return (
     <div
       data-testid="fab-container"
-      className={clsxm(
+      className={clsx(
         'font-lg fixed bottom-4 bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 z-[9] flex flex-col',
+        shouldHide ? 'translate-x-[calc(100%+2rem)]' : '',
+        'transition-transform duration-300 ease-in-out',
       )}
     >
       {fabConfig.map((config) => {

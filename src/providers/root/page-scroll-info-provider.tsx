@@ -4,6 +4,7 @@ import { startTransition, useCallback, useRef } from 'react'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 import { selectAtom } from 'jotai/utils'
+import type { ExtractAtomValue } from 'jotai'
 import type { FC, PropsWithChildren } from 'react'
 
 import { setIsInteractive } from '~/atoms/is-interactive'
@@ -67,8 +68,20 @@ const usePageScrollLocationSelector = <T,>(
       useCallback(($) => selector($), deps),
     ),
   )
+const usePageScrollDirectionSelector = <T,>(
+  selector: (value: ExtractAtomValue<typeof pageScrollDirectionAtom>) => T,
+  deps: any[] = [],
+) =>
+  useAtomValue(
+    // @ts-ignore
+    selectAtom(
+      pageScrollDirectionAtom,
+      useCallback(($) => selector($), deps),
+    ),
+  )
 export {
   usePageScrollDirection,
   usePageScrollLocation,
   usePageScrollLocationSelector,
+  usePageScrollDirectionSelector,
 }

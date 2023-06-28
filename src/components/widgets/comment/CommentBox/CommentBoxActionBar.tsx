@@ -35,7 +35,7 @@ export const CommentBoxActionBar: Component = ({ className }) => {
   return (
     <footer
       className={clsxm(
-        'mt-3 flex h-5 w-full items-center justify-between',
+        'mt-3 flex h-5 w-full min-w-0 items-center justify-between',
         className,
       )}
     >

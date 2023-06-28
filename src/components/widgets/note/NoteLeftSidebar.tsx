@@ -8,15 +8,15 @@ import { NoteTopicInfo } from './NoteTopicInfo'
 
 export const NoteLeftSidebar: Component = ({ className }) => {
   return (
-    <AutoHeightOptimize className={className}>
-      <OnlyDesktop>
+    <OnlyDesktop>
+      <AutoHeightOptimize className={className}>
         <div className="sticky top-[120px] mt-[120px] min-h-[300px]">
           <NoteTimeline />
 
           <NoteTopicInfo />
         </div>
-      </OnlyDesktop>
-    </AutoHeightOptimize>
+      </AutoHeightOptimize>
+    </OnlyDesktop>
   )
 }
 
