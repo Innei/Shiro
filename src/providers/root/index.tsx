@@ -24,10 +24,10 @@ const contexts: JSX.Element[] = [
 export function Providers({ children }: PropsWithChildren) {
   return (
     <>
-      <SocketContainer />
-      <ModalStackProvider key="modalStackProvider" />
       <ProviderComposer contexts={contexts}>
         {children}
+        <SocketContainer />
+        <ModalStackProvider key="modalStackProvider" />
         <EventProvider key="viewportProvider" />
         <SentryProvider key="SentryProvider" />
         <PageScrollInfoProvider key="PageScrollInfoProvider" />
