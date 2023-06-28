@@ -26,7 +26,9 @@ const TapableLogo = () => {
         }
         return
       }
-      router.push(Routes.Login)
+      router.push(
+        `${Routes.Login}?redirect=${encodeURIComponent(location.pathname)}`,
+      )
     },
   )
   return <Logo onClick={fn} className="cursor-pointer" />

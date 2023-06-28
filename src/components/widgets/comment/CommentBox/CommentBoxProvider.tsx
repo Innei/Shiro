@@ -3,12 +3,13 @@
 import { createContext, useCallback, useContext, useRef } from 'react'
 import { atom, useAtomValue } from 'jotai'
 import { selectAtom } from 'jotai/utils'
+import type { CommentModel } from '@mx-space/api-client'
 import type { ExtractAtomValue } from 'jotai'
 import type { PropsWithChildren } from 'react'
 
 import { jotaiStore } from '~/lib/store'
 
-import { MAX_COMMENT_TEXT_LENGTH } from '../constants'
+import { MAX_COMMENT_TEXT_LENGTH } from './constants'
 
 const createInitialValue = () => ({
   refId: atom(''),
@@ -39,6 +40,36 @@ export const CommentBoxProvider = (
     </CommentBoxContext.Provider>
   )
 }
+
+const CommentIsReplyContext = createContext(false)
+const CommentOriginalRefIdContext = createContext('')
+const CommentCompletedCallbackContext = createContext(
+  null as null | ((comment: CommentModel) => void),
+)
+export const CommentIsReplyProvider = (
+  props: PropsWithChildren<{
+    isReply: boolean
+    originalRefId: string
+    onCompleted?: (comment: CommentModel) => void
+  }>,
+) => {
+  return (
+    <CommentOriginalRefIdContext.Provider value={props.originalRefId}>
+      <CommentIsReplyContext.Provider value={props.isReply}>
+        <CommentCompletedCallbackContext.Provider
+          value={props.onCompleted || null}
+        >
+          {props.children}
+        </CommentCompletedCallbackContext.Provider>
+      </CommentIsReplyContext.Provider>
+    </CommentOriginalRefIdContext.Provider>
+  )
+}
+export const useUseCommentReply = () => useContext(CommentIsReplyContext)
+export const useCommentOriginalRefId = () =>
+  useContext(CommentOriginalRefIdContext)
+export const useCommentCompletedCallback = () =>
+  useContext(CommentCompletedCallbackContext)
 
 export const useCommentBoxTextValue = () =>
   useAtomValue(useContext(CommentBoxContext).text)

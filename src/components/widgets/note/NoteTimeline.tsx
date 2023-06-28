@@ -71,7 +71,10 @@ const NoteTimelineImpl = () => {
 
   return (
     <AnimatePresence>
-      <motion.ul className="space-y-1" animate={animateUl}>
+      <motion.ul
+        className="space-y-1 [&_i]:hover:text-accent"
+        animate={animateUl}
+      >
         {(timelineData || initialData)?.map((item) => {
           const isCurrent = item.nid === parseInt(noteNid || '0')
           return (
@@ -114,7 +117,7 @@ const MemoedItem = memo<{
   return (
     <motion.li
       layout
-      className="flex items-center [&_i]:hover:text-accent"
+      className="flex items-center"
       layoutId={`note-${nid}`}
       initial={initialLi}
       animate={animateLi}

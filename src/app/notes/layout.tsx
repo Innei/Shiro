@@ -13,7 +13,9 @@ export default async (props: PropsWithChildren) => {
         'mt-12 md:mt-24',
       )}
     >
-      <NoteLeftSidebar className="relative hidden lg:block" />
+      <div className="relative hidden lg:block">
+        <NoteLeftSidebar />
+      </div>
 
       {props.children}
 

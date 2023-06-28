@@ -1,6 +1,7 @@
 'use client'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useCallback } from 'react'
 import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import { produce } from 'immer'
@@ -20,14 +21,17 @@ import { clsxm } from '~/utils/helper'
 import { apiClient, getErrorMessageFromRequestError } from '~/utils/request'
 
 import { buildQueryKey } from '../Comments'
-import { MAX_COMMENT_TEXT_LENGTH } from '../constants'
 import {
   useCommentBoxHasText,
   useCommentBoxRefIdValue,
   useCommentBoxTextIsOversize,
   useCommentBoxTextValue,
+  useCommentCompletedCallback,
+  useCommentOriginalRefId,
   useGetCommentBoxAtomValues,
+  useUseCommentReply,
 } from './CommentBoxProvider'
+import { MAX_COMMENT_TEXT_LENGTH } from './constants'
 
 const TextLengthIndicator = () => {
   const isTextOversize = useCommentBoxTextIsOversize()
@@ -92,11 +96,41 @@ const SubmitButton = () => {
   } = useGetCommentBoxAtomValues()
   const isLogged = useIsLogged()
   const queryClient = useQueryClient()
+  const isReply = useUseCommentReply()
+  const originalRefId = useCommentOriginalRefId()
+  const complatedCallback = useCommentCompletedCallback()
+
+  const wrappedComplatedCallback = useCallback(
+    <T extends CommentModel>(data: T): T => {
+      complatedCallback?.(data)
+      return data
+    },
+    [complatedCallback],
+  )
+
   const { isLoading, mutate } = useMutation({
     mutationFn: async (refId: string) => {
       const text = jotaiStore.get(textAtom)
       const author = jotaiStore.get(authorAtom)
       const mail = jotaiStore.get(mailAtom)
+
+      const commentDto = { text, author, mail }
+      if (isReply) {
+        if (isLogged) {
+          return apiClient.comment.proxy.master
+            .reply(refId)
+            .post<CommentModel>({
+              data: {
+                text,
+              },
+            })
+            .then(wrappedComplatedCallback)
+        } else {
+          return apiClient.comment
+            .reply(refId, commentDto)
+            .then(wrappedComplatedCallback)
+        }
+      }
 
       if (isLogged) {
         return apiClient.comment.proxy.master
@@ -107,14 +141,25 @@ const SubmitButton = () => {
             },
             data: { text },
           })
+          .then(wrappedComplatedCallback)
       }
-      return apiClient.comment.comment(refId, { text, author, mail })
+      return apiClient.comment
+        .comment(refId, commentDto)
+        .then(wrappedComplatedCallback)
     },
     mutationKey: [commentRefId, 'comment'],
     onError(error: RequestError) {
       toast.error(getErrorMessageFromRequestError(error))
     },
     onSuccess(data) {
+      if (isReply) {
+        toast.success('感谢你的回复！')
+        jotaiStore.set(textAtom, '')
+
+        queryClient.invalidateQueries(buildQueryKey(originalRefId))
+        return
+      }
+
       toast.success('感谢你的评论！')
       jotaiStore.set(textAtom, '')
       queryClient.setQueryData<

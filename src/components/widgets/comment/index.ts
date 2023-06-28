@@ -1,1 +1,1 @@
-export { CommentAreaRoot } from './CommentAreaRoot'
+export { CommentAreaRoot } from './CommentRoot'

@@ -1,7 +1,7 @@
 'use client'
 
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import { useInView } from 'react-intersection-observer'
 import type { FC } from 'react'
 import type { CommentBaseProps } from './types'
@@ -11,6 +11,7 @@ import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/Bo
 import { apiClient } from '~/utils/request'
 
 import { Comment } from './Comment'
+import { CommentBoxProvider } from './CommentBox/CommentBoxProvider'
 import { CommentSkeleton } from './CommentSkeleton'
 
 export const buildQueryKey = (refId: string) => ['comments', refId]
@@ -47,9 +48,12 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
         {data?.pages.map((data) =>
           data.data.map((comment, index) => {
             return (
-              <BottomToUpSoftScaleTransitionView key={comment.id}>
-                <Comment comment={comment} showLine={index > 0} />
-              </BottomToUpSoftScaleTransitionView>
+              <CommentListItem
+                comment={comment}
+                key={comment.id}
+                refId={refId}
+                index={index}
+              />
             )
           }),
         )}
@@ -58,6 +62,17 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
     </>
   )
 }
+
+const CommentListItem: FC<{ comment: any; refId: string; index: number }> =
+  memo(function CommentListItem({ comment, refId, index }) {
+    return (
+      <BottomToUpSoftScaleTransitionView>
+        <CommentBoxProvider refId={refId}>
+          <Comment comment={comment} showLine={index > 0} />
+        </CommentBoxProvider>
+      </BottomToUpSoftScaleTransitionView>
+    )
+  })
 
 const LoadMoreIndicator: FC<{
   onClick: () => void

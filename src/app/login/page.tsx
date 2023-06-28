@@ -16,7 +16,12 @@ export default () => {
     e.preventDefault()
     const { login } = await import('~/atoms/owner')
     login(username, password).then(() => {
-      router.push(Routes.Home)
+      const redirectPath = new URLSearchParams(location.search).get('redirect')
+      if (redirectPath) {
+        router.push(decodeURIComponent(redirectPath))
+      } else {
+        router.push(Routes.Home)
+      }
     })
   }
   return (

@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 import { RequestError } from '@mx-space/api-client'
 
 import { NotSupport } from '~/components/common/NotSupport'
-import { CommentAreaRoot } from '~/components/widgets/comment/CommentAreaRoot'
+import { CommentAreaRoot } from '~/components/widgets/comment/CommentRoot'
 import { REQUEST_GEO } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
 import { getSummaryFromMd } from '~/lib/markdown'

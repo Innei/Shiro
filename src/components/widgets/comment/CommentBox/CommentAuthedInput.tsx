@@ -6,13 +6,13 @@ import Image from 'next/image'
 
 import { useUser } from '@clerk/nextjs'
 
-import { getRandomPlaceholder } from '../constants'
 import { CommentAuthedInputSkeleton } from './CommentAuthedInputSkeleton'
 import { CommentBoxActionBar } from './CommentBoxActionBar'
 import {
   useCommentBoxTextValue,
   useSetCommentBoxValues,
 } from './CommentBoxProvider'
+import { getRandomPlaceholder } from './constants'
 
 export const CommentAuthedInput = () => {
   const { user } = useUser()

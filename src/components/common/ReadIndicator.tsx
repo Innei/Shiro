@@ -23,9 +23,9 @@ export const ReadIndicator: Component<{
     [y, h],
   )
   const As = as || 'span'
-  return (
+  return h > 0 ? (
     <As className={clsxm('text-gray-800 dark:text-neutral-300', className)}>
       {readPercent}%
     </As>
-  )
+  ) : null
 }
