@@ -1,6 +1,10 @@
-import type { AxiosInstance } from 'axios'
+import type { AxiosError, AxiosInstance } from 'axios'
 
-import { allControllers, createClient } from '@mx-space/api-client'
+import {
+  allControllers,
+  createClient,
+  RequestError,
+} from '@mx-space/api-client'
 import { axiosAdaptor } from '@mx-space/api-client/dist/adaptors/axios'
 
 import { API_URL } from '~/constants/env'
@@ -46,3 +50,17 @@ $axios.interceptors.request.use((config) => {
 
   return config
 })
+
+export const getErrorMessageFromRequestError = (error: RequestError) => {
+  if (!(error instanceof RequestError)) return (error as Error).message
+  const axiosError = error.raw as AxiosError
+  const messagesOrMessage = (axiosError.response?.data as any)?.message
+  const bizMessage =
+    typeof messagesOrMessage === 'string'
+      ? messagesOrMessage
+      : Array.isArray(messagesOrMessage)
+      ? messagesOrMessage[0]
+      : undefined
+
+  return bizMessage || axiosError.message
+}

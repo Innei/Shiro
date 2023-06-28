@@ -1,21 +1,32 @@
 'use client'
 
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import clsx from 'clsx'
 import Image from 'next/image'
 
 import { useUser } from '@clerk/nextjs'
 
+import { getRandomPlaceholder } from '../constants'
 import { CommentAuthedInputSkeleton } from './CommentAuthedInputSkeleton'
 import { CommentBoxActionBar } from './CommentBoxActionBar'
 import {
   useCommentBoxTextValue,
   useSetCommentBoxValues,
 } from './CommentBoxProvider'
-import { getRandomPlaceholder } from './constants'
 
 export const CommentAuthedInput = () => {
   const { user } = useUser()
+  const setter = useSetCommentBoxValues()
+
+  useEffect(() => {
+    if (!user) return
+    setter(
+      'author',
+      user.fullName || user.lastName || user.firstName || 'Anonymous',
+    )
+    setter('avatar', user.profileImageUrl)
+    setter('mail', user.primaryEmailAddress?.emailAddress || '')
+  }, [user])
 
   const TextArea = useRef(function Textarea() {
     const placeholder = useRef(getRandomPlaceholder()).current
@@ -29,7 +40,7 @@ export const CommentAuthedInput = () => {
         }}
         placeholder={placeholder}
         className={clsx(
-          'h-full w-full bg-transparent',
+          'h-full w-full resize-none bg-transparent',
           'overflow-auto px-3 py-4',
           'text-neutral-900/80 dark:text-slate-100/80',
         )}

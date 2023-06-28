@@ -9,6 +9,7 @@ import { ClientOnly } from '~/components/common/ClientOnly'
 import { ReadIndicator } from '~/components/common/ReadIndicator'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { Markdown } from '~/components/ui/markdown'
+import { CommentAreaRoot } from '~/components/widgets/comment'
 import { PostActionAside } from '~/components/widgets/post/PostActionAside'
 import { PostCopyright } from '~/components/widgets/post/PostCopyright'
 import { PostMetaBar } from '~/components/widgets/post/PostMetaBar'
@@ -70,6 +71,8 @@ const PostPage = () => {
         <SubscribeBell defaultType="post_c" />
         <XLogInfoForPost />
       </ClientOnly>
+
+      <CommentAreaRoot refId={id} />
     </div>
   )
 }

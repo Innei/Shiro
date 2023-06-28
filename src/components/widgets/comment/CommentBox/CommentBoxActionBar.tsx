@@ -1,19 +1,33 @@
 'use client'
 
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
+import { produce } from 'immer'
+import type {
+  CommentModel,
+  PaginateResult,
+  RequestError,
+} from '@mx-space/api-client'
+import type { InfiniteData } from '@tanstack/react-query'
 
+import { useIsLogged } from '~/atoms'
 import { TiltedSendIcon } from '~/components/icons/TiltedSendIcon'
-import { FloatPopover } from '~/components/ui/float-popover'
 import { MLink } from '~/components/ui/markdown/renderers/link'
+import { jotaiStore } from '~/lib/store'
+import { toast } from '~/lib/toast'
 import { clsxm } from '~/utils/helper'
+import { apiClient, getErrorMessageFromRequestError } from '~/utils/request'
 
+import { buildQueryKey } from '../Comments'
+import { MAX_COMMENT_TEXT_LENGTH } from '../constants'
 import {
   useCommentBoxHasText,
+  useCommentBoxRefIdValue,
   useCommentBoxTextIsOversize,
   useCommentBoxTextValue,
+  useGetCommentBoxAtomValues,
 } from './CommentBoxProvider'
-import { MAX_COMMENT_TEXT_LENGTH } from './constants'
 
 const TextLengthIndicator = () => {
   const isTextOversize = useCommentBoxTextIsOversize()
@@ -61,9 +75,7 @@ export const CommentBoxActionBar: Component = ({ className }) => {
           >
             <TextLengthIndicator />
 
-            <FloatPopover type="tooltip" TriggerComponent={SubmitButton}>
-              发送
-            </FloatPopover>
+            <SubmitButton />
           </motion.aside>
         )}
       </AnimatePresence>
@@ -72,11 +84,61 @@ export const CommentBoxActionBar: Component = ({ className }) => {
 }
 
 const SubmitButton = () => {
-  const isLoading = false
-  const onClickSend = () => {}
+  const commentRefId = useCommentBoxRefIdValue()
+  const {
+    text: textAtom,
+    author: authorAtom,
+    mail: mailAtom,
+  } = useGetCommentBoxAtomValues()
+  const isLogged = useIsLogged()
+  const queryClient = useQueryClient()
+  const { isLoading, mutate } = useMutation({
+    mutationFn: async (refId: string) => {
+      const text = jotaiStore.get(textAtom)
+      const author = jotaiStore.get(authorAtom)
+      const mail = jotaiStore.get(mailAtom)
+
+      if (isLogged) {
+        return apiClient.comment.proxy.master
+          .comment(refId)
+          .post<CommentModel>({
+            params: {
+              ts: Date.now(),
+            },
+            data: { text },
+          })
+      }
+      return apiClient.comment.comment(refId, { text, author, mail })
+    },
+    mutationKey: [commentRefId, 'comment'],
+    onError(error: RequestError) {
+      toast.error(getErrorMessageFromRequestError(error))
+    },
+    onSuccess(data) {
+      toast.success('感谢你的评论！')
+      jotaiStore.set(textAtom, '')
+      queryClient.setQueryData<
+        InfiniteData<
+          PaginateResult<
+            CommentModel & {
+              ref: string
+            }
+          >
+        >
+      >(buildQueryKey(commentRefId), (oldData) => {
+        if (!oldData) return oldData
+        return produce(oldData, (draft) => {
+          draft.pages[0].data.unshift(data)
+        })
+      })
+    },
+  })
+  const onClickSend = () => {
+    mutate(commentRefId)
+  }
   return (
     <motion.button
-      className="appearance-none"
+      className="flex appearance-none items-center space-x-1 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       type="button"
@@ -84,6 +146,9 @@ const SubmitButton = () => {
       onClick={onClickSend}
     >
       <TiltedSendIcon className="h-5 w-5 text-zinc-800 dark:text-zinc-200" />
+      <motion.span className="text-sm" layout="size">
+        {isLoading ? '送信...' : '送信'}
+      </motion.span>
     </motion.button>
   )
 }

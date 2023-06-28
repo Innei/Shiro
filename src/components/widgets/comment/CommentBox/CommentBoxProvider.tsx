@@ -8,16 +8,33 @@ import type { PropsWithChildren } from 'react'
 
 import { jotaiStore } from '~/lib/store'
 
-import { MAX_COMMENT_TEXT_LENGTH } from './constants'
+import { MAX_COMMENT_TEXT_LENGTH } from '../constants'
 
 const createInitialValue = () => ({
-  text: atom(''),
   refId: atom(''),
+
+  text: atom(''),
+  author: atom(''),
+  mail: atom(''),
+  url: atom(''),
+
+  avatar: atom(''),
+  source: atom(''),
 })
 const CommentBoxContext = createContext(createInitialValue())
-export const CommentBoxProvider = (props: PropsWithChildren) => {
+export const CommentBoxProvider = (
+  props: PropsWithChildren & { refId: string },
+) => {
   return (
-    <CommentBoxContext.Provider value={useRef(createInitialValue()).current}>
+    <CommentBoxContext.Provider
+      key={props.refId}
+      value={
+        useRef({
+          ...createInitialValue(),
+          refId: atom(props.refId),
+        }).current
+      }
+    >
       {props.children}
     </CommentBoxContext.Provider>
   )
@@ -28,6 +45,10 @@ export const useCommentBoxTextValue = () =>
 
 export const useCommentBoxRefIdValue = () =>
   useAtomValue(useContext(CommentBoxContext).refId)
+
+export const useGetCommentBoxAtomValues = () => {
+  return useContext(CommentBoxContext)
+}
 
 export const useCommentBoxHasText = () =>
   useAtomValue(

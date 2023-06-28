@@ -18,9 +18,10 @@ const enum CommentBoxMode {
 }
 
 export const CommentBoxRoot: FC<CommentBaseProps> = (props) => {
+  const { refId } = props
   const [mode, setMode] = useState<CommentBoxMode>(CommentBoxMode['with-auth'])
   return (
-    <CommentBoxProvider>
+    <CommentBoxProvider refId={refId}>
       <div className="relative w-full">
         {mode === CommentBoxMode.legacy ? (
           <CommentBoxLegacy />

@@ -1,6 +1,7 @@
 'use client'
 
 import { useInfiniteQuery } from '@tanstack/react-query'
+import { useMemo } from 'react'
 import { useInView } from 'react-intersection-observer'
 import type { FC } from 'react'
 import type { CommentBaseProps } from './types'
@@ -12,9 +13,11 @@ import { apiClient } from '~/utils/request'
 import { Comment } from './Comment'
 import { CommentSkeleton } from './CommentSkeleton'
 
+export const buildQueryKey = (refId: string) => ['comments', refId]
 export const Comments: FC<CommentBaseProps> = ({ refId }) => {
+  const key = useMemo(() => buildQueryKey(refId), [refId])
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(
-    ['comments', refId],
+    key,
     async ({ queryKey, pageParam }) => {
       const page = pageParam
       // const { page } = meta as { page: number }
