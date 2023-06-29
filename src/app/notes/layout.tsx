@@ -13,7 +13,7 @@ export default async (props: PropsWithChildren) => {
         'mt-12 md:mt-24',
       )}
     >
-      <div className="relative hidden lg:block">
+      <div className="relative hidden min-w-0 lg:block">
         <NoteLeftSidebar />
       </div>
 

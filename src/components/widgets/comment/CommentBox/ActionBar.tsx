@@ -1,11 +1,12 @@
 'use client'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useCallback } from 'react'
 import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import { produce } from 'immer'
+import { useAtomValue } from 'jotai'
 import type {
+  CommentDto,
   CommentModel,
   PaginateResult,
   RequestError,
@@ -30,6 +31,7 @@ import {
   useCommentCompletedCallback,
   useCommentOriginalRefId,
   useGetCommentBoxAtomValues,
+  useSetCommentBoxValues,
   useUseCommentReply,
 } from './hooks'
 
@@ -47,6 +49,55 @@ const TextLengthIndicator = () => {
     </span>
   )
 }
+
+const WhisperCheckbox = () => {
+  const isLogged = useIsLogged()
+  const isReply = useUseCommentReply()
+  const isWhisper = useAtomValue(useGetCommentBoxAtomValues().isWhisper)
+  const setter = useSetCommentBoxValues()
+  if (isLogged) return null
+  if (isReply) return null
+  return (
+    <label className="label mx-2 flex items-center">
+      <input
+        className="checkbox-accent checkbox checkbox-sm mr-2"
+        checked={isWhisper}
+        type="checkbox"
+        onChange={(e) => {
+          const checked = e.target.checked
+          setter('isWhisper', checked)
+        }}
+      />
+      <span className="label-text text-sm">悄悄话</span>
+    </label>
+  )
+}
+
+const SyncToRecentlyCheckbox = () => {
+  const isLogged = useIsLogged()
+  const syncToRecently = useAtomValue(
+    useGetCommentBoxAtomValues().syncToRecently,
+  )
+  const setter = useSetCommentBoxValues()
+  const isReply = useUseCommentReply()
+  if (!isLogged) return null
+  if (isReply) return null
+  return (
+    <label className="label mx-2 flex items-center">
+      <input
+        className="checkbox-accent checkbox checkbox-sm mr-2"
+        checked={syncToRecently}
+        type="checkbox"
+        onChange={(e) => {
+          const checked = e.target.checked
+          setter('syncToRecently', checked)
+        }}
+      />
+      <span className="label-text text-sm">同步到碎碎念</span>
+    </label>
+  )
+}
+
 export const CommentBoxActionBar: Component = ({ className }) => {
   const hasCommentText = useCommentBoxHasText()
 
@@ -79,6 +130,8 @@ export const CommentBoxActionBar: Component = ({ className }) => {
           >
             <TextLengthIndicator />
 
+            <WhisperCheckbox />
+            <SyncToRecentlyCheckbox />
             <SubmitButton />
           </motion.aside>
         )}
@@ -93,6 +146,9 @@ const SubmitButton = () => {
     text: textAtom,
     author: authorAtom,
     mail: mailAtom,
+
+    isWhisper: isWhisperAtom,
+    syncToRecently: syncToRecentlyAtom,
   } = useGetCommentBoxAtomValues()
   const isLogged = useIsLogged()
   const queryClient = useQueryClient()
@@ -100,13 +156,10 @@ const SubmitButton = () => {
   const originalRefId = useCommentOriginalRefId()
   const complatedCallback = useCommentCompletedCallback()
 
-  const wrappedComplatedCallback = useCallback(
-    <T extends CommentModel>(data: T): T => {
-      complatedCallback?.(data)
-      return data
-    },
-    [complatedCallback],
-  )
+  const wrappedComplatedCallback = <T extends CommentModel>(data: T): T => {
+    complatedCallback?.(data)
+    return data
+  }
 
   const { isLoading, mutate } = useMutation({
     mutationFn: async (refId: string) => {
@@ -114,7 +167,9 @@ const SubmitButton = () => {
       const author = jotaiStore.get(authorAtom)
       const mail = jotaiStore.get(mailAtom)
 
-      const commentDto = { text, author, mail }
+      const commentDto: CommentDto = { text, author, mail }
+
+      // Reply Comment
       if (isReply) {
         if (isLogged) {
           return apiClient.comment.proxy.master
@@ -132,17 +187,31 @@ const SubmitButton = () => {
         }
       }
 
+      // Normal Comment
+      const isWhisper = jotaiStore.get(isWhisperAtom)
+      const syncToRecently = jotaiStore.get(syncToRecentlyAtom)
+
       if (isLogged) {
         return apiClient.comment.proxy.master
           .comment(refId)
           .post<CommentModel>({
-            params: {
-              ts: Date.now(),
-            },
             data: { text },
+          })
+          .then(async (res) => {
+            if (syncToRecently)
+              await apiClient.recently.proxy.post({
+                data: {
+                  content: text,
+                  ref: refId,
+                },
+              })
+
+            return res
           })
           .then(wrappedComplatedCallback)
       }
+      // @ts-ignore
+      commentDto.isWhispers = isWhisper
       return apiClient.comment
         .comment(refId, commentDto)
         .then(wrappedComplatedCallback)

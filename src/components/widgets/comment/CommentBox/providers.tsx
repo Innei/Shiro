@@ -2,21 +2,32 @@
 
 import { createContext, useRef } from 'react'
 import { atom } from 'jotai'
+import { atomWithStorage } from 'jotai/utils'
 import type { CommentModel } from '@mx-space/api-client'
 import type { PropsWithChildren } from 'react'
 
+const commentStoragePrefix = 'comment-'
 export const createInitialValue = () => ({
   refId: atom(''),
 
   text: atom(''),
-  author: atom(''),
-  mail: atom(''),
-  url: atom(''),
+  author: atomWithStorage(`${commentStoragePrefix}author`, ''),
+  mail: atomWithStorage(`${commentStoragePrefix}mail`, ''),
+  url: atomWithStorage(`${commentStoragePrefix}url`, ''),
 
   avatar: atom(''),
   source: atom(''),
+
+  // settings
+  isWhisper: atomWithStorage(`${commentStoragePrefix}is-whisper`, false),
+  syncToRecently: atomWithStorage(
+    `${commentStoragePrefix}sync-to-recently`,
+    true,
+  ),
 })
-export const CommentBoxContext = createContext(createInitialValue())
+export const CommentBoxContext = createContext<
+  ReturnType<typeof createInitialValue>
+>(null!)
 export const CommentBoxProvider = (
   props: PropsWithChildren & { refId: string },
 ) => {

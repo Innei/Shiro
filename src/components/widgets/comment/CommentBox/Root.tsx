@@ -1,14 +1,18 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect } from 'react'
+import { useAtom } from 'jotai'
+import { atomWithStorage } from 'jotai/utils'
 import type { FC } from 'react'
 import type { CommentBaseProps } from '../types'
 
 import { SignedIn, SignedOut } from '@clerk/nextjs'
 
+import { useIsLogged } from '~/atoms'
 import { AutoResizeHeight } from '~/components/common/AutoResizeHeight'
 
 import { CommentBoxAuthedInput } from './AuthedInput'
+import { CommentBoxLegacyForm } from './CommentBoxLegacyForm'
 import { CommentBoxProvider } from './providers'
 import { CommentBoxSignedOutContent } from './SignedOutContent'
 
@@ -17,9 +21,18 @@ const enum CommentBoxMode {
   'with-auth',
 }
 
+const commentModeAtom = atomWithStorage(
+  'comment-mode',
+  CommentBoxMode['with-auth'],
+)
 export const CommentBoxRoot: FC<CommentBaseProps> = (props) => {
   const { refId } = props
-  const [mode, setMode] = useState<CommentBoxMode>(CommentBoxMode['with-auth'])
+  const [mode, setMode] = useAtom(commentModeAtom)
+
+  const isLogged = useIsLogged()
+  useEffect(() => {
+    if (isLogged) setMode(CommentBoxMode['legacy'])
+  }, [isLogged])
   return (
     <CommentBoxProvider refId={refId}>
       <div className="relative w-full">
@@ -34,7 +47,11 @@ export const CommentBoxRoot: FC<CommentBaseProps> = (props) => {
 }
 
 const CommentBoxLegacy = () => {
-  return null
+  return (
+    <AutoResizeHeight>
+      <CommentBoxLegacyForm />
+    </AutoResizeHeight>
+  )
 }
 
 const CommentBoxWithAuth = () => {
