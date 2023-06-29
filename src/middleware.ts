@@ -7,13 +7,19 @@ import { kvKeys, redis } from '~/lib/redis.server'
 
 import {
   REQUEST_GEO,
+  REQUEST_IP,
   REQUEST_PATHNAME,
   REQUEST_QUERY,
 } from './constants/system'
 
 export default async function middleware(req: NextRequest) {
   const { pathname, search } = req.nextUrl
-  const { geo, ip } = req
+  const { geo } = req
+  let ip = req.ip ?? req.headers.get('x-real-ip')
+  const forwardedFor = req.headers.get('x-forwarded-for')
+  if (!ip && forwardedFor) {
+    ip = forwardedFor.split(',').at(0) ?? ''
+  }
 
   // console.debug(`${req.method} ${req.nextUrl.pathname}${req.nextUrl.search}`)
 
@@ -31,6 +37,7 @@ export default async function middleware(req: NextRequest) {
   requestHeaders.set(REQUEST_PATHNAME, pathname)
   requestHeaders.set(REQUEST_QUERY, search)
   requestHeaders.set(REQUEST_GEO, geo?.country || 'unknown')
+  requestHeaders.set(REQUEST_IP, ip || '')
 
   const isApi = pathname.startsWith('/api/')
 
