@@ -5,10 +5,9 @@ import type { FC, PropsWithChildren } from 'react'
 
 import { isLogged } from '~/atoms'
 
-import { withNoSSR } from '../hoc/with-no-ssr'
 import { DialogOverlay } from '../ui/dlalog'
 
-export const BanCopyWrapper: FC<PropsWithChildren> = withNoSSR((props) => {
+export const BanCopyWrapper: FC<PropsWithChildren> = (props) => {
   const [showCopyWarn, setShowCopyWarn] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -72,4 +71,4 @@ export const BanCopyWrapper: FC<PropsWithChildren> = withNoSSR((props) => {
       </Root>
     </>
   )
-})
+}

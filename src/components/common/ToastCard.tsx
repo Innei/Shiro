@@ -37,6 +37,7 @@ export const ToastCard: FC<{
         'border border-slate-100/80 dark:border-neutral-900/80',
         'space-x-4',
         'flex items-center',
+        'select-none',
       )}
     >
       {iconElement ?? typeMap[props.toastProps?.type ?? 'default']}

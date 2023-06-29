@@ -3,10 +3,7 @@
 import React, { useEffect, useMemo, useRef } from 'react'
 
 import { throttle } from '~/lib/_'
-import {
-  useWrappedElement,
-  useWrappedElementSize,
-} from '~/providers/shared/WrappedElementProvider'
+import { useWrappedElement } from '~/providers/shared/WrappedElementProvider'
 import { clsxm } from '~/utils/helper'
 
 import { TocTree } from './TocTree'
@@ -26,7 +23,7 @@ export const TocAside: Component<TocAsideProps & TocSharedProps> = ({
 }) => {
   const containerRef = useRef<HTMLUListElement>(null)
   const $article = useWrappedElement()
-  const { h } = useWrappedElementSize()
+  // const { h } = useWrappedElementSize()
 
   if (typeof $article === 'undefined') {
     throw new Error('<Toc /> must be used in <WrappedElementProvider />')
@@ -39,7 +36,7 @@ export const TocAside: Component<TocAsideProps & TocSharedProps> = ({
     return [
       ...$article.querySelectorAll('h1,h2,h3,h4,h5,h6'),
     ] as HTMLHeadingElement[]
-  }, [$article, h])
+  }, [$article])
 
   useEffect(() => {
     const setMaxWidth = throttle(() => {

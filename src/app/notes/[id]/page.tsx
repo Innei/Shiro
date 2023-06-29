@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client'
 
-import { memo, Suspense, useEffect } from 'react'
+import { memo, useEffect } from 'react'
 import { Balancer } from 'react-wrap-balancer'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
@@ -71,7 +71,7 @@ const NotePage = memo(function Notepage() {
   if (!noteId) return null
 
   return (
-    <Suspense>
+    <>
       <article
         className={clsx(
           'prose relative',
@@ -119,7 +119,7 @@ const NotePage = memo(function Notepage() {
       <NoteTopic />
       <XLogInfoForNote />
       <NoteFooterNavigationBarForMobile noteId={noteId} />
-    </Suspense>
+    </>
   )
 })
 
@@ -171,16 +171,14 @@ const NoteHeaderDate = () => {
 }
 
 const NoteMarkdown = () => {
-  const text = useCurrentNoteDataSelector((data) => data?.data.text)
-  if (!text) return null
+  const text = useCurrentNoteDataSelector((data) => data?.data.text)!
 
   return <Markdown as="main" renderers={MarkdownRenderers} value={text} />
 }
 const NoteMarkdownImageRecordProvider = (props: PropsWithChildren) => {
   const images = useCurrentNoteDataSelector(
     (data) => data?.data.images || (noopArr as Image[]),
-  )
-  if (!images) return null
+  )!
 
   return (
     <MarkdownImageRecordProvider images={images}>
