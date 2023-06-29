@@ -2,6 +2,7 @@
 
 import { ReactQueryProvider } from './react-query-provider'
 import { Provider as BalancerProvider } from 'react-wrap-balancer'
+import { LazyMotion } from 'framer-motion'
 import { ThemeProvider } from 'next-themes'
 import type { PropsWithChildren } from 'react'
 
@@ -14,12 +15,15 @@ import { PageScrollInfoProvider } from './page-scroll-info-provider'
 import { SentryProvider } from './sentry-provider'
 import { SocketContainer } from './socket-provider'
 
+const loadFeatures = () =>
+  import('./framer-lazy-feature').then((res) => res.default)
 const contexts: JSX.Element[] = [
   <ThemeProvider key="themeProvider" />,
   <ReactQueryProvider key="reactQueryProvider" />,
   <JotaiStoreProvider key="jotaiStoreProvider" />,
 
   <BalancerProvider key="balancerProvider" />,
+  <LazyMotion features={loadFeatures} strict key="framer" />,
 ]
 export function Providers({ children }: PropsWithChildren) {
   return (

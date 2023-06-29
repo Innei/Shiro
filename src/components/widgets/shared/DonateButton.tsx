@@ -1,5 +1,5 @@
 import { DialogContent, DialogPortal, Root } from '@radix-ui/react-dialog'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 import type { HTMLMotionProps } from 'framer-motion'
 
@@ -39,7 +39,7 @@ export const DonateButton = () => {
                   <DialogOverlay />
                   <DialogContent className="fixed inset-0 z-[11] flex flex-wrap space-x-4 overflow-auto center">
                     {donate.qrcode.map((src) => (
-                      <motion.img
+                      <m.img
                         exit={{ opacity: 0 }}
                         src={src}
                         alt="donate"

@@ -1,10 +1,10 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 export const DialogOverlay = () => {
   return (
     <Dialog.Overlay asChild>
-      <motion.div
+      <m.div
         className="fixed inset-0 z-[11] bg-slate-50/80 backdrop-blur-sm dark:bg-neutral-900/80"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

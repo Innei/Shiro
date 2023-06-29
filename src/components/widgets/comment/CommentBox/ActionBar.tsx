@@ -2,7 +2,7 @@
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import clsx from 'clsx'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { produce } from 'immer'
 import { useAtomValue } from 'jotai'
 import type {
@@ -121,7 +121,7 @@ export const CommentBoxActionBar: Component = ({ className }) => {
       </span>
       <AnimatePresence>
         {hasCommentText && (
-          <motion.aside
+          <m.aside
             key="send-button-wrapper"
             initial={{ opacity: 0, scale: 0.96, y: 8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -133,7 +133,7 @@ export const CommentBoxActionBar: Component = ({ className }) => {
             <WhisperCheckbox />
             <SyncToRecentlyCheckbox />
             <SubmitButton />
-          </motion.aside>
+          </m.aside>
         )}
       </AnimatePresence>
     </footer>
@@ -277,7 +277,7 @@ const SubmitButton = () => {
     mutate(commentRefId)
   }
   return (
-    <motion.button
+    <m.button
       className="flex appearance-none items-center space-x-1 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
@@ -286,9 +286,9 @@ const SubmitButton = () => {
       onClick={onClickSend}
     >
       <TiltedSendIcon className="h-5 w-5 text-zinc-800 dark:text-zinc-200" />
-      <motion.span className="text-sm" layout="size">
+      <m.span className="text-sm" layout="size">
         {isLoading ? '送信...' : '送信'}
-      </motion.span>
-    </motion.button>
+      </m.span>
+    </m.button>
   )
 }

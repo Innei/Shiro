@@ -1,6 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { createElement, memo, useCallback, useId, useMemo, useRef } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 import type { Target, Transition } from 'framer-motion'
 import type { FC, PropsWithChildren } from 'react'
@@ -106,7 +106,7 @@ export const Modal: Component<{
         <DialogOverlay />
         <Dialog.Content asChild>
           <div className="fixed inset-0 z-[20] flex center">
-            <motion.div
+            <m.div
               style={useMemo(() => ({ zIndex: 99 + index }), [index])}
               exit={initialStyle}
               initial={initialStyle}
@@ -136,7 +136,7 @@ export const Modal: Component<{
               >
                 <CloseIcon />
               </Dialog.DialogClose>
-            </motion.div>
+            </m.div>
           </div>
         </Dialog.Content>
       </Dialog.Portal>

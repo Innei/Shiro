@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useAnimationControls, useForceUpdate } from 'framer-motion'
+import { m, useAnimationControls, useForceUpdate } from 'framer-motion'
 
 import { MotionButtonBase } from '~/components/ui/button'
 import { useIsClient } from '~/hooks/common/use-is-client'
@@ -64,7 +64,7 @@ const LikeButton = () => {
         })
         toast('谢谢你！', undefined, {
           iconElement: (
-            <motion.i
+            <m.i
               className="icon-[mingcute--heart-fill] text-uk-red-light"
               initial={{
                 scale: 0.96,
@@ -83,7 +83,7 @@ const LikeButton = () => {
         })
       }}
     >
-      <motion.i
+      <m.i
         className={clsxm(
           'icon-[mingcute--heart-fill] text-[24px] opacity-80 duration-200 hover:text-uk-red-light hover:opacity-100',
 

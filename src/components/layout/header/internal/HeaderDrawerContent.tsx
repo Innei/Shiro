@@ -1,7 +1,7 @@
 'use client'
 
 import { memo } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import Link from 'next/link'
 
 import { reboundPreset } from '~/constants/spring'
@@ -17,7 +17,7 @@ export const HeaderDrawerContent = () => {
     <div className="mt-12 max-h-screen w-[90vw] space-y-4 overflow-auto pb-8 scrollbar-none">
       {config.map((section, index) => {
         return (
-          <motion.section
+          <m.section
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{
@@ -49,7 +49,7 @@ export const HeaderDrawerContent = () => {
                 })}
               </ul>
             )}
-          </motion.section>
+          </m.section>
         )
       })}
     </div>

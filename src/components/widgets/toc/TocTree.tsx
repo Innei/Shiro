@@ -8,7 +8,7 @@ import React, {
   useMemo,
   useRef,
 } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { atom, useAtom } from 'jotai'
 import type { FC } from 'react'
 import type { TocSharedProps } from './TocAside'
@@ -181,7 +181,7 @@ const MemoedItem = memo<{
       className="relative leading-none"
     >
       {isActive && (
-        <motion.span
+        <m.span
           layoutId="active-toc-item"
           layout
           className="absolute -left-2 bottom-[3px] top-[3px] w-[2px] rounded-sm bg-accent"

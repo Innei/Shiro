@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 import { clsxm } from '~/utils/helper'
 
@@ -35,13 +35,13 @@ export const AutoResizeHeight: React.FC<AnimateChangeInHeightProps> = ({
   }, [])
 
   return (
-    <motion.div
+    <m.div
       className={clsxm('overflow-hidden', className)}
       style={{ height }}
       animate={{ height }}
       transition={{ duration }}
     >
       <div ref={containerRef}>{children}</div>
-    </motion.div>
+    </m.div>
   )
 }

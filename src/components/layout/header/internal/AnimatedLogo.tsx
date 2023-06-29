@@ -1,6 +1,6 @@
 'use client'
 
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 
 import { getAdminUrl, isLogged, useViewport } from '~/atoms'
@@ -43,14 +43,14 @@ export const AnimatedLogo = () => {
   return (
     <AnimatePresence>
       {!shouldShowMeta && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="scale-75"
         >
           <TapableLogo />
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   )

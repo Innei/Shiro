@@ -1,7 +1,7 @@
 'use client'
 
-import { AnimatePresence, motion } from 'framer-motion'
 import * as React from 'react'
+import { AnimatePresence, m } from 'framer-motion'
 
 import { microReboundPreset } from '~/constants/spring'
 
@@ -16,7 +16,7 @@ export const Collapse = ({
     <>
       <AnimatePresence initial={false}>
         {isOpened && (
-          <motion.div
+          <m.div
             key="content"
             initial="collapsed"
             animate="open"
@@ -36,7 +36,7 @@ export const Collapse = ({
             className={className}
           >
             {children}
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

@@ -1,6 +1,6 @@
 'use client'
 
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 
 import { microReboundPreset } from '~/constants/spring'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
@@ -34,7 +34,7 @@ export const HeaderMeta = () => {
   return (
     <AnimatePresence>
       {show && (
-        <motion.div
+        <m.div
           className="absolute inset-0 flex min-w-0 items-center justify-between px-0 lg:px-[4rem]"
           data-testid="header-meta"
           {...animationProps}
@@ -59,7 +59,7 @@ export const HeaderMeta = () => {
               {seoTitle}
             </span>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   )

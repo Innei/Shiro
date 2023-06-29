@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import type {
   HTMLMotionProps,
   Spring,
@@ -36,7 +36,8 @@ export const createTransitionView = (
     } = props
 
     const { enter = delay, exit = delay } = timeout
-    const MotionComponent = motion[as] as FC<HTMLMotionProps<any>>
+
+    const MotionComponent = m[as] as FC<HTMLMotionProps<any>>
 
     if (!appear) return props.children
 

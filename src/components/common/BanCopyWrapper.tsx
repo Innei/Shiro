@@ -1,6 +1,6 @@
 import { DialogContent, DialogPortal, Root } from '@radix-ui/react-dialog'
 import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import type { FC, PropsWithChildren } from 'react'
 
 import { isLogged } from '~/atoms'
@@ -48,7 +48,7 @@ export const BanCopyWrapper: FC<PropsWithChildren> = (props) => {
             <DialogPortal>
               <DialogOverlay />
               <DialogContent asChild>
-                <motion.div
+                <m.div
                   className="fixed inset-0 z-[11] flex flex-col gap-4 center"
                   exit={{
                     opacity: 0,
@@ -63,7 +63,7 @@ export const BanCopyWrapper: FC<PropsWithChildren> = (props) => {
                   <div className="pointer-events-none my-3 text-lg text-neutral-900 text-opacity-80 dark:text-zinc-100">
                     <p>本文章为站长原创，保留版权所有，禁止复制。</p>
                   </div>
-                </motion.div>
+                </m.div>
               </DialogContent>
             </DialogPortal>
           )}

@@ -1,7 +1,7 @@
 'use client'
 
 import * as Dialog from '@radix-ui/react-dialog'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { atom, useAtom } from 'jotai'
 import type { SVGProps } from 'react'
 
@@ -47,7 +47,7 @@ export const HeaderDrawerButton = () => {
                 <DialogOverlay />
 
                 <Dialog.Content>
-                  <motion.dialog
+                  <m.dialog
                     className="fixed left-0 right-0 top-0 z-[12] block overflow-auto rounded-xl bg-base-100/90"
                     initial={{ opacity: 0.8 }}
                     animate={{ opacity: 1 }}
@@ -66,7 +66,7 @@ export const HeaderDrawerButton = () => {
                     </Dialog.DialogClose>
 
                     <HeaderDrawerContent />
-                  </motion.dialog>
+                  </m.dialog>
                 </Dialog.Content>
               </>
             )}

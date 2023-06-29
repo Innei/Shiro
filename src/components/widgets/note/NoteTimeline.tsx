@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { memo } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import Link from 'next/link'
 import { tv } from 'tailwind-variants'
 import type { Target, TargetAndTransition } from 'framer-motion'
@@ -72,10 +72,7 @@ const NoteTimelineImpl = () => {
 
   return (
     <AnimatePresence>
-      <motion.ul
-        className="space-y-1 [&_i]:hover:text-accent"
-        animate={animateUl}
-      >
+      <m.ul className="space-y-1 [&_i]:hover:text-accent" animate={animateUl}>
         {(timelineData || initialData)?.map((item) => {
           const isCurrent = item.nid === parseInt(noteNid || '0')
           return (
@@ -87,7 +84,7 @@ const NoteTimelineImpl = () => {
             />
           )
         })}
-      </motion.ul>
+      </m.ul>
     </AnimatePresence>
   )
 }
@@ -116,7 +113,7 @@ const MemoedItem = memo<{
   const { active, nid, title } = props
 
   return (
-    <motion.li
+    <m.li
       layout
       className="flex items-center"
       layoutId={`note-${nid}`}
@@ -149,7 +146,7 @@ const MemoedItem = memo<{
       >
         {title}
       </Link>
-    </motion.li>
+    </m.li>
   )
 })
 

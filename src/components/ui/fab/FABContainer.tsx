@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import clsx from 'clsx'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import type { HTMLMotionProps } from 'framer-motion'
 import type { PropsWithChildren } from 'react'
 
@@ -73,7 +73,7 @@ export const FABBase = (
   return (
     <AnimatePresence mode="wait">
       {show && (
-        <motion.button
+        <m.button
           aria-label="Floating action button"
           initial={{ opacity: 0.3, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -90,7 +90,7 @@ export const FABBase = (
           {...rest}
         >
           {children}
-        </motion.button>
+        </m.button>
       )}
     </AnimatePresence>
   )

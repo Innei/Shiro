@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useAnimationControls, useForceUpdate } from 'framer-motion'
+import { m, useAnimationControls, useForceUpdate } from 'framer-motion'
 
 import { IonThumbsup } from '~/components/icons/thumbs-up'
 import { MotionButtonBase } from '~/components/ui/button'
@@ -64,7 +64,7 @@ const LikeButton = () => {
         })
         toast('捕捉一只大佬！', undefined, {
           iconElement: (
-            <motion.i
+            <m.i
               className="text-uk-orange-light"
               initial={{
                 scale: 0.96,
@@ -74,12 +74,12 @@ const LikeButton = () => {
               }}
             >
               <IonThumbsup />
-            </motion.i>
+            </m.i>
           ),
         })
       }}
     >
-      <motion.i
+      <m.i
         className={clsxm(
           'text-[24px] opacity-80 duration-200 hover:text-uk-orange-light hover:opacity-100',
 
@@ -96,7 +96,7 @@ const LikeButton = () => {
         }}
       >
         <IonThumbsup />
-      </motion.i>
+      </m.i>
     </MotionButtonBase>
   )
 }

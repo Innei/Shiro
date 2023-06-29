@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 
 export const PostItemHoverOverlay = () => {
   const [mouseEnter, setMouseEnter] = useState(false)
@@ -40,7 +40,7 @@ export const PostItemHoverOverlay = () => {
 
       <AnimatePresence>
         {mouseEnter && (
-          <motion.div
+          <m.div
             layout
             initial={{
               opacity: 0.2,

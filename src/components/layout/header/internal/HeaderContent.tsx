@@ -2,7 +2,7 @@
 
 import React, { memo } from 'react'
 import clsx from 'clsx'
-import { motion, useMotionValue } from 'framer-motion'
+import { m, useMotionValue } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import type { IHeaderMenu } from '../config'
@@ -55,7 +55,7 @@ const ForDesktop: Component = ({ className }) => {
   const pathname = usePathname()
 
   return (
-    <motion.nav
+    <m.nav
       layout="size"
       onMouseMove={handleMouseMove}
       className={clsxm(
@@ -81,7 +81,7 @@ const ForDesktop: Component = ({ className }) => {
           )
         })}
       </div>
-    </motion.nav>
+    </m.nav>
   )
 }
 
@@ -144,7 +144,7 @@ function AnimatedItem({
       >
         {children}
         {isActive && (
-          <motion.span
+          <m.span
             className={clsx(
               'absolute inset-x-1 -bottom-px h-px',
               'bg-gradient-to-r from-accent/0 via-accent/70 to-accent/0',
