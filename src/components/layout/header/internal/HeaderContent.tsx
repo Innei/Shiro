@@ -2,11 +2,13 @@
 
 import React, { memo } from 'react'
 import clsx from 'clsx'
-import { m, useMotionValue } from 'framer-motion'
+import { AnimatePresence, m, useMotionValue } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import type { IHeaderMenu } from '../config'
 
+import { RootPortal } from '~/components/ui/portal'
+import { usePageScrollDirection } from '~/providers/root/page-scroll-info-provider'
 import { clsxm } from '~/utils/helper'
 
 import { useHeaderConfig } from './HeaderDataConfigureProvider'
@@ -15,9 +17,33 @@ import { MenuPopover } from './MenuPopover'
 
 export const HeaderContent = () => {
   return (
-    <AnimatedMenu>
-      <ForDesktop />
-    </AnimatedMenu>
+    <>
+      <AnimatedMenu>
+        <ForDesktop />
+      </AnimatedMenu>
+      <AccessibleMenu />
+    </>
+  )
+}
+
+const AccessibleMenu: Component = () => {
+  const opacity = useMenuOpacity()
+  const up = usePageScrollDirection() === 'up'
+  return (
+    <RootPortal>
+      <AnimatePresence>
+        {opacity === 0 && up && (
+          <m.div
+            initial={{ y: -64 }}
+            animate={{ y: 0 }}
+            exit={{ y: -20, opacity: 0 }}
+            className="fixed left-0 right-0 top-[6rem] z-10 flex justify-center duration-[100ms]"
+          >
+            <ForDesktop />
+          </m.div>
+        )}
+      </AnimatePresence>
+    </RootPortal>
   )
 }
 
@@ -25,7 +51,7 @@ const AnimatedMenu: Component = ({ children }) => {
   const opacity = useMenuOpacity()
 
   return (
-    <div
+    <m.div
       className="duration-[100ms]"
       style={{
         opacity,
@@ -33,7 +59,7 @@ const AnimatedMenu: Component = ({ children }) => {
       }}
     >
       {children}
-    </div>
+    </m.div>
   )
 }
 
@@ -67,7 +93,7 @@ const ForDesktop: Component = ({ className }) => {
         className,
       )}
     >
-      <div className="flex bg-transparent px-4 font-medium text-zinc-800 dark:text-zinc-200 ">
+      <div className="flex px-4 font-medium text-zinc-800 dark:text-zinc-200 ">
         {headerMenuConfig.map((section) => {
           return (
             <HeaderMenuItem

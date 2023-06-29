@@ -42,11 +42,16 @@ export default function TimelinePage() {
     post: TimelineType.Post,
     note: TimelineType.Note,
   }[type]
-  const { data } = useQuery<TimelineData>({
-    queryKey: ['timeline'],
 
-    meta: { nextType, year },
-    queryFn: async () => {
+  const { data: initialData } = useQuery<TimelineData>({
+    queryKey: ['timeline'],
+    enabled: false,
+  })
+  const { data } = useQuery<TimelineData>({
+    queryKey: ['timeline', nextType, year],
+    initialData,
+    queryFn: async ({ queryKey }) => {
+      const [, nextType, year] = queryKey as [string, TimelineType, string]
       return await apiClient.aggregate
         .getTimeline({
           type: nextType,
@@ -128,7 +133,7 @@ export default function TimelinePage() {
 
   return (
     <NormalContainer>
-      <header className="prose">
+      <header className="prose prose-p:my-2">
         <h1>{title}</h1>
         <h3>{subtitle}</h3>
 
@@ -141,12 +146,11 @@ export default function TimelinePage() {
         )}
       </header>
 
-      <main className="mt-10 text-zinc-950/80 dark:text-zinc-50/80">
+      <main className="mt-10 text-zinc-950/80 dark:text-zinc-50/80" key={type}>
         {sortedArr.reverse().map(([year, value]) => {
           return (
             <BottomToUpSoftScaleTransitionView key={year} className="my-4">
               <m.h4
-                layoutId={`timeline-year-${year}`}
                 className={clsx(
                   'relative mb-4 ml-3 text-lg font-medium',
                   'rounded-md before:absolute before:-left-3 before:bottom-[4px] before:top-[4px] before:w-[2px] before:bg-accent before:content-auto',
@@ -159,7 +163,6 @@ export default function TimelinePage() {
                 {value.map((item) => {
                   return (
                     <m.li
-                      layoutId={`timeline-item-${item.id}`}
                       key={item.id}
                       className="flex items-center justify-between"
                       data-id={item.id}

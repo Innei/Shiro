@@ -28,15 +28,16 @@
     top: 0;
   }
 
-  li {
+  & > li {
     position: relative;
     list-style-type: none;
 
     line-height: 1.6;
     padding: 3px 0;
+    margin: 0 0 0 1rem;
   }
 
-  li::after {
+  & > li::after {
     content: '';
     left: -1.28rem;
     top: 50%;

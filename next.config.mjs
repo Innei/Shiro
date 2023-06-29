@@ -13,7 +13,7 @@ const isProd = process.env.NODE_ENV === 'production'
 // eslint-disable-next-line import/no-mutable-exports
 let nextConfig = {
   compiler: {
-    reactRemoveProperties: { properties: ['^data-id$'] },
+    reactRemoveProperties: { properties: ['^data-id$', '^data-(\\w+)-id$'] },
   },
   experimental: {
     appDir: true,
