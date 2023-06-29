@@ -9,11 +9,12 @@ process.title = 'Springtide (NextJS)'
 const env = config().parsed || {}
 const isProd = process.env.NODE_ENV === 'production'
 
-/**
- * @type {import('next').nextConfig}
- */
+/** @type {import('next').NextConfig} */
 // eslint-disable-next-line import/no-mutable-exports
 let nextConfig = {
+  compiler: {
+    reactRemoveProperties: { properties: ['^data-id$'] },
+  },
   experimental: {
     appDir: true,
   },

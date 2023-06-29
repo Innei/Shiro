@@ -4,7 +4,7 @@ import type { FC } from 'react'
 
 import { useWrappedElementSize } from '~/providers/shared/WrappedElementProvider'
 
-import { FixedZoomedImage } from '../ui/image'
+import { FixedZoomedImage } from '../../ui/image'
 
 export const Mermaid: FC<{
   content: string

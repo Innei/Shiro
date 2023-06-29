@@ -11,13 +11,13 @@ import type { Image } from '@mx-space/api-client'
 import type { MarkdownToJSX } from '~/components/ui/markdown'
 import type { PropsWithChildren } from 'react'
 
-import { BanCopyWrapper } from '~/components/common/BanCopyWrapper'
 import { ClientOnly } from '~/components/common/ClientOnly'
 import { MdiClockOutline } from '~/components/icons/clock'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { Markdown } from '~/components/ui/markdown'
 import { NoteBanner } from '~/components/widgets/note/NoteBanner'
+import { BanCopyWrapper } from '~/components/widgets/shared/BanCopyWrapper'
 import { XLogInfoForNote, XLogSummaryForNote } from '~/components/widgets/xlog'
 import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
@@ -27,9 +27,9 @@ import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvide
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 import { parseDate } from '~/utils/datetime'
 
-import { ReadIndicator } from '../../../components/common/ReadIndicator'
 import { NoteHideIfSecret } from '../../../components/widgets/note/NoteHideIfSecret'
 import { NoteMetaBar } from '../../../components/widgets/note/NoteMetaBar'
+import { ReadIndicator } from '../../../components/widgets/shared/ReadIndicator'
 import styles from './page.module.css'
 
 const NoteActionAside = dynamic(() =>

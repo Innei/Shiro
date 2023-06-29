@@ -27,7 +27,7 @@ import { MDetails } from './renderers/collapse'
 import { MFootNote } from './renderers/footnotes'
 import { MLink } from './renderers/link'
 
-const CodeBlock = dynamic(() => import('~/components/common/CodeBlock'))
+const CodeBlock = dynamic(() => import('~/components/widgets/shared/CodeBlock'))
 
 export interface MdProps {
   value?: string

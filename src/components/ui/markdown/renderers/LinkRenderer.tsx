@@ -4,7 +4,9 @@ import dynamic from 'next/dynamic'
 import { LinkCard } from '../../link-card'
 import { MLink } from './link'
 
-const Tweet = dynamic(() => import('~/components/common/Tweet'), { ssr: false })
+const Tweet = dynamic(() => import('~/components/widgets/shared/Tweet'), {
+  ssr: false,
+})
 export const LinkRenderer = ({ href }: { href: string }) => {
   const url = useMemo(() => {
     try {

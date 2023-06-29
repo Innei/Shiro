@@ -6,7 +6,7 @@ import { m } from 'framer-motion'
 import type { FC } from 'react'
 import type { ToastProps, TypeOptions } from 'react-toastify/dist/types'
 
-import { MotionButtonBase } from '../ui/button'
+import { MotionButtonBase } from '../../ui/button'
 
 const typeMap: Record<TypeOptions, JSX.Element> = {
   success: <i className="icon-[mingcute--check-fill] text-uk-green-light" />,

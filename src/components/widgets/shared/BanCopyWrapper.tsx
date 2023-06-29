@@ -5,7 +5,7 @@ import type { FC, PropsWithChildren } from 'react'
 
 import { isLogged } from '~/atoms'
 
-import { DialogOverlay } from '../ui/dlalog'
+import { DialogOverlay } from '../../ui/dlalog'
 
 export const BanCopyWrapper: FC<PropsWithChildren> = (props) => {
   const [showCopyWarn, setShowCopyWarn] = useState(false)

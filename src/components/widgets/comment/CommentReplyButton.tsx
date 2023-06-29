@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import clsx from 'clsx'
 import type { FC } from 'react'
 
-import { AutoResizeHeight } from '~/components/common/AutoResizeHeight'
+import { AutoResizeHeight } from '~/components/widgets/shared/AutoResizeHeight'
 
 import { CommentBoxHolderPortal } from './Comment'
 import { useCommentBoxRefIdValue } from './CommentBox/hooks'

@@ -8,9 +8,9 @@ import type { CommentBaseProps } from '../types'
 import { SignedIn, SignedOut, useUser } from '@clerk/nextjs'
 
 import { useIsLogged } from '~/atoms'
-import { AutoResizeHeight } from '~/components/common/AutoResizeHeight'
 import { MotionButtonBase } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
+import { AutoResizeHeight } from '~/components/widgets/shared/AutoResizeHeight'
 
 import { CommentBoxAuthedInput } from './AuthedInput'
 import { CommentBoxLegacyForm } from './CommentBoxLegacyForm'

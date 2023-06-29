@@ -1,7 +1,7 @@
 import daisyui from 'daisyui'
 import { withTV } from 'tailwind-variants/transformer'
 import twColors from 'tailwindcss/colors'
-import resolveConfig from 'tailwindcss/resolveConfig'
+import type { Config } from 'tailwindcss'
 import type { PluginAPI } from 'tailwindcss/types/config'
 
 import { addDynamicIconSelectors } from '@iconify/tailwind'
@@ -166,7 +166,7 @@ const UIKitColors = {
   },
 }
 
-const twConfig = resolveConfig({
+const twConfig: Config = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   darkMode: ['class', '[data-theme="dark"]'],
   theme: {
@@ -277,7 +277,7 @@ const twConfig = resolveConfig({
     // variableColorsPlugin(twColors),
     // ColorPlugin,
   ],
-})
+}
 
 function addShortcutPlugin({ addUtilities }: PluginAPI) {
   const styles = {

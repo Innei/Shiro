@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import type { FC, ReactNode, SVGProps } from 'react'
 
-import { AutoResizeHeight } from '~/components/common/AutoResizeHeight'
+import { AutoResizeHeight } from '~/components/widgets/shared/AutoResizeHeight'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
