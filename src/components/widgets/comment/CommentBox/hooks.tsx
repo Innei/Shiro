@@ -2,7 +2,7 @@
 
 import { useCallback, useContext } from 'react'
 import { useAtomValue } from 'jotai'
-import { selectAtom } from 'jotai/utils'
+import { atomWithStorage, selectAtom } from 'jotai/utils'
 import type { ExtractAtomValue } from 'jotai'
 import type { createInitialValue } from './providers'
 
@@ -59,3 +59,19 @@ export const useSetCommentBoxValues = <
     jotaiStore.set(atom as any, value)
   }
 }
+
+// Comment Mode
+
+export const enum CommentBoxMode {
+  'legacy',
+  'with-auth',
+}
+
+const commentModeAtom = atomWithStorage(
+  'comment-mode',
+  CommentBoxMode['with-auth'],
+)
+
+export const useCommentMode = () => useAtomValue(commentModeAtom)
+export const setCommentMode = (mode: CommentBoxMode) =>
+  jotaiStore.set(commentModeAtom, mode)

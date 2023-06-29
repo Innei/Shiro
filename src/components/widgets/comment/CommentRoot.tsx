@@ -11,7 +11,7 @@ const LoadingElement = <Loading loadingText="评论区加载中..." />
 export const CommentAreaRoot: FC<CommentBaseProps> = (props) => {
   return (
     <LazyLoad placeholder={LoadingElement}>
-      <div className="mt-12">
+      <div className="relative mt-12">
         <CommentBoxRoot refId={props.refId} />
 
         <div className="h-12" />

@@ -54,7 +54,7 @@ export function UserAuth() {
           wrapperClassName="h-full w-full flex items-center justify-center"
           type="tooltip"
         >
-          登陆
+          登录
         </FloatPopover>
       </SignedOut>
     </AnimatePresence>
