@@ -20,6 +20,7 @@ export const NoteTimeline = memo(() => {
   if (!noteId) return null
   return <NoteTimelineImpl />
 })
+NoteTimeline.displayName = 'NoteTimeline'
 
 const animateUl: TargetAndTransition = {
   transition: {
@@ -92,7 +93,7 @@ const NoteTimelineImpl = () => {
 }
 
 const styles = tv({
-  base: 'text-neutral-content min-w-0 truncate text-left opacity-50 w-[10rem] transition-all tabular-nums hover:opacity-80',
+  base: 'text-neutral-content min-w-0 truncate text-left opacity-50 transition-all tabular-nums hover:opacity-80',
   variants: {
     status: {
       active: 'ml-2 opacity-100',
@@ -151,3 +152,5 @@ const MemoedItem = memo<{
     </motion.li>
   )
 })
+
+MemoedItem.displayName = 'MemoedItem'
