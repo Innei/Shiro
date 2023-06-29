@@ -1,21 +1,17 @@
 'use client'
 
 import * as Dialog from '@radix-ui/react-dialog'
-import { memo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { atom, useAtom } from 'jotai'
-import Link from 'next/link'
 import type { SVGProps } from 'react'
 
 import { CloseIcon } from '~/components/icons/close'
 import { MotionButtonBase } from '~/components/ui/button'
 import { DialogOverlay } from '~/components/ui/dlalog/DialogOverlay'
-import { reboundPreset } from '~/constants/spring'
 import { useIsClient } from '~/hooks/common/use-is-client'
-import { jotaiStore } from '~/lib/store'
 
 import { HeaderActionButton } from './HeaderActionButton'
-import { useHeaderConfig } from './HeaderDataConfigureProvider'
+import { HeaderDrawerContent } from './HeaderDrawerContent'
 
 function IcBaselineMenuOpen(props: SVGProps<SVGSVGElement>) {
   return (
@@ -28,7 +24,7 @@ function IcBaselineMenuOpen(props: SVGProps<SVGSVGElement>) {
   )
 }
 
-const drawerOpenAtom = atom(false)
+export const drawerOpenAtom = atom(false)
 export const HeaderDrawerButton = () => {
   const [open, setOpen] = useAtom(drawerOpenAtom)
 
@@ -52,7 +48,7 @@ export const HeaderDrawerButton = () => {
 
                 <Dialog.Content>
                   <motion.dialog
-                    className="fixed inset-0 z-[12] flex max-h-[100vh] min-h-0 items-center justify-center overflow-hidden rounded-xl bg-base-100/90"
+                    className="fixed bottom-0 left-0 right-0 top-6 z-[12] flex max-h-[100vh] min-h-0 items-center justify-center overflow-auto rounded-xl bg-base-100/90"
                     initial={{ opacity: 0.8 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -78,69 +74,5 @@ export const HeaderDrawerButton = () => {
         </div>
       </Dialog.Portal>
     </Dialog.Root>
-  )
-}
-
-// @ts-ignore
-const LinkInternal: typeof Link = memo(function LinkInternal({
-  children,
-  ...rest
-}) {
-  return (
-    <Link
-      {...rest}
-      prefetch={false}
-      onClick={() => {
-        jotaiStore.set(drawerOpenAtom, false)
-      }}
-    >
-      {children}
-    </Link>
-  )
-})
-
-const HeaderDrawerContent = () => {
-  const { config } = useHeaderConfig()
-
-  return (
-    <div className="h-[100vh] w-[90vw] space-y-4 overflow-auto pb-8 pt-14 scrollbar-none">
-      {config.map((section, index) => {
-        return (
-          <motion.section
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{
-              ...reboundPreset,
-              delay: index * 0.08,
-            }}
-            key={section.path}
-          >
-            <LinkInternal className="block" href={section.path}>
-              <span className="flex items-center space-x-2 py-2 text-[16px]">
-                <i>{section.icon}</i>
-                <h2>{section.title}</h2>
-              </span>
-            </LinkInternal>
-
-            {section.subMenu && (
-              <ul className="my-2 grid grid-cols-2 gap-2">
-                {section.subMenu.map((sub) => {
-                  return (
-                    <li key={sub.path}>
-                      <LinkInternal
-                        className="inline-block p-2"
-                        href={sub.path}
-                      >
-                        {sub.title}
-                      </LinkInternal>
-                    </li>
-                  )
-                })}
-              </ul>
-            )}
-          </motion.section>
-        )
-      })}
-    </div>
   )
 }
