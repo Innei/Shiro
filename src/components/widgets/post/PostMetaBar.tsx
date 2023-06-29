@@ -25,7 +25,7 @@ export const PostMetaBar: Component<{
         </span>
         {meta.modified && (
           <FloatPopover
-            wrapperClassName="text-xs self-end"
+            wrapperClassName="text-xs self-end translate-y-[-1px]"
             as="span"
             TriggerComponent={() => '(已编辑)'}
           >
