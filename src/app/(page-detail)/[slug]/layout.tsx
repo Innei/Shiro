@@ -85,7 +85,11 @@ export default async (props: NextPageParams<PageParams>) => {
 
         <LayoutRightSideProvider className="absolute bottom-0 right-0 top-0 hidden translate-x-full lg:block" />
       </div>
-      {isCN ? <NotSupport /> : <CommentAreaRoot refId={data.id} />}
+      {isCN ? (
+        <NotSupport />
+      ) : (
+        <CommentAreaRoot refId={data.id} allowComment={data.allowComment} />
+      )}
     </>
   )
 }

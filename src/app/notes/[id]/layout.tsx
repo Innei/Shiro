@@ -78,6 +78,8 @@ export default async (
 
   const isCN = geo === 'CN'
 
+  const { id: noteObjectId, allowComment } = data.data
+
   return (
     <>
       <CurrentNoteIdProvider noteId={id} />
@@ -86,7 +88,11 @@ export default async (
 
       <BottomToUpTransitionView className="min-w-0">
         <Paper as={NoteMainContainer}>{props.children}</Paper>
-        {isCN ? <NotSupport /> : <CommentAreaRoot refId={data.data.id} />}
+        {isCN ? (
+          <NotSupport />
+        ) : (
+          <CommentAreaRoot refId={noteObjectId} allowComment={allowComment} />
+        )}
       </BottomToUpTransitionView>
     </>
   )

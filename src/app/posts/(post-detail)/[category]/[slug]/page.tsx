@@ -8,7 +8,6 @@ import type { PropsWithChildren } from 'react'
 import { ClientOnly } from '~/components/common/ClientOnly'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { Markdown } from '~/components/ui/markdown'
-import { CommentAreaRoot } from '~/components/widgets/comment'
 import { PostActionAside } from '~/components/widgets/post/PostActionAside'
 import { PostCopyright } from '~/components/widgets/post/PostCopyright'
 import { PostMetaBar } from '~/components/widgets/post/PostMetaBar'
@@ -29,6 +28,7 @@ import Loading from './loading'
 const PostPage = () => {
   const id = useCurrentPostDataSelector((p) => p?.id)
   const title = useCurrentPostDataSelector((p) => p?.title)
+  const allowComment = useCurrentPostDataSelector((p) => p?.allowComment)
   if (!id) {
     return <Loading />
   }
@@ -71,8 +71,6 @@ const PostPage = () => {
         <SubscribeBell defaultType="post_c" />
         <XLogInfoForPost />
       </ClientOnly>
-
-      <CommentAreaRoot refId={id} />
     </div>
   )
 }

@@ -1,10 +1,14 @@
 import React from 'react'
+import { headers } from 'next/dist/client/components/headers'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 
 import { RequestError } from '@mx-space/api-client'
 
+import { NotSupport } from '~/components/common/NotSupport'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
+import { CommentAreaRoot } from '~/components/widgets/comment'
+import { REQUEST_GEO } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
 import { getSummaryFromMd } from '~/lib/markdown'
 import { CurrentPostDataProvider } from '~/providers/post/CurrentPostDataProvider'
@@ -73,6 +77,10 @@ export default async (props: NextPageParams<PageParams>) => {
       }
       throw error
     })
+  const header = headers()
+  const geo = header.get(REQUEST_GEO)
+
+  const isCN = geo === 'CN'
 
   return (
     <>
@@ -80,6 +88,12 @@ export default async (props: NextPageParams<PageParams>) => {
       <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
         <BottomToUpTransitionView className="min-w-0">
           {props.children}
+
+          {isCN ? (
+            <NotSupport />
+          ) : (
+            <CommentAreaRoot refId={data.id} allowComment={data.allowComment} />
+          )}
         </BottomToUpTransitionView>
 
         <LayoutRightSideProvider className="relative hidden lg:block" />
