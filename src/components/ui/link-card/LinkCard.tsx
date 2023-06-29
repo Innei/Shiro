@@ -10,8 +10,6 @@ import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
 
 import { LazyLoad } from '~/components/common/Lazyload'
 import { useIsClientTransition } from '~/hooks/common/use-is-client'
-import { useIsUnMounted } from '~/hooks/common/use-is-unmounted'
-import { useSafeSetState } from '~/hooks/common/use-safe-setState'
 import { apiClient } from '~/utils/request'
 
 import styles from './LinkCard.module.css'
@@ -36,20 +34,17 @@ export const LinkCard = (props: LinkCardProps) => {
 }
 const LinkCardImpl: FC<LinkCardProps> = (props) => {
   const { id, source = 'self', className } = props
-  const isUnMounted = useIsUnMounted()
 
   const [loading, setLoading] = useState(true)
   const [isError, setIsError] = useState(false)
   const fetchFnRef = useRef<() => Promise<any>>()
 
-  const [fullUrl, _setFullUrl] = useState('about:blank')
-  const [cardInfo, _setCardInfo] = useState<{
+  const [fullUrl, setFullUrl] = useState('about:blank')
+  const [cardInfo, setCardInfo] = useState<{
     title: string
     desc?: string
     image?: string
   }>()
-  const setFullUrl = useSafeSetState(_setFullUrl, isUnMounted)
-  const setCardInfo = useSafeSetState(_setCardInfo, isUnMounted)
 
   const isValidType = useMemo(() => {
     switch (source) {

@@ -17,6 +17,7 @@ import { MdiClockOutline } from '~/components/icons/clock'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { Markdown } from '~/components/ui/markdown'
+import { NoteBanner } from '~/components/widgets/note/NoteBanner'
 import { XLogInfoForNote, XLogSummaryForNote } from '~/components/widgets/xlog'
 import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
@@ -65,7 +66,7 @@ const PageImpl = () => {
   )
 }
 
-const NotePage = memo(() => {
+const NotePage = memo(function Notepage() {
   const noteId = useCurrentNoteId()
   if (!noteId) return null
 
@@ -87,6 +88,9 @@ const NotePage = memo(() => {
               <NoteMetaBar />
             </ClientOnly>
           </span>
+          <div className="ml-[-1.25em] mr-[-1.25em] mt-8 text-sm lg:ml-[calc(-3em)] lg:mr-[calc(-3em)]">
+            <NoteBanner />
+          </div>
         </header>
 
         <NoteHideIfSecret>
