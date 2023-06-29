@@ -33,6 +33,7 @@ export const CommentBoxRoot: FC<CommentBaseProps> = (props) => {
   useEffect(() => {
     if (isLogged) setMode(CommentBoxMode['legacy'])
   }, [isLogged])
+
   return (
     <CommentBoxProvider refId={refId}>
       <div className="relative w-full">

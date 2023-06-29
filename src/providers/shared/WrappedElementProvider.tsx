@@ -5,7 +5,10 @@ import { createContextState } from 'foxact/create-context-state'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 
 import { ProviderComposer } from '~/components/common/ProviderComposer'
+import { useStateToRef } from '~/hooks/common/use-state-ref'
 import { clsxm } from '~/utils/helper'
+
+import { usePageScrollDirection } from '../root/page-scroll-info-provider'
 
 const [
   WrappedElementProviderInternal,
@@ -24,7 +27,7 @@ const [
 
 const [
   ElementPositsionProviderInternal,
-  useElementPositsion,
+  useWrappedElementPositsion,
   useSetElementPositsion,
 ] = createContextState({
   x: 0,
@@ -91,18 +94,27 @@ const Content: Component = memo(({ children, className }) => {
 Content.displayName = 'ArticleElementProviderContent'
 
 const EOADetector: Component = () => {
-  const ref = useRef<HTMLDivElement>(null)
+  const dir = usePageScrollDirection()
+  const getDir = useStateToRef(dir)
   const setter = useSetIsEOArticleElement()
+  const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (!ref.current) return
     const $el = ref.current
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0]
+        // if (yhRef.current < ) return
+        if (!entry.isIntersecting) {
+          if (getDir.current === 'down') {
+            return
+          }
+        }
+
         setter(entry.isIntersecting)
       },
       {
-        rootMargin: '0px 0px 10% 0px',
+        rootMargin: '0px 0px 0px 0px',
       },
     )
 
@@ -122,5 +134,5 @@ export {
   useWrappedElement,
   useIsEOWrappedElement,
   useWrappedElementSize,
-  useElementPositsion as useWrappedElementPositsion,
+  useWrappedElementPositsion,
 }

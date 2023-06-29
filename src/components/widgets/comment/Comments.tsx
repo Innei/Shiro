@@ -30,6 +30,9 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
     },
 
     {
+      meta: {
+        persist: false,
+      },
       getNextPageParam: (lastPage) =>
         lastPage.pagination.hasNextPage
           ? lastPage.pagination.currentPage + 1

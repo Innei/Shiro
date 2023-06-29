@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { Fragment, memo, useMemo, useRef } from 'react'
+import React, { Fragment, memo, Suspense, useMemo, useRef } from 'react'
 import { clsx } from 'clsx'
 import { compiler, sanitizeUrl } from 'markdown-to-jsx'
 import dynamic from 'next/dynamic'
@@ -219,21 +219,24 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
     ])
 
     return (
-      <As
-        id={MAIN_MARKDOWN_ID}
-        style={style}
-        {...wrapperProps}
-        ref={ref}
-        className={clsx(
-          styles['md'],
-          codeBlockFully ? styles['code-fully'] : undefined,
-          className,
-        )}
-      >
-        {node}
-      </As>
+      <Suspense>
+        <As
+          id={MAIN_MARKDOWN_ID}
+          style={style}
+          {...wrapperProps}
+          ref={ref}
+          className={clsx(
+            styles['md'],
+            codeBlockFully ? styles['code-fully'] : undefined,
+            className,
+          )}
+        >
+          {node}
+        </As>
+      </Suspense>
     )
   })
+Markdown.displayName = 'Markdown'
 
 const MarkdownImage = (props: any) => {
   const nextProps = {

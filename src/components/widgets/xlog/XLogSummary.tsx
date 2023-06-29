@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import type { FC, SVGProps } from 'react'
+import type { FC, ReactNode, SVGProps } from 'react'
 
 import { AutoResizeHeight } from '~/components/common/AutoResizeHeight'
 import { useIsClient } from '~/hooks/common/use-is-client'
@@ -33,18 +33,11 @@ const XLogSummary: FC<{
   )
 
   const isClient = useIsClient()
-  if (!isClient) {
-    return null
-  }
 
-  if (!cid) {
-    return null
-  }
-
-  return (
+  let Inner: ReactNode = (
     <div
       className={clsxm(
-        `mt-4 space-y-2 rounded-xl border border-slate-200 p-4 dark:border-neutral-800`,
+        `space-y-2 rounded-xl border border-slate-200 p-4 dark:border-neutral-800`,
         props.className,
       )}
     >
@@ -68,6 +61,19 @@ const XLogSummary: FC<{
         )}
       </AutoResizeHeight>
     </div>
+  )
+  if (!isClient) {
+    Inner = null
+  }
+
+  if (!cid) {
+    Inner = null
+  }
+
+  return (
+    <AutoResizeHeight duration={0.2} className="mt-4">
+      {Inner}
+    </AutoResizeHeight>
   )
 }
 

@@ -1,16 +1,60 @@
 import clsx from 'clsx'
+import { useAtom } from 'jotai'
 import Image from 'next/image'
 
 import { useIsLogged } from '~/atoms'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
+import { clsxm } from '~/utils/helper'
 
 import { CommentBoxActionBar } from './ActionBar'
+import { useGetCommentBoxAtomValues } from './hooks'
 import { UniversalTextArea } from './UniversalTextArea'
 
 export const CommentBoxLegacyForm = () => {
   const isLogger = useIsLogged()
   if (isLogger) return <LoggedForm />
-  return null
+  return <FormWithUserInfo />
+}
+
+const inputClassName =
+  'relative h-[50px] w-full rounded-lg bg-gray-200/50 dark:bg-zinc-800/50 px-3'
+const taClassName =
+  'relative h-[150px] w-full rounded-lg bg-gray-200/50 pb-5 dark:bg-zinc-800/50'
+type FormKey = 'author' | 'mail' | 'url'
+const placeholderMap = {
+  author: '昵称',
+  mail: '邮箱',
+  url: '网址',
+} as const
+const FormInput = (props: { fieldKey: FormKey; required?: boolean }) => {
+  const { fieldKey: key, required } = props
+  const [value, setValue] = useAtom(useGetCommentBoxAtomValues()[key])
+  return (
+    <input
+      className={inputClassName}
+      type="text"
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      required={required}
+      placeholder={placeholderMap[key] + (required ? ' *' : '')}
+    />
+  )
+}
+const FormWithUserInfo = () => {
+  return (
+    <form className="flex flex-col space-y-4">
+      <div className="flex space-x-4">
+        <FormInput fieldKey="author" required />
+        <FormInput fieldKey="mail" required />
+        <FormInput fieldKey="url" />
+      </div>
+      <div className={clsxm(taClassName, 'pb-8')}>
+        <UniversalTextArea />
+      </div>
+
+      <CommentBoxActionBar className="absolute bottom-4 left-0 right-4 mb-2 ml-4 w-auto px-4" />
+    </form>
+  )
 }
 
 const LoggedForm = () => {
@@ -33,7 +77,7 @@ const LoggedForm = () => {
           height={48}
         />
       </div>
-      <div className="relative h-[150px] w-full rounded-lg bg-gray-200/50 pb-5 dark:bg-zinc-800/50">
+      <div className={taClassName}>
         <UniversalTextArea />
       </div>
 

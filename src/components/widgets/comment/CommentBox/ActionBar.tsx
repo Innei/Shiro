@@ -147,6 +147,9 @@ const SubmitButton = () => {
     author: authorAtom,
     mail: mailAtom,
 
+    source: sourceAtom,
+    avatar: avatarAtom,
+
     isWhisper: isWhisperAtom,
     syncToRecently: syncToRecentlyAtom,
   } = useGetCommentBoxAtomValues()
@@ -166,8 +169,21 @@ const SubmitButton = () => {
       const text = jotaiStore.get(textAtom)
       const author = jotaiStore.get(authorAtom)
       const mail = jotaiStore.get(mailAtom)
+      const avatar = jotaiStore.get(avatarAtom)
+      const source = jotaiStore.get(sourceAtom) as any
 
-      const commentDto: CommentDto = { text, author, mail }
+      const commentDto: CommentDto = { text, author, mail, avatar, source }
+
+      if (isLogged) {
+        delete commentDto.source
+        delete commentDto.avatar
+      }
+
+      // Omit empty string key
+      Object.keys(commentDto).forEach((key) => {
+        // @ts-expect-error
+        if (commentDto[key] === '') delete commentDto[key]
+      })
 
       // Reply Comment
       if (isReply) {
@@ -199,12 +215,16 @@ const SubmitButton = () => {
           })
           .then(async (res) => {
             if (syncToRecently)
-              await apiClient.recently.proxy.post({
-                data: {
-                  content: text,
-                  ref: refId,
-                },
-              })
+              apiClient.recently.proxy
+                .post({
+                  data: {
+                    content: text,
+                    ref: refId,
+                  },
+                })
+                .then(() => {
+                  toast.success('已同步到碎碎念')
+                })
 
             return res
           })
@@ -221,15 +241,21 @@ const SubmitButton = () => {
       toast.error(getErrorMessageFromRequestError(error))
     },
     onSuccess(data) {
+      const toastCopy = isLogged
+        ? '发表成功啦~'
+        : isReply
+        ? '感谢你的回复！'
+        : '感谢你的评论！'
+
       if (isReply) {
-        toast.success('感谢你的回复！')
+        toast.success(toastCopy)
         jotaiStore.set(textAtom, '')
 
         queryClient.invalidateQueries(buildQueryKey(originalRefId))
         return
       }
 
-      toast.success('感谢你的评论！')
+      toast.success(toastCopy)
       jotaiStore.set(textAtom, '')
       queryClient.setQueryData<
         InfiniteData<

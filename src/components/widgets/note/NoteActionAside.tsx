@@ -18,21 +18,17 @@ import { isLikedBefore, setLikeId } from '~/utils/cookie'
 import { clsxm } from '~/utils/helper'
 import { apiClient } from '~/utils/request'
 
+import { ActionAsideContainer } from '../shared/ActionAsideContainer'
 import { DonateButton } from '../shared/DonateButton'
 import { ShareModal } from '../shared/ShareModal'
 
 export const NoteActionAside: Component = ({ className }) => {
   return (
-    <div
-      className={clsxm(
-        'absolute bottom-0 left-0 max-h-[300px] flex-col space-y-8',
-        className,
-      )}
-    >
+    <ActionAsideContainer className={className}>
       <LikeButton />
       <ShareButton />
       <DonateButton />
-    </div>
+    </ActionAsideContainer>
   )
 }
 
