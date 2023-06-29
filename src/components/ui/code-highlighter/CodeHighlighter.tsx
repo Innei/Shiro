@@ -46,7 +46,7 @@ export const HighLighter: FC<Props> = (props) => {
     }
 
     prevThemeCSS.current = css
-  }, [theme, isPrintMode])
+  }, [theme, isPrintMode, systemTheme])
   useInsertionEffect(() => {
     loadStyleSheet(
       'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.css',

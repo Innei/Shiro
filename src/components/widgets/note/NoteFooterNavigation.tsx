@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import type { FC } from 'react'
 
 import { MdiClockTimeThreeOutline } from '~/components/icons/clock'
-import { Divider } from '~/components/ui/divider'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
@@ -34,7 +33,6 @@ export const NoteFooterNavigation: FC<{ noteId: string }> = ({
       {/* // 没有 0 的情况 */}
       {(!!prevNid || !!nextNid) && (
         <>
-          <Divider className="!w-15 m-auto" />
           <section className="relative mt-4 py-2 text-center" data-hide-print>
             <div className="flex items-center justify-between [&>*]:inline-flex [&>*]:items-center [&>*]:space-x-2 [&>*]:px-2 [&>*]:py-2">
               {!!nextNid && (

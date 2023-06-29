@@ -48,7 +48,7 @@ export const HeaderDrawerButton = () => {
 
                 <Dialog.Content>
                   <motion.dialog
-                    className="fixed bottom-0 left-0 right-0 top-6 z-[12] flex max-h-[100vh] min-h-0 items-center justify-center overflow-auto rounded-xl bg-base-100/90"
+                    className="fixed left-0 right-0 top-0 z-[12] block overflow-auto rounded-xl bg-base-100/90"
                     initial={{ opacity: 0.8 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}

@@ -43,7 +43,7 @@ const FormInput = (props: { fieldKey: FormKey; required?: boolean }) => {
 const FormWithUserInfo = () => {
   return (
     <form className="flex flex-col space-y-4">
-      <div className="flex space-x-4">
+      <div className="flex flex-col space-x-0 space-y-4 md:flex-row md:space-x-4 md:space-y-0">
         <FormInput fieldKey="author" required />
         <FormInput fieldKey="mail" required />
         <FormInput fieldKey="url" />

@@ -14,11 +14,10 @@ export const HeaderDrawerContent = () => {
   const { config } = useHeaderConfig()
 
   return (
-    <div className="mt-20 w-[90vw] space-y-4 overflow-auto pb-8 scrollbar-none">
+    <div className="mt-12 max-h-screen w-[90vw] space-y-4 overflow-auto pb-8 scrollbar-none">
       {config.map((section, index) => {
         return (
           <motion.section
-            className={index === 0 ? 'mt-8' : undefined}
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{
