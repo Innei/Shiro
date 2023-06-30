@@ -6,6 +6,7 @@ import { TimelineType } from '@mx-space/api-client'
 
 import { QueryHydrate } from '~/components/common/QueryHydrate'
 import { REQUEST_QUERY } from '~/constants/system'
+import { attachUA } from '~/lib/attach-ua'
 import { getQueryClient } from '~/utils/query-client.server'
 import { apiClient } from '~/utils/request'
 
@@ -14,6 +15,7 @@ export const metadata = {
 }
 
 export default async (props: NextPageParams<{}, PropsWithChildren>) => {
+  attachUA()
   const header = headers()
   const query = header.get(REQUEST_QUERY)
 

@@ -4,7 +4,7 @@ import type { NoteWrappedPayload } from '@mx-space/api-client'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { apiClient } from '~/utils/request'
 
-import { defineQuery } from './helper'
+import { defineQuery } from '../helper'
 
 const LATEST_KEY = 'latest'
 export const note = {

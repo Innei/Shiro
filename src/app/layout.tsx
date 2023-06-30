@@ -8,6 +8,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { appConfig } from '~/app.config'
 import { Root } from '~/components/layout/root/Root'
 import { TocAutoScroll } from '~/components/widgets/toc/TocAutoScroll'
+import { attachUA } from '~/lib/attach-ua'
 import { defineMetadata } from '~/lib/define-metadata'
 import { sansFont, serifFont } from '~/lib/fonts'
 import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
@@ -83,6 +84,7 @@ type Props = {
 }
 
 export default async function RootLayout(props: Props) {
+  attachUA()
   const { children } = props
 
   const queryClient = getQueryClient()

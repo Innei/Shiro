@@ -1,10 +1,8 @@
 import { memo, useCallback } from 'react'
-import clsx from 'clsx'
 import Router from 'next/router'
 import type { FC, ReactNode } from 'react'
 
 import { FloatPopover } from '../../float-popover'
-import styles from './link.module.css'
 
 export const MLink: FC<{
   href: string
@@ -52,7 +50,7 @@ export const MLink: FC<{
         () => (
           <span className="inline-flex items-center">
             <a
-              className={clsx(styles['link'])}
+              className="shiro-link--underline"
               href={props.href}
               target="_blank"
               onClick={handleRedirect}

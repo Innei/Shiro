@@ -1,7 +1,7 @@
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { apiClient } from '~/utils/request'
 
-import { defineQuery } from './helper'
+import { defineQuery } from '../helper'
 
 export const post = {
   bySlug: (category: string, slug: string) =>

@@ -116,3 +116,17 @@ export const shuffle = <T>(arr: T[]): T[] => {
   }
   return result
 }
+
+export const isShallowEqualArray = <T>(arr1: T[], arr2: T[]): boolean => {
+  if (arr1.length !== arr2.length) {
+    return false
+  }
+
+  for (let i = 0; i < arr1.length; i++) {
+    if (!Object.is(arr1[i], arr2[i])) {
+      return false
+    }
+  }
+
+  return true
+}
