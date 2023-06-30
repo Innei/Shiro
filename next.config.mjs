@@ -46,7 +46,7 @@ let nextConfig = {
         sentryWebpackPlugin({
           org: 'inneis-site',
 
-          project: 'springtide',
+          project: 'Shiro',
           authToken: process.env.SENTRY_AUTH_TOKEN,
         }),
       )
@@ -68,7 +68,7 @@ if (env.SENTRY === 'true' && isProd) {
       silent: true,
 
       org: 'inneis-site',
-      project: 'springtide',
+      project: 'Shiro',
     },
     {
       // For all available options, see:

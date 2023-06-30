@@ -21,7 +21,7 @@ export const linkSections: LinkSection[] = [
       },
       {
         name: '关于此项目',
-        href: 'https://github.com/innei/springtide',
+        href: 'https://github.com/innei/Shiro',
         external: true,
       },
     ],

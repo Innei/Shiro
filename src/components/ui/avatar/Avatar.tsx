@@ -22,59 +22,74 @@ export const Avatar: FC<
   AvatarProps &
     DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>
 > = (props) => {
-  const { shadow = true, lazy = true } = props
+  const {
+    shadow = true,
+    lazy = true,
+    wrapperProps = {},
+    size,
+    imageUrl,
+    text,
+    url,
+    ...imageProps
+  } = props
   const avatarRef = useRef<HTMLDivElement>(null)
 
   const [loaded, setLoaded] = useState(!lazy)
 
-  const { wrapperProps = {} } = props
   const { className, ...restProps } = wrapperProps
 
   return (
     <div
       className={clsxm(
-        'box-border overflow-hidden rounded-full backface-hidden',
+        'box-border backface-hidden',
         shadow && 'shadow-sm',
         className,
       )}
       ref={avatarRef}
       style={
-        props.size
-          ? { height: `${props.size || 80}px`, width: `${props.size || 80}px` }
+        size
+          ? { height: `${size || 80}px`, width: `${size || 80}px` }
           : undefined
       }
       {...restProps}
     >
       {createElement(
-        props.url ? 'a' : 'div',
+        url ? 'a' : 'div',
         {
           className: 'relative inline-block h-full w-full',
 
-          ...(props.url
+          ...(url
             ? {
-                href: props.url,
+                href: url,
                 target: '_blank',
                 rel: 'noreferrer',
               }
             : {}),
         },
-        props.imageUrl ? (
+        imageUrl ? (
           <div
-            className="h-full w-full rounded-full bg-cover bg-center bg-no-repeat transition-opacity duration-300"
+            className={clsxm(
+              'h-full w-full bg-cover bg-center bg-no-repeat transition-opacity duration-300',
+              className,
+            )}
             style={{ opacity: loaded ? 1 : 0 }}
           >
             <img
-              src={props.imageUrl}
-              height={props.size}
-              width={props.size}
+              src={imageUrl}
+              height={size}
+              width={size}
               onLoad={() => setLoaded(true)}
               loading={lazy ? 'lazy' : 'eager'}
-              className="aspect-square"
+              {...imageProps}
+              className={clsxm(
+                'aspect-square rounded-full',
+                imageProps.className,
+              )}
             />
           </div>
-        ) : props.text ? (
+        ) : text ? (
           <div className="relative flex h-full w-full flex-grow items-center justify-center">
-            <FlexText scale={0.8} text={props.text} />
+            <FlexText scale={0.8} text={text} />
           </div>
         ) : null,
       )}

@@ -27,12 +27,12 @@ export const useModalStack = () => {
   const id = useId()
   const currentCount = useRef(0)
   return {
-    present(props: ModalProps) {
+    present(props: ModalProps & { id?: string }) {
       const modalId = `${id}-${currentCount.current++}`
       jotaiStore.set(modalStackAtom, (p) => {
         const modalProps = {
           ...props,
-          id: modalId,
+          id: props.id ?? modalId,
         }
         modalIdToPropsMap[modalProps.id] = modalProps
         return p.concat(modalProps)
@@ -44,7 +44,25 @@ export const useModalStack = () => {
         })
       }
     },
+
+    ...actions,
   }
+}
+
+const actions = {
+  dismiss(id: string) {
+    jotaiStore.set(modalStackAtom, (p) => {
+      return p.filter((item) => item.id !== id)
+    })
+  },
+  dismissTop() {
+    jotaiStore.set(modalStackAtom, (p) => {
+      return p.slice(0, -1)
+    })
+  },
+  dismissAll() {
+    jotaiStore.set(modalStackAtom, [])
+  },
 }
 export const ModalStackProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -85,7 +103,7 @@ const modalTransition: Transition = {
 export const Modal: Component<{
   item: ModalProps & { id: string }
   index: number
-}> = memo(({ item, index }) => {
+}> = memo(function Modal({ item, index }) {
   const setStack = useSetAtom(modalStackAtom)
   const close = useCallback(() => {
     setStack((p) => {

@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 'use client'
 
 import { useEffect } from 'react'

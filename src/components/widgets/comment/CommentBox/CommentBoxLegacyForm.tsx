@@ -3,6 +3,7 @@ import { useAtom } from 'jotai'
 import Image from 'next/image'
 
 import { useIsLogged } from '~/atoms'
+import { FormInput as FInput } from '~/components/ui/form'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 import { clsxm } from '~/utils/helper'
 
@@ -16,8 +17,6 @@ export const CommentBoxLegacyForm = () => {
   return <FormWithUserInfo />
 }
 
-const inputClassName =
-  'relative h-[50px] w-full rounded-lg bg-gray-200/50 dark:bg-zinc-800/50 px-3'
 const taClassName =
   'relative h-[150px] w-full rounded-lg bg-gray-200/50 pb-5 dark:bg-zinc-800/50'
 type FormKey = 'author' | 'mail' | 'url'
@@ -30,8 +29,7 @@ const FormInput = (props: { fieldKey: FormKey; required?: boolean }) => {
   const { fieldKey: key, required } = props
   const [value, setValue] = useAtom(useGetCommentBoxAtomValues()[key])
   return (
-    <input
-      className={inputClassName}
+    <FInput
       type="text"
       value={value}
       onChange={(e) => setValue(e.target.value)}

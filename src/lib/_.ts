@@ -105,3 +105,14 @@ export const range = (start: number, end: number): number[] => {
 export const sample = <T>(arr: T[]): T => {
   return arr[Math.floor(Math.random() * arr.length)]
 }
+
+export const shuffle = <T>(arr: T[]): T[] => {
+  const result = [...arr]
+  for (let i = 0; i < result.length; i++) {
+    const j = Math.floor(Math.random() * (i + 1))
+    const temp = result[i]
+    result[i] = result[j]
+    result[j] = temp
+  }
+  return result
+}

@@ -35,7 +35,7 @@ export const parseMarkdown = (markdownText: string): ParserResult => {
     .use(rehypeAutolinkHeadings, {
       properties: {
         className: [
-          'springtide-anchor opacity-0 hover:opacity-100 transition-opacity duration-200 ease-in-out text-sm relative -bottom-2',
+          'Shiro-anchor opacity-0 hover:opacity-100 transition-opacity duration-200 ease-in-out text-sm relative -bottom-2',
         ],
         ariaHidden: true,
         tabIndex: -1,

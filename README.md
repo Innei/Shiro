@@ -1,6 +1,8 @@
-# Springtide
+# Shiro
 
-A clean and modern front-end for [Mix Space](https://github.com/mx-space)
+A minimalist personal website embodying the purity of paper and freshness of snow.
+
+A theme for [Mix Space](https://github.com/mx-space)
 
 ## Status
 

@@ -14,11 +14,22 @@ import {
 
 export default async function middleware(req: NextRequest) {
   const { pathname, search } = req.nextUrl
-  const { geo } = req
-  let ip = req.ip ?? req.headers.get('x-real-ip')
-  const forwardedFor = req.headers.get('x-forwarded-for')
+  let { geo } = req
+  const { headers } = req
+  let ip = req.ip ?? headers.get('x-real-ip')
+  const forwardedFor = headers.get('x-forwarded-for')
   if (!ip && forwardedFor) {
     ip = forwardedFor.split(',').at(0) ?? ''
+  }
+  const cfGeo = headers.get('cf-ipcountry')
+  if (cfGeo && !geo) {
+    geo = {
+      country: cfGeo,
+      city: headers.get('cf-ipcity') ?? '',
+      latitude: headers.get('cf-iplatitude') ?? '',
+      longitude: headers.get('cf-iplongitude') ?? '',
+      region: headers.get('cf-region') ?? '',
+    }
   }
 
   // console.debug(`${req.method} ${req.nextUrl.pathname}${req.nextUrl.search}`)

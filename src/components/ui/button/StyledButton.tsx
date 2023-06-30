@@ -10,8 +10,8 @@ const variantStyles = tv({
   variants: {
     variant: {
       primary: clsx(
-        'bg-accent text-zinc-100 hover:bg-zinc-700 dark:text-black dark:hover:bg-zinc-300',
-        'active:text-zinc-100/70 dark:bg-zinc-200 dark:active:bg-zinc-300/70',
+        'bg-accent text-zinc-100',
+        'active:contrast-125 hover:contrast-[1.10]',
         'font-semibold',
         'disabled:bg-gray-400 disabled:opacity-30 disabled:dark:bg-gray-800 disabled:dark:text-slate-50 disabled:cursor-not-allowed',
       ),
