@@ -76,7 +76,7 @@ export const headerMenuConfig: IHeaderMenu[] = [
   {
     title: '其他',
     icon: h(FaSolidCircleNotch),
-    path: '/favorite/music',
+    path: '#',
     subMenu: [
       {
         title: '之言',

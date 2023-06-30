@@ -128,23 +128,18 @@ const HeaderMenuItem = memo<{
       <AnimatedItem
         href={href}
         isActive={isActive}
-        className={clsx(
-          'transition-[padding]',
-          // '[&:hover_.icon]:-translate-x-[calc(100%+6px)] [&:hover_.icon]:opacity-100',
-          '[&.active_.icon]:-translate-x-[calc(100%+6px)] [&.active_.icon]:opacity-80',
-          '[&.active]:pl-6',
-        )}
+        className={clsx('transition-[padding]')}
       >
-        <span className="relative">
-          <span
-            className={clsxm(
-              'pointer-events-none absolute bottom-0 left-0 top-0 flex items-center opacity-0 duration-200',
-              'icon',
-            )}
-          >
-            {section.icon}
-          </span>
-          {section.title}
+        <span className="relative flex items-center">
+          {isActive && (
+            <m.span
+              layoutId="header-menu-icon"
+              className={clsxm('mr-2 flex items-center')}
+            >
+              {section.icon}
+            </m.span>
+          )}
+          <m.span layout>{section.title}</m.span>
         </span>
       </AnimatedItem>
     </MenuPopover>

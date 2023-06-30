@@ -33,6 +33,8 @@ export const createDataProvider = <Model,>() => {
 
     return children
   })
+
+  CurrentDataProvider.displayName = 'CurrentDataProvider'
   const useCurrentDataSelector = <T,>(
     selector: (data: Model | null) => T,
     deps?: any[],
