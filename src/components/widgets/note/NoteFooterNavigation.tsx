@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import type { FC } from 'react'
 
 import { MdiClockTimeThreeOutline } from '~/components/icons/clock'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
@@ -10,15 +9,14 @@ import { routeBuilder, Routes } from '~/lib/route-builder'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 import { springScrollToTop } from '~/utils/scroller'
 
-export const NoteFooterNavigation: FC<{ noteId: string }> = ({
-  noteId: id,
-}) => {
+export const NoteFooterNavigation = () => {
   const data = useCurrentNoteDataSelector((data) =>
     !data
       ? null
       : {
-          nextNid: data?.next?.nid,
-          prevNid: data?.prev?.nid,
+          nextNid: data.next?.nid,
+          prevNid: data.prev?.nid,
+          currentObjectId: data.data.id,
         },
   )
 
@@ -26,7 +24,7 @@ export const NoteFooterNavigation: FC<{ noteId: string }> = ({
 
   if (!data) return null
 
-  const { nextNid, prevNid } = data
+  const { nextNid, prevNid, currentObjectId } = data
 
   return (
     <>
@@ -72,7 +70,7 @@ export const NoteFooterNavigation: FC<{ noteId: string }> = ({
                 router.push(
                   routeBuilder(Routes.Timelime, {
                     type: 'note',
-                    selectId: id,
+                    selectId: currentObjectId,
                   }),
                 )
               }}
@@ -87,12 +85,11 @@ export const NoteFooterNavigation: FC<{ noteId: string }> = ({
   )
 }
 
-export const NoteFooterNavigationBarForMobile: typeof NoteFooterNavigation = (
-  props,
-) => {
-  return (
-    <OnlyMobile>
-      <NoteFooterNavigation {...props} />
-    </OnlyMobile>
-  )
-}
+export const NoteFooterNavigationBarForMobile: typeof NoteFooterNavigation =
+  () => {
+    return (
+      <OnlyMobile>
+        <NoteFooterNavigation />
+      </OnlyMobile>
+    )
+  }

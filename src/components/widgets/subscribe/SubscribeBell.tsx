@@ -21,15 +21,12 @@ export const SubscribeBell: FC<SubscribeBellProps> = (props) => {
   }
 
   return (
-    <div className="mb-6 flex justify-center">
-      <MotionButtonBase
-        className="flex flex-col items-center justify-center p-4"
-        onClick={present}
-      >
-        <p className="text-gray-1 leading-8 opacity-80">
-          站点已开启邮件订阅，点亮小铃铛，订阅最新文章哦~
-        </p>
-
+    <div className="mb-6 flex flex-col items-center justify-center p-4">
+      <p className="text-gray-1 leading-8 opacity-80">
+        站点已开启邮件订阅，点亮小铃铛，订阅最新文章哦~
+      </p>
+      <MotionButtonBase onClick={present}>
+        <span className="sr-only">订阅</span>
         <i className="icon-[material-symbols--notifications-active-outline] mt-4 scale-150 transform text-3xl text-accent opacity-50 transition-opacity hover:opacity-100" />
       </MotionButtonBase>
     </div>

@@ -25,13 +25,6 @@ export const useHeaderBgOpacity = () => {
   const isMobile = useIsMobile()
   const headerShouldShowBg = useHeaderShouldShowBg() || isMobile
 
-  console.log(
-    headerShouldShowBg,
-    'headerShouldShowBg',
-    useHeaderShouldShowBg(),
-    isMobile,
-  )
-
   return usePageScrollLocationSelector(
     (y) =>
       headerShouldShowBg

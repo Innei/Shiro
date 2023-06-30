@@ -12,6 +12,8 @@ const serifFont = Noto_Serif_SC({
   weight: ['400'],
   variable: '--font-serif',
   display: 'swap',
+  // adjustFontFallback: false,
+  fallback: ['Noto Serif SC'],
 })
 
 export { sansFont, serifFont }

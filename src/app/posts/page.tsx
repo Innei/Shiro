@@ -26,7 +26,7 @@ export default async (props: Props) => {
 
   if (!data?.length) {
     return (
-      <NormalContainer className="flex h-[500px] flex-col space-y-4 center">
+      <NormalContainer className="flex h-[500px] flex-col space-y-4 center [&_p]:my-4">
         <EmptyIcon />
         <p>这里空空如也</p>
         <p>稍后再来看看吧！</p>

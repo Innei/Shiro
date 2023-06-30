@@ -1,6 +1,7 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
+import { useEffect } from 'react'
 import clsx from 'clsx'
 import { m } from 'framer-motion'
 import Link from 'next/link'
@@ -17,6 +18,7 @@ import { TimelineList } from '~/components/ui/list/TimelineList'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { TimelinProgress } from '~/components/widgets/timeline/TimelineProgress'
 import { apiClient } from '~/utils/request'
+import { springScrollToElement } from '~/utils/scroller'
 
 enum ArticleType {
   Post,
@@ -31,6 +33,43 @@ type MapType = {
   type: ArticleType
   id: string
   important?: boolean
+}
+
+const useJumpTo = () => {
+  useEffect(() => {
+    setTimeout(() => {
+      const jumpToId = new URLSearchParams(location.search).get('selectId')
+
+      if (!jumpToId) return
+
+      const target = document.querySelector(
+        `[data-id="${jumpToId}"]`,
+      ) as HTMLElement
+
+      if (!target) return
+
+      springScrollToElement(target, -500).then(() => {
+        target.animate(
+          [
+            {
+              backgroundColor: 'hsl(var(--a) / 50)',
+            },
+            {
+              backgroundColor: 'transparent',
+            },
+          ],
+          {
+            duration: 1500,
+            easing: 'ease-in-out',
+            fill: 'both',
+            iterations: 1,
+          },
+        )
+      })
+
+      // wait for user focus
+    }, 100)
+  }, [])
 }
 
 export default function TimelinePage() {
@@ -60,9 +99,12 @@ export default function TimelinePage() {
         .then((res) => res.data)
     },
   })
-  const router = useRouter()
 
+  const router = useRouter()
   const isMobile = useIsMobile()
+
+  useJumpTo()
+
   if (!data) return null
 
   const memory = search.get('bookmark') || search.get('memory')

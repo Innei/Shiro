@@ -14,12 +14,15 @@ export type TocAsideProps = {
 
 export interface TocSharedProps {
   accessory?: React.ReactNode | React.FC
+
+  as?: React.ElementType
 }
 export const TocAside: Component<TocAsideProps & TocSharedProps> = ({
   className,
   children,
   treeClassName,
   accessory,
+  as: As = 'aside',
 }) => {
   const containerRef = useRef<HTMLUListElement>(null)
   const $article = useWrappedElement()
@@ -42,7 +45,7 @@ export const TocAside: Component<TocAsideProps & TocSharedProps> = ({
     const setMaxWidth = throttle(() => {
       if (containerRef.current) {
         containerRef.current.style.maxWidth = `${
-          document.documentElement.getBoundingClientRect().width -
+          window.innerWidth -
           containerRef.current.getBoundingClientRect().x -
           30
         }px`
@@ -57,7 +60,7 @@ export const TocAside: Component<TocAsideProps & TocSharedProps> = ({
   }, [])
 
   return (
-    <aside className={clsxm('st-toc z-[3]', 'relative font-sans', className)}>
+    <As className={clsxm('st-toc z-[3]', 'relative font-sans', className)}>
       <TocTree
         $headings={$headings}
         containerRef={containerRef}
@@ -65,6 +68,6 @@ export const TocAside: Component<TocAsideProps & TocSharedProps> = ({
         accessory={accessory}
       />
       {children}
-    </aside>
+    </As>
   )
 }

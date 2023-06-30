@@ -103,13 +103,15 @@ const NotePage = memo(function Notepage() {
             </NoteMarkdownImageRecordProvider>
 
             <LayoutRightSidePortal>
-              <TocAside
-                className="sticky top-[120px] ml-4 mt-[120px]"
-                treeClassName="max-h-[calc(100vh-6rem-4.5rem-300px)] h-[calc(100vh-6rem-4.5rem-300px)] min-h-[120px] relative"
-                accessory={ReadIndicator}
-              >
+              <aside className="sticky top-2 h-[calc(100vh-6rem-4.5rem-150px)]">
+                <TocAside
+                  as="div"
+                  className="top-[120px] ml-4"
+                  treeClassName="absolute h-full min-h-[120px]"
+                  accessory={ReadIndicator}
+                />
                 <NoteActionAside className="translate-y-full" />
-              </TocAside>
+              </aside>
             </LayoutRightSidePortal>
           </WrappedElementProvider>
         </NoteHideIfSecret>
@@ -118,7 +120,7 @@ const NotePage = memo(function Notepage() {
       <SubscribeBell defaultType="note_c" />
       <NoteTopic />
       <XLogInfoForNote />
-      <NoteFooterNavigationBarForMobile noteId={noteId} />
+      <NoteFooterNavigationBarForMobile />
     </>
   )
 })
