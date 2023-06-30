@@ -1,14 +1,22 @@
 export enum Routes {
   Home = '',
+
   Posts = '/posts',
   Post = '/posts/',
+
   Notes = '/notes',
   Note = '/notes/',
-  NoteTopics = '/topics',
-  NoteTopic = '/topics/',
+  NoteTopics = '/notes/topics',
+  NoteTopic = '/notes/topics/',
+
   Timelime = '/timeline',
+
   Login = '/login',
+
   Page = '/',
+
+  Categories = '/categories',
+  Category = '/categories/',
 }
 
 type Noop = never
@@ -34,11 +42,8 @@ type TimelineParams = {
   type: 'note' | 'post' | 'all'
   selectId?: string
 }
-type NoteTopicParams = {
-  slug: string
-}
 
-type PageParams = {
+type OnlySlug = {
   slug: string
 }
 export type RouteParams<T extends Routes> = T extends Routes.Home
@@ -54,11 +59,13 @@ export type RouteParams<T extends Routes> = T extends Routes.Home
   : T extends Routes.Timelime
   ? TimelineParams
   : T extends Routes.NoteTopic
-  ? NoteTopicParams
+  ? OnlySlug
   : T extends Routes.NoteTopics
   ? Noop
   : T extends Routes.Page
-  ? PageParams
+  ? OnlySlug
+  : T extends Routes.Category
+  ? OnlySlug
   : never
 
 export const routeBuilder = <T extends Routes>(
@@ -90,16 +97,14 @@ export const routeBuilder = <T extends Routes>(
       href += `?${new URLSearchParams(p as any).toString()}`
       break
     }
-    case Routes.NoteTopic: {
-      const p = params as NoteTopicParams
-      href += p.slug
-      break
-    }
+    case Routes.NoteTopic:
+    case Routes.Category:
     case Routes.Page: {
-      const p = params as PageParams
+      const p = params as OnlySlug
       href += p.slug
       break
     }
+
     case Routes.Home: {
       href = '/'
       break

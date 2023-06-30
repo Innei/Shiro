@@ -34,7 +34,7 @@ export default ({ error, reset }: { error: Error; reset: () => void }) => {
       )
     }
 
-    if (code === 404) {
+    if (code === 404 || code === 422) {
       return (
         <Paper className="flex flex-col items-center">
           <NotFound404 />

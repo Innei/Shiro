@@ -31,3 +31,5 @@ export const NoteTopicInfo = memo(() => {
     </>
   )
 })
+
+NoteTopicInfo.displayName = 'NoteTopicInfo'

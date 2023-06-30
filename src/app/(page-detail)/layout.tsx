@@ -2,6 +2,6 @@ import type { PropsWithChildren } from 'react'
 
 import { Container } from './Container'
 
-export default (props: PropsWithChildren) => {
+export default function Page(props: PropsWithChildren<unknown>) {
   return <Container>{props.children}</Container>
 }

@@ -11,7 +11,7 @@ import { apiClient } from '~/utils/request'
 
 import { Paper } from './Paper'
 
-export default () => {
+export default function Page() {
   const { data } = useQuery(
     ['note', 'latest'],
     async () => (await apiClient.note.getLatest()).$serialized,
