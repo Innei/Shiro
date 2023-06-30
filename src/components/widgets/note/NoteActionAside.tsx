@@ -85,9 +85,9 @@ const LikeButton = () => {
     >
       <m.i
         className={clsxm(
-          'icon-[mingcute--heart-fill] text-[24px] opacity-80 duration-200 hover:text-uk-red-light hover:opacity-100',
-
-          isLiked && 'text-uk-red-light',
+          'text-[24px] opacity-80 duration-200 hover:text-uk-red-light hover:opacity-100',
+          !isLiked && 'icon-[mingcute--heart-line]',
+          isLiked && 'icon-[mingcute--heart-fill] text-uk-red-light',
         )}
         animate={control}
         variants={{
@@ -143,7 +143,7 @@ const ShareButton = () => {
         }
       }}
     >
-      <i className="icon-[mingcute--share-forward-fill] text-[24px] opacity-80 duration-200 hover:text-uk-cyan-light hover:opacity-100" />
+      <i className="icon-[mingcute--share-forward-line] text-[24px] opacity-80 duration-200 hover:text-uk-cyan-light hover:opacity-100" />
     </MotionButtonBase>
   )
 }

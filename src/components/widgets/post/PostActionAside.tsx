@@ -2,7 +2,7 @@
 
 import { m, useAnimationControls, useForceUpdate } from 'framer-motion'
 
-import { IonThumbsup } from '~/components/icons/thumbs-up'
+import { ThumbsupIcon } from '~/components/icons/thumbs-up'
 import { MotionButtonBase } from '~/components/ui/button'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { routeBuilder, Routes } from '~/lib/route-builder'
@@ -59,9 +59,7 @@ const LikeButton = () => {
       className="flex flex-col space-y-2"
       onClick={() => {
         handleLike()
-        control.start('tap', {
-          repeat: 5,
-        })
+        control.start('tap')
         toast('捕捉一只大佬！', undefined, {
           iconElement: (
             <m.i
@@ -73,7 +71,7 @@ const LikeButton = () => {
                 scale: 1.22,
               }}
             >
-              <IonThumbsup />
+              <ThumbsupIcon />
             </m.i>
           ),
         })
@@ -95,7 +93,7 @@ const LikeButton = () => {
           easings: ['easeInOut'],
         }}
       >
-        <IonThumbsup />
+        <ThumbsupIcon />
       </m.i>
     </MotionButtonBase>
   )
@@ -142,7 +140,7 @@ const ShareButton = () => {
         }
       }}
     >
-      <i className="icon-[mingcute--share-forward-fill] text-[24px] opacity-80 duration-200 hover:text-uk-cyan-light hover:opacity-100" />
+      <i className="icon-[mingcute--share-forward-line] text-[24px] opacity-80 duration-200 hover:text-uk-cyan-light hover:opacity-100" />
     </MotionButtonBase>
   )
 }

@@ -11,11 +11,9 @@ import {
   FaSolidHistory,
   FaSolidSubway,
   FaSolidUserFriends,
-  IcBaselineLiveTv,
   IcTwotoneSignpost,
   IonBook,
   MdiFlask,
-  RiNeteaseCloudMusicLine,
 } from '~/components/icons/menu-collection'
 
 export interface IHeaderMenu {
@@ -94,17 +92,6 @@ export const headerMenuConfig: IHeaderMenu[] = [
         title: '一言',
         path: '/says',
         icon: h(FaSolidComments),
-      },
-      {
-        title: '听歌',
-        icon: h(RiNeteaseCloudMusicLine),
-        type: 'Music',
-        path: '/favorite/music',
-      },
-      {
-        title: '看番',
-        icon: h(IcBaselineLiveTv),
-        path: '/favorite/bangumi',
       },
     ],
   },
