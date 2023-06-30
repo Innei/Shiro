@@ -8,9 +8,11 @@ import type { ExtractAtomValue } from 'jotai'
 import type { FC, PropsWithChildren } from 'react'
 
 import { setIsInteractive } from '~/atoms/is-interactive'
+import { throttle } from '~/lib/_'
 
 const pageScrollLocationAtom = atom(0)
 const pageScrollDirectionAtom = atom<'up' | 'down' | null>(null)
+// const pageScrollSpeedAtom = atom(0)
 
 export const PageScrollInfoProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -27,22 +29,31 @@ const ScrollDetector = () => {
   const prevScrollY = useRef(0)
   const setIsInteractiveOnceRef = useRef(false)
 
-  useIsomorphicLayoutEffect(() => {
-    const scrollHandler = () => {
-      if (!setIsInteractiveOnceRef.current) {
-        setIsInteractive(true)
-        setIsInteractiveOnceRef.current = true
-      }
-      const currentTop = document.documentElement.scrollTop
+  // const lastTime = useRef(0)
+  // const setScrollSpeed = useSetAtom(pageScrollSpeedAtom)
 
-      setPageScrollDirection(
-        prevScrollY.current - currentTop > 0 ? 'up' : 'down',
-      )
-      prevScrollY.current = currentTop
-      startTransition(() => {
-        setPageScrollLocation(prevScrollY.current)
-      })
-    }
+  useIsomorphicLayoutEffect(() => {
+    const scrollHandler = throttle(
+      () => {
+        if (!setIsInteractiveOnceRef.current) {
+          setIsInteractive(true)
+          setIsInteractiveOnceRef.current = true
+        }
+        const currentTop = document.documentElement.scrollTop
+
+        setPageScrollDirection(
+          prevScrollY.current - currentTop > 0 ? 'up' : 'down',
+        )
+        prevScrollY.current = currentTop
+        startTransition(() => {
+          setPageScrollLocation(prevScrollY.current)
+        })
+      },
+      16,
+      {
+        leading: false,
+      },
+    )
     window.addEventListener('scroll', scrollHandler)
 
     scrollHandler()
@@ -57,6 +68,17 @@ const ScrollDetector = () => {
 
 const usePageScrollLocation = () => useAtomValue(pageScrollLocationAtom)
 const usePageScrollDirection = () => useAtomValue(pageScrollDirectionAtom)
+// const usePageScrollSpeedSelector = <T,>(
+//   selector: (value: ExtractAtomValue<typeof pageScrollSpeedAtom>) => T,
+//   deps: any[] = [],
+// ) =>
+//   useAtomValue(
+//     // @ts-ignore
+//     selectAtom(
+//       pageScrollSpeedAtom,
+//       useCallback(($) => selector($), deps),
+//     ),
+//   )
 const usePageScrollLocationSelector = <T,>(
   selector: (scrollY: number) => T,
   deps: any[] = [],

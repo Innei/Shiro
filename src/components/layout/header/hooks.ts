@@ -11,6 +11,7 @@ export const useHideHeaderBgInRoute = () => {
   const setter = useSetHeaderShouldShowBg()
   useEffect(() => {
     setter(false)
+    console.log('useHideHeaderBgInRoute')
     return () => {
       setter(true)
     }

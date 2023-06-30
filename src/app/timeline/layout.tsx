@@ -40,16 +40,14 @@ export default async (props: NextPageParams<{}, PropsWithChildren>) => {
   })
 
   return (
-    <div className="container relative">
-      <QueryHydrate
-        state={dehydrate(queryClient, {
-          shouldDehydrateQuery: (query) => {
-            return query.queryKey[0] === 'timeline'
-          },
-        })}
-      >
-        {props.children}
-      </QueryHydrate>
-    </div>
+    <QueryHydrate
+      state={dehydrate(queryClient, {
+        shouldDehydrateQuery: (query) => {
+          return query.queryKey[0] === 'timeline'
+        },
+      })}
+    >
+      {props.children}
+    </QueryHydrate>
   )
 }

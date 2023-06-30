@@ -8,11 +8,11 @@ import { usePathname } from 'next/navigation'
 import type { IHeaderMenu } from '../config'
 
 import { RootPortal } from '~/components/ui/portal'
-import { usePageScrollDirection } from '~/providers/root/page-scroll-info-provider'
+import { usePageScrollDirectionSelector } from '~/providers/root/page-scroll-info-provider'
 import { clsxm } from '~/utils/helper'
 
 import { useHeaderConfig } from './HeaderDataConfigureProvider'
-import { useMenuOpacity } from './hooks'
+import { useHeaderBgOpacity, useMenuOpacity } from './hooks'
 import { MenuPopover } from './MenuPopover'
 
 export const HeaderContent = () => {
@@ -27,12 +27,18 @@ export const HeaderContent = () => {
 }
 
 const AccessibleMenu: Component = () => {
-  const opacity = useMenuOpacity()
-  const up = usePageScrollDirection() === 'up'
+  const headerOpacity = useHeaderBgOpacity()
+
+  const showShow = usePageScrollDirectionSelector(
+    (d) => {
+      return d === 'up' && headerOpacity > 0.8
+    },
+    [headerOpacity],
+  )
   return (
     <RootPortal>
       <AnimatePresence>
-        {opacity === 0 && up && (
+        {showShow && (
           <m.div
             initial={{ y: -64 }}
             animate={{ y: 0 }}
