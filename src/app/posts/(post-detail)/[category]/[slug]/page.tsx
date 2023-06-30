@@ -13,9 +13,8 @@ import { PostCopyright } from '~/components/widgets/post/PostCopyright'
 import { PostMetaBar } from '~/components/widgets/post/PostMetaBar'
 import { PostOutdate } from '~/components/widgets/post/PostOutdate'
 import { PostRelated } from '~/components/widgets/post/PostRelated'
-import { ReadIndicator } from '~/components/widgets/shared/ReadIndicator'
+import { ArticleRightAside } from '~/components/widgets/shared/ArticleRightAside'
 import { SubscribeBell } from '~/components/widgets/subscribe/SubscribeBell'
-import { TocAside } from '~/components/widgets/toc'
 import { XLogInfoForPost, XLogSummaryForPost } from '~/components/widgets/xlog'
 import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
@@ -28,7 +27,7 @@ import Loading from './loading'
 const PostPage = () => {
   const id = useCurrentPostDataSelector((p) => p?.id)
   const title = useCurrentPostDataSelector((p) => p?.title)
-  const allowComment = useCurrentPostDataSelector((p) => p?.allowComment)
+
   if (!id) {
     return <Loading />
   }
@@ -54,15 +53,9 @@ const PostPage = () => {
           </PostMarkdownImageRecordProvider>
 
           <LayoutRightSidePortal>
-            <aside className="sticky top-2 h-[calc(100vh-6rem-4.5rem-150px)]">
-              <TocAside
-                as="div"
-                className="top-[120px] ml-4"
-                treeClassName="absolute h-full min-h-[120px]"
-                accessory={ReadIndicator}
-              />
-              <PostActionAside className="ml-4 translate-y-full" />
-            </aside>
+            <ArticleRightAside>
+              <PostActionAside />
+            </ArticleRightAside>
           </LayoutRightSidePortal>
         </WrappedElementProvider>
       </article>

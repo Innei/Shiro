@@ -17,6 +17,7 @@ import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { Markdown } from '~/components/ui/markdown'
 import { NoteBanner } from '~/components/widgets/note/NoteBanner'
+import { ArticleRightAside } from '~/components/widgets/shared/ArticleRightAside'
 import { BanCopyWrapper } from '~/components/widgets/shared/BanCopyWrapper'
 import { XLogInfoForNote, XLogSummaryForNote } from '~/components/widgets/xlog'
 import { noopArr } from '~/lib/noop'
@@ -29,7 +30,6 @@ import { parseDate } from '~/utils/datetime'
 
 import { NoteHideIfSecret } from '../../../components/widgets/note/NoteHideIfSecret'
 import { NoteMetaBar } from '../../../components/widgets/note/NoteMetaBar'
-import { ReadIndicator } from '../../../components/widgets/shared/ReadIndicator'
 import styles from './page.module.css'
 
 const NoteActionAside = dynamic(() =>
@@ -103,15 +103,9 @@ const NotePage = memo(function Notepage() {
             </NoteMarkdownImageRecordProvider>
 
             <LayoutRightSidePortal>
-              <aside className="sticky top-2 h-[calc(100vh-6rem-4.5rem-150px)]">
-                <TocAside
-                  as="div"
-                  className="top-[120px] ml-4"
-                  treeClassName="absolute h-full min-h-[120px]"
-                  accessory={ReadIndicator}
-                />
-                <NoteActionAside className="translate-y-full" />
-              </aside>
+              <ArticleRightAside>
+                <NoteActionAside />
+              </ArticleRightAside>
             </LayoutRightSidePortal>
           </WrappedElementProvider>
         </NoteHideIfSecret>
