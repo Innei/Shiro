@@ -3,7 +3,7 @@ import { useAtom } from 'jotai'
 import Image from 'next/image'
 
 import { useIsLogged } from '~/atoms'
-import { FormInput as FInput } from '~/components/ui/form'
+import { FormInput as FInput, Form } from '~/components/ui/form'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 import { clsxm } from '~/utils/helper'
 
@@ -40,7 +40,10 @@ const FormInput = (props: { fieldKey: FormKey; required?: boolean }) => {
 }
 const FormWithUserInfo = () => {
   return (
-    <form className="flex flex-col space-y-4">
+    <Form
+      className="flex flex-col space-y-4 px-2 pt-2"
+      showErrorMessage={false}
+    >
       <div className="flex flex-col space-x-0 space-y-4 md:flex-row md:space-x-4 md:space-y-0">
         <FormInput fieldKey="author" required />
         <FormInput fieldKey="mail" required />
@@ -51,7 +54,7 @@ const FormWithUserInfo = () => {
       </div>
 
       <CommentBoxActionBar className="absolute bottom-4 left-0 right-4 mb-2 ml-4 w-auto px-4" />
-    </form>
+    </Form>
   )
 }
 

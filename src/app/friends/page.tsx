@@ -16,6 +16,7 @@ import { Form, FormInput } from '~/components/ui/form'
 import { Loading } from '~/components/ui/loading'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { shuffle } from '~/lib/_'
+import { toast } from '~/lib/toast'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 import { useModalStack } from '~/providers/root/modal-stack-provider'
 import { apiClient } from '~/utils/request'
@@ -285,16 +286,79 @@ const ApplyLinkInfo: FC = () => {
 const FormModal = () => {
   const { dismissTop } = useModalStack()
   const inputs = useRef([
-    { name: 'author', placeholder: '昵称 *', required: true },
-    { name: 'name', placeholder: '站点标题 *', required: true },
-    { name: 'url', placeholder: '网站 * https://', required: true },
-    { name: 'avatar', placeholder: '头像链接 * https://', required: true },
-    { name: 'email', placeholder: '留下你的邮箱哦 *', required: true },
+    {
+      name: 'author',
+      placeholder: '昵称 *',
+      rules: [
+        {
+          validator: (value: string) => !!value,
+          message: '昵称不能为空',
+        },
+        {
+          validator: (value: string) => value.length <= 20,
+          message: '昵称不能超过20个字符',
+        },
+      ],
+    },
+    {
+      name: 'name',
+      placeholder: '站点标题 *',
+      rules: [
+        {
+          validator: (value: string) => !!value,
+          message: '站点标题不能为空',
+        },
+        {
+          validator: (value: string) => value.length <= 20,
+          message: '站点标题不能超过20个字符',
+        },
+      ],
+    },
+    {
+      name: 'url',
+      placeholder: '网站 * https://',
+      rules: [
+        {
+          validator: isHttpsUrl,
+          message: '请输入正确的网站链接 https://',
+        },
+      ],
+    },
+    {
+      name: 'avatar',
+      placeholder: '头像链接 * https://',
+      rules: [
+        {
+          validator: isHttpsUrl,
+          message: '请输入正确的头像链接 https://',
+        },
+      ],
+    },
+    {
+      name: 'email',
+      placeholder: '留下你的邮箱哦 *',
+
+      rules: [
+        {
+          validator: isEmail,
+          message: '请输入正确的邮箱',
+        },
+      ],
+    },
     {
       name: 'description',
       placeholder: '一句话描述一下自己吧 *',
-      maxLength: 50,
-      required: true,
+
+      rules: [
+        {
+          validator: (value: string) => !!value,
+          message: '一句话描述一下自己吧',
+        },
+        {
+          validator: (value: string) => value.length <= 50,
+          message: '一句话描述不要超过50个字啦',
+        },
+      ],
     },
   ]).current
   const [state, setState] = useState({
@@ -314,13 +378,17 @@ const FormModal = () => {
     setValue(e.target.name as keyof typeof state, e.target.value)
   }, [])
 
-  const handleSubmit = useCallback((e: any) => {
-    e.preventDefault()
+  const handleSubmit = useCallback(
+    (e: any) => {
+      e.preventDefault()
 
-    apiClient.link.applyLink({ ...state }).then(() => {
-      dismissTop()
-    })
-  }, [])
+      apiClient.link.applyLink({ ...state }).then(() => {
+        dismissTop()
+        toast.success('好耶！')
+      })
+    },
+    [state],
+  )
   return (
     <Form className="w-[300px] space-y-4 text-center" onSubmit={handleSubmit}>
       {inputs.map((input) => (
@@ -333,9 +401,27 @@ const FormModal = () => {
         />
       ))}
 
-      <StyledButton variant="primary" onClick={handleSubmit}>
+      <StyledButton variant="primary" type="submit">
         好耶！
       </StyledButton>
     </Form>
   )
+}
+
+const isHttpsUrl = (value: string) => {
+  return (
+    /^https?:\/\/.*/.test(value) &&
+    (() => {
+      try {
+        new URL(value)
+        return true
+      } catch {
+        return false
+      }
+    })()
+  )
+}
+
+const isEmail = (value: string) => {
+  return /^.+@.+\..+$/.test(value)
 }

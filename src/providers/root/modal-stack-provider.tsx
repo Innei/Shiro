@@ -134,7 +134,7 @@ export const Modal: Component<{
                 'relative flex flex-col overflow-hidden rounded-lg',
                 'bg-slate-50/90 dark:bg-neutral-900/90',
                 'p-2 shadow-2xl shadow-stone-300 backdrop-blur-sm dark:shadow-stone-800',
-                'max-h-[70vh] min-w-[300px] max-w-[90vw] lg:max-h-[50vh] lg:max-w-[50vw]',
+                'max-h-[70vh] min-w-[300px] max-w-[90vw] lg:max-h-[calc(100vh-20rem)] lg:max-w-[50vw]',
                 'border border-slate-200 dark:border-neutral-800',
                 item.modalClassName,
               )}
