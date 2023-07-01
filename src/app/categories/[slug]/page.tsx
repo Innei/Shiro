@@ -46,7 +46,6 @@ export default function Page() {
               >
                 <Link
                   prefetch={false}
-                  target="_blank"
                   href={routeBuilder(Routes.Post, {
                     slug: child.slug,
                     category: slug,

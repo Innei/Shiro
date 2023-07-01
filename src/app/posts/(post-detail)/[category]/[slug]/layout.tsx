@@ -6,6 +6,7 @@ import type { Metadata } from 'next'
 import { RequestError } from '@mx-space/api-client'
 
 import { NotSupport } from '~/components/common/NotSupport'
+import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { CommentAreaRoot } from '~/components/widgets/comment'
 import { REQUEST_GEO } from '~/constants/system'
@@ -88,15 +89,20 @@ export default async (props: NextPageParams<PageParams>) => {
       <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
         <BottomToUpTransitionView className="min-w-0">
           {props.children}
-
-          {isCN ? (
-            <NotSupport />
-          ) : (
-            <CommentAreaRoot refId={data.id} allowComment={data.allowComment} />
-          )}
         </BottomToUpTransitionView>
 
         <LayoutRightSideProvider className="relative hidden lg:block" />
+
+        <BottomToUpSoftScaleTransitionView delay={500}>
+          {isCN ? (
+            <NotSupport />
+          ) : (
+            <CommentAreaRoot
+              refId={data.id}
+              allowComment={data.allowComment ?? true}
+            />
+          )}
+        </BottomToUpSoftScaleTransitionView>
       </div>
     </>
   )

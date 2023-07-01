@@ -6,6 +6,8 @@ import type { Metadata } from 'next'
 import { RequestError } from '@mx-space/api-client'
 
 import { NotSupport } from '~/components/common/NotSupport'
+import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
+import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { CommentAreaRoot } from '~/components/widgets/comment/CommentRoot'
 import { REQUEST_GEO } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
@@ -14,6 +16,14 @@ import { getQueryClient } from '~/lib/query-client.server'
 import { CurrentPageDataProvider } from '~/providers/page/CurrentPageDataProvider'
 import { LayoutRightSideProvider } from '~/providers/shared/LayoutRightSideProvider'
 import { queries } from '~/queries/definition'
+
+import {
+  HeaderMetaInfoSetting,
+  PageLoading,
+  PagePaginator,
+  PageSubTitle,
+  PageTitle,
+} from './pageExtra'
 
 export const generateMetadata = async ({
   params,
@@ -81,15 +91,40 @@ export default async (props: NextPageParams<PageParams>) => {
     <>
       <CurrentPageDataProvider data={data} />
       <div className="relative flex min-h-[120px] w-full">
-        {props.children}
+        <PageLoading>
+          <div className="relative w-full min-w-0">
+            <HeaderMetaInfoSetting />
+            <article className="prose">
+              <header className="mb-8">
+                <BottomToUpSoftScaleTransitionView delay={0}>
+                  <PageTitle />
+                </BottomToUpSoftScaleTransitionView>
+
+                <BottomToUpSoftScaleTransitionView delay={200}>
+                  <PageSubTitle />
+                </BottomToUpSoftScaleTransitionView>
+              </header>
+              <BottomToUpTransitionView delay={600}>
+                {props.children}
+              </BottomToUpTransitionView>
+            </article>
+
+            <PagePaginator />
+          </div>
+        </PageLoading>
 
         <LayoutRightSideProvider className="absolute bottom-0 right-0 top-0 hidden translate-x-full lg:block" />
       </div>
-      {isCN ? (
-        <NotSupport />
-      ) : (
-        <CommentAreaRoot refId={data.id} allowComment={data.allowComment} />
-      )}
+      <BottomToUpSoftScaleTransitionView delay={1000}>
+        {isCN ? (
+          <NotSupport />
+        ) : (
+          <CommentAreaRoot
+            refId={data.id}
+            allowComment={data.allowComment ?? true}
+          />
+        )}
+      </BottomToUpSoftScaleTransitionView>
     </>
   )
 }

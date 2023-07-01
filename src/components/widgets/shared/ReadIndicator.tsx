@@ -10,9 +10,9 @@ export const ReadIndicator: Component<{
 }> = ({ className, as }) => {
   const readPercent = useReadPercent()
   const As = as || 'span'
-  return h > 0 ? (
+  return (
     <As className={clsxm('text-gray-800 dark:text-neutral-300', className)}>
       {readPercent}%
     </As>
-  ) : null
+  )
 }

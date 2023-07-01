@@ -2,6 +2,7 @@ import { headers } from 'next/dist/client/components/headers'
 import type { Metadata } from 'next'
 
 import { NotSupport } from '~/components/common/NotSupport'
+import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { CommentAreaRoot } from '~/components/widgets/comment'
 import { NoteMainContainer } from '~/components/widgets/note/NoteMainContainer'
@@ -88,11 +89,13 @@ export default async (
 
       <BottomToUpTransitionView className="min-w-0">
         <Paper as={NoteMainContainer}>{props.children}</Paper>
-        {isCN ? (
-          <NotSupport />
-        ) : (
-          <CommentAreaRoot refId={noteObjectId} allowComment={allowComment} />
-        )}
+        <BottomToUpSoftScaleTransitionView delay={500}>
+          {isCN ? (
+            <NotSupport />
+          ) : (
+            <CommentAreaRoot refId={noteObjectId} allowComment={allowComment} />
+          )}
+        </BottomToUpSoftScaleTransitionView>
       </BottomToUpTransitionView>
     </>
   )

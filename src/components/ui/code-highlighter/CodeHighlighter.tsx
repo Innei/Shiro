@@ -97,7 +97,10 @@ export const HighLighter: FC<Props> = (props) => {
       </span>
 
       <pre className="line-numbers !bg-transparent" data-start="1">
-        <code className={`language-${language ?? 'markup'}`} ref={ref}>
+        <code
+          className={`language-${language ?? 'markup'} !bg-transparent`}
+          ref={ref}
+        >
           {value}
         </code>
       </pre>
