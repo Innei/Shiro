@@ -35,3 +35,5 @@ export const FlexText: FC<{ text: string; scale: number }> = memo((props) => {
     </span>
   )
 })
+
+FlexText.displayName = 'FlexText'

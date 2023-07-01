@@ -77,3 +77,13 @@ export const useHeaderMetaInfo = () => {
     slug: useAtomValue(headerMetaSlugAtom),
   }
 }
+
+const headerHasMetaInfoAtom = atom((get) => {
+  const title = get(headerMetaTitleAtom)
+  const description = get(headerMetaDescriptionAtom)
+
+  return title !== '' && description !== ''
+})
+export const useHeaderHasMetaInfo = () => {
+  return useAtomValue(headerHasMetaInfoAtom)
+}

@@ -17,6 +17,9 @@ export enum Routes {
 
   Categories = '/categories',
   Category = '/categories/',
+
+  Projects = '/projects',
+  Project = '/projects/',
 }
 
 type Noop = never
@@ -46,6 +49,10 @@ type TimelineParams = {
 type OnlySlug = {
   slug: string
 }
+
+type OnlyId = {
+  id: string
+}
 export type RouteParams<T extends Routes> = T extends Routes.Home
   ? HomeParams
   : T extends Routes.Note
@@ -66,6 +73,8 @@ export type RouteParams<T extends Routes> = T extends Routes.Home
   ? OnlySlug
   : T extends Routes.Category
   ? OnlySlug
+  : T extends Routes.Project
+  ? OnlyId
   : never
 
 export const routeBuilder = <T extends Routes>(
@@ -107,6 +116,11 @@ export const routeBuilder = <T extends Routes>(
 
     case Routes.Home: {
       href = '/'
+      break
+    }
+    case Routes.Project: {
+      const p = params as OnlyId
+      href += p.id
       break
     }
     case Routes.NoteTopics:

@@ -26,7 +26,7 @@ export const generateMetadata = defineMetadata(async (_, getData) => {
   return {
     metadataBase: new URL(url.webUrl),
     title: {
-      template: `%s | ${seo.title}`,
+      template: `%s - ${seo.title}`,
       default: `${seo.title} - ${seo.description}`,
     },
     description: seo.description,
