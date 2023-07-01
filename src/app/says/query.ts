@@ -1,0 +1,1 @@
+export const sayQueryKey = ['says']

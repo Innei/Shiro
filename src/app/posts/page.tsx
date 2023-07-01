@@ -1,8 +1,8 @@
-import { EmptyIcon } from '~/components/icons/empty'
 import { NormalContainer } from '~/components/layout/container/Normal'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { PostItem } from '~/components/widgets/post/PostItem'
 import { PostPagination } from '~/components/widgets/post/PostPagination'
+import { NothingFound } from '~/components/widgets/shared/NothingFound'
 import { apiClient } from '~/utils/request'
 
 interface Props {
@@ -25,13 +25,7 @@ export default async (props: Props) => {
   const { data, pagination } = $serialized
 
   if (!data?.length) {
-    return (
-      <NormalContainer className="flex h-[500px] flex-col space-y-4 center [&_p]:my-4">
-        <EmptyIcon />
-        <p>这里空空如也</p>
-        <p>稍后再来看看吧！</p>
-      </NormalContainer>
-    )
+    return <NothingFound />
   }
   return (
     <NormalContainer>

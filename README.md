@@ -22,4 +22,6 @@ A theme for [Mix Space](https://github.com/mx-space)
 
 ## License
 
-2023 Innei, GPLv3.
+2022 © Innei, Released under the MIT License.
+
+> [Personal Website](https://innei.in/) · GitHub [@Innei](https://github.com/innei/)

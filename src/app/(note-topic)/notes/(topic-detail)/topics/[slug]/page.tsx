@@ -83,7 +83,7 @@ export default function Page() {
             }),
           )}
 
-          {hasNextPage && <LoadMoreIndicator onClick={fetchNextPage} />}
+          {hasNextPage && <LoadMoreIndicator onLoading={fetchNextPage} />}
         </TimelineList>
       </main>
     </BottomToUpSoftScaleTransitionView>

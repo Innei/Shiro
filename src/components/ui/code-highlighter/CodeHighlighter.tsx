@@ -1,8 +1,8 @@
 import React, { useCallback, useInsertionEffect, useRef } from 'react'
-import { useTheme } from 'next-themes'
 import type { FC } from 'react'
 
 import { useIsPrintMode } from '~/atoms/css-media'
+import { useIsDark } from '~/hooks/common/use-is-dark'
 import { loadScript, loadStyleSheet } from '~/lib/load-script'
 import { toast } from '~/lib/toast'
 
@@ -28,13 +28,13 @@ export const HighLighter: FC<Props> = (props) => {
   }, [value])
 
   const prevThemeCSS = useRef<ReturnType<typeof loadStyleSheet>>()
-  const { theme, systemTheme } = useTheme()
   const isPrintMode = useIsPrintMode()
+  const isDark = useIsDark()
 
   useInsertionEffect(() => {
     const css = loadStyleSheet(
       `https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism-themes/1.9.0/prism-one-${
-        isPrintMode ? 'light' : theme === 'system' ? systemTheme : theme
+        isPrintMode ? 'light' : isDark ? 'dark' : 'light'
       }.css`,
     )
 
@@ -46,7 +46,7 @@ export const HighLighter: FC<Props> = (props) => {
     }
 
     prevThemeCSS.current = css
-  }, [theme, isPrintMode, systemTheme])
+  }, [isDark, isPrintMode])
   useInsertionEffect(() => {
     loadStyleSheet(
       'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.css',
