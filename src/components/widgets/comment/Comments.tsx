@@ -2,14 +2,13 @@
 
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { memo, useMemo } from 'react'
-import { useInView } from 'react-intersection-observer'
 import type { FC } from 'react'
 import type { CommentBaseProps } from './types'
 
-import { Loading } from '~/components/ui/loading'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { apiClient } from '~/utils/request'
 
+import { LoadMoreIndicator } from '../shared/LoadMoreIndicator'
 import { Comment } from './Comment'
 import { CommentBoxProvider } from './CommentBox/providers'
 import { CommentSkeleton } from './CommentSkeleton'
@@ -76,19 +75,3 @@ const CommentListItem: FC<{ comment: any; refId: string; index: number }> =
       </BottomToUpSoftScaleTransitionView>
     )
   })
-
-const LoadMoreIndicator: FC<{
-  onClick: () => void
-}> = ({ onClick }) => {
-  const { ref } = useInView({
-    rootMargin: '1px',
-    onChange(inView) {
-      if (inView) onClick()
-    },
-  })
-  return (
-    <div ref={ref}>
-      <Loading />
-    </div>
-  )
-}

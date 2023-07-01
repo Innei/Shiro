@@ -16,7 +16,6 @@ import { HeaderDataConfigureProvider } from './internal/HeaderDataConfigureProvi
 import { HeaderDrawerButton } from './internal/HeaderDrawerButton'
 import { HeaderMeta } from './internal/HeaderMeta'
 import { HeaderWithShadow } from './internal/HeaderWithShadow'
-import { SiteOwnerAvatar } from './internal/SiteOwnerAvatar'
 import { UserAuth } from './internal/UserAuth'
 
 export const Header = () => {
@@ -42,7 +41,7 @@ const MemoedHeader = memo(() => {
 
         <HeaderLogoArea>
           <AnimatedLogo />
-          <SiteOwnerAvatar className="absolute bottom-[10px] right-[2px] hidden lg:inline-block" />
+          {/* <SiteOwnerAvatar className="absolute bottom-[10px] right-[2px] hidden lg:inline-block" /> */}
           <OnlyMobile>
             <HeaderMeta />
           </OnlyMobile>

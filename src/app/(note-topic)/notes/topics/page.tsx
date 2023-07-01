@@ -37,7 +37,6 @@ export default function Page() {
               >
                 <Link
                   prefetch={false}
-                  target="_blank"
                   href={routeBuilder(Routes.NoteTopic, {
                     slug: item.slug,
                   })}

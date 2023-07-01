@@ -8,6 +8,7 @@ import { TimelineList } from '~/components/ui/list/TimelineList'
 import { Loading } from '~/components/ui/loading'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
+import { LoadMoreIndicator } from '~/components/widgets/shared/LoadMoreIndicator'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { apiClient } from '~/utils/request'
 
@@ -23,6 +24,7 @@ export default function Page() {
   const {
     data: notes,
     isLoading,
+    hasNextPage,
     fetchNextPage,
   } = useInfiniteQuery({
     queryKey: ['topicId', data?.id],
@@ -64,7 +66,6 @@ export default function Page() {
                 >
                   <Link
                     prefetch={false}
-                    target="_blank"
                     href={routeBuilder(Routes.Note, {
                       id: child.nid,
                     })}
@@ -81,6 +82,8 @@ export default function Page() {
               )
             }),
           )}
+
+          {hasNextPage && <LoadMoreIndicator onClick={fetchNextPage} />}
         </TimelineList>
       </main>
     </BottomToUpSoftScaleTransitionView>

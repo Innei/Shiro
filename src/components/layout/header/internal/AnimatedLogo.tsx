@@ -9,7 +9,7 @@ import { Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
 
 import { useHeaderMetaShouldShow } from './hooks'
-import { Logo } from './Logo'
+import { SiteOwnerAvatar } from './SiteOwnerAvatar'
 
 const TapableLogo = () => {
   const router = useRouter()
@@ -31,7 +31,12 @@ const TapableLogo = () => {
       )
     },
   )
-  return <Logo onClick={fn} className="cursor-pointer" />
+  // return <Logo onClick={fn} className="cursor-pointer" />
+  return (
+    <button onClick={fn}>
+      <SiteOwnerAvatar className="cursor-pointer" />
+    </button>
+  )
 }
 export const AnimatedLogo = () => {
   const shouldShowMeta = useHeaderMetaShouldShow()
@@ -47,7 +52,7 @@ export const AnimatedLogo = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="scale-75"
+          // className="scale-75"
         >
           <TapableLogo />
         </m.div>

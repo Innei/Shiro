@@ -8,7 +8,11 @@ import styles from './grid.module.css'
 export const HeaderLogoArea: Component = ({ children }) => {
   return (
     <div className={clsxm('relative', styles['header--grid__logo'])}>
-      <div className={clsxm('relative flex h-full w-full justify-center')}>
+      <div
+        className={clsxm(
+          'relative flex h-full w-full items-center justify-center',
+        )}
+      >
         {children}
       </div>
     </div>
