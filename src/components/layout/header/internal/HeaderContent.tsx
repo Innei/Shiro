@@ -50,6 +50,8 @@ const AccessibleMenu: Component = () => {
       <AnimatePresence>
         {showShow && (
           <m.div
+            layout
+            layoutRoot
             initial={{ y: -64 }}
             animate={{ y: 0 }}
             exit={{ y: -20, opacity: 0 }}
@@ -125,7 +127,7 @@ const ForDesktop: Component<{
         style={{ background }}
         aria-hidden="true"
       />
-      <div className="flex px-4 font-medium text-zinc-800 dark:text-zinc-200 ">
+      <div className="flex px-4 font-medium text-zinc-800 dark:text-zinc-200">
         {headerMenuConfig.map((section) => {
           const subItemActive =
             section.subMenu?.findIndex((item) => item.path === pathname) || -1

@@ -1,5 +1,7 @@
 'use client'
 
+import { m } from 'framer-motion'
+
 import { OnlyDesktop } from '~/components/ui/viewport'
 
 import { useNoteMainContainerHeight } from './NoteMainContainer'
@@ -10,11 +12,15 @@ export const NoteLeftSidebar: Component = ({ className }) => {
   return (
     <OnlyDesktop>
       <AutoHeightOptimize className={className}>
-        <div className="sticky top-[120px] mt-[120px] min-h-[300px]">
+        <m.div
+          layoutRoot
+          layout
+          className="sticky top-[120px] mt-[120px] min-h-[300px]"
+        >
           <NoteTimeline />
 
           <NoteTopicInfo />
-        </div>
+        </m.div>
       </AutoHeightOptimize>
     </OnlyDesktop>
   )
