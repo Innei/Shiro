@@ -31,13 +31,9 @@ export default function Page() {
   if (!data) return <NothingFound />
 
   return (
-    <div>
-      <header className="prose">
-        <h1>项目们</h1>
-      </header>
-
-      <main className="mt-10">
-        <div className="my-12 inline-flex items-center text-3xl font-medium">
+    <div className="mt-10">
+      <header className="prose my-12 flex items-center">
+        <h1 className="flex items-center">
           项目{' '}
           {githubUsername && (
             <a
@@ -50,7 +46,9 @@ export default function Page() {
               <CodiconGithubInverted />
             </a>
           )}
-        </div>
+        </h1>
+      </header>
+      <main>
         <BottomToUpTransitionView>
           <ProjectList projects={data || noopArr} />
         </BottomToUpTransitionView>
