@@ -4,7 +4,6 @@ import type { ReactNode } from 'react'
 import {
   FaSolidCircle,
   FaSolidCircleNotch,
-  FaSolidComment,
   FaSolidComments,
   FaSolidDotCircle,
   FaSolidFeatherAlt,
@@ -14,6 +13,7 @@ import {
   IcTwotoneSignpost,
   IonBook,
   MdiFlask,
+  MdiLightbulbOn20,
 } from '~/components/icons/menu-collection'
 
 export interface IHeaderMenu {
@@ -79,9 +79,9 @@ export const headerMenuConfig: IHeaderMenu[] = [
     path: '#',
     subMenu: [
       {
-        title: '之言',
-        icon: h(FaSolidComment),
-        path: '/recently',
+        title: '思考',
+        icon: h(MdiLightbulbOn20),
+        path: '/thinking',
       },
       {
         title: '项目',

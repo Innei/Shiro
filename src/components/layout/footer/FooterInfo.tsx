@@ -81,8 +81,8 @@ const PoweredBy: Component = ({ className }) => {
         Mix Space
       </StyledLink>
       . <Divider />
-      <StyledLink href="https://github.com/innei/Springtide" target="_blank">
-        Springtide
+      <StyledLink href="https://github.com/innei/Shiro" target="_blank">
+        Shiro
       </StyledLink>
       .
     </span>

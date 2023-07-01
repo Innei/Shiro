@@ -4,7 +4,7 @@ import NextBundleAnalyzer from '@next/bundle-analyzer'
 import { withSentryConfig } from '@sentry/nextjs'
 import { sentryWebpackPlugin } from '@sentry/webpack-plugin'
 
-process.title = 'Springtide (NextJS)'
+process.title = 'Shiro (NextJS)'
 
 const env = config().parsed || {}
 const isProd = process.env.NODE_ENV === 'production'
