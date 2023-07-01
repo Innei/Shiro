@@ -17,5 +17,7 @@ export const appConfig = {
         'https://cdn.innei.ren/bed/2023/0424213144.png',
       ],
     },
+
+    bilibili: { liveId: 1434499 },
   },
 }

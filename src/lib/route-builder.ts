@@ -1,4 +1,4 @@
-export enum Routes {
+export const enum Routes {
   Home = '',
 
   Posts = '/posts',
@@ -20,6 +20,8 @@ export enum Routes {
 
   Projects = '/projects',
   Project = '/projects/',
+
+  Says = '/says',
 
   PageDeletd = '/common/deleted',
 }

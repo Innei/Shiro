@@ -1,6 +1,15 @@
-import type { NoteModel, PostModel } from '@mx-space/api-client'
+import { queryClient } from '~/providers/root/react-query-provider'
+import { produce } from 'immer'
+import type {
+  NoteModel,
+  PaginateResult,
+  PostModel,
+  SayModel,
+} from '@mx-space/api-client'
+import type { InfiniteData } from '@tanstack/react-query'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
 
+import { sayQueryKey } from '~/app/says/query'
 import { setOnlineCount } from '~/atoms'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
@@ -81,6 +90,22 @@ export const eventHandler = (
           Object.assign(draft, data)
         })
         toast('页面已更新')
+      }
+      break
+    }
+
+    // TODO create event
+
+    case EventTypes.SAY_CREATE: {
+      if (location.pathname === routeBuilder(Routes.Says, {})) {
+        queryClient.setQueryData<InfiniteData<PaginateResult<SayModel>>>(
+          sayQueryKey,
+          (prev) => {
+            return produce(prev, (draft) => {
+              draft?.pages?.[0].data.unshift(data)
+            })
+          },
+        )
       }
       break
     }

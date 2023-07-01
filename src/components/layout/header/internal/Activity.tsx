@@ -1,11 +1,13 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import React, { useState } from 'react'
-import { m } from 'framer-motion'
+import React, { memo, useMemo, useState } from 'react'
+import { AnimatePresence, m } from 'framer-motion'
 import Image from 'next/image'
 import type { RequestError } from '@mx-space/api-client'
 
+import { FloatPopover } from '~/components/ui/float-popover'
+import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 import { apiClient } from '~/utils/request'
 
 // autocorrect: false
@@ -25,6 +27,7 @@ const appLabels: { [app: string]: string } = {
   Finder: 'finder',
   Messages: 'messages',
   QQ: 'qq',
+  'Google Chrome': 'chrome',
   Chrome: 'chrome',
   'Chrome Canary': 'chrome_canary',
   QQ音乐: 'qq_music',
@@ -41,6 +44,7 @@ export function Activity() {
     async () => {
       return await apiClient.proxy.fn.ps.update
         .post<string>()
+        .then((res) => res as string)
         .catch((err: RequestError) => {
           err.status === 404 && setIsEnabled(false)
           return ''
@@ -52,7 +56,11 @@ export function Activity() {
       enabled: isEnabled,
     },
   )
-
+  const ownerName = useAggregationSelector((data) => data.user.name)
+  const memoProcessName = useMemo(
+    () => ({ processName: processName! }),
+    [processName],
+  )
   if (!processName) {
     return null
   }
@@ -62,25 +70,47 @@ export function Activity() {
   }
 
   return (
-    <div className="pointer-events-auto relative bottom-0 right-[-25px] top-0 flex items-center md:absolute">
+    <AnimatePresence mode="popLayout">
       <m.div
-        className="absolute left-1 top-1 h-6 w-6 select-none rounded-[6px] bg-zinc-500/10 dark:bg-zinc-200/10"
-        animate={{ opacity: [0, 0.65, 0], scale: [1, 1.4, 1] }}
-        transition={{
-          duration: 1.5,
-          repeat: Infinity,
+        key={processName}
+        className="pointer-events-auto relative bottom-0 right-[-25px] top-0 z-[10] flex items-center overflow-hidden md:absolute"
+        initial={false}
+        animate={{
+          opacity: 1,
+          x: 0,
         }}
-      />
-      <Image
-        width={32}
-        height={32}
-        src={`/apps/${appLabels[processName]}.png`}
-        alt={processName}
-        priority
-        fetchPriority="high"
-        unoptimized
-        className="pointer-events-none select-none"
-      />
-    </div>
+        exit={{
+          opacity: 0.2,
+          x: -10,
+        }}
+      >
+        <FloatPopover
+          TriggerComponent={TriggerComponent}
+          triggerComponentProps={memoProcessName}
+          type="tooltip"
+        >
+          {ownerName} 正在使用 {processName}
+        </FloatPopover>
+      </m.div>
+    </AnimatePresence>
   )
 }
+
+const TriggerComponent = memo<{
+  processName: string
+}>(({ processName }) => {
+  return (
+    <Image
+      width={32}
+      height={32}
+      src={`/apps/${appLabels[processName]}.png`}
+      alt={processName}
+      priority
+      fetchPriority="high"
+      unoptimized
+      className="pointer-events-none select-none"
+    />
+  )
+})
+
+TriggerComponent.displayName = 'ActivityIcon'

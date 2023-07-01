@@ -11,9 +11,9 @@ import { clsxm } from '~/utils/helper'
 import { RootPortal } from '../portal'
 import styles from './index.module.css'
 
-export const FloatPopover: FC<
-  PropsWithChildren<{
-    TriggerComponent: FC
+export function FloatPopover<T extends {}>(
+  props: PropsWithChildren<{
+    TriggerComponent: FC<T>
     headless?: boolean
     wrapperClassName?: string
     trigger?: 'click' | 'hover' | 'both'
@@ -22,6 +22,7 @@ export const FloatPopover: FC<
     popoverWrapperClassNames?: string
     popoverClassNames?: string
 
+    triggerComponentProps?: T
     /**
      * 不消失
      */
@@ -36,8 +37,8 @@ export const FloatPopover: FC<
      */
     type?: 'tooltip' | 'popover'
   }> &
-    UseFloatingOptions
-> = (props) => {
+    UseFloatingOptions,
+) {
   const {
     headless = false,
     wrapperClassName: wrapperClassNames,
@@ -51,6 +52,7 @@ export const FloatPopover: FC<
     animate = true,
     as: As = 'div',
     type = 'popover',
+    triggerComponentProps,
     ...floatingProps
   } = props
 
@@ -195,7 +197,8 @@ export const FloatPopover: FC<
       ref={refs.setReference}
       {...listener}
     >
-      {React.cloneElement(<TriggerComponent />, {
+      {/* @ts-expect-error */}
+      {React.cloneElement(<TriggerComponent {...triggerComponentProps} />, {
         tabIndex: 0,
       })}
     </As>
