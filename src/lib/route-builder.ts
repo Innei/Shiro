@@ -20,6 +20,8 @@ export enum Routes {
 
   Projects = '/projects',
   Project = '/projects/',
+
+  PageDeletd = '/common/deleted',
 }
 
 type Noop = never
@@ -75,12 +77,12 @@ export type RouteParams<T extends Routes> = T extends Routes.Home
   ? OnlySlug
   : T extends Routes.Project
   ? OnlyId
-  : never
+  : {}
 
-export const routeBuilder = <T extends Routes>(
+export function routeBuilder<T extends Routes>(
   route: T,
   params: RouteParams<typeof route>,
-) => {
+) {
   let href: string = route
   switch (route) {
     case Routes.Note: {
@@ -121,11 +123,6 @@ export const routeBuilder = <T extends Routes>(
     case Routes.Project: {
       const p = params as OnlyId
       href += p.id
-      break
-    }
-    case Routes.NoteTopics:
-    case Routes.Notes:
-    case Routes.Login: {
       break
     }
   }

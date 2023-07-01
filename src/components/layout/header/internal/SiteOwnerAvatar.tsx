@@ -16,7 +16,7 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
         className,
       )}
     >
-      <Image src={avatar} alt="Site Owner Avatar" width={25} height={25} />
+      <Image src={avatar} alt="Site Owner Avatar" width={40} height={40} />
     </div>
   )
 }

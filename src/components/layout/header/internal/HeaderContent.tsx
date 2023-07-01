@@ -84,7 +84,8 @@ const AnimatedMenu: Component = ({ children }) => {
 
 const ForDesktop: Component<{
   shouldHideNavBg?: boolean
-}> = ({ className, shouldHideNavBg }) => {
+  animatedIcon?: boolean
+}> = ({ className, shouldHideNavBg, animatedIcon = true }) => {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
   const radius = useMotionValue(0)
@@ -130,6 +131,7 @@ const ForDesktop: Component<{
             section.subMenu?.findIndex((item) => item.path === pathname) || -1
           return (
             <HeaderMenuItem
+              iconLayout={animatedIcon}
               section={section}
               key={section.path}
               subItemActive={section.subMenu?.[subItemActive]}
@@ -151,7 +153,8 @@ const HeaderMenuItem = memo<{
   section: IHeaderMenu
   isActive: boolean
   subItemActive?: IHeaderMenu
-}>(({ section, isActive, subItemActive }) => {
+  iconLayout?: boolean
+}>(({ section, isActive, subItemActive, iconLayout }) => {
   const href = section.path
 
   return (
@@ -164,7 +167,7 @@ const HeaderMenuItem = memo<{
         <span className="relative flex items-center">
           {isActive && (
             <m.span
-              layoutId="header-menu-icon"
+              layoutId={iconLayout ? 'header-menu-icon' : undefined}
               className={clsxm('mr-2 flex items-center')}
             >
               {subItemActive?.icon ?? section.icon}
