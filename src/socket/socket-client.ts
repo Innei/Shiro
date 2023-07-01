@@ -13,6 +13,7 @@ import { eventHandler } from './handler'
 class SocketClient {
   public socket!: Socket
 
+  // @ts-expect-error
   private router: AppRouterInstance
 
   constructor() {
