@@ -9,6 +9,7 @@ export const GatewayCount = () => {
       as="span"
       TriggerComponent={GatewayCountTrigger}
       type="tooltip"
+      wrapperClassName="cursor-help"
     >
       <div className="space-y-2 leading-relaxed">
         <p className="flex items-center space-x-1 opacity-80">

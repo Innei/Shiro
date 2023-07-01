@@ -1,6 +1,14 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { createElement, memo, useCallback, useId, useMemo, useRef } from 'react'
-import { AnimatePresence, m } from 'framer-motion'
+import {
+  createElement,
+  memo,
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+} from 'react'
+import { AnimatePresence, m, useAnimationControls } from 'framer-motion'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 import type { Target, Transition } from 'framer-motion'
 import type { FC, PropsWithChildren } from 'react'
@@ -10,6 +18,7 @@ import { Divider } from '~/components/ui/divider'
 import { DialogOverlay } from '~/components/ui/dlalog/DialogOverlay'
 import { microReboundPreset } from '~/constants/spring'
 import { useIsClient } from '~/hooks/common/use-is-client'
+import { stopPropagation } from '~/lib/dom'
 import { jotaiStore } from '~/lib/store'
 import { clsxm } from '~/utils/helper'
 
@@ -118,26 +127,47 @@ export const Modal: Component<{
     },
     [close],
   )
+  const animateController = useAnimationControls()
+  useEffect(() => {
+    animateController.start(enterStyle)
+  }, [])
   return (
     <Dialog.Root open onOpenChange={onClose}>
       <Dialog.Portal>
         <DialogOverlay />
         <Dialog.Content asChild>
-          <div className="fixed inset-0 z-[20] flex center">
+          <div
+            className="fixed inset-0 z-[20] flex center"
+            onClick={() => {
+              animateController
+                .start({
+                  scale: 1.05,
+                  transition: {
+                    duration: 0.06,
+                  },
+                })
+                .then(() => {
+                  animateController.start({
+                    scale: 1,
+                  })
+                })
+            }}
+          >
             <m.div
               style={useMemo(() => ({ zIndex: 99 + index }), [index])}
               exit={initialStyle}
               initial={initialStyle}
-              animate={enterStyle}
+              animate={animateController}
               transition={modalTransition}
               className={clsxm(
                 'relative flex flex-col overflow-hidden rounded-lg',
-                'bg-slate-50/90 dark:bg-neutral-900/90',
+                'bg-slate-50/10 dark:bg-neutral-900/80',
                 'p-2 shadow-2xl shadow-stone-300 backdrop-blur-sm dark:shadow-stone-800',
                 'max-h-[70vh] min-w-[300px] max-w-[90vw] lg:max-h-[calc(100vh-20rem)] lg:max-w-[50vw]',
                 'border border-slate-200 dark:border-neutral-800',
                 item.modalClassName,
               )}
+              onClick={stopPropagation}
             >
               <Dialog.Title className="flex-shrink-0 px-4 py-2 text-lg font-medium">
                 {item.title}

@@ -35,6 +35,7 @@ const FormInput = (props: { fieldKey: FormKey; required?: boolean }) => {
       onChange={(e) => setValue(e.target.value)}
       required={required}
       placeholder={placeholderMap[key] + (required ? ' *' : '')}
+      className="border-0 bg-gray-200/50 dark:bg-zinc-800/50"
     />
   )
 }

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { SubscribeTextButton } from '~/components/widgets/subscribe/SubscribeTextButton'
 import { kvKeys, redis } from '~/lib/redis.server'
 import { isDev } from '~/utils/env'
 import { clsxm } from '~/utils/helper'
@@ -121,6 +122,10 @@ const FooterBottom = async () => {
           <Divider />
           <a href="/sitemap.xml">站点地图</a>
           <Divider className="hidden md:inline" />
+
+          <SubscribeTextButton>
+            <Divider className="hidden md:inline" />
+          </SubscribeTextButton>
         </span>
         <span className="mt-3 block md:mt-0 md:inline">
           Stay hungry. Stay foolish.

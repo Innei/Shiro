@@ -9,6 +9,7 @@ import { AutoResizeHeight } from '~/components/widgets/shared/AutoResizeHeight'
 import { jotaiStore } from '~/lib/store'
 import { clsxm } from '~/utils/helper'
 
+import { Input } from '../input'
 import { useForm, useFormConfig } from './FormContext'
 
 export const FormInput: FC<
@@ -68,13 +69,12 @@ export const FormInput: FC<
 
   return (
     <>
-      <input
+      <Input
+        // @ts-expect-error
         ref={inputRef}
         className={clsxm(
-          'relative h-12 w-full rounded-lg bg-gray-200/50 px-3 dark:bg-zinc-800/50',
-          'ring-accent/80 duration-200 focus:ring-2',
-          'appearance-none',
           !!errorMessage && 'ring-2 ring-red-400 dark:ring-orange-700',
+          'w-full',
           className,
         )}
         type="text"
