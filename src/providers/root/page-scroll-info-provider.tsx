@@ -1,18 +1,16 @@
 'use client'
 
-import { startTransition, useCallback, useRef } from 'react'
+import { startTransition, useRef } from 'react'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
-import { selectAtom } from 'jotai/utils'
-import type { ExtractAtomValue } from 'jotai'
 import type { FC, PropsWithChildren } from 'react'
 
 import { setIsInteractive } from '~/atoms/is-interactive'
 import { throttle } from '~/lib/_'
+import { createAtomSelector } from '~/lib/atom'
 
 const pageScrollLocationAtom = atom(0)
 const pageScrollDirectionAtom = atom<'up' | 'down' | null>(null)
-// const pageScrollSpeedAtom = atom(0)
 
 export const PageScrollInfoProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -69,28 +67,10 @@ const ScrollDetector = () => {
 const usePageScrollLocation = () => useAtomValue(pageScrollLocationAtom)
 const usePageScrollDirection = () => useAtomValue(pageScrollDirectionAtom)
 
-const usePageScrollLocationSelector = <T,>(
-  selector: (scrollY: number) => T,
-  deps: any[] = [],
-): T =>
-  useAtomValue(
-    // @ts-ignore
-    selectAtom(
-      pageScrollLocationAtom,
-      useCallback(($) => selector($), deps),
-    ),
-  )
-const usePageScrollDirectionSelector = <T,>(
-  selector: (value: ExtractAtomValue<typeof pageScrollDirectionAtom>) => T,
-  deps: any[] = [],
-) =>
-  useAtomValue(
-    // @ts-ignore
-    selectAtom(
-      pageScrollDirectionAtom,
-      useCallback(($) => selector($), deps),
-    ),
-  )
+const usePageScrollLocationSelector = createAtomSelector(pageScrollLocationAtom)
+const usePageScrollDirectionSelector = createAtomSelector(
+  pageScrollDirectionAtom,
+)
 export {
   usePageScrollDirection,
   usePageScrollLocation,
