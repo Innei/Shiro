@@ -1,13 +1,40 @@
-import { clsxm } from '~/utils/helper'
-
-export const CommentSkeleton: Component = ({ className }) => {
+const CommentSkeletonSingle = () => {
   return (
-    <div className={clsxm('flex animate-pulse flex-col gap-3', className)}>
-      <div className="h-6 w-full rounded-lg bg-gray-200 dark:bg-zinc-800/80" />
-      <div className="h-6 w-full rounded-lg bg-gray-200 dark:bg-zinc-800/80" />
-      <div className="h-6 w-full rounded-lg bg-gray-200 dark:bg-zinc-800/80" />
-      <div className="h-6 w-full rounded-lg bg-gray-200 dark:bg-zinc-800/80" />
+    <li className="relative animate-pulse list-none">
+      <div className="group flex w-full items-stretch gap-2">
+        <div className="flex w-9 shrink-0 items-end">
+          <div className="h-9 w-9 rounded-full bg-gray-300 dark:bg-neutral-600" />
+        </div>
+
+        <div className="flex w-full min-w-0 flex-1 flex-col items-start">
+          <span className="relative mb-2 flex w-full min-w-0 items-center justify-center gap-2">
+            <span className="flex flex-grow items-center gap-2">
+              <span className="ml-2 h-4 w-20 bg-gray-300 dark:bg-neutral-600" />
+              <span className="flex select-none items-center space-x-2">
+                <span className="inline-flex h-4 w-20 bg-gray-300 text-[10px] font-medium opacity-40 dark:bg-neutral-600" />
+                <span className="h-4 w-20 bg-gray-300 text-[10px] opacity-30 dark:bg-neutral-600" />
+              </span>
+            </span>
+          </span>
+
+          <div className="relative flex w-full flex-col gap-2">
+            <div className="relative ml-2 inline-block h-4 w-[calc(100%-3rem)] rounded-xl bg-gray-300 px-2 py-1 dark:bg-neutral-600" />
+            <div className="relative ml-2 inline-block h-4 w-[120px] rounded-xl bg-gray-300 px-2 py-1 dark:bg-neutral-600" />
+          </div>
+        </div>
+      </div>
+
       <span className="sr-only">Loading...</span>
+    </li>
+  )
+}
+export const CommentSkeleton: Component = () => {
+  return (
+    <div className="flex flex-col space-y-4">
+      <CommentSkeletonSingle />
+      <CommentSkeletonSingle />
+      <CommentSkeletonSingle />
+      <CommentSkeletonSingle />
     </div>
   )
 }

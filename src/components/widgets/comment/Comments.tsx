@@ -60,7 +60,11 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
           }),
         )}
       </ul>
-      {hasNextPage && <LoadMoreIndicator onClick={fetchNextPage} />}
+      {hasNextPage && (
+        <LoadMoreIndicator onClick={fetchNextPage}>
+          <CommentSkeleton />
+        </LoadMoreIndicator>
+      )}
     </>
   )
 }

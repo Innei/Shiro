@@ -1,22 +1,17 @@
 'use client'
 
 import { useInView } from 'react-intersection-observer'
-import type { FC } from 'react'
 
 import { Loading } from '~/components/ui/loading'
 
-export const LoadMoreIndicator: FC<{
+export const LoadMoreIndicator: Component<{
   onClick: () => void
-}> = ({ onClick }) => {
+}> = ({ onClick, children }) => {
   const { ref } = useInView({
     rootMargin: '1px',
     onChange(inView) {
       if (inView) onClick()
     },
   })
-  return (
-    <div ref={ref}>
-      <Loading />
-    </div>
-  )
+  return <div ref={ref}>{children ?? <Loading />}</div>
 }
