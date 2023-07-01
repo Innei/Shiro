@@ -17,8 +17,8 @@ import type { ITocItem } from './TocItem'
 import { Divider } from '~/components/ui/divider'
 import { RightToLeftTransitionView } from '~/components/ui/transition/RightToLeftTransitionView'
 import { useStateToRef } from '~/hooks/common/use-state-ref'
-import { clsxm } from '~/utils/helper'
-import { springScrollToElement } from '~/utils/scroller'
+import { clsxm } from '~/lib/helper'
+import { springScrollToElement } from '~/lib/scroller'
 
 import { TocItem } from './TocItem'
 

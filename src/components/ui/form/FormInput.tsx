@@ -6,8 +6,8 @@ import type { DetailedHTMLProps, FC, InputHTMLAttributes } from 'react'
 import type { FormFieldBaseProps } from './types'
 
 import { AutoResizeHeight } from '~/components/widgets/shared/AutoResizeHeight'
+import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
-import { clsxm } from '~/utils/helper'
 
 import { Input } from '../input'
 import { useForm, useFormConfig } from './FormContext'

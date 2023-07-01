@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 import type { DetailedHTMLProps, InputHTMLAttributes } from 'react'
 
-import { clsxm } from '~/utils/helper'
+import { clsxm } from '~/lib/helper'
 
 export const Input = forwardRef<
   HTMLInputElement,

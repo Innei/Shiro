@@ -2,7 +2,7 @@
 
 import type { PostModel } from '@mx-space/api-client'
 
-import { isClientSide, isDev } from '~/utils/env'
+import { isClientSide, isDev } from '~/lib/env'
 
 import { createDataProvider } from '../internal/createDataProvider'
 

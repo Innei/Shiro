@@ -17,8 +17,8 @@ import { Divider } from '~/components/ui/divider'
 import { TimelineList } from '~/components/ui/list/TimelineList'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { TimelinProgress } from '~/components/widgets/timeline/TimelineProgress'
-import { apiClient } from '~/utils/request'
-import { springScrollToElement } from '~/utils/scroller'
+import { apiClient } from '~/lib/request'
+import { springScrollToElement } from '~/lib/scroller'
 
 enum ArticleType {
   Post,

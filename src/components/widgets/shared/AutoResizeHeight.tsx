@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { m } from 'framer-motion'
 
-import { clsxm } from '~/utils/helper'
+import { clsxm } from '~/lib/helper'
 
 interface AnimateChangeInHeightProps {
   children: React.ReactNode

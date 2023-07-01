@@ -8,13 +8,13 @@ import { NoteMainContainer } from '~/components/widgets/note/NoteMainContainer'
 import { REQUEST_GEO, REQUEST_QUERY } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
 import { getSummaryFromMd } from '~/lib/markdown'
+import { getQueryClient } from '~/lib/query-client.server'
 import {
   CurrentNoteDataProvider,
   SyncNoteDataAfterLoggedIn,
 } from '~/providers/note/CurrentNoteDataProvider'
 import { CurrentNoteIdProvider } from '~/providers/note/CurrentNoteIdProvider'
 import { queries } from '~/queries/definition'
-import { getQueryClient } from '~/utils/query-client.server'
 
 import { Paper } from '../Paper'
 

@@ -7,9 +7,9 @@ import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { FC, PropsWithChildren } from 'react'
 
 import { MAIN_MARKDOWN_ID } from '~/constants/dom-id'
+import { isDev } from '~/lib/env'
+import { springScrollToElement } from '~/lib/scroller'
 import { useWrappedElementSize } from '~/providers/shared/WrappedElementProvider'
-import { isDev } from '~/utils/env'
-import { springScrollToElement } from '~/utils/scroller'
 
 import { Gallery } from '../gallery'
 import { FixedZoomedImage } from '../image'

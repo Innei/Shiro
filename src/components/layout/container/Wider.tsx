@@ -1,4 +1,4 @@
-import { clsxm } from '~/utils/helper'
+import { clsxm } from '~/lib/helper'
 
 export const WiderContainer: Component = (props) => {
   const { children, className } = props

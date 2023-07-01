@@ -2,12 +2,12 @@
 
 import type { ElementType } from 'react'
 
+import { clsxm } from '~/lib/helper'
 import { usePageScrollLocationSelector } from '~/providers/root/page-scroll-info-provider'
 import {
   useWrappedElementPositsion,
   useWrappedElementSize,
 } from '~/providers/shared/WrappedElementProvider'
-import { clsxm } from '~/utils/helper'
 
 export const ReadIndicator: Component<{
   as?: ElementType

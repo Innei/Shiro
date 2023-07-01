@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import type { SubscribeTypeToBitMap } from '@mx-space/api-client'
 
+import { apiClient } from '~/lib/request'
 import { useModalStack } from '~/providers/root/modal-stack-provider'
-import { apiClient } from '~/utils/request'
 
 import { SubscribeModal } from './SubscribeModal'
 

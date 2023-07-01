@@ -6,7 +6,7 @@ import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 
 import { ProviderComposer } from '~/components/common/ProviderComposer'
 import { useStateToRef } from '~/hooks/common/use-state-ref'
-import { clsxm } from '~/utils/helper'
+import { clsxm } from '~/lib/helper'
 
 import { usePageScrollDirection } from '../root/page-scroll-info-provider'
 

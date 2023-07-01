@@ -9,8 +9,8 @@ import { Loading } from '~/components/ui/loading'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { LoadMoreIndicator } from '~/components/widgets/shared/LoadMoreIndicator'
+import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
-import { apiClient } from '~/utils/request'
 
 import { getTopicQuery } from './query'
 

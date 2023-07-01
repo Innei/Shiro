@@ -19,8 +19,8 @@ import { DialogOverlay } from '~/components/ui/dlalog/DialogOverlay'
 import { microReboundPreset } from '~/constants/spring'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { stopPropagation } from '~/lib/dom'
+import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
-import { clsxm } from '~/utils/helper'
 
 const modalIdToPropsMap = {} as Record<string, ModalProps>
 interface ModalProps {

@@ -6,7 +6,7 @@ import type { UseFloatingOptions } from '@floating-ui/react-dom'
 import type { FC, PropsWithChildren } from 'react'
 
 import useClickAway from '~/hooks/common/use-click-away'
-import { clsxm } from '~/utils/helper'
+import { clsxm } from '~/lib/helper'
 
 import { RootPortal } from '../portal'
 import styles from './index.module.css'

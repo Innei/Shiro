@@ -10,10 +10,10 @@ import { CommentAreaRoot } from '~/components/widgets/comment/CommentRoot'
 import { REQUEST_GEO } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
 import { getSummaryFromMd } from '~/lib/markdown'
+import { getQueryClient } from '~/lib/query-client.server'
 import { CurrentPageDataProvider } from '~/providers/page/CurrentPageDataProvider'
 import { LayoutRightSideProvider } from '~/providers/shared/LayoutRightSideProvider'
 import { queries } from '~/queries/definition'
-import { getQueryClient } from '~/utils/query-client.server'
 
 export const generateMetadata = async ({
   params,

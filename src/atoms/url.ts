@@ -1,8 +1,8 @@
 import { atom, useAtomValue } from 'jotai'
 
+import { apiClient } from '~/lib/request'
 import { jotaiStore } from '~/lib/store'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
-import { apiClient } from '~/utils/request'
 
 export interface UrlConfig {
   adminUrl: string

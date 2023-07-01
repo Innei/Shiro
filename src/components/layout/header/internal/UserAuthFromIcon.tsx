@@ -7,7 +7,7 @@ import { useUser } from '@clerk/nextjs'
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import { GoogleBrandIcon } from '~/components/icons/platform/GoogleBrandIcon'
 import { MailIcon } from '~/components/icons/platform/MailIcon'
-import { clsxm } from '~/utils/helper'
+import { clsxm } from '~/lib/helper'
 
 export const UserAuthFromIcon: Component = ({ className }) => {
   const { user } = useUser()

@@ -1,6 +1,6 @@
 import { ImageLazy } from '~/components/ui/image'
 import { FlexText } from '~/components/ui/text'
-import { clsxm } from '~/utils/helper'
+import { clsxm } from '~/lib/helper'
 
 export const ProjectIcon: Component<{ avatar?: string; name?: string }> = (
   props,

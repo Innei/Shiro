@@ -1,4 +1,4 @@
-import { clsxm } from '~/utils/helper'
+import { clsxm } from '~/lib/helper'
 
 import { HeaderHideBg } from '../header/hooks'
 

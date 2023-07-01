@@ -6,7 +6,7 @@ import type { FC } from 'react'
 import type { CommentBaseProps } from './types'
 
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
-import { apiClient } from '~/utils/request'
+import { apiClient } from '~/lib/request'
 
 import { LoadMoreIndicator } from '../shared/LoadMoreIndicator'
 import { Comment } from './Comment'

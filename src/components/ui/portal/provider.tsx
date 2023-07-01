@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 
-import { isClientSide } from '~/utils/env'
+import { isClientSide } from '~/lib/env'
 
 export const useRootPortal = () => {
   const ctx = useContext(RootPortalContext)

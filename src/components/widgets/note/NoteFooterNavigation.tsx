@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation'
 import { MdiClockTimeThreeOutline } from '~/components/icons/clock'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { routeBuilder, Routes } from '~/lib/route-builder'
+import { springScrollToTop } from '~/lib/scroller'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
-import { springScrollToTop } from '~/utils/scroller'
 
 export const NoteFooterNavigation = () => {
   const data = useCurrentNoteDataSelector((data) =>

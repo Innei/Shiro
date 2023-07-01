@@ -8,8 +8,8 @@ import type { PropsWithChildren } from 'react'
 
 import { useIsMobile } from '~/atoms'
 import { useIsClient } from '~/hooks/common/use-is-client'
+import { clsxm } from '~/lib/helper'
 import { usePageScrollDirectionSelector } from '~/providers/root/page-scroll-info-provider'
-import { clsxm } from '~/utils/helper'
 
 export interface FABConfig {
   id: string

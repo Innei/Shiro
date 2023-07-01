@@ -1,4 +1,4 @@
-import { clsxm } from '~/utils/helper'
+import { clsxm } from '~/lib/helper'
 
 export const Skeleton: Component = ({ className }) => {
   return (

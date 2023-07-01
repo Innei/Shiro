@@ -13,8 +13,8 @@ import { usePathname } from 'next/navigation'
 import type { IHeaderMenu } from '../config'
 
 import { RootPortal } from '~/components/ui/portal'
+import { clsxm } from '~/lib/helper'
 import { usePageScrollDirectionSelector } from '~/providers/root/page-scroll-info-provider'
-import { clsxm } from '~/utils/helper'
 
 import { useHeaderConfig } from './HeaderDataConfigureProvider'
 import {

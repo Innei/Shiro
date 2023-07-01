@@ -5,9 +5,9 @@ import { useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { Loading } from '~/components/ui/loading'
+import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { queries } from '~/queries/definition'
-import { apiClient } from '~/utils/request'
 
 import { Paper } from './Paper'
 

@@ -1,7 +1,7 @@
 import React, { createElement, useRef, useState } from 'react'
 import type { DetailedHTMLProps, FC, ImgHTMLAttributes } from 'react'
 
-import { clsxm } from '~/utils/helper'
+import { clsxm } from '~/lib/helper'
 
 import { FlexText } from '../text'
 

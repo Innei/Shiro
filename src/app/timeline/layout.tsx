@@ -7,8 +7,8 @@ import { TimelineType } from '@mx-space/api-client'
 import { QueryHydrate } from '~/components/common/QueryHydrate'
 import { REQUEST_QUERY } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
-import { getQueryClient } from '~/utils/query-client.server'
-import { apiClient } from '~/utils/request'
+import { getQueryClient } from '~/lib/query-client.server'
+import { apiClient } from '~/lib/request'
 
 export const metadata = {
   title: '时间线',

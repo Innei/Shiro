@@ -3,8 +3,8 @@
 import React, { useEffect, useMemo, useRef } from 'react'
 
 import { throttle } from '~/lib/_'
+import { clsxm } from '~/lib/helper'
 import { useWrappedElement } from '~/providers/shared/WrappedElementProvider'
-import { clsxm } from '~/utils/helper'
 
 import { TocTree } from './TocTree'
 

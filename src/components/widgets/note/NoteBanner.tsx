@@ -1,5 +1,5 @@
+import { clsxm } from '~/lib/helper'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
-import { clsxm } from '~/utils/helper'
 
 const bannerClassNames = {
   info: `bg-sky-50 dark:bg-sky-800 dark:text-white`,

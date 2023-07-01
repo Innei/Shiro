@@ -3,7 +3,7 @@ import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpT
 import { PostItem } from '~/components/widgets/post/PostItem'
 import { PostPagination } from '~/components/widgets/post/PostPagination'
 import { NothingFound } from '~/components/widgets/shared/NothingFound'
-import { apiClient } from '~/utils/request'
+import { apiClient } from '~/lib/request'
 
 interface Props {
   searchParams: {

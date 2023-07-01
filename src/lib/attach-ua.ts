@@ -1,7 +1,7 @@
 import { isServer } from '@tanstack/react-query'
 import { headers } from 'next/dist/client/components/headers'
 
-import { $axios } from '~/utils/request'
+import { $axios } from '~/lib/request'
 
 import PKG from '../../package.json'
 

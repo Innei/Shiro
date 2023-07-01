@@ -8,12 +8,12 @@ import { tv } from 'tailwind-variants'
 import type { Target, TargetAndTransition } from 'framer-motion'
 
 import { LeftToRightTransitionView } from '~/components/ui/transition/LeftToRightTransitionView'
+import { clsxm } from '~/lib/helper'
+import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
+import { springScrollToTop } from '~/lib/scroller'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
-import { clsxm } from '~/utils/helper'
-import { apiClient } from '~/utils/request'
-import { springScrollToTop } from '~/utils/scroller'
 
 export const NoteTimeline = memo(() => {
   const noteId = useCurrentNoteId()

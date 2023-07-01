@@ -11,6 +11,7 @@ import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
 
 import { sayQueryKey } from '~/app/says/query'
 import { setOnlineCount } from '~/atoms'
+import { isDev } from '~/lib/env'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
 import {
@@ -26,7 +27,6 @@ import {
   setCurrentPostData,
 } from '~/providers/post/CurrentPostDataProvider'
 import { EventTypes } from '~/types/events'
-import { isDev } from '~/utils/env'
 
 export const eventHandler = (
   type: EventTypes,

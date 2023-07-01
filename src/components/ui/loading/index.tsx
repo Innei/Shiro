@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { clsxm } from '~/utils/helper'
+import { clsxm } from '~/lib/helper'
 
 export type LoadingProps = {
   loadingText?: string

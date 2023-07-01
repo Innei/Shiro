@@ -16,7 +16,7 @@ import { LoadMoreIndicator } from '~/components/widgets/shared/LoadMoreIndicator
 import { NothingFound } from '~/components/widgets/shared/NothingFound'
 import { useIsDark } from '~/hooks/common/use-is-dark'
 import { addAlphaToHSL, getColorScheme, stringToHue } from '~/lib/color'
-import { apiClient } from '~/utils/request'
+import { apiClient } from '~/lib/request'
 
 import { sayQueryKey } from './query'
 

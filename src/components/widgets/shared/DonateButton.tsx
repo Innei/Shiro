@@ -7,7 +7,7 @@ import { MotionButtonBase } from '~/components/ui/button'
 import { DialogOverlay } from '~/components/ui/dlalog/DialogOverlay'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { useConfig } from '~/hooks/data/use-config'
-import { clsxm } from '~/utils/helper'
+import { clsxm } from '~/lib/helper'
 
 // TODO this component only use once in current page.
 const positionAtom = atom({

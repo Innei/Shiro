@@ -2,7 +2,7 @@
 
 import { memo, useState } from 'react'
 
-import { apiClient } from '~/utils/request'
+import { apiClient } from '~/lib/request'
 
 import { PinIconToggle } from '../shared/PinIconToggle'
 

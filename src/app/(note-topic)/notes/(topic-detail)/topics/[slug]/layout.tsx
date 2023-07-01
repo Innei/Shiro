@@ -5,7 +5,7 @@ import { QueryHydrate } from '~/components/common/QueryHydrate'
 import { NormalContainer } from '~/components/layout/container/Normal'
 import { isShallowEqualArray } from '~/lib/_'
 import { attachUA } from '~/lib/attach-ua'
-import { getQueryClient } from '~/utils/query-client.server'
+import { getQueryClient } from '~/lib/query-client.server'
 
 import { getTopicQuery } from './query'
 

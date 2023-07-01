@@ -1,8 +1,8 @@
 'use client'
 
 import { useViewport } from '~/atoms'
+import { springScrollToTop } from '~/lib/scroller'
 import { usePageScrollLocationSelector } from '~/providers/root/page-scroll-info-provider'
-import { springScrollToTop } from '~/utils/scroller'
 
 import { FABBase } from './FABContainer'
 

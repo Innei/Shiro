@@ -1,7 +1,7 @@
 'use client'
 
 import { OnlyDesktop } from '~/components/ui/viewport'
-import { clsxm } from '~/utils/helper'
+import { clsxm } from '~/lib/helper'
 
 import styles from './grid.module.css'
 

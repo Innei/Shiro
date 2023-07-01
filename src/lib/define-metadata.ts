@@ -3,8 +3,8 @@ import type { Metadata } from 'next'
 
 import { captureException } from '@sentry/nextjs'
 
+import { getQueryClient } from '~/lib/query-client.server'
 import { queries } from '~/queries/definition'
-import { getQueryClient } from '~/utils/query-client.server'
 
 import { attachUA } from './attach-ua'
 

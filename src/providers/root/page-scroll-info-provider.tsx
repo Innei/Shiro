@@ -68,17 +68,7 @@ const ScrollDetector = () => {
 
 const usePageScrollLocation = () => useAtomValue(pageScrollLocationAtom)
 const usePageScrollDirection = () => useAtomValue(pageScrollDirectionAtom)
-// const usePageScrollSpeedSelector = <T,>(
-//   selector: (value: ExtractAtomValue<typeof pageScrollSpeedAtom>) => T,
-//   deps: any[] = [],
-// ) =>
-//   useAtomValue(
-//     // @ts-ignore
-//     selectAtom(
-//       pageScrollSpeedAtom,
-//       useCallback(($) => selector($), deps),
-//     ),
-//   )
+
 const usePageScrollLocationSelector = <T,>(
   selector: (scrollY: number) => T,
   deps: any[] = [],

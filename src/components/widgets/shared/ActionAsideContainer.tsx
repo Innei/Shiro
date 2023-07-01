@@ -1,7 +1,7 @@
 'use client'
 
+import { clsxm } from '~/lib/helper'
 import { useIsEOWrappedElement } from '~/providers/shared/WrappedElementProvider'
-import { clsxm } from '~/utils/helper'
 
 export const ActionAsideContainer: Component = ({ className, children }) => {
   const isEOA = useIsEOWrappedElement()

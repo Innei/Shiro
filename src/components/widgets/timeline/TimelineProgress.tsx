@@ -8,7 +8,7 @@ import {
   daysOfYear,
   secondOfDay,
   secondOfDays,
-} from '~/utils/datetime'
+} from '~/lib/datetime'
 
 const PROGRESS_DURATION = 2
 export const TimelinProgress = () => {

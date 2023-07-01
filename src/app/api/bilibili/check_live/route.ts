@@ -3,7 +3,7 @@ import type { BLUser } from './types/user'
 
 import { appConfig } from '~/app.config'
 import { NextServerResponse } from '~/lib/edge-function.server'
-import { getQueryClient } from '~/utils/query-client.server'
+import { getQueryClient } from '~/lib/query-client.server'
 
 const headers = {
   referer: `https://link.bilibili.com/p/center/index?visit_id=22ast2mb9zhc`,

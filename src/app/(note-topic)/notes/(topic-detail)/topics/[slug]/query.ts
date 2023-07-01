@@ -1,5 +1,5 @@
+import { apiClient } from '~/lib/request'
 import { defineQuery } from '~/queries/helper'
-import { apiClient } from '~/utils/request'
 
 export const getTopicQuery = (topicSlug: string) =>
   defineQuery({

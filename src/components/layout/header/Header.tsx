@@ -1,7 +1,7 @@
 import { memo } from 'react'
 
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
-import { clsxm } from '~/utils/helper'
+import { clsxm } from '~/lib/helper'
 
 import { Activity } from './internal/Activity'
 import { AnimatedLogo } from './internal/AnimatedLogo'

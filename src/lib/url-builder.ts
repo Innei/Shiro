@@ -1,5 +1,5 @@
+import { isDev } from '~/lib/env'
 import { aggregationDataAtom } from '~/providers/root/aggregation-data-provider'
-import { isDev } from '~/utils/env'
 
 import { jotaiStore } from './store'
 

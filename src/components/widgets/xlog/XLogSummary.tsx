@@ -3,10 +3,10 @@ import type { FC, ReactNode, SVGProps } from 'react'
 
 import { AutoResizeHeight } from '~/components/widgets/shared/AutoResizeHeight'
 import { useIsClient } from '~/hooks/common/use-is-client'
+import { clsxm } from '~/lib/helper'
+import { apiClient } from '~/lib/request'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
-import { clsxm } from '~/utils/helper'
-import { apiClient } from '~/utils/request'
 
 const XLogSummary: FC<{
   cid: string

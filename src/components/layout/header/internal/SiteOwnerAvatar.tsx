@@ -5,8 +5,8 @@ import { useCallback } from 'react'
 import Image from 'next/image'
 
 import { appConfig } from '~/app.config'
+import { clsxm } from '~/lib/helper'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
-import { clsxm } from '~/utils/helper'
 
 export const SiteOwnerAvatar: Component = ({ className }) => {
   const avatar = useAggregationSelector((data) => data.user.avatar)

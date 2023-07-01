@@ -1,7 +1,7 @@
 import React from 'react'
 import type { DetailedHTMLProps, FC, HTMLAttributes } from 'react'
 
-import { clsxm } from '~/utils/helper'
+import { clsxm } from '~/lib/helper'
 
 export const Divider: FC<
   DetailedHTMLProps<HTMLAttributes<HTMLHRElement>, HTMLHRElement>

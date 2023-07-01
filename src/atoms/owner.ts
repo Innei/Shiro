@@ -1,10 +1,10 @@
 import { atom, useAtomValue } from 'jotai'
 
+import { getToken, removeToken, setToken } from '~/lib/cookie'
+import { apiClient } from '~/lib/request'
 import { jotaiStore } from '~/lib/store'
 import { toast } from '~/lib/toast'
 import { aggregationDataAtom } from '~/providers/root/aggregation-data-provider'
-import { getToken, removeToken, setToken } from '~/utils/cookie'
-import { apiClient } from '~/utils/request'
 
 import { fetchAppUrl } from './url'
 

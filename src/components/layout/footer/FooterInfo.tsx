@@ -1,9 +1,9 @@
 import Link from 'next/link'
 
 import { SubscribeTextButton } from '~/components/widgets/subscribe/SubscribeTextButton'
+import { isDev } from '~/lib/env'
+import { clsxm } from '~/lib/helper'
 import { kvKeys, redis } from '~/lib/redis.server'
-import { isDev } from '~/utils/env'
-import { clsxm } from '~/utils/helper'
 
 import { linkSections } from './config'
 import { GatewayCount } from './GatewayCount'

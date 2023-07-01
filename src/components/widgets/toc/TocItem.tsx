@@ -5,7 +5,7 @@ import { tv } from 'tailwind-variants'
 import type { FC, MouseEvent } from 'react'
 
 import { getIsInteractive } from '~/atoms/is-interactive'
-import { clsxm } from '~/utils/helper'
+import { clsxm } from '~/lib/helper'
 
 const styles = tv({
   base: clsxm(

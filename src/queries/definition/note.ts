@@ -1,8 +1,8 @@
 import dayjs from 'dayjs'
 import type { NoteWrappedPayload } from '@mx-space/api-client'
 
+import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
-import { apiClient } from '~/utils/request'
 
 import { defineQuery } from '../helper'
 

@@ -6,7 +6,7 @@ import type { Socket } from 'socket.io-client'
 import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
 
 import { GATEWAY_URL } from '~/constants/env'
-import { isDev } from '~/utils/env'
+import { isDev } from '~/lib/env'
 
 import { eventHandler } from './handler'
 

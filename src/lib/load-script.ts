@@ -1,4 +1,4 @@
-import { isDev } from '~/utils/env'
+import { isDev } from '~/lib/env'
 
 const isLoadScriptMap: Record<string, 'loading' | 'loaded'> = {}
 const loadingQueueMap: Record<string, [Function, Function][]> = {}

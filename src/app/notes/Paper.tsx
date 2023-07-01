@@ -1,4 +1,4 @@
-import { clsxm } from '~/utils/helper'
+import { clsxm } from '~/lib/helper'
 
 export const Paper: Component<{
   as?: keyof JSX.IntrinsicElements | Component

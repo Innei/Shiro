@@ -7,8 +7,8 @@ import Image from 'next/image'
 import type { RequestError } from '@mx-space/api-client'
 
 import { FloatPopover } from '~/components/ui/float-popover'
+import { apiClient } from '~/lib/request'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
-import { apiClient } from '~/utils/request'
 
 // autocorrect: false
 const appLabels: { [app: string]: string } = {
@@ -70,7 +70,7 @@ export function Activity() {
   }
 
   return (
-    <AnimatePresence mode="popLayout">
+    <AnimatePresence>
       <m.div
         key={processName}
         className="pointer-events-auto relative bottom-0 right-[-25px] top-0 z-[10] flex items-center overflow-hidden md:absolute"

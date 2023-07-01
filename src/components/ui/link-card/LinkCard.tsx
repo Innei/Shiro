@@ -10,7 +10,7 @@ import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
 
 import { LazyLoad } from '~/components/common/Lazyload'
 import { useIsClientTransition } from '~/hooks/common/use-is-client'
-import { apiClient } from '~/utils/request'
+import { apiClient } from '~/lib/request'
 
 import styles from './LinkCard.module.css'
 

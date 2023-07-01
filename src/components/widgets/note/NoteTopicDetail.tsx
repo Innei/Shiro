@@ -11,9 +11,9 @@ import { Divider, DividerVertical } from '~/components/ui/divider'
 import { Loading } from '~/components/ui/loading'
 import { RelativeTime } from '~/components/ui/relative-time'
 import { useIsClient } from '~/hooks/common/use-is-client'
+import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
-import { apiClient } from '~/utils/request'
 
 import { NoteTopicMarkdownRender } from './NoteTopicMarkdownRender'
 

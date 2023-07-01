@@ -6,7 +6,7 @@ import { MdiClockOutline } from '~/components/icons/clock'
 import { FeHash } from '~/components/icons/fa-hash'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { RelativeTime } from '~/components/ui/relative-time'
-import { clsxm } from '~/utils/helper'
+import { clsxm } from '~/lib/helper'
 
 export const PostMetaBar: Component<{
   meta: Pick<PostModel, 'created' | 'modified' | 'category' | 'tags' | 'count'>

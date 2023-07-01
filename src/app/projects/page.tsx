@@ -8,8 +8,8 @@ import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpT
 import { ProjectList } from '~/components/widgets/project/ProjectList'
 import { NothingFound } from '~/components/widgets/shared/NothingFound'
 import { noopArr } from '~/lib/noop'
+import { apiClient } from '~/lib/request'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
-import { apiClient } from '~/utils/request'
 
 export default function Page() {
   const { data, isLoading } = useQuery({
