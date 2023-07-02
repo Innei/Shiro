@@ -43,9 +43,10 @@ export const FABBase = (
           className={clsxm(
             'mt-2 flex items-center justify-center',
             'h-12 w-12 text-lg md:h-10 md:w-10 md:text-base',
-            'border border-accent transition-all duration-300 hover:opacity-100 focus:opacity-100 focus:outline-none',
+            'border border-accent outline-accent hover:opacity-100 focus:opacity-100 focus:outline-none',
             'rounded-xl border border-zinc-400/20 shadow-lg backdrop-blur-lg dark:border-zinc-500/30 dark:bg-zinc-800/80 dark:text-zinc-200',
             'bg-slate-50/80 shadow-lg dark:bg-neutral-900/80',
+            'transition-all duration-500 ease-in-out',
 
             className,
           )}
