@@ -17,6 +17,7 @@ import { ArticleRightAside } from '~/components/widgets/shared/ArticleRightAside
 import { SubscribeBell } from '~/components/widgets/subscribe/SubscribeBell'
 import { XLogInfoForPost, XLogSummaryForPost } from '~/components/widgets/xlog'
 import { noopArr } from '~/lib/noop'
+import { springScrollToTop } from '~/lib/scroller'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
 import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
@@ -27,6 +28,10 @@ import Loading from './loading'
 const PostPage = () => {
   const id = useCurrentPostDataSelector((p) => p?.id)
   const title = useCurrentPostDataSelector((p) => p?.title)
+
+  useEffect(() => {
+    springScrollToTop()
+  }, [id])
 
   if (!id) {
     return <Loading />
