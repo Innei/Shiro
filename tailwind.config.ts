@@ -215,19 +215,16 @@ const twConfig: Config = {
       {
         light: {
           'color-scheme': 'light',
-          primary: '#39C5BB',
-          // 'primary-focus': '#25CCA0',
-          // 'primary-content': UIKitColors.label.primary.light,
-          secondary: '#6495ed',
-          // 'secondary-foucs': '#92bbff',
-          // 'secondary-content': UIKitColors.label.secondary.light,
-          accent: '#39C5BB',
-          // 'accent-focus': '#25CCA0',
+          // 浅葱
+          primary: '#33A6B8',
+
+          secondary: '#A8D8B9',
+
+          accent: '#33A6B8',
+
           'accent-content': '#fafafa',
 
           neutral: UIKitColors.grey3.light,
-
-          // 'base-100': '#eeeeee',
 
           'base-content': UIKitColors.label.primary.light,
 
@@ -244,9 +241,11 @@ const twConfig: Config = {
       {
         dark: {
           'color-scheme': 'dark',
-          primary: '#1F7BE0',
-          secondary: '#39C5BB',
-          accent: '#1F7BE0',
+          // 桃
+          primary: '#F596AA',
+          // 洗朱
+          secondary: '#FB966E',
+          accent: '#F596AA',
 
           neutral: UIKitColors.grey3.dark,
 
