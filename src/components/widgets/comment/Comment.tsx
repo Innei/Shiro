@@ -66,15 +66,19 @@ export const Comment: Component<{
                   'relative mb-2 w-full min-w-0 justify-center',
                 )}
               >
-                <span className="flex flex-grow items-center gap-2">
-                  <span className="ml-2">{author}</span>
-                  <span className="flex select-none items-center space-x-2">
-                    <span className="inline-flex text-[10px] font-medium opacity-40">
+                <span className="flex flex-grow flex-wrap items-center gap-2">
+                  <span className="ml-2 max-w-full flex-shrink-0 break-all">
+                    {author}
+                  </span>
+                  <span className="flex min-w-0 flex-shrink select-none flex-wrap items-center space-x-2 self-end">
+                    <span className="inline-flex flex-shrink-0 text-[10px] font-medium opacity-40">
                       <RelativeTime date={comment.created} />
                     </span>
-                    <span className="text-[10px] opacity-30">{key}</span>
+                    <span className="break-all text-[10px] opacity-30">
+                      {key}
+                    </span>
                     {!!location && (
-                      <span className="text-[10px] opacity-[0.35]">
+                      <span className="min-w-0 max-w-full flex-shrink-0 break-all text-[10px] opacity-[0.35]">
                         来自：{location}
                       </span>
                     )}
