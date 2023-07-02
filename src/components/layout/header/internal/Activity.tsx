@@ -34,20 +34,28 @@ const appLabels: { [app: string]: string } = {
   NeteaseMusic: 'netease',
   iTerm2: 'iterm2',
   Xcode: 'xcode',
+
+  cmusic: 'cmusic',
 }
 // autocorrect: true
 export function Activity() {
   const [isEnabled, setIsEnabled] = useState(true)
 
-  const { data: processName } = useQuery(
+  const { data } = useQuery(
     ['activity'],
     async () => {
       return await apiClient.proxy.fn.ps.update
-        .post<string>()
-        .then((res) => res as string)
+        .post<{
+          processName: string
+          mediaInfo?: {
+            title: string
+            artist: string
+          }
+        }>()
+        .then((res) => res)
         .catch((err: RequestError) => {
           err.status === 404 && setIsEnabled(false)
-          return ''
+          return { processName: '', mediaInfo: undefined }
         })
     },
     {
@@ -58,12 +66,13 @@ export function Activity() {
   )
   const ownerName = useAggregationSelector((data) => data.user.name)
   const memoProcessName = useMemo(
-    () => ({ processName: processName! }),
-    [processName],
+    () => ({ processName: data?.processName || '' }),
+    [data?.processName],
   )
-  if (!processName) {
+  if (!data) {
     return null
   }
+  const { processName, mediaInfo: media } = data
   if (!appLabels[processName]) {
     console.log('Not collected process name: ', processName)
     return null
@@ -71,6 +80,18 @@ export function Activity() {
 
   return (
     <AnimatePresence>
+      {!!media && (
+        <m.div className="absolute bottom-0 left-[-30px] top-0 flex items-center">
+          <FloatPopover
+            TriggerComponent={TriggerComponent}
+            triggerComponentProps={cMusicProps}
+            type="tooltip"
+          >
+            {ownerName} 正在听 {media.title} - {media.artist}
+          </FloatPopover>
+        </m.div>
+      )}
+
       <m.div
         key={processName}
         className="pointer-events-auto relative bottom-0 right-[-25px] top-0 z-[10] flex items-center overflow-hidden md:absolute"
@@ -95,7 +116,7 @@ export function Activity() {
     </AnimatePresence>
   )
 }
-
+const cMusicProps = { processName: 'cmusic' }
 const TriggerComponent = memo<{
   processName: string
 }>(({ processName }) => {

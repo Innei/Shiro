@@ -2,6 +2,7 @@ import '../styles/index.css'
 
 import { Analytics } from '@vercel/analytics/react'
 import { ToastContainer } from 'react-toastify'
+import type { AggregateRoot } from '@mx-space/api-client'
 
 import { ClerkProvider } from '@clerk/nextjs'
 
@@ -20,8 +21,11 @@ import { init } from './init'
 
 init()
 
+let aggregationData: AggregateRoot | null = null
 export const generateMetadata = defineMetadata(async (_, getData) => {
-  const { seo, url, user } = await getData()
+  const fetchedData = aggregationData ?? (await getData())
+  aggregationData = fetchedData
+  const { seo, url, user } = fetchedData
 
   return {
     metadataBase: new URL(url.webUrl),
@@ -92,6 +96,8 @@ export default async function RootLayout(props: Props) {
   const data = await queryClient.fetchQuery({
     ...queries.aggregation.root(),
   })
+
+  aggregationData = data
 
   return (
     // <ClerkProvider localization={ClerkZhCN}>

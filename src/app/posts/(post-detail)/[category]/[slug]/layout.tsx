@@ -89,20 +89,20 @@ export default async (props: NextPageParams<PageParams>) => {
       <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
         <BottomToUpTransitionView className="min-w-0">
           {props.children}
+
+          <BottomToUpSoftScaleTransitionView delay={500}>
+            {isCN ? (
+              <NotSupport />
+            ) : (
+              <CommentAreaRoot
+                refId={data.id}
+                allowComment={data.allowComment}
+              />
+            )}
+          </BottomToUpSoftScaleTransitionView>
         </BottomToUpTransitionView>
 
         <LayoutRightSideProvider className="relative hidden lg:block" />
-
-        <BottomToUpSoftScaleTransitionView delay={500}>
-          {isCN ? (
-            <NotSupport />
-          ) : (
-            <CommentAreaRoot
-              refId={data.id}
-              allowComment={data.allowComment ?? true}
-            />
-          )}
-        </BottomToUpSoftScaleTransitionView>
       </div>
     </>
   )

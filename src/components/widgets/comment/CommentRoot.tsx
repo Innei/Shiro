@@ -13,7 +13,9 @@ export const CommentAreaRoot: FC<
     allowComment: boolean
   }
 > = (props) => {
-  if (!props.allowComment) {
+  const { allowComment, refId } = props
+  // 兜下后端的数据，默认开
+  if (allowComment && typeof allowComment !== 'undefined') {
     return (
       <p className="mt-[100px] text-center text-xl font-medium">评论已关闭</p>
     )
@@ -22,10 +24,10 @@ export const CommentAreaRoot: FC<
   return (
     <LazyLoad placeholder={LoadingElement}>
       <div className="relative mt-12">
-        <CommentBoxRoot refId={props.refId} />
+        <CommentBoxRoot refId={refId} />
 
         <div className="h-12" />
-        <Comments refId={props.refId} />
+        <Comments refId={refId} />
       </div>
     </LazyLoad>
   )

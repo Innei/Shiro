@@ -119,10 +119,7 @@ export default async (props: NextPageParams<PageParams>) => {
         {isCN ? (
           <NotSupport />
         ) : (
-          <CommentAreaRoot
-            refId={data.id}
-            allowComment={data.allowComment ?? true}
-          />
+          <CommentAreaRoot refId={data.id} allowComment={data.allowComment} />
         )}
       </BottomToUpSoftScaleTransitionView>
     </>
