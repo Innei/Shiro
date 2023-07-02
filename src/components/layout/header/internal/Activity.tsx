@@ -89,6 +89,7 @@ export function Activity() {
             TriggerComponent={TriggerComponent}
             triggerComponentProps={cMusicProps}
             type="tooltip"
+            strategy="fixed"
           >
             {ownerName} 正在听 {media.title} - {media.artist}
           </FloatPopover>
@@ -112,6 +113,7 @@ export function Activity() {
           TriggerComponent={TriggerComponent}
           triggerComponentProps={memoProcessName}
           type="tooltip"
+          strategy="fixed"
         >
           {ownerName} 正在使用 {processName}
         </FloatPopover>

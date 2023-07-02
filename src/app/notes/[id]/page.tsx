@@ -53,9 +53,6 @@ const SubscribeBell = dynamic(() =>
     (mod) => mod.SubscribeBell,
   ),
 )
-const TocAside = dynamic(() =>
-  import('~/components/widgets/toc').then((mod) => mod.TocAside),
-)
 
 const PageImpl = () => {
   return (

@@ -111,7 +111,9 @@ export default async (props: NextPageParams<PageParams>) => {
               </BottomToUpTransitionView>
             </article>
 
-            <PagePaginator />
+            <BottomToUpSoftScaleTransitionView delay={1000}>
+              <PagePaginator />
+            </BottomToUpSoftScaleTransitionView>
           </div>
         </PageLoading>
 

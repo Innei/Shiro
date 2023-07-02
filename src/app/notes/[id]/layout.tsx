@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 
 import { NotSupport } from '~/components/common/NotSupport'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
-import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { CommentAreaRoot } from '~/components/widgets/comment'
 import { NoteMainContainer } from '~/components/widgets/note/NoteMainContainer'
@@ -20,6 +19,7 @@ import { CurrentNoteIdProvider } from '~/providers/note/CurrentNoteIdProvider'
 import { queries } from '~/queries/definition'
 
 import { Paper } from '../Paper'
+import { Transition } from './Transtion'
 
 export const generateMetadata = async ({
   params,
@@ -89,7 +89,7 @@ export default async (
       <CurrentNoteDataProvider data={data} />
       <SyncNoteDataAfterLoggedIn />
 
-      <BottomToUpTransitionView className="min-w-0">
+      <Transition className="min-w-0">
         <Paper as={NoteMainContainer}>{props.children}</Paper>
         <BottomToUpSoftScaleTransitionView delay={500}>
           {isCN ? (
@@ -98,7 +98,7 @@ export default async (
             <CommentAreaRoot refId={noteObjectId} allowComment={allowComment} />
           )}
         </BottomToUpSoftScaleTransitionView>
-      </BottomToUpTransitionView>
+      </Transition>
 
       <OnlyMobile>
         <TocFAB />
