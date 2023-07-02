@@ -244,9 +244,9 @@ const twConfig: Config = {
       {
         dark: {
           'color-scheme': 'dark',
-          primary: '#91bef0',
+          primary: '#1F7BE0',
           secondary: '#39C5BB',
-          accent: '#91bef0',
+          accent: '#1F7BE0',
 
           neutral: UIKitColors.grey3.dark,
 

@@ -5,7 +5,6 @@ import { memo, useMemo } from 'react'
 import type { FC } from 'react'
 import type { CommentBaseProps } from './types'
 
-import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { apiClient } from '~/lib/request'
 
 import { LoadMoreIndicator } from '../shared/LoadMoreIndicator'
@@ -72,10 +71,8 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
 const CommentListItem: FC<{ comment: any; refId: string; index: number }> =
   memo(function CommentListItem({ comment, refId, index }) {
     return (
-      <BottomToUpSoftScaleTransitionView>
-        <CommentBoxProvider refId={refId}>
-          <Comment comment={comment} showLine={index > 0} />
-        </CommentBoxProvider>
-      </BottomToUpSoftScaleTransitionView>
+      <CommentBoxProvider refId={refId}>
+        <Comment comment={comment} showLine={index > 0} />
+      </CommentBoxProvider>
     )
   })

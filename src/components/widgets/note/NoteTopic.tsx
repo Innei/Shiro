@@ -38,6 +38,7 @@ export const NoteTopic: FC = () => {
           text={textToBigCharOrWord(name)}
           className="flex-shrink-0"
           shadow={false}
+          alt={`专栏 ${name} 的头像`}
         />
         <div className="flex flex-grow flex-col self-start">
           <span className="text-md mb-2 font-medium">
