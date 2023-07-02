@@ -4,7 +4,9 @@ import type { PostModel } from '@mx-space/api-client'
 
 import { MdiClockOutline } from '~/components/icons/clock'
 import { FeHash } from '~/components/icons/fa-hash'
+import { ThumbsupIcon } from '~/components/icons/thumbs-up'
 import { FloatPopover } from '~/components/ui/float-popover'
+import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
 import { RelativeTime } from '~/components/ui/relative-time'
 import { clsxm } from '~/lib/helper'
 
@@ -50,8 +52,10 @@ export const PostMetaBar: Component<{
       )}
       {!!meta.count?.like && (
         <div className="flex min-w-0 items-center space-x-1">
-          <i className="icon-[mingcute--heart-fill]" />
-          <span className="min-w-0 truncate">{meta.count.like}</span>
+          <ThumbsupIcon />
+          <span className="min-w-0 truncate">
+            <NumberSmoothTransition>{meta.count.like}</NumberSmoothTransition>
+          </span>
         </div>
       )}
     </div>

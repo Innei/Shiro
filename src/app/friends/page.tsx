@@ -34,7 +34,7 @@ export default function Page() {
     },
     staleTime: Infinity,
     cacheTime: Infinity,
-    select(data) {
+    select: useCallback((data: LinkModel[]) => {
       const friends: LinkModel[] = []
       const collections: LinkModel[] = []
       const outdated: LinkModel[] = []
@@ -66,7 +66,7 @@ export default function Page() {
       }
 
       return { friends: shuffle(friends), collections, outdated, banned }
-    },
+    }, []),
   })
 
   if (isLoading) return <Loading useDefaultLoadingText />

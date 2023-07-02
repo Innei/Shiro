@@ -169,7 +169,14 @@ const NoteHeaderDate = () => {
 const NoteMarkdown = () => {
   const text = useCurrentNoteDataSelector((data) => data?.data.text)!
 
-  return <Markdown as="main" renderers={MarkdownRenderers} value={text} />
+  return (
+    <Markdown
+      allowsScript
+      as="main"
+      renderers={MarkdownRenderers}
+      value={text}
+    />
+  )
 }
 const NoteMarkdownImageRecordProvider = (props: PropsWithChildren) => {
   const images = useCurrentNoteDataSelector(

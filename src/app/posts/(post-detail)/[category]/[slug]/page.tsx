@@ -74,7 +74,14 @@ const PostMarkdown = () => {
   const text = useCurrentPostDataSelector((data) => data?.text)
   if (!text) return null
 
-  return <Markdown value={text} as="main" className="min-w-0 overflow-hidden" />
+  return (
+    <Markdown
+      allowsScript
+      value={text}
+      as="main"
+      className="min-w-0 overflow-hidden"
+    />
+  )
 }
 const PostMarkdownImageRecordProvider = (props: PropsWithChildren) => {
   const images = useCurrentPostDataSelector(

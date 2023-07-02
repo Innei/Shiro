@@ -4,6 +4,7 @@ import { PostItem } from '~/components/widgets/post/PostItem'
 import { PostPagination } from '~/components/widgets/post/PostPagination'
 import { PostTagsFAB } from '~/components/widgets/post/PostTagsFAB'
 import { NothingFound } from '~/components/widgets/shared/NothingFound'
+import { SearchFAB } from '~/components/widgets/shared/SearchFAB'
 import { apiClient } from '~/lib/request'
 
 interface Props {
@@ -42,6 +43,8 @@ export default async (props: Props) => {
 
       <PostPagination pagination={pagination} />
       <PostTagsFAB />
+
+      <SearchFAB />
     </NormalContainer>
   )
 }

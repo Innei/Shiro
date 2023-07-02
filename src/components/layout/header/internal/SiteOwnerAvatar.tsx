@@ -17,9 +17,9 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
       fetch('/api/bilibili/live_check')
         .then((res) => res.json())
         .catch(() => null),
-    select(data) {
+    select: useCallback((data: any) => {
       return !!data
-    },
+    }, []),
     refetchInterval: 1000 * 60,
   })
 

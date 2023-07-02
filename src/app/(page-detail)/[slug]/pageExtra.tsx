@@ -29,7 +29,14 @@ export const PostMarkdown = () => {
   const text = useCurrentPageDataSelector((data) => data?.text)
   if (!text) return null
 
-  return <Markdown value={text} as="main" className="min-w-0 overflow-hidden" />
+  return (
+    <Markdown
+      allowsScript
+      value={text}
+      as="main"
+      className="min-w-0 overflow-hidden"
+    />
+  )
 }
 export const MarkdownImageRecordProviderInternal = (
   props: PropsWithChildren,
@@ -90,7 +97,7 @@ export const PagePaginator = () => {
   const hasNext = indexInPages + 1 < n
   const hasPrev = indexInPages - 1 >= 0
   return (
-    <div className="relative grid h-20 select-none grid-cols-2">
+    <div className="relative mt-8 grid h-20 select-none grid-cols-2">
       <div className="justify-start">
         {hasPrev && (
           <Fragment>

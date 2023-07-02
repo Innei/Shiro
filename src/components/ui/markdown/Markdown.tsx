@@ -3,6 +3,7 @@ import React, { Fragment, memo, Suspense, useMemo, useRef } from 'react'
 import { clsx } from 'clsx'
 import { compiler, sanitizeUrl } from 'markdown-to-jsx'
 import dynamic from 'next/dynamic'
+import Script from 'next/script'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { FC, PropsWithChildren } from 'react'
 
@@ -41,6 +42,8 @@ export interface MdProps {
   codeBlockFully?: boolean
   className?: string
   as?: React.ElementType
+
+  allowsScript?: boolean
 }
 
 export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
@@ -56,7 +59,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
       extendsRules,
       additionalParserRules,
       as: As = 'div',
-
+      allowsScript = false,
       ...rest
     } = props
 
@@ -82,6 +85,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           // for custom react component
           LinkCard,
           Gallery,
+          script: allowsScript ? Script : undefined,
           ...overrides,
         },
 
