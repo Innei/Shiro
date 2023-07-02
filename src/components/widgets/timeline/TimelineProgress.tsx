@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-import { NumberTransition } from '~/components/ui/number-transition'
+import { CountUp } from '~/components/ui/number-transition'
 import {
   dayOfYear,
   daysOfYear,
@@ -47,7 +47,7 @@ export const TimelinProgress = () => {
     <>
       <p>
         <span className="flex-shrink-0">今天是 {currentYear} 年的第</span>
-        <NumberTransition
+        <CountUp
           to={currentDay}
           className="mx-1"
           decimals={0}
@@ -57,21 +57,12 @@ export const TimelinProgress = () => {
       </p>
       <p>
         今年已过{' '}
-        <NumberTransition
-          to={percentOfYear}
-          decimals={6}
-          duration={PROGRESS_DURATION}
-        />
+        <CountUp to={percentOfYear} decimals={6} duration={PROGRESS_DURATION} />
         %
       </p>
       <p>
         今天已过{' '}
-        <NumberTransition
-          to={percentOfDay}
-          decimals={6}
-          duration={PROGRESS_DURATION}
-        />
-        %
+        <CountUp to={percentOfDay} decimals={6} duration={PROGRESS_DURATION} />%
       </p>
     </>
   )

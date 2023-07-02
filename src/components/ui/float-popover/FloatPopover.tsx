@@ -205,7 +205,7 @@ export function FloatPopover<T extends {}>(
   )
 
   useEffect(() => {
-    if (refs.floating.current && open) {
+    if (refs.floating.current && open && type === 'popover') {
       refs.floating.current.focus()
     }
   }, [open])

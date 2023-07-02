@@ -23,7 +23,8 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
     refetchInterval: 1000 * 60,
   })
 
-  const handleGoLive = useCallback(() => {
+  const handleGoLive = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation()
     window.open(`https://live.bilibili.com/${appConfig.module.bilibili.liveId}`)
   }, [])
   if (!avatar) return

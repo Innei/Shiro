@@ -2,6 +2,7 @@
 
 import { CreativeCommonsIcon } from '~/components/icons/cc'
 import { DividerVertical } from '~/components/ui/divider'
+import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
 import { mood2icon, weather2icon } from '~/lib/meta-icon'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 
@@ -71,7 +72,9 @@ export const NoteMetaLikeCount = () => {
       {dividerVertical}
       <span className={sectionBlockClassName} key="linkcount">
         <i className="icon-[mingcute--heart-line]" />
-        <span className="font-medium">{like}</span>
+        <span className="font-medium">
+          <NumberSmoothTransition>{like}</NumberSmoothTransition>
+        </span>
       </span>
     </>
   )

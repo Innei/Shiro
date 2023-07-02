@@ -5,7 +5,7 @@ import { animate } from 'framer-motion'
 
 import { useStateToRef } from '~/hooks/common/use-state-ref'
 
-export const NumberTransition: Component<{
+export const CountUp: Component<{
   to: number
   decimals: number
   duration: number

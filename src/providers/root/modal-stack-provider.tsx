@@ -134,7 +134,7 @@ export const Modal: Component<{
   return (
     <Dialog.Root open onOpenChange={onClose}>
       <Dialog.Portal>
-        <DialogOverlay />
+        <DialogOverlay zIndex={20} />
         <Dialog.Content asChild>
           <div
             className="fixed inset-0 z-[20] flex center"
@@ -161,7 +161,7 @@ export const Modal: Component<{
               transition={modalTransition}
               className={clsxm(
                 'relative flex flex-col overflow-hidden rounded-lg',
-                'bg-slate-50/10 dark:bg-neutral-900/80',
+                'bg-slate-50/80 dark:bg-neutral-900/80',
                 'p-2 shadow-2xl shadow-stone-300 backdrop-blur-sm dark:shadow-stone-800',
                 'max-h-[70vh] min-w-[300px] max-w-[90vw] lg:max-h-[calc(100vh-20rem)] lg:max-w-[50vw]',
                 'border border-slate-200 dark:border-neutral-800',

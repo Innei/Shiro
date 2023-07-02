@@ -2,6 +2,7 @@ import { NormalContainer } from '~/components/layout/container/Normal'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { PostItem } from '~/components/widgets/post/PostItem'
 import { PostPagination } from '~/components/widgets/post/PostPagination'
+import { PostTagsFAB } from '~/components/widgets/post/PostTagsFAB'
 import { NothingFound } from '~/components/widgets/shared/NothingFound'
 import { apiClient } from '~/lib/request'
 
@@ -40,6 +41,7 @@ export default async (props: Props) => {
       </ul>
 
       <PostPagination pagination={pagination} />
+      <PostTagsFAB />
     </NormalContainer>
   )
 }

@@ -4,8 +4,10 @@ import type { Metadata } from 'next'
 import { NotSupport } from '~/components/common/NotSupport'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
+import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { CommentAreaRoot } from '~/components/widgets/comment'
 import { NoteMainContainer } from '~/components/widgets/note/NoteMainContainer'
+import { TocFAB } from '~/components/widgets/toc/TocFAB'
 import { REQUEST_GEO, REQUEST_QUERY } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
 import { getSummaryFromMd } from '~/lib/markdown'
@@ -97,6 +99,10 @@ export default async (
           )}
         </BottomToUpSoftScaleTransitionView>
       </BottomToUpTransitionView>
+
+      <OnlyMobile>
+        <TocFAB />
+      </OnlyMobile>
     </>
   )
 }

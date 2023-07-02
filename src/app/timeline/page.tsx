@@ -29,7 +29,7 @@ type MapType = {
   meta: string[]
   date: Date
   href: string
-  as: string
+
   type: ArticleType
   id: string
   important?: boolean
@@ -122,8 +122,8 @@ export default function TimelinePage() {
         title: post.title,
         meta: [post.category.name, '博文'],
         date,
-        as: `/posts/${post.category.slug}/${post.slug}`,
-        href: `/posts/[category]/[slug]`,
+        href: `/posts/${post.category.slug}/${post.slug}`,
+
         type: ArticleType.Post,
         id: post.id,
       }
@@ -147,8 +147,8 @@ export default function TimelinePage() {
           '手记',
         ].filter(Boolean) as string[],
         date,
-        as: `/notes/${note.nid}`,
-        href: '/notes/[id]',
+        href: `/notes/${note.nid}`,
+
         type: ArticleType.Note,
         id: note.id,
         important: note.hasMemory,
@@ -204,7 +204,7 @@ export default function TimelinePage() {
               <TimelineList>
                 {value.map((item) => {
                   return (
-                    <m.li
+                    <li
                       key={item.id}
                       className="flex items-center justify-between"
                       data-id={item.id}
@@ -219,7 +219,6 @@ export default function TimelinePage() {
                         <Link
                           prefetch={false}
                           href={item.href}
-                          as={item.as}
                           className="min-w-0 truncate leading-6"
                         >
                           <span className="min-w-0 truncate">{item.title}</span>
@@ -240,7 +239,7 @@ export default function TimelinePage() {
                           {item.meta.map((m, i) => (i === 0 ? m : `/${m}`))}
                         </span>
                       )}
-                    </m.li>
+                    </li>
                   )
                 })}
               </TimelineList>

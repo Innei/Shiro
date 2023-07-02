@@ -2,6 +2,7 @@
 
 import { useOnlineCount } from '~/atoms'
 import { FloatPopover } from '~/components/ui/float-popover'
+import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
 
 export const GatewayCount = () => {
   return (
@@ -30,5 +31,9 @@ export const GatewayCount = () => {
 }
 const GatewayCountTrigger = () => {
   const count = useOnlineCount()
-  return <span>正在被 {count} 人看爆</span>
+  return (
+    <span>
+      正在被 <NumberSmoothTransition>{count}</NumberSmoothTransition> 人看爆
+    </span>
+  )
 }

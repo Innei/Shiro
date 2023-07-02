@@ -1,1 +1,1 @@
-export * from './NumberTransition'
+export * from './CountUp'

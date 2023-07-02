@@ -3,7 +3,7 @@
 import { useCallback } from 'react'
 import { useParams, usePathname } from 'next/navigation'
 
-import { FABBase } from '~/components/ui/fab'
+import { FABPortable } from '~/components/ui/fab'
 import { MAIN_MARKDOWN_ID } from '~/constants/dom-id'
 import { useModalStack } from '~/providers/root/modal-stack-provider'
 
@@ -22,6 +22,7 @@ export const TocFAB = () => {
     ] as HTMLHeadingElement[]
     const dispose = present({
       title: 'Table of Content',
+
       content: () => (
         <TocTree
           $headings={$headings}
@@ -35,8 +36,8 @@ export const TocFAB = () => {
     })
   }, [pathname, params])
   return (
-    <FABBase id="show-toc" aria-label="Show ToC" onClick={presentToc}>
+    <FABPortable aria-label="Show ToC" onClick={presentToc}>
       <i className="icon-[mingcute--list-expansion-line]" />
-    </FABBase>
+    </FABPortable>
   )
 }
