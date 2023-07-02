@@ -1,9 +1,7 @@
 import Link from 'next/link'
 
 import { SubscribeTextButton } from '~/components/widgets/subscribe/SubscribeTextButton'
-import { isDev } from '~/lib/env'
 import { clsxm } from '~/lib/helper'
-import { kvKeys, redis } from '~/lib/redis.server'
 
 import { linkSections } from './config'
 import { GatewayCount } from './GatewayCount'
@@ -90,28 +88,28 @@ const PoweredBy: Component = ({ className }) => {
   )
 }
 
-type VisitorGeolocation = {
-  country: string
-  city?: string
-  flag: string
-}
+// type VisitorGeolocation = {
+//   country: string
+//   city?: string
+//   flag: string
+// }
 const FooterBottom = async () => {
-  let lastVisitor: VisitorGeolocation | undefined = undefined
-  if (process.env.VERCEL_ENV === 'production') {
-    const [lv, cv] = await redis.mget<VisitorGeolocation[]>(
-      kvKeys.lastVisitor,
-      kvKeys.currentVisitor,
-    )
-    lastVisitor = lv
-    await redis.set(kvKeys.lastVisitor, cv)
-  }
+  // let lastVisitor: VisitorGeolocation | undefined = undefined
+  // if (process.env.VERCEL_ENV === 'production') {
+  //   const [lv, cv] = await redis.mget<VisitorGeolocation[]>(
+  //     kvKeys.lastVisitor,
+  //     kvKeys.currentVisitor,
+  //   )
+  //   lastVisitor = lv
+  //   await redis.set(kvKeys.lastVisitor, cv)
+  // }
 
-  if (isDev) {
-    lastVisitor = {
-      country: 'US',
-      flag: '🇺🇸',
-    }
-  }
+  // if (isDev) {
+  //   lastVisitor = {
+  //     country: 'US',
+  //     flag: '🇺🇸',
+  //   }
+  // }
   return (
     <div className="mt-12 space-y-3 text-center md:mt-6 md:text-left">
       <p>
@@ -143,7 +141,7 @@ const FooterBottom = async () => {
         </StyledLink>
         <Divider />
         <GatewayCount />
-        {!!lastVisitor && (
+        {/* {!!lastVisitor && (
           <>
             <Divider />
             <span>
@@ -154,7 +152,7 @@ const FooterBottom = async () => {
                 .join(', ')}
             </span>
           </>
-        )}
+        )} */}
       </p>
     </div>
   )
