@@ -3,7 +3,6 @@ import { memo } from 'react'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { clsxm } from '~/lib/helper'
 
-import { Activity } from './internal/Activity'
 import { AnimatedLogo } from './internal/AnimatedLogo'
 import { BluredBackground } from './internal/BluredBackground'
 import styles from './internal/grid.module.css'
@@ -42,7 +41,7 @@ const MemoedHeader = memo(() => {
 
         <HeaderLogoArea>
           <AnimatedLogo />
-          <Activity />
+
           {/* <SiteOwnerAvatar className="absolute bottom-[10px] right-[2px] hidden lg:inline-block" /> */}
           <OnlyMobile>
             <HeaderMeta />

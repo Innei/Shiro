@@ -8,6 +8,7 @@ import { useSingleAndDoubleClick } from '~/hooks/common/use-single-double-click'
 import { Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
 
+import { Activity } from './Activity'
 import { useHeaderMetaShouldShow } from './hooks'
 import { SiteOwnerAvatar } from './SiteOwnerAvatar'
 
@@ -43,7 +44,13 @@ export const AnimatedLogo = () => {
 
   const isDesktop = useViewport(($) => $.lg && $.w !== 0)
 
-  if (isDesktop) return <TapableLogo />
+  if (isDesktop)
+    return (
+      <>
+        <TapableLogo />
+        <Activity />
+      </>
+    )
 
   return (
     <AnimatePresence>
@@ -55,6 +62,7 @@ export const AnimatedLogo = () => {
           exit={{ opacity: 0 }}
           // className="scale-75"
         >
+          <Activity />
           <TapableLogo />
         </m.div>
       )}
