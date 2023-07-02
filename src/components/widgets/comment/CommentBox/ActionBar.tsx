@@ -34,6 +34,7 @@ import {
   useSetCommentBoxValues,
   useUseCommentReply,
 } from './hooks'
+import { CommentBoxSlotProvider } from './providers'
 
 const TextLengthIndicator = () => {
   const isTextOversize = useCommentBoxTextIsOversize()
@@ -111,13 +112,13 @@ export const CommentBoxActionBar: Component = ({ className }) => {
       <span
         className={clsx(
           'flex-1 select-none text-[10px] text-zinc-500 transition-opacity',
-          hasCommentText ? 'visible opacity-100' : 'invisible opacity-0',
         )}
       >
         支持 <b>Markdown</b> 与{' '}
         <MLink href="https://docs.github.com/zh/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax">
           GFM
         </MLink>
+        <CommentBoxSlotProvider />
       </span>
       <AnimatePresence>
         {hasCommentText && (

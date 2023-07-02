@@ -1,10 +1,12 @@
 'use client'
 
-import { createContext, useRef } from 'react'
+import { createContext, memo, useEffect, useRef } from 'react'
 import { atom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 import type { CommentModel } from '@mx-space/api-client'
-import type { PropsWithChildren } from 'react'
+import type { FC, PropsWithChildren } from 'react'
+
+import { setCommentActionLeftSlot, useCommentActionLeftSlot } from './hooks'
 
 const commentStoragePrefix = 'comment-'
 export const createInitialValue = () => ({
@@ -70,3 +72,23 @@ export const CommentIsReplyProvider = (
     </CommentOriginalRefIdContext.Provider>
   )
 }
+
+export const CommentBoxSlotPortal = memo(
+  (props: { children: React.JSX.Element }) => {
+    const { children } = props
+    useEffect(() => {
+      setCommentActionLeftSlot(children)
+      return () => {
+        setCommentActionLeftSlot(null)
+      }
+    }, [children])
+    return null
+  },
+)
+
+export const CommentBoxSlotProvider: FC = memo(() => {
+  return useCommentActionLeftSlot()
+})
+
+CommentBoxSlotProvider.displayName = 'CommentBoxSlotProvider'
+CommentBoxSlotPortal.displayName = 'CommentBoxSlotPortal'

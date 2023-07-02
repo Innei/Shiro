@@ -1,9 +1,10 @@
 'use client'
 
 import { useCallback, useContext } from 'react'
-import { useAtomValue } from 'jotai'
+import { atom, useAtomValue } from 'jotai'
 import { atomWithStorage, selectAtom } from 'jotai/utils'
 import type { ExtractAtomValue } from 'jotai'
+import type React from 'react'
 import type { createInitialValue } from './providers'
 
 import { jotaiStore } from '~/lib/store'
@@ -31,6 +32,14 @@ export const useCommentBoxRefIdValue = () =>
 export const useGetCommentBoxAtomValues = () => {
   return useContext(CommentBoxContext)
 }
+
+// ReactNode 导致 tsx 无法推断，过于复杂
+const commentActionLeftSlotAtom = atom(null as React.JSX.Element | null)
+export const useCommentActionLeftSlot = () =>
+  useAtomValue(commentActionLeftSlotAtom)
+
+export const setCommentActionLeftSlot = (slot: React.JSX.Element | null) =>
+  jotaiStore.set(commentActionLeftSlotAtom, slot)
 
 export const useCommentBoxHasText = () =>
   useAtomValue(

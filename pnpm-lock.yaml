@@ -8,6 +8,12 @@ dependencies:
   '@clerk/nextjs':
     specifier: 4.21.13
     version: 4.21.13(next@13.4.7)(react-dom@18.2.0)(react@18.2.0)
+  '@emoji-mart/data':
+    specifier: 1.1.2
+    version: 1.1.2
+  '@emoji-mart/react':
+    specifier: 1.1.1
+    version: 1.1.1(emoji-mart@5.5.2)(react@18.2.0)
   '@floating-ui/react-dom':
     specifier: 2.0.1
     version: 2.0.1(react-dom@18.2.0)(react@18.2.0)
@@ -50,6 +56,9 @@ dependencies:
   dayjs:
     specifier: 1.11.9
     version: 1.11.9
+  emoji-mart:
+    specifier: 5.5.2
+    version: 5.5.2
   foxact:
     specifier: 0.2.11
     version: 0.2.11(react@18.2.0)
@@ -1157,6 +1166,20 @@ packages:
     dependencies:
       postcss-selector-parser: 6.0.13
     dev: true
+
+  /@emoji-mart/data@1.1.2:
+    resolution: {integrity: sha512-1HP8BxD2azjqWJvxIaWAMyTySeZY0Osr83ukYjltPVkNXeJvTz7yDrPLBtnrD5uqJ3tg4CcLuuBW09wahqL/fg==}
+    dev: false
+
+  /@emoji-mart/react@1.1.1(emoji-mart@5.5.2)(react@18.2.0):
+    resolution: {integrity: sha512-NMlFNeWgv1//uPsvLxvGQoIerPuVdXwK/EUek8OOkJ6wVOWPUizRBJU0hDqWZCOROVpfBgCemaC3m6jDOXi03g==}
+    peerDependencies:
+      emoji-mart: ^5.2
+      react: ^16.8 || ^17 || ^18
+    dependencies:
+      emoji-mart: 5.5.2
+      react: 18.2.0
+    dev: false
 
   /@emotion/is-prop-valid@0.8.8:
     resolution: {integrity: sha512-u5WtneEAr5IDG2Wv65yhunPSMLIpuKsbuOktRojfrEiEvRyC85LgPMZI63cr7NUqT8ZIGdSVg8ZKGxIug4lXcA==}
@@ -3899,6 +3922,10 @@ packages:
 
   /elkjs@0.8.2:
     resolution: {integrity: sha512-L6uRgvZTH+4OF5NE/MBbzQx/WYpru1xCBE9respNj6qznEewGUIfhzmm7horWWxbNO2M0WckQypGctR8lH79xQ==}
+    dev: false
+
+  /emoji-mart@5.5.2:
+    resolution: {integrity: sha512-Sqc/nso4cjxhOwWJsp9xkVm8OF5c+mJLZJFoFfzRuKO+yWiN7K8c96xmtughYb0d/fZ8UC6cLIQ/p4BR6Pv3/A==}
     dev: false
 
   /emoji-regex@8.0.0:
