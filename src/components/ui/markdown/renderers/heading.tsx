@@ -23,7 +23,7 @@ export const MHeader = (props: HeadingProps) => {
     <>
       {children}
       <span
-        className="ml-2 cursor-pointer select-none text-accent opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+        className="ml-2 inline-flex cursor-pointer select-none text-accent opacity-0 transition-opacity duration-200 center group-hover:opacity-100"
         role="button"
         tabIndex={0}
         aria-hidden
