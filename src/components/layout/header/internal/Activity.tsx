@@ -11,6 +11,19 @@ import { apiClient } from '~/lib/request'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
 // autocorrect: false
+const appDescrption = {
+  Typora: '水文',
+  Xcode: '敲榔头',
+  iTerm2: '耍杂技',
+  NeteaseMusic: '听歌',
+  QQ音乐: '听歌',
+  Chrome: '冲浪',
+  'Chrome Canary': '调试',
+  QQ: '水群',
+  Messages: '看验证码',
+  Code: 'Restart TS Server',
+  Finder: '发呆',
+} as any
 const appLabels: { [app: string]: string } = {
   Slack: 'slack',
   Arc: 'arc',
@@ -34,6 +47,7 @@ const appLabels: { [app: string]: string } = {
   NeteaseMusic: 'netease',
   iTerm2: 'iterm2',
   Xcode: 'xcode',
+  Typora: 'typora',
 
   cmusic: 'cmusic',
 }
@@ -116,6 +130,7 @@ export function Activity() {
           strategy="fixed"
         >
           {ownerName} 正在使用 {processName}
+          {appDescrption[processName] ? ` ${appDescrption[processName]}` : ''}
         </FloatPopover>
       </m.div>
     </AnimatePresence>
