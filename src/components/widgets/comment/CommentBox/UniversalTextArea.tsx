@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic'
 
 import { useIsMobile } from '~/atoms'
 import { FloatPopover } from '~/components/ui/float-popover'
+import { preventDefault } from '~/lib/dom'
 
 import { getRandomPlaceholder } from './constants'
 import { useCommentBoxTextValue, useSetCommentBoxValues } from './hooks'
@@ -99,7 +100,10 @@ export const UniversalTextArea = () => {
 
 const EmojiButton = () => {
   return (
-    <button className="ml-4 inline-flex h-5 w-5 translate-y-1 text-base center">
+    <button
+      className="ml-4 inline-flex h-5 w-5 translate-y-1 text-base center"
+      onClick={preventDefault}
+    >
       <i className="icon-[mingcute--emoji-2-line]" />
       <span className="sr-only">表情</span>
     </button>

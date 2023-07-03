@@ -35,7 +35,7 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
       onClick={handleGoLive}
       tabIndex={isLiving ? 0 : -1}
       className={clsxm(
-        'overflow pointer-events-none relative select-none rounded-md border-[1.5px] border-slate-300 dark:border-neutral-800',
+        'overflow pointer-events-none relative select-none',
 
         isLiving ? 'cursor-pointer rounded-full' : '',
         className,
@@ -46,7 +46,10 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
         alt="Site Owner Avatar"
         width={40}
         height={40}
-        className={clsxm('rounded-md', isLiving ? 'rounded-full' : '')}
+        className={clsxm(
+          'rounded-md ring-2 ring-slate-200 dark:ring-neutral-800',
+          isLiving ? 'rounded-full' : '',
+        )}
       />
       {isLiving && (
         <>
