@@ -29,7 +29,7 @@ export const note = {
         }
         const data = await apiClient.note.getNoteById(+queryKey[1], password!)
 
-        return { ...data }
+        return { ...data } as NoteWrappedPayload
       },
     }),
 }

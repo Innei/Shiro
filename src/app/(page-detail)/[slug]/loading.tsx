@@ -1,7 +1,9 @@
 import { Loading } from '~/components/ui/loading'
 
-export default () => (
-  <div className="flex h-full w-full center fill-content">
-    <Loading useDefaultLoadingText />
-  </div>
-)
+export default function LoadingPage() {
+  return (
+    <div className="flex w-full center fill-content">
+      <Loading useDefaultLoadingText />
+    </div>
+  )
+}

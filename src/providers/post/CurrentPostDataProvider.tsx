@@ -8,21 +8,23 @@ import { createDataProvider } from '../internal/createDataProvider'
 
 const {
   CurrentDataProvider,
-  getCurrentData,
-  setCurrentData,
+  CurrentDataAtomProvider,
+  getGlobalCurrentData,
+  setGlobalCurrentData,
   useCurrentDataSelector,
 } = createDataProvider<PostModel>()
 
 declare global {
   interface Window {
-    getCurrentPostData: typeof getCurrentData
+    getCurrentPostData: typeof getGlobalCurrentData
   }
 }
-if (isDev && isClientSide) window.getCurrentPostData = getCurrentData
+if (isDev && isClientSide) window.getCurrentPostData = getGlobalCurrentData
 
 export {
   CurrentDataProvider as CurrentPostDataProvider,
-  getCurrentData as getCurrentPostData,
-  setCurrentData as setCurrentPostData,
+  CurrentDataAtomProvider as CurrentPostDataAtomProvider,
+  getGlobalCurrentData as getGlobalCurrentPostData,
+  setGlobalCurrentData as setGlobalCurrentPostData,
   useCurrentDataSelector as useCurrentPostDataSelector,
 }

@@ -2,13 +2,13 @@ import { TocAside } from '~/components/widgets/toc'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
-import { MarkdownImageRecordProviderInternal, PostMarkdown } from './pageExtra'
+import { MarkdownImageRecordProviderInternal, PageMarkdown } from './pageExtra'
 
 const PageDetail = () => {
   return (
     <WrappedElementProvider>
       <MarkdownImageRecordProviderInternal>
-        <PostMarkdown />
+        <PageMarkdown />
       </MarkdownImageRecordProviderInternal>
 
       <LayoutRightSidePortal>

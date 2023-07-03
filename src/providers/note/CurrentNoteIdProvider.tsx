@@ -25,6 +25,7 @@ const CurrentNoteIdProvider: FC<
 
   return children
 })
+CurrentNoteIdProvider.displayName = 'CurrentNoteIdProvider'
 const useCurrentNoteId = () => {
   return useAtomValue(currentNoteIdAtom)
 }

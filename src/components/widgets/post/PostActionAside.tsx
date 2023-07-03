@@ -12,8 +12,8 @@ import { routeBuilder, Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
 import { urlBuilder } from '~/lib/url-builder'
 import {
-  getCurrentPostData,
-  setCurrentPostData,
+  getGlobalCurrentPostData,
+  setGlobalCurrentPostData,
   useCurrentPostDataSelector,
 } from '~/providers/post/CurrentPostDataProvider'
 import { useModalStack } from '~/providers/root/modal-stack-provider'
@@ -44,7 +44,7 @@ const LikeButton = () => {
 
     apiClient.post.thumbsUp(id).then(() => {
       setLikeId(id)
-      setCurrentPostData((draft) => {
+      setGlobalCurrentPostData((draft) => {
         draft.count.like += 1
       })
       update()
@@ -110,7 +110,7 @@ const ShareButton = () => {
       aria-label="Share This Post Button"
       className="flex flex-col space-y-2"
       onClick={() => {
-        const post = getCurrentPostData()
+        const post = getGlobalCurrentPostData()
 
         if (!post) return
 

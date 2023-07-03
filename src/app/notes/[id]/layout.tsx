@@ -18,7 +18,7 @@ import {
 import { CurrentNoteIdProvider } from '~/providers/note/CurrentNoteIdProvider'
 import { queries } from '~/queries/definition'
 
-import { Paper } from '../Paper'
+import { Paper } from '../../../components/layout/container/Paper'
 import { Transition } from './Transtion'
 
 export const generateMetadata = async ({

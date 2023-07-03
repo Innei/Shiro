@@ -8,8 +8,8 @@ import { createDataProvider } from '../internal/createDataProvider'
 
 const {
   CurrentDataProvider,
-  getCurrentData,
-  setCurrentData,
+  getGlobalCurrentData: getCurrentData,
+  setGlobalCurrentData: setCurrentData,
   useCurrentDataSelector,
 } = createDataProvider<PageModel>()
 

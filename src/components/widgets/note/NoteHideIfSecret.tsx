@@ -8,11 +8,11 @@ import dayjs from 'dayjs'
 import { useIsLogged } from '~/atoms/owner'
 import { toast } from '~/lib/toast'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
-import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
 
 export const NoteHideIfSecret: Component = ({ children }) => {
   const noteSecret = useCurrentNoteDataSelector((data) => data?.data.secret)
-  const noteId = useCurrentNoteId()
+
+  const noteId = useCurrentNoteDataSelector((data) => data?.data.nid)
   const secretDate = useMemo(() => new Date(noteSecret!), [noteSecret])
   const isSecret = noteSecret ? dayjs(noteSecret).isAfter(new Date()) : false
 

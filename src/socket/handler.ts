@@ -23,8 +23,8 @@ import {
   setCurrentPageData,
 } from '~/providers/page/CurrentPageDataProvider'
 import {
-  getCurrentPostData,
-  setCurrentPostData,
+  getGlobalCurrentPostData,
+  setGlobalCurrentPostData,
 } from '~/providers/post/CurrentPostDataProvider'
 import { EventTypes } from '~/types/events'
 
@@ -43,8 +43,8 @@ export const eventHandler = (
 
     case EventTypes.POST_UPDATE: {
       const post = data as PostModel
-      if (getCurrentPostData()?.id === post.id) {
-        setCurrentPostData((draft) => {
+      if (getGlobalCurrentPostData()?.id === post.id) {
+        setGlobalCurrentPostData((draft) => {
           const nextPost = { ...data }
           Reflect.deleteProperty(nextPost, 'category')
           Object.assign(draft, nextPost)
@@ -56,7 +56,7 @@ export const eventHandler = (
 
     case EventTypes.POST_DELETE: {
       const post = data as PostModel
-      if (getCurrentPostData()?.id === post.id) {
+      if (getGlobalCurrentPostData()?.id === post.id) {
         router.replace(routeBuilder(Routes.PageDeletd, {}))
         toast.error('文章已删除')
       }

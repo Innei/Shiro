@@ -11,7 +11,7 @@ import { NotePasswordForm } from '~/components/widgets/note/NotePasswordForm'
 import { isRequestError, pickStatusCode } from '~/lib/is-error'
 import { setCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
 
-import { Paper } from './Paper'
+import { Paper } from '../../components/layout/container/Paper'
 
 // TODO Catch if 404 or 403
 export default ({ error, reset }: { error: Error; reset: () => void }) => {

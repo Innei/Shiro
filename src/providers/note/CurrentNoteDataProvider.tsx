@@ -12,16 +12,20 @@ import { createDataProvider } from '../internal/createDataProvider'
 
 const {
   CurrentDataProvider,
-  getCurrentData,
-  setCurrentData,
+  CurrentDataAtomProvider,
+  getGlobalCurrentData: getCurrentData,
+  setGlobalCurrentData: setCurrentData,
   useCurrentDataSelector,
+  useSetCurrentData,
 } = createDataProvider<NoteWrappedPayload>()
 
 export {
   CurrentDataProvider as CurrentNoteDataProvider,
+  CurrentDataAtomProvider as CurrentNoteDataAtomProvider,
   getCurrentData as getCurrentNoteData,
   setCurrentData as setCurrentNoteData,
   useCurrentDataSelector as useCurrentNoteDataSelector,
+  useSetCurrentData as useSetCurrentNoteData,
 }
 
 export const SyncNoteDataAfterLoggedIn = () => {

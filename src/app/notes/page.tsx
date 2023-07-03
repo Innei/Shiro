@@ -9,7 +9,7 @@ import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { queries } from '~/queries/definition'
 
-import { Paper } from './Paper'
+import { Paper } from '../../components/layout/container/Paper'
 
 export default function Page() {
   const { data } = useQuery(

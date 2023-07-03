@@ -25,7 +25,7 @@ export const PageLoading: Component = ({ children }) => {
   return children
 }
 
-export const PostMarkdown = () => {
+export const PageMarkdown = () => {
   const text = useCurrentPageDataSelector((data) => data?.text)
   if (!text) return null
 
