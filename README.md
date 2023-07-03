@@ -34,6 +34,6 @@ Kami 的代码已经超过 3 年，实在变得难以维护，一堆屎一样的
 
 ## License
 
-2023 © Innei, Released under the MIT License. Thanks GPT-4.
+2023 © Innei, Released under the MIT License. Thanks GPT-4. [cali.so](https://github.com/CaliCastle/cali.so)
 
 > [Personal Website](https://innei.in/) · GitHub [@Innei](https://github.com/innei/)

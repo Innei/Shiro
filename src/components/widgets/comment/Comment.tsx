@@ -159,13 +159,12 @@ export const CommentBoxHolderPortal = (props: PropsWithChildren) => {
 }
 
 const disabledTypes = [
-  'heading',
-  'blockQuote',
   'footnote',
-  'table',
-  'tableSeparator',
-  'gfmTask',
-  'headingSetext',
   'footnoteReference',
+
+  'image',
+
+  'htmlComment',
   'htmlSelfClosing',
+  'htmlBlock',
 ] as MarkdownToJSX.RuleName[]

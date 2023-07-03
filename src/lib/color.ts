@@ -83,3 +83,43 @@ export function addAlphaToHSL(hsl: string, alpha: number): string {
   const hsla = `${hsl.slice(0, -1)}, ${alpha})`
   return hsla.replace('hsl', 'hsla')
 }
+
+export function hexToHsl(hex: string): string {
+  // Remove the '#' symbol from the hex code
+  hex = hex.replace('#', '')
+
+  // Convert hex values to RGB
+  const r = parseInt(hex.substring(0, 2), 16) / 255
+  const g = parseInt(hex.substring(2, 4), 16) / 255
+  const b = parseInt(hex.substring(4, 6), 16) / 255
+
+  // Find the minimum and maximum values among R, G, and B
+  const min = Math.min(r, g, b)
+  const max = Math.max(r, g, b)
+
+  // Calculate the hue
+  let h = 0
+  if (max === min) {
+    h = 0 // No hue for achromatic colors
+  } else if (max === r) {
+    h = ((g - b) / (max - min)) % 6
+  } else if (max === g) {
+    h = (2 + (b - r) / (max - min)) % 6
+  } else {
+    h = (4 + (r - g) / (max - min)) % 6
+  }
+  h = Math.round(h * 60)
+
+  // Calculate the lightness
+  const l = (max + min) / 2
+
+  // Calculate the saturation
+  let s = 0
+  if (max !== min) {
+    s = (max - min) / (1 - Math.abs(2 * l - 1))
+  }
+  s = Math.round(s * 100)
+
+  // Return the HSL values as a string
+  return `${h} ${s}% ${Math.round(l * 100)}%`
+}

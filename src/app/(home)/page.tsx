@@ -1,14 +1,28 @@
 'use client'
 
+import { forwardRef } from 'react'
+import { m } from 'framer-motion'
+import type { PropsWithChildren } from 'react'
+
+import { softBouncePrest } from '~/constants/spring'
 import { clsxm } from '~/lib/helper'
 
-const Screen: Component = (props) => {
+const Screen = forwardRef<
+  HTMLDivElement,
+  PropsWithChildren<{
+    className?: string
+  }>
+>((props, ref) => {
   return (
-    <div className={clsxm('flex h-screen flex-col center', props.className)}>
+    <div
+      ref={ref}
+      className={clsxm('flex h-screen flex-col center', props.className)}
+    >
       {props.children}
     </div>
   )
-}
+})
+Screen.displayName = 'Screen'
 export default function Home() {
   return (
     <div>
@@ -19,11 +33,9 @@ export default function Home() {
         <h1>其他页面基本已完成。你可以在顶部的导航栏中找到它们。</h1>
         <h1>欢迎给我反馈问题，谢谢您。</h1>
       </Screen>
-      <Screen className="mt-[-4.5rem]">
-        <h1>
-          欢迎，来到这个小小的宇宙，一个闪烁着光彩的星球，等待着你的探索。
-        </h1>
-      </Screen>
+
+      <Welcome />
+
       <Screen>
         <h1>
           在这个矩阵中，你可以找到各种各样的代码块，它们是我在计算机科学的探索和实践的证明。
@@ -45,5 +57,21 @@ export default function Home() {
         </h1>
       </Screen>
     </div>
+  )
+}
+
+const Welcome = () => {
+  return (
+    <Screen className="mt-[-4.5rem]">
+      <div>
+        <m.h1
+          initial={{ opacity: 0.0001, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={softBouncePrest}
+        >
+          欢迎，来到这个小小的宇宙，一个闪烁着光彩的星球，等待着你的探索。
+        </m.h1>
+      </div>
+    </Screen>
   )
 }
