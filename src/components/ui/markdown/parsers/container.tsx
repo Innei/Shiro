@@ -4,9 +4,21 @@ import type { MarkdownToJSX } from 'markdown-to-jsx'
 
 import { Banner } from '../../banner/Banner'
 import { Gallery } from '../../gallery/Gallery'
+import { Markdown } from '../Markdown'
 import { pickImagesFromMarkdown } from '../utils/image'
 
-const shouldCatchContainerName = ['gallery', 'banner', 'carousel'].join('|')
+const shouldCatchContainerName = [
+  'gallery',
+  'banner',
+  'carousel',
+
+  'warn',
+  'error',
+  'danger',
+  'info',
+  'success',
+  'warning',
+].join('|')
 export const ContainerRule: MarkdownToJSX.Rule = {
   match: blockRegex(
     new RegExp(
@@ -45,9 +57,14 @@ export const ContainerRule: MarkdownToJSX.Rule = {
           <Banner
             type={name || (transformMap as any)[name] || 'info'}
             className="my-4"
-            message={content}
             key={state?.key}
-          />
+          >
+            <Markdown
+              value={content}
+              allowsScript
+              className="[&>p:first-child]:mt-0"
+            />
+          </Banner>
         )
       }
       case 'banner': {
@@ -56,12 +73,9 @@ export const ContainerRule: MarkdownToJSX.Rule = {
         }
 
         return (
-          <Banner
-            type={params}
-            className="my-4"
-            message={content}
-            key={state?.key}
-          />
+          <Banner type={params} className="my-4" key={state?.key}>
+            <Markdown value={content} allowsScript />
+          </Banner>
         )
       }
     }

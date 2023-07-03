@@ -57,7 +57,7 @@ export const eventHandler = (
     case EventTypes.POST_DELETE: {
       const post = data as PostModel
       if (getCurrentPostData()?.id === post.id) {
-        router.push(routeBuilder(Routes.PageDeletd, {}))
+        router.replace(routeBuilder(Routes.PageDeletd, {}))
         toast.error('文章已删除')
       }
       break
@@ -77,7 +77,7 @@ export const eventHandler = (
     case 'NOTE_DELETE': {
       const note = data as NoteModel
       if (getCurrentNoteData()?.data.id === note.id) {
-        router.push(routeBuilder(Routes.PageDeletd, {}))
+        router.replace(routeBuilder(Routes.PageDeletd, {}))
         toast.error('手记已删除')
       }
       break
