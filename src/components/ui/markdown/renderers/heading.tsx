@@ -21,7 +21,7 @@ export const MHeader = (props: HeadingProps) => {
     } as any,
     null,
     <>
-      {children}
+      <span>{children}</span>
       <span
         className="ml-2 inline-flex cursor-pointer select-none text-accent opacity-0 transition-opacity duration-200 center group-hover:opacity-100"
         role="button"
