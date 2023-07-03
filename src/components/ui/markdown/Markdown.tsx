@@ -26,6 +26,7 @@ import { SpoilderRule } from './parsers/spoiler'
 import { MParagraph, MTableBody, MTableHead, MTableRow } from './renderers'
 import { MDetails } from './renderers/collapse'
 import { MFootNote } from './renderers/footnotes'
+import { MHeader } from './renderers/heading'
 import { MLink } from './renderers/link'
 
 const CodeBlock = dynamic(() => import('~/components/widgets/shared/CodeBlock'))
@@ -90,6 +91,15 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
         },
 
         extendsRules: {
+          heading: {
+            react(node, output, state) {
+              return (
+                <MHeader id={node.id} level={node.level} key={state?.key}>
+                  {output(node.content, state!)}
+                </MHeader>
+              )
+            },
+          },
           gfmTask: {
             react(node, _, state) {
               return (

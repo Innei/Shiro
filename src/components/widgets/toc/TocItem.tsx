@@ -4,7 +4,6 @@ import { memo, useCallback, useEffect, useMemo, useRef } from 'react'
 import { tv } from 'tailwind-variants'
 import type { FC, MouseEvent } from 'react'
 
-import { getIsInteractive } from '~/atoms/is-interactive'
 import { clsxm } from '~/lib/helper'
 
 const styles = tv({
@@ -39,14 +38,14 @@ export const TocItem: FC<{
 
   const $ref = useRef<HTMLAnchorElement>(null)
 
-  useEffect(() => {
-    if (!active) {
-      return
-    }
-    if (!getIsInteractive()) return
-    const state = history.state
-    history.replaceState(state, '', `#${anchorId}`)
-  }, [active, anchorId])
+  // useEffect(() => {
+  //   if (!active) {
+  //     return
+  //   }
+  //   if (!getIsInteractive()) return
+  //   const state = history.state
+  //   history.replaceState(state, '', `#${anchorId}`)
+  // }, [active, anchorId])
 
   useEffect(() => {
     if (active) {
@@ -92,3 +91,5 @@ export const TocItem: FC<{
     </a>
   )
 })
+
+TocItem.displayName = 'TocItem'

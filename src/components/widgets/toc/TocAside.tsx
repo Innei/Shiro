@@ -26,7 +26,6 @@ export const TocAside: Component<TocAsideProps & TocSharedProps> = ({
 }) => {
   const containerRef = useRef<HTMLUListElement>(null)
   const $article = useWrappedElement()
-  // const { h } = useWrappedElementSize()
 
   if (typeof $article === 'undefined') {
     throw new Error('<Toc /> must be used in <WrappedElementProvider />')
