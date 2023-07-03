@@ -38,7 +38,7 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
     <CurrentPostDataAtomProvider overrideAtom={overrideAtom}>
       <CurrentPostDataProvider data={data} />
       <Paper>
-        <article className="prose">
+        <article className="prose relative w-full min-w-0">
           <header className="mb-8">
             <h1 className="text-center">
               <Balancer>{data.title}</Balancer>

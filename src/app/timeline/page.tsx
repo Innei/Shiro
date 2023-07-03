@@ -222,10 +222,31 @@ const Item = memo<{
   const router = useRouter()
   const isMobile = useIsMobile()
   const { present } = useModalStack()
-  const handlePeek = useCallback((e: SyntheticEvent) => {
-    if (item.type === ArticleType.Note) {
-      {
+
+  const handlePeek = useCallback(
+    (e: SyntheticEvent) => {
+      if (isMobile) return
+      if (item.type === ArticleType.Note) {
+        {
+          e.preventDefault()
+          present({
+            clickOutsideToDismiss: true,
+            title: 'Preview',
+            modalClassName: 'flex justify-center',
+            modalContainerClassName: 'flex justify-center',
+            CustomModalComponent: () => (
+              <PeekModal to={item.href}>
+                <NotePreview noteId={parseInt(item.href.split('/').pop()!)} />
+              </PeekModal>
+            ),
+            content: () => null,
+          })
+        }
+      } else if (item.type === ArticleType.Post) {
         e.preventDefault()
+        const splitpath = item.href.split('/')
+        const slug = splitpath.pop()!
+        const category = splitpath.pop()!
         present({
           clickOutsideToDismiss: true,
           title: 'Preview',
@@ -233,31 +254,15 @@ const Item = memo<{
           modalContainerClassName: 'flex justify-center',
           CustomModalComponent: () => (
             <PeekModal to={item.href}>
-              <NotePreview noteId={parseInt(item.href.split('/').pop()!)} />
+              <PostPreview category={category} slug={slug} />
             </PeekModal>
           ),
           content: () => null,
         })
       }
-    } else if (item.type === ArticleType.Post) {
-      e.preventDefault()
-      const splitpath = item.href.split('/')
-      const slug = splitpath.pop()!
-      const category = splitpath.pop()!
-      present({
-        clickOutsideToDismiss: true,
-        title: 'Preview',
-        modalClassName: 'flex justify-center',
-        modalContainerClassName: 'flex justify-center',
-        CustomModalComponent: () => (
-          <PeekModal to={item.href}>
-            <PostPreview category={category} slug={slug} />
-          </PeekModal>
-        ),
-        content: () => null,
-      })
-    }
-  }, [])
+    },
+    [isMobile],
+  )
   return (
     <li
       key={item.id}
