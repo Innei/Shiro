@@ -4,11 +4,16 @@ import { createTransitionView } from './factor'
 
 export const BottomToUpTransitionView = createTransitionView({
   from: {
-    translateY: 50,
+    y: 50,
     opacity: 0.001,
   },
   to: {
-    translateY: 0,
+    y: 0,
     opacity: 1,
+  },
+  preset: {
+    type: 'spring',
+    damping: 10,
+    stiffness: 100,
   },
 })
