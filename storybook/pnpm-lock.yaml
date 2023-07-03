@@ -15,8 +15,8 @@ dependencies:
     specifier: ^4.3.0
     version: 4.3.0
   postcss-import:
-    specifier: ^14.1.0
-    version: 14.1.0(postcss@8.4.24)
+    specifier: ^15.1.0
+    version: 15.1.0(postcss@8.4.24)
   react-error-boundary:
     specifier: 4.0.10
     version: 4.0.10(react@18.2.0)
@@ -1769,9 +1769,9 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /postcss-import@14.1.0(postcss@8.4.24):
-    resolution: {integrity: sha512-flwI+Vgm4SElObFVPpTIT7SU7R3qk2L7PyduMcokiaVKuWv9d/U+Gm/QAd8NDLuykTWTkcrjOeD2Pp1rMeBTGw==}
-    engines: {node: '>=10.0.0'}
+  /postcss-import@15.1.0(postcss@8.4.24):
+    resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
+    engines: {node: '>=14.0.0'}
     peerDependencies:
       postcss: ^8.0.0
     dependencies:
