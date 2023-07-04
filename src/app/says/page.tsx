@@ -11,6 +11,7 @@ import { useIsMobile } from '~/atoms'
 import { Loading } from '~/components/ui/loading'
 import { Masonry } from '~/components/ui/masonry'
 import { RelativeTime } from '~/components/ui/relative-time'
+import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { LoadMoreIndicator } from '~/components/widgets/shared/LoadMoreIndicator'
 import { NothingFound } from '~/components/widgets/shared/NothingFound'
@@ -63,11 +64,13 @@ export default function Page() {
 
         {hasNextPage && (
           <LoadMoreIndicator onLoading={fetchNextPage} className="mt-12">
-            <Masonry
-              Component={SaySkeleton}
-              columns={isMobile ? 1 : 2}
-              list={placeholderData}
-            />
+            <BottomToUpSoftScaleTransitionView>
+              <Masonry
+                Component={SaySkeleton}
+                columns={isMobile ? 1 : 2}
+                list={placeholderData}
+              />
+            </BottomToUpSoftScaleTransitionView>
           </LoadMoreIndicator>
         )}
       </main>
@@ -82,12 +85,12 @@ const placeholderData = Array.from({ length: 10 }).map((_, index) => ({
 }))
 const SaySkeleton = memo(() => {
   return (
-    <div className="relative mb-4 border-l-[3px] border-l-slate-500 bg-gray-200 px-4 py-3 dark:bg-neutral-700">
-      <div className="mb-2 h-6 w-full rounded bg-gray-300 dark:bg-neutral-600" />
+    <div className="relative mb-4 border-l-[3px] border-l-slate-500 bg-slate-200/50 px-4 py-3 dark:bg-neutral-800">
+      <div className="mb-2 h-6 w-full rounded bg-slate-300/80 dark:bg-neutral-700" />
       <div className="flex text-sm text-base-content/60 md:justify-between">
-        <div className="mb-2 h-4 w-14 rounded bg-gray-300 dark:bg-neutral-600 md:mb-0" />
+        <div className="mb-2 h-4 w-14 rounded bg-slate-300/80 dark:bg-neutral-700 md:mb-0" />
         <div className="ml-auto text-right">
-          <div className="h-4 w-1/4 rounded bg-gray-300 dark:bg-neutral-600" />
+          <div className="h-4 w-1/4 rounded bg-slate-300/80 dark:bg-neutral-700" />
         </div>
       </div>
     </div>
