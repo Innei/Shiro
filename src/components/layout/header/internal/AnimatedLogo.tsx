@@ -1,10 +1,13 @@
 'use client'
 
+import { useQuery } from '@tanstack/react-query'
+import { useCallback } from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 
 import { getAdminUrl, isLogged, useViewport } from '~/atoms'
 import { useSingleAndDoubleClick } from '~/hooks/common/use-single-double-click'
+import { useConfig } from '~/hooks/data/use-config'
 import { Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
 
@@ -14,8 +17,21 @@ import { SiteOwnerAvatar } from './SiteOwnerAvatar'
 
 const TapableLogo = () => {
   const router = useRouter()
+
+  const { data: isLiving } = useQuery({
+    queryKey: ['live-check'],
+    enabled: false,
+  })
+  const {
+    module: { bilibili: { liveId } = {} },
+  } = useConfig()
+  const goLive = useCallback(() => {
+    window.open(`https://live.bilibili.com/${liveId}`)
+  }, [liveId])
+
   const fn = useSingleAndDoubleClick(
     () => {
+      if (isLiving) return goLive()
       router.push(Routes.Home)
     },
     () => {

@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query'
 import { useCallback } from 'react'
 import Image from 'next/image'
 
-import { appConfig } from '~/app.config'
 import { clsxm } from '~/lib/helper'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
@@ -26,19 +25,12 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
     },
   })
 
-  const handleGoLive = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation()
-    window.open(`https://live.bilibili.com/${appConfig.module.bilibili.liveId}`)
-  }, [])
   if (!avatar) return
   return (
     <div
       role={isLiving ? 'button' : 'img'}
-      aria-hidden
-      onClick={handleGoLive}
-      tabIndex={isLiving ? 0 : -1}
       className={clsxm(
-        'overflow pointer-events-none relative select-none',
+        'overflow pointer-events-none relative z-[9] select-none',
 
         isLiving ? 'cursor-pointer rounded-full' : '',
         className,

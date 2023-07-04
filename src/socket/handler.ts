@@ -11,6 +11,7 @@ import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
 
 import { sayQueryKey } from '~/app/says/query'
 import { setOnlineCount } from '~/atoms'
+import { setActivityMediaInfo, setActivityProcessName } from '~/atoms/activity'
 import { isDev } from '~/lib/env'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
@@ -29,13 +30,13 @@ import {
 import { EventTypes } from '~/types/events'
 
 export const eventHandler = (
-  type: EventTypes,
+  type: string,
   data: any,
   router: AppRouterInstance,
 ) => {
   switch (type) {
-    case 'VISITOR_ONLINE':
-    case 'VISITOR_OFFLINE': {
+    case EventTypes.VISITOR_ONLINE:
+    case EventTypes.VISITOR_OFFLINE: {
       const { online } = data
       setOnlineCount(online)
       break
@@ -74,7 +75,7 @@ export const eventHandler = (
       break
     }
 
-    case 'NOTE_DELETE': {
+    case EventTypes.NOTE_DELETE: {
       const note = data as NoteModel
       if (getCurrentNoteData()?.data.id === note.id) {
         router.replace(routeBuilder(Routes.PageDeletd, {}))
@@ -107,6 +108,16 @@ export const eventHandler = (
           },
         )
       }
+      break
+    }
+
+    case 'fn#media-update': {
+      setActivityMediaInfo(data)
+      break
+    }
+
+    case 'fn#ps-update': {
+      setActivityProcessName(data.process)
       break
     }
 

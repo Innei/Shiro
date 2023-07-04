@@ -1,11 +1,16 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import React, { memo, useMemo, useState } from 'react'
+import React, { memo, useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 import Image from 'next/image'
 import type { RequestError } from '@mx-space/api-client'
 
+import {
+  setActivityMediaInfo,
+  setActivityProcessName,
+  useActivity,
+} from '~/atoms/activity'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { apiClient } from '~/lib/request'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
@@ -44,7 +49,7 @@ const appLabels: { [app: string]: string } = {
   Chrome: 'chrome',
   'Chrome Canary': 'chrome_canary',
   QQ音乐: 'qq_music',
-  NeteaseMusic: 'netease',
+  NetEaseMusic: 'netease',
   iTerm2: 'iterm2',
   Xcode: 'xcode',
   Typora: 'typora',
@@ -54,6 +59,8 @@ const appLabels: { [app: string]: string } = {
 // autocorrect: true
 export function Activity() {
   const [isEnabled, setIsEnabled] = useState(true)
+
+  const activity = useActivity()
 
   const { data } = useQuery(
     ['activity'],
@@ -73,7 +80,7 @@ export function Activity() {
         })
     },
     {
-      refetchInterval: 5000,
+      refetchInterval: 1000 * 5 * 60,
       retry: false,
       enabled: isEnabled,
       meta: {
@@ -81,6 +88,13 @@ export function Activity() {
       },
     },
   )
+
+  useEffect(() => {
+    if (!data) return
+    data.mediaInfo && setActivityMediaInfo(data.mediaInfo)
+    setActivityProcessName(data.processName)
+  }, [data])
+
   const ownerName = useAggregationSelector((data) => data.user.name)
   const memoProcessName = useMemo(
     () => ({ processName: data?.processName || '' }),
@@ -89,7 +103,7 @@ export function Activity() {
   if (!data) {
     return null
   }
-  const { processName, mediaInfo: media } = data
+  const { processName, media } = activity
   if (!appLabels[processName]) {
     console.log('Not collected process name: ', processName)
     return null
