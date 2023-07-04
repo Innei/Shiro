@@ -105,7 +105,7 @@ const Welcome = () => {
               <span className="opacity-80">{description}</span>
             </BottomToUpTransitionView>
 
-            <ul className="flex space-x-4 center lg:mt-[7rem] lg:block">
+            <ul className="mt-8 flex space-x-4 center lg:mt-[7rem] lg:block">
               {Object.entries(socialIds || noopObj).map(
                 ([type, id]: any, index) => {
                   return (

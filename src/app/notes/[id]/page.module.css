@@ -40,7 +40,7 @@
       line-height: 1.8;
       padding: 1em 1em 1em 2em;
 
-      @apply bg-uk-cyan-light/10 font-normal dark:bg-uk-teal-light/10;
+      @apply bg-accent/20 font-normal dark:bg-accent/5;
       @apply border-none px-12 !outline-none;
 
       & span::first-letter {

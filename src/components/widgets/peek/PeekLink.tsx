@@ -4,26 +4,19 @@ import type { LinkProps } from 'next/link'
 import type { FC, PropsWithChildren, SyntheticEvent } from 'react'
 
 import { useIsMobile } from '~/atoms'
+import { preventDefault } from '~/lib/dom'
 import { useModalStack } from '~/providers/root/modal-stack-provider'
 
 import { PeekModal } from './PeekModal'
 
-export const PeekLink: FC<
-  {
-    href: string
-  } & LinkProps &
-    PropsWithChildren &
-    React.AnchorHTMLAttributes<HTMLAnchorElement>
-> = (props) => {
-  const { href, children, ...rest } = props
+export const usePeek = () => {
   const isMobile = useIsMobile()
   const { present } = useModalStack()
-  const handlePeek = useCallback(
-    async (e: SyntheticEvent) => {
+  return useCallback(
+    async (href: string) => {
       if (isMobile) return
 
       if (href.startsWith('/notes/')) {
-        e.preventDefault()
         const NotePreview = await import('./NotePreview').then(
           (module) => module.NotePreview,
         )
@@ -39,8 +32,9 @@ export const PeekLink: FC<
           ),
           content: () => null,
         })
+
+        return true
       } else if (href.startsWith('/posts/')) {
-        e.preventDefault()
         const PostPreview = await import('./PostPreview').then(
           (module) => module.PostPreview,
         )
@@ -59,9 +53,32 @@ export const PeekLink: FC<
           ),
           content: () => null,
         })
+        return true
       }
+
+      return false
     },
-    [href, isMobile, present],
+    [isMobile, present],
+  )
+}
+
+export const PeekLink: FC<
+  {
+    href: string
+  } & LinkProps &
+    PropsWithChildren &
+    React.AnchorHTMLAttributes<HTMLAnchorElement>
+> = (props) => {
+  const { href, children, ...rest } = props
+
+  const peek = usePeek()
+
+  const handlePeek = useCallback(
+    async (e: SyntheticEvent) => {
+      const success = await peek(href)
+      if (success) preventDefault(e)
+    },
+    [href, peek],
   )
 
   return (

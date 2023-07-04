@@ -4,12 +4,14 @@ import axios from 'axios'
 import clsx from 'clsx'
 import Link from 'next/link'
 import RemoveMarkdown from 'remove-markdown'
-import type { FC } from 'react'
+import type { FC, SyntheticEvent } from 'react'
 
 import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
 
 import { LazyLoad } from '~/components/common/Lazyload'
+import { usePeek } from '~/components/widgets/peek/PeekLink'
 import { useIsClientTransition } from '~/hooks/common/use-is-client'
+import { preventDefault } from '~/lib/dom'
 import { apiClient } from '~/lib/request'
 
 import styles from './LinkCard.module.css'
@@ -45,6 +47,15 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
     desc?: string
     image?: string
   }>()
+
+  const peek = usePeek()
+  const handleCanPeek = useCallback(
+    async (e: SyntheticEvent<any>) => {
+      const success = await peek(fullUrl)
+      if (success) preventDefault(e)
+    },
+    [fullUrl],
+  )
 
   const isValidType = useMemo(() => {
     switch (source) {
@@ -171,6 +182,7 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
         isError && styles['error'],
         className,
       )}
+      onClick={handleCanPeek}
     >
       <span className={styles['contents']}>
         <span className={styles['title']}>{cardInfo?.title}</span>

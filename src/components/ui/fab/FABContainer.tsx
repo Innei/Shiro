@@ -35,7 +35,6 @@ export const FABBase = (
     <AnimatePresence mode="wait">
       {show && (
         <m.button
-          layout="position"
           aria-label="Floating action button"
           initial={{ opacity: 0.3, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -99,9 +98,7 @@ export const FABContainer = (props: {
   if (!isClient) return null
 
   return (
-    <m.div
-      layout
-      layoutRoot
+    <div
       data-testid="fab-container"
       className={clsx(
         'font-lg fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 z-[9] flex flex-col',
@@ -118,6 +115,6 @@ export const FABContainer = (props: {
         )
       })}
       {props.children}
-    </m.div>
+    </div>
   )
 }

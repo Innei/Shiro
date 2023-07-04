@@ -10,7 +10,7 @@ export const PeekModal = (
     to: string
   }>,
 ) => {
-  const { dismissTop } = useModalStack()
+  const { dismissAll } = useModalStack()
   return (
     <m.div
       initial={{ y: 100, opacity: 0.5 }}
@@ -24,7 +24,7 @@ export const PeekModal = (
       <Link
         className="absolute right-2 top-2 flex h-8 w-8 rounded-full p-1 shadow-sm ring-1 ring-zinc-200 center dark:ring-neutral-800"
         href={props.to}
-        onClick={dismissTop}
+        onClick={dismissAll}
       >
         <i className="icon-[mingcute--fullscreen-2-line] text-lg" />
         <span className="sr-only">Go to this link</span>
