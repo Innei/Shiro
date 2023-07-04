@@ -1,12 +1,12 @@
 /* image-zoom */
 .medium-zoom-overlay {
-  z-index: 9;
+  z-index: 99;
 
   @apply !bg-slate-50 dark:!bg-neutral-900;
 }
 
 .medium-zoom-overlay + .medium-zoom-image {
-  z-index: 10;
+  z-index: 100;
 }
 
 .medium-zoom-image {
