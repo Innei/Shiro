@@ -1,9 +1,9 @@
 'use client'
 
+import Link from 'next/link'
+
 import { Divider } from '~/components/ui/divider'
 import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
-
-import { PeekLink } from '../peek/PeekLink'
 
 export const PostRelated = () => {
   const related = useCurrentPostDataSelector((s) => s?.related)
@@ -24,12 +24,12 @@ export const PostRelated = () => {
         {related.map((post) => {
           return (
             <li key={post.id}>
-              <PeekLink
+              <Link
                 href={`/posts/${post.category.slug}/${post.slug}`}
                 className="underline-current underline-dashed leading-10 underline"
               >
                 {post.title}
-              </PeekLink>
+              </Link>
             </li>
           )
         })}

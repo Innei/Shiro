@@ -84,7 +84,7 @@ export function addAlphaToHSL(hsl: string, alpha: number): string {
   return hsla.replace('hsl', 'hsla')
 }
 
-export function hexToHsl(hex: string): string {
+export function hexToHsl(hex: string) {
   // Remove the '#' symbol from the hex code
   hex = hex.replace('#', '')
 
@@ -121,5 +121,5 @@ export function hexToHsl(hex: string): string {
   s = Math.round(s * 100)
 
   // Return the HSL values as a string
-  return `${h} ${s}% ${Math.round(l * 100)}%`
+  return [h, s, Math.round(l * 100)]
 }

@@ -27,14 +27,22 @@ export const AccentColorProvider = ({ children }: PropsWithChildren) => {
     const accentColorL = sample(accentColorLight)
     const accentColorD = sample(accentColorDark)
 
+    const lightHsl = hexToHsl(accentColorL)
+    const darkHsl = hexToHsl(accentColorD)
+
+    const [hl, sl, ll] = lightHsl
+    const [hd, sd, ld] = darkHsl
+
     return (
       <style
         dangerouslySetInnerHTML={{
           __html: `html[data-theme='dark'] {
-          --a: ${hexToHsl(accentColorD)};
+          --a: ${`${hl} ${sl}% ${ll}%`};
+          --af: ${`${hl} ${sl}% ${ll + 6}%`};
         }
         html[data-theme='light'] {
-          --a: ${hexToHsl(accentColorL)};
+          --a: ${`${hd} ${sd}% ${ld}%`};
+          --af: ${`${hd} ${sd}% ${ld - 6}%`};
         }
         `,
         }}
