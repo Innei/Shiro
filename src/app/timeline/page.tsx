@@ -1,13 +1,11 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { memo, useCallback, useEffect } from 'react'
+import { memo, useEffect } from 'react'
 import clsx from 'clsx'
 import { m } from 'framer-motion'
-import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import type { TimelineData } from '@mx-space/api-client'
-import type { SyntheticEvent } from 'react'
 
 import { TimelineType } from '@mx-space/api-client'
 
@@ -17,13 +15,10 @@ import { NormalContainer } from '~/components/layout/container/Normal'
 import { Divider } from '~/components/ui/divider'
 import { TimelineList } from '~/components/ui/list/TimelineList'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
-import { NotePreview } from '~/components/widgets/peek/NotePreview'
-import { PeekModal } from '~/components/widgets/peek/PeekModal'
-import { PostPreview } from '~/components/widgets/peek/PostPreview'
+import { PeekLink } from '~/components/widgets/peek/PeekLink'
 import { TimelinProgress } from '~/components/widgets/timeline/TimelineProgress'
 import { apiClient } from '~/lib/request'
 import { springScrollToElement } from '~/lib/scroller'
-import { useModalStack } from '~/providers/root/modal-stack-provider'
 
 enum ArticleType {
   Post,
@@ -221,48 +216,7 @@ const Item = memo<{
 }>(({ item }) => {
   const router = useRouter()
   const isMobile = useIsMobile()
-  const { present } = useModalStack()
 
-  const handlePeek = useCallback(
-    (e: SyntheticEvent) => {
-      if (isMobile) return
-      if (item.type === ArticleType.Note) {
-        {
-          e.preventDefault()
-          present({
-            clickOutsideToDismiss: true,
-            title: 'Preview',
-            modalClassName: 'flex justify-center',
-            modalContainerClassName: 'flex justify-center',
-            CustomModalComponent: () => (
-              <PeekModal to={item.href}>
-                <NotePreview noteId={parseInt(item.href.split('/').pop()!)} />
-              </PeekModal>
-            ),
-            content: () => null,
-          })
-        }
-      } else if (item.type === ArticleType.Post) {
-        e.preventDefault()
-        const splitpath = item.href.split('/')
-        const slug = splitpath.pop()!
-        const category = splitpath.pop()!
-        present({
-          clickOutsideToDismiss: true,
-          title: 'Preview',
-          modalClassName: 'flex justify-center',
-          modalContainerClassName: 'flex justify-center',
-          CustomModalComponent: () => (
-            <PeekModal to={item.href}>
-              <PostPreview category={category} slug={slug} />
-            </PeekModal>
-          ),
-          content: () => null,
-        })
-      }
-    },
-    [isMobile],
-  )
   return (
     <li
       key={item.id}
@@ -276,14 +230,13 @@ const Item = memo<{
             day: '2-digit',
           }).format(item.date)}
         </span>
-        <Link
+        <PeekLink
           prefetch={false}
           href={item.href}
           className="min-w-0 truncate leading-6"
-          onClick={handlePeek}
         >
           <span className="min-w-0 truncate">{item.title}</span>
-        </Link>
+        </PeekLink>
         {item.important && (
           <SolidBookmark
             className="ml-2 cursor-pointer text-red-500"

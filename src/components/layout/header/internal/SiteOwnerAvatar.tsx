@@ -21,6 +21,9 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
       return !!data
     }, []),
     refetchInterval: 1000 * 60,
+    meta: {
+      persist: false,
+    },
   })
 
   const handleGoLive = useCallback((e: React.MouseEvent<HTMLDivElement>) => {

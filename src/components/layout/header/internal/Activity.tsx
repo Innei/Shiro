@@ -76,6 +76,9 @@ export function Activity() {
       refetchInterval: 5000,
       retry: false,
       enabled: isEnabled,
+      meta: {
+        persist: false,
+      },
     },
   )
   const ownerName = useAggregationSelector((data) => data.user.name)
