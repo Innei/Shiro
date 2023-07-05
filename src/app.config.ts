@@ -38,7 +38,7 @@ export const appConfig = {
           type: 'code',
           text: '<Developer />',
           class:
-            'font-medium mx-2 text-3xl rounded p-1 bg-opacity-0 hover:bg-opacity-100 bg-gray-200 dark:bg-gray-800 transition-background duration-200',
+            'font-medium mx-2 text-3xl rounded p-1 bg-gray-200 dark:bg-gray-800/0 hover:dark:bg-gray-800/100 bg-opacity-0 hover:bg-opacity-100 transition-background duration-200',
         },
       ],
     },

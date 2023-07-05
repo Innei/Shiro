@@ -22,6 +22,7 @@ export const enum Routes {
   Project = '/projects/',
 
   Says = '/says',
+  Friends = '/friends',
 
   PageDeletd = '/common/deleted',
 }

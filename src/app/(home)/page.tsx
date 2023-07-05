@@ -1,9 +1,9 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import React, { createElement, forwardRef } from 'react'
+import React, { createElement, forwardRef, useEffect, useRef } from 'react'
 import clsx from 'clsx'
-import { m } from 'framer-motion'
+import { m, useInView } from 'framer-motion'
 import Link from 'next/link'
 import type { PropsWithChildren } from 'react'
 
@@ -14,13 +14,18 @@ import { TextUpTransitionView } from '~/components/ui/transition/TextUpTransitio
 import { isSupportIcon, SocialIcon } from '~/components/widgets/home/SocialIcon'
 import { PeekLink } from '~/components/widgets/peek/PeekLink'
 import { PostMetaBar } from '~/components/widgets/post'
-import { softBouncePrest, softSpringPreset } from '~/constants/spring'
+import {
+  microReboundPreset,
+  softBouncePrest,
+  softSpringPreset,
+} from '~/constants/spring'
 import { useConfig } from '~/hooks/data/use-config'
 import { isDev } from '~/lib/env'
 import { clsxm } from '~/lib/helper'
 import { noopObj } from '~/lib/noop'
 import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
+import { springScrollToTop } from '~/lib/scroller'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
 import { useHomeQueryData } from './query'
@@ -34,6 +39,9 @@ const Screen = forwardRef<
     className?: string
   }>
 >((props, ref) => {
+  const inViewRef = useRef<HTMLSpanElement>(null)
+  const inView = useInView(inViewRef, { once: true })
+
   return (
     <div
       ref={ref}
@@ -43,23 +51,20 @@ const Screen = forwardRef<
         props.className,
       )}
     >
-      {props.children}
+      <span ref={inViewRef} />
+      {inView && props.children}
     </div>
   )
 })
 Screen.displayName = 'Screen'
 
 export default function Home() {
+  useEffect(() => {
+    if (isDev) return
+    springScrollToTop()
+  }, [])
   return (
     <div>
-      <Screen className="mt-[-4.5rem]">
-        <h1>
-          这个页面还没构思，待到春去秋来，我会在这里写下一些关于我自己的故事。
-        </h1>
-        <h1>其他页面基本已完成。你可以在顶部的导航栏中找到它们。</h1>
-        <h1>欢迎给我反馈问题，谢谢您。</h1>
-      </Screen>
-
       <Welcome />
 
       <PostScreen />
@@ -184,9 +189,8 @@ const Welcome = () => {
 
         <m.div
           initial={{ opacity: 0.0001, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={softBouncePrest}
-          viewport={{ once: true }}
           className={clsx(
             'absolute bottom-0 left-0 right-0 flex flex-col center',
 
@@ -215,11 +219,10 @@ const PostScreen = () => {
             opacity: 0.0001,
             y: 50,
           }}
-          whileInView={{
+          animate={{
             opacity: 1,
             y: 0,
           }}
-          viewport={{ once: true }}
           transition={softSpringPreset}
           className="text-2xl font-medium leading-loose"
         >
@@ -234,8 +237,7 @@ const PostScreen = () => {
 
               return (
                 <m.li
-                  viewport={{ once: true }}
-                  whileInView={{
+                  animate={{
                     opacity: 1,
                     x: 0,
                   }}
@@ -289,8 +291,7 @@ const PostScreen = () => {
 
           <m.div
             initial={{ opacity: 0.0001, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
               ...softBouncePrest,
               delay: 0.3 + 0.2 * posts.length,
@@ -326,10 +327,28 @@ const NoteScreen = () => {
       <TwoColumnLayout leftContainerClassName="block lg:flex">
         <div>
           <section className="flex flex-col justify-end">
-            <h3 className="mb-6 text-center text-xl">
+            <m.h3
+              className="mb-6 text-center text-xl"
+              initial={{ opacity: 0.0001, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={softBouncePrest}
+            >
               看看我的近况，这是我最近的所思所想
-            </h3>
-            <div
+            </m.h3>
+            <m.div
+              initial={{ opacity: 0.00001, scale: 0.94, y: 20 }}
+              animate={{
+                y: 0,
+                scale: 1,
+                opacity: 1,
+              }}
+              viewport={{
+                once: true,
+              }}
+              transition={{
+                ...softSpringPreset,
+                delay: 0.3,
+              }}
               className={clsx(
                 'relative flex h-[150px] w-full rounded-md ring-1 ring-slate-200 center dark:ring-neutral-800',
                 'hover:shadow-md hover:shadow-slate-100 dark:hover:shadow-neutral-900',
@@ -355,16 +374,35 @@ const NoteScreen = () => {
                   }}
                 />
               )}
-            </div>
+            </m.div>
           </section>
 
           {hasHistory && (
             <section className="mt-[20%]">
-              <div className="text-lg opacity-80">这里还有一些历史回顾</div>
+              <m.div
+                initial={{ opacity: 0.0001, y: 50 }}
+                animate={{ opacity: 0.8, y: 0 }}
+                transition={{
+                  ...softBouncePrest,
+                  delay: 0.5,
+                }}
+                className="text-lg"
+              >
+                这里还有一些历史回顾
+              </m.div>
               <ul className="shiro-timeline mt-4">
-                {history.map((note) => {
+                {history.map((note, i) => {
                   return (
-                    <li key={note.id} className="flex min-w-0 justify-between">
+                    <m.li
+                      key={note.id}
+                      initial={{ opacity: 0.0001, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        ...microReboundPreset,
+                        delay: 0.8 + 0.1 * i,
+                      }}
+                      className="flex min-w-0 justify-between"
+                    >
                       <PeekLink
                         className="min-w-0 flex-shrink truncate"
                         href={routeBuilder(Routes.Note, { id: note.nid })}
@@ -378,18 +416,47 @@ const NoteScreen = () => {
                           displayAbsoluteTimeAfterDay={180}
                         />
                       </span>
-                    </li>
+                    </m.li>
                   )
                 })}
               </ul>
+
+              <m.div
+                className="mt-8"
+                initial={{ opacity: 0.00001, scale: 0.96, y: 10 }}
+                animate={{
+                  y: 0,
+                  scale: 1,
+                  opacity: 1,
+                }}
+                transition={{
+                  ...softSpringPreset,
+                  delay: 1,
+                }}
+              >
+                <MotionButtonBase>
+                  <Link
+                    className="shiro-link--underline"
+                    href={routeBuilder(Routes.Posts, {})}
+                  >
+                    还有更多，要不要看看？
+                  </Link>
+                </MotionButtonBase>
+              </m.div>
             </section>
           )}
         </div>
-        <h2 className="text-2xl font-medium leading-loose">
+        <m.h2
+          className="text-2xl font-medium leading-loose"
+          initial={{ opacity: 0.0001 }}
+          animate={{
+            opacity: 1,
+          }}
+        >
           而在这里，你会看到一个不同的我，
           <br />
           一个在生活中发现美，感受痛苦，洞察人性的我。
-        </h2>
+        </m.h2>
       </TwoColumnLayout>
     </Screen>
   )
@@ -404,28 +471,77 @@ const FriendScreen = () => {
     staleTime: 1000 * 60,
   })
   return (
-    <Screen>
-      <h2>
-        这些是我珍视的人，他们陪伴我走过人生的每一段旅程，和我一起笑，一起哭，一起成长。
-      </h2>
-      <ul>
-        {data?.data.map((friend) => {
-          return <li key={friend.id}>{friend.name}</li>
-        })}
-      </ul>
-      还有更多..
+    <Screen className="flex center">
+      <div className="flex min-w-0 flex-col">
+        <BottomToUpTransitionView className="text-center text-3xl font-medium">
+          这些是我珍视的人，他们陪伴我走过人生的每一段旅程。
+        </BottomToUpTransitionView>
+        <ul
+          className={clsx(
+            'mt-12 grid max-w-5xl grid-cols-3 gap-10 p-4 md:grid-cols-4 lg:grid-cols-5 lg:p-0',
+
+            'min-w-0 [&_*]:flex [&_*]:flex-col [&_*]:center',
+          )}
+        >
+          {data?.data.map((friend, i) => {
+            return (
+              <li key={friend.id} className="min-w-0 max-w-full">
+                <m.div
+                  initial={{ scale: 0.001, opacity: 0.0001 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{
+                    delay: i * 0.1 + 0.3,
+                    ...softBouncePrest,
+                  }}
+                >
+                  <a
+                    href={friend.url}
+                    className="w-full min-w-0"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <div
+                      className="aspect-square h-[80px] w-[80px] rounded-full bg-contain bg-center ring-1 ring-slate-200/80 dark:bg-neutral-800/80"
+                      style={{
+                        backgroundImage: `url(${friend.avatar})`,
+                      }}
+                      aria-hidden
+                    />
+                    <span className="mt-5 w-full min-w-0 truncate">
+                      {friend.name}
+                    </span>
+                  </a>
+                </m.div>
+              </li>
+            )
+          })}
+        </ul>
+
+        <BottomToUpTransitionView
+          delay={1500}
+          className="mt-16 w-full text-center"
+        >
+          <MotionButtonBase>
+            <Link
+              className="shiro-link--underline"
+              href={routeBuilder(Routes.Friends, {})}
+            >
+              还有更多，要不要看看？
+            </Link>
+          </MotionButtonBase>
+        </BottomToUpTransitionView>
+      </div>
     </Screen>
   )
 }
 
 const MoreScreen = () => {
+  return null
   return (
     <Screen>
-      <h1>
-        最后，这是关于这个小宇宙以及我自己的一些小秘密。如果你有任何问题或者想要分享的想法，都可以随时找到我。
-      </h1>
+      <h2 className="text-2xl font-medium">感谢看到这里。</h2>
 
-      <div>Like this?</div>
+      <div className="mt-12 flex w-full center">TODO</div>
     </Screen>
   )
 }
