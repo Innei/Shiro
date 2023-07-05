@@ -48,6 +48,7 @@ const appLabels: { [app: string]: string } = {
   'Google Chrome': 'chrome',
   Chrome: 'chrome',
   'Chrome Canary': 'chrome_canary',
+  'Google Chrome Canary': 'chrome_canary',
   QQ音乐: 'qq_music',
   NetEaseMusic: 'netease',
   iTerm2: 'iterm2',
@@ -81,6 +82,7 @@ export function Activity() {
     },
     {
       refetchInterval: 1000 * 5 * 60,
+      refetchOnMount: 'always',
       retry: false,
       enabled: isEnabled,
       meta: {
@@ -106,7 +108,6 @@ export function Activity() {
   const { processName, media } = activity
   if (!appLabels[processName]) {
     console.log('Not collected process name: ', processName)
-    return null
   }
 
   return (
@@ -127,29 +128,31 @@ export function Activity() {
         </m.div>
       )}
 
-      <m.div
-        key={processName}
-        className="pointer-events-auto absolute bottom-0 right-0 top-0 z-[10] flex animate-pulse items-center overflow-hidden md:right-[-25px]"
-        initial={false}
-        animate={{
-          opacity: 1,
-          x: 0,
-        }}
-        exit={{
-          opacity: 0.2,
-          x: -10,
-        }}
-      >
-        <FloatPopover
-          TriggerComponent={TriggerComponent}
-          triggerComponentProps={memoProcessName}
-          type="tooltip"
-          strategy="fixed"
+      {!!appLabels[processName] && (
+        <m.div
+          key={processName}
+          className="pointer-events-auto absolute bottom-0 right-0 top-0 z-[10] flex animate-pulse items-center overflow-hidden md:right-[-25px]"
+          initial={false}
+          animate={{
+            opacity: 1,
+            x: 0,
+          }}
+          exit={{
+            opacity: 0.2,
+            x: -10,
+          }}
         >
-          {ownerName} 正在使用 {processName}
-          {appDescrption[processName] ? ` ${appDescrption[processName]}` : ''}
-        </FloatPopover>
-      </m.div>
+          <FloatPopover
+            TriggerComponent={TriggerComponent}
+            triggerComponentProps={memoProcessName}
+            type="tooltip"
+            strategy="fixed"
+          >
+            {ownerName} 正在使用 {processName}
+            {appDescrption[processName] ? ` ${appDescrption[processName]}` : ''}
+          </FloatPopover>
+        </m.div>
+      )}
     </AnimatePresence>
   )
 }
