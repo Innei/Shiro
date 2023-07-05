@@ -8,9 +8,11 @@ import Link from 'next/link'
 import type { PropsWithChildren } from 'react'
 
 import { MotionButtonBase } from '~/components/ui/button'
+import { RelativeTime } from '~/components/ui/relative-time'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { TextUpTransitionView } from '~/components/ui/transition/TextUpTransitionView'
 import { isSupportIcon, SocialIcon } from '~/components/widgets/home/SocialIcon'
+import { PeekLink } from '~/components/widgets/peek/PeekLink'
 import { PostMetaBar } from '~/components/widgets/post'
 import { softBouncePrest, softSpringPreset } from '~/constants/spring'
 import { useConfig } from '~/hooks/data/use-config'
@@ -70,10 +72,15 @@ export default function Home() {
 }
 const TwoColumnLayout = ({
   children,
+  leftContainerClassName,
+  rightContainerClassName,
 }: {
   children:
     | [React.ReactNode, React.ReactNode]
     | [React.ReactNode, React.ReactNode, React.ReactNode]
+
+  leftContainerClassName?: string
+  rightContainerClassName?: string
 }) => {
   return (
     <div className="relative flex h-full w-full flex-col flex-wrap items-center lg:flex-row">
@@ -81,7 +88,11 @@ const TwoColumnLayout = ({
         return (
           <div
             key={i}
-            className="flex h-1/2 w-full flex-col center lg:h-auto lg:w-1/2"
+            className={clsxm(
+              'flex h-1/2 w-full flex-col center lg:h-auto lg:w-1/2',
+
+              i === 0 ? leftContainerClassName : rightContainerClassName,
+            )}
           >
             <div className="relative max-w-full lg:max-w-xl ">{child}</div>
           </div>
@@ -197,8 +208,8 @@ const Welcome = () => {
 const PostScreen = () => {
   const { posts } = useHomeQueryData()
   return (
-    <Screen>
-      <TwoColumnLayout>
+    <Screen className="h-[120vh]">
+      <TwoColumnLayout leftContainerClassName="h-1/4 lg:h-1/2">
         <m.h2
           initial={{
             opacity: 0.0001,
@@ -303,15 +314,76 @@ const PostScreen = () => {
 
 const NoteScreen = () => {
   const { notes } = useHomeQueryData()
+  const theLast = notes[0]
+
+  const hasHistory = notes.length > 1
+
+  const history = hasHistory ? notes.slice(1) : []
+
+  if (!theLast) return null
   return (
     <Screen>
-      <TwoColumnLayout>
+      <TwoColumnLayout leftContainerClassName="block lg:flex">
         <div>
-          <ul>
-            {notes.map((note) => {
-              return <li key={note.id}>{note.title}</li>
-            })}
-          </ul>
+          <section className="flex flex-col justify-end">
+            <h3 className="mb-6 text-center text-xl">
+              看看我的近况，这是我最近的所思所想
+            </h3>
+            <div
+              className={clsx(
+                'relative flex h-[150px] w-full rounded-md ring-1 ring-slate-200 center dark:ring-neutral-800',
+                'hover:shadow-md hover:shadow-slate-100 dark:hover:shadow-neutral-900',
+              )}
+            >
+              <Link href={routeBuilder(Routes.Note, { id: theLast.nid })}>
+                <div className="absolute bottom-6 right-6 ">
+                  <h4 className="font-2xl text-lg font-medium ">
+                    {theLast.title}
+                  </h4>
+
+                  <small className="mt-1 block w-full text-right">
+                    <RelativeTime date={theLast.created} />
+                  </small>
+                </div>
+              </Link>
+
+              {!!theLast.images?.[0]?.src && (
+                <div
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{
+                    background: `url(${theLast.images[0].src})`,
+                  }}
+                />
+              )}
+            </div>
+          </section>
+
+          {hasHistory && (
+            <section className="mt-[20%]">
+              <div className="text-lg opacity-80">这里还有一些历史回顾</div>
+              <ul className="shiro-timeline mt-4">
+                {history.map((note) => {
+                  return (
+                    <li key={note.id} className="flex min-w-0 justify-between">
+                      <PeekLink
+                        className="min-w-0 flex-shrink truncate"
+                        href={routeBuilder(Routes.Note, { id: note.nid })}
+                      >
+                        {note.title}
+                      </PeekLink>
+
+                      <span className="ml-2 flex-shrink-0 self-end text-xs opacity-70">
+                        <RelativeTime
+                          date={note.created}
+                          displayAbsoluteTimeAfterDay={180}
+                        />
+                      </span>
+                    </li>
+                  )
+                })}
+              </ul>
+            </section>
+          )}
         </div>
         <h2 className="text-2xl font-medium leading-loose">
           而在这里，你会看到一个不同的我，
