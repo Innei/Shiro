@@ -80,3 +80,15 @@
     }
   }
 }
+
+@layer components {
+  .mask-cover {
+    mask-image: linear-gradient(to right, transparent, rgb(0 0 0 / 100%) 90%);
+    opacity: 0.3;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .group:hover .mask-cover {
+    opacity: 0.5;
+  }
+}

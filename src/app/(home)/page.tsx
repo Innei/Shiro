@@ -4,16 +4,21 @@ import { useQuery } from '@tanstack/react-query'
 import React, { createElement, forwardRef } from 'react'
 import clsx from 'clsx'
 import { m } from 'framer-motion'
+import Link from 'next/link'
 import type { PropsWithChildren } from 'react'
 
+import { MotionButtonBase } from '~/components/ui/button'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
-import { SocialIcon } from '~/components/widgets/home/SocialIcon'
-import { softBouncePrest } from '~/constants/spring'
+import { TextUpTransitionView } from '~/components/ui/transition/TextUpTransitionView'
+import { isSupportIcon, SocialIcon } from '~/components/widgets/home/SocialIcon'
+import { PostMetaBar } from '~/components/widgets/post'
+import { softBouncePrest, softSpringPreset } from '~/constants/spring'
 import { useConfig } from '~/hooks/data/use-config'
 import { isDev } from '~/lib/env'
 import { clsxm } from '~/lib/helper'
 import { noopObj } from '~/lib/noop'
 import { apiClient } from '~/lib/request'
+import { routeBuilder, Routes } from '~/lib/route-builder'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
 import { useHomeQueryData } from './query'
@@ -41,6 +46,7 @@ const Screen = forwardRef<
   )
 })
 Screen.displayName = 'Screen'
+
 export default function Home() {
   return (
     <div>
@@ -77,7 +83,7 @@ const TwoColumnLayout = ({
             key={i}
             className="flex h-1/2 w-full flex-col center lg:h-auto lg:w-1/2"
           >
-            <div className="relative max-w-xl">{child}</div>
+            <div className="relative max-w-full lg:max-w-xl ">{child}</div>
           </div>
         )
       })}
@@ -92,6 +98,10 @@ const Welcome = () => {
   const siteOwner = useAggregationSelector((agg) => agg.user)
   const { avatar, socialIds } = siteOwner || {}
 
+  const titleAnimateD =
+    title.template.reduce((acc, cur) => {
+      return acc + (cur.text?.length || 0)
+    }, 0) * 50
   return (
     <Screen className="mt-[-4.5rem]">
       <TwoColumnLayout>
@@ -104,12 +114,28 @@ const Welcome = () => {
           >
             {title.template.map((t, i) => {
               const { type } = t
-              return createElement(type, { key: i, className: t.class }, t.text)
+              const prevAllTextLength = title.template
+                .slice(0, i)
+                .reduce((acc, cur) => {
+                  return acc + (cur.text?.length || 0)
+                }, 0)
+              return createElement(
+                type,
+                { key: i, className: t.class },
+                t.text && (
+                  <TextUpTransitionView
+                    initialDelay={prevAllTextLength * 0.05}
+                    eachDelay={0.05}
+                  >
+                    {t.text}
+                  </TextUpTransitionView>
+                ),
+              )
             })}
           </m.div>
 
           <BottomToUpTransitionView
-            delay={300}
+            delay={titleAnimateD + 500}
             transition={softBouncePrest}
             className="my-3"
           >
@@ -119,10 +145,11 @@ const Welcome = () => {
           <ul className="mt-8 flex space-x-4 center lg:mt-[7rem] lg:block">
             {Object.entries(socialIds || noopObj).map(
               ([type, id]: any, index) => {
+                if (!isSupportIcon(type)) return null
                 return (
                   <BottomToUpTransitionView
                     key={type}
-                    delay={index * 100 + 500}
+                    delay={index * 100 + titleAnimateD + 500}
                     className="inline-block"
                     as="li"
                   >
@@ -172,17 +199,102 @@ const PostScreen = () => {
   return (
     <Screen>
       <TwoColumnLayout>
-        <h2 className="text-2xl font-medium leading-loose">
-          在这个矩阵中，你可以找到各种各样的代码块。
+        <m.h2
+          initial={{
+            opacity: 0.0001,
+            y: 50,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{ once: true }}
+          transition={softSpringPreset}
+          className="text-2xl font-medium leading-loose"
+        >
+          看看最近我又在折腾啥捏
           <br />
-          它们是我在计算机科学的探索和实践的证明。
-        </h2>
+          随便水水文章，重在折腾。
+        </m.h2>
         <div>
-          <ul>
-            {posts.map((post) => {
-              return <li key={post.id}>{post.title}</li>
+          <ul className="space-y-4">
+            {posts.map((post, i) => {
+              const imageSrc = post.images?.[0]?.src
+
+              return (
+                <m.li
+                  viewport={{ once: true }}
+                  whileInView={{
+                    opacity: 1,
+                    x: 0,
+                  }}
+                  initial={{ opacity: 0.001, x: 50 }}
+                  transition={{
+                    ...softSpringPreset,
+                    delay: 0.3 + 0.2 * i,
+                  }}
+                  key={post.id}
+                  className={clsx(
+                    'relative h-[100px] w-full overflow-hidden rounded-md',
+                    'border border-slate-200 dark:border-neutral-700/80',
+                    'group p-4 pb-0',
+                  )}
+                >
+                  <Link
+                    className="flex h-full w-full flex-col"
+                    href={routeBuilder(Routes.Post, {
+                      category: post.category.slug,
+                      slug: post.slug,
+                    })}
+                  >
+                    <h4 className="truncate text-xl font-medium">
+                      {post.title}
+                    </h4>
+                    <PostMetaBar meta={post} className="-mb-2" />
+
+                    <MotionButtonBase className="absolute bottom-4 right-4 flex items-center p-2 text-accent/95 opacity-0 duration-200 group-hover:opacity-100">
+                      阅读全文
+                      <i className="icon-[mingcute--arrow-right-line]" />
+                    </MotionButtonBase>
+
+                    {!!imageSrc && (
+                      <div
+                        aria-hidden
+                        className="mask-cover absolute inset-0 top-0 z-[-1]"
+                      >
+                        <div
+                          className="absolute inset-0 h-full w-full bg-cover bg-center"
+                          style={{
+                            backgroundImage: `url(${imageSrc})`,
+                          }}
+                        />
+                      </div>
+                    )}
+                  </Link>
+                </m.li>
+              )
             })}
           </ul>
+
+          <m.div
+            initial={{ opacity: 0.0001, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{
+              ...softBouncePrest,
+              delay: 0.3 + 0.2 * posts.length,
+            }}
+            className="relative mt-12 w-full text-center"
+          >
+            <MotionButtonBase>
+              <Link
+                className="shiro-link--underline"
+                href={routeBuilder(Routes.Posts, {})}
+              >
+                还有更多，要不要看看？
+              </Link>
+            </MotionButtonBase>
+          </m.div>
         </div>
       </TwoColumnLayout>
     </Screen>

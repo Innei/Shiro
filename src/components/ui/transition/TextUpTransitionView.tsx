@@ -19,7 +19,7 @@ export const TextUpTransitionView: FC<
 > = (props) => {
   const {
     appear = true,
-    eachDelay = 0.001,
+    eachDelay = 0.1,
     initialDelay = 0,
     children,
     text,
@@ -30,20 +30,21 @@ export const TextUpTransitionView: FC<
     // @ts-ignore
     return <div {...rest}>{text ?? children}</div>
   }
+
   return (
     <div {...rest}>
       {Array.from(text ?? (children as string)).map((char, i) => (
         <m.span
           key={i}
           className="inline-block whitespace-pre"
-          initial={{ transform: 'translateY(10px)', opacity: 0 }}
+          initial={{ transform: 'translateY(10px)', opacity: 0.001 }}
           animate={{
             transform: 'translateY(0px)',
 
             opacity: 1,
             transition: {
               ...microReboundPreset,
-              duration: 0.001,
+              duration: 0.1,
               delay: i * eachDelay + initialDelay,
             },
           }}

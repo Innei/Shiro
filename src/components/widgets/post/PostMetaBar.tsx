@@ -11,7 +11,9 @@ import { RelativeTime } from '~/components/ui/relative-time'
 import { clsxm } from '~/lib/helper'
 
 export const PostMetaBar: Component<{
-  meta: Pick<PostModel, 'created' | 'modified' | 'category' | 'tags' | 'count'>
+  meta: Partial<
+    Pick<PostModel, 'created' | 'modified' | 'category' | 'tags' | 'count'>
+  >
 }> = ({ className, meta }) => {
   return (
     <div
@@ -21,11 +23,15 @@ export const PostMetaBar: Component<{
       )}
     >
       <div className="flex min-w-0 items-center space-x-1">
-        <MdiClockOutline />
-        <span>
-          <RelativeTime date={meta.created} />
-        </span>
-        {meta.modified && (
+        {!!meta.created && (
+          <>
+            <MdiClockOutline />
+            <span>
+              <RelativeTime date={meta.created} />
+            </span>
+          </>
+        )}
+        {!!meta.modified && (
           <FloatPopover
             wrapperClassName="text-xs self-end translate-y-[-1px]"
             as="span"
@@ -36,13 +42,15 @@ export const PostMetaBar: Component<{
         )}
       </div>
 
-      <div className="flex min-w-0 items-center space-x-1">
-        <FeHash className="translate-y-[0.5px]" />
-        <span className="min-w-0 truncate">
-          {meta.category.name}
-          {meta.tags.length ? ` / ${meta.tags.join(', ')}` : ''}
-        </span>
-      </div>
+      {!!meta.category && (
+        <div className="flex min-w-0 items-center space-x-1">
+          <FeHash className="translate-y-[0.5px]" />
+          <span className="min-w-0 truncate">
+            {meta.category?.name}
+            {meta.tags?.length ? ` / ${meta.tags.join(', ')}` : ''}
+          </span>
+        </div>
+      )}
 
       {!!meta.count?.read && (
         <div className="flex min-w-0 items-center space-x-1">

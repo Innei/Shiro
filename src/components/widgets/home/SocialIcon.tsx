@@ -17,6 +17,8 @@ const type2Copy = {
   email: 'Email',
   feed: 'RSS',
 } as any
+const icons = new Set(Object.keys(type2Copy))
+export const isSupportIcon = (icon: string) => icons.has(icon)
 export const SocialIcon = memo((props: SocialIconProps) => {
   const { id, type } = props
   const Icon = useMemo(() => {

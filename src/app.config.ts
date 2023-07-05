@@ -13,7 +13,7 @@ export const appConfig = {
       template: [
         {
           type: 'h1',
-          text: '你好呀，我是',
+          text: "Hi, I'm ",
           class: 'font-light text-4xl',
         },
         {
@@ -31,12 +31,18 @@ export const appConfig = {
         },
         {
           type: 'h1',
-          text: '一个独立开发者',
+          text: 'A NodeJS Full Stack ',
           class: 'font-light text-4xl',
+        },
+        {
+          type: 'code',
+          text: '<Developer />',
+          class:
+            'font-medium mx-2 text-3xl rounded p-1 bg-opacity-0 hover:bg-opacity-100 bg-gray-200 dark:bg-gray-800 transition-background duration-200',
         },
       ],
     },
-    description: `一位深入研究编程领域的独立开发者，热衷于纯音乐、二次元文化和电子产品。持有强烈的创新精神，始终以用户体验为首要考虑，在技术开发中追求卓越。`,
+    description: `An independent developer coding with love.`,
   },
   module: {
     donate: {
