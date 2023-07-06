@@ -1,17 +1,14 @@
 import React from 'react'
-import { headers } from 'next/dist/client/components/headers'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 
 import { RequestError } from '@mx-space/api-client'
 
-import { NotSupport } from '~/components/common/NotSupport'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { CommentAreaRoot } from '~/components/widgets/comment'
 import { TocFAB } from '~/components/widgets/toc/TocFAB'
-import { REQUEST_GEO } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
 import { getSummaryFromMd } from '~/lib/markdown'
 import { getQueryClient } from '~/lib/query-client.server'
@@ -80,10 +77,6 @@ export default async (props: NextPageParams<PageParams>) => {
       }
       throw error
     })
-  const header = headers()
-  const geo = header.get(REQUEST_GEO)
-
-  const isCN = geo === 'CN'
 
   return (
     <>
@@ -93,14 +86,7 @@ export default async (props: NextPageParams<PageParams>) => {
           {props.children}
 
           <BottomToUpSoftScaleTransitionView delay={500}>
-            {isCN ? (
-              <NotSupport />
-            ) : (
-              <CommentAreaRoot
-                refId={data.id}
-                allowComment={data.allowComment}
-              />
-            )}
+            <CommentAreaRoot refId={data.id} allowComment={data.allowComment} />
           </BottomToUpSoftScaleTransitionView>
         </BottomToUpTransitionView>
 

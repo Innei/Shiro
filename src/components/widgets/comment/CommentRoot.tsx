@@ -13,6 +13,13 @@ export const CommentAreaRoot: FC<
     allowComment: boolean
   }
 > = (props) => {
+  // const header = headers()
+  // const geo = header.get(REQUEST_GEO)
+
+  // const isCN = geo === 'CN'
+
+  // if (isCN) return <NotSupport />
+
   const { allowComment, refId } = props
   // 兜下后端的数据，默认开
   if (!allowComment && typeof allowComment !== 'undefined') {

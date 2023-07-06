@@ -105,7 +105,7 @@ export const PagePaginator = () => {
               href={`/${pages[indexInPages - 1].slug}`}
               className="flex flex-col justify-end text-left leading-loose"
             >
-              <span className="text-primary">回顾一下：</span>
+              <span className="text-accent">回顾一下：</span>
               <span>{pages[indexInPages - 1].title}</span>
             </Link>
           </Fragment>
@@ -118,7 +118,7 @@ export const PagePaginator = () => {
               href={`/${pages[indexInPages + 1].slug}`}
               className="flex flex-col justify-end text-right leading-loose"
             >
-              <span className="text-primary">继续了解：</span>
+              <span className="text-accent">继续了解：</span>
               <span>{pages[indexInPages + 1].title}</span>
             </Link>
           </Fragment>

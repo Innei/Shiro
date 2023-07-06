@@ -38,7 +38,7 @@ export const NoteFooterNavigation = () => {
                   href={routeBuilder(Routes.Note, {
                     id: nextNid.toString(),
                   })}
-                  className="hover:text-primary"
+                  className="hover:text-accent"
                   scroll={false}
                   prefetch={false}
                 >
@@ -54,7 +54,7 @@ export const NoteFooterNavigation = () => {
                   })}
                   prefetch={false}
                   scroll={false}
-                  className="hover:text-primary"
+                  className="hover:text-accent"
                 >
                   <span>后一篇</span>
                   <i className="icon-[mingcute--arrow-right-line]" />
@@ -64,7 +64,7 @@ export const NoteFooterNavigation = () => {
             <div
               tabIndex={1}
               role="button"
-              className="absolute bottom-0 left-1/2 top-0 flex -translate-x-1/2 transform items-center space-x-2 text-accent opacity-80 hover:text-primary"
+              className="absolute bottom-0 left-1/2 top-0 flex -translate-x-1/2 transform items-center space-x-2 text-accent opacity-80 hover:text-accent"
               onClick={() => {
                 springScrollToTop()
                 router.push(

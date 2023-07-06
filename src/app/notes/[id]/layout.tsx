@@ -1,13 +1,12 @@
 import { headers } from 'next/dist/client/components/headers'
 import type { Metadata } from 'next'
 
-import { NotSupport } from '~/components/common/NotSupport'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { CommentAreaRoot } from '~/components/widgets/comment'
 import { NoteMainContainer } from '~/components/widgets/note/NoteMainContainer'
 import { TocFAB } from '~/components/widgets/toc/TocFAB'
-import { REQUEST_GEO, REQUEST_QUERY } from '~/constants/system'
+import { REQUEST_QUERY } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
 import { getSummaryFromMd } from '~/lib/markdown'
 import { getQueryClient } from '~/lib/query-client.server'
@@ -77,9 +76,6 @@ export default async (
     searchParams.get('password') || undefined,
   )
   const data = await getQueryClient().fetchQuery(query)
-  const geo = header.get(REQUEST_GEO)
-
-  const isCN = geo === 'CN'
 
   const { id: noteObjectId, allowComment } = data.data
 
@@ -92,11 +88,7 @@ export default async (
       <Transition className="min-w-0">
         <Paper as={NoteMainContainer}>{props.children}</Paper>
         <BottomToUpSoftScaleTransitionView delay={500}>
-          {isCN ? (
-            <NotSupport />
-          ) : (
-            <CommentAreaRoot refId={noteObjectId} allowComment={allowComment} />
-          )}
+          <CommentAreaRoot refId={noteObjectId} allowComment={allowComment} />
         </BottomToUpSoftScaleTransitionView>
       </Transition>
 
