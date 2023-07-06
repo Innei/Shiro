@@ -93,14 +93,14 @@
   }
 
   .animation-blink {
-    animation: blink 1s ease-in-out infinite alternate;
+    animation: blink 2s ease infinite both;
   }
 
   @keyframes blink {
     0% {
       opacity: 0;
     }
-    30% {
+    50% {
       opacity: 1;
     }
     100% {

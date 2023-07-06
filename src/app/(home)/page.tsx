@@ -88,7 +88,7 @@ const TwoColumnLayout = ({
   rightContainerClassName?: string
 }) => {
   return (
-    <div className="group relative flex h-full w-full flex-col flex-wrap items-center lg:flex-row">
+    <div className="relative flex h-full w-full flex-col flex-wrap items-center lg:flex-row">
       {children.slice(0, 2).map((child, i) => {
         return (
           <div
@@ -123,7 +123,7 @@ const Welcome = () => {
       <TwoColumnLayout>
         <>
           <m.div
-            className="relative leading-[4] [&_*]:inline-block"
+            className="group relative leading-[4] [&_*]:inline-block"
             initial={{ opacity: 0.0001, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={softBouncePrest}
