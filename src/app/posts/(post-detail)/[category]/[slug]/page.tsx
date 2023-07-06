@@ -9,6 +9,7 @@ import { PostCopyright } from '~/components/widgets/post/PostCopyright'
 import { PostOutdate } from '~/components/widgets/post/PostOutdate'
 import { PostRelated } from '~/components/widgets/post/PostRelated'
 import { ArticleRightAside } from '~/components/widgets/shared/ArticleRightAside'
+import { ReadIndicatorForMobile } from '~/components/widgets/shared/ReadIndicator'
 import { SubscribeBell } from '~/components/widgets/subscribe/SubscribeBell'
 import { XLogInfoForPost, XLogSummaryForPost } from '~/components/widgets/xlog'
 import { springScrollToTop } from '~/lib/scroller'
@@ -52,6 +53,7 @@ const PostPage = () => {
           <PostOutdate />
         </header>
         <WrappedElementProvider>
+          <ReadIndicatorForMobile />
           <PostMarkdownImageRecordProvider>
             <PostMarkdown />
           </PostMarkdownImageRecordProvider>

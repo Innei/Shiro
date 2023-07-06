@@ -1,3 +1,4 @@
+import { ReadIndicatorForMobile } from '~/components/widgets/shared/ReadIndicator'
 import { TocAside } from '~/components/widgets/toc'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
@@ -7,6 +8,7 @@ import { MarkdownImageRecordProviderInternal, PageMarkdown } from './pageExtra'
 const PageDetail = () => {
   return (
     <WrappedElementProvider>
+      <ReadIndicatorForMobile />
       <MarkdownImageRecordProviderInternal>
         <PageMarkdown />
       </MarkdownImageRecordProviderInternal>

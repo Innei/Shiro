@@ -119,7 +119,7 @@ const Welcome = () => {
       return acc + (cur.text?.length || 0)
     }, 0) * 50
   return (
-    <Screen className="mt-[-4.5rem]">
+    <Screen className="mt-20 lg:mt-[-4.5rem]">
       <TwoColumnLayout>
         <>
           <m.div

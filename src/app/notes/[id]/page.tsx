@@ -9,6 +9,7 @@ import { ClientOnly } from '~/components/common/ClientOnly'
 import { NoteBanner } from '~/components/widgets/note/NoteBanner'
 import { ArticleRightAside } from '~/components/widgets/shared/ArticleRightAside'
 import { BanCopyWrapper } from '~/components/widgets/shared/BanCopyWrapper'
+import { ReadIndicatorForMobile } from '~/components/widgets/shared/ReadIndicator'
 import { XLogInfoForNote, XLogSummaryForNote } from '~/components/widgets/xlog'
 import { springScrollToTop } from '~/lib/scroller'
 import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
@@ -86,6 +87,7 @@ const NotePage = memo(function Notepage() {
         <NoteHideIfSecret>
           <XLogSummaryForNote />
           <WrappedElementProvider>
+            <ReadIndicatorForMobile />
             <NoteMarkdownImageRecordProvider>
               <BanCopyWrapper>
                 <NoteMarkdown />
