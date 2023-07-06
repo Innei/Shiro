@@ -130,10 +130,7 @@ export const TocTree: Component<
       : React.createElement(accessory as FC)
   }, [accessory])
   return (
-    <ul
-      className={clsxm('overflow-y-auto px-2 scrollbar-none', className)}
-      ref={containerRef}
-    >
+    <ul className={clsxm('px-2 scrollbar-none', className)} ref={containerRef}>
       {toc?.map((heading) => {
         return (
           <MemoedItem
