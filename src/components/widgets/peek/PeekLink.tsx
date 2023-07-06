@@ -13,45 +13,49 @@ export const usePeek = () => {
   const isMobile = useIsMobile()
   const { present } = useModalStack()
   return useCallback(
-    async (href: string) => {
+    (href: string) => {
       if (isMobile) return
 
       if (href.startsWith('/notes/')) {
-        const NotePreview = await import('./NotePreview').then(
-          (module) => module.NotePreview,
-        )
-        present({
-          clickOutsideToDismiss: true,
-          title: 'Preview',
-          modalClassName: 'flex justify-center',
-          modalContainerClassName: 'flex justify-center',
-          CustomModalComponent: () => (
-            <PeekModal to={href}>
-              <NotePreview noteId={parseInt(href.split('/').pop()!)} />
-            </PeekModal>
-          ),
-          content: () => null,
+        requestAnimationFrame(async () => {
+          const NotePreview = await import('./NotePreview').then(
+            (module) => module.NotePreview,
+          )
+          present({
+            clickOutsideToDismiss: true,
+            title: 'Preview',
+            modalClassName: 'flex justify-center',
+            modalContainerClassName: 'flex justify-center',
+            CustomModalComponent: () => (
+              <PeekModal to={href}>
+                <NotePreview noteId={parseInt(href.split('/').pop()!)} />
+              </PeekModal>
+            ),
+            content: () => null,
+          })
         })
 
         return true
       } else if (href.startsWith('/posts/')) {
-        const PostPreview = await import('./PostPreview').then(
-          (module) => module.PostPreview,
-        )
-        const splitpath = href.split('/')
-        const slug = splitpath.pop()!
-        const category = splitpath.pop()!
-        present({
-          clickOutsideToDismiss: true,
-          title: 'Preview',
-          modalClassName: 'flex justify-center',
-          modalContainerClassName: 'flex justify-center',
-          CustomModalComponent: () => (
-            <PeekModal to={href}>
-              <PostPreview category={category} slug={slug} />
-            </PeekModal>
-          ),
-          content: () => null,
+        requestAnimationFrame(async () => {
+          const PostPreview = await import('./PostPreview').then(
+            (module) => module.PostPreview,
+          )
+          const splitpath = href.split('/')
+          const slug = splitpath.pop()!
+          const category = splitpath.pop()!
+          present({
+            clickOutsideToDismiss: true,
+            title: 'Preview',
+            modalClassName: 'flex justify-center',
+            modalContainerClassName: 'flex justify-center',
+            CustomModalComponent: () => (
+              <PeekModal to={href}>
+                <PostPreview category={category} slug={slug} />
+              </PeekModal>
+            ),
+            content: () => null,
+          })
         })
         return true
       }
@@ -75,14 +79,14 @@ export const PeekLink: FC<
 
   const handlePeek = useCallback(
     async (e: SyntheticEvent) => {
-      const success = await peek(href)
+      const success = peek(href)
       if (success) preventDefault(e)
     },
     [href, peek],
   )
 
   return (
-    <Link href={href} onClick={handlePeek} {...rest}>
+    <Link href={href} onClick={handlePeek} data-event="peek" {...rest}>
       {children}
     </Link>
   )

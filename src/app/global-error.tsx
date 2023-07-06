@@ -8,9 +8,9 @@ import { captureException } from '@sentry/nextjs'
 import { NormalContainer } from '~/components/layout/container/Normal'
 import { StyledButton } from '~/components/ui/button'
 
-export default function Error({ error, reset }: any) {
+export default function Error({ error }: any) {
   useEffect(() => {
-    console.log(error, reset)
+    console.log(error)
     captureException(error)
   }, [error])
   return (
@@ -20,9 +20,9 @@ export default function Error({ error, reset }: any) {
       </head>
       <body>
         <NormalContainer>
-          <div>Clerk 又挂啦</div>
+          <p>{error?.message || '未知错误'}</p>
           <LazyMotion features={domAnimation}>
-            <StyledButton onClick={reset}>重试</StyledButton>
+            <StyledButton onClick={location.reload}>重试</StyledButton>
           </LazyMotion>
         </NormalContainer>
       </body>

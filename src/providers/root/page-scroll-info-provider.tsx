@@ -1,6 +1,6 @@
 'use client'
 
-import { startTransition, useRef } from 'react'
+import { startTransition, useMemo, useRef } from 'react'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 import type { FC, PropsWithChildren } from 'react'
@@ -71,9 +71,24 @@ const usePageScrollLocationSelector = createAtomSelector(pageScrollLocationAtom)
 const usePageScrollDirectionSelector = createAtomSelector(
   pageScrollDirectionAtom,
 )
+
+const useScollIsUpAndPageIsOver = (threshold: number) => {
+  return useAtomValue(
+    useMemo(
+      () =>
+        atom((get) => {
+          const scrollLocation = get(pageScrollLocationAtom)
+          const scrollDirection = get(pageScrollDirectionAtom)
+          return scrollLocation > threshold && scrollDirection === 'up'
+        }),
+      [threshold],
+    ),
+  )
+}
 export {
   usePageScrollDirection,
   usePageScrollLocation,
+  useScollIsUpAndPageIsOver,
   usePageScrollLocationSelector,
   usePageScrollDirectionSelector,
 }

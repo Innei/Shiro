@@ -51,7 +51,7 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
   const peek = usePeek()
   const handleCanPeek = useCallback(
     async (e: SyntheticEvent<any>) => {
-      const success = await peek(fullUrl)
+      const success = peek(fullUrl)
       if (success) preventDefault(e)
     },
     [fullUrl],

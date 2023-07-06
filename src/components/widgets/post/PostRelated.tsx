@@ -22,10 +22,11 @@ export const PostRelated = () => {
       </h3>
       <ul className="list-inside list-disc">
         {related.map((post) => {
+          const href = `/posts/${post.category.slug}/${post.slug}`
           return (
-            <li key={post.id}>
+            <li key={href}>
               <PeekLink
-                href={`/posts/${post.category.slug}/${post.slug}`}
+                href={href}
                 className="underline-current underline-dashed leading-10 underline"
               >
                 {post.title}

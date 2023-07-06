@@ -6,6 +6,7 @@ import type { AggregateRoot } from '@mx-space/api-client'
 
 import { ClerkProvider } from '@clerk/nextjs'
 
+import PKG from '~/../package.json'
 import { appConfig } from '~/app.config'
 import { Root } from '~/components/layout/root/Root'
 import { TocAutoScroll } from '~/components/widgets/toc/TocAutoScroll'
@@ -17,8 +18,10 @@ import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
 import { queries } from '~/queries/definition'
 
 import { Providers } from '../providers/root'
+import { Analyze } from './analyze'
 import { init } from './init'
 
+const { version } = PKG
 init()
 
 let aggregationData: AggregateRoot | null = null
@@ -103,6 +106,36 @@ export default async function RootLayout(props: Props) {
     // <ClerkProvider localization={ClerkZhCN}>
     <ClerkProvider>
       <html lang="zh-CN" className="noise" suppressHydrationWarning>
+        <head>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `var version = "${version}";
+              ${function info() {
+                console.log(
+                  `%c Mix Space %c https://github.com/mx-space `,
+                  'color: #fff; margin: 1em 0; padding: 5px 0; background: #2980b9;',
+                  'margin: 1em 0; padding: 5px 0; background: #efefef;',
+                )
+                console.log(
+                  `%c Shiro ${version} %c https://innei.ren `,
+                  'color: #fff; margin: 1em 0; padding: 5px 0; background: #39C5BB;',
+                  'margin: 1em 0; padding: 5px 0; background: #efefef;',
+                )
+
+                const motto = `
+This Personal Space Powered By Mix Space.
+Written by TypeScript, Coding with Love.
+--------
+Stay hungry. Stay foolish. --Steve Jobs
+`
+
+                if (document.firstChild?.nodeType !== Node.COMMENT_NODE) {
+                  document.prepend(document.createComment(motto))
+                }
+              }.toString()}; info()`,
+            }}
+          />
+        </head>
         <body
           className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
         >
@@ -112,6 +145,7 @@ export default async function RootLayout(props: Props) {
             <Root>{children}</Root>
 
             <TocAutoScroll />
+            <Analyze />
           </Providers>
           <ToastContainer />
         </body>

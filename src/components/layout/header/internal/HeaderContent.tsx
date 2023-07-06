@@ -14,14 +14,10 @@ import type { IHeaderMenu } from '../config'
 
 import { RootPortal } from '~/components/ui/portal'
 import { clsxm } from '~/lib/helper'
-import { usePageScrollDirectionSelector } from '~/providers/root/page-scroll-info-provider'
+import { useScollIsUpAndPageIsOver } from '~/providers/root/page-scroll-info-provider'
 
 import { useHeaderConfig } from './HeaderDataConfigureProvider'
-import {
-  useHeaderBgOpacity,
-  useHeaderHasMetaInfo,
-  useMenuOpacity,
-} from './hooks'
+import { useHeaderHasMetaInfo, useMenuOpacity } from './hooks'
 import { MenuPopover } from './MenuPopover'
 
 export const HeaderContent = () => {
@@ -36,15 +32,9 @@ export const HeaderContent = () => {
 }
 
 const AccessibleMenu: Component = () => {
-  const headerOpacity = useHeaderBgOpacity()
   const hasMetaInfo = useHeaderHasMetaInfo()
 
-  const showShow = usePageScrollDirectionSelector(
-    (d) => {
-      return d === 'up' && headerOpacity > 0.8 && hasMetaInfo
-    },
-    [headerOpacity, hasMetaInfo],
-  )
+  const showShow = useScollIsUpAndPageIsOver(600) && hasMetaInfo
   return (
     <RootPortal>
       <AnimatePresence>
