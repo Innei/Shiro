@@ -21,7 +21,10 @@ export const SubscribeBell: FC<SubscribeBellProps> = (props) => {
   }
 
   return (
-    <div className="mb-6 flex flex-col items-center justify-center p-4">
+    <div
+      className="mb-6 flex flex-col items-center justify-center p-4"
+      data-hide-print
+    >
       <p className="text-gray-1 leading-8 opacity-80">
         站点已开启邮件订阅，点亮小铃铛，订阅最新文章哦~
       </p>

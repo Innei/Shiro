@@ -18,6 +18,7 @@ export const Loading: Component<LoadingProps> = ({
     : loadingText
   return (
     <div
+      data-hide-print
       className={clsxm(
         'my-20 flex flex-col items-center justify-start',
         className,

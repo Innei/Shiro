@@ -29,14 +29,12 @@ declare global {
     updateCallbackDone: () => void
     skipTransition(): void
   }
+}
 
-  declare module 'react' {
-    export interface HTMLAttributes<T>
-      extends AriaAttributes,
-        DOMAttributes<T> {
-      'data-hide-print'?: boolean
-      'data-testid'?: string
-    }
+declare module 'react' {
+  export interface AriaAttributes {
+    'data-hide-print'?: boolean
+    'data-testid'?: string
   }
 }
 

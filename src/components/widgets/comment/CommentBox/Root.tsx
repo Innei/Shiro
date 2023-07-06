@@ -28,7 +28,7 @@ export const CommentBoxRoot: FC<CommentBaseProps> = (props) => {
 
   return (
     <CommentBoxProvider refId={refId}>
-      <div className="group relative w-full min-w-0">
+      <div className="group relative w-full min-w-0" data-hide-print>
         <SwitchCommentMode />
 
         <div className="relative w-full">

@@ -82,7 +82,10 @@ const XLogInfoBase: FC<{
   }
 
   return (
-    <div className="my-6 select-none text-sm [&_h4]:font-medium [&_section]:my-2">
+    <div
+      className="my-6 select-none text-sm [&_h4]:font-medium [&_section]:my-2"
+      data-hide-print
+    >
       <div
         role="button"
         tabIndex={0}

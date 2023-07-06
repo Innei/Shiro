@@ -97,7 +97,10 @@ export const PagePaginator = () => {
   const hasNext = indexInPages + 1 < n
   const hasPrev = indexInPages - 1 >= 0
   return (
-    <div className="relative mt-8 grid h-20 select-none grid-cols-2">
+    <div
+      className="relative mt-8 grid h-20 select-none grid-cols-2"
+      data-hide-print
+    >
       <div className="justify-start">
         {hasPrev && (
           <Fragment>
