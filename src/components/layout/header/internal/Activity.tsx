@@ -111,7 +111,7 @@ export function Activity() {
   }
 
   return (
-    <AnimatePresence>
+    <>
       {!!media && (
         <m.div className="absolute bottom-0 left-0 top-0 z-[10] flex items-center md:left-[-30px]">
           <div className="absolute inset-0 z-[-1] flex center">
@@ -127,33 +127,36 @@ export function Activity() {
           </FloatPopover>
         </m.div>
       )}
-
-      {!!appLabels[processName] && (
-        <m.div
-          key={processName}
-          className="pointer-events-auto absolute bottom-0 right-0 top-0 z-[10] flex animate-pulse items-center overflow-hidden md:right-[-25px]"
-          initial={false}
-          animate={{
-            opacity: 1,
-            x: 0,
-          }}
-          exit={{
-            opacity: 0.2,
-            x: -10,
-          }}
-        >
-          <FloatPopover
-            TriggerComponent={TriggerComponent}
-            triggerComponentProps={memoProcessName}
-            type="tooltip"
-            strategy="fixed"
+      <AnimatePresence>
+        {!!appLabels[processName] && (
+          <m.div
+            key={processName}
+            className="pointer-events-auto absolute bottom-0 right-0 top-0 z-[10] flex items-center overflow-hidden md:right-[-25px]"
+            initial={false}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+            exit={{
+              opacity: 0.2,
+              x: -10,
+            }}
           >
-            {ownerName} 正在使用 {processName}
-            {appDescrption[processName] ? ` ${appDescrption[processName]}` : ''}
-          </FloatPopover>
-        </m.div>
-      )}
-    </AnimatePresence>
+            <FloatPopover
+              TriggerComponent={TriggerComponent}
+              triggerComponentProps={memoProcessName}
+              type="tooltip"
+              strategy="fixed"
+            >
+              {ownerName} 正在使用 {processName}
+              {appDescrption[processName]
+                ? ` ${appDescrption[processName]}`
+                : ''}
+            </FloatPopover>
+          </m.div>
+        )}
+      </AnimatePresence>
+    </>
   )
 }
 const cMusicProps = { processName: 'cmusic' }
