@@ -88,7 +88,7 @@ const TwoColumnLayout = ({
   rightContainerClassName?: string
 }) => {
   return (
-    <div className="relative flex h-full w-full flex-col flex-wrap items-center lg:flex-row">
+    <div className="group relative flex h-full w-full flex-col flex-wrap items-center lg:flex-row">
       {children.slice(0, 2).map((child, i) => {
         return (
           <div
@@ -99,7 +99,7 @@ const TwoColumnLayout = ({
               i === 0 ? leftContainerClassName : rightContainerClassName,
             )}
           >
-            <div className="relative max-w-full lg:max-w-xl ">{child}</div>
+            <div className="relative max-w-full lg:max-w-xl">{child}</div>
           </div>
         )
       })}
