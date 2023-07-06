@@ -111,7 +111,7 @@ const initialStyle: Target = {
 const modalTransition: Transition = {
   ...microReboundPreset,
 }
-export const Modal: Component<{
+const Modal: Component<{
   item: ModalProps & { id: string }
   index: number
 }> = memo(function Modal({ item, index }) {

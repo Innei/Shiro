@@ -42,6 +42,7 @@ export const ReactQueryProvider = ({ children }: PropsWithChildren) => {
       persistOptions={
         useRef<Omit<PersistQueryClientOptions, 'queryClient'>>({
           persister,
+          maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
           dehydrateOptions: {
             shouldDehydrateQuery: (query) => {
               const queryIsReadyForPersistance =
