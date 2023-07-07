@@ -4,7 +4,6 @@ import type { FC, ReactNode, SVGProps } from 'react'
 import { AutoResizeHeight } from '~/components/widgets/shared/AutoResizeHeight'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { clsxm } from '~/lib/helper'
-import { apiClient } from '~/lib/request'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
 
@@ -17,14 +16,11 @@ const XLogSummary: FC<{
     [`getSummary`, cid],
     async ({ queryKey }) => {
       const [, cid] = queryKey
-      return apiClient.proxy.fn.xlog.get_summary.get<{
-        data: string
-      }>({
-        params: {
-          cid,
-          lang: 'zh',
-        },
-      })
+      const data = await fetch(`/api/xlog/summary?cid=${cid}`).then((res) =>
+        res.json(),
+      )
+      if (!data) throw new Error('请求错误')
+      return data
     },
     {
       enabled: !!cid,
