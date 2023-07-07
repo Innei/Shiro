@@ -9,6 +9,7 @@ import { PostCopyright } from '~/components/widgets/post/PostCopyright'
 import { PostOutdate } from '~/components/widgets/post/PostOutdate'
 import { PostRelated } from '~/components/widgets/post/PostRelated'
 import { ArticleRightAside } from '~/components/widgets/shared/ArticleRightAside'
+import { GoToAdminEditingButton } from '~/components/widgets/shared/GoToAdminEditingButton'
 import { ReadIndicatorForMobile } from '~/components/widgets/shared/ReadIndicator'
 import { SubscribeBell } from '~/components/widgets/subscribe/SubscribeBell'
 import { XLogInfoForPost, XLogSummaryForPost } from '~/components/widgets/xlog'
@@ -45,6 +46,11 @@ const PostPage = () => {
           <h1 className="text-center">
             <Balancer>{title}</Balancer>
           </h1>
+          <GoToAdminEditingButton
+            id={id!}
+            type="posts"
+            className="absolute -top-6 right-0"
+          />
 
           <PostMetaBarInternal className="mb-8 justify-center" />
 

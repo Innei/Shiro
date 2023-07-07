@@ -63,7 +63,7 @@ export const MentionRule: MarkdownToJSX.Rule = {
           target="_blank"
           rel="noreferrer nofollow"
           href={`${urlPrefix}${name}`}
-          className="no-underline"
+          className="underline-offset-2"
         >
           {displayName || name}
         </a>

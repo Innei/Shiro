@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
@@ -150,7 +151,6 @@ const Card: FC<{ link: LinkModel }> = ({ link }) => {
       layoutId={link.id}
       href={link.url}
       target="_blank"
-      rel="noreferrer"
       role="link"
       aria-label={`Go to ${link.name}'s website`}
       className="relative flex flex-col items-center justify-center"
@@ -183,7 +183,7 @@ const FavoriteSection: FC<FriendSectionProps> = ({ data }) => {
       {data.map((link) => {
         return (
           <li key={link.id}>
-            <a href={link.url} target="_blank" rel="noreferrer">
+            <a href={link.url} target="_blank">
               {link.name}
             </a>
             <span className="meta">{link.description || ''}</span>

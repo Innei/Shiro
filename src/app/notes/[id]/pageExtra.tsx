@@ -13,6 +13,7 @@ import { MdiClockOutline } from '~/components/icons/clock'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { Markdown } from '~/components/ui/markdown'
+import { GoToAdminEditingButton } from '~/components/widgets/shared/GoToAdminEditingButton'
 import { parseDate } from '~/lib/datetime'
 import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
@@ -22,9 +23,19 @@ import styles from './page.module.css'
 
 export const NoteTitle = () => {
   const title = useCurrentNoteDataSelector((data) => data?.data.title)
+  const id = useCurrentNoteDataSelector((data) => data?.data.id)
+
   if (!title) return null
   return (
-    <h1 className="mt-8 text-left font-bold text-base-content/95">{title}</h1>
+    <>
+      <h1 className="mt-8 text-left font-bold text-base-content/95">{title}</h1>
+
+      <GoToAdminEditingButton
+        type="notes"
+        id={id!}
+        className="absolute -top-6 right-0"
+      />
+    </>
   )
 }
 

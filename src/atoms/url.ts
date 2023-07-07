@@ -29,3 +29,13 @@ export const useAppUrl = () => {
     ...url,
   }
 }
+
+export const useResolveAdminUrl = () => {
+  const { adminUrl } = useAppUrl()
+  return (path: string) => {
+    if (!adminUrl) {
+      return ''
+    }
+    return adminUrl.replace(/\/$/, '').concat(path || '')
+  }
+}

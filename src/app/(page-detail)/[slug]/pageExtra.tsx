@@ -8,6 +8,7 @@ import type { PropsWithChildren } from 'react'
 
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { Markdown } from '~/components/ui/markdown'
+import { GoToAdminEditingButton } from '~/components/widgets/shared/GoToAdminEditingButton'
 import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
 import { useCurrentPageDataSelector } from '~/providers/page/CurrentPageDataProvider'
@@ -63,10 +64,18 @@ export const PageSubTitle = () => {
 }
 export const PageTitle = () => {
   const title = useCurrentPageDataSelector((data) => data?.title)
+  const id = useCurrentPageDataSelector((data) => data?.id)
   return (
-    <h1 className="text-center lg:text-left">
-      <Balancer>{title}</Balancer>
-    </h1>
+    <>
+      <h1 className="text-center lg:text-left">
+        <Balancer>{title}</Balancer>
+      </h1>
+      <GoToAdminEditingButton
+        id={id!}
+        type="pages"
+        className="absolute -top-6 right-0"
+      />
+    </>
   )
 }
 export const HeaderMetaInfoSetting = () => {
