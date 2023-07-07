@@ -16,7 +16,7 @@ const positionAtom = atom({
 })
 const overlayShowAtom = atom(false)
 
-export const DonateButton = () => {
+export const AsideDonateButton = () => {
   const isClient = useIsClient()
   const {
     module: { donate },

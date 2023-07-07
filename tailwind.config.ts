@@ -273,8 +273,6 @@ const twConfig: Config = {
     daisyui,
     typography,
     require('tailwind-scrollbar'),
-    // variableColorsPlugin(twColors),
-    // ColorPlugin,
   ],
 }
 
@@ -305,33 +303,3 @@ function addShortcutPlugin({ addUtilities }: PluginAPI) {
 }
 
 export default withTV(twConfig)
-
-// function ColorPlugin({ addUtilities, e, theme, addVariant }: PluginAPI) {
-//   const newUtilities = {}
-//   const colors = theme('colors.uk')
-
-//   Object.keys(colors).forEach((colorName) => {
-//     const colorGroup = colors[colorName]
-//     if (typeof colorGroup === 'object') {
-//       Object.keys(colorGroup).forEach((shadeName) => {
-//         const colorValue = colorGroup[shadeName]
-//         for (let i = 1; i <= 10; i++) {
-//           const color = Color(colorValue)
-//             .lighten(i * 0.1)
-//             .hex()
-//           newUtilities[`.text-${colorName}-${shadeName}-${i * 100}`] = {
-//             color,
-//           }
-//           newUtilities[`.bg-${colorName}-${shadeName}-${i * 100}`] = {
-//             backgroundColor: color,
-//           }
-//           newUtilities[`.border-${colorName}-${shadeName}-${i * 100}`] = {
-//             borderColor: color,
-//           }
-//         }
-//       })
-//     }
-//   })
-
-//   addUtilities(newUtilities)
-// }

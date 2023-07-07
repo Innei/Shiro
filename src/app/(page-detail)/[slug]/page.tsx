@@ -1,5 +1,6 @@
+import { PageActionAside } from '~/components/widgets/page/PageActionAside'
+import { ArticleRightAside } from '~/components/widgets/shared/ArticleRightAside'
 import { ReadIndicatorForMobile } from '~/components/widgets/shared/ReadIndicator'
-import { TocAside } from '~/components/widgets/toc'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
@@ -14,10 +15,9 @@ const PageDetail = () => {
       </MarkdownImageRecordProviderInternal>
 
       <LayoutRightSidePortal>
-        <TocAside
-          className="sticky top-[120px] ml-4 mt-[120px]"
-          treeClassName="max-h-[calc(100vh-6rem-4.5rem-300px)] h-[calc(100vh-6rem-4.5rem-300px)] min-h-[120px] relative"
-        />
+        <ArticleRightAside>
+          <PageActionAside />
+        </ArticleRightAside>
       </LayoutRightSidePortal>
     </WrappedElementProvider>
   )

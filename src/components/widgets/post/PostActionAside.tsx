@@ -19,7 +19,8 @@ import {
 import { useModalStack } from '~/providers/root/modal-stack-provider'
 
 import { ActionAsideContainer } from '../shared/ActionAsideContainer'
-import { DonateButton } from '../shared/DonateButton'
+import { AsideCommentButton } from '../shared/AsideCommentButton'
+import { AsideDonateButton } from '../shared/AsideDonateButton'
 import { ShareModal } from '../shared/ShareModal'
 
 export const PostActionAside: Component = ({ className }) => {
@@ -27,9 +28,23 @@ export const PostActionAside: Component = ({ className }) => {
     <ActionAsideContainer className={className}>
       <LikeButton />
       <ShareButton />
-      <DonateButton />
+
+      <AsideDonateButton />
+      <PostAsideCommentButton />
     </ActionAsideContainer>
   )
+}
+
+const PostAsideCommentButton = () => {
+  const { title, id } =
+    useCurrentPostDataSelector((data) => {
+      return {
+        title: data?.title,
+        id: data?.id,
+      }
+    }) || {}
+  if (!id) return null
+  return <AsideCommentButton refId={id} title={title!} />
 }
 
 const LikeButton = () => {

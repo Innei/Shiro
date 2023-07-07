@@ -25,6 +25,7 @@ import { buildQueryKey } from '../Comments'
 import { MAX_COMMENT_TEXT_LENGTH } from './constants'
 import {
   useCommentBoxHasText,
+  useCommentBoxLifeCycle,
   useCommentBoxRefIdValue,
   useCommentBoxTextIsOversize,
   useCommentBoxTextValue,
@@ -154,6 +155,7 @@ const SubmitButton = () => {
     isWhisper: isWhisperAtom,
     syncToRecently: syncToRecentlyAtom,
   } = useGetCommentBoxAtomValues()
+  const { afterSubmit } = useCommentBoxLifeCycle()
   const isLogged = useIsLogged()
   const queryClient = useQueryClient()
   const isReply = useUseCommentReply()
@@ -242,6 +244,8 @@ const SubmitButton = () => {
       toast.error(getErrorMessageFromRequestError(error))
     },
     onSuccess(data) {
+      afterSubmit?.()
+
       const toastCopy = isLogged
         ? '发表成功啦~'
         : isReply

@@ -17,15 +17,22 @@ import { CloseIcon } from '~/components/icons/close'
 import { Divider } from '~/components/ui/divider'
 import { DialogOverlay } from '~/components/ui/dlalog/DialogOverlay'
 import { microReboundPreset } from '~/constants/spring'
+import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { stopPropagation } from '~/lib/dom'
 import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
 
 const modalIdToPropsMap = {} as Record<string, ModalProps>
+
+export type ModalContentComponent<T> = FC<ModalContentPropsInternal & T>
+type ModalContentPropsInternal = {
+  dismiss: () => void
+}
+
 interface ModalProps {
   title: string
-  content: FC<{ dismiss: () => void }>
+  content: FC<ModalContentPropsInternal>
   CustomModalComponent?: FC<PropsWithChildren>
   clickOutsideToDismiss?: boolean
   modalClassName?: string
@@ -116,11 +123,12 @@ const Modal: Component<{
   index: number
 }> = memo(function Modal({ item, index }) {
   const setStack = useSetAtom(modalStackAtom)
-  const close = useCallback(() => {
+  const close = useEventCallback(() => {
     setStack((p) => {
       return p.filter((modal) => modal.id !== item.id)
     })
-  }, [item.id])
+  })
+
   const onClose = useCallback(
     (open: boolean): void => {
       if (!open) {

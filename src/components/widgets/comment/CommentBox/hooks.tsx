@@ -12,6 +12,7 @@ import { jotaiStore } from '~/lib/store'
 import { MAX_COMMENT_TEXT_LENGTH } from './constants'
 import {
   CommentBoxContext,
+  CommentBoxLifeCycleContext,
   CommentCompletedCallbackContext,
   CommentIsReplyContext,
   CommentOriginalRefIdContext,
@@ -32,6 +33,8 @@ export const useCommentBoxRefIdValue = () =>
 export const useGetCommentBoxAtomValues = () => {
   return useContext(CommentBoxContext)
 }
+export const useCommentBoxLifeCycle = () =>
+  useContext(CommentBoxLifeCycleContext)
 
 // ReactNode 导致 tsx 无法推断，过于复杂
 const commentActionLeftSlotAtom = atom(null as React.JSX.Element | null)

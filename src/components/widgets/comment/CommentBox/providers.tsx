@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, memo, useEffect, useRef } from 'react'
+import { createContext, memo, useEffect, useMemo, useRef } from 'react'
 import { atom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 import type { CommentModel } from '@mx-space/api-client'
@@ -30,10 +30,15 @@ export const createInitialValue = () => ({
 export const CommentBoxContext = createContext<
   ReturnType<typeof createInitialValue>
 >(null!)
+
+export const CommentBoxLifeCycleContext = createContext<{
+  afterSubmit?: () => void
+}>(null!)
+
 export const CommentBoxProvider = (
-  props: PropsWithChildren & { refId: string },
+  props: PropsWithChildren & { refId: string; afterSubmit?: () => void },
 ) => {
-  const { refId, children } = props
+  const { refId, children, afterSubmit } = props
   return (
     <CommentBoxContext.Provider
       key={refId}
@@ -44,7 +49,11 @@ export const CommentBoxProvider = (
         }).current
       }
     >
-      {children}
+      <CommentBoxLifeCycleContext.Provider
+        value={useMemo(() => ({ afterSubmit }), [afterSubmit])}
+      >
+        {children}
+      </CommentBoxLifeCycleContext.Provider>
     </CommentBoxContext.Provider>
   )
 }

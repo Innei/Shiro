@@ -17,7 +17,7 @@ import { CommentBoxSignedOutContent } from './SignedOutContent'
 import { SwitchCommentMode } from './SwitchCommentMode'
 
 export const CommentBoxRoot: Component<CommentBaseProps> = (props) => {
-  const { refId, className } = props
+  const { refId, className, afterSubmit } = props
 
   const mode = useCommentMode()
 
