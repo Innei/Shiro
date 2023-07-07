@@ -4,11 +4,13 @@ import { useCurrentPageDataSelector } from '~/providers/page/CurrentPageDataProv
 
 import { ActionAsideContainer } from '../shared/ActionAsideContainer'
 import { AsideCommentButton } from '../shared/AsideCommentButton'
+import { AsideDonateButton } from '../shared/AsideDonateButton'
 
 export const PageActionAside: Component = ({ className }) => {
   return (
     <ActionAsideContainer className={className}>
       <PageAsideCommentButton />
+      <AsideDonateButton />
     </ActionAsideContainer>
   )
 }

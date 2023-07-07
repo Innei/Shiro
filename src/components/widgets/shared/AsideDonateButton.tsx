@@ -117,7 +117,7 @@ const DonateButtonInternal: Component<HTMLMotionProps<'button'>> = ({
       }}
       {...props}
     >
-      <i className="icon-[material-symbols--coffee-outline-sharp] text-[24px] opacity-80 duration-200 hover:text-uk-brown-dark hover:opacity-100" />
+      <i className="icon-[mingcute--teacup-line] text-[24px] opacity-80 duration-200 hover:text-uk-brown-dark hover:opacity-100" />
     </MotionButtonBase>
   )
 }
