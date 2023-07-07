@@ -1,13 +1,13 @@
 'use client'
 
 import { useEffect } from 'react'
-import type { FC } from 'react'
 import type { CommentBaseProps } from '../types'
 
 import { SignedIn, SignedOut } from '@clerk/nextjs'
 
 import { useIsLogged } from '~/atoms'
 import { AutoResizeHeight } from '~/components/widgets/shared/AutoResizeHeight'
+import { clsxm } from '~/lib/helper'
 
 import { CommentBoxAuthedInput } from './AuthedInput'
 import { CommentBoxLegacyForm } from './CommentBoxLegacyForm'
@@ -16,8 +16,8 @@ import { CommentBoxProvider } from './providers'
 import { CommentBoxSignedOutContent } from './SignedOutContent'
 import { SwitchCommentMode } from './SwitchCommentMode'
 
-export const CommentBoxRoot: FC<CommentBaseProps> = (props) => {
-  const { refId } = props
+export const CommentBoxRoot: Component<CommentBaseProps> = (props) => {
+  const { refId, className } = props
 
   const mode = useCommentMode()
 
@@ -28,7 +28,10 @@ export const CommentBoxRoot: FC<CommentBaseProps> = (props) => {
 
   return (
     <CommentBoxProvider refId={refId}>
-      <div className="group relative w-full min-w-0" data-hide-print>
+      <div
+        className={clsxm('group relative w-full min-w-0', className)}
+        data-hide-print
+      >
         <SwitchCommentMode />
 
         <div className="relative w-full">

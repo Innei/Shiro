@@ -25,7 +25,7 @@ import { jotaiStore } from '~/lib/store'
 const modalIdToPropsMap = {} as Record<string, ModalProps>
 interface ModalProps {
   title: string
-  content: FC<{}>
+  content: FC<{ dismiss: () => void }>
   CustomModalComponent?: FC<PropsWithChildren>
   clickOutsideToDismiss?: boolean
   modalClassName?: string
@@ -178,7 +178,9 @@ const Modal: Component<{
             >
               <div className={modalClassName} onClick={stopPropagation}>
                 <CustomModalComponent>
-                  {createElement(content)}
+                  {createElement(content, {
+                    dismiss: close,
+                  })}
                 </CustomModalComponent>
               </div>
             </div>
