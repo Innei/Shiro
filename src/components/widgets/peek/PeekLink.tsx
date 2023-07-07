@@ -15,6 +15,12 @@ export const usePeek = () => {
   return useCallback(
     (href: string) => {
       if (isMobile) return
+      const basePresentProps = {
+        clickOutsideToDismiss: true,
+        title: 'Preview',
+        modalClassName:
+          'relative mx-auto mt-[10vh] scrollbar-none max-w-full overflow-auto px-2 lg:max-w-[65rem] lg:p-0',
+      }
 
       if (href.startsWith('/notes/')) {
         requestAnimationFrame(async () => {
@@ -22,10 +28,7 @@ export const usePeek = () => {
             (module) => module.NotePreview,
           )
           present({
-            clickOutsideToDismiss: true,
-            title: 'Preview',
-            modalClassName: 'flex justify-center',
-            modalContainerClassName: 'flex justify-center',
+            ...basePresentProps,
             CustomModalComponent: () => (
               <PeekModal to={href}>
                 <NotePreview noteId={parseInt(href.split('/').pop()!)} />
@@ -45,10 +48,7 @@ export const usePeek = () => {
           const slug = splitpath.pop()!
           const category = splitpath.pop()!
           present({
-            clickOutsideToDismiss: true,
-            title: 'Preview',
-            modalClassName: 'flex justify-center',
-            modalContainerClassName: 'flex justify-center',
+            ...basePresentProps,
             CustomModalComponent: () => (
               <PeekModal to={href}>
                 <PostPreview category={category} slug={slug} />

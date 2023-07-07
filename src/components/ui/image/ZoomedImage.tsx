@@ -98,13 +98,24 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
   }, [zoom, zoomer_, imageLoadStatus])
 
   return (
-    <LazyLoad placeholder={placeholder} offset={30}>
-      <figure>
-        <span className="relative flex justify-center">
+    <figure>
+      <span className="relative flex justify-center">
+        <LazyLoad placeholder={placeholder} offset={30}>
           <span>
             {imageLoadStatus !== ImageLoadStatus.Loaded && placeholder}
           </span>
 
+          {imageLoadStatus === ImageLoadStatus.Error && (
+            <div className="absolute inset-0 z-[1] flex flex-col gap-8 center">
+              <i className="icon-[mingcute--close-line] text-4xl text-red-500" />
+              <span>图片加载失败</span>
+
+              <Divider className="w-[80px] opacity-80" />
+              <a href={src} target="_blank" rel="noreferrer">
+                <span>查看原图</span>
+              </a>
+            </div>
+          )}
           <img
             src={src}
             title={title}
@@ -126,16 +137,16 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
               }
             }}
           />
-        </span>
+        </LazyLoad>
+      </span>
 
-        {!!figcaption && (
-          <figcaption className="mt-1 flex flex-col items-center justify-center">
-            <Divider className="w-[80px] opacity-80" />
-            <span>{figcaption}</span>
-          </figcaption>
-        )}
-      </figure>
-    </LazyLoad>
+      {!!figcaption && (
+        <figcaption className="mt-1 flex flex-col items-center justify-center">
+          <Divider className="w-[80px] opacity-80" />
+          <span>{figcaption}</span>
+        </figcaption>
+      )}
+    </figure>
   )
 }
 

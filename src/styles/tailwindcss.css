@@ -61,3 +61,10 @@ input,
 textarea {
   font-size: 16px;
 }
+
+@layer components {
+  .scrollbar-none::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+  }
+}

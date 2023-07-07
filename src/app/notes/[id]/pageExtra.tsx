@@ -3,7 +3,6 @@
 'use client'
 
 import { useEffect } from 'react'
-import Balancer from 'react-wrap-balancer'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 import type { Image } from '@mx-space/api-client'
@@ -25,9 +24,7 @@ export const NoteTitle = () => {
   const title = useCurrentNoteDataSelector((data) => data?.data.title)
   if (!title) return null
   return (
-    <h1 className="mt-8 text-left font-bold text-base-content/95">
-      <Balancer>{title}</Balancer>
-    </h1>
+    <h1 className="mt-8 text-left font-bold text-base-content/95">{title}</h1>
   )
 }
 
