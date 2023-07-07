@@ -12,6 +12,7 @@ import {
   useActivity,
 } from '~/atoms/activity'
 import { FloatPopover } from '~/components/ui/float-popover'
+import useDebounceValue from '~/hooks/common/use-debounce-value'
 import { apiClient } from '~/lib/request'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
@@ -99,15 +100,15 @@ export function Activity() {
 
   const ownerName = useAggregationSelector((data) => data.user.name)
   const memoProcessName = useMemo(
-    () => ({ processName: data?.processName || '' }),
-    [data?.processName],
+    () => ({ processName: activity?.processName || '' }),
+    [activity?.processName],
   )
-  if (!data) {
-    return null
-  }
+
   const { processName, media } = activity
-  if (!appLabels[processName]) {
-    console.log('Not collected process name: ', processName)
+  const debounceProcess = useDebounceValue(processName, 300)
+
+  if (!appLabels[debounceProcess]) {
+    console.log('Not collected process name: ', debounceProcess)
   }
 
   return (
