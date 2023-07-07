@@ -41,11 +41,10 @@ const AccessibleMenu: Component = () => {
         {showShow && (
           <m.div
             layout
-            layoutRoot
-            initial={{ y: -64 }}
+            initial={{ y: -20 }}
             animate={{ y: 0 }}
             exit={{ y: -20, opacity: 0 }}
-            className="fixed left-0 right-0 top-[6rem] z-10 flex justify-center duration-[100ms]"
+            className="fixed left-0 right-0 top-[3rem] z-10 flex justify-center duration-[100ms]"
           >
             <ForDesktop />
           </m.div>
@@ -97,8 +96,7 @@ const ForDesktop: Component<{
   const background = useMotionTemplate`radial-gradient(${radius}px circle at ${mouseX}px ${mouseY}px, var(--spotlight-color) 0%, transparent 65%)`
 
   return (
-    <m.nav
-      layout="size"
+    <nav
       onMouseMove={handleMouseMove}
       className={clsxm(
         'relative',
@@ -137,7 +135,7 @@ const ForDesktop: Component<{
           )
         })}
       </div>
-    </m.nav>
+    </nav>
   )
 }
 
@@ -154,13 +152,13 @@ const HeaderMenuItem = memo<{
       <AnimatedItem
         href={href}
         isActive={isActive}
-        className={clsx('transition-[padding]')}
+        className="transition-[padding]"
       >
         <span className="relative flex items-center">
           {isActive && (
             <m.span
               layoutId={iconLayout ? 'header-menu-icon' : undefined}
-              className={clsxm('mr-2 flex items-center')}
+              className="mr-2 flex items-center"
             >
               {subItemActive?.icon ?? section.icon}
             </m.span>

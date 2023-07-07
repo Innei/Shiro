@@ -24,6 +24,7 @@ export interface LinkCardProps {
 }
 
 export const LinkCard = (props: LinkCardProps) => {
+  console.log('LinkCard', props)
   const isClient = useIsClientTransition()
 
   if (!isClient) return null

@@ -47,7 +47,7 @@ const Screen = forwardRef<
       ref={ref}
       style={isDev ? debugStyle : undefined}
       className={clsxm(
-        'relative flex h-screen flex-col center',
+        'relative flex h-screen min-h-[900px] flex-col center',
         props.className,
       )}
     >
@@ -120,7 +120,7 @@ const Welcome = () => {
     }, 0) * 50
   return (
     <Screen className="mt-20 lg:mt-[-4.5rem]">
-      <TwoColumnLayout>
+      <TwoColumnLayout leftContainerClassName="mt-[120px] lg:mt-0 h-[15rem] lg:h-1/2">
         <>
           <m.div
             className="group relative leading-[4] [&_*]:inline-block"
@@ -213,7 +213,7 @@ const PostScreen = () => {
   const { posts } = useHomeQueryData()
   return (
     <Screen className="h-[120vh]">
-      <TwoColumnLayout leftContainerClassName="h-1/4 lg:h-1/2">
+      <TwoColumnLayout leftContainerClassName="h-[30rem] lg:h-1/2">
         <m.h2
           initial={{
             opacity: 0.0001,
@@ -325,7 +325,7 @@ const NoteScreen = () => {
   return (
     <Screen>
       <TwoColumnLayout leftContainerClassName="block lg:flex">
-        <div>
+        <div className="mt-12 lg:mt-0">
           <section className="flex flex-col justify-end">
             <m.h3
               className="mb-6 text-center text-xl"
