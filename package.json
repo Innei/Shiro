@@ -23,7 +23,7 @@
     ]
   },
   "scripts": {
-    "prepare": "pnpm exec simple-git-hooks",
+    "prepare": "pnpm exec simple-git-hooks && test -f .env || cp .env.example .env",
     "start": "npm run dev",
     "prebuild": "rimraf .next",
     "dev": "cross-env NODE_ENV=development next dev -p 2323",

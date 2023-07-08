@@ -5,7 +5,6 @@ import { ToastContainer } from 'react-toastify'
 import type { AggregateRoot } from '@mx-space/api-client'
 
 import { ClerkProvider } from '@clerk/nextjs'
-import { get } from '@vercel/edge-config'
 
 import PKG from '~/../package.json'
 import { appConfig } from '~/app.config'
@@ -102,8 +101,6 @@ export default async function RootLayout(props: Props) {
   })
 
   aggregationData = data
-
-  console.log('geet', await get('greeting'))
 
   return (
     // <ClerkProvider localization={ClerkZhCN}>
