@@ -74,7 +74,7 @@ export const headerMenuConfig: IHeaderMenu[] = [
   },
 
   {
-    title: '其他',
+    title: '更多',
     icon: h(FaSolidCircleNotch),
     path: '#',
     subMenu: [

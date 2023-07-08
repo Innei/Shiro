@@ -33,6 +33,11 @@ function isNoteModel(model: any): model is NoteModel {
 
 function buildUrl(model: PostModel | NoteModel | PageModel) {
   if (isPostModel(model)) {
+    // TODO
+    if (!model.category) {
+      console.error('PostModel.category is missing!!!!!')
+      return '#'
+    }
     return `/posts/${
       (model.category as CategoryModel).slug
     }/${encodeURIComponent(model.slug)}`

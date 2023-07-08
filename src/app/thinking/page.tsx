@@ -1,8 +1,9 @@
 'use client'
 
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import clsx from 'clsx'
+import { stagger, useAnimate } from 'framer-motion'
 import { produce } from 'immer'
 import type { RecentlyModel } from '@mx-space/api-client'
 import type { InfiniteData } from '@tanstack/react-query'
@@ -25,6 +26,7 @@ import { CommentBoxRoot } from '~/components/widgets/comment/CommentBox'
 import { Comments } from '~/components/widgets/comment/Comments'
 import { PeekLink } from '~/components/widgets/peek/PeekLink'
 import { LoadMoreIndicator } from '~/components/widgets/shared/LoadMoreIndicator'
+import { usePrevious } from '~/hooks/common/use-previous'
 import { sample } from '~/lib/_'
 import { preventDefault } from '~/lib/dom'
 import { apiClient } from '~/lib/request'
@@ -156,16 +158,44 @@ const List = () => {
   }
   const { present } = useModalStack()
 
+  const [scope, animate] = useAnimate()
+
+  const getPrevData = usePrevious(data)
+  useEffect(() => {
+    if (!data) return
+    const pages = getPrevData()?.pages
+    const count = pages?.reduce((acc, cur) => {
+      return acc + cur.length
+    }, 0)
+
+    console.log(count)
+
+    animate(
+      'li',
+      {
+        opacity: 1,
+        y: 0,
+      },
+      {
+        duration: 0.2,
+        delay: stagger(0.1, {
+          startDelay: 0.15,
+          from: count ? count - FETCH_SIZE : 0,
+        }),
+      },
+    )
+  }, [data])
+
   if (isLoading) <Loading useDefaultLoadingText />
 
   return (
-    <ul>
+    <ul ref={scope}>
       {data?.pages.map((page) => {
         return page.map((item) => {
           return (
             <li
               key={item.id}
-              className="mb-8 grid grid-cols-[40px_auto] flex-col gap-4 space-y-2"
+              className="mb-8 grid translate-y-[50px] grid-cols-[40px_auto] flex-col gap-4 space-y-2 opacity-[0.0001]"
             >
               <div className="translate-y-6">
                 <img
