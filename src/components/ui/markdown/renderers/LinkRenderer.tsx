@@ -28,6 +28,21 @@ export const LinkRenderer = ({ href }: { href: string }) => {
         const [_, owner, repo] = url.pathname.split('/')
         return <LinkCard id={`${owner}/${repo}`} source="gh" />
       }
+
+      case isYoutubeUrl(url): {
+        const id = url.searchParams.get('v')!
+        return (
+          <div className="relative h-0 w-full pb-[56%]">
+            <iframe
+              src={`https://www.youtube.com/embed/${id}`}
+              className="absolute inset-0 h-full w-full border-0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title="YouTube video player"
+            />
+          </div>
+        )
+      }
     }
   }
   // fallback to default renderer
@@ -52,4 +67,8 @@ const isGithubRepoUrl = (url: URL) => {
     url.pathname.startsWith('/') &&
     url.pathname.split('/').length === 3
   )
+}
+
+const isYoutubeUrl = (url: URL) => {
+  return url.hostname === 'www.youtube.com' && url.pathname.startsWith('/watch')
 }
