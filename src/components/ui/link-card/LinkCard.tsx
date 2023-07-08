@@ -1,10 +1,10 @@
-import { useCallback, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import axios from 'axios'
 import clsx from 'clsx'
 import Link from 'next/link'
 import RemoveMarkdown from 'remove-markdown'
-import type { FC, SyntheticEvent } from 'react'
+import type { FC, ReactNode, SyntheticEvent } from 'react'
 
 import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
 
@@ -16,7 +16,7 @@ import { apiClient } from '~/lib/request'
 
 import styles from './LinkCard.module.css'
 
-export type LinkCardSource = 'gh' | 'self' | 'mx-space'
+export type LinkCardSource = 'gh' | 'self' | 'mx-space' | 'gh-commit'
 export interface LinkCardProps {
   id: string
   source?: LinkCardSource
@@ -43,8 +43,8 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
 
   const [fullUrl, setFullUrl] = useState('about:blank')
   const [cardInfo, setCardInfo] = useState<{
-    title: string
-    desc?: string
+    title: ReactNode
+    desc?: ReactNode
     image?: string
   }>()
 
@@ -138,6 +138,54 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
         }
 
         return !rest.length
+      }
+      case 'gh-commit': {
+        // e.g. mx-space/kami/commit/1234567890
+        const [namespace, repo, variant, commitId] = id.split('/')
+
+        if (!namespace || !repo || !commitId) {
+          return false
+        }
+        if (variant !== 'commit') {
+          return false
+        }
+
+        fetchFnRef.current = async () => {
+          const data = await axios
+            .get<any>(
+              `https://api.github.com/repos/${namespace}/${repo}/commits/${commitId}`,
+            )
+            .then((data) => camelcaseKeys(data.data))
+
+          setCardInfo({
+            image: data.author.avatarUrl,
+            title: (
+              <span className="space-x-2">
+                <span>
+                  {namespace}/{repo}
+                </span>
+                <span className="font-normal">
+                  {data.commit.message.replace(/Signed-off-by:.+/, '')}
+                </span>
+              </span>
+            ),
+            desc: (
+              <span className="space-x-5 font-mono">
+                <span className="text-uk-green-light">
+                  +{data.stats.additions}
+                </span>
+                <span className="text-uk-red-light">
+                  -{data.stats.deletions}
+                </span>
+
+                <span className="text-sm">{data.sha.slice(0, 7)}</span>
+              </span>
+            ),
+          })
+          setFullUrl(data.htmlUrl)
+        }
+
+        return true
       }
     }
   }, [source, id])
