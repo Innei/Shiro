@@ -1,12 +1,12 @@
-import React, { useCallback, useLayoutEffect, useRef } from 'react'
+import React, { useCallback, useInsertionEffect, useRef } from 'react'
 import type { FC } from 'react'
 
 import { useIsPrintMode } from '~/atoms/css-media'
 import { useIsDark } from '~/hooks/common/use-is-dark'
+import { loadScript, loadStyleSheet } from '~/lib/load-script'
 import { toast } from '~/lib/toast'
 
 import styles from './CodeHighlighter.module.css'
-import { renderCodeHighlighter } from './render.server'
 
 declare global {
   interface Window {
@@ -24,25 +24,70 @@ export const HighLighter: FC<Props> = (props) => {
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(value)
-    toast.success('COPIED!')
+    toast('COPIED!', 'success')
   }, [value])
 
+  const prevThemeCSS = useRef<ReturnType<typeof loadStyleSheet>>()
   const isPrintMode = useIsPrintMode()
   const isDark = useIsDark()
 
-  useLayoutEffect(() => {
-    ;(async () => {
-      const html = await renderCodeHighlighter(
-        value,
-        language as string,
-        isPrintMode ? 'github-light' : isDark ? 'github-dark' : 'github-light',
-      )
-      if (!ref.current) {
-        return
+  useInsertionEffect(() => {
+    const css = loadStyleSheet(
+      `https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism-themes/1.9.0/prism-one-${
+        isPrintMode ? 'light' : isDark ? 'dark' : 'light'
+      }.css`,
+    )
+
+    if (prevThemeCSS.current) {
+      const $prev = prevThemeCSS.current
+      css.$link.onload = () => {
+        $prev.remove()
       }
-      ref.current.innerHTML = html
-    })()
-  }, [isDark, value, language, isPrintMode])
+    }
+
+    prevThemeCSS.current = css
+  }, [isDark, isPrintMode])
+  useInsertionEffect(() => {
+    loadStyleSheet(
+      'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.css',
+    )
+
+    Promise.all([
+      loadScript(
+        'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/components/prism-core.min.js',
+      ),
+    ])
+      .then(() =>
+        Promise.all([
+          loadScript(
+            'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js',
+          ),
+          loadScript(
+            'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.js',
+          ),
+        ]),
+      )
+      .then(() => {
+        if (ref.current) {
+          requestAnimationFrame(() => {
+            window.Prism?.highlightElement(ref.current)
+
+            requestAnimationFrame(() => {
+              window.Prism?.highlightElement(ref.current)
+            })
+          })
+        } else {
+          requestAnimationFrame(() => {
+            window.Prism?.highlightAll()
+            // highlightAll twice
+
+            requestAnimationFrame(() => {
+              window.Prism?.highlightAll()
+            })
+          })
+        }
+      })
+  }, [])
 
   const ref = useRef<HTMLElement>(null)
   return (
