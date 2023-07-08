@@ -1,4 +1,4 @@
-interface LinkSection {
+export interface LinkSection {
   name: string
   links: {
     name: string
@@ -7,7 +7,14 @@ interface LinkSection {
   }[]
 }
 
-export const linkSections: LinkSection[] = [
+export interface OtherInfo {
+  date: string
+  icp?: {
+    text: string
+    link: string
+  }
+}
+export const defaultLinkSections: LinkSection[] = [
   {
     name: '关于',
     links: [
@@ -64,3 +71,19 @@ export const linkSections: LinkSection[] = [
     ],
   },
 ]
+
+export interface FooterConfig {
+  linkSections: LinkSection[]
+  otherInfo: OtherInfo
+}
+
+// export const footerConfig = {
+//   linkSections,
+//   otherInfo: {
+//     date: '2020-{{now}}',
+//     // icp: {
+//     //   text: '浙 ICP 备 20028356 号',
+//     //   link: 'http://www.beian.miit.gov.cn/',
+//     // }
+//   } as OtherInfo,
+// }

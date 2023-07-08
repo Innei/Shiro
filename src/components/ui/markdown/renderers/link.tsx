@@ -100,7 +100,15 @@ export const MLink: FC<{
             <i className="icon-[mingcute--external-link-line]" />
           </span>
         ),
-        [handleRedirect, children, href, title],
+        [
+          handleRedirect,
+          children,
+          href,
+          title,
+          showRichLink,
+          parsedName,
+          parsedType,
+        ],
       )}
     >
       <span>{href}</span>

@@ -1,10 +1,15 @@
 import Link from 'next/link'
+import type { FooterConfig } from './config'
+
+import { get } from '@vercel/edge-config'
 
 import { SubscribeTextButton } from '~/components/widgets/subscribe/SubscribeTextButton'
 import { clsxm } from '~/lib/helper'
 
-import { linkSections } from './config'
+import { defaultLinkSections } from './config'
+// import { footerConfig } from './config'
 import { GatewayCount } from './GatewayCount'
+import { OwnerName } from './OwnerName'
 
 export const FooterInfo = () => {
   return (
@@ -16,10 +21,13 @@ export const FooterInfo = () => {
   )
 }
 
-const FooterLinkSection = () => {
+const FooterLinkSection = async () => {
+  const footerConfig =
+    ((await get('footer')) as FooterConfig) || defaultLinkSections
+
   return (
     <div className="space-x-0 space-y-3 md:space-x-6 md:space-y-0">
-      {linkSections.map((section) => {
+      {footerConfig.linkSections.map((section) => {
         return (
           <div className="block space-x-4 md:inline-flex" key={section.name}>
             <b className="font-medium">{section.name}</b>
@@ -110,10 +118,20 @@ const FooterBottom = async () => {
   //     flag: '🇺🇸',
   //   }
   // }
+
+  const footerConfig = (await get('footer')) as FooterConfig
+  const { otherInfo } = footerConfig
+  const currentYear = new Date().getFullYear().toString()
+  const { date = currentYear, icp } = otherInfo || {}
+
   return (
     <div className="mt-12 space-y-3 text-center md:mt-6 md:text-left">
       <p>
-        © 2020-2023 <a href="/">Innei</a>.
+        © {date.replace('{{now}}', currentYear)}{' '}
+        <a href="/">
+          <OwnerName />
+        </a>
+        .
         <span>
           <Divider />
           <a href="/feed">RSS</a>
@@ -131,14 +149,15 @@ const FooterBottom = async () => {
       </p>
       <p>
         <PoweredBy className="my-3 block md:my-0 md:inline" />
-        {/* <Divider className="hidden md:inline" /> */}
-        {/* <StyledLink
-          href="http://beian.miit.gov.cn/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          浙 ICP 备 20028356 号
-        </StyledLink> */}
+        {icp && (
+          <>
+            <Divider className="hidden md:inline" />
+            <StyledLink href={icp.link} target="_blank" rel="noreferrer">
+              {icp.text}
+            </StyledLink>
+          </>
+        )}
+
         <Divider />
         <GatewayCount />
         {/* {!!lastVisitor && (
