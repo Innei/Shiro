@@ -39,7 +39,7 @@ export const ReadIndicatorForMobile: Component<{}> = () => {
         )}
       >
         <div
-          className="absolute top-0 w-full bg-accent/80"
+          className="absolute top-0 w-full bg-accent/80 duration-75 ease-linear"
           style={{
             height: `${readPercent}%`,
           }}

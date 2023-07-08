@@ -13,6 +13,7 @@ import { usePathname } from 'next/navigation'
 import type { IHeaderMenu } from '../config'
 
 import { RootPortal } from '~/components/ui/portal'
+import useDebounceValue from '~/hooks/common/use-debounce-value'
 import { clsxm } from '~/lib/helper'
 import { useScollIsUpAndPageIsOver } from '~/providers/root/page-scroll-info-provider'
 
@@ -34,7 +35,10 @@ export const HeaderContent = () => {
 const AccessibleMenu: Component = () => {
   const hasMetaInfo = useHeaderHasMetaInfo()
 
-  const showShow = useScollIsUpAndPageIsOver(600) && hasMetaInfo
+  const showShow = useDebounceValue(
+    useScollIsUpAndPageIsOver(600) && hasMetaInfo,
+    120,
+  )
   return (
     <RootPortal>
       <AnimatePresence>
