@@ -28,7 +28,7 @@ export const apiClient = createClient(axiosAdaptor)(API_URL, {
 
 export const $axios = axiosAdaptor.default as AxiosInstance
 
-$axios.defaults.timeout = 3000
+$axios.defaults.timeout = 8000
 
 if (typeof window === 'undefined')
   $axios.defaults.headers.common[

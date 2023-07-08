@@ -7,7 +7,7 @@ import { StyledButton } from '~/components/ui/button'
 import { Input } from '~/components/ui/input/Input'
 import { Routes } from '~/lib/route-builder'
 
-export default () => {
+export default function LoginPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()

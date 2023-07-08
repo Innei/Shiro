@@ -18,7 +18,7 @@ export const login = async (username?: string, password?: string) => {
     const user = await apiClient.user.login(username, password).catch((err) => {
       console.error(err)
       toast('再试试哦', 'error')
-      return null
+      throw err
     })
     if (user) {
       const token = user.token
