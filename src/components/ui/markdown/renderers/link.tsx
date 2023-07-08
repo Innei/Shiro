@@ -80,7 +80,7 @@ export const MLink: FC<{
       type="tooltip"
       TriggerComponent={useCallback(
         () => (
-          <span className="inline-flex items-center">
+          <span className="inline items-center">
             {!showRichLink && <Favicon href={href} />}
             {showRichLink ? (
               <RichLink name={parsedName} source={parsedType} />

@@ -367,7 +367,7 @@ const NoteScreen = () => {
 
                 {!!theLast.images?.[0]?.src && (
                   <div
-                    className="absolute inset-0 bg-cover bg-center"
+                    className="mask-top absolute inset-0 bg-cover bg-center opacity-50"
                     style={{
                       background: `url(${theLast.images[0].src})`,
                     }}

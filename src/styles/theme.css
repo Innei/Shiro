@@ -96,6 +96,12 @@
     animation: blink 2s ease infinite both;
   }
 
+  .mask-top {
+    mask-image: linear-gradient(to top, transparent, rgb(0 0 0 / 100%) 90%);
+    opacity: 0.3;
+    transition: opacity 0.3s ease-in-out;
+  }
+
   @keyframes blink {
     0% {
       opacity: 0;

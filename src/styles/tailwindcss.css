@@ -62,6 +62,10 @@ textarea {
   font-size: 16px;
 }
 
+a {
+  @apply break-all;
+}
+
 @screen lg {
   input,
   textarea {
