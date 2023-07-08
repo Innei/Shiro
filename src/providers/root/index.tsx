@@ -6,6 +6,8 @@ import { LazyMotion } from 'framer-motion'
 import { ThemeProvider } from 'next-themes'
 import type { PropsWithChildren } from 'react'
 
+import { PeekPortal } from '~/components/widgets/peek/PeekPortal'
+
 import { ProviderComposer } from '../../components/common/ProviderComposer'
 import { AccentColorProvider } from './accent-color-provider'
 import { DebugProvider } from './debug-provider'
@@ -31,6 +33,7 @@ export function Providers({ children }: PropsWithChildren) {
     <>
       <ProviderComposer contexts={contexts}>
         {children}
+        <PeekPortal />
         <SocketContainer />
         <ModalStackProvider key="modalStackProvider" />
         <EventProvider key="viewportProvider" />

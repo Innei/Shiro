@@ -1,17 +1,25 @@
 import { queryClient } from '~/providers/root/react-query-provider'
+import React from 'react'
 import { produce } from 'immer'
 import type {
   NoteModel,
   PaginateResult,
   PostModel,
+  RecentlyModel,
   SayModel,
 } from '@mx-space/api-client'
 import type { InfiniteData } from '@tanstack/react-query'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
 
 import { sayQueryKey } from '~/app/says/query'
+import { QUERY_KEY as ThinkingQueryKey } from '~/app/thinking/constants'
 import { setOnlineCount } from '~/atoms'
 import { setActivityMediaInfo, setActivityProcessName } from '~/atoms/activity'
+import {
+  FaSolidFeatherAlt,
+  IcTwotoneSignpost,
+  MdiLightbulbOn20,
+} from '~/components/icons/menu-collection'
 import { isDev } from '~/lib/env'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
@@ -95,7 +103,53 @@ export const eventHandler = (
       break
     }
 
-    // TODO create event
+    case EventTypes.NOTE_CREATE: {
+      const { title, nid } = data as NoteModel
+
+      toast.success('有新的内容发布了：' + `「${title}」`, {
+        onClick: () => {
+          window.peek(`/notes/${nid}`)
+        },
+        iconElement: React.createElement(FaSolidFeatherAlt),
+        autoClose: false,
+      })
+
+      break
+    }
+
+    case EventTypes.POST_CREATE: {
+      const { title, category, slug } = data as PostModel
+      toast.success('有新的内容发布了：' + `「${title}」`, {
+        onClick: () => {
+          window.peek(`/posts/${category.slug}/${slug}`)
+        },
+        iconElement: React.createElement(IcTwotoneSignpost),
+      })
+
+      break
+    }
+
+    case EventTypes.RECENTLY_CREATE: {
+      if (location.pathname === routeBuilder(Routes.Thinking, {})) {
+        queryClient.setQueryData<InfiniteData<RecentlyModel[]>>(
+          ThinkingQueryKey,
+          (prev) => {
+            return produce(prev, (draft) => {
+              draft?.pages[0].unshift(data as RecentlyModel)
+            })
+          },
+        )
+      } else {
+        toast.success(`写下一点小思考：\n${(data as RecentlyModel).content}`, {
+          autoClose: 10000,
+          iconElement: React.createElement(MdiLightbulbOn20),
+          onClick: () => {
+            router.push(routeBuilder(Routes.Thinking, {}))
+          },
+        })
+      }
+      break
+    }
 
     case EventTypes.SAY_CREATE: {
       if (location.pathname === routeBuilder(Routes.Says, {})) {

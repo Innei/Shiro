@@ -35,8 +35,8 @@ import { urlBuilder } from '~/lib/url-builder'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 import { useModalStack } from '~/providers/root/modal-stack-provider'
 
-const FETCH_SIZE = 10
-const QUERY_KEY = ['recent']
+import { FETCH_SIZE, QUERY_KEY } from './constants'
+
 export default function Page() {
   return (
     <div>
@@ -167,8 +167,6 @@ const List = () => {
     const count = pages?.reduce((acc, cur) => {
       return acc + cur.length
     }, 0)
-
-    console.log(count)
 
     animate(
       'li',

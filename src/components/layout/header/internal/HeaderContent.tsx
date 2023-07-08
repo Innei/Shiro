@@ -118,7 +118,10 @@ const ForDesktop: Component<{
       <div className="flex px-4 font-medium text-zinc-800 dark:text-zinc-200">
         {headerMenuConfig.map((section) => {
           const subItemActive =
-            section.subMenu?.findIndex((item) => item.path === pathname) || -1
+            section.subMenu?.findIndex((item) => {
+              return item.path === pathname || pathname.slice(1) === item.path
+            }) ?? -1
+
           return (
             <HeaderMenuItem
               iconLayout={animatedIcon}

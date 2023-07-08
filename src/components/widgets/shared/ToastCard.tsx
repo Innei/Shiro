@@ -23,11 +23,15 @@ export const ToastCard: FC<{
   toastProps?: ToastProps
   iconElement?: JSX.Element
   closeToast?: () => void
+  onClick?: () => void
 }> = (props) => {
-  const { iconElement, message, closeToast } = props
+  const { iconElement, message, closeToast, onClick } = props
   const id = useId()
+
+  const MotionTag = onClick ? m.button : m.div
+
   return (
-    <m.div
+    <MotionTag
       layoutId={id}
       layout="position"
       className={clsx(
@@ -39,6 +43,7 @@ export const ToastCard: FC<{
         'flex items-center',
         'select-none',
       )}
+      onClick={onClick}
     >
       {iconElement ?? typeMap[props.toastProps?.type ?? 'default']}
       <span>{message}</span>
@@ -46,10 +51,13 @@ export const ToastCard: FC<{
       <MotionButtonBase
         aria-label="Close toast"
         className="absolute bottom-0 right-3 top-0 flex items-center text-sm text-base-content/40 duration-200 hover:text-base-content/80"
-        onClick={closeToast}
+        onClick={(e) => {
+          e.stopPropagation()
+          closeToast?.()
+        }}
       >
         <i className="icon-[mingcute--close-fill] p-2" />
       </MotionButtonBase>
-    </m.div>
+    </MotionTag>
   )
 }

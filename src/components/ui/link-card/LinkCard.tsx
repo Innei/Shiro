@@ -9,7 +9,7 @@ import type { FC, ReactNode, SyntheticEvent } from 'react'
 import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
 
 import { LazyLoad } from '~/components/common/Lazyload'
-import { usePeek } from '~/components/widgets/peek/PeekLink'
+import { usePeek } from '~/components/widgets/peek/usePeek'
 import { useIsClientTransition } from '~/hooks/common/use-is-client'
 import { preventDefault } from '~/lib/dom'
 import { apiClient } from '~/lib/request'
