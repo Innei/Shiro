@@ -1,5 +1,9 @@
+/* eslint-disable react/jsx-key */
 import { memo, useMemo } from 'react'
+import type { ReactNode } from 'react'
 
+import { BilibiliIcon } from '~/components/icons/platform/BilibiliIcon'
+import { NeteaseCloudMusicIcon } from '~/components/icons/platform/NeteaseIcon'
 import { MotionButtonBase } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
 
@@ -16,82 +20,92 @@ const type2Copy = {
   rss: 'RSS',
   email: 'Email',
   feed: 'RSS',
+  bilibili: '哔哩哔哩',
+  netease: '网易云音乐',
+
+  qq: 'QQ',
+  wechat: '微信',
+  weibo: '微博',
 } as any
 const icons = new Set(Object.keys(type2Copy))
+
+const iconSet: Record<
+  string,
+  [string, ReactNode, string, (id: string) => string]
+> = {
+  github: [
+    'Github',
+    <i className="icon-[mingcute--github-line]" />,
+    '#181717',
+    (id) => `https://github.com/${id}`,
+  ],
+  twitter: [
+    'Twitter',
+    <i className="icon-[mingcute--twitter-line]" />,
+    '#1DA1F2',
+    (id) => `https://twitter.com/${id}`,
+  ],
+  telegram: [
+    'Telegram',
+    <i className="icon-[mingcute--telegram-line]" />,
+    '#0088cc',
+    (id) => `https://t.me/${id}`,
+  ],
+  mail: [
+    'Email',
+    <i className="icon-[mingcute--mail-line]" />,
+    '#D44638',
+    (id) => `mailto:${id}`,
+  ],
+  rss: [
+    'RSS',
+    <i className="icon-[mingcute--rss-line]" />,
+    '#FFA500',
+    (id) => id,
+  ],
+  bilibili: [
+    '哔哩哔哩',
+    <BilibiliIcon />,
+    '#00A1D6',
+    (id) => `https://space.bilibili.com/${id}`,
+  ],
+  netease: [
+    '网易云音乐',
+    <NeteaseCloudMusicIcon />,
+    '#C20C0C',
+    (id) => `https://music.163.com/#/user/home?id=${id}`,
+  ],
+  qq: [
+    'QQ',
+    <i className="icon-[mingcute--qq-fill]" />,
+    '#1e6fff',
+    (id) => `https://wpa.qq.com/msgrd?v=3&uin=${id}&site=qq&menu=yes`,
+  ],
+  wechat: [
+    '微信',
+    <i className="icon-[mingcute--wechat-fill]" />,
+    '#2DC100',
+    (id) => id,
+  ],
+  weibo: [
+    '微博',
+    <i className="icon-[mingcute--weibo-line]" />,
+    '#E6162D',
+    (id) => `https://weibo.com/${id}`,
+  ],
+}
+
 export const isSupportIcon = (icon: string) => icons.has(icon)
 export const SocialIcon = memo((props: SocialIconProps) => {
   const { id, type } = props
-  const Icon = useMemo(() => {
-    switch (type) {
-      case 'github': {
-        return <i className="icon-[mingcute--github-line]" />
-      }
-      case 'twitter': {
-        return <i className="icon-[mingcute--twitter-line]" />
-      }
 
-      case 'telegram': {
-        return <i className="icon-[mingcute--telegram-line]" />
-      }
-      case 'mail':
-      case 'email': {
-        return <i className="icon-[mingcute--mail-line]" />
-      }
-      case 'rss':
-      case 'feed': {
-        return <i className="icon-[mingcute--rss-line]" />
-      }
-    }
-
-    return null
-  }, [type])
-  const href = useMemo(() => {
-    switch (type) {
-      case 'github': {
-        return `https://github.com/${id}`
-      }
-      case 'twitter': {
-        return `https://twitter.com/${id}`
-      }
-
-      case 'telegram': {
-        return `https://t.me/${id}`
-      }
-      case 'mail':
-      case 'email': {
-        return `mailto:${id}`
-      }
-      case 'rss':
-      case 'feed': {
-        return id
-      }
-    }
-  }, [id, type])
-
-  const iconBg = useMemo(() => {
-    switch (type) {
-      case 'github': {
-        return '#181717'
-      }
-      case 'twitter': {
-        return '#1DA1F2'
-      }
-
-      case 'telegram': {
-        return '#0088cc'
-      }
-      case 'mail':
-      case 'email': {
-        return '#D44638'
-      }
-      case 'rss':
-      case 'feed': {
-        return '#FFA500'
-      }
-    }
+  const [name, Icon, iconBg, hrefFn] = useMemo(() => {
+    const [name, Icon, iconBg, hrefFn] = iconSet[type] || []
+    return [name, Icon, iconBg, hrefFn]
   }, [type])
 
-  if (!Icon) return null
+  if (!name) return null
+  const href = hrefFn(id)
 
   return (
     <FloatPopover

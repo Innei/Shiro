@@ -335,26 +335,26 @@ const NoteScreen = () => {
             >
               看看我的近况，这是我最近的所思所想
             </m.h3>
-            <m.div
-              initial={{ opacity: 0.00001, scale: 0.94, y: 20 }}
-              animate={{
-                y: 0,
-                scale: 1,
-                opacity: 1,
-              }}
-              viewport={{
-                once: true,
-              }}
-              transition={{
-                ...softSpringPreset,
-                delay: 0.3,
-              }}
-              className={clsx(
-                'relative flex h-[150px] w-full rounded-md ring-1 ring-slate-200 center dark:ring-neutral-800',
-                'hover:shadow-md hover:shadow-slate-100 dark:hover:shadow-neutral-900',
-              )}
-            >
-              <Link href={routeBuilder(Routes.Note, { id: theLast.nid })}>
+            <Link href={routeBuilder(Routes.Note, { id: theLast.nid })}>
+              <m.div
+                initial={{ opacity: 0.00001, scale: 0.94, y: 20 }}
+                animate={{
+                  y: 0,
+                  scale: 1,
+                  opacity: 1,
+                }}
+                viewport={{
+                  once: true,
+                }}
+                transition={{
+                  ...softSpringPreset,
+                  delay: 0.3,
+                }}
+                className={clsx(
+                  'relative flex h-[150px] w-full rounded-md ring-1 ring-slate-200 center dark:ring-neutral-800',
+                  'hover:shadow-md hover:shadow-slate-100 dark:hover:shadow-neutral-900',
+                )}
+              >
                 <div className="absolute bottom-6 right-6 ">
                   <h4 className="font-2xl text-lg font-medium ">
                     {theLast.title}
@@ -364,17 +364,17 @@ const NoteScreen = () => {
                     <RelativeTime date={theLast.created} />
                   </small>
                 </div>
-              </Link>
 
-              {!!theLast.images?.[0]?.src && (
-                <div
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{
-                    background: `url(${theLast.images[0].src})`,
-                  }}
-                />
-              )}
-            </m.div>
+                {!!theLast.images?.[0]?.src && (
+                  <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{
+                      background: `url(${theLast.images[0].src})`,
+                    }}
+                  />
+                )}
+              </m.div>
+            </Link>
           </section>
 
           {hasHistory && (
@@ -480,7 +480,7 @@ const FriendScreen = () => {
           className={clsx(
             'mt-12 grid max-w-5xl grid-cols-3 gap-10 p-4 md:grid-cols-4 lg:grid-cols-5 lg:p-0',
 
-            'min-w-0 [&_*]:flex [&_*]:flex-col [&_*]:center',
+            'min-w-0 [&>*]:flex [&>*]:flex-col [&>*]:center',
           )}
         >
           {data?.data.map((friend, i) => {
@@ -493,10 +493,11 @@ const FriendScreen = () => {
                     delay: i * 0.1 + 0.3,
                     ...softBouncePrest,
                   }}
+                  className="w-full min-w-0"
                 >
                   <a
                     href={friend.url}
-                    className="w-full min-w-0"
+                    className="flex w-full min-w-0 flex-col center"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -507,7 +508,7 @@ const FriendScreen = () => {
                       }}
                       aria-hidden
                     />
-                    <span className="mt-5 w-full min-w-0 truncate">
+                    <span className="mt-5 w-full min-w-0 truncate text-center">
                       {friend.name}
                     </span>
                   </a>
