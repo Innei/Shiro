@@ -131,14 +131,14 @@ const FooterBottom = async () => {
       </p>
       <p>
         <PoweredBy className="my-3 block md:my-0 md:inline" />
-        <Divider className="hidden md:inline" />
-        <StyledLink
+        {/* <Divider className="hidden md:inline" /> */}
+        {/* <StyledLink
           href="http://beian.miit.gov.cn/"
           target="_blank"
           rel="noreferrer"
         >
           浙 ICP 备 20028356 号
-        </StyledLink>
+        </StyledLink> */}
         <Divider />
         <GatewayCount />
         {/* {!!lastVisitor && (
