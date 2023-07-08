@@ -19,6 +19,9 @@ let nextConfig = {
   },
   experimental: {
     appDir: true,
+    serverComponentsExternalPackages: ['shiki', 'vscode-oniguruma'],
+    serverActions: true,
+    serverMinification: true,
   },
 
   images: {
