@@ -2,16 +2,23 @@ import { memo, useCallback } from 'react'
 import Router from 'next/router'
 import type { FC, ReactNode } from 'react'
 
+import {
+  isGithubProfileUrl,
+  isTelegramUrl,
+  isTwitterProfileUrl,
+} from '~/lib/link-parser'
+
 import { FloatPopover } from '../../float-popover'
+import { Favicon } from '../../rich-link/Favicon'
+import { RichLink } from '../../rich-link/RichLink'
 
 export const MLink: FC<{
   href: string
   title?: string
   children?: ReactNode
-}> = memo((props) => {
+}> = memo(({ href, children, title }) => {
   const handleRedirect = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-      const href = props.href
       const locateUrl = new URL(location.href)
 
       const toUrlParser = new URL(href)
@@ -38,8 +45,33 @@ export const MLink: FC<{
         }
       }
     },
-    [props.href],
+    [href],
   )
+
+  let parsedType = ''
+  let parsedName = ''
+  try {
+    const url = new URL(href)
+    switch (true) {
+      case isGithubProfileUrl(url): {
+        parsedType = 'GH'
+        parsedName = url.pathname.split('/')[1]
+        break
+      }
+      case isTwitterProfileUrl(url): {
+        parsedType = 'TW'
+        parsedName = url.pathname.split('/')[1]
+        break
+      }
+      case isTelegramUrl(url): {
+        parsedType = 'TG'
+        parsedName = url.pathname.split('/')[1]
+        break
+      }
+    }
+  } catch {}
+
+  const showRichLink = !!parsedType && !!parsedName
 
   return (
     <FloatPopover
@@ -49,24 +81,29 @@ export const MLink: FC<{
       TriggerComponent={useCallback(
         () => (
           <span className="inline-flex items-center">
-            <a
-              className="shiro-link--underline"
-              href={props.href}
-              target="_blank"
-              onClick={handleRedirect}
-              title={props.title}
-              rel="noreferrer"
-            >
-              {props.children}
-            </a>
+            {!showRichLink && <Favicon href={href} />}
+            {showRichLink ? (
+              <RichLink name={parsedName} source={parsedType} />
+            ) : (
+              <a
+                className="shiro-link--underline"
+                href={href}
+                target="_blank"
+                onClick={handleRedirect}
+                title={title}
+                rel="noreferrer"
+              >
+                {children}
+              </a>
+            )}
 
             <i className="icon-[mingcute--external-link-line]" />
           </span>
         ),
-        [handleRedirect, props.children, props.href, props.title],
+        [handleRedirect, children, href, title],
       )}
     >
-      <span>{props.href}</span>
+      <span>{href}</span>
     </FloatPopover>
   )
 })

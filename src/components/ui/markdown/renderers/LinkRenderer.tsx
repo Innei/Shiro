@@ -2,6 +2,17 @@ import React, { useMemo } from 'react'
 import dynamic from 'next/dynamic'
 
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
+import {
+  getTweetId,
+  isGistUrl,
+  isGithubCommitUrl,
+  isGithubRepoUrl,
+  isTweetUrl,
+  isYoutubeUrl,
+  parseGithubCommitUrl,
+  parseGithubGistUrl,
+  parseGithubRepoUrl,
+} from '~/lib/link-parser'
 
 import { LinkCard } from '../../link-card'
 import { MLink } from './link'
@@ -27,7 +38,7 @@ export const LinkRenderer = ({ href }: { href: string }) => {
       }
 
       case isGithubRepoUrl(url): {
-        const [_, owner, repo] = url.pathname.split('/')
+        const { owner, repo } = parseGithubRepoUrl(url)
         return <LinkCard id={`${owner}/${repo}`} source="gh" />
       }
 
@@ -46,18 +57,16 @@ export const LinkRenderer = ({ href }: { href: string }) => {
         )
       }
       case isGistUrl(url): {
-        const [_, owner, id] = url.pathname.split('/')
+        const { owner, id } = parseGithubGistUrl(url)
         return (
           <>
-            <FixedRatioContainer>
-              <iframe
-                src={`https://gist.github.com/${owner}/${id}.pibb`}
-                className="absolute inset-0 h-full w-full border-0"
-              />
-            </FixedRatioContainer>
+            <iframe
+              src={`https://gist.github.com/${owner}/${id}.pibb`}
+              className="max-h-[300px] w-full overflow-auto border-0"
+            />
 
             <a
-              className="-mt-4 mb-4 flex space-x-2 center"
+              className="mt-2 flex space-x-2 center"
               href={href}
               target="_blank"
               rel="noreferrer"
@@ -70,7 +79,7 @@ export const LinkRenderer = ({ href }: { href: string }) => {
       }
 
       case isGithubCommitUrl(url): {
-        const [_, owner, repo, type, id] = url.pathname.split('/')
+        const { owner, repo, id } = parseGithubCommitUrl(url)
         return (
           <>
             <p>
@@ -109,32 +118,4 @@ const FixedRatioContainer = ({
       {children}
     </div>
   )
-}
-
-const isTweetUrl = (url: URL) => {
-  return url.hostname === 'twitter.com' && url.pathname.startsWith('/')
-}
-const getTweetId = (url: URL) => {
-  return url.pathname.split('/').pop()!
-}
-
-const isGithubRepoUrl = (url: URL) => {
-  return (
-    url.hostname === 'github.com' &&
-    url.pathname.startsWith('/') &&
-    url.pathname.split('/').length === 3
-  )
-}
-
-const isYoutubeUrl = (url: URL) => {
-  return url.hostname === 'www.youtube.com' && url.pathname.startsWith('/watch')
-}
-
-const isGistUrl = (url: URL) => {
-  return url.hostname === 'gist.github.com'
-}
-
-const isGithubCommitUrl = (url: URL) => {
-  const [_, owner, repo, type, ...rest] = url.pathname.split('/')
-  return url.hostname === 'github.com' && type === 'commit'
 }

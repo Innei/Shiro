@@ -2,15 +2,30 @@ import { ToastContainer } from 'react-toastify'
 import { ThemeProvider } from 'next-themes'
 import type { DocumentComponent } from 'storybook/typings'
 
-import { Markdown } from './Markdown'
 // @ts-expect-error
-import md from './test-text.md?raw'
+import customize from './customize.md?raw'
+import { Markdown } from './Markdown'
 
-export const MarkdownDemo1: DocumentComponent = () => {
+export const MarkdownCustomize: DocumentComponent = () => {
   return (
     <ThemeProvider>
       <main className="relative m-auto mt-6 max-w-[800px] border border-accent/10">
-        <Markdown value={md} className="prose" as="article" />
+        <Markdown
+          extendsRules={{
+            codeBlock: {
+              react(node, output, state) {
+                return (
+                  <pre>
+                    <code>{node.content}</code>
+                  </pre>
+                )
+              },
+            },
+          }}
+          value={customize}
+          className="prose"
+          as="article"
+        />
       </main>
 
       <ToastContainer />
@@ -18,6 +33,24 @@ export const MarkdownDemo1: DocumentComponent = () => {
   )
 }
 
-MarkdownDemo1.meta = {
-  title: 'Markdown',
+MarkdownCustomize.meta = {
+  title: 'Markdown Customize',
 }
+
+// export const MarkdownCommon: DocumentComponent = () => {
+//   return (
+//     <LazyLoad>
+//       <ThemeProvider>
+//         <main className="relative m-auto mt-6 max-w-[800px] border border-accent/10">
+//           <Markdown value={md} className="prose" as="article" />
+//         </main>
+
+//         <ToastContainer />
+//       </ThemeProvider>
+//     </LazyLoad>
+//   )
+// }
+
+// MarkdownCommon.meta = {
+//   title: 'Markdown Common',
+// }
