@@ -34,6 +34,7 @@ declare global {
 declare module 'react' {
   export interface AriaAttributes {
     'data-hide-print'?: boolean
+    'data-event'?: string
     'data-testid'?: string
   }
 }

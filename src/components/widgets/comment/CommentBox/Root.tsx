@@ -17,7 +17,7 @@ import { CommentBoxSignedOutContent } from './SignedOutContent'
 import { SwitchCommentMode } from './SwitchCommentMode'
 
 export const CommentBoxRoot: Component<CommentBaseProps> = (props) => {
-  const { refId, className, afterSubmit } = props
+  const { refId, className, afterSubmit, initialValue } = props
 
   const mode = useCommentMode()
 
@@ -27,7 +27,11 @@ export const CommentBoxRoot: Component<CommentBaseProps> = (props) => {
   }, [isLogged])
 
   return (
-    <CommentBoxProvider refId={refId}>
+    <CommentBoxProvider
+      refId={refId}
+      afterSubmit={afterSubmit}
+      initialValue={initialValue}
+    >
       <div
         className={clsxm('group relative w-full min-w-0', className)}
         data-hide-print

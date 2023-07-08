@@ -14,12 +14,23 @@ import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { Markdown } from '~/components/ui/markdown'
 import { GoToAdminEditingButton } from '~/components/widgets/shared/GoToAdminEditingButton'
+import { WithArticleSelectionAction } from '~/components/widgets/shared/WithArticleSelectionAction'
 import { parseDate } from '~/lib/datetime'
 import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 
 import styles from './page.module.css'
+
+export const MarkdownSelection: Component = (props) => {
+  const id = useCurrentNoteDataSelector((data) => data?.data?.id)!
+  const title = useCurrentNoteDataSelector((data) => data?.data?.title)!
+  return (
+    <WithArticleSelectionAction refId={id} title={title}>
+      {props.children}
+    </WithArticleSelectionAction>
+  )
+}
 
 export const NoteTitle = () => {
   const title = useCurrentNoteDataSelector((data) => data?.data.title)

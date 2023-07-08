@@ -62,6 +62,12 @@ textarea {
   font-size: 16px;
 }
 
+@screen lg {
+  input,
+  textarea {
+    font-size: 1rem;
+  }
+}
 @layer components {
   .scrollbar-none::-webkit-scrollbar {
     width: 0 !important;

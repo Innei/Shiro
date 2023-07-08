@@ -21,6 +21,7 @@ import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvide
 import Loading from './loading'
 import {
   HeaderMetaInfoSetting,
+  MarkdownSelection,
   PostMarkdown,
   PostMarkdownImageRecordProvider,
   PostMetaBarInternal,
@@ -61,7 +62,9 @@ const PostPage = () => {
         <WrappedElementProvider>
           <ReadIndicatorForMobile />
           <PostMarkdownImageRecordProvider>
-            <PostMarkdown />
+            <MarkdownSelection>
+              <PostMarkdown />
+            </MarkdownSelection>
           </PostMarkdownImageRecordProvider>
 
           <LayoutRightSidePortal>

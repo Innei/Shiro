@@ -20,6 +20,7 @@ import { NoteHideIfSecret } from '../../../components/widgets/note/NoteHideIfSec
 import { NoteMetaBar } from '../../../components/widgets/note/NoteMetaBar'
 import {
   IndentArticleContainer,
+  MarkdownSelection,
   NoteHeaderDate,
   NoteHeaderMetaInfoSetting,
   NoteMarkdown,
@@ -90,7 +91,9 @@ const NotePage = memo(function Notepage() {
             <ReadIndicatorForMobile />
             <NoteMarkdownImageRecordProvider>
               <BanCopyWrapper>
-                <NoteMarkdown />
+                <MarkdownSelection>
+                  <NoteMarkdown />
+                </MarkdownSelection>
               </BanCopyWrapper>
             </NoteMarkdownImageRecordProvider>
 

@@ -6,6 +6,9 @@ import { atomWithStorage } from 'jotai/utils'
 import type { CommentModel } from '@mx-space/api-client'
 import type { FC, PropsWithChildren } from 'react'
 
+import { useBeforeMounted } from '~/hooks/common/use-before-mounted'
+import { jotaiStore } from '~/lib/store'
+
 import { setCommentActionLeftSlot, useCommentActionLeftSlot } from './hooks'
 
 const commentStoragePrefix = 'comment-'
@@ -36,19 +39,25 @@ export const CommentBoxLifeCycleContext = createContext<{
 }>(null!)
 
 export const CommentBoxProvider = (
-  props: PropsWithChildren & { refId: string; afterSubmit?: () => void },
+  props: PropsWithChildren & {
+    refId: string
+    afterSubmit?: () => void
+    initialValue?: string
+  },
 ) => {
-  const { refId, children, afterSubmit } = props
+  const { refId, children, afterSubmit, initialValue } = props
+
+  const ctxValue = useRef({
+    ...createInitialValue(),
+    refId: atom(refId),
+  }).current
+  useBeforeMounted(() => {
+    if (initialValue) {
+      jotaiStore.set(ctxValue.text, initialValue)
+    }
+  })
   return (
-    <CommentBoxContext.Provider
-      key={refId}
-      value={
-        useRef({
-          ...createInitialValue(),
-          refId: atom(refId),
-        }).current
-      }
-    >
+    <CommentBoxContext.Provider key={refId} value={ctxValue}>
       <CommentBoxLifeCycleContext.Provider
         value={useMemo(() => ({ afterSubmit }), [afterSubmit])}
       >

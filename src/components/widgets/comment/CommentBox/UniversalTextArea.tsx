@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react'
 import dynamic from 'next/dynamic'
 
 import { FloatPopover } from '~/components/ui/float-popover'
@@ -51,6 +51,14 @@ export const UniversalTextArea = () => {
       $ta.value = value
     }
   }, [value])
+
+  useLayoutEffect(() => {
+    // autofocus
+    const $ta = taRef.current
+    if (!$ta) return
+    $ta.selectionStart = $ta.selectionEnd = $ta.value.length
+    $ta.focus()
+  }, [])
   return (
     <TextArea
       ref={taRef}

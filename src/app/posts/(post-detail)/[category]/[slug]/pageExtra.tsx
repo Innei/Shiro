@@ -7,10 +7,20 @@ import type { PropsWithChildren } from 'react'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { Markdown } from '~/components/ui/markdown'
 import { PostMetaBar } from '~/components/widgets/post/PostMetaBar'
+import { WithArticleSelectionAction } from '~/components/widgets/shared/WithArticleSelectionAction'
 import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
 import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
 
+export const MarkdownSelection: Component = (props) => {
+  const id = useCurrentPostDataSelector((data) => data?.id)!
+  const title = useCurrentPostDataSelector((data) => data?.title)!
+  return (
+    <WithArticleSelectionAction refId={id} title={title}>
+      {props.children}
+    </WithArticleSelectionAction>
+  )
+}
 export const PostMarkdown = () => {
   const text = useCurrentPostDataSelector((data) => data?.text)
   if (!text) return null
