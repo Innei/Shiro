@@ -65,10 +65,19 @@ export const eventHandler = (
 
     case EventTypes.POST_DELETE: {
       const post = data as PostModel
-      if (getGlobalCurrentPostData()?.id === post.id) {
-        router.replace(routeBuilder(Routes.PageDeletd, {}))
-        toast.error('文章已删除')
+      if (
+        location.pathname ===
+        routeBuilder(Routes.Post, {
+          category: post.category.slug,
+          slug: post.slug,
+        })
+      ) {
+        if (getGlobalCurrentPostData()?.id === post.id) {
+          router.replace(routeBuilder(Routes.PageDeletd, {}))
+          toast.error('文章已删除')
+        }
       }
+
       break
     }
 
@@ -85,10 +94,18 @@ export const eventHandler = (
 
     case EventTypes.NOTE_DELETE: {
       const note = data as NoteModel
-      if (getCurrentNoteData()?.data.id === note.id) {
-        router.replace(routeBuilder(Routes.PageDeletd, {}))
-        toast.error('手记已删除')
+      if (
+        location.pathname ===
+        routeBuilder(Routes.Note, {
+          id: note.id,
+        })
+      ) {
+        if (getCurrentNoteData()?.data.id === note.id) {
+          router.replace(routeBuilder(Routes.PageDeletd, {}))
+          toast.error('手记已删除')
+        }
       }
+
       break
     }
 
