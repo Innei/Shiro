@@ -36,7 +36,7 @@ export const generateMetadata = defineMetadata(async (_, getData) => {
   aggregationData = fetchedData
   const { seo, url, user } = fetchedData
 
-  const config = getAppConfig()
+  const config = await getAppConfig()
 
   return {
     metadataBase: new URL(url.webUrl),
