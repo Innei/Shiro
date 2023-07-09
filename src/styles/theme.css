@@ -9,7 +9,8 @@
     background-size: 0% 1.5px;
     background-repeat: no-repeat;
     /* NOTE: this won't work with background images   */
-    text-shadow: 0.05em 0 theme(colors.base-100),
+    text-shadow:
+      0.05em 0 theme(colors.base-100),
       -0.05em 0 theme(colors.base-100);
     transition: all 500ms ease;
 
@@ -113,4 +114,27 @@
       opacity: 1;
     }
   }
+}
+
+.mask-both {
+  mask-image: linear-gradient(
+    rgba(255, 255, 255, 0) 0%,
+    rgb(255, 255, 255) 10%,
+    rgb(255, 255, 255) 90%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.mask-b {
+  mask-image: linear-gradient(
+    rgb(255, 255, 255) 90%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.mask-t {
+  mask-image: linear-gradient(
+    rgba(255, 255, 255, 0) 0%,
+    rgb(255, 255, 255) 10%
+  );
 }

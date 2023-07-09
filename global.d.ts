@@ -11,12 +11,11 @@ declare global {
     } & Props
   >
 
-  export type Component<P = {}> = FC<
-    {
-      className?: string
-    } & P &
-      PropsWithChildren
-  >
+  export type Component<P = {}> = FC<ComponentType & P>
+
+  export type ComponentType = {
+    className?: string
+  } & PropsWithChildren
 
   // TODO should remove in next TypeScript version
   interface Document {

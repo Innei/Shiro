@@ -38,15 +38,6 @@ export const TocItem: FC<{
 
   const $ref = useRef<HTMLAnchorElement>(null)
 
-  // useEffect(() => {
-  //   if (!active) {
-  //     return
-  //   }
-  //   if (!getIsInteractive()) return
-  //   const state = history.state
-  //   history.replaceState(state, '', `#${anchorId}`)
-  // }, [active, anchorId])
-
   useEffect(() => {
     if (active) {
       $ref.current?.scrollIntoView({ behavior: 'smooth' })
