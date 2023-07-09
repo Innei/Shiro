@@ -72,8 +72,9 @@ export default async (props: NextPageParams<PageParams>) => {
   const {
     params: { slug },
   } = props
+
+  if (!slug) return notFound()
   const query = queries.page.bySlug(slug)
-  // const queryKey = query.queryKey
   const data = await getQueryClient()
     .fetchQuery(query)
     .catch((error) => {
