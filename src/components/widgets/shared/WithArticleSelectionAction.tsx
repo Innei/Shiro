@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import clsx from 'clsx'
 import { AnimatePresence, m } from 'framer-motion'
 
 import { useIsMobile } from '~/atoms'
@@ -68,8 +69,10 @@ export const WithArticleSelectionAction: Component<{
       <AnimatePresence>
         {show && (
           <m.div
-            className="absolute z-10 rounded-md border border-slate-200/90 bg-slate-100 px-4 py-3 text-sm dark:border-neutral-800/90 dark:bg-zinc-900"
-            data-event="selection-action"
+            className={clsx(
+              'absolute z-10 rounded-lg bg-gradient-to-b from-zinc-50/50 to-white/90 p-1 text-sm shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5',
+              'dark:from-zinc-900/50 dark:to-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20',
+            )}
             style={{
               left: pos.x,
               top: pos.y,
@@ -82,6 +85,8 @@ export const WithArticleSelectionAction: Component<{
             }}
           >
             <MotionButtonBase
+              data-event="selection-comment"
+              className="rounded-md px-2 py-1 hover:bg-slate-100/80 dark:hover:bg-zinc-900/90"
               onClick={() => {
                 present({
                   title: '评论',
