@@ -1,7 +1,13 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import React, { createElement, forwardRef, useEffect, useRef } from 'react'
+import React, {
+  createElement,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react'
 import clsx from 'clsx'
 import { m, useInView } from 'framer-motion'
 import Link from 'next/link'
@@ -474,20 +480,20 @@ const NoteScreen = () => {
 
 const FriendScreen = () => {
   const { data } = useQuery({
-    queryKey: ['home', 'friends', 'random'],
+    queryKey: ['friends'],
     queryFn: async () => {
       return apiClient.friend.getAll().then((res) => {
         return res.data
       })
     },
-    select(data: LinkModel[]) {
+    select: useCallback((data: LinkModel[]) => {
       return shuffle(
         data.filter(
           (i) =>
             i.type === LinkType.Friend && i.state === LinkState.Pass && !i.hide,
         ),
       ).slice(0, 20)
-    },
+    }, []),
     staleTime: 1000 * 60,
   })
   return (
