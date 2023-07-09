@@ -29,6 +29,7 @@ const appDescrption = {
   Messages: '看验证码',
   Code: 'Restart TS Server',
   Finder: '发呆',
+  Infuse: '看片',
 } as any
 const appLabels: { [app: string]: string } = {
   Slack: 'slack',
@@ -55,6 +56,7 @@ const appLabels: { [app: string]: string } = {
   iTerm2: 'iterm2',
   Xcode: 'xcode',
   Typora: 'typora',
+  Infuse: 'infuse',
 
   cmusic: 'cmusic',
 }
