@@ -134,9 +134,13 @@ const FooterBottom = async () => {
         .
         <span>
           <Divider />
-          <a href="/feed">RSS</a>
+          <a href="/feed" target="_blank">
+            RSS
+          </a>
           <Divider />
-          <a href="/sitemap.xml">站点地图</a>
+          <a href="/sitemap.xml" target="_blank">
+            站点地图
+          </a>
           <Divider className="hidden md:inline" />
 
           <SubscribeTextButton>
