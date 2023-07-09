@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef } from 'react'
 import { atom, useAtomValue } from 'jotai'
 import { selectAtom } from 'jotai/utils'
 import type { AggregateRoot } from '@mx-space/api-client'
+import type { AppConfig } from '~/app/config'
 import type { FC, PropsWithChildren } from 'react'
 
 import { fetchAppUrl } from '~/atoms'
@@ -12,16 +13,27 @@ import { useBeforeMounted } from '~/hooks/common/use-before-mounted'
 import { jotaiStore } from '~/lib/store'
 
 export const aggregationDataAtom = atom<null | AggregateRoot>(null)
+const appConfigAtom = atom<AppConfig | null>(null)
 
 export const AggregationProvider: FC<
   PropsWithChildren<{
     aggregationData: AggregateRoot
+    appConfig: AppConfig
   }>
-> = ({ children, aggregationData }) => {
+> = ({ children, aggregationData, appConfig }) => {
   useBeforeMounted(() => {
     if (!aggregationData) return
     jotaiStore.set(aggregationDataAtom, aggregationData)
   })
+  useBeforeMounted(() => {
+    if (!appConfig) return
+    jotaiStore.set(appConfigAtom, appConfig)
+  })
+
+  useEffect(() => {
+    if (!appConfig) return
+    jotaiStore.set(appConfigAtom, appConfig)
+  }, [appConfig])
 
   useEffect(() => {
     if (!aggregationData) return
@@ -62,4 +74,21 @@ export const useAggregationSelector = <T,>(
     ),
   )
 
+export const useAppConfigSelector = <T,>(
+  selector: (atomValue: AppConfig) => T,
+  deps: any[] = [],
+): T | null =>
+  useAtomValue(
+    // @ts-ignore
+    selectAtom(
+      appConfigAtom,
+      useCallback(
+        (atomValue) => (!atomValue ? null : selector(atomValue)),
+        deps,
+      ),
+    ),
+  )
+
 export const getAggregationData = () => jotaiStore.get(aggregationDataAtom)
+
+export const getAppConfig = () => jotaiStore.get(appConfigAtom)

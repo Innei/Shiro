@@ -1,7 +1,7 @@
 import axios from 'axios'
+import type { NextRequest } from 'next/server'
 import type { BLUser } from './types/user'
 
-import { appConfig } from '~/app.config'
 import { NextServerResponse } from '~/lib/edge-function.server'
 import { getQueryClient } from '~/lib/query-client.server'
 
@@ -10,9 +10,11 @@ const headers = {
   'User-Agent': `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Shiro`,
 }
 export const runtime = 'edge'
-export const GET = async () => {
-  const liveId = appConfig.module.bilibili.liveId
-
+export const GET = async (req: NextRequest) => {
+  const liveId = req.nextUrl.searchParams.get('liveId')
+  if (!liveId) {
+    return new NextServerResponse().status(400).end()
+  }
   const queryClient = getQueryClient()
   const res = await queryClient.fetchQuery({
     queryKey: ['bilibili-live', liveId],

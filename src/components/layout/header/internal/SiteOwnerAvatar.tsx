@@ -5,21 +5,26 @@ import { useCallback } from 'react'
 import Image from 'next/image'
 
 import { clsxm } from '~/lib/helper'
-import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
+import {
+  useAggregationSelector,
+  useAppConfigSelector,
+} from '~/providers/root/aggregation-data-provider'
 
 export const SiteOwnerAvatar: Component = ({ className }) => {
   const avatar = useAggregationSelector((data) => data.user.avatar)
+  const liveId = useAppConfigSelector((config) => config.module.bilibili.liveId)
 
   const { data: isLiving } = useQuery({
     queryKey: ['live-check'],
     queryFn: () =>
-      fetch('/api/bilibili/check_live')
+      fetch(`/api/bilibili/check_live?liveId=${liveId}`)
         .then((res) => res.json())
         .catch(() => null),
     select: useCallback((data: any) => {
       return !!data
     }, []),
     refetchInterval: 1000 * 60,
+    enabled: !!liveId,
     meta: {
       persist: false,
     },

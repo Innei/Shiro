@@ -169,6 +169,27 @@ const UIKitColors = {
 const twConfig: Config = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   darkMode: ['class', '[data-theme="dark"]'],
+  safelist: [
+    'font-light',
+    'text-3xl',
+    'rounded',
+    'p-1',
+    'bg-gray-200',
+    'dark:bg-gray-800/0',
+    'hover:dark:bg-gray-800/100',
+    'bg-opacity-0',
+    'hover:bg-opacity-100',
+    'transition-background',
+
+    'w-[1px]',
+    'h-8',
+    '-bottom-2',
+    'bg-gray-800/80',
+    'dark:bg-gray-200/80',
+    'group-hover:opacity-100',
+    'transition-opacity',
+    'group-hover:animation-blink',
+  ],
   theme: {
     // colors: createVariableColors(twColors),
 

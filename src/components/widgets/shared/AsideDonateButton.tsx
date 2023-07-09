@@ -6,8 +6,8 @@ import type { HTMLMotionProps } from 'framer-motion'
 import { MotionButtonBase } from '~/components/ui/button'
 import { DialogOverlay } from '~/components/ui/dlalog/DialogOverlay'
 import { useIsClient } from '~/hooks/common/use-is-client'
-import { useConfig } from '~/hooks/data/use-config'
 import { clsxm } from '~/lib/helper'
+import { useAppConfigSelector } from '~/providers/root/aggregation-data-provider'
 
 // TODO this component only use once in current page.
 const positionAtom = atom({
@@ -18,9 +18,7 @@ const overlayShowAtom = atom(false)
 
 export const AsideDonateButton = () => {
   const isClient = useIsClient()
-  const {
-    module: { donate },
-  } = useConfig()
+  const donate = useAppConfigSelector((config) => config.module.donate)!
 
   const overlayOpen = useAtomValue(overlayShowAtom)
 
@@ -103,10 +101,7 @@ const DonateButtonInternal: Component<HTMLMotionProps<'button'>> = ({
 
   ...props
 }) => {
-  const {
-    module: { donate },
-  } = useConfig()
-
+  const donate = useAppConfigSelector((config) => config.module.donate)
   if (!donate) return null
   return (
     <MotionButtonBase

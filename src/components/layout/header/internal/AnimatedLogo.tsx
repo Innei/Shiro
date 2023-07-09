@@ -7,9 +7,9 @@ import { useRouter } from 'next/navigation'
 
 import { getAdminUrl, isLogged, useViewport } from '~/atoms'
 import { useSingleAndDoubleClick } from '~/hooks/common/use-single-double-click'
-import { useConfig } from '~/hooks/data/use-config'
 import { Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
+import { useAppConfigSelector } from '~/providers/root/aggregation-data-provider'
 
 import { Activity } from './Activity'
 import { useHeaderMetaShouldShow } from './hooks'
@@ -22,9 +22,9 @@ const TapableLogo = () => {
     queryKey: ['live-check'],
     enabled: false,
   })
-  const {
-    module: { bilibili: { liveId } = {} },
-  } = useConfig()
+
+  const { liveId } = useAppConfigSelector((config) => config.module.bilibili)!
+
   const goLive = useCallback(() => {
     window.open(`https://live.bilibili.com/${liveId}`)
   }, [liveId])

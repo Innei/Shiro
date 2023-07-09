@@ -1,13 +1,15 @@
 import '../styles/index.css'
 
 import { Analytics } from '@vercel/analytics/react'
+import { cache } from 'react'
 import { ToastContainer } from 'react-toastify'
 import type { AggregateRoot } from '@mx-space/api-client'
+import type { AppConfig } from './config'
 
 import { ClerkProvider } from '@clerk/nextjs'
+import { get } from '@vercel/edge-config'
 
 import PKG from '~/../package.json'
-import { appConfig } from '~/app.config'
 import { Root } from '~/components/layout/root/Root'
 import { TocAutoScroll } from '~/components/widgets/toc/TocAutoScroll'
 import { attachUA } from '~/lib/attach-ua'
@@ -24,11 +26,17 @@ import { init } from './init'
 const { version } = PKG
 init()
 
+const getAppConfig = cache(() => {
+  return get('config') as Promise<AppConfig>
+})
+
 let aggregationData: AggregateRoot | null = null
 export const generateMetadata = defineMetadata(async (_, getData) => {
   const fetchedData = aggregationData ?? (await getData())
   aggregationData = fetchedData
   const { seo, url, user } = fetchedData
+
+  const config = getAppConfig()
 
   return {
     metadataBase: new URL(url.webUrl),
@@ -40,7 +48,7 @@ export const generateMetadata = defineMetadata(async (_, getData) => {
     keywords: seo.keywords?.join(',') || '',
     icons: [
       {
-        url: appConfig.site.favicon,
+        url: config.site.favicon,
         type: 'image/svg+xml',
         sizes: 'any',
       },
@@ -102,6 +110,7 @@ export default async function RootLayout(props: Props) {
 
   aggregationData = data
 
+  const appConfig = await getAppConfig()
   return (
     // <ClerkProvider localization={ClerkZhCN}>
     <ClerkProvider>
@@ -113,7 +122,7 @@ export default async function RootLayout(props: Props) {
           className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
         >
           <Providers>
-            <AggregationProvider aggregationData={data} />
+            <AggregationProvider aggregationData={data} appConfig={appConfig} />
 
             <Root>{children}</Root>
 

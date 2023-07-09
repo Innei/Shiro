@@ -19,14 +19,16 @@ import {
   softBouncePrest,
   softSpringPreset,
 } from '~/constants/spring'
-import { useConfig } from '~/hooks/data/use-config'
 import { isDev } from '~/lib/env'
 import { clsxm } from '~/lib/helper'
 import { noopObj } from '~/lib/noop'
 import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { springScrollToTop } from '~/lib/scroller'
-import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
+import {
+  useAggregationSelector,
+  useAppConfigSelector,
+} from '~/providers/root/aggregation-data-provider'
 
 import { useHomeQueryData } from './query'
 
@@ -110,7 +112,11 @@ const TwoColumnLayout = ({
 }
 
 const Welcome = () => {
-  const { title, description } = useConfig().hero
+  const { title, description } = useAppConfigSelector((config) => {
+    return {
+      ...config.hero,
+    }
+  })!
   const siteOwner = useAggregationSelector((agg) => agg.user)
   const { avatar, socialIds } = siteOwner || {}
 
