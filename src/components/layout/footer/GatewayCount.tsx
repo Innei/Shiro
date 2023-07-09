@@ -3,6 +3,7 @@
 import { useOnlineCount } from '~/atoms'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
+import { usePageIsActive } from '~/hooks/common/use-is-active'
 
 export const GatewayCount = () => {
   return (
@@ -30,7 +31,10 @@ export const GatewayCount = () => {
   )
 }
 const GatewayCountTrigger = () => {
+  const isActive = usePageIsActive()
   const count = useOnlineCount()
+
+  if (!isActive) return null
   return (
     <span>
       正在被 <NumberSmoothTransition>{count}</NumberSmoothTransition> 人看爆
