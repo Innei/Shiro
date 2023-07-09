@@ -5,7 +5,10 @@ import React, { createElement, forwardRef, useEffect, useRef } from 'react'
 import clsx from 'clsx'
 import { m, useInView } from 'framer-motion'
 import Link from 'next/link'
+import type { LinkModel } from '@mx-space/api-client'
 import type { PropsWithChildren } from 'react'
+
+import { LinkState, LinkType } from '@mx-space/api-client'
 
 import { MotionButtonBase } from '~/components/ui/button'
 import { RelativeTime } from '~/components/ui/relative-time'
@@ -19,6 +22,7 @@ import {
   softBouncePrest,
   softSpringPreset,
 } from '~/constants/spring'
+import { shuffle } from '~/lib/_'
 import { isDev } from '~/lib/env'
 import { clsxm } from '~/lib/helper'
 import { noopObj } from '~/lib/noop'
@@ -470,14 +474,24 @@ const NoteScreen = () => {
 
 const FriendScreen = () => {
   const { data } = useQuery({
-    queryKey: ['home', 'friends'],
+    queryKey: ['home', 'friends', 'random'],
     queryFn: async () => {
-      return apiClient.friend.getAllPaginated(1, 10)
+      return apiClient.friend.getAll().then((res) => {
+        return res.data
+      })
+    },
+    select(data: LinkModel[]) {
+      return shuffle(
+        data.filter(
+          (i) =>
+            i.type === LinkType.Friend && i.state === LinkState.Pass && !i.hide,
+        ),
+      ).slice(0, 20)
     },
     staleTime: 1000 * 60,
   })
   return (
-    <Screen className="flex center">
+    <Screen className="flex h-auto min-h-[100vh] center">
       <div className="flex min-w-0 flex-col">
         <BottomToUpTransitionView className="text-center text-3xl font-medium">
           这些是我珍视的人，他们陪伴我走过人生的每一段旅程。
@@ -489,7 +503,7 @@ const FriendScreen = () => {
             'min-w-0 [&>*]:flex [&>*]:flex-col [&>*]:center',
           )}
         >
-          {data?.data.map((friend, i) => {
+          {data?.map((friend, i) => {
             return (
               <li key={friend.id} className="min-w-0 max-w-full">
                 <m.div
