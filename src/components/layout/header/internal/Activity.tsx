@@ -61,7 +61,7 @@ const appLabels: { [app: string]: string } = {
   cmusic: 'cmusic',
 }
 // autocorrect: true
-export function Activity() {
+export const Activity = memo(() => {
   const [isEnabled, setIsEnabled] = useState(true)
 
   const activity = useActivity()
@@ -161,7 +161,8 @@ export function Activity() {
       </AnimatePresence>
     </>
   )
-}
+})
+Activity.displayName = 'Activity'
 const cMusicProps = { processName: 'cmusic' }
 const TriggerComponent = memo<{
   processName: string
