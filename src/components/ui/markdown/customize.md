@@ -30,6 +30,25 @@ https://github.com/vuejs/vitepress/commit/71eb11f72e60706a546b756dc3fd72d06e2ae4
 
 https://github.com/vuejs/vitepress/commit/71eb11f72e60706a546b756dc3fd72d06e2ae4e2
 
+
+```
+https://codesandbox.io/s/framer-motion-layoutroot-prop-forked-p39g96
+```
+
+https://codesandbox.io/s/framer-motion-layoutroot-prop-forked-p39g96
+
+```
+https://github.com/toeverything/AFFiNE/blob/master/.github/workflows/nx.yml
+```
+
+https://github.com/toeverything/AFFiNE/blob/master/.github/workflows/nx.yml
+
+```
+https://github.com/toeverything/AFFiNE/blob/himself65/0710/remove-effect/apps/web/src/atoms/index.ts
+```
+
+https://github.com/toeverything/AFFiNE/blob/himself65/0710/remove-effect/apps/web/src/atoms/index.ts
+
 ## LinkCard
 
 ```

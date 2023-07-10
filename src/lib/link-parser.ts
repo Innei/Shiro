@@ -53,6 +53,13 @@ export const isTelegramUrl = (url: URL) => {
   return url.hostname === 't.me'
 }
 
+export const isCodesandboxUrl = (url: URL) => {
+  // https://codesandbox.io/s/framer-motion-layoutroot-prop-forked-p39g96
+  return (
+    url.hostname === 'codesandbox.io' && url.pathname.split('/').length === 3
+  )
+}
+
 export const parseGithubRepoUrl = (url: URL) => {
   const [_, owner, repo] = url.pathname.split('/')
   return {

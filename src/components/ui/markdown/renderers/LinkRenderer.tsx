@@ -1,10 +1,10 @@
-import { useQuery } from '@tanstack/react-query'
-import React, { memo, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import dynamic from 'next/dynamic'
 
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import {
   getTweetId,
+  isCodesandboxUrl,
   isGistUrl,
   isGithubCommitUrl,
   isGithubFilePreviewUrl,
@@ -16,9 +16,8 @@ import {
   parseGithubTypedUrl,
 } from '~/lib/link-parser'
 
-import { HighLighter } from '../../code-highlighter'
+import { EmbedGithubFile } from '../../../widgets/shared/EmbedGithubFile'
 import { LinkCard } from '../../link-card'
-import { Loading } from '../../loading'
 import { MLink } from './link'
 
 const Tweet = dynamic(() => import('~/components/widgets/shared/Tweet'), {
@@ -96,13 +95,33 @@ export const LinkRenderer = ({ href }: { href: string }) => {
       case isGithubFilePreviewUrl(url): {
         const { owner, repo, afterTypeString } = parseGithubTypedUrl(url)
         const splitString = afterTypeString.split('/')
-        const sha = splitString[0].length === 40 ? splitString[0] : undefined
-        const path = sha ? splitString.slice(1).join('/') : afterTypeString
+        const ref = splitString[0]
+        const path = ref ? splitString.slice(1).join('/') : afterTypeString
         return (
           <>
             <MLink href={href}>{href}</MLink>
-            <EmbedGithubFile owner={owner} repo={repo} path={path} sha={sha} />
+            <EmbedGithubFile
+              owner={owner}
+              repo={repo}
+              path={path}
+              refType={ref}
+            />
           </>
+        )
+      }
+      case isCodesandboxUrl(url): {
+        // https://codesandbox.io/s/framer-motion-layoutroot-prop-forked-p39g96
+        // to
+        // https://codesandbox.io/embed/framer-motion-layoutroot-prop-forked-p39g96?fontsize=14&hidenavigation=1&theme=dark
+        return (
+          <FixedRatioContainer>
+            <iframe
+              className="absolute inset-0 h-full w-full rounded-md border-0"
+              src={`https://codesandbox.io/embed/${url.pathname.slice(
+                2,
+              )}?fontsize=14&hidenavigation=1&theme=dark${url.search}`}
+            />
+          </FixedRatioContainer>
         )
       }
     }
@@ -135,56 +154,3 @@ const FixedRatioContainer = ({
     </div>
   )
 }
-
-const EmbedGithubFile = memo(
-  ({
-    owner,
-    path,
-    repo,
-    sha,
-  }: {
-    owner: string
-    repo: string
-    path: string
-    sha?: string
-  }) => {
-    const { data, isLoading, isError } = useQuery<string>({
-      queryKey: ['github-preview', owner, repo, path, sha],
-      queryFn: async () => {
-        return fetch(
-          `https://cdn.jsdelivr.net/gh/${owner}/${repo}${
-            sha ? `@${sha}` : ''
-          }/${path}`,
-        ).then(async (res) => {
-          return res.text()
-        })
-      },
-    })
-
-    if (isLoading) {
-      return <Loading loadingText="Loading GitHub File Preview..." />
-    }
-
-    if (isError) {
-      return (
-        <pre className="flex h-[60px] flex-wrap center">
-          <code>Loading GitHub File Preview Failed:</code>
-          <br />
-          <code>
-            {owner}/{repo}/{path}
-          </code>
-        </pre>
-      )
-    }
-
-    if (!data) return null
-
-    return (
-      <div className="h-[50vh] overflow-auto">
-        <HighLighter content={data} lang="javascript" />
-      </div>
-    )
-  },
-)
-
-EmbedGithubFile.displayName = 'EmbedGithubFile'
