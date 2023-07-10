@@ -92,7 +92,7 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
       Object.keys(types).filter((name) => state.types[name]) as any[],
     )
 
-    toast('订阅成功，谢谢你！', 'success')
+    toast.success('订阅成功，谢谢你！')
     dispatch({ type: 'reset' })
     onConfirm()
   }

@@ -48,6 +48,7 @@ export const TextArea = forwardRef<
           'h-full w-full resize-none bg-transparent',
           'overflow-auto px-3 py-4',
           'text-neutral-900/80 dark:text-slate-100/80',
+          // 'ring-accent/20 duration-200 focus:border-accent-focus focus:ring-2',
           className,
         )}
         {...rest}

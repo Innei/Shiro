@@ -2,7 +2,6 @@ import '../styles/index.css'
 
 import { Analytics } from '@vercel/analytics/react'
 import { cache } from 'react'
-import { ToastContainer } from 'react-toastify'
 import type { AggregateRoot } from '@mx-space/api-client'
 import type { AppConfig } from './config'
 
@@ -22,6 +21,7 @@ import { queries } from '~/queries/definition'
 import { Providers } from '../providers/root'
 import { Analyze } from './analyze'
 import { init } from './init'
+import { SonnerContainer } from './SonnerContainer'
 
 const { version } = PKG
 init()
@@ -128,8 +128,8 @@ export default async function RootLayout(props: Props) {
 
             <TocAutoScroll />
             <Analyze />
+            <SonnerContainer />
           </Providers>
-          <ToastContainer />
         </body>
       </html>
       <Analytics />

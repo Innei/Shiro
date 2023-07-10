@@ -1,8 +1,10 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useRef } from 'react'
-import { ToastContainer } from 'react-toastify'
+// import { ToastContainer } from 'react-toastify'
 import { ThemeProvider } from 'next-themes'
 import type { DocumentComponent } from 'storybook/typings'
+
+import { SonnerContainer } from '~/app/SonnerContainer'
 
 // @ts-expect-error
 import customize from './customize.md?raw'
@@ -31,7 +33,7 @@ export const MarkdownCustomize: DocumentComponent = () => {
           />
         </main>
 
-        <ToastContainer />
+        <SonnerContainer />
       </ThemeProvider>
     </QueryClientProvider>
   )

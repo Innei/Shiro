@@ -77,8 +77,8 @@ const LikeButton = () => {
         control.start('tap', {
           repeat: 5,
         })
-        toast('谢谢你！', undefined, {
-          iconElement: (
+        toast('谢谢你！', {
+          icon: (
             <m.i
               className="icon-[mingcute--heart-fill] text-uk-red-light"
               initial={{

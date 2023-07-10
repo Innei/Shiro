@@ -75,8 +75,8 @@ const LikeButton = () => {
       onClick={() => {
         handleLike()
         control.start('tap')
-        toast('捕捉一只大佬！', undefined, {
-          iconElement: (
+        toast('捕捉一只大佬！', {
+          icon: (
             <m.i
               className="text-uk-orange-light"
               initial={{
