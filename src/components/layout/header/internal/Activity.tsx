@@ -12,6 +12,7 @@ import {
   useActivity,
 } from '~/atoms/activity'
 import { FloatPopover } from '~/components/ui/float-popover'
+import { softBouncePrest } from '~/constants/spring'
 import useDebounceValue from '~/hooks/common/use-debounce-value'
 import { apiClient } from '~/lib/request'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
@@ -135,15 +136,20 @@ export const Activity = memo(() => {
           <m.div
             key={processName}
             className="pointer-events-auto absolute bottom-0 right-0 top-0 z-[10] flex items-center overflow-hidden md:right-[-25px]"
-            initial={false}
+            initial={{
+              opacity: 0.2,
+              y: 15,
+            }}
             animate={{
               opacity: 1,
               x: 0,
+              y: 0,
             }}
             exit={{
-              opacity: 0.2,
+              opacity: 0,
               x: -10,
             }}
+            transition={softBouncePrest}
           >
             <FloatPopover
               TriggerComponent={TriggerComponent}
@@ -174,8 +180,7 @@ const TriggerComponent = memo<{
       src={`/apps/${appLabels[processName]}.png`}
       alt={processName}
       priority
-      fetchPriority="high"
-      unoptimized
+      fetchPriority="low"
       className="pointer-events-none select-none"
     />
   )

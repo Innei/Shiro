@@ -84,12 +84,17 @@ export const EmbedGithubFile = memo(
     })
 
     if (isLoading) {
-      return <Loading loadingText="Loading GitHub File Preview..." />
+      return (
+        <Loading
+          className="h-[50vh]"
+          loadingText="Loading GitHub File Preview..."
+        />
+      )
     }
 
     if (isError) {
       return (
-        <pre className="flex h-[60px] flex-wrap center">
+        <pre className="flex h-[50vh] flex-wrap rounded-md border border-uk-orange-light center">
           <code>Loading GitHub File Preview Failed:</code>
           <br />
           <code>

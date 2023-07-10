@@ -1,8 +1,16 @@
 'use client'
 
 import { isServer } from '@tanstack/react-query'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import mediumZoom from 'medium-zoom'
+import Image from 'next/image'
 import { tv } from 'tailwind-variants'
 import type { Zoom } from 'medium-zoom'
 import type { FC, ReactNode } from 'react'
@@ -116,10 +124,10 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
               </a>
             </div>
           )}
-          <img
+          <OptimizedImage
             src={src}
             title={title}
-            alt={alt}
+            alt={alt || title || ''}
             ref={imageRef}
             onLoad={() => {
               setImageLoadStatusSafe(ImageLoadStatus.Loaded)
@@ -238,3 +246,35 @@ const NoFixedPlaceholder = ({ accent }: { accent?: string }) => {
     />
   )
 }
+
+// @ts-expect-error
+const OptimizedImage: FC<React.JSX.IntrinsicElements['img']> = forwardRef(
+  (
+    {
+      src,
+      alt,
+      placeholder,
+
+      ...rest
+    },
+    ref,
+  ) => {
+    const { height, width } = useMarkdownImageRecord(src!) || {}
+    if (!height || !width)
+      return <img alt={alt} src={src} ref={ref} {...rest} />
+    return (
+      <Image
+        alt={alt || ''}
+        fetchPriority="high"
+        priority
+        src={src!}
+        {...rest}
+        height={height}
+        width={width}
+        ref={ref as any}
+      />
+    )
+  },
+)
+
+OptimizedImage.displayName = 'OptimizedImage'
