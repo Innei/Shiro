@@ -100,7 +100,8 @@ const ForDesktop: Component<{
   const background = useMotionTemplate`radial-gradient(${radius}px circle at ${mouseX}px ${mouseY}px, var(--spotlight-color) 0%, transparent 65%)`
 
   return (
-    <nav
+    <m.nav
+      layout="size"
       onMouseMove={handleMouseMove}
       className={clsxm(
         'relative',
@@ -109,7 +110,7 @@ const ForDesktop: Component<{
         'dark:from-zinc-900/70 dark:to-zinc-800/90 dark:ring-zinc-100/10',
         'group [--spotlight-color:hsl(var(--a)_/_0.05)]',
         'duration-200',
-        shouldHideNavBg && 'bg-none shadow-none ring-transparent',
+        shouldHideNavBg && '!bg-none !shadow-none !ring-transparent',
         className,
       )}
     >
@@ -142,7 +143,7 @@ const ForDesktop: Component<{
           )
         })}
       </div>
-    </nav>
+    </m.nav>
   )
 }
 

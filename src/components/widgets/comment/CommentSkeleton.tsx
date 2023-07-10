@@ -30,7 +30,7 @@ const CommentSkeletonSingle = () => {
 }
 export const CommentSkeleton: Component = () => {
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex min-h-[400px] flex-col space-y-4">
       <CommentSkeletonSingle />
       <CommentSkeletonSingle />
       <CommentSkeletonSingle />

@@ -5,6 +5,7 @@ import { memo, useMemo } from 'react'
 import type { FC } from 'react'
 import type { CommentBaseProps } from './types'
 
+import { NotSupport } from '~/components/common/NotSupport'
 import { apiClient } from '~/lib/request'
 
 import { LoadMoreIndicator } from '../shared/LoadMoreIndicator'
@@ -42,10 +43,15 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
   if (isLoading) {
     return <CommentSkeleton />
   }
-  if (!data) return null
+  if (!data || !data.pages.length || !data.pages[0].data.length)
+    return (
+      <div className="flex min-h-[400px] center">
+        <NotSupport text="这里还没有评论呢" />
+      </div>
+    )
   return (
     <>
-      <ul className="list-none space-y-4">
+      <ul className="min-h-[400px] list-none space-y-4">
         {data?.pages.map((data) =>
           data.data.map((comment, index) => {
             return (

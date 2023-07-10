@@ -31,6 +31,12 @@ export const isGithubProfileUrl = (url: URL) => {
   return url.hostname === 'github.com' && url.pathname.split('/').length === 2
 }
 
+export const isGithubFilePreviewUrl = (url: URL) => {
+  // https://github.com/Innei/sprightly/blob/14234594f44956e6f56f1f92952ce82db37ef4df/src/socket/handler.ts
+  const [_, owner, repo, type, ...rest] = url.pathname.split('/')
+  return url.hostname === 'github.com' && type === 'blob'
+}
+
 export const isTwitterProfileUrl = (url: URL) => {
   return url.hostname === 'twitter.com' && url.pathname.split('/').length === 2
 }
@@ -63,12 +69,18 @@ export const parseGithubGistUrl = (url: URL) => {
   }
 }
 
-export const parseGithubCommitUrl = (url: URL) => {
-  const [_, owner, repo, type, id] = url.pathname.split('/')
+export const parseGithubTypedUrl = (url: URL) => {
+  // https://github.com/Innei/sprightly/blob/14234594f44956e6f56f1f92952ce82db37ef4df/src/socket/handler.ts
+  // https://github.com/mx-space/core/commit/e1b4d881cf18e1cb66294d2620eada35937d9a12
+  const split = url.pathname.split('/')
+  const [_, owner, repo, type, id] = split
+
+  const afterTypeString = split.slice(4).join('/')
   return {
     owner,
     repo,
     type,
     id,
+    afterTypeString,
   }
 }
