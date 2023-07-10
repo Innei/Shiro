@@ -12,6 +12,11 @@ export const pickImagesFromMarkdown = (md: string) => {
   const res: MImageType[] = []
 
   for (const line of lines) {
+    if (!line.startsWith('!') && isRawImageUrl(line)) {
+      res.push({ url: line, name: line })
+      continue
+    }
+
     const match = regexp.exec(line)
     if (!match) {
       continue
@@ -22,4 +27,13 @@ export const pickImagesFromMarkdown = (md: string) => {
   }
 
   return res
+}
+
+const isRawImageUrl = (url: string) => {
+  try {
+    new URL(url)
+  } catch (e) {
+    return false
+  }
+  return true
 }

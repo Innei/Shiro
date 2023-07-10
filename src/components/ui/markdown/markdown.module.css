@@ -92,7 +92,7 @@
     @apply cursor-not-allowed;
   }
 
-  code {
+  :not(pre) code {
     @apply bg-zinc-200 font-mono dark:bg-neutral-800;
   }
 

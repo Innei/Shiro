@@ -16,7 +16,6 @@ import { Gallery } from '../gallery'
 import { FixedZoomedImage } from '../image'
 import { LinkCard } from '../link-card'
 import styles from './markdown.module.css'
-import { CommentAtRule } from './parsers/comment-at'
 import { ContainerRule } from './parsers/container'
 import { InsertRule } from './parsers/ins'
 import { KateXRule } from './parsers/katex'
@@ -210,7 +209,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
         additionalParserRules: {
           spoilder: SpoilderRule,
           mention: MentionRule,
-          commentAt: CommentAtRule,
+
           mark: MarkRule,
           ins: InsertRule,
           kateX: KateXRule,
