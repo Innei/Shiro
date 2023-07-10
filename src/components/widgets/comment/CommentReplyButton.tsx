@@ -4,10 +4,10 @@ import type { FC } from 'react'
 
 import { AutoResizeHeight } from '~/components/widgets/shared/AutoResizeHeight'
 
+import { CommentBoxRootLazy } from '.'
 import { CommentBoxHolderPortal } from './Comment'
 import { useCommentBoxRefIdValue } from './CommentBox/hooks'
 import { CommentIsReplyProvider } from './CommentBox/providers'
-import { CommentBoxRoot } from './CommentBox/Root'
 
 export const CommentReplyButton: FC<{
   commentId: string
@@ -45,7 +45,7 @@ export const CommentReplyButton: FC<{
             {replyFormOpen && (
               <>
                 <div className="h-6" />
-                <CommentBoxRoot refId={commentId} />
+                <CommentBoxRootLazy refId={commentId} />
                 <div className="h-6" />
               </>
             )}

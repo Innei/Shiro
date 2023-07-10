@@ -104,6 +104,7 @@ export const WithArticleSelectionAction: Component<{
               onClick={() => {
                 present({
                   title: '评论',
+
                   content: (rest) => (
                     <CommentModal
                       refId={refId}

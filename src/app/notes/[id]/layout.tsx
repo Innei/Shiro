@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
-import { CommentAreaRoot } from '~/components/widgets/comment'
+import { CommentAreaRootLazy } from '~/components/widgets/comment'
 import { NoteMainContainer } from '~/components/widgets/note/NoteMainContainer'
 import { TocFAB } from '~/components/widgets/toc/TocFAB'
 import { REQUEST_QUERY } from '~/constants/system'
@@ -88,7 +88,10 @@ export default async (
       <Transition className="min-w-0">
         <Paper as={NoteMainContainer}>{props.children}</Paper>
         <BottomToUpSoftScaleTransitionView delay={500}>
-          <CommentAreaRoot refId={noteObjectId} allowComment={allowComment} />
+          <CommentAreaRootLazy
+            refId={noteObjectId}
+            allowComment={allowComment}
+          />
         </BottomToUpSoftScaleTransitionView>
       </Transition>
 

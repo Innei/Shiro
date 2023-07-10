@@ -39,7 +39,7 @@ export const Comment: Component<{
         <li
           data-comment-id={cid}
           data-parent-id={parentId}
-          className={clsx('relative', className)}
+          className={clsx('relative my-2', className)}
         >
           <div className="group flex w-full items-stretch gap-2">
             <div className="flex w-9 shrink-0 items-end">

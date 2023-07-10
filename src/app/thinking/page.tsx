@@ -22,8 +22,7 @@ import { TextArea } from '~/components/ui/input'
 import { Loading } from '~/components/ui/loading'
 import { Markdown } from '~/components/ui/markdown'
 import { RelativeTime } from '~/components/ui/relative-time'
-import { CommentBoxRoot } from '~/components/widgets/comment/CommentBox'
-import { Comments } from '~/components/widgets/comment/Comments'
+import { CommentBoxRootLazy, CommentsLazy } from '~/components/widgets/comment'
 import { PeekLink } from '~/components/widgets/peek/PeekLink'
 import { LoadMoreIndicator } from '~/components/widgets/shared/LoadMoreIndicator'
 import { usePrevious } from '~/hooks/common/use-previous'
@@ -348,16 +347,16 @@ const CommentModal = (props: RecentlyModel) => {
   const { id, allowComment, content } = props
 
   return (
-    <div className="max-w-95vw w-[700px] overflow-y-auto overflow-x-hidden">
+    <div className="max-w-95vw overflow-y-auto overflow-x-hidden md:w-[500px] lg:w-[600px] xl:w-[700px]">
       <span>{allowComment && '回复：'}</span>
 
       <Markdown className="mt-4" allowsScript>
         {content}
       </Markdown>
 
-      {allowComment && <CommentBoxRoot className="my-12" refId={id} />}
+      {allowComment && <CommentBoxRootLazy className="my-12" refId={id} />}
 
-      <Comments refId={id} />
+      <CommentsLazy refId={id} />
     </div>
   )
 }

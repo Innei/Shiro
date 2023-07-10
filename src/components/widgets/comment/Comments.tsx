@@ -6,6 +6,7 @@ import type { FC } from 'react'
 import type { CommentBaseProps } from './types'
 
 import { NotSupport } from '~/components/common/NotSupport'
+import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { apiClient } from '~/lib/request'
 
 import { LoadMoreIndicator } from '../shared/LoadMoreIndicator'
@@ -52,18 +53,22 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
   return (
     <>
       <ul className="min-h-[400px] list-none space-y-4">
-        {data?.pages.map((data) =>
-          data.data.map((comment, index) => {
-            return (
-              <CommentListItem
-                comment={comment}
-                key={comment.id}
-                refId={refId}
-                index={index}
-              />
-            )
-          }),
-        )}
+        {data?.pages.map((data, index) => {
+          return (
+            <BottomToUpSoftScaleTransitionView key={index}>
+              {data.data.map((comment, index) => {
+                return (
+                  <CommentListItem
+                    comment={comment}
+                    key={comment.id}
+                    refId={refId}
+                    index={index}
+                  />
+                )
+              })}
+            </BottomToUpSoftScaleTransitionView>
+          )
+        })}
       </ul>
       {hasNextPage && (
         <LoadMoreIndicator onLoading={fetchNextPage}>

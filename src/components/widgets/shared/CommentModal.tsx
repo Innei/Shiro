@@ -1,7 +1,6 @@
 import type { ModalContentComponent } from '~/providers/root/modal-stack-provider'
 
-import { CommentBoxRoot } from '../comment/CommentBox'
-import { Comments } from '../comment/Comments'
+import { CommentBoxRootLazy, CommentsLazy } from '../comment'
 
 export interface CommentModalProps {
   title: string
@@ -16,19 +15,19 @@ export const CommentModal: ModalContentComponent<CommentModalProps> = (
   const { refId, title, dismiss, initialValue } = props
 
   return (
-    <div className="max-w-95vw w-[700px] overflow-y-auto overflow-x-hidden">
+    <div className="max-w-95vw overflow-y-auto overflow-x-hidden md:w-[500px] lg:w-[600px] xl:w-[700px]">
       <span>
         回复： <h1 className="mt-4 text-lg font-medium">{title}</h1>
       </span>
 
-      <CommentBoxRoot
+      <CommentBoxRootLazy
         initialValue={initialValue}
         className="my-12"
         refId={refId}
         afterSubmit={dismiss}
       />
 
-      <Comments refId={refId} />
+      <CommentsLazy refId={refId} />
     </div>
   )
 }

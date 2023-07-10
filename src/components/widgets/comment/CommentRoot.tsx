@@ -1,13 +1,9 @@
 import type { FC } from 'react'
 import type { CommentBaseProps } from './types'
 
-import { LazyLoad } from '~/components/common/Lazyload'
-import { Loading } from '~/components/ui/loading'
-
 import { CommentBoxRoot } from './CommentBox/Root'
 import { Comments } from './Comments'
 
-const LoadingElement = <Loading loadingText="评论区加载中..." />
 export const CommentAreaRoot: FC<
   CommentBaseProps & {
     allowComment: boolean
@@ -29,13 +25,11 @@ export const CommentAreaRoot: FC<
   }
 
   return (
-    <LazyLoad placeholder={LoadingElement}>
-      <div className="relative mt-12">
-        <CommentBoxRoot refId={refId} />
+    <div className="relative mt-12">
+      <CommentBoxRoot refId={refId} />
 
-        <div className="h-12" />
-        <Comments refId={refId} />
-      </div>
-    </LazyLoad>
+      <div className="h-12" />
+      <Comments refId={refId} />
+    </div>
   )
 }

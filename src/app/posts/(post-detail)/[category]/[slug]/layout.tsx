@@ -7,7 +7,7 @@ import { RequestError } from '@mx-space/api-client'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
-import { CommentAreaRoot } from '~/components/widgets/comment'
+import { CommentAreaRootLazy } from '~/components/widgets/comment'
 import { TocFAB } from '~/components/widgets/toc/TocFAB'
 import { attachUA } from '~/lib/attach-ua'
 import { getSummaryFromMd } from '~/lib/markdown'
@@ -86,7 +86,10 @@ export default async (props: NextPageParams<PageParams>) => {
           {props.children}
 
           <BottomToUpSoftScaleTransitionView delay={500}>
-            <CommentAreaRoot refId={data.id} allowComment={data.allowComment} />
+            <CommentAreaRootLazy
+              refId={data.id}
+              allowComment={data.allowComment}
+            />
           </BottomToUpSoftScaleTransitionView>
         </BottomToUpTransitionView>
 
