@@ -126,8 +126,8 @@ dependencies:
     specifier: 4.7.1
     version: 4.7.1
   sonner:
-    specifier: 0.6.0
-    version: 0.6.0(react-dom@18.2.0)(react@18.2.0)
+    specifier: 0.6.1
+    version: 0.6.1(react-dom@18.2.0)(react@18.2.0)
   tailwind-merge:
     specifier: 1.13.2
     version: 1.13.2
@@ -218,8 +218,8 @@ devDependencies:
     specifier: 3.0.4
     version: 3.0.4(tailwindcss@3.3.2)
   tailwind-variants:
-    specifier: 0.1.10
-    version: 0.1.10(tailwindcss@3.3.2)
+    specifier: 0.1.12
+    version: 0.1.12(tailwindcss@3.3.2)
   tailwindcss:
     specifier: ^3.3.2
     version: 3.3.2
@@ -7222,8 +7222,8 @@ packages:
       - supports-color
     dev: false
 
-  /sonner@0.6.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-+nqKkUDjSv6P+067RRpGxNEjfKgpAP0LVHW6Z6FpwXvmPpxRVQTo27uSX3+Glt8nPXMOUbmv1QCgcKkhLz/gBg==}
+  /sonner@0.6.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-4LdrhmFQp+ytQCWc1sTAG4oVsA1c+iFuYsl9XOvZtMjQR5ytxIe1Rislq0sUHeHpC1oReX6j0/XfMDzZy1WysQ==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -7476,8 +7476,8 @@ packages:
       tailwindcss: 3.3.2
     dev: true
 
-  /tailwind-variants@0.1.10(tailwindcss@3.3.2):
-    resolution: {integrity: sha512-PlOoXweMcOt2TXYr01lZ8iuRJG3M3voiWdAIb1vSqmuGuLvjtJwGphmwPToHRLXebC0dnKXow/xz2gRShCqI9w==}
+  /tailwind-variants@0.1.12(tailwindcss@3.3.2):
+    resolution: {integrity: sha512-7ydBs+N8Zqo6w0x08N11Y/HZFuhob5lmYhJb85a5qbTqOfF/sOyfzfkuqcNOjr6SIekULMt7cLeljpB3Gx0zmw==}
     engines: {node: '>=16.x', pnpm: '>=7.x'}
     peerDependencies:
       tailwindcss: '*'
