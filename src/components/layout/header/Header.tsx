@@ -1,5 +1,6 @@
 import { memo } from 'react'
 
+import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { clsxm } from '~/lib/helper'
 
@@ -20,9 +21,11 @@ import { UserAuth } from './internal/UserAuth'
 
 export const Header = () => {
   return (
-    <HeaderDataConfigureProvider>
-      <MemoedHeader />
-    </HeaderDataConfigureProvider>
+    <ErrorBoundary>
+      <HeaderDataConfigureProvider>
+        <MemoedHeader />
+      </HeaderDataConfigureProvider>
+    </ErrorBoundary>
   )
 }
 const MemoedHeader = memo(() => {

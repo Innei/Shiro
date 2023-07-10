@@ -6,6 +6,7 @@ import type { CommentBaseProps } from '../types'
 import { SignedIn, SignedOut } from '@clerk/nextjs'
 
 import { useIsLogged } from '~/atoms'
+import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { AutoResizeHeight } from '~/components/widgets/shared/AutoResizeHeight'
 import { clsxm } from '~/lib/helper'
 
@@ -27,26 +28,28 @@ export const CommentBoxRoot: Component<CommentBaseProps> = (props) => {
   }, [isLogged])
 
   return (
-    <CommentBoxProvider
-      refId={refId}
-      afterSubmit={afterSubmit}
-      initialValue={initialValue}
-    >
-      <div
-        className={clsxm('group relative w-full min-w-0', className)}
-        data-hide-print
+    <ErrorBoundary>
+      <CommentBoxProvider
+        refId={refId}
+        afterSubmit={afterSubmit}
+        initialValue={initialValue}
       >
-        <SwitchCommentMode />
+        <div
+          className={clsxm('group relative w-full min-w-0', className)}
+          data-hide-print
+        >
+          <SwitchCommentMode />
 
-        <div className="relative w-full">
-          {mode === CommentBoxMode.legacy ? (
-            <CommentBoxLegacy />
-          ) : (
-            <CommentBoxWithAuth />
-          )}
+          <div className="relative w-full">
+            {mode === CommentBoxMode.legacy ? (
+              <CommentBoxLegacy />
+            ) : (
+              <CommentBoxWithAuth />
+            )}
+          </div>
         </div>
-      </div>
-    </CommentBoxProvider>
+      </CommentBoxProvider>
+    </ErrorBoundary>
   )
 }
 

@@ -5,6 +5,7 @@ import { memo, useMemo } from 'react'
 import type { FC } from 'react'
 import type { CommentBaseProps } from './types'
 
+import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { NotSupport } from '~/components/common/NotSupport'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { apiClient } from '~/lib/request'
@@ -51,7 +52,7 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
       </div>
     )
   return (
-    <>
+    <ErrorBoundary>
       <ul className="min-h-[400px] list-none space-y-4">
         {data?.pages.map((data, index) => {
           return (
@@ -75,7 +76,7 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
           <CommentSkeleton />
         </LoadMoreIndicator>
       )}
-    </>
+    </ErrorBoundary>
   )
 }
 
