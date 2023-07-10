@@ -1,7 +1,7 @@
 'use client'
 
 import { useDeferredValue } from 'react'
-import clsx from 'clsx'
+import { useInView } from 'react-intersection-observer'
 import type { ElementType } from 'react'
 
 import { useIsMobile } from '~/atoms'
@@ -17,25 +17,30 @@ export const ReadIndicator: Component<{
 }> = ({ className, as }) => {
   const readPercent = useDebounceValue(useReadPercent(), 200)
   const As = as || 'span'
+
+  const { ref, inView } = useInView()
+
   return (
-    <As className={clsxm('text-gray-800 dark:text-neutral-300', className)}>
+    <As
+      className={clsxm('text-gray-800 dark:text-neutral-300', className)}
+      ref={ref}
+    >
       <NumberSmoothTransition>{readPercent}</NumberSmoothTransition>%
+      {!inView && <ReadIndicatorVertical className="right-[10px]" />}
     </As>
   )
 }
 
-export const ReadIndicatorForMobile: Component<{}> = () => {
+const ReadIndicatorVertical: Component = ({ className }) => {
   const readPercent = useDeferredValue(useReadPercent())
   const isEOA = useIsEOWrappedElement()
-  const isMobile = useIsMobile()
-  if (!isMobile) return null
-
   return (
     <RootPortal>
       <div
-        className={clsx(
+        className={clsxm(
           'fixed bottom-0 right-0 top-0 z-[99] w-[1px] transition-opacity duration-200 ease-in-out',
           isEOA ? 'opacity-0' : 'opacity-100',
+          className,
         )}
       >
         <div
@@ -47,4 +52,10 @@ export const ReadIndicatorForMobile: Component<{}> = () => {
       </div>
     </RootPortal>
   )
+}
+export const ReadIndicatorForMobile: Component<{}> = () => {
+  const isMobile = useIsMobile()
+  if (!isMobile) return null
+
+  return <ReadIndicatorVertical />
 }

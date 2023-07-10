@@ -76,14 +76,3 @@ export interface FooterConfig {
   linkSections: LinkSection[]
   otherInfo: OtherInfo
 }
-
-// export const footerConfig = {
-//   linkSections,
-//   otherInfo: {
-//     date: '2020-{{now}}',
-//     // icp: {
-//     //   text: '浙 ICP 备 20028356 号',
-//     //   link: 'http://www.beian.miit.gov.cn/',
-//     // }
-//   } as OtherInfo,
-// }
