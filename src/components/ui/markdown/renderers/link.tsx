@@ -97,7 +97,7 @@ export const MLink: FC<{
               </a>
             )}
 
-            <i className="icon-[mingcute--external-link-line]" />
+            <i className="icon-[mingcute--external-link-line] translate-y-[2px]" />
           </span>
         ),
         [
