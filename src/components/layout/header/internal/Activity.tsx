@@ -108,7 +108,7 @@ export const Activity = memo(() => {
   )
 
   const { processName, media } = activity
-  const debounceProcess = useDebounceValue(processName, 300)
+  const debounceProcess = useDebounceValue(processName, 800)
 
   if (!appLabels[debounceProcess]) {
     console.log('Not collected process name: ', debounceProcess)
