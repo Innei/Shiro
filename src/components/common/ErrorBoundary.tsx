@@ -5,10 +5,11 @@ import type { FC, PropsWithChildren } from 'react'
 
 import { captureException } from '@sentry/nextjs'
 
+const Noop = () => null
 export const ErrorBoundary: FC<PropsWithChildren> = ({ children }) => {
   return (
     <ErrorBoundaryLib
-      fallback={null}
+      FallbackComponent={Noop}
       onError={(e) => {
         console.error(e)
 
