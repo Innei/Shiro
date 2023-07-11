@@ -128,6 +128,11 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
           const data = await axios
             .get<any>(`https://api.github.com/repos/${namespace}/${repo}`)
             .then((data) => camelcaseKeys(data.data))
+            .catch(() => {
+              // set fallback url
+              //
+              setFullUrl(`https://github.com/${namespace}/${repo}`)
+            })
 
           setCardInfo({
             image: data.owner.avatarUrl,
@@ -156,6 +161,13 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
               `https://api.github.com/repos/${namespace}/${repo}/commits/${commitId}`,
             )
             .then((data) => camelcaseKeys(data.data))
+            .catch(() => {
+              // set fallback url
+              //
+              setFullUrl(
+                `https://github.com/${namespace}/${repo}/commit/${commitId}`,
+              )
+            })
 
           setCardInfo({
             image: data.author.avatarUrl,
