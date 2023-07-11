@@ -14,6 +14,7 @@ import {
 import { FloatPopover } from '~/components/ui/float-popover'
 import { softBouncePrest } from '~/constants/spring'
 import useDebounceValue from '~/hooks/common/use-debounce-value'
+import { usePageIsActive } from '~/hooks/common/use-is-active'
 import { apiClient } from '~/lib/request'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
@@ -70,6 +71,7 @@ export const Activity = memo(() => {
 
   const activity = useActivity()
 
+  const isPageActive = usePageIsActive()
   const { data } = useQuery(
     ['activity'],
     async () => {
@@ -83,7 +85,7 @@ export const Activity = memo(() => {
         }>()
         .then((res) => res)
         .catch((err: RequestError) => {
-          err.status === 404 && setIsEnabled(false)
+          setIsEnabled(false)
           return { processName: '', mediaInfo: undefined }
         })
     },
@@ -91,7 +93,7 @@ export const Activity = memo(() => {
       refetchInterval: 1000 * 5 * 60,
       refetchOnMount: 'always',
       retry: false,
-      enabled: isEnabled,
+      enabled: isEnabled && isPageActive,
       meta: {
         persist: false,
       },
@@ -134,40 +136,42 @@ export const Activity = memo(() => {
           </FloatPopover>
         </m.div>
       )}
-      <AnimatePresence>
-        {!!appLabels[processName] && (
-          <m.div
-            key={processName}
-            className="pointer-events-auto absolute bottom-0 right-0 top-0 z-[10] flex items-center overflow-hidden md:right-[-25px]"
-            initial={{
-              opacity: 0.2,
-              y: 15,
-            }}
-            animate={{
-              opacity: 1,
-              x: 0,
-              y: 0,
-            }}
-            exit={{
-              opacity: 0,
-              x: -10,
-            }}
-            transition={softBouncePrest}
-          >
-            <FloatPopover
-              TriggerComponent={TriggerComponent}
-              triggerComponentProps={memoProcessName}
-              type="tooltip"
-              strategy="fixed"
+      {isPageActive && (
+        <AnimatePresence>
+          {!!appLabels[processName] && (
+            <m.div
+              key={processName}
+              className="pointer-events-auto absolute bottom-0 right-0 top-0 z-[10] flex items-center overflow-hidden md:right-[-25px]"
+              initial={{
+                opacity: 0.2,
+                y: 15,
+              }}
+              animate={{
+                opacity: 1,
+                x: 0,
+                y: 0,
+              }}
+              exit={{
+                opacity: 0,
+                x: -10,
+              }}
+              transition={softBouncePrest}
             >
-              {ownerName} 正在使用 {processName}
-              {appDescrption[processName]
-                ? ` ${appDescrption[processName]}`
-                : ''}
-            </FloatPopover>
-          </m.div>
-        )}
-      </AnimatePresence>
+              <FloatPopover
+                TriggerComponent={TriggerComponent}
+                triggerComponentProps={memoProcessName}
+                type="tooltip"
+                strategy="fixed"
+              >
+                {ownerName} 正在使用 {processName}
+                {appDescrption[processName]
+                  ? ` ${appDescrption[processName]}`
+                  : ''}
+              </FloatPopover>
+            </m.div>
+          )}
+        </AnimatePresence>
+      )}
     </>
   )
 })
