@@ -17,7 +17,11 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
   const { data: isLiving } = useQuery({
     queryKey: ['live-check'],
     queryFn: () =>
-      fetch(`/api/bilibili/check_live?liveId=${liveId}`)
+      fetch(`/api/bilibili/check_live?liveId=${liveId}`, {
+        next: {
+          revalidate: 1,
+        },
+      })
         .then((res) => res.json())
         .catch(() => null),
     select: useCallback((data: any) => {

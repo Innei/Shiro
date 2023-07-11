@@ -1,12 +1,10 @@
-.popover-root {
-  @apply relative z-[2] overflow-hidden p-4 shadow-out-sm;
-}
-
 .popover-root,
 .headless {
   opacity: 0;
   transform: translateY(-10px);
-  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+  transition:
+    opacity 0.2s ease-in-out,
+    transform 0.2s ease-in-out;
 
   @apply delay-100;
 }

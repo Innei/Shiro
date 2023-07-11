@@ -8,6 +8,8 @@ import { apiClient } from '~/lib/request'
 
 import { queryKey } from './query'
 
+export const revalidate = 60
+
 export default async function HomeLayout(props: PropsWithChildren) {
   const queryClient = getQueryClient()
   await queryClient.fetchQuery(queryKey, async () => {

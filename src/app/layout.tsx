@@ -26,6 +26,8 @@ import { SonnerContainer } from './SonnerContainer'
 const { version } = PKG
 init()
 
+export const revalidate = 60
+
 const getAppConfig = cache(() => {
   return get('config') as Promise<AppConfig>
 })

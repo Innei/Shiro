@@ -16,9 +16,11 @@ const XLogSummary: FC<{
     [`getSummary`, cid],
     async ({ queryKey }) => {
       const [, cid] = queryKey
-      const data = await fetch(`/api/xlog/summary?cid=${cid}`).then((res) =>
-        res.json(),
-      )
+      const data = await fetch(`/api/xlog/summary?cid=${cid}`, {
+        next: {
+          revalidate: 60 * 10,
+        },
+      }).then((res) => res.json())
       if (!data) throw new Error('请求错误')
       return data
     },

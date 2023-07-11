@@ -11,9 +11,11 @@ export const EmojiPicker: FC<{
   const { data, isLoading } = useQuery({
     queryKey: ['emojidata'],
     queryFn: () =>
-      fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data').then((response) =>
-        response.json(),
-      ),
+      fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data', {
+        next: {
+          revalidate: 60 * 60 * 24 * 7,
+        },
+      }).then((response) => response.json()),
 
     staleTime: Infinity,
   })

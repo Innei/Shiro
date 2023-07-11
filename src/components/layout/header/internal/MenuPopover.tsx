@@ -14,7 +14,6 @@ export const MenuPopover: Component<{
   return (
     <FloatPopover
       strategy="fixed"
-      headless
       placement="bottom"
       offset={10}
       popoverWrapperClassNames="z-[19] relative"

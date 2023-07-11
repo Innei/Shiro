@@ -67,7 +67,7 @@ export const UniversalTextArea = () => {
       placeholder={placeholder}
     >
       <CommentBoxSlotPortal>
-        <FloatPopover trigger="click" TriggerComponent={EmojiButton}>
+        <FloatPopover trigger="click" TriggerComponent={EmojiButton} headless>
           <EmojiPicker onEmojiSelect={handleInsertEmoji} />
         </FloatPopover>
       </CommentBoxSlotPortal>
