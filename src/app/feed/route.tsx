@@ -1,7 +1,11 @@
-import Markdown from 'markdown-to-jsx'
+import { compiler } from 'markdown-to-jsx'
 import xss from 'xss'
 import type { AggregateRoot } from '@mx-space/api-client'
 
+import { InsertRule } from '~/components/ui/markdown/parsers/ins'
+import { MarkRule } from '~/components/ui/markdown/parsers/mark'
+import { MentionRule } from '~/components/ui/markdown/parsers/mention'
+import { SpoilderRule } from '~/components/ui/markdown/parsers/spoiler'
 import { escapeXml } from '~/lib/helper.server'
 import { getQueryClient } from '~/lib/query-client.server'
 import { apiClient } from '~/lib/request'
@@ -59,7 +63,27 @@ export async function GET() {
               ${`<blockquote>该渲染由 Shiro API 生成，可能存在排版问题，最佳体验请前往：<a href='${xss(
                 item.link,
               )}'>${xss(item.link)}</a></blockquote>
-${ReactDOM.renderToString(<Markdown>{item.text}</Markdown>)}
+${ReactDOM.renderToString(
+  <div>
+    {compiler(item.text, {
+      overrides: {
+        LinkCard: () => null,
+        Gallery: () => (
+          <div style={{ textAlign: 'center' }}>这个内容只能在原文中查看哦~</div>
+        ),
+      },
+      additionalParserRules: {
+        spoilder: SpoilderRule,
+        mention: MentionRule,
+
+        mark: MarkRule,
+        ins: InsertRule,
+        // kateX: KateXRule,
+        // container: ContainerRule,
+      },
+    })}
+  </div>,
+)}
               <p style='text-align: right'>
               <a href='${`${xss(item.link)}#comments`}'>看完了？说点什么呢</a>
               </p>`}

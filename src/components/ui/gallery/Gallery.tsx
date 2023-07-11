@@ -1,3 +1,5 @@
+'use client'
+
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import clsx from 'clsx'

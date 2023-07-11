@@ -1,3 +1,5 @@
+'use client'
+
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { Fragment, memo, Suspense, useMemo, useRef } from 'react'
 import { clsx } from 'clsx'

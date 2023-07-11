@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import axios from 'axios'
