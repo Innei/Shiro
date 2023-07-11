@@ -32,7 +32,7 @@ const appDescrption = {
   Code: 'Restart TS Server',
   Finder: '发呆',
   Infuse: '看片',
-  kitty: '耍猫',
+  kitty: '撸猫',
 } as any
 const appLabels: { [app: string]: string } = {
   Slack: 'slack',
