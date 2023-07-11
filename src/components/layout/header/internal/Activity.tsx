@@ -20,17 +20,19 @@ import { useAggregationSelector } from '~/providers/root/aggregation-data-provid
 // autocorrect: false
 const appDescrption = {
   Typora: '水文',
-  Xcode: '敲榔头',
+  Xcode: '玩个锤子',
   iTerm2: '耍杂技',
   NeteaseMusic: '听歌',
   QQ音乐: '听歌',
-  Chrome: '冲浪',
-  'Chrome Canary': '调试',
+
+  'Google Chrome': '冲浪',
+  'Google Chrome Canary': '调试',
   QQ: '水群',
   Messages: '看验证码',
   Code: 'Restart TS Server',
   Finder: '发呆',
   Infuse: '看片',
+  kitty: '耍猫',
 } as any
 const appLabels: { [app: string]: string } = {
   Slack: 'slack',
@@ -52,12 +54,13 @@ const appLabels: { [app: string]: string } = {
   Chrome: 'chrome',
   'Chrome Canary': 'chrome_canary',
   'Google Chrome Canary': 'chrome_canary',
-  QQ音乐: 'qq_music',
+  QQ音乐: 'qqmusic',
   NetEaseMusic: 'netease',
   iTerm2: 'iterm2',
   Xcode: 'xcode',
   Typora: 'typora',
   Infuse: 'infuse',
+  kitty: 'kitty',
 
   cmusic: 'cmusic',
 }
