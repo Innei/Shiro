@@ -1,41 +1,17 @@
-'use client'
+import type { NoteWrappedPayload } from '@mx-space/api-client'
 
-import { useLayoutEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { apiClient } from '~/lib/request'
 
-import { Loading } from '~/components/ui/loading'
-import { routeBuilder, Routes } from '~/lib/route-builder'
-
-import { Paper } from '../../components/layout/container/Paper'
+import Redirect from './redirect'
 
 export const revalidate = 60
 
-export default function Page() {
-  const router = useRouter()
-  useLayoutEffect(() => {
-    ;(async () => {
-      const { nid } = await fetch('/api/note/latest', {
-        next: {
-          revalidate: 60,
-        },
-      }).then(
-        (res) =>
-          res.json() as Promise<{
-            nid: number
-          }>,
-      )
+export default async function Page() {
+  const data = await fetch(apiClient.note.proxy.latest.toString(true), {
+    next: {
+      revalidate: 30,
+    },
+  }).then((res) => res.json() as Promise<NoteWrappedPayload>)
 
-      router.push(
-        routeBuilder(Routes.Note, {
-          id: nid,
-        }),
-      )
-    })()
-  }, [])
-
-  return (
-    <Paper>
-      <Loading useDefaultLoadingText />
-    </Paper>
-  )
+  return <Redirect nid={data.data.nid} />
 }
