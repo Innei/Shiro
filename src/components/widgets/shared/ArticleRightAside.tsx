@@ -4,12 +4,19 @@ import React, { useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
 import type { TocAsideRef } from '../toc'
 
-import { useViewport } from '~/atoms'
+import { useIsMobile, useViewport } from '~/atoms'
 
 import { TocAside } from '../toc'
 import { ReadIndicator } from './ReadIndicator'
 
 export const ArticleRightAside: Component = ({ children }) => {
+  const isMobile = useIsMobile()
+  if (isMobile) return <div />
+
+  return <ArticleRightAsideImpl>{children}</ArticleRightAsideImpl>
+}
+
+const ArticleRightAsideImpl: Component = ({ children }) => {
   const asideRef = useRef<TocAsideRef>(null)
   const [isScrollToBottom, setIsScrollToBottom] = useState(false)
   const [isScrollToTop, setIsScrollToTop] = useState(false)
