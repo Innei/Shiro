@@ -9,9 +9,21 @@ export const ScriptInjectProvider = () => {
   if (!scripts) return null
   return (
     <>
-      {scripts.map((props) => (
-        <Script key={props.src} {...props} />
-      ))}
+      {scripts.map((props) => {
+        const nextProps = { ...props } as any
+        const dataKeys = Object.keys(props).filter((key) =>
+          /data[A-Z]/.test(key),
+        )
+
+        for (const key of dataKeys) {
+          const newKey = key.replace(/([A-Z])/g, '-$1').toLowerCase()
+          nextProps[newKey] = nextProps[key]
+          delete nextProps[key]
+        }
+
+        console.log(nextProps)
+        return <Script key={props.src} {...nextProps} />
+      })}
     </>
   )
 }
