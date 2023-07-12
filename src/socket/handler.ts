@@ -20,6 +20,7 @@ import {
   IcTwotoneSignpost,
   MdiLightbulbOn20,
 } from '~/components/icons/menu-collection'
+import { DOMCustomEvents } from '~/constants/event'
 import { TrackerAction } from '~/constants/tracker'
 import { isDev } from '~/lib/env'
 import { routeBuilder, Routes } from '~/lib/route-builder'
@@ -64,15 +65,25 @@ export const eventHandler = (
 
     case EventTypes.POST_UPDATE: {
       const post = data as PostModel
-      if (getGlobalCurrentPostData()?.id === post.id) {
-        setGlobalCurrentPostData((draft) => {
-          const nextPost = { ...data }
-          Reflect.deleteProperty(nextPost, 'category')
-          Object.assign(draft, nextPost)
-        })
-        toast('文章已更新')
-        trackerRealtimeEvent()
+      const currentData = getGlobalCurrentPostData()
+
+      if (!currentData) break
+      if (currentData.id !== post.id) {
+        break
       }
+
+      setGlobalCurrentPostData((draft) => {
+        const nextPost = { ...data }
+        Reflect.deleteProperty(nextPost, 'category')
+        Object.assign(draft, nextPost)
+      })
+      toast('文章已更新')
+      trackerRealtimeEvent()
+
+      if (currentData.text !== post.text) {
+        document.dispatchEvent(new CustomEvent(DOMCustomEvents.RefreshToc))
+      }
+
       break
     }
 
@@ -95,15 +106,25 @@ export const eventHandler = (
       break
     }
 
-    case 'NOTE_UPDATE': {
+    case EventTypes.NOTE_UPDATE: {
       const note = data as NoteModel
-      if (getCurrentNoteData()?.data.id === note.id) {
-        setCurrentNoteData((draft) => {
-          Object.assign(draft.data, note)
-        })
-        toast('手记已更新')
-        trackerRealtimeEvent()
+      const currentData = getCurrentNoteData()?.data
+
+      if (!currentData) break
+      if (currentData.id !== note.id) {
+        break
       }
+
+      setCurrentNoteData((draft) => {
+        Object.assign(draft.data, note)
+      })
+      toast('手记已更新')
+      trackerRealtimeEvent()
+
+      if (currentData.text !== note.text) {
+        document.dispatchEvent(new CustomEvent(DOMCustomEvents.RefreshToc))
+      }
+
       break
     }
 

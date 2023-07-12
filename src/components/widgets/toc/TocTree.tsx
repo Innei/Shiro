@@ -43,10 +43,6 @@ function useActiveId($headings: HTMLHeadingElement[]) {
       observer.observe($heading)
     })
     return () => {
-      $headings.forEach(($heading) => {
-        observer.unobserve($heading)
-      })
-
       observer.disconnect()
     }
   }, [$headings])

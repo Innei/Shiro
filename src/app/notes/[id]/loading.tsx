@@ -1,3 +1,3 @@
-import { Loading } from '~/components/ui/loading'
+import NoteLoading from '../loading'
 
-export default () => <Loading useDefaultLoadingText />
+export default () => <NoteLoading />

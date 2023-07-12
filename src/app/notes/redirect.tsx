@@ -3,9 +3,9 @@
 import { useLayoutEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { Paper } from '~/components/layout/container/Paper'
-import { Loading } from '~/components/ui/loading'
 import { routeBuilder, Routes } from '~/lib/route-builder'
+
+import NoteLoading from './loading'
 
 export default function NodeRedirect({ nid }: { nid: number }) {
   const router = useRouter()
@@ -16,9 +16,5 @@ export default function NodeRedirect({ nid }: { nid: number }) {
       }),
     )
   }, [nid])
-  return (
-    <Paper>
-      <Loading useDefaultLoadingText />
-    </Paper>
-  )
+  return <NoteLoading />
 }

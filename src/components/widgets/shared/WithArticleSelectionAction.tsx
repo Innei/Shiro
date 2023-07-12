@@ -5,6 +5,7 @@ import { AnimatePresence, m } from 'framer-motion'
 import { useIsMobile } from '~/atoms'
 import { MotionButtonBase } from '~/components/ui/button'
 import { DividerVertical } from '~/components/ui/divider'
+import { DOMCustomEvents } from '~/constants/event'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { stopPropagation } from '~/lib/dom'
 import { useModalStack } from '~/providers/root/modal-stack-provider'
@@ -43,6 +44,13 @@ export const WithArticleSelectionAction: Component<{
 
   const isClient = useIsClient()
   const { present } = useModalStack()
+
+  useEffect(() => {
+    // wait for toc listener to be registered
+    setTimeout(() => {
+      document.dispatchEvent(new CustomEvent(DOMCustomEvents.RefreshToc))
+    }, 1000)
+  }, [])
 
   if (isMobile || !isClient) return children
   return (

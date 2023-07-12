@@ -2,12 +2,15 @@
 
 import React, {
   forwardRef,
+  startTransition,
   useEffect,
   useImperativeHandle,
   useMemo,
   useRef,
 } from 'react'
+import { useForceUpdate } from 'framer-motion'
 
+import { DOMCustomEvents } from '~/constants/event'
 import { throttle } from '~/lib/_'
 import { clsxm } from '~/lib/helper'
 import { useWrappedElement } from '~/providers/shared/WrappedElementProvider'
@@ -37,6 +40,20 @@ export const TocAside = forwardRef<
     const containerRef = useRef<HTMLUListElement>(null)
     const $article = useWrappedElement()
 
+    const [forceUpdate, updated] = useForceUpdate()
+
+    useEffect(() => {
+      const handler = () => {
+        startTransition(() => {
+          forceUpdate()
+        })
+      }
+      document.addEventListener(DOMCustomEvents.RefreshToc, handler)
+      return () => {
+        document.removeEventListener(DOMCustomEvents.RefreshToc, handler)
+      }
+    }, [])
+
     useImperativeHandle(ref, () => ({
       getContainer: () => containerRef.current,
     }))
@@ -48,11 +65,10 @@ export const TocAside = forwardRef<
       if (!$article) {
         return []
       }
-
       return [
         ...$article.querySelectorAll('h1,h2,h3,h4,h5,h6'),
       ] as HTMLHeadingElement[]
-    }, [$article])
+    }, [$article, updated])
 
     useEffect(() => {
       const setMaxWidth = throttle(() => {
