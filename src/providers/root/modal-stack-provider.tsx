@@ -10,7 +10,6 @@ import {
 } from 'react'
 import { AnimatePresence, m, useAnimationControls } from 'framer-motion'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
-import { selectAtom } from 'jotai/utils'
 import type { Target, Transition } from 'framer-motion'
 import type { FC, PropsWithChildren, SyntheticEvent } from 'react'
 
@@ -103,36 +102,8 @@ const ModalStack = () => {
       {stack.map((item, index) => {
         return <Modal key={item.id} item={item} index={index} />
       })}
-
-      {/* <HeaderPreventCLS /> */}
     </AnimatePresence>
   )
-}
-
-export const HeaderPreventCLS = () => {
-  const hasModal = useAtomValue(
-    useMemo(
-      () =>
-        selectAtom(modalStackAtom, (atom) => {
-          return atom.length > 0
-        }),
-      [],
-    ),
-  )
-
-  useEffect(() => {
-    if (!hasModal) return
-    /// 5px
-    const $header = document.querySelector('body > header') as HTMLElement
-    if (!$header) return
-
-    $header.style.right = '5px'
-    return () => {
-      $header.style.right = ''
-    }
-  }, [hasModal])
-
-  return null
 }
 
 const enterStyle: Target = {
