@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import type { FooterConfig } from './config'
 
 import { SubscribeTextButton } from '~/components/widgets/subscribe/SubscribeTextButton'
 import { clsxm } from '~/lib/helper'
@@ -24,7 +25,7 @@ const FooterLinkSection = async () => {
   const queryClient = await getQueryClient()
   const data = await queryClient.fetchQuery(queries.aggregation.root())
   const { footer } = data.theme
-  const footerConfig = footer || {
+  const footerConfig: FooterConfig = footer || {
     linkSections: defaultLinkSections,
   }
 

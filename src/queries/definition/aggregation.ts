@@ -1,7 +1,6 @@
 import { isServer } from '@tanstack/react-query'
 import type { AggregateRoot } from '@mx-space/api-client'
-import type { AppConfig } from '~/app/config'
-import type { FooterConfig } from '~/components/layout/footer/config'
+import type { AppThemeConfig } from '~/app/config'
 
 import { apiClient } from '~/lib/request'
 
@@ -15,7 +14,7 @@ export const aggregation = {
         apiClient.aggregate.getAggregateData('shiro').then(
           (res) =>
             res.$serialized as AggregateRoot & {
-              theme: { footer: FooterConfig; config: AppConfig }
+              theme: AppThemeConfig
             },
         ),
       cacheTime: 1000 * 60 * 10,

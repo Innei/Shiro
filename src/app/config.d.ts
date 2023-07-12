@@ -1,5 +1,26 @@
 import type { ScriptProps } from 'next/script'
 
+export interface LinkSection {
+  name: string
+  links: {
+    name: string
+    href: string
+    external?: boolean
+  }[]
+}
+
+export interface OtherInfo {
+  date: string
+  icp?: {
+    text: string
+    link: string
+  }
+}
+export interface AppThemeConfig {
+  config: AppConfig
+  footer: FooterConfig
+}
+
 export interface AppConfig {
   site: Site
   hero: Hero

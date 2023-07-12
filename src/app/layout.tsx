@@ -2,6 +2,7 @@ import '../styles/index.css'
 
 import { Analytics } from '@vercel/analytics/react'
 import type { AggregateRoot } from '@mx-space/api-client'
+import type { AppThemeConfig } from './config'
 
 import { ClerkProvider } from '@clerk/nextjs'
 
@@ -9,7 +10,6 @@ import PKG from '~/../package.json'
 import { Root } from '~/components/layout/root/Root'
 import { TocAutoScroll } from '~/components/widgets/toc/TocAutoScroll'
 import { attachUA } from '~/lib/attach-ua'
-import { defineMetadata } from '~/lib/define-metadata'
 import { sansFont, serifFont } from '~/lib/fonts'
 import { getQueryClient } from '~/lib/query-client.server'
 import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
@@ -25,12 +25,21 @@ init()
 
 export const revalidate = 60
 
-let aggregationData: (AggregateRoot & { theme: any }) | null = null
-export const generateMetadata = defineMetadata(async (_, getData) => {
-  const fetchedData = aggregationData ?? (await getData())
-  // @ts-ignore
+let aggregationData: (AggregateRoot & { theme: AppThemeConfig }) | null = null
+export const generateMetadata = async () => {
+  const queryClient = await getQueryClient()
+
+  const fetchedData =
+    aggregationData ??
+    (await queryClient.fetchQuery(queries.aggregation.root()))
+
   aggregationData = fetchedData
-  const { seo, url, user, theme: config } = fetchedData
+  const {
+    seo,
+    url,
+    user,
+    theme: { config },
+  } = fetchedData
 
   return {
     metadataBase: new URL(url.webUrl),
@@ -86,7 +95,7 @@ export const generateMetadata = defineMetadata(async (_, getData) => {
       description: seo.description,
     },
   }
-})
+}
 
 type Props = {
   children: React.ReactNode

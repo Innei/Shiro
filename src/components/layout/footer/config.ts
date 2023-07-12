@@ -1,19 +1,5 @@
-export interface LinkSection {
-  name: string
-  links: {
-    name: string
-    href: string
-    external?: boolean
-  }[]
-}
+import type { LinkSection, OtherInfo } from '~/app/config'
 
-export interface OtherInfo {
-  date: string
-  icp?: {
-    text: string
-    link: string
-  }
-}
 export const defaultLinkSections: LinkSection[] = [
   {
     name: '关于',
