@@ -4,9 +4,11 @@ import { useQuery } from '@tanstack/react-query'
 import { useCallback } from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 import { useRouter } from 'next/navigation'
+import type { Bilibili } from '~/app/config'
 
 import { getAdminUrl, isLogged, useViewport } from '~/atoms'
 import { useSingleAndDoubleClick } from '~/hooks/common/use-single-double-click'
+import { noopObj } from '~/lib/noop'
 import { Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
 import { useAppConfigSelector } from '~/providers/root/aggregation-data-provider'
@@ -23,7 +25,9 @@ const TapableLogo = () => {
     enabled: false,
   })
 
-  const { liveId } = useAppConfigSelector((config) => config.module.bilibili)!
+  const { liveId } = (useAppConfigSelector(
+    (config) => config.module?.bilibili,
+  ) || noopObj) as Bilibili
 
   const goLive = useCallback(() => {
     window.open(`https://live.bilibili.com/${liveId}`)

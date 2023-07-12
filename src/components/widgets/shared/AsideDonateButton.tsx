@@ -20,7 +20,7 @@ const overlayShowAtom = atom(false)
 
 export const AsideDonateButton = () => {
   const isClient = useIsClient()
-  const donate = useAppConfigSelector((config) => config.module.donate)!
+  const donate = useAppConfigSelector((config) => config.module?.donate)
 
   const overlayOpen = useAtomValue(overlayShowAtom)
 

@@ -12,7 +12,9 @@ import {
 
 export const SiteOwnerAvatar: Component = ({ className }) => {
   const avatar = useAggregationSelector((data) => data.user.avatar)
-  const liveId = useAppConfigSelector((config) => config.module.bilibili.liveId)
+  const liveId = useAppConfigSelector(
+    (config) => config.module?.bilibili?.liveId,
+  )
 
   const { data: isLiving } = useQuery({
     queryKey: ['live-check'],

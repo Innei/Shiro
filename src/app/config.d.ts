@@ -26,7 +26,7 @@ export interface AppConfig {
   hero: Hero
   module: Module
 
-  custom: Custom
+  custom?: Custom
 }
 export interface Custom {
   css: string[]
