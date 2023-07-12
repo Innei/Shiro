@@ -10,6 +10,7 @@ import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { CommentAreaRootLazy } from '~/components/widgets/comment'
 import { TocFAB } from '~/components/widgets/toc/TocFAB'
 import { attachUA } from '~/lib/attach-ua'
+import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
 import { getQueryClient } from '~/lib/query-client.server'
 import { CurrentPostDataProvider } from '~/providers/post/CurrentPostDataProvider'
@@ -27,15 +28,15 @@ export const generateMetadata = async ({
     const data = await getQueryClient().fetchQuery(
       queries.post.bySlug(category, slug),
     )
-    const { title, images, text } = data
+    const {
+      title,
+      category: { name },
+      text,
+    } = data
     const description = getSummaryFromMd(text ?? '')
 
-    const ogImage = images?.length
-      ? {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          url: images[0].src!,
-        }
-      : undefined
+    const ogImage = getOgUrl(title, name)
+
     return {
       title,
       description,

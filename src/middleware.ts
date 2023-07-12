@@ -5,6 +5,7 @@ import countries from '~/data/countries.json'
 
 import {
   REQUEST_GEO,
+  REQUEST_HOST,
   REQUEST_IP,
   REQUEST_PATHNAME,
   REQUEST_QUERY,
@@ -47,6 +48,7 @@ export default async function middleware(req: NextRequest) {
   requestHeaders.set(REQUEST_QUERY, search)
   requestHeaders.set(REQUEST_GEO, geo?.country || 'unknown')
   requestHeaders.set(REQUEST_IP, ip || '')
+  requestHeaders.set(REQUEST_HOST, headers.get('host') || '')
 
   const isApi = pathname.startsWith('/api/')
 

@@ -21,7 +21,6 @@ export const ScriptInjectProvider = () => {
           delete nextProps[key]
         }
 
-        console.log(nextProps)
         return <Script key={props.src} {...nextProps} />
       })}
     </>

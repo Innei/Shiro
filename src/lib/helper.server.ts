@@ -1,3 +1,9 @@
+import { headers } from 'next/dist/client/components/headers'
+
+import { REQUEST_HOST } from '~/constants/system'
+
+import { isDev } from './env'
+
 export function escapeXml(unsafe: string) {
   return unsafe.replace(/[<>&'"]/g, (c) => {
     switch (c) {
@@ -14,4 +20,18 @@ export function escapeXml(unsafe: string) {
     }
     return c
   })
+}
+
+export const getHost = () => {
+  const header = headers()
+  const host = header.get(REQUEST_HOST)
+
+  return host
+}
+
+export const getOgUrl = (title: string, subtitle: string) => {
+  const ogUrl = new URL(`${isDev ? 'http' : 'https'}://${getHost()}/api/og`)
+  ogUrl.searchParams.set('title', title)
+  ogUrl.searchParams.set('subtitle', subtitle)
+  return ogUrl
 }

@@ -8,6 +8,7 @@ import { NoteMainContainer } from '~/components/widgets/note/NoteMainContainer'
 import { TocFAB } from '~/components/widgets/toc/TocFAB'
 import { REQUEST_QUERY } from '~/constants/system'
 import { attachUA } from '~/lib/attach-ua'
+import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
 import { getQueryClient } from '~/lib/query-client.server'
 import {
@@ -18,7 +19,7 @@ import { CurrentNoteIdProvider } from '~/providers/note/CurrentNoteIdProvider'
 import { queries } from '~/queries/definition'
 
 import { Paper } from '../../../components/layout/container/Paper'
-import { Transition } from './Transtion'
+import { Transition } from './Transition'
 
 export const generateMetadata = async ({
   params,
@@ -32,26 +33,22 @@ export const generateMetadata = async ({
     const { data } = await getQueryClient().fetchQuery(
       queries.note.byNid(params.id),
     )
-    const { title, images, text } = data
+    const { title, text } = data
     const description = getSummaryFromMd(text ?? '')
 
-    const ogImage = images?.length
-      ? {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          url: images[0].src!,
-        }
-      : undefined
+    const ogUrl = getOgUrl(title, '生活记录')
+
     return {
       title,
       description,
       openGraph: {
         title,
         description,
-        images: ogImage,
+        images: ogUrl,
         type: 'article',
       },
       twitter: {
-        images: ogImage,
+        images: ogUrl,
         title,
         description,
         card: 'summary_large_image',
