@@ -10,6 +10,7 @@ import {
 } from 'react'
 import { AnimatePresence, m, useAnimationControls } from 'framer-motion'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
+import { selectAtom } from 'jotai/utils'
 import type { Target, Transition } from 'framer-motion'
 import type { FC, PropsWithChildren, SyntheticEvent } from 'react'
 
@@ -102,8 +103,36 @@ const ModalStack = () => {
       {stack.map((item, index) => {
         return <Modal key={item.id} item={item} index={index} />
       })}
+
+      {/* <HeaderPreventCLS /> */}
     </AnimatePresence>
   )
+}
+
+export const HeaderPreventCLS = () => {
+  const hasModal = useAtomValue(
+    useMemo(
+      () =>
+        selectAtom(modalStackAtom, (atom) => {
+          return atom.length > 0
+        }),
+      [],
+    ),
+  )
+
+  useEffect(() => {
+    if (!hasModal) return
+    /// 5px
+    const $header = document.querySelector('body > header') as HTMLElement
+    if (!$header) return
+
+    $header.style.right = '5px'
+    return () => {
+      $header.style.right = ''
+    }
+  }, [hasModal])
+
+  return null
 }
 
 const enterStyle: Target = {
@@ -171,6 +200,11 @@ const Modal: Component<{
         })
       })
   }, [animateController])
+
+  const ModalProps: ModalContentPropsInternal = {
+    dismiss: close,
+  }
+
   if (CustomModalComponent) {
     return (
       <Dialog.Root open onOpenChange={onClose}>
@@ -186,9 +220,7 @@ const Modal: Component<{
             >
               <div className={modalClassName} onClick={stopPropagation}>
                 <CustomModalComponent>
-                  {createElement(content, {
-                    dismiss: close,
-                  })}
+                  {createElement(content, ModalProps)}
                 </CustomModalComponent>
               </div>
             </div>
@@ -231,7 +263,7 @@ const Modal: Component<{
               <Divider className="my-2 flex-shrink-0 border-slate-200 opacity-80 dark:border-neutral-800" />
 
               <div className="min-h-0 flex-shrink flex-grow overflow-auto px-4 py-2">
-                {createElement(content)}
+                {createElement(content, ModalProps)}
               </div>
 
               <Dialog.DialogClose

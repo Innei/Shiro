@@ -12,7 +12,6 @@ import type { InfiniteData } from '@tanstack/react-query'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
 
 import { sayQueryKey } from '~/app/says/query'
-import { QUERY_KEY as ThinkingQueryKey } from '~/app/thinking/constants'
 import { setOnlineCount } from '~/atoms'
 import { setActivityMediaInfo, setActivityProcessName } from '~/atoms/activity'
 import {
@@ -196,14 +195,15 @@ export const eventHandler = (
     case EventTypes.RECENTLY_CREATE: {
       trackerRealtimeEvent()
       if (location.pathname === routeBuilder(Routes.Thinking, {})) {
-        queryClient.setQueryData<InfiniteData<RecentlyModel[]>>(
-          ThinkingQueryKey,
-          (prev) => {
-            return produce(prev, (draft) => {
-              draft?.pages[0].unshift(data as RecentlyModel)
-            })
-          },
-        )
+        // 页面上已经做了更新
+        // queryClient.setQueryData<InfiniteData<RecentlyModel[]>>(
+        //   ThinkingQueryKey,
+        //   (prev) => {
+        //     return produce(prev, (draft) => {
+        //       draft?.pages[0].unshift(data as RecentlyModel)
+        //     })
+        //   },
+        // )
       } else {
         toast.success(`写下一点小思考：\n${(data as RecentlyModel).content}`, {
           duration: 10000,

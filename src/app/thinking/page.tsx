@@ -16,7 +16,7 @@ import {
 
 import { useIsLogged } from '~/atoms'
 import { TiltedSendIcon } from '~/components/icons/TiltedSendIcon'
-import { MotionButtonBase } from '~/components/ui/button'
+import { MotionButtonBase, StyledButton } from '~/components/ui/button'
 import { Divider } from '~/components/ui/divider'
 import { TextArea } from '~/components/ui/input'
 import { Loading } from '~/components/ui/loading'
@@ -318,23 +318,26 @@ const DeleteButton = (props: { id: string }) => {
 
   return (
     <button
-      className="text-red-500"
+      className="text-red-500 hover:text-red-600 dark:hover:text-red-300"
       onClick={() => {
         present({
           title: '确定删除',
           content: ({ dismiss }) => (
             <div className="w-[300px] space-y-4">
               <div className="mt-4 flex justify-end space-x-4">
-                <MotionButtonBase
+                <StyledButton
+                  variant="primary"
                   onClick={() => {
                     handleDelete()
                     dismiss()
                   }}
-                  className="text-red-500"
+                  className="bg-zinc-100/80 text-red-500 dark:bg-neutral-900/90"
                 >
                   确定
-                </MotionButtonBase>
-                <MotionButtonBase onClick={dismiss}>取消</MotionButtonBase>
+                </StyledButton>
+                <StyledButton variant="primary" onClick={dismiss}>
+                  取消
+                </StyledButton>
               </div>
             </div>
           ),
