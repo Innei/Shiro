@@ -38,6 +38,7 @@ export const AutoResizeHeight: React.FC<AnimateChangeInHeightProps> = ({
     <m.div
       className={clsxm('overflow-hidden', className)}
       style={{ height }}
+      initial={false}
       animate={{ height }}
       transition={{ duration }}
     >

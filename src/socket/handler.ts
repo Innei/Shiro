@@ -20,6 +20,7 @@ import {
   IcTwotoneSignpost,
   MdiLightbulbOn20,
 } from '~/components/icons/menu-collection'
+import { TrackerAction } from '~/constants/tracker'
 import { isDev } from '~/lib/env'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
@@ -36,6 +37,17 @@ import {
   setGlobalCurrentPostData,
 } from '~/providers/post/CurrentPostDataProvider'
 import { EventTypes } from '~/types/events'
+
+const trackerRealtimeEvent = () => {
+  document.dispatchEvent(
+    new CustomEvent('impression', {
+      detail: {
+        action: TrackerAction.Impression,
+        label: 'Socket Realtime Event',
+      },
+    }),
+  )
+}
 
 export const eventHandler = (
   type: string,
@@ -59,6 +71,7 @@ export const eventHandler = (
           Object.assign(draft, nextPost)
         })
         toast('文章已更新')
+        trackerRealtimeEvent()
       }
       break
     }
@@ -75,6 +88,7 @@ export const eventHandler = (
         if (getGlobalCurrentPostData()?.id === post.id) {
           router.replace(routeBuilder(Routes.PageDeletd, {}))
           toast.error('文章已删除')
+          trackerRealtimeEvent()
         }
       }
 
@@ -88,6 +102,7 @@ export const eventHandler = (
           Object.assign(draft.data, note)
         })
         toast('手记已更新')
+        trackerRealtimeEvent()
       }
       break
     }
@@ -103,6 +118,7 @@ export const eventHandler = (
         if (getCurrentNoteData()?.data.id === note.id) {
           router.replace(routeBuilder(Routes.PageDeletd, {}))
           toast.error('手记已删除')
+          trackerRealtimeEvent()
         }
       }
 
@@ -116,6 +132,7 @@ export const eventHandler = (
           Object.assign(draft, data)
         })
         toast('页面已更新')
+        trackerRealtimeEvent()
       }
       break
     }
@@ -134,6 +151,7 @@ export const eventHandler = (
         duration: Infinity,
       })
 
+      trackerRealtimeEvent()
       break
     }
 
@@ -150,10 +168,12 @@ export const eventHandler = (
         duration: Infinity,
       })
 
+      trackerRealtimeEvent()
       break
     }
 
     case EventTypes.RECENTLY_CREATE: {
+      trackerRealtimeEvent()
       if (location.pathname === routeBuilder(Routes.Thinking, {})) {
         queryClient.setQueryData<InfiniteData<RecentlyModel[]>>(
           ThinkingQueryKey,
@@ -180,6 +200,7 @@ export const eventHandler = (
 
     case EventTypes.SAY_CREATE: {
       if (location.pathname === routeBuilder(Routes.Says, {})) {
+        trackerRealtimeEvent()
         queryClient.setQueryData<InfiniteData<PaginateResult<SayModel>>>(
           sayQueryKey,
           (prev) => {

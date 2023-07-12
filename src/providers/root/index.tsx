@@ -15,6 +15,7 @@ import { EventProvider } from './event-provider'
 import { JotaiStoreProvider } from './jotai-provider'
 import { ModalStackProvider } from './modal-stack-provider'
 import { PageScrollInfoProvider } from './page-scroll-info-provider'
+import { ScriptInjectProvider } from './script-inject-provider'
 import { SentryProvider } from './sentry-provider'
 import { SocketContainer } from './socket-provider'
 
@@ -41,6 +42,7 @@ export function Providers({ children }: PropsWithChildren) {
         <PageScrollInfoProvider key="PageScrollInfoProvider" />
         <DebugProvider key="debugProvider" />
         <AccentColorProvider />
+        <ScriptInjectProvider />
       </ProviderComposer>
     </>
   )

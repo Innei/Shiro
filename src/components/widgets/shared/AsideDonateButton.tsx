@@ -3,8 +3,10 @@ import { AnimatePresence, m } from 'framer-motion'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 import type { HTMLMotionProps } from 'framer-motion'
 
+import { ImpressionView } from '~/components/common/ImpressionTracker'
 import { MotionButtonBase } from '~/components/ui/button'
 import { DialogOverlay } from '~/components/ui/dlalog/DialogOverlay'
+import { TrackerAction } from '~/constants/tracker'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { clsxm } from '~/lib/helper'
 import { useAppConfigSelector } from '~/providers/root/aggregation-data-provider'
@@ -80,19 +82,24 @@ const DonateButtonTop = () => {
   const setOverlayShow = useSetAtom(overlayShowAtom)
   const buttonPos = useAtomValue(positionAtom)
   return (
-    <DonateButtonInternal
-      className="focus-visible:text-uk-brown-light focus-visible:!shadow-none"
-      style={{
-        position: 'fixed',
-        left: buttonPos.x,
-        top: buttonPos.y,
-        zIndex: 999,
-        margin: 0,
-      }}
-      onMouseLeave={() => {
-        setOverlayShow(false)
-      }}
-    />
+    <ImpressionView
+      trackerMessage="Donate Show"
+      action={TrackerAction.Impression}
+    >
+      <DonateButtonInternal
+        className="focus-visible:text-uk-brown-light focus-visible:!shadow-none"
+        style={{
+          position: 'fixed',
+          left: buttonPos.x,
+          top: buttonPos.y,
+          zIndex: 999,
+          margin: 0,
+        }}
+        onMouseLeave={() => {
+          setOverlayShow(false)
+        }}
+      />
+    </ImpressionView>
   )
 }
 

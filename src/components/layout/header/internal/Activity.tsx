@@ -11,8 +11,10 @@ import {
   setActivityProcessName,
   useActivity,
 } from '~/atoms/activity'
+import { ImpressionView } from '~/components/common/ImpressionTracker'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { softBouncePrest } from '~/constants/spring'
+import { TrackerAction } from '~/constants/tracker'
 import useDebounceValue from '~/hooks/common/use-debounce-value'
 import { usePageIsActive } from '~/hooks/common/use-is-active'
 import { apiClient } from '~/lib/request'
@@ -163,10 +165,15 @@ export const Activity = memo(() => {
                 type="tooltip"
                 strategy="fixed"
               >
-                {ownerName} 正在使用 {processName}
-                {appDescrption[processName]
-                  ? ` ${appDescrption[processName]}`
-                  : ''}
+                <ImpressionView
+                  action={TrackerAction.Impression}
+                  trackerMessage="Activity"
+                >
+                  {ownerName} 正在使用 {processName}
+                  {appDescrption[processName]
+                    ? ` ${appDescrption[processName]}`
+                    : ''}
+                </ImpressionView>
               </FloatPopover>
             </m.div>
           )}

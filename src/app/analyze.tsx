@@ -2,8 +2,15 @@
 
 import { useRef } from 'react'
 import { useServerInsertedHTML } from 'next/navigation'
+import type { TrackerAction } from '~/constants/tracker'
 
-import { apiClient } from '~/lib/request'
+declare global {
+  interface Window {
+    umami?: {
+      track: (event: string, data?: any) => void
+    }
+  }
+}
 
 export const Analyze = () => {
   const onceRef = useRef(false)
@@ -13,33 +20,39 @@ export const Analyze = () => {
     }
 
     onceRef.current = true
-    const apiBase = apiClient.proxy.fn.utils.analyze.toString(true)
+    // const apiBase = apiClient.proxy.fn.utils.analyze.toString(true)
 
     return (
       <script
         dangerouslySetInnerHTML={{
           __html:
-            `var apiBase = "${apiBase}";
-        ${function run() {
-          document.addEventListener('click', async (e) => {
-            const $ = e.target as HTMLElement
-            const event = $.dataset.event
+            `${function run() {
+              document.addEventListener(
+                'click',
+                async (e) => {
+                  const $ = e.target as HTMLElement
+                  const event = $.dataset.event
 
-            if (event) {
-              await fetch(apiBase, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
+                  if (event) {
+                    window.umami?.track(event, {
+                      type: 'click',
+                    })
+                  }
                 },
-                body: JSON.stringify({
-                  key: 'mx',
-                  event,
-                  type: 'inc',
-                }),
+                true,
+              )
+
+              document.addEventListener('impression', async (e: any) => {
+                const detail = e.detail as {
+                  action: TrackerAction
+                  label: string
+                }
+
+                window.umami?.track(detail.label, {
+                  type: 'impression',
+                })
               })
-            }
-          })
-        }.toString()}\n` + `run();`,
+            }.toString()}\n` + `run();`,
         }}
       />
     )

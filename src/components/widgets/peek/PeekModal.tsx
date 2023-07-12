@@ -2,7 +2,9 @@ import { m } from 'framer-motion'
 import Link from 'next/link'
 import type { PropsWithChildren } from 'react'
 
+import { ImpressionView } from '~/components/common/ImpressionTracker'
 import { microReboundPreset } from '~/constants/spring'
+import { TrackerAction } from '~/constants/tracker'
 import { useModalStack } from '~/providers/root/modal-stack-provider'
 
 export const PeekModal = (
@@ -14,6 +16,10 @@ export const PeekModal = (
 
   return (
     <div>
+      <ImpressionView
+        action={TrackerAction.Impression}
+        trackerMessage="Peek Modal"
+      />
       <m.div
         initial={{ opacity: 0.5, y: 50 }}
         animate={{ opacity: 1, y: 0 }}

@@ -27,7 +27,7 @@ export const PeekLink: FC<
   )
 
   return (
-    <Link href={href} onClick={handlePeek} data-event="peek" {...rest}>
+    <Link href={href} onClick={handlePeek} {...rest}>
       {children}
     </Link>
   )
