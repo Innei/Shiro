@@ -1,12 +1,9 @@
 import '../styles/index.css'
 
 import { Analytics } from '@vercel/analytics/react'
-import { cache } from 'react'
 import type { AggregateRoot } from '@mx-space/api-client'
-import type { AppConfig } from './config'
 
 import { ClerkProvider } from '@clerk/nextjs'
-import { get } from '@vercel/edge-config'
 
 import PKG from '~/../package.json'
 import { Root } from '~/components/layout/root/Root'
@@ -28,17 +25,12 @@ init()
 
 export const revalidate = 60
 
-const getAppConfig = cache(() => {
-  return get('config') as Promise<AppConfig>
-})
-
-let aggregationData: AggregateRoot | null = null
+let aggregationData: (AggregateRoot & { theme: any }) | null = null
 export const generateMetadata = defineMetadata(async (_, getData) => {
   const fetchedData = aggregationData ?? (await getData())
+  // @ts-ignore
   aggregationData = fetchedData
-  const { seo, url, user } = fetchedData
-
-  const config = await getAppConfig()
+  const { seo, url, user, theme: config } = fetchedData
 
   return {
     metadataBase: new URL(url.webUrl),
@@ -110,9 +102,10 @@ export default async function RootLayout(props: Props) {
     ...queries.aggregation.root(),
   })
 
+  const themeConfig = data.theme
+
   aggregationData = data
 
-  const appConfig = await getAppConfig()
   return (
     // <ClerkProvider localization={ClerkZhCN}>
     <ClerkProvider>
@@ -124,7 +117,10 @@ export default async function RootLayout(props: Props) {
           className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
         >
           <Providers>
-            <AggregationProvider aggregationData={data} appConfig={appConfig} />
+            <AggregationProvider
+              aggregationData={data}
+              appConfig={themeConfig.config}
+            />
 
             <Root>{children}</Root>
 

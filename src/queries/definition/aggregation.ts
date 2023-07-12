@@ -1,4 +1,7 @@
 import { isServer } from '@tanstack/react-query'
+import type { AggregateRoot } from '@mx-space/api-client'
+import type { AppConfig } from '~/app/config'
+import type { FooterConfig } from '~/components/layout/footer/config'
 
 import { apiClient } from '~/lib/request'
 
@@ -9,7 +12,12 @@ export const aggregation = {
     defineQuery({
       queryKey: ['aggregation'],
       queryFn: async () =>
-        apiClient.aggregate.getAggregateData().then((res) => res.$serialized),
+        apiClient.aggregate.getAggregateData('shiro').then(
+          (res) =>
+            res.$serialized as AggregateRoot & {
+              theme: { footer: FooterConfig; config: AppConfig }
+            },
+        ),
       cacheTime: 1000 * 60 * 10,
       meta: {
         forceHydration: true,

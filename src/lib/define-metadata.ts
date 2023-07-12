@@ -11,7 +11,7 @@ import { attachUA } from './attach-ua'
 export const defineMetadata = <T extends Record<string, string>>(
   fn: (
     params: T,
-    getAggregationData: () => Promise<AggregateRoot>,
+    getAggregationData: () => Promise<AggregateRoot & { theme: any }>,
   ) => Promise<Partial<Metadata>>,
 ) => {
   const handler = async ({ params }: { params: T }): Promise<Metadata> => {

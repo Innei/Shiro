@@ -1,10 +1,9 @@
 import Link from 'next/link'
-import type { FooterConfig } from './config'
-
-import { get } from '@vercel/edge-config'
 
 import { SubscribeTextButton } from '~/components/widgets/subscribe/SubscribeTextButton'
 import { clsxm } from '~/lib/helper'
+import { getQueryClient } from '~/lib/query-client.server'
+import { queries } from '~/queries/definition'
 
 import { defaultLinkSections } from './config'
 // import { footerConfig } from './config'
@@ -22,8 +21,12 @@ export const FooterInfo = () => {
 }
 
 const FooterLinkSection = async () => {
-  const footerConfig =
-    ((await get('footer')) as FooterConfig) || defaultLinkSections
+  const queryClient = await getQueryClient()
+  const data = await queryClient.fetchQuery(queries.aggregation.root())
+  const { footer } = data.theme
+  const footerConfig = footer || {
+    linkSections: defaultLinkSections,
+  }
 
   return (
     <div className="space-x-0 space-y-3 md:space-x-6 md:space-y-0">
@@ -119,7 +122,10 @@ const FooterBottom = async () => {
   //   }
   // }
 
-  const footerConfig = (await get('footer')) as FooterConfig
+  const queryClient = await getQueryClient()
+  const data = await queryClient.fetchQuery(queries.aggregation.root())
+  const { footer } = data.theme
+  const footerConfig = footer || {}
   const { otherInfo } = footerConfig
   const currentYear = new Date().getFullYear().toString()
   const { date = currentYear, icp } = otherInfo || {}
