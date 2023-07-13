@@ -26,7 +26,7 @@ export const NoteHideIfSecret: Component = ({ children }) => {
     const MAX_TIMEOUT = (2 ^ 31) - 1
     if (isSecret && timeout && timeout < MAX_TIMEOUT) {
       timer = setTimeout(() => {
-        toast.message('刷新以查看解锁的文章', { duration: Infinity })
+        toast('刷新以查看解锁的文章', 'info', { autoClose: false })
       }, timeout)
     }
 

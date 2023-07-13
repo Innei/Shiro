@@ -17,7 +17,7 @@ export const login = async (username?: string, password?: string) => {
   if (username && password) {
     const user = await apiClient.user.login(username, password).catch((err) => {
       console.error(err)
-      toast.error('再试试哦')
+      toast('再试试哦', 'error')
       throw err
     })
     if (user) {
@@ -26,7 +26,7 @@ export const login = async (username?: string, password?: string) => {
       jotaiStore.set(isLoggedAtom, true)
 
       await fetchAppUrl()
-      toast.success(`欢迎回来，${jotaiStore.get(ownerAtom)?.name}`)
+      toast(`欢迎回来，${jotaiStore.get(ownerAtom)?.name}`, 'success')
     }
 
     return true
@@ -36,15 +36,7 @@ export const login = async (username?: string, password?: string) => {
   if (!token) {
     return
   }
-  const outdateToast = () =>
-    toast.message('登录身份过期了，再登录一下吧！', {
-      action: {
-        label: '登录',
-        onClick: () => {
-          window.location.href = '/login'
-        },
-      },
-    })
+  const outdateToast = () => toast('登录身份过期了，再登录一下吧！', 'warning')
   const validated = await apiClient.user
     .checkTokenValid(token)
     .then((res) => !!res.ok)
@@ -63,7 +55,7 @@ export const login = async (username?: string, password?: string) => {
 
   await apiClient.user.proxy.login.put<{ token: string }>().then((res) => {
     jotaiStore.set(isLoggedAtom, true)
-    toast.message(`欢迎回来，${jotaiStore.get(ownerAtom)?.name}`)
+    toast(`欢迎回来，${jotaiStore.get(ownerAtom)?.name}`, 'success')
     setToken(res.token)
   })
 

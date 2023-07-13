@@ -43,7 +43,7 @@ const TapableLogo = () => {
         const adminUrl = getAdminUrl()
         if (adminUrl) location.href = adminUrl
         else {
-          toast.error('Admin url not found')
+          toast('Admin url not found', 'error')
         }
         return
       }

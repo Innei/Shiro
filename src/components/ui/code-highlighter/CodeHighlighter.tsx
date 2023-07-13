@@ -24,7 +24,7 @@ export const HighLighter: FC<Props> = (props) => {
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(value)
-    toast.success('COPIED!')
+    toast('COPIED!', 'success')
   }, [value])
 
   const prevThemeCSS = useRef<ReturnType<typeof loadStyleSheet>>()

@@ -161,14 +161,11 @@ export const eventHandler = (
       const { title, nid } = data as NoteModel
 
       toast.success('有新的内容发布了：' + `「${title}」`, {
-        action: {
-          label: '查看',
-          onClick: () => {
-            window.peek(`/notes/${nid}`)
-          },
+        onClick: () => {
+          window.peek(`/notes/${nid}`)
         },
-        icon: React.createElement(FaSolidFeatherAlt),
-        duration: Infinity,
+        iconElement: React.createElement(FaSolidFeatherAlt),
+        autoClose: false,
       })
 
       trackerRealtimeEvent()
@@ -178,14 +175,10 @@ export const eventHandler = (
     case EventTypes.POST_CREATE: {
       const { title, category, slug } = data as PostModel
       toast.success('有新的内容发布了：' + `「${title}」`, {
-        action: {
-          onClick: () => {
-            window.peek(`/posts/${category.slug}/${slug}`)
-          },
-          label: '查看',
+        onClick: () => {
+          window.peek(`/posts/${category.slug}/${slug}`)
         },
-        icon: React.createElement(IcTwotoneSignpost),
-        duration: Infinity,
+        iconElement: React.createElement(IcTwotoneSignpost),
       })
 
       trackerRealtimeEvent()
@@ -206,13 +199,10 @@ export const eventHandler = (
         // )
       } else {
         toast.success(`写下一点小思考：\n${(data as RecentlyModel).content}`, {
-          duration: 10000,
-          icon: React.createElement(MdiLightbulbOn20),
-          action: {
-            label: '查看',
-            onClick: () => {
-              router.push(routeBuilder(Routes.Thinking, {}))
-            },
+          autoClose: 10000,
+          iconElement: React.createElement(MdiLightbulbOn20),
+          onClick: () => {
+            router.push(routeBuilder(Routes.Thinking, {}))
           },
         })
       }
