@@ -1,3 +1,5 @@
+import { isDev } from './env'
+
 export const isTweetUrl = (url: URL) => {
   return url.hostname === 'twitter.com' && url.pathname.startsWith('/')
 }
@@ -58,6 +60,32 @@ export const isCodesandboxUrl = (url: URL) => {
   return (
     url.hostname === 'codesandbox.io' && url.pathname.split('/').length === 3
   )
+}
+
+export const isSelfArticleUrl = (url: URL) => {
+  if (isDev && url.hostname === 'innei.in') return true
+  return (
+    url.hostname === location.hostname &&
+    ['posts/', 'notes/'].some((path) => url.pathname.startsWith(path))
+  )
+}
+
+export const parseSelfArticleUrl = (url: URL) => {
+  const [_, type, ...rest] = url.pathname.split('/')
+  switch (type) {
+    case 'posts': {
+      return {
+        type,
+        slug: rest.join('/'),
+      }
+    }
+    case 'notes': {
+      return {
+        type,
+        nid: +rest[0],
+      }
+    }
+  }
 }
 
 export const parseGithubRepoUrl = (url: URL) => {

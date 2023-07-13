@@ -9,6 +9,7 @@ import {
   isGithubCommitUrl,
   isGithubFilePreviewUrl,
   isGithubRepoUrl,
+  isSelfArticleUrl,
   isTweetUrl,
   isYoutubeUrl,
   parseGithubGistUrl,
@@ -123,6 +124,9 @@ export const LinkRenderer = ({ href }: { href: string }) => {
             />
           </FixedRatioContainer>
         )
+      }
+      case isSelfArticleUrl(url): {
+        return <LinkCard source="self" id={url.pathname.slice(1)} />
       }
     }
   }
