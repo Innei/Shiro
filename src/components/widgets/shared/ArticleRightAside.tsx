@@ -74,7 +74,7 @@ const ArticleRightAsideImpl: Component = ({ children }) => {
         />
       </div>
       {React.cloneElement(children as any, {
-        className: 'ml-4 translate-y-[calc(100%+24px)]',
+        className: 'translate-y-[calc(100%+24px)]',
       })}
     </aside>
   )
