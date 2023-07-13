@@ -26,7 +26,7 @@ export const ReadIndicator: Component<{
       ref={ref}
     >
       <NumberSmoothTransition>{readPercent}</NumberSmoothTransition>%
-      {!inView && <ReadIndicatorVertical className="right-[10px]" />}
+      {!inView && <ReadIndicatorVertical className="right-[1px]" />}
     </As>
   )
 }
