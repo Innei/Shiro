@@ -1,6 +1,5 @@
 'use client'
 
-import { useId } from 'react'
 import clsx from 'clsx'
 import { m } from 'framer-motion'
 import type { FC } from 'react'
@@ -26,13 +25,11 @@ export const ToastCard: FC<{
   onClick?: () => void
 }> = (props) => {
   const { iconElement, message, closeToast, onClick } = props
-  const id = useId()
 
   const MotionTag = onClick ? m.button : m.div
 
   return (
     <MotionTag
-      layoutId={id}
       layout="position"
       className={clsx(
         'relative w-full overflow-hidden rounded-xl shadow-md shadow-slate-200 dark:shadow-stone-800',
@@ -42,6 +39,7 @@ export const ToastCard: FC<{
         'space-x-4',
         'flex items-center',
         'select-none',
+        '[&>i]:flex-shrink-0',
       )}
       onClick={onClick}
     >

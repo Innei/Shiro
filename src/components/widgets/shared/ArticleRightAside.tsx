@@ -40,7 +40,7 @@ const ArticleRightAsideImpl: Component = ({ children }) => {
 
       // if scroll to top,
       // set isScrollToTop to true
-      else if ($.scrollTop === 0) {
+      else if ($.scrollTop < 20) {
         setIsScrollToTop(true)
         setIsScrollToBottom(false)
       } else {
