@@ -30,10 +30,7 @@ export const MHeader = (props: HeadingProps) => {
         onClick={() => {
           const state = history.state
           history.replaceState(state, '', `#${id}`)
-          springScrollToElement(
-            document.getElementById(id)!,
-            -window.innerHeight / 2,
-          )
+          springScrollToElement(document.getElementById(id)!, -100)
         }}
       >
         <i className="icon-[mingcute--hashtag-line]" />
