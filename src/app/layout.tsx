@@ -149,7 +149,7 @@ const SayHi = () => {
     <script
       dangerouslySetInnerHTML={{
         __html: `var version = "${version}";
-    ${function info() {
+    (${function () {
       console.log(
         `%c Mix Space %c https://github.com/mx-space `,
         'color: #fff; margin: 1em 0; padding: 5px 0; background: #2980b9;',
@@ -171,7 +171,7 @@ Stay hungry. Stay foolish. --Steve Jobs
       if (document.firstChild?.nodeType !== Node.COMMENT_NODE) {
         document.prepend(document.createComment(motto))
       }
-    }.toString()}; info()`,
+    }.toString()})();`,
       }}
     />
   )

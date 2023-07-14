@@ -67,7 +67,7 @@ const XLogSummary: FC<{
     Inner = null
   }
 
-  if (!cid || !data.data) {
+  if (!cid || !data?.data) {
     Inner = null
   }
 

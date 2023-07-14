@@ -25,34 +25,34 @@ export const Analyze = () => {
     return (
       <script
         dangerouslySetInnerHTML={{
-          __html:
-            `${function run() {
-              document.addEventListener(
-                'click',
-                async (e) => {
-                  const $ = e.target as HTMLElement
-                  const event = $.dataset.event
+          __html: `(${function () {
+            document.addEventListener(
+              'click',
+              async (e) => {
+                const $ = e.target as HTMLElement
+                const event = $.dataset.event
 
-                  if (event) {
-                    window.umami?.track(event, {
-                      type: 'click',
-                    })
-                  }
-                },
-                true,
-              )
-
-              document.addEventListener('impression', async (e: any) => {
-                const detail = e.detail as {
-                  action: TrackerAction
-                  label: string
+                if (event) {
+                  window.umami?.track(event, {
+                    type: 'click',
+                  })
                 }
+              },
+              true,
+            )
 
-                window.umami?.track(detail.label, {
-                  type: 'impression',
-                })
+            document.addEventListener('impression', async (e: any) => {
+              const detail = e.detail as {
+                action: TrackerAction
+                label: string
+              }
+
+              console.log(detail, 'detail')
+              window.umami?.track(detail.label, {
+                type: 'impression',
               })
-            }.toString()}\n` + `run();`,
+            })
+          }.toString()})();`,
         }}
       />
     )
