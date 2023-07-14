@@ -95,6 +95,8 @@ export const Activity = memo(() => {
       refetchInterval: 1000 * 5 * 60,
       refetchOnMount: 'always',
       retry: false,
+      refetchOnReconnect: true,
+      refetchOnWindowFocus: 'always',
       enabled: isEnabled && isPageActive,
       meta: {
         persist: false,
@@ -104,7 +106,11 @@ export const Activity = memo(() => {
 
   useEffect(() => {
     if (!data) return
-    data.mediaInfo && setActivityMediaInfo(data.mediaInfo)
+    if (data.mediaInfo) {
+      setActivityMediaInfo(data.mediaInfo)
+    } else {
+      setActivityMediaInfo(null)
+    }
     setActivityProcessName(data.processName)
   }, [data])
 

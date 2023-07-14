@@ -234,6 +234,15 @@ export const eventHandler = (
       break
     }
 
+    case 'shiro#update': {
+      toast.info('站点版本已更新，请刷新页面', {
+        onClick: () => {
+          location.reload()
+        },
+      })
+      break
+    }
+
     default: {
       if (isDev) {
         console.log(type, data)

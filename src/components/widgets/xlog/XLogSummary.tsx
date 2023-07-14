@@ -22,11 +22,13 @@ const XLogSummary: FC<{
         },
       }).then((res) => res.json())
       if (!data) throw new Error('请求错误')
+      if (!data.data) throw new Error('内容暂时无法获取')
       return data
     },
     {
       enabled: !!cid,
       staleTime: 1000 * 60 * 60 * 24 * 7,
+      retryDelay: 5000,
     },
   )
 
@@ -65,7 +67,7 @@ const XLogSummary: FC<{
     Inner = null
   }
 
-  if (!cid) {
+  if (!cid || !data.data) {
     Inner = null
   }
 
