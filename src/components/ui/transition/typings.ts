@@ -2,8 +2,7 @@ import type { HTMLMotionProps, m, TargetAndTransition } from 'framer-motion'
 
 export interface BaseTransitionProps extends HTMLMotionProps<'div'> {
   duration?: number
-  onEntered?: () => void
-  appear?: boolean
+
   timeout?: {
     exit?: number
     enter?: number
@@ -16,5 +15,6 @@ export interface BaseTransitionProps extends HTMLMotionProps<'div'> {
     exit?: TargetAndTransition['transition']
   }
 
+  lcpOptimization?: boolean
   as?: keyof typeof m
 }

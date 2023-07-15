@@ -34,7 +34,12 @@ export default async (props: Props) => {
       <ul>
         {data.map((item, index) => {
           return (
-            <BottomToUpTransitionView key={item.id} as="li" delay={index * 100}>
+            <BottomToUpTransitionView
+              lcpOptimization
+              key={item.id}
+              as="li"
+              delay={index * 100}
+            >
               <PostItem data={item} />
             </BottomToUpTransitionView>
           )

@@ -5,11 +5,32 @@ import type { FC, PropsWithChildren } from 'react'
 
 import { captureException } from '@sentry/nextjs'
 
+import { StyledButton } from '../ui/button'
+
 const Noop = () => null
+
+const FallbackComponent = () => {
+  return (
+    <div className="flex w-full flex-col py-6 center">
+      Something went wrong. Please contract to{' '}
+      <a href="mailto:i@innei.ren" className="shiro-link--underline">
+        i@innei.ren
+      </a>
+      .
+      <StyledButton
+        onClick={() => {
+          window.location.reload()
+        }}
+      >
+        Reload Page
+      </StyledButton>
+    </div>
+  )
+}
 export const ErrorBoundary: FC<PropsWithChildren> = ({ children }) => {
   return (
     <ErrorBoundaryLib
-      FallbackComponent={Noop}
+      FallbackComponent={FallbackComponent}
       onError={(e) => {
         console.error(e)
 

@@ -30,6 +30,7 @@ export default function Page() {
 
             return (
               <BottomToUpTransitionView
+                lcpOptimization
                 key={item.id}
                 delay={700 + 50 * i}
                 as="li"

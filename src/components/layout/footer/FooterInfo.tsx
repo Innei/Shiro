@@ -22,7 +22,7 @@ export const FooterInfo = () => {
 }
 
 const FooterLinkSection = async () => {
-  const queryClient = await getQueryClient()
+  const queryClient = getQueryClient()
   const data = await queryClient.fetchQuery(queries.aggregation.root())
   const { footer } = data.theme
   const footerConfig: FooterConfig = footer || {
@@ -123,7 +123,7 @@ const FooterBottom = async () => {
   //   }
   // }
 
-  const queryClient = await getQueryClient()
+  const queryClient = getQueryClient()
   const data = await queryClient.fetchQuery(queries.aggregation.root())
   const { footer } = data.theme
   const footerConfig = footer || {}

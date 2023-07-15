@@ -83,7 +83,7 @@ export default async (props: NextPageParams<PageParams>) => {
     <>
       <CurrentPostDataProvider data={data} />
       <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
-        <BottomToUpTransitionView className="min-w-0">
+        <BottomToUpTransitionView lcpOptimization className="min-w-0">
           {props.children}
 
           <BottomToUpSoftScaleTransitionView delay={500}>

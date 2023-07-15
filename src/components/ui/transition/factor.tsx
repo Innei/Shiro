@@ -1,6 +1,6 @@
 'use client'
 
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
 import { m } from 'framer-motion'
 import type {
   HTMLMotionProps,
@@ -11,6 +11,7 @@ import type {
 import type { FC, PropsWithChildren } from 'react'
 import type { BaseTransitionProps } from './typings'
 
+import { isHydrationEnded } from '~/components/common/HydrationEndDetector'
 import { microReboundPreset } from '~/constants/spring'
 
 interface TransitionViewParams {
@@ -24,16 +25,16 @@ export const createTransitionView = (
   params: TransitionViewParams,
 ): FC<PropsWithChildren<BaseTransitionProps>> => {
   const { from, to, initial, preset } = params
+
   const TransitionView = (props: PropsWithChildren<BaseTransitionProps>) => {
     const {
       timeout = {},
       duration = 0.5,
-      appear = true,
 
       animation = {},
       as = 'div',
       delay = 0,
-
+      lcpOptimization = false,
       ...rest
     } = props
 
@@ -41,11 +42,17 @@ export const createTransitionView = (
 
     const MotionComponent = m[as] as FC<HTMLMotionProps<any>>
 
-    if (!appear) return props.children
-
     return (
       <MotionComponent
-        initial={{ ...(initial || from) }}
+        initial={useMemo(
+          () =>
+            lcpOptimization
+              ? isHydrationEnded()
+                ? initial || from
+                : true
+              : initial || from,
+          [],
+        )}
         animate={{
           ...to,
           transition: {
@@ -53,9 +60,6 @@ export const createTransitionView = (
             ...(preset || microReboundPreset),
             ...animation.enter,
             delay: enter / 1000,
-          },
-          onTransitionEnd() {
-            props.onEntered?.()
           },
         }}
         exit={{

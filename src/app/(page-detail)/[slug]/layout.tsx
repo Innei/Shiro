@@ -89,15 +89,15 @@ export default async (props: NextPageParams<PageParams>) => {
             <HeaderMetaInfoSetting />
             <article className="prose">
               <header className="mb-8">
-                <BottomToUpSoftScaleTransitionView delay={0}>
+                <BottomToUpSoftScaleTransitionView lcpOptimization delay={0}>
                   <PageTitle />
                 </BottomToUpSoftScaleTransitionView>
 
-                <BottomToUpSoftScaleTransitionView delay={200}>
+                <BottomToUpSoftScaleTransitionView lcpOptimization delay={200}>
                   <PageSubTitle />
                 </BottomToUpSoftScaleTransitionView>
               </header>
-              <BottomToUpTransitionView delay={600}>
+              <BottomToUpTransitionView lcpOptimization delay={600}>
                 {props.children}
               </BottomToUpTransitionView>
             </article>

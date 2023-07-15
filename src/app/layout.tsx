@@ -8,6 +8,7 @@ import type { AppThemeConfig } from './config'
 import { ClerkProvider } from '@clerk/nextjs'
 
 import PKG from '~/../package.json'
+import { HydrationEndDetector } from '~/components/common/HydrationEndDetector'
 import { Root } from '~/components/layout/root/Root'
 import { TocAutoScroll } from '~/components/widgets/toc/TocAutoScroll'
 import { attachUA } from '~/lib/attach-ua'
@@ -27,7 +28,7 @@ export const revalidate = 60
 
 let aggregationData: (AggregateRoot & { theme: AppThemeConfig }) | null = null
 export const generateMetadata = async () => {
-  const queryClient = await getQueryClient()
+  const queryClient = getQueryClient()
 
   const fetchedData =
     aggregationData ??
@@ -121,6 +122,7 @@ export default async function RootLayout(props: Props) {
       <html lang="zh-CN" className="noise" suppressHydrationWarning>
         <head>
           <SayHi />
+          <HydrationEndDetector />
         </head>
         <body
           className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}

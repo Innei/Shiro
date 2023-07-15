@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic'
 
+import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { LazyLoad } from '~/components/common/Lazyload'
 import { Loading } from '~/components/ui/loading'
 
@@ -17,8 +18,10 @@ const CommentAreaRoot = dynamic(
 
 export const CommentAreaRootLazy: typeof CommentAreaRoot = (props) => {
   return (
-    <LazyLoad placeholder={LoadingElement}>
-      <CommentAreaRoot {...props} />
-    </LazyLoad>
+    <ErrorBoundary>
+      <LazyLoad placeholder={LoadingElement}>
+        <CommentAreaRoot {...props} />
+      </LazyLoad>
+    </ErrorBoundary>
   )
 }

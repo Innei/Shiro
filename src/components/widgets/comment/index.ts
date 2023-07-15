@@ -15,8 +15,4 @@ export const CommentBoxRootLazy = dynamic(
   },
 )
 
-// export { CommentAreaRoot } from './CommentRoot'
 export { CommentAreaRootLazy } from './CommentRootLazy'
-
-// export { Comments } from './Comments'
-// export { CommentBoxRoot } from './CommentBox'

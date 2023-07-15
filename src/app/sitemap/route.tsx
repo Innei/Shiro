@@ -5,7 +5,7 @@ export const runtime = 'edge'
 export const revalidate = 60 * 60 // 1 hour
 
 export const GET = async () => {
-  const queryClient = await getQueryClient()
+  const queryClient = getQueryClient()
 
   const { data } = await queryClient.fetchQuery({
     queryKey: ['sitemap'],

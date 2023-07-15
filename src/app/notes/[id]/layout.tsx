@@ -82,8 +82,10 @@ export default async (
       <CurrentNoteDataProvider data={data} />
       <SyncNoteDataAfterLoggedIn />
 
-      <Transition className="min-w-0">
-        <Paper as={NoteMainContainer}>{props.children}</Paper>
+      <Transition className="min-w-0" lcpOptimization>
+        <Paper key={id} as={NoteMainContainer}>
+          {props.children}
+        </Paper>
         <BottomToUpSoftScaleTransitionView delay={500}>
           <CommentAreaRootLazy
             refId={noteObjectId}

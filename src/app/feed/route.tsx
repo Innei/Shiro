@@ -15,7 +15,7 @@ export const revalidate = 60 * 60 // 1 hour
 
 export async function GET() {
   const ReactDOM = (await import('react-dom/server')).default
-  const queryClient = await getQueryClient()
+  const queryClient = getQueryClient()
 
   const { author, data, url } = await queryClient.fetchQuery({
     queryKey: ['rss'],
