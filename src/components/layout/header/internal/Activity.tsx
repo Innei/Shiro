@@ -36,6 +36,8 @@ const appDescrption = {
   Finder: '发呆',
   Infuse: '看片',
   kitty: '撸猫',
+
+  'Activity Monitor': 'Maybe 电脑已死机',
 } as any
 const appLabels: { [app: string]: string } = {
   Slack: 'slack',
@@ -64,6 +66,8 @@ const appLabels: { [app: string]: string } = {
   Typora: 'typora',
   Infuse: 'infuse',
   kitty: 'kitty',
+  'Activity Monitor': 'activity',
+  Alacritty: 'alacritty',
 
   cmusic: 'cmusic',
 }
