@@ -56,8 +56,8 @@ devDependencies:
     specifier: ^8.2.0
     version: 8.2.0
   unplugin-macros:
-    specifier: 0.5.0
-    version: 0.5.0(rollup@3.26.2)
+    specifier: 0.5.1
+    version: 0.5.1(rollup@3.26.2)
   vite-tsconfig-paths:
     specifier: ^4.2.0
     version: 4.2.0(vite@4.4.4)
@@ -854,6 +854,12 @@ packages:
       acorn: 8.9.0
     dev: true
 
+  /acorn@8.10.0:
+    resolution: {integrity: sha512-F0SAmZ8iUtS//m8DmCTA0jlh6TDKkHQyK6xc6V4KDTyZKA9dnvX9/3sRTVQrWm79glUAZbnmmNcdYwUIHWVybw==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
+    dev: true
+
   /acorn@8.9.0:
     resolution: {integrity: sha512-jaVNAFBHNLXspO543WnNNPZFRtavh3skAkITqD0/2aeMkKZTN+254PyhwxFYrk3vQ1xfY+2wbesJMs/JC8/PwQ==}
     engines: {node: '>=0.4.0'}
@@ -887,8 +893,8 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /ast-kit@0.6.8(rollup@3.26.2):
-    resolution: {integrity: sha512-8mBWtshT4zQ27E6gHDJ91s8NtS05OXg9S7A2zrfuPpEx09ta8/ZaB/gHaOGpwZgKIluGn5JxzoU6HU9zOt31PQ==}
+  /ast-kit@0.6.9(rollup@3.26.2):
+    resolution: {integrity: sha512-2XZi+wqlluYQcxJ1G8qE/U0IeO5CbxUyv1lnSdD7ByJtd5Z3+1063Q6IHbRaYkka1Kb6WgGqEkBrSMaBtbHuFQ==}
     engines: {node: '>=16.14.0'}
     dependencies:
       '@babel/parser': 7.22.7
@@ -1813,7 +1819,7 @@ packages:
   /mlly@1.4.0:
     resolution: {integrity: sha512-ua8PAThnTwpprIaU47EPeZ/bPUVp2QYBbWMphUQpVdBI3Lgqzm5KZQ45Agm3YJedHXaIHl6pBGabaLSUPPSptg==}
     dependencies:
-      acorn: 8.9.0
+      acorn: 8.10.0
       pathe: 1.1.1
       pkg-types: 1.0.3
       ufo: 1.1.2
@@ -2242,12 +2248,12 @@ packages:
       unist-util-visit-parents: 5.1.3
     dev: true
 
-  /unplugin-macros@0.5.0(rollup@3.26.2):
-    resolution: {integrity: sha512-zbc0Ld1QoTvwfrUb3gJuqJ7tk1Uhr+VpQpf4UxrDfUJtnC+ToAy31hwi3NszEdcRozU3ghHLL5KrW0IalkY9rw==}
+  /unplugin-macros@0.5.1(rollup@3.26.2):
+    resolution: {integrity: sha512-kk4CDjhORrJIjlick3GzAMX6OHpX7tATQKVwuCJmXybjiERSg5eqE6F+dBV2k4jelH6UKpc4cqSOqLKRIyIRsg==}
     engines: {node: '>=16.14.0'}
     dependencies:
       '@rollup/pluginutils': 5.0.2(rollup@3.26.2)
-      ast-kit: 0.6.8(rollup@3.26.2)
+      ast-kit: 0.6.9(rollup@3.26.2)
       magic-string: 0.30.1
       magic-string-ast: 0.1.3
       unplugin: 1.3.2
@@ -2268,7 +2274,7 @@ packages:
   /unplugin@1.3.2:
     resolution: {integrity: sha512-Lh7/2SryjXe/IyWqx9K7IKwuKhuOFZEhotiBquOODsv2IVyDkI9lv/XhgfjdXf/xdbv32txmnBNnC/JVTDJlsA==}
     dependencies:
-      acorn: 8.9.0
+      acorn: 8.10.0
       chokidar: 3.5.3
       webpack-sources: 3.2.3
       webpack-virtual-modules: 0.5.0
