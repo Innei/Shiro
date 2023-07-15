@@ -24,10 +24,10 @@ const options = {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    Macros(),
+    Macros({
+      enforce: 'pre',
+    }),
     react(),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-
     tsConfigPaths(),
     mdx(options),
     ViteRestart({
