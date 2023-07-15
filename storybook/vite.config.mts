@@ -24,9 +24,7 @@ const options = {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    Macros.vite({
-      enforce: 'pre',
-    }),
+    Macros.vite(),
     react(),
     tsConfigPaths(),
     mdx(options),
