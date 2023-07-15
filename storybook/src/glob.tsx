@@ -4,9 +4,10 @@ import type { DocumentComponent, DocumentPageMeta } from '../typings'
 
 import { Markdown } from './components/Mardown'
 
+import { GLOB_PATH } from '../config' assert { type: 'macro' }
 // TODO find project root
 const modulesPath2PromiseMapping = import.meta.glob(
-  '../../src/components/ui/*/index.demo.(tsx|mdx)',
+  GLOB_PATH(),
 
   {},
 )
