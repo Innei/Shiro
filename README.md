@@ -8,7 +8,7 @@ A theme for [Mix Space](https://github.com/mx-space)
 
 Demo:
 
-- [innei.in](innei.in)
+- [innei.in](https://innei.in)
 
 ## License
 
