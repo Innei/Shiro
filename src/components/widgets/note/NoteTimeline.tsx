@@ -55,10 +55,6 @@ const NoteTimelineImpl = () => {
     },
   )
 
-  if (!timelineData) {
-    return null
-  }
-
   const initialData = note
     ? [
         {

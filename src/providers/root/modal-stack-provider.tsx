@@ -189,7 +189,7 @@ const Modal: Component<{
               )}
               onClick={clickOutsideToDismiss ? dismiss : undefined}
             >
-              <div className={modalClassName} onClick={stopPropagation}>
+              <div className="contents" onClick={stopPropagation}>
                 <CustomModalComponent>
                   {createElement(content, ModalProps)}
                 </CustomModalComponent>

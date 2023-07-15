@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs'
 import path, { resolve } from 'node:path'
 import react from '@vitejs/plugin-react'
 import { parse } from 'dotenv'
+import Macros from 'unplugin-macros/vite'
 import { defineConfig } from 'vite'
 import ViteRestart from 'vite-plugin-restart'
 import tsConfigPaths from 'vite-tsconfig-paths'
@@ -23,6 +24,7 @@ const options = {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    Macros(),
     react(),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 
