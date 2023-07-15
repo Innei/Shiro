@@ -14,7 +14,7 @@ export const HeaderDrawerContent = () => {
   const { config } = useHeaderConfig()
 
   return (
-    <div className="mt-12 max-h-screen w-[90vw] space-y-4 overflow-auto pb-8 scrollbar-none">
+    <div className="mt-12 max-h-screen w-[90vw] space-y-4 overflow-auto pb-24 scrollbar-none">
       {config.map((section, index) => {
         return (
           <m.section

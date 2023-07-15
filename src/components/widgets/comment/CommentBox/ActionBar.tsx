@@ -115,10 +115,12 @@ export const CommentBoxActionBar: Component = ({ className }) => {
           'flex-1 select-none text-[10px] text-zinc-500 transition-opacity',
         )}
       >
-        支持 <b>Markdown</b> 与{' '}
-        <MLink href="https://docs.github.com/zh/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax">
-          GFM
-        </MLink>
+        <span className="hidden md:inline">
+          支持 <b>Markdown</b> 与{' '}
+          <MLink href="https://docs.github.com/zh/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax">
+            GFM
+          </MLink>
+        </span>
         <CommentBoxSlotProvider />
       </span>
       <AnimatePresence>

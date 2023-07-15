@@ -169,7 +169,7 @@ const FooterBottom = async () => {
           </>
         )}
 
-        <Divider />
+        <Divider className="hidden md:inline" />
         <GatewayCount />
         {/* {!!lastVisitor && (
           <>

@@ -78,7 +78,7 @@ export const UniversalTextArea = () => {
 const EmojiButton = () => {
   return (
     <button
-      className="ml-4 inline-flex h-5 w-5 translate-y-1 text-base center"
+      className="ml-0 inline-flex h-5 w-5 translate-y-1 text-base center md:ml-4"
       onClick={preventDefault}
     >
       <i className="icon-[mingcute--emoji-2-line]" />

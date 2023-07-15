@@ -1,4 +1,4 @@
-import { isDev } from './env'
+import { isClientSide, isDev } from './env'
 
 export const isTweetUrl = (url: URL) => {
   return url.hostname === 'twitter.com' && url.pathname.startsWith('/')
@@ -63,6 +63,7 @@ export const isCodesandboxUrl = (url: URL) => {
 }
 
 export const isSelfArticleUrl = (url: URL) => {
+  if (!isClientSide) return false
   if (isDev && url.hostname === 'innei.in') return true
   return (
     url.hostname === location.hostname &&

@@ -9,6 +9,7 @@ import { GATEWAY_URL } from '~/constants/env'
 import { isDev } from '~/lib/env'
 
 import { eventHandler } from './handler'
+import { setSocketIsConnect } from './hooks'
 
 class SocketClient {
   public socket!: Socket
@@ -33,6 +34,15 @@ class SocketClient {
     if (!this.socket) {
       return
     }
+
+    this.socket.on('connect', () => {
+      setSocketIsConnect(true)
+    })
+
+    this.socket.on('disconnect', () => {
+      setSocketIsConnect(false)
+    })
+
     this.socket.close()
     this.socket.open()
     this.socket.on(
@@ -70,7 +80,9 @@ class SocketClient {
       }
     })
   }
+
+  static shared = new SocketClient()
 }
 
-export const socketClient = new SocketClient()
+export const socketClient = SocketClient.shared
 export type TSocketClient = SocketClient
