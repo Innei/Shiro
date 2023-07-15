@@ -6,11 +6,7 @@ import { Markdown } from './components/Mardown'
 
 import { GLOB_PATH } from '../config' assert { type: 'macro' }
 // TODO find project root
-const modulesPath2PromiseMapping = import.meta.glob(
-  GLOB_PATH(),
-
-  {},
-)
+const modulesPath2PromiseMapping = import.meta.glob(GLOB_PATH)
 
 // const mdxPath2PromiseMapping = import.meta.glob('../../*/index.demo.mdx', {
 //   as: 'raw',
