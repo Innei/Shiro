@@ -20,8 +20,13 @@ let nextConfig = {
   experimental: {
     appDir: true,
     serverComponentsExternalPackages: ['shiki', 'vscode-oniguruma'],
-    serverActions: true,
     serverMinification: true,
+
+    // @see https://vercel.com/blog/version-skew-protection
+    useDeploymentId: true,
+    // If use with serverActions is desired
+    serverActions: true,
+    useDeploymentIdServerActions: true,
   },
 
   images: {

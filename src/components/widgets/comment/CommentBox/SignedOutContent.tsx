@@ -22,7 +22,7 @@ export function CommentBoxSignedOutContent() {
           setCommentMode(CommentBoxMode.legacy)
         }}
       >
-        转换到传统评论
+        免登录评论
       </StyledButton>
       <SignInButton mode="modal" redirectUrl={urlBuilder(pathname).href}>
         <StyledButton variant="primary" type="button">
