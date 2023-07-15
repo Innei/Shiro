@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import path, { resolve } from 'node:path'
 import react from '@vitejs/plugin-react'
 import { parse } from 'dotenv'
-import Macros from 'unplugin-macros/vite'
+import Macros from 'unplugin-macros'
 import { defineConfig } from 'vite'
 import ViteRestart from 'vite-plugin-restart'
 import tsConfigPaths from 'vite-tsconfig-paths'
@@ -24,7 +24,7 @@ const options = {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    Macros({
+    Macros.vite({
       enforce: 'pre',
     }),
     react(),
@@ -46,6 +46,12 @@ export default defineConfig({
       'next/link': resolve(__dirname, './mock-packages/next_link'),
       'next/dynamic': resolve(__dirname, './mock-packages/next_dynamic'),
       '~': resolve(__dirname, '../src'),
+    },
+  },
+
+  optimizeDeps: {
+    esbuildOptions: {
+      plugins: [Macros.esbuild()],
     },
   },
 })
