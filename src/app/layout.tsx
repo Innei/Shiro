@@ -158,7 +158,7 @@ const SayHi = () => {
         'margin: 1em 0; padding: 5px 0; background: #efefef;',
       )
       console.log(
-        `%c Shiro ${version} %c https://innei.ren `,
+        `%c Shiro ${window.version} %c https://innei.ren `,
         'color: #fff; margin: 1em 0; padding: 5px 0; background: #39C5BB;',
         'margin: 1em 0; padding: 5px 0; background: #efefef;',
       )
@@ -177,4 +177,10 @@ Stay hungry. Stay foolish. --Steve Jobs
       }}
     />
   )
+}
+
+declare global {
+  interface Window {
+    version: string
+  }
 }
