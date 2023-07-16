@@ -40,11 +40,12 @@ export const ToastCard: FC<{
         'flex items-center',
         'select-none',
         '[&>i]:flex-shrink-0',
+        '[&>svg]:flex-shrink-0',
       )}
       onClick={onClick}
     >
       {iconElement ?? typeMap[props.toastProps?.type ?? 'default']}
-      <span>{message}</span>
+      <span className="text-left">{message}</span>
 
       <MotionButtonBase
         aria-label="Close toast"
