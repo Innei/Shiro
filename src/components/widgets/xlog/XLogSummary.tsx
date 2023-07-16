@@ -46,7 +46,15 @@ const XLogSummary: FC<{
 
       <AutoResizeHeight duration={0.3}>
         <p className="text-base-content/85 !m-0 text-sm leading-loose">
-          {isLoading ? '加载中...' : error ? '请求错误' : data?.data}
+          {isLoading ? (
+            <div className="space-y-2">
+              <span className="block h-5 w-full animate-pulse rounded-xl bg-zinc-200 dark:bg-neutral-800" />
+              <span className="block h-5 w-full animate-pulse rounded-xl bg-zinc-200 dark:bg-neutral-800" />
+              <span className="block h-5 w-full animate-pulse rounded-xl bg-zinc-200 dark:bg-neutral-800" />
+            </div>
+          ) : (
+            data?.data
+          )}
         </p>
         {isLoading && (
           <p className="border-slate-200 text-right text-sm dark:border-slate-800 ">
@@ -60,9 +68,8 @@ const XLogSummary: FC<{
       </AutoResizeHeight>
     </div>
   )
-  console.log(data, cid)
 
-  if (!cid || !data?.data) {
+  if (!cid || error) {
     Inner = null
   }
 
