@@ -1,7 +1,7 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import React, { memo, useEffect, useMemo, useState } from 'react'
+import React, { memo, useEffect, useMemo } from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 import Image from 'next/image'
 import type { RequestError } from '@mx-space/api-client'
@@ -18,7 +18,10 @@ import { TrackerAction } from '~/constants/tracker'
 import useDebounceValue from '~/hooks/common/use-debounce-value'
 import { usePageIsActive } from '~/hooks/common/use-is-active'
 import { apiClient } from '~/lib/request'
-import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
+import {
+  useAggregationSelector,
+  useAppConfigSelector,
+} from '~/providers/root/aggregation-data-provider'
 
 // autocorrect: false
 const appDescrption = {
@@ -73,15 +76,18 @@ const appLabels: { [app: string]: string } = {
 }
 // autocorrect: true
 export const Activity = memo(() => {
-  const [isEnabled, setIsEnabled] = useState(true)
-
+  const activityConfig = useAppConfigSelector(
+    (config) => config.module.activity,
+  )
+  const { enable = false, endpoint = '/fn/ps/update' } = activityConfig || {}
   const activity = useActivity()
 
   const isPageActive = usePageIsActive()
   const { data } = useQuery(
     ['activity'],
     async () => {
-      return await apiClient.proxy.fn.ps.update
+      return await apiClient
+        .proxy(endpoint)
         .post<{
           processName: string
           mediaInfo?: {
@@ -91,7 +97,6 @@ export const Activity = memo(() => {
         }>()
         .then((res) => res)
         .catch((err: RequestError) => {
-          setIsEnabled(false)
           return { processName: '', mediaInfo: undefined }
         })
     },
@@ -101,7 +106,7 @@ export const Activity = memo(() => {
       retry: false,
       refetchOnReconnect: true,
       refetchOnWindowFocus: 'always',
-      enabled: isEnabled && isPageActive,
+      enabled: enable && isPageActive,
       meta: {
         persist: false,
       },

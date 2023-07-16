@@ -53,6 +53,10 @@ export interface TemplateItem {
 export interface Module {
   donate: Donate
   bilibili: Bilibili
+  activity: {
+    enable: boolean
+    endpoint: string
+  }
 }
 export interface Donate {
   enable: boolean
