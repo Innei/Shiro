@@ -116,71 +116,83 @@ export default async function RootLayout(props: Props) {
 
   aggregationData = data
 
-  const installswcode = `    <script>
-      //判断非本机且未使用https 时，强制重定向到https。
-      if ((!window.location.host.startsWith("localhost")) && (window.location.protocol == "http:")) {
-        window.location = window.location.toString().replace(/^http:/, "https:");
-      }
-    </script>
-    <script>
-      // 判断是否为主域名
-      if (window.location.host.startsWith("tnxg.top") || window.location.host.startsWith("localhost")) {
-        // 如果有旧版本的CW，先卸载
-        if (localStorage.getItem('cw_installed') == 'true') {
-          console.log('[TNXG_SW]检测到旧版本的CW，正在卸载...');
-          navigator.serviceWorker.getRegistrations()
-            .then(function(registrations) {
-              for (let registration of registrations) {
-                registration.unregister()
-              }
-            })
-          localStorage.removeItem('cw_installed');
-          fetch(window.location.href)
-            .then(res => res.text())
-            .then(text => {
-              document.open()
-              document.write(text);
-              document.close();
-            });
-        } else {
-          if (!!navigator.serviceWorker) {
-            navigator.serviceWorker.register('/sw.js?t=' + new Date().getTime())
-              .then(async (registration) => {
-                if (localStorage.getItem('TNXG_SW_installed') !== 'true') {
-                  localStorage.setItem('TNXG_SW_installed', 'true');
-                  console.log('[TNXG_SW] 安装成功，正在重载页面！');
-                  fetch(window.location.href)
-                    .then(res => res.text())
-                    .then(text => {
-                      document.open()
-                      document.write(text);
-                      document.close();
-                    });
-                }
-              }).catch(err => {
-                console.error('[TNXG_SW] 安装失败，原因： ' + err.message);
-              });
-          } else {
-            console.error('[TNXG_SW] 安装失败，原因： 浏览器不支持service worker');
-          }
-        }
-      } else {
-        fetch('https://assets.tnxg.whitenuo.cn/data/blog_error.html')
-          .then(res => res.text())
-          .then(text => {
-            document.open()
-            document.write(text);
-            document.close();
-          });
-      }
-    </script>`
-
   return (
     // <ClerkProvider localization={ClerkZhCN}>
     <ClerkProvider>
       <html lang="zh-CN" className="noise" suppressHydrationWarning>
         <head>
-          <script>{installswcode}<script/>
+        <script
+      dangerouslySetInnerHTML={{
+        __html: `
+          // 判断非本机且未使用https 时，强制重定向到https
+          if (
+            (!window.location.host.startsWith("localhost")) &&
+            (window.location.protocol === "http:")
+          ) {
+            window.location = window.location.toString().replace(/^http:/, "https:");
+          }
+        `
+      }}
+    />
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `
+          // 判断是否为主域名
+          if (
+            window.location.host.startsWith("tnxg.top") ||
+            window.location.host.startsWith("localhost")
+          ) {
+            // 如果有旧版本的CW，先卸载
+            if (localStorage.getItem('cw_installed') === 'true') {
+              console.log('[TNXG_SW]检测到旧版本的CW，正在卸载...');
+              navigator.serviceWorker.getRegistrations()
+                .then(function(registrations) {
+                  for (let registration of registrations) {
+                    registration.unregister();
+                  }
+                });
+              localStorage.removeItem('cw_installed');
+              fetch(window.location.href)
+                .then(res => res.text())
+                .then(text => {
+                  document.open();
+                  document.write(text);
+                  document.close();
+                });
+            } else {
+              if (!!navigator.serviceWorker) {
+                navigator.serviceWorker.register('/sw.js?t=' + new Date().getTime())
+                  .then(async (registration) => {
+                    if (localStorage.getItem('TNXG_SW_installed') !== 'true') {
+                      localStorage.setItem('TNXG_SW_installed', 'true');
+                      console.log('[TNXG_SW] 安装成功，正在重载页面！');
+                      fetch(window.location.href)
+                        .then(res => res.text())
+                        .then(text => {
+                          document.open();
+                          document.write(text);
+                          document.close();
+                        });
+                    }
+                  }).catch(err => {
+                    console.error('[TNXG_SW] 安装失败，原因： ' + err.message);
+                  });
+              } else {
+                console.error('[TNXG_SW] 安装失败，原因： 浏览器不支持service worker');
+              }
+            }
+          } else {
+            fetch('https://assets.tnxg.whitenuo.cn/data/blog_error.html')
+              .then(res => res.text())
+              .then(text => {
+                document.open();
+                document.write(text);
+                document.close();
+              });
+          }
+        `
+      }}
+    />
           <SayHi />
           <HydrationEndDetector />
         </head>
