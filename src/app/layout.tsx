@@ -116,12 +116,71 @@ export default async function RootLayout(props: Props) {
 
   aggregationData = data
 
+  const installswcode = `    <script>
+      //判断非本机且未使用https 时，强制重定向到https。
+      if ((!window.location.host.startsWith("localhost")) && (window.location.protocol == "http:")) {
+        window.location = window.location.toString().replace(/^http:/, "https:");
+      }
+    </script>
+    <script>
+      // 判断是否为主域名
+      if (window.location.host.startsWith("tnxg.top") || window.location.host.startsWith("localhost")) {
+        // 如果有旧版本的CW，先卸载
+        if (localStorage.getItem('cw_installed') == 'true') {
+          console.log('[TNXG_SW]检测到旧版本的CW，正在卸载...');
+          navigator.serviceWorker.getRegistrations()
+            .then(function(registrations) {
+              for (let registration of registrations) {
+                registration.unregister()
+              }
+            })
+          localStorage.removeItem('cw_installed');
+          fetch(window.location.href)
+            .then(res => res.text())
+            .then(text => {
+              document.open()
+              document.write(text);
+              document.close();
+            });
+        } else {
+          if (!!navigator.serviceWorker) {
+            navigator.serviceWorker.register('/sw.js?t=' + new Date().getTime())
+              .then(async (registration) => {
+                if (localStorage.getItem('TNXG_SW_installed') !== 'true') {
+                  localStorage.setItem('TNXG_SW_installed', 'true');
+                  console.log('[TNXG_SW] 安装成功，正在重载页面！');
+                  fetch(window.location.href)
+                    .then(res => res.text())
+                    .then(text => {
+                      document.open()
+                      document.write(text);
+                      document.close();
+                    });
+                }
+              }).catch(err => {
+                console.error('[TNXG_SW] 安装失败，原因： ' + err.message);
+              });
+          } else {
+            console.error('[TNXG_SW] 安装失败，原因： 浏览器不支持service worker');
+          }
+        }
+      } else {
+        fetch('https://assets.tnxg.whitenuo.cn/data/blog_error.html')
+          .then(res => res.text())
+          .then(text => {
+            document.open()
+            document.write(text);
+            document.close();
+          });
+      }
+    </script>`
+
   return (
     // <ClerkProvider localization={ClerkZhCN}>
     <ClerkProvider>
       <html lang="zh-CN" className="noise" suppressHydrationWarning>
         <head>
-          <installsw />
+          <script>{installswcode}<script/>
           <SayHi />
           <HydrationEndDetector />
         </head>
@@ -147,108 +206,34 @@ export default async function RootLayout(props: Props) {
   )
 }
 
-const installsw = () => {
-  return (
-      <script>
-        {`
-        // 判断非本机且未使用https时，强制重定向到https
-        if (
-          (!window.location.host.startsWith("localhost")) &&
-          (window.location.protocol == "http:")
-        ) {
-          window.location = window.location.toString().replace(/^http:/, "https:");
-        }
-        `}
-      </script>
-      <script>
-        {`
-        // 判断是否为主域名
-        if (
-          window.location.host.startsWith("tnxg.top") ||
-          window.location.host.startsWith("localhost")
-        ) {
-          // 如果有旧版本的CW，先卸载
-          if (localStorage.getItem('cw_installed') == 'true') {
-            console.log('[TNXG_SW]检测到旧版本的CW，正在卸载...');
-            navigator.serviceWorker.getRegistrations()
-              .then(function (registrations) {
-                for (let registration of registrations) {
-                  registration.unregister()
-                }
-              })
-            localStorage.removeItem('cw_installed');
-            fetch(window.location.href)
-              .then(res => res.text())
-              .then(text => {
-                document.open()
-                document.write(text);
-                document.close();
-              });
-          } else {
-            if (!!navigator.serviceWorker) {
-              navigator.serviceWorker.register('/sw.js?t=' + new Date().getTime())
-                .then(async (registration) => {
-                  if (localStorage.getItem('TNXG_SW_installed') !== 'true') {
-                    localStorage.setItem('TNXG_SW_installed', 'true');
-                    console.log('[TNXG_SW] 安装成功，正在重载页面！');
-                    fetch(window.location.href)
-                      .then(res => res.text())
-                      .then(text => {
-                        document.open()
-                        document.write(text);
-                        document.close();
-                      });
-                  }
-                }).catch(err => {
-                  console.error('[TNXG_SW] 安装失败，原因： ' + err.message);
-                });
-            } else {
-              console.error('[TNXG_SW] 安装失败，原因： 浏览器不支持service worker');
-            }
-          }
-        } else {
-          fetch('https://assets.tnxg.whitenuo.cn/data/blog_error.html')
-            .then(res => res.text())
-            .then(text => {
-              document.open()
-              document.write(text);
-              document.close();
-            });
-        }
-        `}
-      </script>
-  );
-};
-
-
 const SayHi = () => {
   return (
     <script
       dangerouslySetInnerHTML={{
         __html: `var version = "${version}";
     (${function () {
-            console.log(
-              `%c Mix Space %c https://github.com/mx-space `,
-              'color: #fff; margin: 1em 0; padding: 5px 0; background: #2980b9;',
-              'margin: 1em 0; padding: 5px 0; background: #efefef;',
-            )
-            console.log(
-              `%c Shiro ${window.version} %c https://innei.ren `,
-              'color: #fff; margin: 1em 0; padding: 5px 0; background: #39C5BB;',
-              'margin: 1em 0; padding: 5px 0; background: #efefef;',
-            )
+      console.log(
+        `%c Mix Space %c https://github.com/mx-space `,
+        'color: #fff; margin: 1em 0; padding: 5px 0; background: #2980b9;',
+        'margin: 1em 0; padding: 5px 0; background: #efefef;',
+      )
+      console.log(
+        `%c Shiro ${window.version} %c https://innei.ren `,
+        'color: #fff; margin: 1em 0; padding: 5px 0; background: #39C5BB;',
+        'margin: 1em 0; padding: 5px 0; background: #efefef;',
+      )
 
-            const motto = `
+      const motto = `
 This Personal Space Powered By Mix Space.
 Written by TypeScript, Coding with Love.
 --------
 Stay hungry. Stay foolish. --Steve Jobs
 `
 
-            if (document.firstChild?.nodeType !== Node.COMMENT_NODE) {
-              document.prepend(document.createComment(motto))
-            }
-          }.toString()})();`,
+      if (document.firstChild?.nodeType !== Node.COMMENT_NODE) {
+        document.prepend(document.createComment(motto))
+      }
+    }.toString()})();`,
       }}
     />
   )
