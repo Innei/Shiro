@@ -1,3 +1,5 @@
+'use client'
+
 import { DialogContent, DialogPortal, Root } from '@radix-ui/react-dialog'
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, m } from 'framer-motion'

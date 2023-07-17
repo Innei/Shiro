@@ -1,3 +1,5 @@
+'use client'
+
 import dayjs from 'dayjs'
 import type { FC } from 'react'
 

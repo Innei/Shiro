@@ -19,6 +19,7 @@ import { CurrentNoteIdProvider } from '~/providers/note/CurrentNoteIdProvider'
 import { queries } from '~/queries/definition'
 
 import { Paper } from '../../../components/layout/container/Paper'
+import NotePage from './pageImpl'
 import { Transition } from './Transition'
 
 export const generateMetadata = async ({
@@ -84,7 +85,7 @@ export default async (
 
       <Transition className="min-w-0" lcpOptimization>
         <Paper key={id} as={NoteMainContainer}>
-          {props.children}
+          <NotePage {...data.data} />
         </Paper>
         <BottomToUpSoftScaleTransitionView delay={500}>
           <CommentAreaRootLazy

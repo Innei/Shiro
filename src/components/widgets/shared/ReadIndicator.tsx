@@ -5,9 +5,7 @@ import { useInView } from 'react-intersection-observer'
 import type { ElementType } from 'react'
 
 import { useIsMobile } from '~/atoms'
-import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
 import { RootPortal } from '~/components/ui/portal'
-import useDebounceValue from '~/hooks/common/use-debounce-value'
 import { useReadPercent } from '~/hooks/shared/use-read-percent'
 import { clsxm } from '~/lib/helper'
 import { useIsEOWrappedElement } from '~/providers/shared/WrappedElementProvider'
@@ -15,7 +13,7 @@ import { useIsEOWrappedElement } from '~/providers/shared/WrappedElementProvider
 export const ReadIndicator: Component<{
   as?: ElementType
 }> = ({ className, as }) => {
-  const readPercent = useDebounceValue(useReadPercent(), 200)
+  const readPercent = useReadPercent()
   const As = as || 'span'
 
   const { ref, inView } = useInView()
@@ -25,7 +23,7 @@ export const ReadIndicator: Component<{
       className={clsxm('text-gray-800 dark:text-neutral-300', className)}
       ref={ref}
     >
-      <NumberSmoothTransition>{readPercent}</NumberSmoothTransition>%
+      {readPercent}%
       {!inView && <ReadIndicatorVertical className="right-[1px]" />}
     </As>
   )

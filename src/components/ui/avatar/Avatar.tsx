@@ -1,3 +1,5 @@
+'use client'
+
 import React, { createElement, useRef, useState } from 'react'
 import type { DetailedHTMLProps, FC, ImgHTMLAttributes } from 'react'
 
