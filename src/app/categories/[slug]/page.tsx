@@ -14,7 +14,7 @@ import { getPageBySlugQuery } from './query'
 export default function Page() {
   const { slug } = useParams()
   const { data } = useQuery({
-    ...getPageBySlugQuery(slug),
+    ...getPageBySlugQuery(slug as string),
     enabled: false,
   })
   if (!data) throw new Error('data is lost :(')
@@ -48,7 +48,7 @@ export default function Page() {
                   prefetch={false}
                   href={routeBuilder(Routes.Post, {
                     slug: child.slug,
-                    category: slug,
+                    category: slug as string,
                   })}
                   className="min-w-0 truncate"
                 >

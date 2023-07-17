@@ -68,7 +68,7 @@ export default ({ error, reset }: { error: Error; reset: () => void }) => {
 const NoteSetCurrnetId = () => {
   const { id } = useParams()
   useEffect(() => {
-    setCurrentNoteId(id)
+    setCurrentNoteId(id as string)
   }, [id])
   return null
 }
