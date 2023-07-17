@@ -1,1 +1,1 @@
-importScripts('https://mx.tnxg.top/api/v2/snippets/js/sw')
+importScripts('https://api-space.tnxg.top/sw.js')
