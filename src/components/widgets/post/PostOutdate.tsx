@@ -1,3 +1,5 @@
+'use client'
+
 import dayjs from 'dayjs'
 
 import { Banner } from '~/components/ui/banner'

@@ -15,7 +15,7 @@ export default function Page() {
     queryKey: [id, 'project'],
     queryFn: async ({ queryKey }) => {
       const [id] = queryKey
-      return apiClient.project.getById(id)
+      return apiClient.project.getById(id as string)
     },
   })
   const router = useRouter()

@@ -17,6 +17,8 @@ import { CurrentPostDataProvider } from '~/providers/post/CurrentPostDataProvide
 import { LayoutRightSideProvider } from '~/providers/shared/LayoutRightSideProvider'
 import { queries } from '~/queries/definition'
 
+import PostPage from './pageImpl'
+
 export const generateMetadata = async ({
   params,
 }: {
@@ -84,7 +86,7 @@ export default async (props: NextPageParams<PageParams>) => {
       <CurrentPostDataProvider data={data} />
       <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
         <BottomToUpTransitionView lcpOptimization className="min-w-0">
-          {props.children}
+          <PostPage {...data} />
 
           <BottomToUpSoftScaleTransitionView delay={500}>
             <CommentAreaRootLazy
