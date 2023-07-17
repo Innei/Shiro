@@ -166,6 +166,7 @@ export default async function RootLayout(props: Props) {
     `
   }}
 />
+    <script dangerouslySetInnerHTML={{ __html: `navigator.serviceWorker.controller.postMessage(location.href);` }} />
 
           <SayHi />
           <HydrationEndDetector />
