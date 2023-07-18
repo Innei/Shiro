@@ -214,7 +214,7 @@ const Welcome = () => {
           )}
         >
           <small>
-            欢迎，来到这个小小的宇宙，一个闪烁着光彩的星球，等待着你的探索。
+            当第一颗卫星飞向大气层外，我们便以为自己终有一日会征服宇宙。
           </small>
           <span className="mt-8 animate-bounce">
             <i className="icon-[mingcute--right-line] rotate-90 text-2xl" />
@@ -242,9 +242,9 @@ const PostScreen = () => {
           transition={softSpringPreset}
           className="text-2xl font-medium leading-loose"
         >
-          看看最近我又在折腾啥捏
+          这里或许有那么一些对于生活的感慨
           <br />
-          随便水水文章，重在折腾。
+          也或许有那么一些对于技术的记录。
         </m.h2>
         <div>
           <ul className="space-y-4">
@@ -349,7 +349,7 @@ const NoteScreen = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={softBouncePrest}
             >
-              看看我的近况，这是我最近的所思所想
+              看看我的近况，我的所思所想、所作所为
             </m.h3>
             <Link href={routeBuilder(Routes.Note, { id: theLast.nid })}>
               <m.div
@@ -472,6 +472,10 @@ const NoteScreen = () => {
           而在这里，你会看到一个不同的我，
           <br />
           一个在生活中发现美，感受痛苦，洞察人性的我。
+          <br />
+          我 支持开源，热爱开源，拥护开源
+          <br />
+          热爱着ACG文化，因为热爱所以奉献
         </m.h2>
       </TwoColumnLayout>
     </Screen>
