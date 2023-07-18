@@ -155,7 +155,7 @@ const FooterBottom = async () => {
           </SubscribeTextButton>
         </span>
           <span className="mt-3 block md:mt-0 md:inline">
-          Don't forget that even a small step forward is progress.
+          Don&apos;t forget that even a small step forward is progress.
         </span>
         </p>
         <p>
