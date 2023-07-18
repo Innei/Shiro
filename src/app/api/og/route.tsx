@@ -1,8 +1,7 @@
+import { ImageResponse } from 'next/server'
 import uniqolor from 'uniqolor'
 import type { AggregateRoot } from '@mx-space/api-client'
 import type { NextRequest } from 'next/server'
-
-import { ImageResponse } from '@vercel/og'
 
 import { apiClient } from '~/lib/request'
 
