@@ -34,8 +34,8 @@ const FooterLinkSection = async () => {
         {footerConfig.linkSections.map((section) => {
           return (
               <div className="block space-x-4 md:inline-flex" key={section.name}>
-                <b className="font-medium">{section.name}</b>
-                <span className="space-x-4 text-neutral-content/90">
+                  <b className="font-medium">{section.name}</b>
+                  <span className="space-x-4 text-neutral-content\/90">
               {section.links.map((link) => {
                 return (
                     <StyledLink
