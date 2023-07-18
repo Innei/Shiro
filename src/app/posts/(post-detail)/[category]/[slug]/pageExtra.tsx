@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import Balancer from 'react-wrap-balancer'
 import type { Image } from '@mx-space/api-client'
 import type { PropsWithChildren } from 'react'
 
@@ -12,6 +13,15 @@ import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
 import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
 
+export const PostTitle = () => {
+  const title = useCurrentPostDataSelector((data) => data?.title)!
+
+  return (
+    <h1 className="text-center">
+      <Balancer>{title}</Balancer>
+    </h1>
+  )
+}
 export const MarkdownSelection: Component = (props) => {
   const id = useCurrentPostDataSelector((data) => data?.id)!
   const title = useCurrentPostDataSelector((data) => data?.title)!

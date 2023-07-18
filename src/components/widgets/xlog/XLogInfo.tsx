@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import { clsx } from 'clsx'
 import type { FC, SVGProps } from 'react'

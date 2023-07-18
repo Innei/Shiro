@@ -1,3 +1,5 @@
+'use client'
+
 import { clsxm } from '~/lib/helper'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 

@@ -17,7 +17,7 @@ import { getTopicQuery } from './query'
 export default function Page() {
   const { slug } = useParams()
   const { data } = useQuery({
-    ...getTopicQuery(slug),
+    ...getTopicQuery(slug as string),
     enabled: false,
   })
 

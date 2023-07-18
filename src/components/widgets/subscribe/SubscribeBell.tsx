@@ -1,3 +1,5 @@
+'use client'
+
 import type { SubscribeTypeToBitMap } from '@mx-space/api-client'
 import type { FC } from 'react'
 

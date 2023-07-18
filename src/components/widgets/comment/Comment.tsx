@@ -30,9 +30,31 @@ export const Comment: Component<{
   const elAtom = useMemo(() => atom<HTMLDivElement | null>(null), [])
   // FIXME 兜一下后端给的脏数据
   if (typeof comment === 'string') return null
-  const { id: cid, avatar, author, text, key, location, isWhispers } = comment
+  const {
+    id: cid,
+    avatar,
+    author,
+    text,
+    key,
+    location,
+    isWhispers,
+    url,
+  } = comment
   const parentId =
     typeof comment.parent === 'string' ? comment.parent : comment.parent?.id
+  const authorElement = url ? (
+    <a
+      href={url}
+      className="ml-2 max-w-full flex-shrink-0 break-all"
+      target="_blank"
+      rel="noreferrer"
+    >
+      {author}
+    </a>
+  ) : (
+    <span className="ml-2 max-w-full flex-shrink-0 break-all">{author}</span>
+  )
+
   return (
     <>
       <CommentHolderContext.Provider value={elAtom}>
@@ -67,9 +89,7 @@ export const Comment: Component<{
                 )}
               >
                 <span className="flex flex-grow flex-wrap items-center gap-2">
-                  <span className="ml-2 max-w-full flex-shrink-0 break-all">
-                    {author}
-                  </span>
+                  {authorElement}
                   <span className="flex min-w-0 flex-shrink select-none flex-wrap items-center space-x-2 self-end">
                     <span className="inline-flex flex-shrink-0 text-[10px] font-medium opacity-40">
                       <RelativeTime date={comment.created} />
