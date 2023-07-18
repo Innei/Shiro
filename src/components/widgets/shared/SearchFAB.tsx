@@ -40,13 +40,11 @@ export const SearchFAB = () => {
       >
         <i className="icon-[mingcute--search-line]" />
       </FABPortable>
-      <WithHotKey />
-      <SearchPanel />
     </>
   )
 }
 
-const WithHotKey = () => {
+export const SearchPanelWithHotKey = () => {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'k' && e.metaKey) {
@@ -68,7 +66,7 @@ const WithHotKey = () => {
       document.removeEventListener('keydown', handler)
     }
   }, [])
-  return null
+  return <SearchPanel />
 }
 
 const SearchPanel = () => {
