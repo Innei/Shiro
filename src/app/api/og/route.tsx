@@ -1,3 +1,4 @@
+import uniqolor from 'uniqolor'
 import type { AggregateRoot } from '@mx-space/api-client'
 import type { NextRequest } from 'next/server'
 
@@ -6,7 +7,7 @@ import { ImageResponse } from '@vercel/og'
 import { apiClient } from '~/lib/request'
 
 const fontNormal = fetch(
-  'https://github.com/lxgw/kose-font/raw/master/TTF%20(Simplified%20Chinese)/XiaolaiSC-Regular.ttf',
+  'https://github.com/lxgw/LxgwWenKai/releases/download/v1.300/LXGWWenKai-Regular.ttf',
 ).then((res) => res.arrayBuffer())
 export const runtime = 'edge'
 
@@ -18,7 +19,7 @@ export const GET = async (req: NextRequest) => {
     const { searchParams } = req.nextUrl
 
     const titlePost = searchParams.get('title')
-    const subtitlePost = searchParams.get('subtitle')
+    const subtitlePost = searchParams.get('subtitle') || ''
 
     const aggregation = await fetch(apiClient.aggregate.proxy.toString(true), {
       next: {
@@ -31,6 +32,27 @@ export const GET = async (req: NextRequest) => {
       seo: { title },
     } = aggregation
 
+    if (!title)
+      return new Response(
+        'Failed to generate the OG image. Error: The title is required.',
+        { status: 400 },
+      )
+
+    const bgAccent = uniqolor(titlePost + subtitlePost, {
+      saturation: [30, 35],
+      lightness: [60, 70],
+    }).color
+
+    const bgAccentLight = uniqolor(titlePost + subtitlePost, {
+      saturation: [30, 35],
+      lightness: [80, 90],
+    }).color
+
+    const bgAccentUltraLight = uniqolor(titlePost + subtitlePost, {
+      saturation: [30, 35],
+      lightness: [95, 96],
+    }).color
+
     return new ImageResponse(
       (
         <div
@@ -39,10 +61,9 @@ export const GET = async (req: NextRequest) => {
             height: '100%',
             width: '100%',
 
-            background:
-              'linear-gradient(37deg, #66BDB3 47.82%, #C0E3DD 79.68%, #F2F9F5 100%)',
+            background: `linear-gradient(37deg, ${bgAccent} 27.82%, ${bgAccentLight} 79.68%, ${bgAccentUltraLight} 100%)`,
 
-            fontFamily: 'Xiaolai',
+            fontFamily: 'LXGW WenKai Screen R',
 
             padding: '5rem',
             alignItems: 'flex-end',
@@ -117,7 +138,7 @@ export const GET = async (req: NextRequest) => {
         height: 600,
         fonts: [
           {
-            name: 'Xiaolai',
+            name: 'LXGW WenKai Screen R',
             data: fontData,
             weight: 400,
             style: 'normal',
