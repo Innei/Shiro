@@ -8,6 +8,7 @@ import type {
 } from 'react'
 import type { Field } from './types'
 
+import { useRefValue } from '~/hooks/common/use-ref-value'
 import { jotaiStore } from '~/lib/store'
 
 import { FormConfigContext, FormContext, useForm } from './FormContext'
@@ -20,7 +21,7 @@ export const Form = (
   >,
 ) => {
   const { showErrorMessage = true, ...formProps } = props
-  const fieldsAtom = useRef(atom({})).current
+  const fieldsAtom = useRefValue(() => atom({}))
   return (
     <FormContext.Provider
       value={

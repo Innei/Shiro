@@ -1,12 +1,13 @@
 'use client'
 
-import { createContext, memo, useEffect, useMemo, useRef } from 'react'
+import { createContext, memo, useEffect, useMemo } from 'react'
 import { atom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 import type { CommentModel } from '@mx-space/api-client'
 import type { FC, PropsWithChildren } from 'react'
 
 import { useBeforeMounted } from '~/hooks/common/use-before-mounted'
+import { useRefValue } from '~/hooks/common/use-ref-value'
 import { jotaiStore } from '~/lib/store'
 
 import { setCommentActionLeftSlot, useCommentActionLeftSlot } from './hooks'
@@ -47,10 +48,10 @@ export const CommentBoxProvider = (
 ) => {
   const { refId, children, afterSubmit, initialValue } = props
 
-  const ctxValue = useRef({
+  const ctxValue = useRefValue(() => ({
     ...createInitialValue(),
     refId: atom(refId),
-  }).current
+  }))
   useBeforeMounted(() => {
     if (initialValue) {
       jotaiStore.set(ctxValue.text, initialValue)
