@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 
 import { FloatPopover } from '~/components/ui/float-popover'
 import { TextArea } from '~/components/ui/input'
+import { useRefValue } from '~/hooks/common/use-ref-value'
 import { preventDefault } from '~/lib/dom'
 
 import { getRandomPlaceholder } from './constants'
@@ -15,7 +16,7 @@ const EmojiPicker = dynamic(() =>
   import('../../shared/EmojiPicker').then((mod) => mod.EmojiPicker),
 )
 export const UniversalTextArea = () => {
-  const placeholder = useRef(getRandomPlaceholder()).current
+  const placeholder = useRefValue(() => getRandomPlaceholder())
   const setter = useSetCommentBoxValues()
   const value = useCommentBoxTextValue()
 

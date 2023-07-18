@@ -7,6 +7,7 @@ import type {
 } from 'react'
 
 import { useIsMobile } from '~/atoms'
+import { useInputComposition } from '~/hooks/common/use-input-composition'
 import { clsxm } from '~/lib/helper'
 
 export const TextArea = forwardRef<
@@ -30,6 +31,7 @@ export const TextArea = forwardRef<
   )
   const background = useMotionTemplate`radial-gradient(320px circle at ${mouseX}px ${mouseY}px, var(--spotlight-color) 0%, transparent 85%)`
   const isMobile = useIsMobile()
+  const inputProps = useInputComposition(props)
   return (
     <div
       className="group relative h-full [--spotlight-color:hsl(var(--a)_/_0.05)]"
@@ -51,6 +53,7 @@ export const TextArea = forwardRef<
           className,
         )}
         {...rest}
+        {...inputProps}
       />
 
       {children}
