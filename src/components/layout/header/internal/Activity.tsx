@@ -46,6 +46,7 @@ const appLabels: { [app: string]: string } = {
   Slack: 'slack',
   Arc: 'arc',
   Code: 'code',
+  'Code - Insiders': 'code',
   WebStorm: 'webstorm',
   Linear: 'linear',
   Figma: 'figma',
