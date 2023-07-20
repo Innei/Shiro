@@ -2,7 +2,6 @@
 
 import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
-import axios from 'axios'
 import clsx from 'clsx'
 import Link from 'next/link'
 import RemoveMarkdown from 'remove-markdown'
@@ -14,6 +13,7 @@ import { LazyLoad } from '~/components/common/Lazyload'
 import { usePeek } from '~/components/widgets/peek/usePeek'
 import { useIsClientTransition } from '~/hooks/common/use-is-client'
 import { preventDefault } from '~/lib/dom'
+import { fetchGitHubApi } from '~/lib/github'
 import { apiClient } from '~/lib/request'
 
 import styles from './LinkCard.module.css'
@@ -127,9 +127,10 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
 
         fetchFnRef.current = async () => {
           // https://api.github.com/repos/mx-space/core
-          const data = await axios
-            .get<any>(`https://api.github.com/repos/${namespace}/${repo}`)
-            .then((data) => camelcaseKeys(data.data))
+          const data = await fetchGitHubApi<any>(
+            `https://api.github.com/repos/${namespace}/${repo}`,
+          )
+            .then((data) => camelcaseKeys(data))
             .catch(() => {
               // set fallback url
               //
@@ -158,11 +159,10 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
         }
 
         fetchFnRef.current = async () => {
-          const data = await axios
-            .get<any>(
-              `https://api.github.com/repos/${namespace}/${repo}/commits/${commitId}`,
-            )
-            .then((data) => camelcaseKeys(data.data))
+          const data = await fetchGitHubApi<any>(
+            `https://api.github.com/repos/${namespace}/${repo}/commits/${commitId}`,
+          )
+            .then((data) => camelcaseKeys(data))
             .catch(() => {
               // set fallback url
               //
