@@ -3,11 +3,9 @@
 import { ErrorBoundary as ErrorBoundaryLib } from 'react-error-boundary'
 import type { FC, PropsWithChildren } from 'react'
 
-import { captureException } from '@sentry/nextjs'
+// import { captureException } from '@sentry/nextjs'
 
 import { StyledButton } from '../ui/button'
-
-const Noop = () => null
 
 const FallbackComponent = () => {
   return (
@@ -36,7 +34,7 @@ export const ErrorBoundary: FC<PropsWithChildren> = ({ children }) => {
 
         // TODO  sentry
 
-        captureException(e)
+        // captureException(e)
       }}
     >
       {children}
