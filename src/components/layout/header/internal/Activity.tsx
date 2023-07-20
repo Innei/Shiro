@@ -1,23 +1,23 @@
 'use client'
 
-import {useQuery} from '@tanstack/react-query'
-import React, {memo, useEffect, useMemo} from 'react'
-import {AnimatePresence, m} from 'framer-motion'
+import { useQuery } from '@tanstack/react-query'
+import React, { memo, useEffect, useMemo } from 'react'
+import { AnimatePresence, m } from 'framer-motion'
 import Image from 'next/image'
-import type {RequestError} from '@mx-space/api-client'
+import type { RequestError } from '@mx-space/api-client'
 
 import {
     setActivityMediaInfo,
     setActivityProcessName,
     useActivity,
 } from '~/atoms/activity'
-import {ImpressionView} from '~/components/common/ImpressionTracker'
-import {FloatPopover} from '~/components/ui/float-popover'
-import {softBouncePrest} from '~/constants/spring'
-import {TrackerAction} from '~/constants/tracker'
+import { ImpressionView } from '~/components/common/ImpressionTracker'
+import { FloatPopover } from '~/components/ui/float-popover'
+import { softBouncePrest } from '~/constants/spring'
+import { TrackerAction } from '~/constants/tracker'
 import useDebounceValue from '~/hooks/common/use-debounce-value'
-import {usePageIsActive} from '~/hooks/common/use-is-active'
-import {apiClient} from '~/lib/request'
+import { usePageIsActive } from '~/hooks/common/use-is-active'
+import { apiClient } from '~/lib/request'
 import {
     useAggregationSelector,
     useAppConfigSelector,
@@ -61,20 +61,13 @@ const appLabels: { [app: string]: string } = {
     Music: 'music',
     Finder: 'finder',
     Messages: 'messages',
-    photoshop: 'photoshop',
     QQ: 'qq',
-    QQScreenshot: 'qq',
     'Google Chrome': 'chrome',
     Chrome: 'chrome',
     'Chrome Canary': 'chrome_canary',
     'Google Chrome Canary': 'chrome_canary',
-    chrome: 'chrome',
     QQ音乐: 'qqmusic',
     NetEaseMusic: 'netease',
-    cloudmusic: 'netease',
-    firefox: 'firefox',
-    idea64: 'idea',
-    msedge: 'edge',
     iTerm2: 'iterm2',
     Xcode: 'xcode',
     Typora: 'typora',
@@ -82,7 +75,14 @@ const appLabels: { [app: string]: string } = {
     kitty: 'kitty',
     'Activity Monitor': 'activity',
     Alacritty: 'alacritty',
-
+    photoshop: 'photoshop',
+    QQScreenshot: 'qq',
+    chrome: 'chrome',
+    cloudmusic: 'netease',
+    firefox: 'firefox',
+    idea64: 'idea',
+    msedge: 'edge',
+    'Code - Insiders': 'code',
     cmusic: 'cmusic',
 }
 // autocorrect: true
@@ -90,11 +90,11 @@ export const Activity = memo(() => {
     const activityConfig = useAppConfigSelector(
         (config) => config.module.activity,
     )
-    const {enable = false, endpoint = '/fn/ps/update'} = activityConfig || {}
+    const { enable = false, endpoint = '/fn/ps/update' } = activityConfig || {}
     const activity = useActivity()
 
     const isPageActive = usePageIsActive()
-    const {data} = useQuery(
+    const { data } = useQuery(
         ['activity'],
         async () => {
             return await apiClient
@@ -108,7 +108,7 @@ export const Activity = memo(() => {
                 }>()
                 .then((res) => res)
                 .catch((err: RequestError) => {
-                    return {processName: '', mediaInfo: undefined}
+                    return { processName: '', mediaInfo: undefined }
                 })
         },
         {
@@ -136,11 +136,11 @@ export const Activity = memo(() => {
 
     const ownerName = useAggregationSelector((data) => data.user.name)
     const memoProcessName = useMemo(
-        () => ({processName: activity?.processName || ''}),
+        () => ({ processName: activity?.processName || '' }),
         [activity?.processName],
     )
 
-    const {processName, media} = activity
+    const { processName, media } = activity
     const debounceProcess = useDebounceValue(processName, 800)
 
     if (debounceProcess && !appLabels[debounceProcess]) {
@@ -152,7 +152,7 @@ export const Activity = memo(() => {
             {!!media && (
                 <m.div className="absolute bottom-0 left-0 top-0 z-[10] flex items-center lg:left-[-30px]">
                     <div className="absolute inset-0 z-[-1] flex center">
-                        <div className="h-6 w-6 animate-ping rounded-md ring-2 ring-uk-red-dark"/>
+                        <div className="h-6 w-6 animate-ping rounded-md ring-2 ring-uk-red-dark" />
                     </div>
                     <FloatPopover
                         TriggerComponent={TriggerComponent}
@@ -209,10 +209,10 @@ export const Activity = memo(() => {
     )
 })
 Activity.displayName = 'Activity'
-const cMusicProps = {processName: 'cmusic'}
+const cMusicProps = { processName: 'cmusic' }
 const TriggerComponent = memo<{
     processName: string
-}>(({processName}) => {
+}>(({ processName }) => {
     return (
         <Image
             width={32}

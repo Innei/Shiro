@@ -4,7 +4,7 @@
 import { useEffect } from 'react'
 import { useParams } from 'next/navigation'
 
-import { captureException } from '@sentry/nextjs'
+// import { captureException } from '@sentry/nextjs'
 
 import { NotFound404 } from '~/components/common/404'
 import { NotePasswordForm } from '~/components/widgets/note/NotePasswordForm'
@@ -16,7 +16,9 @@ import { Paper } from '../../components/layout/container/Paper'
 // TODO Catch if 404 or 403
 export default ({ error, reset }: { error: Error; reset: () => void }) => {
   useEffect(() => {
-    if (!isRequestError(error)) captureException(error)
+    if (!isRequestError(error)) {
+      // captureException(error)
+    }
   }, [error])
 
   if (isRequestError(error)) {

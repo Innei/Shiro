@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 
-import { captureException } from '@sentry/nextjs'
+// import { captureException } from '@sentry/nextjs'
 
 import { NotFound404 } from '~/components/common/404'
 import { NormalContainer } from '~/components/layout/container/Normal'
@@ -13,7 +13,7 @@ import { isRequestError, pickStatusCode } from '~/lib/is-error'
 export default ({ error, reset }: any) => {
   useEffect(() => {
     console.log('error', error)
-    captureException(error)
+    // captureException(error)
   }, [error])
 
   if (isRequestError(error) && pickStatusCode(error) === 404) {

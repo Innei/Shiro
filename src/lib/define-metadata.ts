@@ -1,7 +1,7 @@
 import type { AggregateRoot } from '@mx-space/api-client'
 import type { Metadata } from 'next'
 
-import { captureException } from '@sentry/nextjs'
+// import { captureException } from '@sentry/nextjs'
 
 import { getQueryClient } from '~/lib/query-client.server'
 import { queries } from '~/queries/definition'
@@ -23,7 +23,7 @@ export const defineMetadata = <T extends Record<string, string>>(
       })
     }
     const result = await fn(params, getData).catch((err) => {
-      captureException(err)
+      // captureException(err)
       return {}
     })
 
