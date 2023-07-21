@@ -10,10 +10,13 @@ Demo:
 
 - [静かな森](https://innei.in)
 - [可愛い松](https://blog.wibus.ren/)
+- [HuaSui](https://www.vlo.cc/)
+- [天翔TNXG](https://tnxg.top)
+- [Star](https://xingbest.xyz)
 
 ## How to deploy
 
-Checkout [this](https://mx-docs-next.iucky.cn/themes/shiro).
+Checkout [this](https://mx-space.js.org/themes/shiro).
 
 Thanks to the community for their contributions.
 
