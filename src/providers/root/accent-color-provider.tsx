@@ -1,8 +1,12 @@
 import { useServerInsertedHTML } from 'next/navigation'
+import type { AccentColor } from '~/app/config'
 import type { PropsWithChildren } from 'react'
 
 import { sample } from '~/lib/_'
 import { hexToHsl } from '~/lib/color'
+import { noopObj } from '~/lib/noop'
+
+import { useAppConfigSelector } from './aggregation-data-provider'
 
 const accentColorLight = [
   // 浅葱
@@ -22,10 +26,13 @@ const accentColorDark = [
   '#99D8CF',
   '#838BC6',
 ]
+
 export const AccentColorProvider = ({ children }: PropsWithChildren) => {
+  const { light, dark } =
+    useAppConfigSelector((config) => config.color) || (noopObj as AccentColor)
   useServerInsertedHTML(() => {
-    const accentColorL = sample(accentColorLight)
-    const accentColorD = sample(accentColorDark)
+    const accentColorL = sample(light ?? accentColorLight)
+    const accentColorD = sample(dark ?? accentColorDark)
 
     const lightHsl = hexToHsl(accentColorL)
     const darkHsl = hexToHsl(accentColorD)
@@ -35,12 +42,14 @@ export const AccentColorProvider = ({ children }: PropsWithChildren) => {
 
     return (
       <style
+        data-light={accentColorL}
+        data-dark={accentColorD}
         dangerouslySetInnerHTML={{
-          __html: `html[data-theme='dark'] {
+          __html: `html[data-theme='light'] {
           --a: ${`${hl} ${sl}% ${ll}%`};
           --af: ${`${hl} ${sl}% ${ll + 6}%`};
         }
-        html[data-theme='light'] {
+        html[data-theme='dark'] {
           --a: ${`${hd} ${sd}% ${ld}%`};
           --af: ${`${hd} ${sd}% ${ld - 6}%`};
         }

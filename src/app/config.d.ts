@@ -1,5 +1,24 @@
 import type { ScriptProps } from 'next/script'
 
+export interface AppThemeConfig {
+  config: AppConfig
+  footer: FooterConfig
+}
+
+export interface AccentColor {
+  light: string[]
+  dark: string[]
+}
+
+export interface AppConfig {
+  site: Site
+  hero: Hero
+  module: Module
+  color?: AccentColor
+
+  custom?: Custom
+}
+
 export interface LinkSection {
   name: string
   links: {
@@ -16,18 +35,7 @@ export interface OtherInfo {
     link: string
   }
 }
-export interface AppThemeConfig {
-  config: AppConfig
-  footer: FooterConfig
-}
 
-export interface AppConfig {
-  site: Site
-  hero: Hero
-  module: Module
-
-  custom?: Custom
-}
 export interface Custom {
   css: string[]
   styles: any[]
