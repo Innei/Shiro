@@ -30,26 +30,32 @@ const appDescrption = {
     iTerm2: '耍杂技',
     NeteaseMusic: '听歌',
     QQ音乐: '听歌',
+
     'Google Chrome': '冲浪',
     'Google Chrome Canary': '调试',
-    edge: '冲浪',
-    firefox: '冲浪',
     QQ: '水群',
-    photoshop: '修图？还是画画？',
     Messages: '看验证码',
-    Code: '写代码',
-    idea64: '写代码',
+    Code: 'Restart TS Server',
     Finder: '发呆',
     Infuse: '看片',
     kitty: '撸猫',
-    QQScreenshot: '截屏',
 
     'Activity Monitor': 'Maybe 电脑已死机',
+
+    edge: '冲浪',
+    firefox: '冲浪',
+    QQScreenshot: '截屏',
+    Photoshop: '修图？还是画画？',
+    idea64: '写代码',
+    umamusume: '玩个锤子，凹种马',
+    WindowsTerminal: '运行命令',
+
 } as any
 const appLabels: { [app: string]: string } = {
     Slack: 'slack',
     Arc: 'arc',
     Code: 'code',
+    'Code - Insiders': 'code',
     WebStorm: 'webstorm',
     Linear: 'linear',
     Figma: 'figma',
@@ -75,15 +81,18 @@ const appLabels: { [app: string]: string } = {
     kitty: 'kitty',
     'Activity Monitor': 'activity',
     Alacritty: 'alacritty',
-    photoshop: 'photoshop',
+
+    cmusic: 'cmusic',
+
+    Photoshop: 'photoshop',
     QQScreenshot: 'qq',
     chrome: 'chrome',
     cloudmusic: 'netease',
     firefox: 'firefox',
     idea64: 'idea',
     msedge: 'edge',
-    'Code - Insiders': 'code',
-    cmusic: 'cmusic',
+    umamusume: 'umamusume',
+    WindowsTerminal: 'windows_terminal',
 }
 // autocorrect: true
 export const Activity = memo(() => {
