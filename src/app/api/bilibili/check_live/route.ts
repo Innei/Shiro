@@ -1,4 +1,3 @@
-import axios from 'axios'
 import type { NextRequest } from 'next/server'
 import type { BLUser } from './types/user'
 
@@ -6,10 +5,19 @@ import { NextServerResponse } from '~/lib/edge-function.server'
 import { getQueryClient } from '~/lib/query-client.server'
 
 const headers = {
-  referer: `https://link.bilibili.com/p/center/index?visit_id=22ast2mb9zhc`,
+  referer: `https://live.bilibili.com/`,
   'User-Agent': `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Shiro`,
 }
+
+const requestHeader = new Headers()
+
+for (const [key, value] of Object.entries(headers)) {
+  requestHeader.set(key, value)
+}
 export const runtime = 'edge'
+
+export const revalidate = 10
+
 export const GET = async (req: NextRequest) => {
   const liveId = req.nextUrl.searchParams.get('liveId')
   if (!liveId) {
@@ -19,19 +27,19 @@ export const GET = async (req: NextRequest) => {
   const res = await queryClient.fetchQuery({
     queryKey: ['bilibili-live', liveId],
     queryFn: async () => {
-      return axios
-        .get(
-          `https://api.live.bilibili.com/xlive/web-room/v2/index/getRoomPlayInfo?room_id=${liveId}&protocol=0,1&format=0,1,2&codec=0,1&qn=0&platform=web&ptype=8&dolby=5`,
-          {
-            headers,
-          },
-        )
-        .then((res) => res.data)
+      return fetch(
+        `https://api.live.bilibili.com/xlive/web-room/v2/index/getRoomPlayInfo?room_id=${liveId}&protocol=0,1&format=0,1,2&codec=0,1&qn=0&platform=web&ptype=8&dolby=5`,
+        {
+          headers: requestHeader,
+        },
+      )
+        .then((res) => res.json())
         .catch(() => null)
     },
   })
 
   const response = new NextServerResponse()
+
   if (!res?.data) {
     return response.end()
   }
@@ -39,19 +47,19 @@ export const GET = async (req: NextRequest) => {
   if (!res?.data?.playurl_info) {
     return response.end()
   }
-  const userInfo = await axios
-    .get(
-      `https://api.live.bilibili.com/live_user/v1/UserInfo/get_anchor_in_room?roomid=${liveId}`,
-      {
-        headers,
-      },
-    )
+  const userInfo = await fetch(
+    `https://api.live.bilibili.com/live_user/v1/UserInfo/get_anchor_in_room?roomid=${liveId}`,
+    {
+      headers: requestHeader,
+    },
+  )
+    .then((res) => res.json())
     .catch(() => null)
 
-  if (!userInfo?.data) {
+  if (!userInfo) {
     return
   }
 
-  const info = (userInfo.data as BLUser).data.info
+  const info = (userInfo as BLUser).data.info
   return response.json({ ...info })
 }
