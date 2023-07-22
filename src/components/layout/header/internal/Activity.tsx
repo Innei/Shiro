@@ -42,7 +42,7 @@ const appDescrption = {
 
   'Activity Monitor': 'Maybe 电脑已死机',
 
-  edge: '冲浪',
+  msedge: '冲浪',
   firefox: '冲浪',
   QQScreenshot: '截屏',
   Photoshop: '修图？还是画画？',
