@@ -29,6 +29,10 @@ html {
   color: theme(colors.always.white);
 }
 
+[data-theme='dark']::selection {
+  color: theme(colors.always.neutral.800);
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
