@@ -66,7 +66,7 @@ export const LinkRenderer = ({ href }: { href: string }) => {
           <>
             <iframe
               src={`https://gist.github.com/${owner}/${id}.pibb`}
-              className="max-h-[300px] w-full overflow-auto border-0"
+              className="max-h-[50vh] w-full overflow-auto border-0"
             />
 
             <a
