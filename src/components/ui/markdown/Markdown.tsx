@@ -259,5 +259,10 @@ const MarkdownImage = (props: any) => {
   }
   nextProps.alt = props.alt?.replace(/^[¡!]/, '')
   const { w } = useWrappedElementSize()
+
+  if (props.src.endsWith('.mp4')) {
+    return <video src={props.src} controls playsInline />
+  }
+
   return <FixedZoomedImage {...nextProps} containerWidth={w} />
 }
