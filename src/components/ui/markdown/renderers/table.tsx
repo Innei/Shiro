@@ -1,11 +1,22 @@
 import React from 'react'
-import clsx from 'clsx'
 import type { FC } from 'react'
+
+import { clsxm } from '~/lib/helper'
+
+export const MTable: FC<JSX.IntrinsicElements['table']> = (props) => {
+  const { className, ...rest } = props
+  return (
+    <table
+      {...rest}
+      className={clsxm('table table-zebra table-pin-rows', className)}
+    />
+  )
+}
 
 export const MTableHead: FC<JSX.IntrinsicElements['thead']> = (props) => {
   const { children, className, ...rest } = props
   return (
-    <thead className={clsx(className, 'bg-base-content/20')} {...rest}>
+    <thead className={className} {...rest}>
       {children}
     </thead>
   )

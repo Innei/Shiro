@@ -24,7 +24,13 @@ import { KateXRule } from './parsers/katex'
 import { MarkRule } from './parsers/mark'
 import { MentionRule } from './parsers/mention'
 import { SpoilderRule } from './parsers/spoiler'
-import { MParagraph, MTableBody, MTableHead, MTableRow } from './renderers'
+import {
+  MParagraph,
+  MTable,
+  MTableBody,
+  MTableHead,
+  MTableRow,
+} from './renderers'
 import { MDetails } from './renderers/collapse'
 import { MFootNote } from './renderers/footnotes'
 import { MHeader } from './renderers/heading'
@@ -79,6 +85,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           thead: MTableHead,
           tr: MTableRow,
           tbody: MTableBody,
+          table: MTable,
           // FIXME: footer tag in raw html will renders not as expected, but footer tag in this markdown lib will wrapper as linkReferer footnotes
           footer: MFootNote,
           details: MDetails,

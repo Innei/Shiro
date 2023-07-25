@@ -148,13 +148,17 @@ const FixedRatioContainer = ({
   children: React.ReactNode
 }) => {
   return (
-    <div
-      className="relative my-8 h-0 w-full"
-      style={{
-        paddingBottom: `${ratio}%`,
-      }}
-    >
-      {children}
+    <div className="mockup-window my-16 bg-base-300">
+      <div className="flex justify-center px-4">
+        <div
+          className="relative my-8 h-0 w-full"
+          style={{
+            paddingBottom: `${ratio}%`,
+          }}
+        >
+          {children}
+        </div>
+      </div>
     </div>
   )
 }

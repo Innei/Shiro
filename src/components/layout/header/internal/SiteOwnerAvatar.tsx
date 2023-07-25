@@ -53,8 +53,8 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
         width={40}
         height={40}
         className={clsxm(
-          'rounded-md ring-2 ring-slate-200 dark:ring-neutral-800',
-          isLiving ? 'rounded-full' : '',
+          'ring-2 ring-slate-200 dark:ring-neutral-800',
+          isLiving ? 'rounded-full' : 'mask mask-squircle',
         )}
       />
       {isLiving && (
