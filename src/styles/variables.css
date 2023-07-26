@@ -29,7 +29,7 @@ html {
   color: theme(colors.always.white);
 }
 
-[data-theme='dark']::selection {
+[data-theme='dark'] ::selection {
   color: theme(colors.always.neutral.800);
 }
 
