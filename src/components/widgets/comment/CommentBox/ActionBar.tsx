@@ -254,11 +254,13 @@ const SubmitButton = () => {
         ? '感谢你的回复！'
         : '感谢你的评论！'
 
+      const commentListQueryKey = buildQueryKey(commentRefId)
+
       if (isReply) {
         toast.success(toastCopy)
         jotaiStore.set(textAtom, '')
 
-        queryClient.invalidateQueries(buildQueryKey(originalRefId))
+        queryClient.invalidateQueries(commentListQueryKey)
         return
       }
 
@@ -272,7 +274,7 @@ const SubmitButton = () => {
             }
           >
         >
-      >(buildQueryKey(commentRefId), (oldData) => {
+      >(commentListQueryKey, (oldData) => {
         if (!oldData) return oldData
         return produce(oldData, (draft) => {
           draft.pages[0].data.unshift(data)
