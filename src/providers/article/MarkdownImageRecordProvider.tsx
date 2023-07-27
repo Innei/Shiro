@@ -11,10 +11,10 @@ const MarkdownImageRecordProviderInternal = createContext(atom([] as Image[]))
 export const MarkdownImageRecordProvider: Component<{
   images: Image[]
 }> = ({ children, images }) => {
-  const atomRef = useRefValue(() => atom([...images] as Image[]))
+  const atomRef = useRefValue(() => atom(images as Image[]))
 
   useEffect(() => {
-    jotaiStore.set(atomRef, [...images])
+    jotaiStore.set(atomRef, images)
   }, [images])
 
   return (
