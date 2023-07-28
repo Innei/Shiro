@@ -8,7 +8,6 @@ import {
   FaSolidDotCircle,
   FaSolidFeatherAlt,
   FaSolidHistory,
-  FaSolidSubway,
   FaSolidUserFriends,
   IcTwotoneSignpost,
   IonBook,
@@ -95,9 +94,9 @@ export const headerMenuConfig: IHeaderMenu[] = [
       },
     ],
   },
-  {
-    title: '开往',
-    icon: h(FaSolidSubway),
-    path: 'https://travellings.link',
-  },
+  // {
+  //   title: '开往',
+  //   icon: h(FaSolidSubway),
+  //   path: 'https://travellings.link',
+  // },
 ]
