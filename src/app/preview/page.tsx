@@ -60,20 +60,21 @@ export default function PreviewPage() {
     targinOrigin = decodeURIComponent(targinOrigin)
     window.opener.postMessage('Preview Page Ready', targinOrigin)
 
-    window.addEventListener(
-      'message',
-      debounce((e) => {
-        if (e.origin !== targinOrigin) {
-          return
-        }
+    const handler = debounce((e) => {
+      if (e.origin !== targinOrigin) {
+        return
+      }
 
-        const parsedData = JSON.parse(e.data)
+      const parsedData = JSON.parse(e.data)
 
-        if (parsedData.type === 'preview') {
-          jotaiStore.set(previewDataAtom, simpleCamelcaseKeys(parsedData.data))
-        }
-      }, 100),
-    )
+      if (parsedData.type === 'preview') {
+        jotaiStore.set(previewDataAtom, simpleCamelcaseKeys(parsedData.data))
+      }
+    }, 100)
+    window.addEventListener('message', handler)
+    return () => {
+      window.removeEventListener('message', handler)
+    }
   }, [])
 
   const previewData = useAtomValue(previewDataAtom)
