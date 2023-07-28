@@ -6,6 +6,7 @@ import { atom, useAtomValue } from 'jotai'
 import type {
   NoteModel,
   NoteWrappedPayload,
+  PageModel,
   PostModel,
 } from '@mx-space/api-client'
 
@@ -15,8 +16,10 @@ import { previewDataAtom } from '~/atoms/preview'
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { Paper } from '~/components/layout/container/Paper'
 import { NoteBanner, NoteMetaBar } from '~/components/widgets/note'
+import { PageActionAside } from '~/components/widgets/page/PageActionAside'
 import { PostActionAside } from '~/components/widgets/post'
 import { ArticleRightAside } from '~/components/widgets/shared/ArticleRightAside'
+import { ReadIndicatorForMobile } from '~/components/widgets/shared/ReadIndicator'
 import { debounce } from '~/lib/_'
 import { jotaiStore } from '~/lib/store'
 import { isNoteModel, isPageModel, isPostModel } from '~/lib/url-builder'
@@ -24,6 +27,10 @@ import {
   CurrentNoteDataAtomProvider,
   CurrentNoteDataProvider,
 } from '~/providers/note/CurrentNoteDataProvider'
+import {
+  CurrentPageDataAtomProvider,
+  CurrentPageDataProvider,
+} from '~/providers/page/CurrentPageDataProvider'
 import {
   CurrentPostDataAtomProvider,
   CurrentPostDataProvider,
@@ -35,6 +42,12 @@ import {
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
 import {
+  MarkdownImageRecordProviderInternal,
+  PageMarkdown,
+  PageSubTitle,
+  PageTitle,
+} from '../(page-detail)/[slug]/pageExtra'
+import {
   IndentArticleContainer,
   NoteHeaderDate,
   NoteMarkdown,
@@ -42,6 +55,7 @@ import {
   NoteTitle,
 } from '../notes/[id]/pageExtra'
 import {
+  HeaderMetaInfoSetting,
   PostMarkdown,
   PostMarkdownImageRecordProvider,
   PostMetaBarInternal,
@@ -91,7 +105,7 @@ export default function PreviewPage() {
       return <PostPreview />
 
     case isPageModel(previewData):
-      return <div>TODO</div>
+      return <PagePreview />
   }
 
   return null
@@ -184,6 +198,45 @@ const NotePreview = () => {
           </IndentArticleContainer>
         </Paper>
       </CurrentNoteDataAtomProvider>
+    </div>
+  )
+}
+
+const PagePreview = () => {
+  const data = useAtomValue(previewDataAtom) as PageModel
+
+  const overrideAtom = useMemo(() => atom(null as null | PageModel), [])
+
+  return (
+    <div className="relative m-auto mt-[120px] min-h-[300px] w-full max-w-5xl px-2 md:px-6 lg:p-0">
+      <CurrentPageDataAtomProvider overrideAtom={overrideAtom}>
+        <CurrentPageDataProvider data={data} />
+        <div className="relative w-full min-w-0">
+          <HeaderMetaInfoSetting />
+          <article className="prose">
+            <header className="mb-8">
+              <PageTitle />
+
+              <PageSubTitle />
+            </header>
+
+            <WrappedElementProvider>
+              <ReadIndicatorForMobile />
+              <MarkdownImageRecordProviderInternal>
+                <PageMarkdown />
+              </MarkdownImageRecordProviderInternal>
+
+              <LayoutRightSidePortal>
+                <ArticleRightAside>
+                  <PageActionAside />
+                </ArticleRightAside>
+              </LayoutRightSidePortal>
+            </WrappedElementProvider>
+          </article>
+        </div>
+
+        <LayoutRightSideProvider className="absolute bottom-0 right-0 top-0 hidden translate-x-full lg:block" />
+      </CurrentPageDataAtomProvider>
     </div>
   )
 }
