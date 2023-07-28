@@ -52,21 +52,23 @@ const ConnectedIndicator = () => {
       />
       {connected ? (
         <>
-          <span className="absolute h-5 w-5">
-            <span className="absolute inset-0 z-[3] m-auto flex h-3 w-3 rounded-full bg-green-400" />
-            <span className="absolute inset-0 z-[2] m-auto flex h-4 w-4 rounded-full bg-green-300" />
-            <span className="relative z-[1] flex h-5 w-5 rounded-full bg-green-200 center" />
-          </span>
+          <span
+            className="absolute h-5 w-5"
+            style={{
+              background: `radial-gradient(45.91% 45.91% at 49.81% 54.09%, #00FC47 7.13%, rgba(174, 244, 194, 0.46) 65.83%, rgba(252, 252, 252, 0.00) 100%)`,
+            }}
+          />
 
           <span className="ml-6">已连接</span>
         </>
       ) : (
         <>
-          <span className="absolute h-5 w-5">
-            <span className="absolute inset-0 z-[3] m-auto flex h-3 w-3 rounded-full bg-red-400" />
-            <span className="absolute inset-0 z-[2] m-auto flex h-4 w-4 rounded-full bg-red-300" />
-            <span className="relative z-[1] flex h-5 w-5 rounded-full bg-red-200 center" />
-          </span>
+          <span
+            className="absolute h-5 w-5"
+            style={{
+              background: `radial-gradient(45.91% 45.91% at 49.81% 54.09%, #FC0000 7.13%, rgba(244, 174, 174, 0.46) 65.83%, rgba(252, 252, 252, 0.00) 100%);`,
+            }}
+          />
 
           <span className="ml-6">未连接</span>
         </>
