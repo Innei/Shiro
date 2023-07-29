@@ -72,6 +72,12 @@ const appLabels: { [app: string]: string } = {
   kitty: 'kitty',
   'Activity Monitor': 'activity',
   Alacritty: 'alacritty',
+  Videos: 'apptv',
+  Maps: 'maps',
+  'System Preferences': 'system',
+  'System Settings': 'system',
+  Notes: 'notes',
+  Home: 'homekit',
 
   cmusic: 'cmusic',
 }

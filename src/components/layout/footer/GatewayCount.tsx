@@ -66,7 +66,7 @@ const ConnectedIndicator = () => {
           <span
             className="absolute h-5 w-5"
             style={{
-              background: `radial-gradient(45.91% 45.91% at 49.81% 54.09%, #FC0000 7.13%, rgba(244, 174, 174, 0.46) 65.83%, rgba(252, 252, 252, 0.00) 100%);`,
+              background: `radial-gradient(45.91% 45.91% at 49.81% 54.09%, #FC0000 7.13%, rgba(244, 174, 174, 0.46) 65.83%, rgba(252, 252, 252, 0.00) 100%)`,
             }}
           />
 
