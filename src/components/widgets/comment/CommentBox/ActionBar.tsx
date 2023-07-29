@@ -150,6 +150,7 @@ const SubmitButton = () => {
     text: textAtom,
     author: authorAtom,
     mail: mailAtom,
+    url: urlAtom,
 
     source: sourceAtom,
     avatar: avatarAtom,
@@ -176,8 +177,9 @@ const SubmitButton = () => {
       const mail = jotaiStore.get(mailAtom)
       const avatar = jotaiStore.get(avatarAtom)
       const source = jotaiStore.get(sourceAtom) as any
+      const url = jotaiStore.get(urlAtom)
 
-      const commentDto: CommentDto = { text, author, mail, avatar, source }
+      const commentDto: CommentDto = { text, author, mail, avatar, source, url }
 
       if (isLogged) {
         delete commentDto.source
