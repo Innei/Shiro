@@ -23,7 +23,16 @@
 3. :gem: **注重细节，UX 极致**：注重每一个细节，所有的动画都使用符合物理的 Spring 弹性动画，每一帧都是大自然的感觉。
 4. :bell: **接入 WebSocket，实时获取最新的文章通知**：通过 WebSocket，访客能够实时获取最新的文章通知。
 5. :computer: **实时活动状态展示**：配合 [ProcessReporter](https://github.com/mx-space/ProcessReporterMac)，可以在主页上显示实时活动状态。
-6. :pencil: **更多 Markdown 的扩展语法等你发掘**：支持更多的 Markdown 扩展语法，等待你的发掘和使用。
+6. :pencil: **Markdown 的扩展语法**：支持更多的 Markdown 扩展语法，等待你的发掘和使用。
+
+## :wrench: 技术栈
+
+- NextJS 13 (App Router)
+- Jotai
+- Framer motion
+- Radix UI
+- Socket.IO
+- TailwindCSS
 
 ## :camera: 截图
 
