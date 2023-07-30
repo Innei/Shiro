@@ -256,15 +256,7 @@ const SubmitButton = () => {
         ? '感谢你的回复！'
         : '感谢你的评论！'
 
-      const commentListQueryKey = buildQueryKey(commentRefId)
-
-      if (isReply) {
-        toast.success(toastCopy)
-        jotaiStore.set(textAtom, '')
-
-        queryClient.invalidateQueries(commentListQueryKey)
-        return
-      }
+      const commentListQueryKey = buildQueryKey(originalRefId)
 
       toast.success(toastCopy)
       jotaiStore.set(textAtom, '')
@@ -278,8 +270,46 @@ const SubmitButton = () => {
         >
       >(commentListQueryKey, (oldData) => {
         if (!oldData) return oldData
+        if (isReply) {
+          // find the reply refed comment
+
+          return produce(oldData, (draft) => {
+            const allIdMap = new Map<string, CommentModel & { new?: true }>()
+
+            const dfs = (data: CommentModel) => {
+              allIdMap.set(data.id, data)
+              if (data.children) {
+                for (const child of data.children) {
+                  dfs(child)
+                }
+              }
+            }
+            for (const page of draft.pages) {
+              for (const item of page.data) {
+                dfs(item)
+              }
+            }
+            const modifiedComment = allIdMap.get(commentRefId)
+            if (!modifiedComment) return
+            if (!modifiedComment.children) {
+              modifiedComment.children = []
+            }
+            ;(
+              modifiedComment.children as (CommentModel & { new: boolean })[]
+            ).push({
+              ...data,
+
+              new: true,
+            })
+          })
+        }
+
         return produce(oldData, (draft) => {
-          draft.pages[0].data.unshift(data)
+          draft.pages[0].data.unshift({
+            ...data,
+            // @ts-ignore
+            new: true,
+          })
         })
       })
     },
