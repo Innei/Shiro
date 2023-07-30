@@ -274,33 +274,44 @@ const SubmitButton = () => {
           // find the reply refed comment
 
           return produce(oldData, (draft) => {
-            const allIdMap = new Map<string, CommentModel & { new?: true }>()
+            const dfs = (
+              data: CommentModel,
+              commentRefId: string,
+              newData: CommentModel & { new?: boolean },
+            ) => {
+              if (data.id === commentRefId) {
+                if (!data.children) {
+                  data.children = []
+                }
+                ;(data.children as (CommentModel & { new: boolean })[]).push({
+                  ...newData,
+                  new: true,
+                })
+                return true
+              }
+              if (!data.children) {
+                return
+              }
+              for (const child of data.children) {
+                if (dfs(child, commentRefId, newData)) {
+                  return true
+                }
+              }
+              return false
+            }
 
-            const dfs = (data: CommentModel) => {
-              allIdMap.set(data.id, data)
-              if (data.children) {
-                for (const child of data.children) {
-                  dfs(child)
+            const dataToAdd = {
+              ...data,
+              new: true,
+            }
+
+            for (const page of draft.pages) {
+              for (const item of page.data) {
+                if (dfs(item, commentRefId, dataToAdd)) {
+                  break
                 }
               }
             }
-            for (const page of draft.pages) {
-              for (const item of page.data) {
-                dfs(item)
-              }
-            }
-            const modifiedComment = allIdMap.get(commentRefId)
-            if (!modifiedComment) return
-            if (!modifiedComment.children) {
-              modifiedComment.children = []
-            }
-            ;(
-              modifiedComment.children as (CommentModel & { new: boolean })[]
-            ).push({
-              ...data,
-
-              new: true,
-            })
           })
         }
 
