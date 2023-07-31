@@ -64,6 +64,13 @@ export const headerMenuConfig: IHeaderMenu[] = [
         icon: h(FaSolidCircle),
         path: '/timeline?memory=1',
       },
+      {
+        title: '专栏',
+        path: '/notes/topics',
+        icon: h('i', {
+          className: 'icon-[mingcute--align-bottom-fill] flex center',
+        }),
+      },
     ],
   },
   {
