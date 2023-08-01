@@ -1,15 +1,20 @@
-import {
-  CodiconGithubInverted,
-  IcBaselineTelegram,
-  MdiTwitter,
-} from '~/components/icons/menu-collection'
+import { BilibiliIcon } from '~/components/icons/platform/BilibiliIcon'
+import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
+import { IcBaselineTelegram } from '~/components/icons/platform/Telegram'
+import { TwitterIcon } from '~/components/icons/platform/Twitter'
 import { clsxm } from '~/lib/helper'
-import { isGithubUrl, isTelegramUrl, isTwitterUrl } from '~/lib/link-parser'
+import {
+  isBilibiliUrl,
+  isGithubUrl,
+  isTelegramUrl,
+  isTwitterUrl,
+} from '~/lib/link-parser'
 
 const prefixToIconMap = {
-  GH: <CodiconGithubInverted className="text-[#1D2127] dark:text-[#FFFFFF]" />,
-  TW: <MdiTwitter className="text-[#1DA1F2]" />,
+  GH: <GitHubBrandIcon className="text-[#1D2127] dark:text-[#FFFFFF]" />,
+  TW: <TwitterIcon className="text-[#1DA1F2]" />,
   TG: <IcBaselineTelegram className="text-[#2AABEE]" />,
+  BL: <BilibiliIcon className="text-[#469ECF]" />,
 } as any
 
 type FaviconProps =
@@ -40,6 +45,10 @@ export const Favicon: Component<FaviconProps> = (props) => {
         case isTelegramUrl(url): {
           nextSource = 'TG'
           break
+        }
+
+        case isBilibiliUrl(url): {
+          nextSource = 'BL'
         }
       }
     }

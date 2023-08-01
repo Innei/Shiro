@@ -61,8 +61,8 @@ export const laziedComponents: FC<any>[] = Object.values(
 
         const { meta = {} } = DocumentComponent
         const { description, title } = meta
-        components.push(
-          <section className="space-y-4">
+        components.unshift(
+          <section className="space-y-4 mt-8">
             <h2 className="text-lg font-medium">{title || key}</h2>
             {!!description && <Markdown value={description} />}
             <DocumentComponent />

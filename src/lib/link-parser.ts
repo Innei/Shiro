@@ -1,9 +1,5 @@
 import { isClientSide, isDev } from './env'
 
-export const isTweetUrl = (url: URL) => {
-  return url.hostname === 'twitter.com' && url.pathname.startsWith('/')
-}
-
 export const getTweetId = (url: URL) => {
   return url.pathname.split('/').pop()!
 }
@@ -25,7 +21,7 @@ export const isGistUrl = (url: URL) => {
 }
 
 export const isGithubCommitUrl = (url: URL) => {
-  const [_, owner, repo, type, ...rest] = url.pathname.split('/')
+  const [_, , , type] = url.pathname.split('/')
   return url.hostname === 'github.com' && type === 'commit'
 }
 
@@ -35,12 +31,16 @@ export const isGithubProfileUrl = (url: URL) => {
 
 export const isGithubFilePreviewUrl = (url: URL) => {
   // https://github.com/Innei/sprightly/blob/14234594f44956e6f56f1f92952ce82db37ef4df/src/socket/handler.ts
-  const [_, owner, repo, type, ...rest] = url.pathname.split('/')
+  const [_, , , type] = url.pathname.split('/')
   return url.hostname === 'github.com' && type === 'blob'
 }
 
+export const isTweetUrl = (url: URL) => {
+  return isTwitterUrl(url) && url.pathname.startsWith('/')
+}
+
 export const isTwitterProfileUrl = (url: URL) => {
-  return url.hostname === 'twitter.com' && url.pathname.split('/').length === 2
+  return isTwitterUrl(url) && url.pathname.split('/').length === 2
 }
 
 export const isGithubUrl = (url: URL) => {
@@ -48,7 +48,7 @@ export const isGithubUrl = (url: URL) => {
 }
 
 export const isTwitterUrl = (url: URL) => {
-  return url.hostname === 'twitter.com'
+  return url.hostname === 'twitter.com' || url.hostname === 'x.com'
 }
 
 export const isTelegramUrl = (url: URL) => {
@@ -60,6 +60,10 @@ export const isCodesandboxUrl = (url: URL) => {
   return (
     url.hostname === 'codesandbox.io' && url.pathname.split('/').length === 3
   )
+}
+
+export const isBilibiliUrl = (url: URL) => {
+  return url.hostname.includes('bilibili.com')
 }
 
 export const isSelfArticleUrl = (url: URL) => {

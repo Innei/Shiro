@@ -2,7 +2,6 @@
 
 ↑ 引用
 
-
 https://twitter.com/strrlthedev/status/1671044378289393664
 
 https://github.com/ast-grep/ast-grep
@@ -12,7 +11,6 @@ https://www.youtube.com/watch?v=ZRv0Z-M7NqM
 https://gist.github.com/Innei/cb67fc579a460d6b863b3ca3c1bd6e1b
 
 https://github.com/Innei/Shiro/commit/e1b0b57aaea0eec1b695c4f1961297b42b935044
-
 
 # Test 文本
 
