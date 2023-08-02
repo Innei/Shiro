@@ -13,5 +13,5 @@ export default async function Page() {
     },
   }).then((res) => res.json() as Promise<NoteWrappedPayload>)
 
-  return <Redirect nid={data.data.nid} />
+  return <Redirect nid={data.data?.nid} />
 }
