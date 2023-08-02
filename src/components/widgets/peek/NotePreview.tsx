@@ -21,7 +21,7 @@ import {
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 import { queries } from '~/queries/definition'
 
-import { NoteBanner, NoteHideIfSecret, NoteMetaBar } from '../note'
+import { NoteHideIfSecret, NoteMetaBar, NoteRootBanner } from '../note'
 import { BanCopyWrapper } from '../shared/BanCopyWrapper'
 import { XLogSummaryForNote } from '../xlog'
 
@@ -53,7 +53,7 @@ export const NotePreview: FC<NotePreviewProps> = (props) => {
               </ClientOnly>
             </span>
             <div className="ml-[-1.25em] mr-[-1.25em] mt-8 text-sm lg:ml-[calc(-3em)] lg:mr-[calc(-3em)]">
-              <NoteBanner />
+              <NoteRootBanner />
             </div>
           </header>
 

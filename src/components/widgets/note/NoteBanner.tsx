@@ -1,5 +1,7 @@
 'use client'
 
+import type { FC } from 'react'
+
 import { clsxm } from '~/lib/helper'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 
@@ -39,10 +41,19 @@ const useNoteBanner = () => {
   return banner
 }
 
-export const NoteBanner = () => {
+export const NoteRootBanner = () => {
   const banner = useNoteBanner()
 
   if (!banner) return null
+
+  return <NoteBanner {...banner} />
+}
+
+export const NoteBanner: FC<{
+  style?: any
+  className: string
+  message: string
+}> = (banner) => {
   return (
     <div
       className={clsxm('flex justify-center p-4 leading-8', banner.className)}

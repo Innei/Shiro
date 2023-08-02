@@ -15,7 +15,7 @@ import { simpleCamelcaseKeys } from '@mx-space/api-client'
 import { previewDataAtom } from '~/atoms/preview'
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { Paper } from '~/components/layout/container/Paper'
-import { NoteBanner, NoteMetaBar } from '~/components/widgets/note'
+import { NoteMetaBar, NoteRootBanner } from '~/components/widgets/note'
 import { PageActionAside } from '~/components/widgets/page/PageActionAside'
 import { PostActionAside } from '~/components/widgets/post'
 import { ArticleRightAside } from '~/components/widgets/shared/ArticleRightAside'
@@ -184,7 +184,7 @@ const NotePreview = () => {
                 <NoteMetaBar />
               </span>
               <div className="ml-[-1.25em] mr-[-1.25em] mt-8 text-sm lg:ml-[calc(-3em)] lg:mr-[calc(-3em)]">
-                <NoteBanner />
+                <NoteRootBanner />
               </div>
             </header>
 
