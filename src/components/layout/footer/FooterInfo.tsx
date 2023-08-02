@@ -134,11 +134,11 @@ const FooterBottom = async () => {
   return (
     <div className="mt-12 space-y-3 text-center md:mt-6 md:text-left">
       <p>
-        © {date.replace('{{now}}', currentYear)}{' '}
+        <span>© {date.replace('{{now}}', currentYear)} </span>
         <a href="/">
           <OwnerName />
         </a>
-        .
+        <span>.</span>
         <span>
           <Divider />
           <a href="/feed" target="_blank">
