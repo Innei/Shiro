@@ -6,6 +6,7 @@ import type { FC } from 'react'
 
 import { useUser } from '@clerk/nextjs'
 
+import { useIsLogged } from '~/atoms'
 import { MotionButtonBase } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
 
@@ -39,6 +40,9 @@ export const SwitchCommentMode = () => {
       </>
     )
   }).current
+
+  const isOwnerLogged = useIsLogged()
+  if (isOwnerLogged) return null
   return (
     <MotionButtonBase
       className={clsx(

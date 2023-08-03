@@ -7,6 +7,12 @@ html {
   line-height: 1.5;
 }
 
+@screen 2xl {
+  html {
+    font-size: 15px;
+  }
+}
+
 .prose {
   max-width: 100% !important;
 

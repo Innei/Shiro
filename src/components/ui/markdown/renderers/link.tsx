@@ -1,5 +1,5 @@
 import { memo, useCallback } from 'react'
-import Router from 'next/router'
+import { useRouter } from 'next/navigation'
 import type { FC, ReactNode } from 'react'
 
 import {
@@ -17,6 +17,7 @@ export const MLink: FC<{
   title?: string
   children?: ReactNode
 }> = memo(({ href, children, title }) => {
+  const router = useRouter()
   const handleRedirect = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
       const locateUrl = new URL(location.href)
@@ -36,7 +37,7 @@ export const MLink: FC<{
           case 'posts':
           case 'notes':
           case 'category': {
-            Router.push(toUrlParser.pathname)
+            router.push(toUrlParser.pathname)
             break
           }
           default: {

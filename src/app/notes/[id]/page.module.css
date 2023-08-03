@@ -8,7 +8,8 @@
     .paragraph .indent {
       border-bottom: 1px solid;
 
-      @apply border-accent/20 dark:border-accent/30;
+      /* @apply border-accent/20 dark:border-accent/20; */
+      @apply border-accent/10;
     }
 
     blockquote {

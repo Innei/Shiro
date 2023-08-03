@@ -150,6 +150,7 @@ const SubmitButton = () => {
     text: textAtom,
     author: authorAtom,
     mail: mailAtom,
+    url: urlAtom,
 
     source: sourceAtom,
     avatar: avatarAtom,
@@ -176,8 +177,9 @@ const SubmitButton = () => {
       const mail = jotaiStore.get(mailAtom)
       const avatar = jotaiStore.get(avatarAtom)
       const source = jotaiStore.get(sourceAtom) as any
+      const url = jotaiStore.get(urlAtom)
 
-      const commentDto: CommentDto = { text, author, mail, avatar, source }
+      const commentDto: CommentDto = { text, author, mail, avatar, source, url }
 
       if (isLogged) {
         delete commentDto.source
@@ -254,13 +256,7 @@ const SubmitButton = () => {
         ? '感谢你的回复！'
         : '感谢你的评论！'
 
-      if (isReply) {
-        toast.success(toastCopy)
-        jotaiStore.set(textAtom, '')
-
-        queryClient.invalidateQueries(buildQueryKey(originalRefId))
-        return
-      }
+      const commentListQueryKey = buildQueryKey(originalRefId)
 
       toast.success(toastCopy)
       jotaiStore.set(textAtom, '')
@@ -272,10 +268,59 @@ const SubmitButton = () => {
             }
           >
         >
-      >(buildQueryKey(commentRefId), (oldData) => {
+      >(commentListQueryKey, (oldData) => {
         if (!oldData) return oldData
+        if (isReply) {
+          // find the reply refed comment
+
+          return produce(oldData, (draft) => {
+            const dfs = (
+              data: CommentModel,
+              commentRefId: string,
+              newData: CommentModel & { new?: boolean },
+            ) => {
+              if (data.id === commentRefId) {
+                if (!data.children) {
+                  data.children = []
+                }
+                ;(data.children as (CommentModel & { new: boolean })[]).push({
+                  ...newData,
+                  new: true,
+                })
+                return true
+              }
+              if (!data.children) {
+                return
+              }
+              for (const child of data.children) {
+                if (dfs(child, commentRefId, newData)) {
+                  return true
+                }
+              }
+              return false
+            }
+
+            const dataToAdd = {
+              ...data,
+              new: true,
+            }
+
+            for (const page of draft.pages) {
+              for (const item of page.data) {
+                if (dfs(item, commentRefId, dataToAdd)) {
+                  break
+                }
+              }
+            }
+          })
+        }
+
         return produce(oldData, (draft) => {
-          draft.pages[0].data.unshift(data)
+          draft.pages[0].data.unshift({
+            ...data,
+            // @ts-ignore
+            new: true,
+          })
         })
       })
     },

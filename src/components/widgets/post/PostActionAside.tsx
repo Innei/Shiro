@@ -4,6 +4,7 @@ import { m, useAnimationControls, useForceUpdate } from 'framer-motion'
 
 import { ThumbsupIcon } from '~/components/icons/thumbs-up'
 import { MotionButtonBase } from '~/components/ui/button'
+import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { isLikedBefore, setLikeId } from '~/lib/cookie'
 import { clsxm } from '~/lib/helper'
@@ -52,6 +53,7 @@ const LikeButton = () => {
   const [update] = useForceUpdate()
 
   const id = useCurrentPostDataSelector((data) => data?.id)
+  const likeCount = useCurrentPostDataSelector((data) => data?.count.like)
 
   if (!id) return null
   const handleLike = () => {
@@ -94,7 +96,7 @@ const LikeButton = () => {
     >
       <m.i
         className={clsxm(
-          'text-[24px] opacity-80 duration-200 hover:text-uk-orange-light hover:opacity-100',
+          'relative text-[24px] opacity-80 duration-200 hover:text-uk-orange-light hover:opacity-100',
 
           isLiked && 'text-uk-orange-dark',
         )}
@@ -109,6 +111,11 @@ const LikeButton = () => {
         }}
       >
         <ThumbsupIcon />
+        {!!likeCount && (
+          <span className="absolute bottom-[5px] right-0 translate-x-[8px] transform text-[10px]">
+            <NumberSmoothTransition>{likeCount}</NumberSmoothTransition>
+          </span>
+        )}
       </m.i>
     </MotionButtonBase>
   )
@@ -139,7 +146,7 @@ const ShareButton = () => {
           }),
         ).href
 
-        const text = `嘿，我发现了一片宝藏文章「${post.title}」哩，快来看看吧！${url}`
+        const text = `嘿，我发现了一片宝藏文章「${post.title}」哩，快来看看吧！`
 
         if (hasShare)
           navigator.share({

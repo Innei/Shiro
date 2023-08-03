@@ -1,10 +1,8 @@
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 
-import {
-  IcBaselineTelegram,
-  MdiTwitter,
-} from '~/components/icons/menu-collection'
+import { IcBaselineTelegram } from '~/components/icons/platform/Telegram'
+import { TwitterIcon } from '~/components/icons/platform/Twitter'
 import { toast } from '~/lib/toast'
 import { getAggregationData } from '~/providers/root/aggregation-data-provider'
 
@@ -16,7 +14,7 @@ const QRCodeSVG = dynamic(
 const shareList = [
   {
     name: 'Twitter',
-    icon: <MdiTwitter className="text-[#1DA1F2]" />,
+    icon: <TwitterIcon className="text-[#1DA1F2]" />,
     onClick: (data: ShareData) => {
       window.open(
         `https://twitter.com/intent/tweet?url=${data.url}&text=${

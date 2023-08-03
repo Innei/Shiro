@@ -13,9 +13,11 @@ export const GoToAdminEditingButton: Component<Props> = (props) => {
   const { id, type, className } = props
   if (!isLogin) return null
 
+  const adminUrl = resolveAdminUrl(`#/${type}/edit?id=${id}`)
+  if (!adminUrl) return null
   return (
     <a
-      href={resolveAdminUrl(`#/${type}/edit?id=${id}`)}
+      href={adminUrl}
       data-hide-print
       target="_blank"
       className={clsxm(

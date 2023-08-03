@@ -291,8 +291,9 @@ const twConfig: Config = {
     addDynamicIconSelectors(),
     addShortcutPlugin,
 
-    daisyui,
     typography,
+    daisyui,
+
     require('tailwind-scrollbar'),
   ],
 }

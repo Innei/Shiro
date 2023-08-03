@@ -12,12 +12,10 @@ export type Project = {
   description?: string
 }
 export const ProjectList: FC<{ projects: Project[] }> = (props) => {
-  const projects = props.projects
-
   return (
     <section key="list" className="text-center">
       <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {projects.map((project) => {
+        {props.projects.map((project) => {
           return (
             <Link
               href={routeBuilder(Routes.Project, { id: project.id })}

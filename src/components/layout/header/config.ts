@@ -8,7 +8,6 @@ import {
   FaSolidDotCircle,
   FaSolidFeatherAlt,
   FaSolidHistory,
-  FaSolidSubway,
   FaSolidUserFriends,
   IcTwotoneSignpost,
   IonBook,
@@ -65,6 +64,13 @@ export const headerMenuConfig: IHeaderMenu[] = [
         icon: h(FaSolidCircle),
         path: '/timeline?memory=1',
       },
+      {
+        title: '专栏',
+        path: '/notes/topics',
+        icon: h('i', {
+          className: 'icon-[mingcute--align-bottom-fill] flex center',
+        }),
+      },
     ],
   },
   {
@@ -95,9 +101,9 @@ export const headerMenuConfig: IHeaderMenu[] = [
       },
     ],
   },
-  {
-    title: '开往',
-    icon: h(FaSolidSubway),
-    path: 'https://travellings.link',
-  },
+  // {
+  //   title: '开往',
+  //   icon: h(FaSolidSubway),
+  //   path: 'https://travellings.link',
+  // },
 ]

@@ -190,9 +190,11 @@ function AnimatedItem({
   className?: string
   isActive?: boolean
 }) {
+  const isExternal = href.startsWith('http')
+  const As = isExternal ? 'a' : Link
   return (
     <div>
-      <Link
+      <As
         href={href}
         className={clsxm(
           'relative block whitespace-nowrap px-4 py-2 transition',
@@ -200,6 +202,7 @@ function AnimatedItem({
           isActive ? 'active' : '',
           className,
         )}
+        target={isExternal ? '_blank' : undefined}
       >
         {children}
         {isActive && (
@@ -211,7 +214,7 @@ function AnimatedItem({
             layoutId="active-nav-item"
           />
         )}
-      </Link>
+      </As>
     </div>
   )
 }

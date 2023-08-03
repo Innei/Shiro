@@ -10,7 +10,7 @@ import NoteLoading from './loading'
 export default function NodeRedirect({ nid }: { nid: number }) {
   const router = useRouter()
   useLayoutEffect(() => {
-    router.push(
+    router.replace(
       routeBuilder(Routes.Note, {
         id: nid,
       }),
