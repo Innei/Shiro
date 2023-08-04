@@ -240,7 +240,7 @@ const PostScreen = () => {
             y: 0,
           }}
           transition={softSpringPreset}
-          className="text-2xl font-medium leading-loose"
+          className="text-3xl font-medium leading-loose"
         >
           看看最近我又在折腾啥捏
           <br />
@@ -344,7 +344,7 @@ const NoteScreen = () => {
         <div className="mt-12 lg:mt-0">
           <section className="flex flex-col justify-end">
             <m.h3
-              className="mb-6 text-center text-xl"
+              className="mb-6 text-center text-2xl"
               initial={{ opacity: 0.0001, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={softBouncePrest}
@@ -372,7 +372,7 @@ const NoteScreen = () => {
                 )}
               >
                 <div className="absolute bottom-6 right-6 ">
-                  <h4 className="font-2xl text-lg font-medium ">
+                  <h4 className="font-3xl text-lg font-medium ">
                     {theLast.title}
                   </h4>
 
@@ -463,7 +463,7 @@ const NoteScreen = () => {
           )}
         </div>
         <m.h2
-          className="text-2xl font-medium leading-loose"
+          className="text-3xl font-medium leading-loose"
           initial={{ opacity: 0.0001 }}
           animate={{
             opacity: 1,
