@@ -24,6 +24,13 @@ RUN pnpm build
 FROM base AS runner
 WORKDIR /app
 
+ENV NODE_ENV production
+ARG BASE_URL
+ENV BASE_URL=${BASE_URL}
+ENV NEXT_PUBLIC_API_URL=${BASE_URL}/api/v2
+ENV NEXT_PUBLIC_GATEWAY_URL=${BASE_URL}
+
+# and other docker env inject
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
