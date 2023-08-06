@@ -5,3 +5,5 @@ export const useRouter = () => {
     },
   }
 }
+
+export const usePathname = () => location.pathname
