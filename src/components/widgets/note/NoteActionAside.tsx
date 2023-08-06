@@ -55,11 +55,13 @@ const LikeButton = () => {
   const likeCount = useCurrentNoteDataSelector((data) => data?.data.count.like)
   const id = useCurrentNoteDataSelector((data) => data?.data.id)
   const nid = useCurrentNoteId()
+
   if (!id) return null
+
   const handleLike = () => {
     if (isLikedBefore(id)) return
     if (!nid) return
-    apiClient.note.likeIt(id).then(() => {
+    apiClient.activity.likeIt('Note', id).then(() => {
       setLikeId(id)
       setCurrentNoteData((draft) => {
         draft.data.count.like += 1

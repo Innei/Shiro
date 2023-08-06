@@ -59,7 +59,7 @@ const LikeButton = () => {
   const handleLike = () => {
     if (isLikedBefore(id)) return
 
-    apiClient.post.thumbsUp(id).then(() => {
+    apiClient.activity.likeIt('Post', id).then(() => {
       setLikeId(id)
       setGlobalCurrentPostData((draft) => {
         draft.count.like += 1
