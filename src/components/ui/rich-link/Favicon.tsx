@@ -62,7 +62,7 @@ export const Favicon: Component<FaviconProps> = (props) => {
   try {
     if (href) {
       const url = new URL(href)
-      nextSource = getUrlSource(url)
+      nextSource = getUrlSource(url) ?? source
     }
   } catch {
     /* empty */
