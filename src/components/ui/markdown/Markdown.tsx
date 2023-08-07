@@ -12,11 +12,10 @@ import type { FC, PropsWithChildren } from 'react'
 import { MAIN_MARKDOWN_ID } from '~/constants/dom-id'
 import { isDev } from '~/lib/env'
 import { springScrollToElement } from '~/lib/scroller'
-import { useWrappedElementSize } from '~/providers/shared/WrappedElementProvider'
 
 import { Gallery } from '../gallery'
-import { FixedZoomedImage } from '../image'
 import { LinkCard } from '../link-card'
+import { MLink } from '../link/MLink'
 import styles from './markdown.module.css'
 import { ContainerRule } from './parsers/container'
 import { InsertRule } from './parsers/ins'
@@ -34,7 +33,7 @@ import {
 import { MDetails } from './renderers/collapse'
 import { MFootNote } from './renderers/footnotes'
 import { MHeader } from './renderers/heading'
-import { MLink } from './renderers/link'
+import { MarkdownImage } from './renderers/image'
 
 const CodeBlock = dynamic(() => import('~/components/widgets/shared/CodeBlock'))
 
@@ -124,11 +123,17 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           link: {
             react(node, output, state) {
               const { target, title } = node
+              const realText =
+                node.content[0]?.content === node.target
+                  ? void 0
+                  : node.content[0]?.content
+
               return (
                 <MLink
                   href={sanitizeUrl(target)!}
                   title={title}
                   key={state?.key}
+                  text={realText}
                 >
                   {output(node.content, state!)}
                 </MLink>
@@ -233,6 +238,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
     }, [
       value,
       props.children,
+      allowsScript,
       overrides,
       extendsRules,
       renderers,
@@ -259,17 +265,3 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
     )
   })
 Markdown.displayName = 'Markdown'
-
-const MarkdownImage = (props: any) => {
-  const nextProps = {
-    ...props,
-  }
-  nextProps.alt = props.alt?.replace(/^[¡!]/, '')
-  const { w } = useWrappedElementSize()
-
-  if (props.src.endsWith('.mp4')) {
-    return <video src={props.src} controls playsInline autoPlay />
-  }
-
-  return <FixedZoomedImage {...nextProps} containerWidth={w} />
-}

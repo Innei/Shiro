@@ -19,7 +19,7 @@ import {
 
 import { EmbedGithubFile } from '../../../widgets/shared/EmbedGithubFile'
 import { LinkCard } from '../../link-card'
-import { MLink } from './link'
+import { MLink } from '../../link/MLink'
 
 const Tweet = dynamic(() => import('~/components/widgets/shared/Tweet'), {
   ssr: false,
