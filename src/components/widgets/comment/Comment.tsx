@@ -119,7 +119,7 @@ export const Comment: Component<{
                       {key}
                     </span>
                     {!!location && (
-                      <span className="min-w-0 max-w-full flex-shrink-0 break-all text-[10px] opacity-[0.35]">
+                      <span className="min-w-0 max-w-full truncate break-all text-[10px] opacity-[0.35]">
                         来自：{location}
                       </span>
                     )}
