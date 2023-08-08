@@ -11,12 +11,32 @@ import { defaultLinkSections } from './config'
 import { GatewayCount } from './GatewayCount'
 import { OwnerName } from './OwnerName'
 
+const showVercelPoweredBy = !!process.env.NEXT_PUBLIC_VERCEL_ENV
 export const FooterInfo = () => {
   return (
     <>
-      <FooterLinkSection />
+      <div className="relative">
+        <FooterLinkSection />
+        {showVercelPoweredBy && (
+          <div className="absolute top-0 hidden lg:-right-8 lg:block">
+            <img
+              src="https://images.ctfassets.net/e5382hct74si/78Olo8EZRdUlcDUFQvnzG7/fa4cdb6dc04c40fceac194134788a0e2/1618983297-powered-by-vercel.svg"
+              className="h-10 object-contain"
+            />
+          </div>
+        )}
+      </div>
 
       <FooterBottom />
+
+      {showVercelPoweredBy && (
+        <div className="mt-6 flex justify-center lg:hidden">
+          <img
+            src="https://images.ctfassets.net/e5382hct74si/78Olo8EZRdUlcDUFQvnzG7/fa4cdb6dc04c40fceac194134788a0e2/1618983297-powered-by-vercel.svg"
+            className="h-10 object-contain"
+          />
+        </div>
+      )}
     </>
   )
 }
