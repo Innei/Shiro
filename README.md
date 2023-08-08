@@ -64,4 +64,6 @@
 
 感谢 GPT-4 和 [cali.so](https://github.com/CaliCastle/cali.so) 的支持，以及 Mix Space Team 和广大社区朋友们的贡献。
 
+![powered-by-vercel](https://images.ctfassets.net/e5382hct74si/78Olo8EZRdUlcDUFQvnzG7/fa4cdb6dc04c40fceac194134788a0e2/1618983297-powered-by-vercel.svg)
+
 > [个人网站](https://innei.in/) · GitHub [@Innei](https://github.com/innei/)

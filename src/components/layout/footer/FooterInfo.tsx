@@ -10,13 +10,28 @@ import { defaultLinkSections } from './config'
 // import { footerConfig } from './config'
 import { GatewayCount } from './GatewayCount'
 import { OwnerName } from './OwnerName'
+import { VercelPoweredBy } from './VercelPoweredBy'
 
+const isVercelEnv = !!process.env.NEXT_PUBLIC_VERCEL_ENV
 export const FooterInfo = () => {
   return (
     <>
-      <FooterLinkSection />
+      <div className="relative">
+        <FooterLinkSection />
+        {isVercelEnv && (
+          <div className="absolute top-0 hidden lg:-right-8 lg:block">
+            <VercelPoweredBy />
+          </div>
+        )}
+      </div>
 
       <FooterBottom />
+
+      {isVercelEnv && (
+        <div className="mt-6 flex justify-center lg:hidden">
+          <VercelPoweredBy />
+        </div>
+      )}
     </>
   )
 }
