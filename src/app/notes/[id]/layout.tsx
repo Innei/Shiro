@@ -37,7 +37,9 @@ export const generateMetadata = async ({
     const { title, text } = data
     const description = getSummaryFromMd(text ?? '')
 
-    const ogUrl = getOgUrl(title, '生活记录')
+    const ogUrl = getOgUrl('note', {
+      nid: params.id,
+    })
 
     return {
       title,

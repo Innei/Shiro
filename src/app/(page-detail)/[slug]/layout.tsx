@@ -37,7 +37,10 @@ export const generateMetadata = async ({
     const { title, text } = data
     const description = getSummaryFromMd(text ?? '')
 
-    const ogImage = getOgUrl(title, '关于我')
+    const ogImage = getOgUrl('page', {
+      slug,
+    })
+
     return {
       title,
       description,

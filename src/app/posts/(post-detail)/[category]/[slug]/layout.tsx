@@ -32,12 +32,15 @@ export const generateMetadata = async ({
     )
     const {
       title,
-      category: { name },
+      category: { slug: categorySlug },
       text,
     } = data
     const description = getSummaryFromMd(text ?? '')
 
-    const ogImage = getOgUrl(title, name)
+    const ogImage = getOgUrl('post', {
+      category: categorySlug,
+      slug,
+    })
 
     return {
       title,
