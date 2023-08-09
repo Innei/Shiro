@@ -10,7 +10,7 @@ import { PostPinIcon } from '~/components/widgets/post/PostPinIcon'
 import { PostItemHoverOverlay } from './PostItemHoverOverlay'
 import { PostMetaBar } from './PostMetaBar'
 
-export const PostItem = memo<{ data: PostModel }>(({ data }) => {
+export const PostItem = memo<{ data: PostModel }>(function PostItem({ data }) {
   const displayText =
     data.text.length > 300
       ? `${RemoveMarkdown(data.text.slice(0, 300))}...`
@@ -25,10 +25,7 @@ export const PostItem = memo<{ data: PostModel }>(({ data }) => {
       className="relative flex flex-col py-8 focus-visible:!shadow-none"
     >
       <PostItemHoverOverlay />
-      <h2
-        className="relative text-2xl font-medium"
-        style={{ wordBreak: 'break-word' }}
-      >
+      <h2 className="relative break-words text-2xl font-medium">
         <Balancer>{data.title}</Balancer>
 
         <PostPinIcon pin={!!data.pin} id={data.id} />
