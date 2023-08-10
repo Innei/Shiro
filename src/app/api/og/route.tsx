@@ -8,7 +8,7 @@ import { apiClient } from '~/lib/request'
 const fontNormal = fetch(
   'https://github.com/lxgw/LxgwWenKai/releases/download/v1.300/LXGWWenKai-Regular.ttf',
 ).then((res) => res.arrayBuffer())
-export const runtime = 'edge'
+// export const runtime = 'edge'
 
 export const revalidate = 60 * 60 * 24 // 24 hours
 export const GET = async (req: NextRequest) => {
@@ -17,8 +17,50 @@ export const GET = async (req: NextRequest) => {
 
     const { searchParams } = req.nextUrl
 
-    const titlePost = searchParams.get('title')
-    const subtitlePost = searchParams.get('subtitle') || ''
+    const dataString = searchParams.get('data') as string
+
+    let data:
+      | { type: 'post'; category: string; slug: string }
+      | { type: 'note'; nid: number }
+      | {
+          type: 'page'
+          slug: string
+        }
+
+    try {
+      data = JSON.parse(decodeURIComponent(dataString))
+    } catch {
+      return new Response('Failed to parse the data.', { status: 400 })
+    }
+
+    let document: { title: string; subtitle: string }
+
+    switch (data.type) {
+      case 'post': {
+        const { category, slug } = data
+        document = await apiClient.post
+          .getPost(category, slug)
+          .then((r) => ({ title: r.title, subtitle: r.category.name }))
+        break
+      }
+
+      case 'note': {
+        const { nid } = data
+        document = await apiClient.note
+          .getNoteById(+nid)
+          .then((r) => ({ title: r.data.title, subtitle: '生活记录' }))
+        break
+      }
+      case 'page': {
+        const { slug } = data
+        document = await apiClient.page.getBySlug(slug).then((data) => ({
+          title: data.title,
+          subtitle: data.subtitle || '',
+        }))
+        break
+      }
+    }
+    const { title, subtitle } = document
 
     const aggregation = await fetch(apiClient.aggregate.proxy.toString(true), {
       next: {
@@ -28,7 +70,7 @@ export const GET = async (req: NextRequest) => {
 
     const {
       user: { avatar },
-      seo: { title },
+      seo,
     } = aggregation
 
     if (!title)
@@ -37,17 +79,17 @@ export const GET = async (req: NextRequest) => {
         { status: 400 },
       )
 
-    const bgAccent = uniqolor(titlePost + subtitlePost, {
+    const bgAccent = uniqolor(title + subtitle, {
       saturation: [30, 35],
       lightness: [60, 70],
     }).color
 
-    const bgAccentLight = uniqolor(titlePost + subtitlePost, {
+    const bgAccentLight = uniqolor(title + subtitle, {
       saturation: [30, 35],
       lightness: [80, 90],
     }).color
 
-    const bgAccentUltraLight = uniqolor(titlePost + subtitlePost, {
+    const bgAccentUltraLight = uniqolor(title + subtitle, {
       saturation: [30, 35],
       lightness: [95, 96],
     }).color
@@ -96,7 +138,7 @@ export const GET = async (req: NextRequest) => {
                 fontSize: '2rem',
               }}
             >
-              <h3>{title}</h3>
+              <h3>{seo.title}</h3>
             </span>
           </div>
           <div
@@ -119,7 +161,7 @@ export const GET = async (req: NextRequest) => {
                 lineClamp: 1,
               }}
             >
-              {titlePost?.slice(0, 20)}
+              {title?.slice(0, 20)}
             </h1>
             <h2
               style={{
@@ -127,7 +169,7 @@ export const GET = async (req: NextRequest) => {
                 fontSize: '3rem',
               }}
             >
-              {subtitlePost}
+              {subtitle}
             </h2>
           </div>
         </div>

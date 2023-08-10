@@ -35,6 +35,10 @@ html {
     margin-top: 2em;
     margin-bottom: 2em;
   }
+
+  figure img {
+    @apply mb-0 mt-0;
+  }
 }
 
 html.noise body::before {

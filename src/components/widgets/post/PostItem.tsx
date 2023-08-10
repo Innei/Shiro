@@ -10,7 +10,7 @@ import { PostPinIcon } from '~/components/widgets/post/PostPinIcon'
 import { PostItemHoverOverlay } from './PostItemHoverOverlay'
 import { PostMetaBar } from './PostMetaBar'
 
-export const PostItem = memo<{ data: PostModel }>(({ data }) => {
+export const PostItem = memo<{ data: PostModel }>(function PostItem({ data }) {
   const displayText =
     data.text.length > 300
       ? `${RemoveMarkdown(data.text.slice(0, 300))}...`
@@ -22,10 +22,10 @@ export const PostItem = memo<{ data: PostModel }>(({ data }) => {
   return (
     <Link
       href={postLink}
-      className="relative flex flex-col py-6 focus-visible:!shadow-none"
+      className="relative flex flex-col py-8 focus-visible:!shadow-none"
     >
       <PostItemHoverOverlay />
-      <h2 className="relative text-center text-2xl font-medium lg:text-left">
+      <h2 className="relative break-words text-2xl font-medium">
         <Balancer>{data.title}</Balancer>
 
         <PostPinIcon pin={!!data.pin} id={data.id} />
@@ -36,12 +36,12 @@ export const PostItem = memo<{ data: PostModel }>(({ data }) => {
             摘要： {data.summary}
           </p>
         )}
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden text-justify">
           {hasImage && (
             <div
               className={clsx(
-                'float-right h-24 w-24 overflow-hidden rounded-md',
-                'bg-contain bg-center bg-no-repeat',
+                'float-right mb-2 ml-3 h-[5.5rem] w-[5.5rem] overflow-hidden rounded-md',
+                'bg-cover bg-center bg-no-repeat',
               )}
               style={{ backgroundImage: `url(${hasImage})` }}
             />

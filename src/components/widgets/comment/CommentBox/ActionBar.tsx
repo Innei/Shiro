@@ -15,7 +15,7 @@ import type { InfiniteData } from '@tanstack/react-query'
 
 import { useIsLogged } from '~/atoms'
 import { TiltedSendIcon } from '~/components/icons/TiltedSendIcon'
-import { MLink } from '~/components/ui/markdown/renderers/link'
+import { MLink } from '~/components/ui/link/MLink'
 import { clsxm } from '~/lib/helper'
 import { apiClient, getErrorMessageFromRequestError } from '~/lib/request'
 import { jotaiStore } from '~/lib/store'

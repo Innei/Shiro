@@ -58,10 +58,38 @@
 
 [看这里](https://mx-space.js.org/themes/shiro).
 
+## :whale: Docker 部署
+
+### :books: docker-compose
+
+1. change the args inside `docker-compose.yml`
+
+2. run command
+
+```bash
+    docker-compose up -d
+```
+
+### :package: docker run
+
+```bash
+docker build \
+ --build-arg BASE_URL=REPLACE_WITH_YOUR_BASE_URL \
+ --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=REPLACE_WITH_YOUR_PUBLISHABLE_KEY \
+ --build-arg CLERK_SECRET_KEY=REPLACE_WITH_YOUR_SECRET_KEY \
+ -t shiro . --load
+```
+
+```bash
+docker run --name shiro -d -p 2323:2323 shiro
+```
+
 ## :heart: 鸣谢 & 许可
 
 2023 © Innei，本项目采用 MIT 许可证发布。
 
 感谢 GPT-4 和 [cali.so](https://github.com/CaliCastle/cali.so) 的支持，以及 Mix Space Team 和广大社区朋友们的贡献。
+
+![powered-by-vercel](https://images.ctfassets.net/e5382hct74si/78Olo8EZRdUlcDUFQvnzG7/fa4cdb6dc04c40fceac194134788a0e2/1618983297-powered-by-vercel.svg)
 
 > [个人网站](https://innei.in/) · GitHub [@Innei](https://github.com/innei/)

@@ -29,9 +29,16 @@ export const getHost = () => {
   return host
 }
 
-export const getOgUrl = (title: string, subtitle: string) => {
+export const getOgUrl = (type: 'post' | 'note' | 'page', data: any) => {
   const ogUrl = new URL(`${isDev ? 'http' : 'https'}://${getHost()}/api/og`)
-  ogUrl.searchParams.set('title', title)
-  ogUrl.searchParams.set('subtitle', subtitle)
+  ogUrl.searchParams.set(
+    'data',
+    encodeURIComponent(
+      JSON.stringify({
+        type,
+        ...data,
+      }),
+    ),
+  )
   return ogUrl
 }

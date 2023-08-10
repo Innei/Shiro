@@ -75,6 +75,14 @@ export const isSelfArticleUrl = (url: URL) => {
   )
 }
 
+export const isZhihuUrl = (url: URL) => {
+  return url.hostname === 'www.zhihu.com'
+}
+
+export const isZhihuProfileUrl = (url: URL) => {
+  return isZhihuUrl(url) && url.pathname.startsWith('/people/')
+}
+
 export const parseSelfArticleUrl = (url: URL) => {
   const [_, type, ...rest] = url.pathname.split('/')
   switch (type) {
@@ -122,5 +130,13 @@ export const parseGithubTypedUrl = (url: URL) => {
     type,
     id,
     afterTypeString,
+  }
+}
+
+export const parseZhihuProfileUrl = (url: URL) => {
+  const [_, type, id] = url.pathname.split('/')
+  return {
+    type,
+    id,
   }
 }
