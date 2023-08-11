@@ -15,7 +15,7 @@ import type { IHeaderMenu } from '../config'
 import { RootPortal } from '~/components/ui/portal'
 import useDebounceValue from '~/hooks/common/use-debounce-value'
 import { clsxm } from '~/lib/helper'
-import { useScollIsUpAndPageIsOver } from '~/providers/root/page-scroll-info-provider'
+import { useIsScrollUpAndPageIsOver } from '~/providers/root/page-scroll-info-provider'
 
 import { useHeaderConfig } from './HeaderDataConfigureProvider'
 import { useHeaderHasMetaInfo, useMenuOpacity } from './hooks'
@@ -36,7 +36,7 @@ const AccessibleMenu: Component = () => {
   const hasMetaInfo = useHeaderHasMetaInfo()
 
   const showShow = useDebounceValue(
-    useScollIsUpAndPageIsOver(600) && hasMetaInfo,
+    useIsScrollUpAndPageIsOver(600) && hasMetaInfo,
     120,
   )
   return (

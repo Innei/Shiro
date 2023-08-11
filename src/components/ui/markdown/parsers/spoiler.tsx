@@ -1,13 +1,13 @@
-import type { MarkdownToJSX } from 'markdown-to-jsx'
+import React from 'react'
 import {
-  Priority,
   parseCaptureInline,
+  Priority,
   simpleInlineRegex,
 } from 'markdown-to-jsx'
-import React from 'react'
+import type { MarkdownToJSX } from 'markdown-to-jsx'
 
-// ||Spoilder||
-export const SpoilderRule: MarkdownToJSX.Rule = {
+// ||Spoiler||
+export const SpoilerRule: MarkdownToJSX.Rule = {
   match: simpleInlineRegex(
     /^\|\|((?:\[.*?\]|<.*?>(?:.*?<.*?>)?|`.*?`|.)*?)\|\|/,
   ),
