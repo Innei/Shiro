@@ -5,7 +5,7 @@ import type { AggregateRoot } from '@mx-space/api-client'
 import { InsertRule } from '~/components/ui/markdown/parsers/ins'
 import { MarkRule } from '~/components/ui/markdown/parsers/mark'
 import { MentionRule } from '~/components/ui/markdown/parsers/mention'
-import { SpoilderRule } from '~/components/ui/markdown/parsers/spoiler'
+import { SpoilerRule } from '~/components/ui/markdown/parsers/spoiler'
 import { escapeXml } from '~/lib/helper.server'
 import { getQueryClient } from '~/lib/query-client.server'
 import { apiClient } from '~/lib/request'
@@ -73,7 +73,7 @@ ${ReactDOM.renderToString(
         ),
       },
       additionalParserRules: {
-        spoilder: SpoilderRule,
+        spoilder: SpoilerRule,
         mention: MentionRule,
 
         mark: MarkRule,

@@ -72,7 +72,7 @@ const usePageScrollDirectionSelector = createAtomSelector(
   pageScrollDirectionAtom,
 )
 
-const useScollIsUpAndPageIsOver = (threshold: number) => {
+const useIsScrollUpAndPageIsOver = (threshold: number) => {
   return useAtomValue(
     useMemo(
       () =>
@@ -88,7 +88,7 @@ const useScollIsUpAndPageIsOver = (threshold: number) => {
 export {
   usePageScrollDirection,
   usePageScrollLocation,
-  useScollIsUpAndPageIsOver,
+  useIsScrollUpAndPageIsOver,
   usePageScrollLocationSelector,
   usePageScrollDirectionSelector,
 }

@@ -6,12 +6,10 @@ import Link from 'next/link'
 import type { TagModel } from '@mx-space/api-client'
 
 import { EmptyIcon } from '~/components/icons/empty'
-import { MotionButtonBase } from '~/components/ui/button'
 import { FABPortable } from '~/components/ui/fab'
 import { TimelineList } from '~/components/ui/list/TimelineList'
 import { Loading } from '~/components/ui/loading'
-import { useIsDark } from '~/hooks/common/use-is-dark'
-import { addAlphaToHSL, getColorScheme, stringToHue } from '~/lib/color'
+import { Tag } from '~/components/ui/tag/Tag'
 import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { useModalStack } from '~/providers/root/modal-stack-provider'
@@ -52,37 +50,22 @@ const TagsModal = () => {
   return (
     <div className="flex flex-wrap gap-3">
       {data.map((tag) => {
-        return <Tag key={tag.name} {...tag} onClick={handleTagClick} />
+        return <TagInternal key={tag.name} {...tag} onClick={handleTagClick} />
       })}
     </div>
   )
 }
 
-const Tag = memo(function Tag(
+const TagInternal = memo(function TagInternal(
   props: TagModel & {
     onClick?: (tag: TagModel) => void
   },
 ) {
   const { count, name } = props
 
-  const { dark, light } = getColorScheme(stringToHue(name))
-  const isDark = useIsDark()
-
-  const bgColor = isDark ? dark.background : light.background
   return (
-    <MotionButtonBase
-      onClick={() => {
-        props.onClick?.(props)
-      }}
-      key={name}
-      className="space-x-1 rounded-md px-3 py-2"
-      style={{
-        backgroundColor: addAlphaToHSL(bgColor, 0.7),
-      }}
-    >
-      <span>{name}</span>
-      <span className="self-end text-xs">({count})</span>
-    </MotionButtonBase>
+    // @ts-ignore
+    <Tag count={count} text={name} onClick={props.onClick} passProps={props} />
   )
 })
 

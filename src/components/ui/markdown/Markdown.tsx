@@ -22,7 +22,7 @@ import { InsertRule } from './parsers/ins'
 import { KateXRule } from './parsers/katex'
 import { MarkRule } from './parsers/mark'
 import { MentionRule } from './parsers/mention'
-import { SpoilderRule } from './parsers/spoiler'
+import { SpoilerRule } from './parsers/spoiler'
 import {
   MParagraph,
   MTable,
@@ -34,6 +34,7 @@ import { MDetails } from './renderers/collapse'
 import { MFootNote } from './renderers/footnotes'
 import { MHeader } from './renderers/heading'
 import { MarkdownImage } from './renderers/image'
+import { MTag } from './renderers/tag'
 
 const CodeBlock = dynamic(() => import('~/components/widgets/shared/CodeBlock'))
 
@@ -89,11 +90,15 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           footer: MFootNote,
           details: MDetails,
           img: MarkdownImage,
+          tag: MTag,
 
           // for custom react component
+          // Tag: MTag,
+
           LinkCard,
           Gallery,
           script: allowsScript ? Script : undefined,
+
           ...overrides,
         },
 
@@ -221,7 +226,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           ...renderers,
         },
         additionalParserRules: {
-          spoilder: SpoilderRule,
+          spoilder: SpoilerRule,
           mention: MentionRule,
 
           mark: MarkRule,
