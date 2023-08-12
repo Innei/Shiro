@@ -9,6 +9,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 
 import PKG from '~/../package.json'
 import { HydrationEndDetector } from '~/components/common/HydrationEndDetector'
+import { ScrollTop } from '~/components/common/ScrollTop'
 import { Root } from '~/components/layout/root/Root'
 import { SearchPanelWithHotKey } from '~/components/widgets/shared/SearchFAB'
 import { TocAutoScroll } from '~/components/widgets/toc/TocAutoScroll'
@@ -141,6 +142,7 @@ export default async function RootLayout(props: Props) {
             <Analyze />
           </Providers>
           <ToastContainer />
+          <ScrollTop />
         </body>
       </html>
       <Analytics />

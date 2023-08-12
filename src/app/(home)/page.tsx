@@ -1,13 +1,7 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import React, {
-  createElement,
-  forwardRef,
-  useCallback,
-  useEffect,
-  useRef,
-} from 'react'
+import React, { createElement, forwardRef, useCallback, useRef } from 'react'
 import clsx from 'clsx'
 import { m, useInView } from 'framer-motion'
 import Link from 'next/link'
@@ -34,7 +28,6 @@ import { clsxm } from '~/lib/helper'
 import { noopObj } from '~/lib/noop'
 import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
-import { springScrollToTop } from '~/lib/scroller'
 import {
   useAggregationSelector,
   useAppConfigSelector,
@@ -71,10 +64,6 @@ const Screen = forwardRef<
 Screen.displayName = 'Screen'
 
 export default function Home() {
-  useEffect(() => {
-    if (isDev) return
-    springScrollToTop()
-  }, [])
   return (
     <div>
       <Welcome />

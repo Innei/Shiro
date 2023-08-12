@@ -4,7 +4,6 @@
 import type { NoteModel } from '@mx-space/api-client'
 
 import { ClientOnly } from '~/components/common/ClientOnly'
-import { ScrollTop } from '~/components/common/ScrollTop'
 import {
   NoteActionAside,
   NoteFooterNavigationBarForMobile,
@@ -38,8 +37,6 @@ import {
 const NotePage = function (props: NoteModel) {
   return (
     <>
-      <ScrollTop key={props.id} />
-
       <NoteHeaderMetaInfoSetting />
       <IndentArticleContainer>
         <header>
