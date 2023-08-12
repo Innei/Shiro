@@ -41,6 +41,15 @@ const appDescrption = {
   kitty: '撸猫',
 
   'Activity Monitor': 'Maybe 电脑已死机',
+
+  msedge: '冲浪',
+  firefox: '冲浪',
+  QQScreenshot: '截屏',
+  Photoshop: '修图？还是画画？',
+  idea64: '写代码',
+  umamusume: '玩个锤子，凹种马',
+  WindowsTerminal: '运行命令',
+
 } as any
 const appLabels: { [app: string]: string } = {
   Slack: 'slack',
@@ -80,6 +89,16 @@ const appLabels: { [app: string]: string } = {
   Home: 'homekit',
 
   cmusic: 'cmusic',
+
+  Photoshop: 'photoshop',
+  QQScreenshot: 'qq',
+  chrome: 'chrome',
+  cloudmusic: 'netease',
+  firefox: 'firefox',
+  idea64: 'idea',
+  msedge: 'edge',
+  umamusume: 'umamusume',
+  WindowsTerminal: 'windows_terminal',
 }
 // autocorrect: true
 export const Activity = memo(() => {
