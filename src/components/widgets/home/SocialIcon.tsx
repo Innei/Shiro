@@ -4,6 +4,7 @@ import type { ReactNode } from 'react'
 
 import { BilibiliIcon } from '~/components/icons/platform/BilibiliIcon'
 import { NeteaseCloudMusicIcon } from '~/components/icons/platform/NeteaseIcon'
+import { XIcon } from '~/components/icons/platform/XIcon'
 import { MotionButtonBase } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
 
@@ -26,6 +27,8 @@ const type2Copy = {
   qq: 'QQ',
   wechat: '微信',
   weibo: '微博',
+
+  x: 'X',
 } as any
 const icons = new Set(Object.keys(type2Copy))
 
@@ -45,6 +48,7 @@ const iconSet: Record<
     '#1DA1F2',
     (id) => `https://twitter.com/${id}`,
   ],
+  x: ['x', <XIcon />, 'rgba(36,46,54,1.00)', (id) => `https://x.com/${id}`],
   telegram: [
     'Telegram',
     <i className="icon-[mingcute--telegram-line]" />,

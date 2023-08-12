@@ -15,7 +15,7 @@ import type { IHeaderMenu } from '../config'
 import { RootPortal } from '~/components/ui/portal'
 import useDebounceValue from '~/hooks/common/use-debounce-value'
 import { clsxm } from '~/lib/helper'
-import { useScollIsUpAndPageIsOver } from '~/providers/root/page-scroll-info-provider'
+import { useIsScrollUpAndPageIsOver } from '~/providers/root/page-scroll-info-provider'
 
 import { useHeaderConfig } from './HeaderDataConfigureProvider'
 import { useHeaderHasMetaInfo, useMenuOpacity } from './hooks'
@@ -36,7 +36,7 @@ const AccessibleMenu: Component = () => {
   const hasMetaInfo = useHeaderHasMetaInfo()
 
   const showShow = useDebounceValue(
-    useScollIsUpAndPageIsOver(600) && hasMetaInfo,
+    useIsScrollUpAndPageIsOver(600) && hasMetaInfo,
     120,
   )
   return (
@@ -190,9 +190,11 @@ function AnimatedItem({
   className?: string
   isActive?: boolean
 }) {
+  const isExternal = href.startsWith('http')
+  const As = isExternal ? 'a' : Link
   return (
     <div>
-      <Link
+      <As
         href={href}
         className={clsxm(
           'relative block whitespace-nowrap px-4 py-2 transition',
@@ -200,6 +202,7 @@ function AnimatedItem({
           isActive ? 'active' : '',
           className,
         )}
+        target={isExternal ? '_blank' : undefined}
       >
         {children}
         {isActive && (
@@ -211,7 +214,7 @@ function AnimatedItem({
             layoutId="active-nav-item"
           />
         )}
-      </Link>
+      </As>
     </div>
   )
 }

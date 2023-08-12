@@ -63,7 +63,7 @@ export const TocItem: FC<{
       style={useMemo(
         () => ({
           paddingLeft:
-            depth >= rootDepth ? `${renderDepth * 0.6}rem` : undefined,
+            depth >= rootDepth ? `${renderDepth * 0.6 + 0.5}rem` : '0.5rem',
         }),
         [depth, renderDepth, rootDepth],
       )}

@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useParams, usePathname } from 'next/navigation'
 
 import { FABPortable } from '~/components/ui/fab'
@@ -14,18 +14,23 @@ export const TocFAB = () => {
   const pathname = usePathname()
   const params = useParams()
 
-  const presentToc = useCallback(() => {
+  const $headings = useMemo(() => {
     const $mainMarkdownRender = document.getElementById(MAIN_MARKDOWN_ID)
     if (!$mainMarkdownRender) return
+
     const $headings = [
       ...$mainMarkdownRender.querySelectorAll('h1,h2,h3,h4,h5,h6'),
     ] as HTMLHeadingElement[]
+
+    return $headings
+  }, [])
+  const presentToc = useCallback(() => {
     const dispose = present({
       title: 'Table of Content',
 
       content: () => (
         <TocTree
-          $headings={$headings}
+          $headings={$headings!}
           className="space-y-3 [&>li]:py-1"
           onItemClick={() => {
             dispose()
@@ -34,7 +39,10 @@ export const TocFAB = () => {
         />
       ),
     })
-  }, [pathname, params])
+  }, [pathname, params, $headings])
+
+  if (!$headings?.length) return null
+
   return (
     <FABPortable aria-label="Show ToC" onClick={presentToc}>
       <i className="icon-[mingcute--list-expansion-line]" />

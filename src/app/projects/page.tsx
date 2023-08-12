@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 
-import { CodiconGithubInverted } from '~/components/icons/menu-collection'
+import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import { Loading } from '~/components/ui/loading'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { ProjectList } from '~/components/widgets/project/ProjectList'
@@ -43,7 +43,7 @@ export default function Page() {
               aria-label="view on GitHub"
               rel="noopener noreferrer"
             >
-              <CodiconGithubInverted />
+              <GitHubBrandIcon />
             </a>
           )}
         </h1>

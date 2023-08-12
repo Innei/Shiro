@@ -17,6 +17,10 @@ export interface AppConfig {
   color?: AccentColor
 
   custom?: Custom
+
+  poweredBy?: {
+    vercel?: boolean
+  }
 }
 
 export interface LinkSection {

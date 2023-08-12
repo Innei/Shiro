@@ -3,6 +3,7 @@
 import { m, useAnimationControls, useForceUpdate } from 'framer-motion'
 
 import { MotionButtonBase } from '~/components/ui/button'
+import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { isLikedBefore, setLikeId } from '~/lib/cookie'
 import { clsxm } from '~/lib/helper'
@@ -51,13 +52,16 @@ const LikeButton = () => {
   const control = useAnimationControls()
   const [update] = useForceUpdate()
 
+  const likeCount = useCurrentNoteDataSelector((data) => data?.data.count.like)
   const id = useCurrentNoteDataSelector((data) => data?.data.id)
   const nid = useCurrentNoteId()
+
   if (!id) return null
+
   const handleLike = () => {
     if (isLikedBefore(id)) return
     if (!nid) return
-    apiClient.note.likeIt(id).then(() => {
+    apiClient.activity.likeIt('Note', id).then(() => {
       setLikeId(id)
       setCurrentNoteData((draft) => {
         draft.data.count.like += 1
@@ -71,7 +75,7 @@ const LikeButton = () => {
   return (
     <MotionButtonBase
       aria-label="Like This Note Button"
-      className="flex flex-col space-y-2"
+      className="relative flex flex-col space-y-2"
       onClick={() => {
         handleLike()
         control.start('tap', {
@@ -114,6 +118,11 @@ const LikeButton = () => {
           easings: ['easeInOut'],
         }}
       />
+      {!!likeCount && (
+        <span className="absolute bottom-0 right-0 translate-x-[10px] transform text-[10px]">
+          <NumberSmoothTransition>{likeCount}</NumberSmoothTransition>
+        </span>
+      )}
     </MotionButtonBase>
   )
 }
@@ -142,7 +151,7 @@ const ShareButton = () => {
           }),
         ).href
 
-        const text = `嘿，我发现了一片宝藏文章「${note.title}」哩，快来看看吧！${url}`
+        const text = `嘿，我发现了一片宝藏文章「${note.title}」哩，快来看看吧！`
 
         if (hasShare)
           navigator.share({

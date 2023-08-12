@@ -1,7 +1,6 @@
 import type { PostModel } from '@mx-space/api-client'
 
 import { ClientOnly } from '~/components/common/ClientOnly'
-import { ScrollTop } from '~/components/common/ScrollTop'
 import {
   PostActionAside,
   PostCopyright,
@@ -36,7 +35,7 @@ const PostPage = (props: PostModel) => {
 
   return (
     <div className="relative w-full min-w-0">
-      <ScrollTop key={id} /> <HeaderMetaInfoSetting />
+      <HeaderMetaInfoSetting />
       <article className="prose">
         <header className="mb-8">
           <PostTitle />

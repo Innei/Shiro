@@ -247,6 +247,7 @@ const twConfig: Config = {
 
           neutral: UIKitColors.grey3.light,
 
+          'base-100': UIKitColors.background.primary.light,
           'base-content': UIKitColors.label.primary.light,
 
           info: UIKitColors.blue.light,
@@ -291,8 +292,9 @@ const twConfig: Config = {
     addDynamicIconSelectors(),
     addShortcutPlugin,
 
-    daisyui,
     typography,
+    daisyui,
+
     require('tailwind-scrollbar'),
   ],
 }

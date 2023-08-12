@@ -6,17 +6,20 @@ import {
   isGithubProfileUrl,
   isTelegramUrl,
   isTwitterProfileUrl,
+  isZhihuProfileUrl,
+  parseZhihuProfileUrl,
 } from '~/lib/link-parser'
 
-import { FloatPopover } from '../../float-popover'
-import { Favicon } from '../../rich-link/Favicon'
-import { RichLink } from '../../rich-link/RichLink'
+import { FloatPopover } from '../float-popover'
+import { Favicon } from '../rich-link/Favicon'
+import { RichLink } from '../rich-link/RichLink'
 
 export const MLink: FC<{
   href: string
   title?: string
   children?: ReactNode
-}> = memo(({ href, children, title }) => {
+  text?: string
+}> = memo(({ href, children, title, text }) => {
   const router = useRouter()
   const handleRedirect = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -46,7 +49,7 @@ export const MLink: FC<{
         }
       }
     },
-    [href],
+    [href, router],
   )
 
   let parsedType = ''
@@ -69,8 +72,14 @@ export const MLink: FC<{
         parsedName = url.pathname.split('/')[1]
         break
       }
+      case isZhihuProfileUrl(url): {
+        parsedType = 'ZH'
+        parsedName = parseZhihuProfileUrl(url).id
+      }
     }
-  } catch {}
+  } catch {
+    /* empty */
+  }
 
   const showRichLink = !!parsedType && !!parsedName
 
@@ -84,7 +93,11 @@ export const MLink: FC<{
           <span className="inline items-center">
             {!showRichLink && <Favicon href={href} />}
             {showRichLink ? (
-              <RichLink name={parsedName} source={parsedType} />
+              <RichLink
+                name={text || parsedName}
+                source={parsedType}
+                href={href}
+              />
             ) : (
               <a
                 className="shiro-link--underline"
@@ -109,6 +122,7 @@ export const MLink: FC<{
           showRichLink,
           parsedName,
           parsedType,
+          text,
         ],
       )}
     >

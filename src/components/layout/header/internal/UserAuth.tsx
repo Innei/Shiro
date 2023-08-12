@@ -5,9 +5,12 @@ import { AnimatePresence } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { usePathname } from 'next/navigation'
 
+import { getAdminUrl, useIsLogged } from '~/atoms'
 import { UserArrowLeftIcon } from '~/components/icons/user-arrow-left'
+import { MotionButtonBase } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { urlBuilder } from '~/lib/url-builder'
+import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
 import { HeaderActionButton } from './HeaderActionButton'
 
@@ -28,8 +31,31 @@ const SignInButton = dynamic(() =>
   import('@clerk/nextjs').then((mod) => mod.SignInButton),
 )
 
+const OwnerAvatar = () => {
+  const ownerAvatar = useAggregationSelector((s) => s.user.avatar)!
+
+  return (
+    <MotionButtonBase
+      onClick={() => {
+        const adminUrl = getAdminUrl()
+        if (!adminUrl) return
+        window.open(adminUrl, '_blank')
+      }}
+      className="pointer-events-auto flex h-10 w-10 items-center justify-center overflow-hidden rounded-full"
+    >
+      <span className="sr-only">Go to dashboard</span>
+      <img src={ownerAvatar} alt="site owner" />
+    </MotionButtonBase>
+  )
+}
 export function UserAuth() {
   const pathname = usePathname()
+
+  const isLogged = useIsLogged()
+
+  if (isLogged) {
+    return <OwnerAvatar />
+  }
 
   return (
     <AnimatePresence>

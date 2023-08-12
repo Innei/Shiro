@@ -64,7 +64,7 @@ const ArticleRightAsideImpl: Component = ({ children }) => {
           as="div"
           className="static ml-4"
           treeClassName={clsx(
-            'absolute h-full min-h-[120px] overflow-auto',
+            'absolute h-full min-h-[120px] flex flex-col',
             isScrollToBottom && 'mask-t',
             isScrollToTop && 'mask-b',
             canScroll && !isScrollToBottom && !isScrollToTop && 'mask-both',

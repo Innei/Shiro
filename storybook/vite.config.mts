@@ -43,6 +43,7 @@ export default defineConfig({
       'next/image': resolve(__dirname, './mock-packages/next_image'),
       'next/link': resolve(__dirname, './mock-packages/next_link'),
       'next/dynamic': resolve(__dirname, './mock-packages/next_dynamic'),
+      'next/navigation': resolve(__dirname, './mock-packages/next_navigation'),
       '~': resolve(__dirname, '../src'),
     },
   },

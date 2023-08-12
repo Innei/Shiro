@@ -19,7 +19,7 @@ import {
 
 import { EmbedGithubFile } from '../../../widgets/shared/EmbedGithubFile'
 import { LinkCard } from '../../link-card'
-import { MLink } from './link'
+import { MLink } from '../../link/MLink'
 
 const Tweet = dynamic(() => import('~/components/widgets/shared/Tweet'), {
   ssr: false,
@@ -66,7 +66,7 @@ export const LinkRenderer = ({ href }: { href: string }) => {
           <>
             <iframe
               src={`https://gist.github.com/${owner}/${id}.pibb`}
-              className="max-h-[300px] w-full overflow-auto border-0"
+              className="h-[300px] w-full overflow-auto border-0"
             />
 
             <a
@@ -148,13 +148,17 @@ const FixedRatioContainer = ({
   children: React.ReactNode
 }) => {
   return (
-    <div
-      className="relative my-8 h-0 w-full"
-      style={{
-        paddingBottom: `${ratio}%`,
-      }}
-    >
-      {children}
+    <div className="mockup-window my-16 bg-base-300">
+      <div className="flex justify-center px-4">
+        <div
+          className="relative my-8 h-0 w-full"
+          style={{
+            paddingBottom: `${ratio}%`,
+          }}
+        >
+          {children}
+        </div>
+      </div>
     </div>
   )
 }

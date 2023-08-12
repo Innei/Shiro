@@ -19,8 +19,12 @@ import {
 } from './providers'
 
 export const useUseCommentReply = () => useContext(CommentIsReplyContext)
-export const useCommentOriginalRefId = () =>
-  useContext(CommentOriginalRefIdContext)
+
+export const useCommentOriginalRefId = () => {
+  const fallbackRefId = useAtomValue(useContext(CommentBoxContext).refId)
+  return useContext(CommentOriginalRefIdContext) || fallbackRefId
+}
+
 export const useCommentCompletedCallback = () =>
   useContext(CommentCompletedCallbackContext)
 

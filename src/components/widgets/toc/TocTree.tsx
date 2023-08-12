@@ -126,20 +126,28 @@ export const TocTree: Component<
       : React.createElement(accessory as FC)
   }, [accessory])
   return (
-    <ul className={clsxm('px-2 scrollbar-none', className)} ref={containerRef}>
-      {toc?.map((heading) => {
-        return (
-          <MemoedItem
-            heading={heading}
-            isActive={heading.anchorId === activeId}
-            key={heading.title}
-            rootDepth={rootDepth}
-            onClick={handleScrollTo}
-          />
-        )
-      })}
+    <ul
+      className={clsxm(
+        'flex flex-grow flex-col px-2 scrollbar-none',
+        className,
+      )}
+      ref={containerRef}
+    >
+      <ul className="overflow-auto scrollbar-none">
+        {toc?.map((heading) => {
+          return (
+            <MemoedItem
+              heading={heading}
+              isActive={heading.anchorId === activeId}
+              key={heading.title}
+              rootDepth={rootDepth}
+              onClick={handleScrollTo}
+            />
+          )
+        })}
+      </ul>
       {accessoryElement && (
-        <li>
+        <li className="flex-shrink-0">
           {!!toc.length && <Divider />}
           {accessoryElement}
         </li>
@@ -177,7 +185,7 @@ const MemoedItem = memo<{
         <m.span
           layoutId="active-toc-item"
           layout
-          className="absolute -left-2 bottom-[3px] top-[3px] w-[2px] rounded-sm bg-accent"
+          className="absolute bottom-[3px] left-0 top-[3px] w-[2px] rounded-sm bg-accent"
         />
       )}
       <TocItem

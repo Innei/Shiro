@@ -8,6 +8,7 @@ import {
 } from 'react'
 import { createPortal } from 'react-dom'
 import clsx from 'clsx'
+import { m } from 'framer-motion'
 import { atom, useAtomValue } from 'jotai'
 import Markdown from 'markdown-to-jsx'
 import Image from 'next/image'
@@ -16,6 +17,7 @@ import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { PropsWithChildren } from 'react'
 
 import { RelativeTime } from '~/components/ui/relative-time'
+import { softSpringPreset } from '~/constants/spring'
 import { jotaiStore } from '~/lib/store'
 
 import styles from './Comment.module.css'
@@ -23,7 +25,7 @@ import { CommentPinButton, OcticonGistSecret } from './CommentPinButton'
 import { CommentReplyButton } from './CommentReplyButton'
 
 export const Comment: Component<{
-  comment: CommentModel
+  comment: CommentModel & { new?: boolean }
   showLine?: boolean
 }> = memo(function Comment(props) {
   const { comment, className, showLine } = props
@@ -58,7 +60,26 @@ export const Comment: Component<{
   return (
     <>
       <CommentHolderContext.Provider value={elAtom}>
-        <li
+        <m.li
+          initial={
+            comment['new']
+              ? {
+                  opacity: 0,
+                  scale: 0.93,
+                  y: 20,
+                }
+              : true
+          }
+          transition={softSpringPreset}
+          animate={
+            comment['new']
+              ? {
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                }
+              : void 0
+          }
           data-comment-id={cid}
           data-parent-id={parentId}
           className={clsx('relative my-2', className)}
@@ -98,7 +119,7 @@ export const Comment: Component<{
                       {key}
                     </span>
                     {!!location && (
-                      <span className="min-w-0 max-w-full flex-shrink-0 break-all text-[10px] opacity-[0.35]">
+                      <span className="min-w-0 max-w-full truncate break-all text-[10px] opacity-[0.35]">
                         来自：{location}
                       </span>
                     )}
@@ -140,7 +161,7 @@ export const Comment: Component<{
               aria-hidden="true"
             />
           )}
-        </li>
+        </m.li>
 
         <CommentBoxHolderProvider />
       </CommentHolderContext.Provider>

@@ -4,13 +4,12 @@
 import type { NoteModel } from '@mx-space/api-client'
 
 import { ClientOnly } from '~/components/common/ClientOnly'
-import { ScrollTop } from '~/components/common/ScrollTop'
 import {
   NoteActionAside,
   NoteFooterNavigationBarForMobile,
   NoteTopic,
 } from '~/components/widgets/note'
-import { NoteBanner } from '~/components/widgets/note/NoteBanner'
+import { NoteRootBanner } from '~/components/widgets/note/NoteBanner'
 import { ArticleRightAside } from '~/components/widgets/shared/ArticleRightAside'
 import { BanCopyWrapper } from '~/components/widgets/shared/BanCopyWrapper'
 import { ReadIndicatorForMobile } from '~/components/widgets/shared/ReadIndicator'
@@ -38,8 +37,6 @@ import {
 const NotePage = function (props: NoteModel) {
   return (
     <>
-      <ScrollTop key={props.id} />
-
       <NoteHeaderMetaInfoSetting />
       <IndentArticleContainer>
         <header>
@@ -52,7 +49,7 @@ const NotePage = function (props: NoteModel) {
             </ClientOnly>
           </span>
           <div className="ml-[-1.25em] mr-[-1.25em] mt-8 text-sm lg:ml-[calc(-3em)] lg:mr-[calc(-3em)]">
-            <NoteBanner />
+            <NoteRootBanner />
           </div>
         </header>
 

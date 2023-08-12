@@ -11,6 +11,7 @@ const {
   getGlobalCurrentData: getCurrentData,
   setGlobalCurrentData: setCurrentData,
   useCurrentDataSelector,
+  CurrentDataAtomProvider,
 } = createDataProvider<PageModel>()
 
 declare global {
@@ -25,4 +26,5 @@ export {
   getCurrentData as getCurrentPageData,
   setCurrentData as setCurrentPageData,
   useCurrentDataSelector as useCurrentPageDataSelector,
+  CurrentDataAtomProvider as CurrentPageDataAtomProvider,
 }

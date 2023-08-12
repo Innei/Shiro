@@ -18,7 +18,7 @@ export const PostMetaBar: Component<{
   return (
     <div
       className={clsxm(
-        'flex min-w-0 flex-shrink flex-grow flex-wrap space-x-2 text-sm',
+        'flex min-w-0 flex-shrink flex-grow flex-wrap gap-2 text-sm',
         className,
       )}
     >

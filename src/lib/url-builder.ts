@@ -13,19 +13,19 @@ export function urlBuilder(path = '') {
   return new URL(path, getAggregationData()?.url.webUrl)
 }
 
-function isPostModel(model: any): model is PostModel {
+export function isPostModel(model: any): model is PostModel {
   return (
     isDefined(model.title) && isDefined(model.slug) && !isDefined(model.order)
   )
 }
 
-function isPageModel(model: any): model is PageModel {
+export function isPageModel(model: any): model is PageModel {
   return (
     isDefined(model.title) && isDefined(model.slug) && isDefined(model.order)
   )
 }
 
-function isNoteModel(model: any): model is NoteModel {
+export function isNoteModel(model: any): model is NoteModel {
   return isDefined(model.title) && isDefined(model.nid)
 }
 

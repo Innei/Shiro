@@ -1,5 +1,42 @@
 # CHANGELOG
 
+## [0.1.1](https://github.com/Innei/sprightly/compare/v0.1.0...v0.1.1) (2023-07-27)
+
+
+### Bug Fixes
+
+* bili live api ([f74ce26](https://github.com/Innei/sprightly/commit/f74ce261fb4b55fce40939f96e30bd9ab5de37b8))
+* composition input ([53b8769](https://github.com/Innei/sprightly/commit/53b87694b3127c11ff7684355779e4086a427f95))
+* **deps:** update all non-major dependencies (minor) ([#43](https://github.com/Innei/sprightly/issues/43)) ([975be12](https://github.com/Innei/sprightly/commit/975be12d0b7bcd5b8dd9722331dd070edaf724bd))
+* I really don't know how to write react and js ([60ee1aa](https://github.com/Innei/sprightly/commit/60ee1aa31fdce9b065069d9b23a33157ad6b3a84))
+* kbd style ([e3cdcd5](https://github.com/Innei/sprightly/commit/e3cdcd507e464728ba98ec5d73644be3db647039))
+* refetch comment after reply ([d5771c8](https://github.com/Innei/sprightly/commit/d5771c8b5f2bf14ca64cafb469cf855635f04594))
+* replace emoji picker ([7d601e1](https://github.com/Innei/sprightly/commit/7d601e10f036ce74b05d02a04daba408c9fcbd47))
+* router instance ([b3d834c](https://github.com/Innei/sprightly/commit/b3d834cb62dfbec0c20880852d029b157d46ebb7))
+* selection color in dark mode ([e3b41d6](https://github.com/Innei/sprightly/commit/e3b41d60c20a4be1a571f128b3db20e7f188b481))
+* selection in dark mode ([fe22426](https://github.com/Innei/sprightly/commit/fe224268a3dd2e746e115ef7d696e0408e71be40))
+* some ui ([fcc07ec](https://github.com/Innei/sprightly/commit/fcc07ec2ab655435f6e3a518cb1dfbe1b0409813))
+
+
+### Features
+
+* add shortcut for open search ([a85e5b0](https://github.com/Innei/sprightly/commit/a85e5b067f1774700409db5aee8b2aadfcf474b7))
+* github api reverse proxy ([c8258f6](https://github.com/Innei/sprightly/commit/c8258f65385839f8ac9beb2f8111737cfa5de8f1))
+* go to dashboard ([95bde28](https://github.com/Innei/sprightly/commit/95bde28caba9a3dd7cab66502a577c0b68d93853))
+* image compatible with MP4 ([f3516f4](https://github.com/Innei/sprightly/commit/f3516f42c5649aee47fbad012d193da0f71edbdf))
+* og random color ([983d090](https://github.com/Innei/sprightly/commit/983d090f642b6cf65b42aafffa85eb24dabec2bf))
+* show site avatar if logged ([d14362d](https://github.com/Innei/sprightly/commit/d14362d7d1afbb70be38682378a0754484857d47))
+* style ([8cc7a86](https://github.com/Innei/sprightly/commit/8cc7a8616d5f5b9c9657c17b9bc1e0fbca02bf13))
+* support customize accent colors ([6da8325](https://github.com/Innei/sprightly/commit/6da83255f4b3405c872119e4621aba7768d3e423))
+* x icon ([3b8af39](https://github.com/Innei/sprightly/commit/3b8af39b660f5e0778b9637c70b81d34b815ef13))
+
+
+### Performance Improvements
+
+* I don't want to say anything just fxxk react again ([42cd176](https://github.com/Innei/sprightly/commit/42cd17608a1c6de4b47a6527f37fa81a6d49e441))
+
+
+
 # [0.1.0](https://github.com/Innei/sprightly/compare/v0.0.1...v0.1.0) (2023-07-17)
 
 

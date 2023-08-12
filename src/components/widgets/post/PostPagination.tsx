@@ -5,7 +5,7 @@ import type { FC } from 'react'
 import { MotionButtonBase } from '~/components/ui/button'
 
 const className =
-  'rounded-md border-[2px] border-accent/50 px-4 py-2 hover:border-accent transition-colors'
+  'rounded-md border-[2px] border-accent/50 px-4 py-2 hover:border-accent text-accent transition-colors'
 
 export const PostPagination: FC<{ pagination: Pager }> = ({ pagination }) => {
   return (

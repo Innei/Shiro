@@ -6,12 +6,14 @@ const prefixToUrlMap = {
   GH: 'https://github.com/',
   TW: 'https://twitter.com/',
   TG: 'https://t.me/',
+  ZH: 'https://www.zhihu.com/people/',
 }
 
 export const RichLink: FC<{
   source: string
-  name: string
-}> = ({ name, source }) => {
+  name: React.ReactNode
+  href?: string
+}> = ({ name, source, href }) => {
   // @ts-ignore
   const urlPrefix = prefixToUrlMap[source]
 
@@ -23,7 +25,7 @@ export const RichLink: FC<{
       <a
         target="_blank"
         rel="noreferrer nofollow"
-        href={`${urlPrefix}${name}`}
+        href={href ?? `${urlPrefix}${name}`}
         className="underline-offset-2"
       >
         {name}

@@ -1,3 +1,14 @@
+## Basic
+
+### Table
+
+| 表达内容                                                                                                                                 | 示例          |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| 表示文件                                                                                                                                 | `options.txt` |
+| 表示变量                                                                                                                                 | <版本名>      |
+| 在文件或文件夹末尾加上 `!` 表示 Minecraft 本体，分发这些文件违反了 [Minecraft Eula](https://account.mojang.com/documents/minecraft_eula) | libraries !   |
+| 在文件或文件夹末尾加上 `*` 表示可删除，`**` 表示建议删除，`***` 表示必须删除                                                             | libraries \*  |
+
 ## Token
 
 This is a ||Spoiler||
@@ -22,12 +33,11 @@ _here be dragons_
 _here be dragons_
 :::
 
-
 ::: gallery
 https://loremflickr.com/640/480/city?1
 https://loremflickr.com/640/480/city?2
 https://loremflickr.com/640/480/city?3
-![](https://loremflickr.com/640/480/city?4 "Image")
+![](https://loremflickr.com/640/480/city?4 'Image')
 :::
 
 ## Rich Link
@@ -62,7 +72,6 @@ https://github.com/vuejs/vitepress/commit/71eb11f72e60706a546b756dc3fd72d06e2ae4
 
 https://github.com/vuejs/vitepress/commit/71eb11f72e60706a546b756dc3fd72d06e2ae4e2
 
-
 ```
 https://codesandbox.io/s/framer-motion-layoutroot-prop-forked-p39g96
 ```
@@ -89,7 +98,6 @@ https://github.com/toeverything/AFFiNE/blob/himself65/0710/remove-effect/apps/we
 
 <LinkCard source="gh" id="mx-space/kami">
 
-
 ```
 <LinkCard source="gh-commit" id="mx-space/kami/commit/e1eee4136c21ab03ab5690e17025777984c362a0">
 ```
@@ -110,7 +118,6 @@ Inline [pseudoyu](https://twitter.com/pseudo_yu)
 
 Inline [pseudoyu](https://twitter.com/pseudo_yu)
 
-
 ```
 Inline <https://github.com/Innei>
 ```
@@ -122,7 +129,6 @@ Inline https://github.com/Innei
 ```
 
 Inline https://github.com/Innei
-
 
 ## Mention
 

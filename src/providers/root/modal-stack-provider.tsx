@@ -12,6 +12,7 @@ import {
 } from 'react'
 import { AnimatePresence, m, useAnimationControls } from 'framer-motion'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
+import { usePathname } from 'next/navigation'
 import type { Target, Transition } from 'framer-motion'
 import type { FC, PropsWithChildren, SyntheticEvent } from 'react'
 
@@ -42,6 +43,13 @@ interface ModalProps {
 }
 
 const modalStackAtom = atom([] as (ModalProps & { id: string })[])
+
+const useDismissAllWhenRouterChange = () => {
+  const pathname = usePathname()
+  useEffect(() => {
+    actions.dismissAll()
+  }, [pathname])
+}
 
 export const useModalStack = () => {
   const id = useId()
@@ -97,6 +105,7 @@ const ModalStack = () => {
   const stack = useAtomValue(modalStackAtom)
 
   const isClient = useIsClient()
+  useDismissAllWhenRouterChange()
   if (!isClient) return null
 
   return (
@@ -117,9 +126,11 @@ const initialStyle: Target = {
   scale: 0.96,
   opacity: 0,
 }
+
 const modalTransition: Transition = {
   ...microReboundPreset,
 }
+
 const Modal: Component<{
   item: ModalProps & { id: string }
   index: number

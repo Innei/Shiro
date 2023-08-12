@@ -37,7 +37,7 @@ export const LinkCard = (props: LinkCardProps) => {
   )
 }
 const LinkCardImpl: FC<LinkCardProps> = (props) => {
-  const { id, source = 'self', className } = props
+  const { id = '', source = 'self', className } = props
 
   const [loading, setLoading] = useState(true)
   const [isError, setIsError] = useState(false)
