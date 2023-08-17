@@ -12,7 +12,7 @@ import type { PropsWithChildren } from 'react'
 import { MdiClockOutline } from '~/components/icons/clock'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { FloatPopover } from '~/components/ui/float-popover'
-import { Markdown } from '~/components/ui/markdown'
+import { MainMarkdown } from '~/components/ui/markdown'
 import { GoToAdminEditingButton } from '~/components/widgets/shared/GoToAdminEditingButton'
 import { WithArticleSelectionAction } from '~/components/widgets/shared/WithArticleSelectionAction'
 import { parseDate } from '~/lib/datetime'
@@ -89,12 +89,7 @@ export const NoteMarkdown = () => {
   const text = useCurrentNoteDataSelector((data) => data?.data.text)!
 
   return (
-    <Markdown
-      allowsScript
-      as="main"
-      renderers={MarkdownRenderers}
-      value={text}
-    />
+    <MainMarkdown allowsScript renderers={MarkdownRenderers} value={text} />
   )
 }
 export const NoteMarkdownImageRecordProvider = (props: PropsWithChildren) => {

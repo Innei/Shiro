@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { CommentAreaRootLazy } from '~/components/widgets/comment'
+import { NoteFontSettingFab } from '~/components/widgets/note/NoteFontFab'
 import { NoteMainContainer } from '~/components/widgets/note/NoteMainContainer'
 import { TocFAB } from '~/components/widgets/toc/TocFAB'
 import { REQUEST_QUERY } from '~/constants/system'
@@ -96,6 +97,8 @@ export default async (
           />
         </BottomToUpSoftScaleTransitionView>
       </Transition>
+
+      <NoteFontSettingFab />
 
       <OnlyMobile>
         <TocFAB />

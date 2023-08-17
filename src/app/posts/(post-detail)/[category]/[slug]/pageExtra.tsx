@@ -6,7 +6,7 @@ import type { Image } from '@mx-space/api-client'
 import type { PropsWithChildren } from 'react'
 
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
-import { Markdown } from '~/components/ui/markdown'
+import { MainMarkdown } from '~/components/ui/markdown'
 import { PostMetaBar } from '~/components/widgets/post/PostMetaBar'
 import { WithArticleSelectionAction } from '~/components/widgets/shared/WithArticleSelectionAction'
 import { noopArr } from '~/lib/noop'
@@ -36,10 +36,9 @@ export const PostMarkdown = () => {
   if (!text) return null
 
   return (
-    <Markdown
+    <MainMarkdown
       allowsScript
       value={text}
-      as="main"
       className="min-w-0 overflow-hidden"
     />
   )
