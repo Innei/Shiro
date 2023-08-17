@@ -1,3 +1,4 @@
+import { ClientOnly } from '~/components/common/ClientOnly'
 import { BackToTopFAB, FABContainer } from '~/components/ui/fab'
 
 import { Content } from '../content/Content'
@@ -11,9 +12,11 @@ export const Root: Component = ({ children }) => {
       <Content>{children}</Content>
 
       <Footer />
-      <FABContainer>
-        <BackToTopFAB />
-      </FABContainer>
+      <ClientOnly>
+        <FABContainer>
+          <BackToTopFAB />
+        </FABContainer>
+      </ClientOnly>
     </>
   )
 }
