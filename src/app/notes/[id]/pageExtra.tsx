@@ -89,7 +89,12 @@ export const NoteMarkdown = () => {
   const text = useCurrentNoteDataSelector((data) => data?.data.text)!
 
   return (
-    <MainMarkdown allowsScript renderers={MarkdownRenderers} value={text} />
+    <MainMarkdown
+      className="mt-10"
+      allowsScript
+      renderers={MarkdownRenderers}
+      value={text}
+    />
   )
 }
 export const NoteMarkdownImageRecordProvider = (props: PropsWithChildren) => {

@@ -183,9 +183,7 @@ const NotePreview = () => {
                 <NoteHeaderDate />
                 <NoteMetaBar />
               </span>
-              <div className="ml-[-1.25em] mr-[-1.25em] mt-8 text-sm lg:ml-[calc(-3em)] lg:mr-[calc(-3em)]">
-                <NoteRootBanner />
-              </div>
+              <NoteRootBanner />
             </header>
 
             <WrappedElementProvider>

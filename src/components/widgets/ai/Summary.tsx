@@ -6,15 +6,19 @@ import type { NoteModel, PageModel, PostModel } from '@mx-space/api-client'
 import type { ArticleDataType } from '~/types/api'
 import type { FC, ReactNode } from 'react'
 
+import { LogosOpenaiIcon } from '~/components/icons/platform/OpenAIIcon'
 import { AutoResizeHeight } from '~/components/widgets/shared/AutoResizeHeight'
 import { API_URL } from '~/constants/env'
+import { useIsClientTransition } from '~/hooks/common/use-is-client'
 import { clsxm } from '~/lib/helper'
 import { isNoteModel, isPageModel, isPostModel } from '~/lib/url-builder'
 
-export const AISummary: FC<{
+export interface AiSummaryProps {
   data: PostModel | NoteModel | PageModel
   className?: string
-}> = (props) => {
+}
+
+export const AISummary: FC<AiSummaryProps> = (props) => {
   const { data } = props
 
   const payload = useMemo(() => {
@@ -50,20 +54,16 @@ export const AISummary: FC<{
     async () => {
       const data = await fetch(
         `/api/ai/summary?data=${encodeURIComponent(JSON.stringify(payload))}`,
-        {
-          next: {
-            revalidate: 60 * 10,
-          },
-        },
       ).then((res) => res.json())
       if (!data) throw new Error('请求错误')
       return data
     },
     {
-      staleTime: 1000 * 60 * 60 * 24 * 7,
       retryDelay: 5000,
     },
   )
+  const isClient = useIsClientTransition()
+  if (!isClient) return null
 
   const Inner: ReactNode = (
     <div
@@ -74,7 +74,7 @@ export const AISummary: FC<{
       )}
     >
       <div className="flex items-center">
-        <i className="icon-[mingcute--sparkles-line] mr-2 text-lg" />
+        <LogosOpenaiIcon className="mr-2" />
         AI 生成的摘要
       </div>
 

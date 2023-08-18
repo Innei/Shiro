@@ -46,7 +46,11 @@ export const NoteRootBanner = () => {
 
   if (!banner) return null
 
-  return <NoteBanner {...banner} />
+  return (
+    <div className="mx-[-1rem] mb-4 mt-8 text-sm lg:mx-[-3rem]">
+      <NoteBanner {...banner} />
+    </div>
+  )
 }
 
 export const NoteBanner: FC<{

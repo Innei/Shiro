@@ -4,6 +4,7 @@
 import type { NoteModel } from '@mx-space/api-client'
 
 import { ClientOnly } from '~/components/common/ClientOnly'
+import { SummarySwitcher } from '~/components/widgets/ai/SummarySwitcher'
 import {
   NoteActionAside,
   NoteFooterNavigationBarForMobile,
@@ -15,10 +16,6 @@ import { BanCopyWrapper } from '~/components/widgets/shared/BanCopyWrapper'
 import { ReadIndicatorForMobile } from '~/components/widgets/shared/ReadIndicator'
 import { SubscribeBell } from '~/components/widgets/subscribe'
 import { XLogInfoForNote } from '~/components/widgets/xlog'
-import {
-  getCidForBaseModel,
-  XLogSummary,
-} from '~/components/widgets/xlog/XLogSummaryRSC'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
@@ -48,14 +45,11 @@ const NotePage = function (props: NoteModel) {
               <NoteMetaBar />
             </ClientOnly>
           </span>
-          <div className="ml-[-1.25em] mr-[-1.25em] mt-8 text-sm lg:ml-[calc(-3em)] lg:mr-[calc(-3em)]">
-            <NoteRootBanner />
-          </div>
+          <NoteRootBanner />
         </header>
 
         <NoteHideIfSecret>
-          <XLogSummary cid={getCidForBaseModel(props)} />
-          {/* <AISummary data={props} /> */}
+          <SummarySwitcher data={props} />
           <WrappedElementProvider>
             <ReadIndicatorForMobile />
             <NoteMarkdownImageRecordProvider>

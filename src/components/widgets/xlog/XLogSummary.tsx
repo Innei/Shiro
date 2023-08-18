@@ -5,13 +5,13 @@ import type { FC, ReactNode } from 'react'
 
 import { AutoResizeHeight } from '~/components/widgets/shared/AutoResizeHeight'
 import { clsxm } from '~/lib/helper'
-import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
-import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
 
-const XLogSummary: FC<{
+export interface XLogSummaryProps {
   cid: string
   className?: string
-}> = (props) => {
+}
+
+export const XLogSummary: FC<XLogSummaryProps> = (props) => {
   const { cid } = props
   const { data, isLoading, error } = useQuery(
     [`getSummary`, cid],
@@ -80,20 +80,4 @@ const XLogSummary: FC<{
       {Inner}
     </AutoResizeHeight>
   )
-}
-
-export const XLogSummaryForPost: FC = () => {
-  const cid = useCurrentPostDataSelector((data) => data?.meta?.xLog?.cid)
-
-  if (!cid) return null
-
-  return <XLogSummary cid={cid} className="mb-4" />
-}
-
-export const XLogSummaryForNote: FC = () => {
-  const cid = useCurrentNoteDataSelector((data) => data?.data.meta?.xLog?.cid)
-
-  if (!cid) return null
-
-  return <XLogSummary cid={cid} />
 }

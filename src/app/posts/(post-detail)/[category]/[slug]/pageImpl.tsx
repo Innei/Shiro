@@ -1,6 +1,7 @@
 import type { PostModel } from '@mx-space/api-client'
 
 import { ClientOnly } from '~/components/common/ClientOnly'
+import { SummarySwitcher } from '~/components/widgets/ai/SummarySwitcher'
 import {
   PostActionAside,
   PostCopyright,
@@ -12,10 +13,6 @@ import { GoToAdminEditingButton } from '~/components/widgets/shared/GoToAdminEdi
 import { ReadIndicatorForMobile } from '~/components/widgets/shared/ReadIndicator'
 import { SubscribeBell } from '~/components/widgets/subscribe'
 import { XLogInfoForPost } from '~/components/widgets/xlog'
-import {
-  getCidForBaseModel,
-  XLogSummary,
-} from '~/components/widgets/xlog/XLogSummaryRSC'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
@@ -31,8 +28,6 @@ import {
 const PostPage = (props: PostModel) => {
   const { id } = props
 
-  const cid = getCidForBaseModel(props)
-
   return (
     <div className="relative w-full min-w-0">
       <HeaderMetaInfoSetting />
@@ -47,7 +42,7 @@ const PostPage = (props: PostModel) => {
 
           <PostMetaBarInternal className="mb-8 justify-center" />
 
-          <XLogSummary cid={cid} />
+          <SummarySwitcher data={props} />
           <PostOutdate />
 
           <PostRelated />
