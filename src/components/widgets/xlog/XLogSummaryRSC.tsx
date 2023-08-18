@@ -5,7 +5,7 @@ const headers = {
   'User-Agent': `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Shiro`,
 }
 
-const fetchData = async (cid: string, lang = 'zh') => {
+const fetchData = async (cid: string) => {
   if (!cid) {
     return null
   }
@@ -15,13 +15,16 @@ const fetchData = async (cid: string, lang = 'zh') => {
     abortController.abort()
   }, 3000)
 
-  return fetch(`https://xlog.app/api/summary?cid=${cid}&lang=${lang}`, {
-    headers: new Headers(headers),
-    signal: abortController.signal,
-    next: {
-      revalidate: 60 * 10,
+  return fetch(
+    `https://xlog.app/api/summary?cid=${cid}&lang=${navigator.language}`,
+    {
+      headers: new Headers(headers),
+      signal: abortController.signal,
+      next: {
+        revalidate: 60 * 10,
+      },
     },
-  })
+  )
     .then((res) => res.json())
     .catch(() => null)
 }

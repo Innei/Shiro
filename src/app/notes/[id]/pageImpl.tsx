@@ -4,7 +4,6 @@
 import type { NoteModel } from '@mx-space/api-client'
 
 import { ClientOnly } from '~/components/common/ClientOnly'
-import { SummarySwitcher } from '~/components/widgets/ai/SummarySwitcher'
 import {
   NoteActionAside,
   NoteFooterNavigationBarForMobile,
@@ -14,6 +13,7 @@ import { NoteRootBanner } from '~/components/widgets/note/NoteBanner'
 import { ArticleRightAside } from '~/components/widgets/shared/ArticleRightAside'
 import { BanCopyWrapper } from '~/components/widgets/shared/BanCopyWrapper'
 import { ReadIndicatorForMobile } from '~/components/widgets/shared/ReadIndicator'
+import { SummarySwitcher } from '~/components/widgets/shared/SummarySwitcher'
 import { SubscribeBell } from '~/components/widgets/subscribe'
 import { XLogInfoForNote } from '~/components/widgets/xlog'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'

@@ -50,10 +50,12 @@ export const AISummary: FC<AiSummaryProps> = (props) => {
     summary: string
     source: string
   }>(
-    [`ai-summary`, data.id, API_URL, data.modified],
+    ['ai-summary', data.id, API_URL, data.modified],
     async () => {
       const data = await fetch(
-        `/api/ai/summary?data=${encodeURIComponent(JSON.stringify(payload))}`,
+        `/api/ai/summary?data=${encodeURIComponent(
+          JSON.stringify(payload),
+        )}&lang=${navigator.language}`,
       ).then((res) => res.json())
       if (!data) throw new Error('请求错误')
       return data

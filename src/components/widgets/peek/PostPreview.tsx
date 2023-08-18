@@ -19,8 +19,8 @@ import {
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 import { queries } from '~/queries/definition'
 
-import { SummarySwitcher } from '../ai/SummarySwitcher'
 import { PostOutdate } from '../post'
+import { SummarySwitcher } from '../shared/SummarySwitcher'
 
 interface PostPreviewProps {
   category: string

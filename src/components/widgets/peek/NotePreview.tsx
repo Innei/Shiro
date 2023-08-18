@@ -21,9 +21,9 @@ import {
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 import { queries } from '~/queries/definition'
 
-import { SummarySwitcher } from '../ai/SummarySwitcher'
 import { NoteHideIfSecret, NoteMetaBar, NoteRootBanner } from '../note'
 import { BanCopyWrapper } from '../shared/BanCopyWrapper'
+import { SummarySwitcher } from '../shared/SummarySwitcher'
 
 interface NotePreviewProps {
   noteId: number

@@ -1,7 +1,6 @@
 import type { PostModel } from '@mx-space/api-client'
 
 import { ClientOnly } from '~/components/common/ClientOnly'
-import { SummarySwitcher } from '~/components/widgets/ai/SummarySwitcher'
 import {
   PostActionAside,
   PostCopyright,
@@ -11,6 +10,7 @@ import {
 import { ArticleRightAside } from '~/components/widgets/shared/ArticleRightAside'
 import { GoToAdminEditingButton } from '~/components/widgets/shared/GoToAdminEditingButton'
 import { ReadIndicatorForMobile } from '~/components/widgets/shared/ReadIndicator'
+import { SummarySwitcher } from '~/components/widgets/shared/SummarySwitcher'
 import { SubscribeBell } from '~/components/widgets/subscribe'
 import { XLogInfoForPost } from '~/components/widgets/xlog'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
