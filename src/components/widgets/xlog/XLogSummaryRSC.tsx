@@ -28,6 +28,7 @@ const fetchData = async (cid: string, lang = 'zh') => {
     .then((res) => res.json())
     .catch(() => null)
 }
+
 export const XLogSummary = async (
   props: ComponentType<{
     cid: string

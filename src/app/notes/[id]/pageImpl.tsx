@@ -55,6 +55,7 @@ const NotePage = function (props: NoteModel) {
 
         <NoteHideIfSecret>
           <XLogSummary cid={getCidForBaseModel(props)} />
+          {/* <AISummary data={props} /> */}
           <WrappedElementProvider>
             <ReadIndicatorForMobile />
             <NoteMarkdownImageRecordProvider>

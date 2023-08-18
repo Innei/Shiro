@@ -1,4 +1,5 @@
 import OpenAI from 'openai'
+import type { ArticleDataType } from '~/types/api'
 import type { NextRequest } from 'next/server'
 
 import { sql } from '@vercel/postgres'
@@ -16,13 +17,7 @@ export const GET = async (req: NextRequest) => {
   const dataString = searchParams.get('data') as string
   const lang = searchParams.get('lang') || ('zh' as string)
 
-  let data:
-    | { type: 'post'; category: string; slug: string }
-    | { type: 'note'; nid: number }
-    | {
-        type: 'page'
-        slug: string
-      }
+  let data: ArticleDataType
 
   try {
     data = JSON.parse(decodeURIComponent(dataString))
@@ -87,7 +82,10 @@ export const GET = async (req: NextRequest) => {
     messages: [
       {
         role: 'user',
-        content: `Summarize the following and use a third person description in ${lang} : ${text}`,
+        content: `Summarize this in "${lang}" language:
+"${text}"
+
+CONCISE SUMMARY:`,
       },
     ],
     model: 'gpt-3.5-turbo',
