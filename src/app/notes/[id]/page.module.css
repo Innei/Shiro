@@ -1,4 +1,12 @@
 .with-indent {
+  & {
+    --padding-h: -1rem;
+
+    @screen lg {
+      --padding-h: -45px;
+    }
+  }
+
   :global {
     .paragraph:first-child {
       margin-bottom: 4rem;
@@ -35,8 +43,8 @@
         }
       }
 
-      margin-left: calc(-3em + 2px);
-      margin-right: calc(-3em + 2px);
+      margin-left: var(--padding-h);
+      margin-right: var(--padding-h);
 
       line-height: 1.8;
       padding: 1em 1em 1em 2em;

@@ -47,7 +47,7 @@ export const NoteRootBanner = () => {
   if (!banner) return null
 
   return (
-    <div className="mx-[-1rem] mb-4 mt-8 text-sm lg:mx-[-3rem]">
+    <div className="mx-[var(--padding-h)] mb-4 mt-8 text-sm">
       <NoteBanner {...banner} />
     </div>
   )
