@@ -66,16 +66,16 @@ export default function PreviewPage() {
     const search = location.search
     const searchParams = new URLSearchParams(search)
 
-    let targinOrigin = searchParams.get('origin')
+    let targetOrigin = searchParams.get('origin')
 
-    if (!targinOrigin) {
+    if (!targetOrigin) {
       return
     }
-    targinOrigin = decodeURIComponent(targinOrigin)
-    window.opener.postMessage('Preview Page Ready', targinOrigin)
+    targetOrigin = decodeURIComponent(targetOrigin)
+    window.opener.postMessage('Preview Page Ready', targetOrigin)
 
     const handler = debounce((e) => {
-      if (e.origin !== targinOrigin) {
+      if (e.origin !== targetOrigin) {
         return
       }
 
@@ -93,7 +93,6 @@ export default function PreviewPage() {
 
   const previewData = useAtomValue(previewDataAtom)
 
-  // console.log(previewData)
   if (!previewData) {
     return null
   }
@@ -166,6 +165,8 @@ const NotePreview = () => {
               next: undefined,
               data: {
                 ...data,
+
+                created: new Date().toISOString(),
                 images: data.images ?? [],
                 count: data.count ?? {
                   read: 0,

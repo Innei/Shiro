@@ -1,3 +1,5 @@
+'use client'
+
 import { memo } from 'react'
 import type { FC } from 'react'
 import type { AiSummaryProps } from '../ai/Summary'
