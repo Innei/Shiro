@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query'
 import React, { memo, useEffect, useMemo } from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 import Image from 'next/image'
-import type { RequestError } from '@mx-space/api-client'
 
 import {
   setActivityMediaInfo,
@@ -24,7 +23,7 @@ import {
 } from '~/providers/root/aggregation-data-provider'
 
 // autocorrect: false
-const appDescrption = {
+const appDescription = {
   Typora: '水文',
   Xcode: '玩个锤子',
   iTerm2: '耍杂技',
@@ -36,48 +35,48 @@ const appDescrption = {
   QQ: '水群',
   Messages: '看验证码',
   Code: 'Restart TS Server',
-  Finder: '发呆',
   Infuse: '看片',
   kitty: '撸猫',
-
-  'Activity Monitor': 'Maybe 电脑已死机',
 } as any
 const appLabels: { [app: string]: string } = {
-  Slack: 'slack',
-  Arc: 'arc',
-  Code: 'code',
-  'Code - Insiders': 'code',
-  WebStorm: 'webstorm',
-  Linear: 'linear',
-  Figma: 'figma',
-  Telegram: 'telegram',
-  WeChat: 'wechat',
-  Discord: 'discord',
-  Mail: 'mail',
-  Safari: 'safari',
-  Music: 'music',
-  Finder: 'finder',
-  Messages: 'messages',
-  QQ: 'qq',
-  'Google Chrome': 'chrome',
-  Chrome: 'chrome',
-  'Chrome Canary': 'chrome_canary',
-  'Google Chrome Canary': 'chrome_canary',
-  QQ音乐: 'qqmusic',
-  NetEaseMusic: 'netease',
-  iTerm2: 'iterm2',
-  Xcode: 'xcode',
-  Typora: 'typora',
-  Infuse: 'infuse',
-  kitty: 'kitty',
   'Activity Monitor': 'activity',
-  Alacritty: 'alacritty',
-  Videos: 'apptv',
-  Maps: 'maps',
+  'Chrome Canary': 'chrome_canary',
+  'Code - Insiders': 'code',
+  'Google Chrome Canary': 'chrome_canary',
+  'Google Chrome': 'chrome',
   'System Preferences': 'system',
   'System Settings': 'system',
-  Notes: 'notes',
+  Alacritty: 'alacritty',
+  Arc: 'arc',
+  Chrome: 'chrome',
+  Code: 'code',
+  Discord: 'discord',
+  Figma: 'figma',
+  Finder: 'finder',
   Home: 'homekit',
+  Infuse: 'infuse',
+  Linear: 'linear',
+  Mail: 'mail',
+  Maps: 'maps',
+  Messages: 'messages',
+  Music: 'music',
+  NetEaseMusic: 'netease',
+  Notes: 'notes',
+  QQ: 'qq',
+  QQ音乐: 'qqmusic',
+  Safari: 'safari',
+  Slack: 'slack',
+  Telegram: 'telegram',
+  Typora: 'typora',
+  Videos: 'apptv',
+  WeChat: 'wechat',
+  WebStorm: 'webstorm',
+  Xcode: 'xcode',
+  iTerm2: 'iterm2',
+  kitty: 'kitty',
+  TencentMeeting: 'tencent_meeting',
+  Lark: 'lark',
+  Feishu: 'lark',
 
   cmusic: 'cmusic',
 }
@@ -103,7 +102,7 @@ export const Activity = memo(() => {
           }
         }>()
         .then((res) => res)
-        .catch((err: RequestError) => {
+        .catch(() => {
           return { processName: '', mediaInfo: undefined }
         })
     },
@@ -192,8 +191,8 @@ export const Activity = memo(() => {
                   trackerMessage="Activity"
                 >
                   {ownerName} 正在使用 {processName}
-                  {appDescrption[processName]
-                    ? ` ${appDescrption[processName]}`
+                  {appDescription[processName]
+                    ? ` ${appDescription[processName]}`
                     : ''}
                 </ImpressionView>
               </FloatPopover>
