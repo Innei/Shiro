@@ -33,111 +33,110 @@ export const LinkRenderer = ({ href }: { href: string }) => {
     }
   }, [href])
 
-  if (url) {
-    switch (true) {
-      case isTweetUrl(url): {
-        const id = getTweetId(url)
+  if (!url) {
+    return (
+      <p>
+        <MLink href={href}>
+          <span>{href}</span>
+        </MLink>
+      </p>
+    )
+  }
+  switch (true) {
+    case isTweetUrl(url): {
+      const id = getTweetId(url)
 
-        return <Tweet id={id} />
-      }
+      return <Tweet id={id} />
+    }
 
-      case isGithubRepoUrl(url): {
-        const { owner, repo } = parseGithubRepoUrl(url)
-        return <LinkCard id={`${owner}/${repo}`} source="gh" />
-      }
+    case isGithubRepoUrl(url): {
+      const { owner, repo } = parseGithubRepoUrl(url)
+      return <LinkCard id={`${owner}/${repo}`} source="gh" />
+    }
 
-      case isYoutubeUrl(url): {
-        const id = url.searchParams.get('v')!
-        return (
-          <FixedRatioContainer>
-            <iframe
-              src={`https://www.youtube.com/embed/${id}`}
-              className="absolute inset-0 h-full w-full border-0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              title="YouTube video player"
-            />
-          </FixedRatioContainer>
-        )
-      }
-      case isGistUrl(url): {
-        const { owner, id } = parseGithubGistUrl(url)
-        return (
-          <>
-            <iframe
-              src={`https://gist.github.com/${owner}/${id}.pibb`}
-              className="h-[300px] w-full overflow-auto border-0"
-            />
+    case isYoutubeUrl(url): {
+      const id = url.searchParams.get('v')!
+      return (
+        <FixedRatioContainer>
+          <iframe
+            src={`https://www.youtube.com/embed/${id}`}
+            className="absolute inset-0 h-full w-full border-0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title="YouTube video player"
+          />
+        </FixedRatioContainer>
+      )
+    }
+    case isGistUrl(url): {
+      const { owner, id } = parseGithubGistUrl(url)
+      return (
+        <>
+          <iframe
+            src={`https://gist.github.com/${owner}/${id}.pibb`}
+            className="h-[300px] w-full overflow-auto border-0"
+          />
 
-            <a
-              className="mt-2 flex space-x-2 center"
-              href={href}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <GitHubBrandIcon />
-              <span>{href}</span>
-            </a>
-          </>
-        )
-      }
+          <a
+            className="mt-2 flex space-x-2 center"
+            href={href}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <GitHubBrandIcon />
+            <span>{href}</span>
+          </a>
+        </>
+      )
+    }
 
-      case isGithubCommitUrl(url): {
-        const { owner, repo, id } = parseGithubTypedUrl(url)
-        return (
-          <>
-            <p>
-              <MLink href={href}>{href}</MLink>
-            </p>
-            <LinkCard id={`${owner}/${repo}/commit/${id}`} source="gh-commit" />
-          </>
-        )
-      }
-      case isGithubFilePreviewUrl(url): {
-        const { owner, repo, afterTypeString } = parseGithubTypedUrl(url)
-        const splitString = afterTypeString.split('/')
-        const ref = splitString[0]
-        const path = ref ? splitString.slice(1).join('/') : afterTypeString
-        return (
-          <>
+    case isGithubCommitUrl(url): {
+      const { owner, repo, id } = parseGithubTypedUrl(url)
+      return (
+        <>
+          <p>
             <MLink href={href}>{href}</MLink>
-            <EmbedGithubFile
-              owner={owner}
-              repo={repo}
-              path={path}
-              refType={ref}
-            />
-          </>
-        )
-      }
-      case isCodesandboxUrl(url): {
-        // https://codesandbox.io/s/framer-motion-layoutroot-prop-forked-p39g96
-        // to
-        // https://codesandbox.io/embed/framer-motion-layoutroot-prop-forked-p39g96?fontsize=14&hidenavigation=1&theme=dark
-        return (
-          <FixedRatioContainer>
-            <iframe
-              className="absolute inset-0 h-full w-full rounded-md border-0"
-              src={`https://codesandbox.io/embed/${url.pathname.slice(
-                2,
-              )}?fontsize=14&hidenavigation=1&theme=dark${url.search}`}
-            />
-          </FixedRatioContainer>
-        )
-      }
-      case isSelfArticleUrl(url): {
-        return <LinkCard source="self" id={url.pathname.slice(1)} />
-      }
+          </p>
+          <LinkCard id={`${owner}/${repo}/commit/${id}`} source="gh-commit" />
+        </>
+      )
+    }
+    case isGithubFilePreviewUrl(url): {
+      const { owner, repo, afterTypeString } = parseGithubTypedUrl(url)
+      const splitString = afterTypeString.split('/')
+      const ref = splitString[0]
+      const path = ref ? splitString.slice(1).join('/') : afterTypeString
+      return (
+        <>
+          <MLink href={href}>{href}</MLink>
+          <EmbedGithubFile
+            owner={owner}
+            repo={repo}
+            path={path}
+            refType={ref}
+          />
+        </>
+      )
+    }
+    case isCodesandboxUrl(url): {
+      // https://codesandbox.io/s/framer-motion-layoutroot-prop-forked-p39g96
+      // to
+      // https://codesandbox.io/embed/framer-motion-layoutroot-prop-forked-p39g96?fontsize=14&hidenavigation=1&theme=dark
+      return (
+        <FixedRatioContainer>
+          <iframe
+            className="absolute inset-0 h-full w-full rounded-md border-0"
+            src={`https://codesandbox.io/embed/${url.pathname.slice(
+              2,
+            )}?fontsize=14&hidenavigation=1&theme=dark${url.search}`}
+          />
+        </FixedRatioContainer>
+      )
+    }
+    case isSelfArticleUrl(url): {
+      return <LinkCard source="self" id={url.pathname.slice(1)} />
     }
   }
-  // fallback to default renderer
-  return (
-    <p>
-      <MLink href={href}>
-        <span>{href}</span>
-      </MLink>
-    </p>
-  )
 }
 
 const FixedRatioContainer = ({
