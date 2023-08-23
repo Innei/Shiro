@@ -170,7 +170,7 @@ const FooterBottom = async () => {
           </SubscribeTextButton>
         </span>
           <span className="mt-3 block md:mt-0 md:inline">
-          Faster than the wind and freely. Wanting to flap through a moment, because it&apos;s proof that I&apos;m alive now.
+          Live in the present more than the future or the past.
         </span>
         </p>
         <p>
