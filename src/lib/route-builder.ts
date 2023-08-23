@@ -38,7 +38,11 @@ type WithId = {
   id: string | number
 }
 type HomeParams = Noop
-type PostsParams = Pagination
+export type PostsParams = Pagination & {
+  sortBy?: string
+  orderBy?: 'desc' | 'asc'
+}
+
 type PostParams = {
   category: string
   slug: string

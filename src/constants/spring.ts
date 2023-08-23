@@ -7,7 +7,7 @@ export const reboundPreset: Spring = {
   damping: 8,
 }
 
-export const microdampingPreset: Spring = {
+export const microDampingPreset: Spring = {
   type: 'spring',
   damping: 24,
 }

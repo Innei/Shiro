@@ -19,7 +19,7 @@ import type { KeyboardEventHandler } from 'react'
 
 import { EmptyIcon } from '~/components/icons/empty'
 import { FABPortable } from '~/components/ui/fab'
-import { microdampingPreset } from '~/constants/spring'
+import { microDampingPreset } from '~/constants/spring'
 import useDebounceValue from '~/hooks/common/use-debounce-value'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { noopArr } from '~/lib/noop'
@@ -230,7 +230,7 @@ const SearchPanelImpl = () => {
       }}
       animate={{
         y: 0,
-        transition: microdampingPreset,
+        transition: microDampingPreset,
       }}
     >
       <input

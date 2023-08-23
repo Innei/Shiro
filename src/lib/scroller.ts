@@ -2,7 +2,7 @@
 
 import { animateValue } from 'framer-motion'
 
-import { microdampingPreset } from '~/constants/spring'
+import { microDampingPreset } from '~/constants/spring'
 
 // TODO scroller lock
 export const springScrollTo = (y: number) => {
@@ -16,7 +16,7 @@ export const springScrollTo = (y: number) => {
   const animation = animateValue({
     keyframes: [scrollTop + 1, y],
     autoplay: true,
-    ...microdampingPreset,
+    ...microDampingPreset,
     onPlay() {
       window.addEventListener('wheel', stopSpringScrollHandler)
       window.addEventListener('touchmove', stopSpringScrollHandler)

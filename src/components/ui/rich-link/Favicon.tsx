@@ -2,6 +2,7 @@ import { BilibiliIcon } from '~/components/icons/platform/BilibiliIcon'
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import { IcBaselineTelegram } from '~/components/icons/platform/Telegram'
 import { TwitterIcon } from '~/components/icons/platform/Twitter'
+import { WikipediaIcon } from '~/components/icons/platform/WikipediaIcon'
 import { SimpleIconsZhihu } from '~/components/icons/platform/ZhihuIcon'
 import { clsxm } from '~/lib/helper'
 import {
@@ -9,6 +10,7 @@ import {
   isGithubUrl,
   isTelegramUrl,
   isTwitterUrl,
+  isWikipediaUrl,
   isZhihuUrl,
 } from '~/lib/link-parser'
 
@@ -18,7 +20,8 @@ const prefixToIconMap = {
   TG: <IcBaselineTelegram className="text-[#2AABEE]" />,
   BL: <BilibiliIcon className="text-[#469ECF]" />,
   ZH: <SimpleIconsZhihu className="text-[#0084FF]" />,
-} as any
+  WI: <WikipediaIcon className="text-current" />,
+}
 
 const getUrlSource = (url: URL) => {
   const map = [
@@ -42,6 +45,10 @@ const getUrlSource = (url: URL) => {
       type: 'ZH',
       test: isZhihuUrl,
     },
+    {
+      type: 'WI',
+      test: isWikipediaUrl,
+    },
   ]
 
   return map.find((item) => item.test(url))?.type
@@ -57,7 +64,7 @@ type FaviconProps =
 export const Favicon: Component<FaviconProps> = (props) => {
   // @ts-expect-error
   const { source, href, className } = props
-  let nextSource = source
+  let nextSource = source as keyof typeof prefixToIconMap
 
   try {
     if (href) {

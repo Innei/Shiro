@@ -11,6 +11,7 @@ import type { FC, PropsWithChildren } from 'react'
 
 import { MAIN_MARKDOWN_ID } from '~/constants/dom-id'
 import { isDev } from '~/lib/env'
+import { noopObj } from '~/lib/noop'
 import { springScrollToElement } from '~/lib/scroller'
 
 import { Gallery } from '../gallery'
@@ -254,7 +255,6 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
     return (
       <Suspense>
         <As
-          id={MAIN_MARKDOWN_ID}
           style={style}
           {...wrapperProps}
           ref={ref}
@@ -270,3 +270,22 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
     )
   })
 Markdown.displayName = 'Markdown'
+
+export const MainMarkdown: FC<
+  MdProps & MarkdownToJSX.Options & PropsWithChildren
+> = (props) => {
+  const { wrapperProps = noopObj } = props
+  return (
+    <Markdown
+      as="main"
+      {...props}
+      wrapperProps={useMemo(
+        () => ({
+          ...wrapperProps,
+          id: MAIN_MARKDOWN_ID,
+        }),
+        [wrapperProps],
+      )}
+    />
+  )
+}

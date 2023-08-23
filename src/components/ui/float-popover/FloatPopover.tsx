@@ -11,33 +11,35 @@ import { clsxm } from '~/lib/helper'
 import { RootPortal } from '../portal'
 import styles from './index.module.css'
 
-export function FloatPopover<T extends {}>(
-  props: PropsWithChildren<{
-    TriggerComponent: FC<T>
-    headless?: boolean
-    wrapperClassName?: string
-    trigger?: 'click' | 'hover' | 'both'
-    padding?: number
-    offset?: number
-    popoverWrapperClassNames?: string
-    popoverClassNames?: string
+type FloatPopoverProps<T> = PropsWithChildren<{
+  TriggerComponent: FC<T>
+  headless?: boolean
+  wrapperClassName?: string
+  trigger?: 'click' | 'hover' | 'both'
+  padding?: number
+  offset?: number
+  popoverWrapperClassNames?: string
+  popoverClassNames?: string
 
-    triggerComponentProps?: T
-    /**
-     * 不消失
-     */
-    debug?: boolean
+  triggerComponentProps?: T
+  /**
+   * 不消失
+   */
+  debug?: boolean
 
-    animate?: boolean
+  animate?: boolean
 
-    as?: keyof HTMLElementTagNameMap
+  as?: keyof HTMLElementTagNameMap
 
-    /**
-     * @default popover
-     */
-    type?: 'tooltip' | 'popover'
-  }> &
-    UseFloatingOptions,
+  /**
+   * @default popover
+   */
+  type?: 'tooltip' | 'popover'
+}> &
+  UseFloatingOptions
+
+export const FloatPopover = function FloatPopover<T extends {}>(
+  props: FloatPopoverProps<T>,
 ) {
   const {
     headless = false,
@@ -233,8 +235,7 @@ export function FloatPopover<T extends {}>(
             {open && (
               <div
                 tabIndex={-1}
-                role="dialog"
-                aria-modal="true"
+                role={type === 'tooltip' ? 'tooltip' : 'dialog'}
                 className={clsxm(
                   !headless && [
                     '!shadow-out-sm focus:!shadow-out-sm focus-visible:!shadow-out-sm',

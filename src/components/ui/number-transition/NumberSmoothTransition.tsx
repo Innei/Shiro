@@ -2,7 +2,7 @@
 
 import { AnimatePresence, m } from 'framer-motion'
 
-import { microdampingPreset } from '~/constants/spring'
+import { microDampingPreset } from '~/constants/spring'
 import useDebounceValue from '~/hooks/common/use-debounce-value'
 
 export const NumberSmoothTransition = (props: {
@@ -27,7 +27,7 @@ export const NumberSmoothTransition = (props: {
           y: -16,
           position: 'absolute',
         }}
-        transition={microdampingPreset}
+        transition={microDampingPreset}
       >
         {debouncedChildren}
       </m.span>

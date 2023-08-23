@@ -170,14 +170,9 @@ const ButtonGroup = () => {
   }
 
   return (
-    <div
-      role="radiogroup"
-      className="w-fit-content inline-flex rounded-full border border-slate-200 p-[3px] dark:border-neutral-800"
-    >
+    <div className="w-fit-content inline-flex rounded-full border border-slate-200 p-[3px] dark:border-neutral-800">
       <button
-        aria-checked="false"
         aria-label="Switch to light theme"
-        role="radio"
         type="button"
         className={styles.base}
         onClick={() => {
@@ -187,10 +182,8 @@ const ButtonGroup = () => {
         <SunIcon />
       </button>
       <button
-        aria-checked="true"
         aria-label="Switch to system theme"
         className={styles.base}
-        role="radio"
         type="button"
         onClick={() => {
           buildThemeTransition('system')
@@ -199,10 +192,8 @@ const ButtonGroup = () => {
         <SystemIcon />
       </button>
       <button
-        aria-checked="false"
         aria-label="Switch to dark theme"
         className={styles.base}
-        role="radio"
         type="button"
         onClick={() => {
           buildThemeTransition('dark')

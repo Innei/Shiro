@@ -7,7 +7,7 @@ import type { Image } from '@mx-space/api-client'
 import type { PropsWithChildren } from 'react'
 
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
-import { Markdown } from '~/components/ui/markdown'
+import { MainMarkdown } from '~/components/ui/markdown'
 import { GoToAdminEditingButton } from '~/components/widgets/shared/GoToAdminEditingButton'
 import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
@@ -31,10 +31,9 @@ export const PageMarkdown = () => {
   if (!text) return null
 
   return (
-    <Markdown
+    <MainMarkdown
       allowsScript
       value={text}
-      as="main"
       className="min-w-0 overflow-hidden"
     />
   )

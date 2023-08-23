@@ -6,7 +6,7 @@ import Link from 'next/link'
 import type { IHeaderMenu } from '../config'
 
 import { FloatPopover } from '~/components/ui/float-popover'
-import { microdampingPreset } from '~/constants/spring'
+import { microDampingPreset } from '~/constants/spring'
 import { clsxm } from '~/lib/helper'
 
 export const MenuPopover: Component<{
@@ -72,7 +72,7 @@ const Item = memo(function Item(
       {isEnter && (
         <m.span
           layoutId={currentId}
-          transition={microdampingPreset}
+          transition={microDampingPreset}
           className={clsxm(
             'absolute bottom-0 left-0 right-2 top-0 z-[-1] rounded-md',
             'bg-zinc-50 dark:bg-neutral-900',

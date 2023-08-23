@@ -1,7 +1,7 @@
 'use client'
 
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useLayoutEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import clsx from 'clsx'
 import { stagger, useAnimate } from 'framer-motion'
 import { produce } from 'immer'
@@ -29,7 +29,6 @@ import { usePrevious } from '~/hooks/common/use-previous'
 import { sample } from '~/lib/_'
 import { preventDefault } from '~/lib/dom'
 import { apiClient } from '~/lib/request'
-import { springScrollToTop } from '~/lib/scroller'
 import { toast } from '~/lib/toast'
 import { urlBuilder } from '~/lib/url-builder'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
@@ -38,9 +37,6 @@ import { useModalStack } from '~/providers/root/modal-stack-provider'
 import { FETCH_SIZE, QUERY_KEY } from './constants'
 
 export default function Page() {
-  useLayoutEffect(() => {
-    springScrollToTop()
-  }, [])
   return (
     <div>
       <header className="prose">

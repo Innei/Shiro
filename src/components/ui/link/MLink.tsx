@@ -75,6 +75,7 @@ export const MLink: FC<{
       case isZhihuProfileUrl(url): {
         parsedType = 'ZH'
         parsedName = parseZhihuProfileUrl(url).id
+        break
       }
     }
   } catch {

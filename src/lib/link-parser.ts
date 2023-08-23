@@ -83,6 +83,10 @@ export const isZhihuProfileUrl = (url: URL) => {
   return isZhihuUrl(url) && url.pathname.startsWith('/people/')
 }
 
+export const isWikipediaUrl = (url: URL) => {
+  return url.hostname.includes('wikipedia.org')
+}
+
 export const parseSelfArticleUrl = (url: URL) => {
   const [_, type, ...rest] = url.pathname.split('/')
   switch (type) {

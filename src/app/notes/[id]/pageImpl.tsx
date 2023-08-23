@@ -4,7 +4,6 @@
 import type { NoteModel } from '@mx-space/api-client'
 
 import { ClientOnly } from '~/components/common/ClientOnly'
-import { ScrollTop } from '~/components/common/ScrollTop'
 import {
   NoteActionAside,
   NoteFooterNavigationBarForMobile,
@@ -14,12 +13,9 @@ import { NoteRootBanner } from '~/components/widgets/note/NoteBanner'
 import { ArticleRightAside } from '~/components/widgets/shared/ArticleRightAside'
 import { BanCopyWrapper } from '~/components/widgets/shared/BanCopyWrapper'
 import { ReadIndicatorForMobile } from '~/components/widgets/shared/ReadIndicator'
+import { SummarySwitcher } from '~/components/widgets/shared/SummarySwitcher'
 import { SubscribeBell } from '~/components/widgets/subscribe'
 import { XLogInfoForNote } from '~/components/widgets/xlog'
-import {
-  getCidForBaseModel,
-  XLogSummary,
-} from '~/components/widgets/xlog/XLogSummaryRSC'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
@@ -38,8 +34,6 @@ import {
 const NotePage = function (props: NoteModel) {
   return (
     <>
-      <ScrollTop key={props.id} />
-
       <NoteHeaderMetaInfoSetting />
       <IndentArticleContainer>
         <header>
@@ -51,13 +45,11 @@ const NotePage = function (props: NoteModel) {
               <NoteMetaBar />
             </ClientOnly>
           </span>
-          <div className="ml-[-1.25em] mr-[-1.25em] mt-8 text-sm lg:ml-[calc(-3em)] lg:mr-[calc(-3em)]">
-            <NoteRootBanner />
-          </div>
+          <NoteRootBanner />
         </header>
 
         <NoteHideIfSecret>
-          <XLogSummary cid={getCidForBaseModel(props)} />
+          <SummarySwitcher data={props} />
           <WrappedElementProvider>
             <ReadIndicatorForMobile />
             <NoteMarkdownImageRecordProvider>

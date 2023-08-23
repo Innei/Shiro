@@ -1,7 +1,6 @@
 import type { PostModel } from '@mx-space/api-client'
 
 import { ClientOnly } from '~/components/common/ClientOnly'
-import { ScrollTop } from '~/components/common/ScrollTop'
 import {
   PostActionAside,
   PostCopyright,
@@ -11,12 +10,9 @@ import {
 import { ArticleRightAside } from '~/components/widgets/shared/ArticleRightAside'
 import { GoToAdminEditingButton } from '~/components/widgets/shared/GoToAdminEditingButton'
 import { ReadIndicatorForMobile } from '~/components/widgets/shared/ReadIndicator'
+import { SummarySwitcher } from '~/components/widgets/shared/SummarySwitcher'
 import { SubscribeBell } from '~/components/widgets/subscribe'
 import { XLogInfoForPost } from '~/components/widgets/xlog'
-import {
-  getCidForBaseModel,
-  XLogSummary,
-} from '~/components/widgets/xlog/XLogSummaryRSC'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
@@ -32,11 +28,9 @@ import {
 const PostPage = (props: PostModel) => {
   const { id } = props
 
-  const cid = getCidForBaseModel(props)
-
   return (
     <div className="relative w-full min-w-0">
-      <ScrollTop key={id} /> <HeaderMetaInfoSetting />
+      <HeaderMetaInfoSetting />
       <article className="prose">
         <header className="mb-8">
           <PostTitle />
@@ -48,7 +42,7 @@ const PostPage = (props: PostModel) => {
 
           <PostMetaBarInternal className="mb-8 justify-center" />
 
-          <XLogSummary cid={cid} />
+          <SummarySwitcher data={props} />
           <PostOutdate />
 
           <PostRelated />

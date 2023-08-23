@@ -23,7 +23,8 @@ import { queries } from '~/queries/definition'
 
 import { NoteHideIfSecret, NoteMetaBar, NoteRootBanner } from '../note'
 import { BanCopyWrapper } from '../shared/BanCopyWrapper'
-import { XLogSummaryForNote } from '../xlog'
+import { XLogSummary } from '../xlog'
+import { getCidForBaseModel } from '../xlog/utils'
 
 interface NotePreviewProps {
   noteId: number
@@ -52,13 +53,11 @@ export const NotePreview: FC<NotePreviewProps> = (props) => {
                 <NoteMetaBar />
               </ClientOnly>
             </span>
-            <div className="ml-[-1.25em] mr-[-1.25em] mt-8 text-sm lg:ml-[calc(-3em)] lg:mr-[calc(-3em)]">
-              <NoteRootBanner />
-            </div>
+            <NoteRootBanner />
           </header>
 
           <NoteHideIfSecret>
-            <XLogSummaryForNote />
+            <XLogSummary cid={getCidForBaseModel(data)} />
             <WrappedElementProvider>
               <BanCopyWrapper>
                 <NoteMarkdownImageRecordProvider>
