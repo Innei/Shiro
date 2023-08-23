@@ -96,8 +96,8 @@ dependencies:
     specifier: 0.2.1
     version: 0.2.1(next@13.4.19)(react-dom@18.2.0)(react@18.2.0)
   openai:
-    specifier: 4.1.0
-    version: 4.1.0
+    specifier: 4.2.0
+    version: 4.2.0
   qrcode.react:
     specifier: 3.1.0
     version: 3.1.0(react@18.2.0)
@@ -2335,7 +2335,7 @@ packages:
     dependencies:
       https-proxy-agent: 5.0.1
       mkdirp: 0.5.6
-      node-fetch: 2.6.12
+      node-fetch: 2.6.13
       progress: 2.0.3
       proxy-from-env: 1.1.0
       which: 2.0.2
@@ -2351,7 +2351,7 @@ packages:
     requiresBuild: true
     dependencies:
       https-proxy-agent: 5.0.1
-      node-fetch: 2.6.12
+      node-fetch: 2.6.13
       progress: 2.0.3
       proxy-from-env: 1.1.0
       which: 2.0.2
@@ -2725,10 +2725,6 @@ packages:
 
   /@types/node@18.17.8:
     resolution: {integrity: sha512-Av/7MqX/iNKwT9Tr60V85NqMnsmh8ilfJoBlIVibkXfitk9Q22D9Y5mSpm+FvG5DET7EbVfB40bOiLzKgYFgPw==}
-
-  /@types/node@20.5.0:
-    resolution: {integrity: sha512-Mgq7eCtoTjT89FqNoTzzXg2XvCi5VMhRV6+I2aYanc6kQCBImeNaAYRs/DyoVqk1YEUJK5gN9VO7HRIdz4Wo3Q==}
-    dev: false
 
   /@types/node@20.5.3:
     resolution: {integrity: sha512-ITI7rbWczR8a/S6qjAW7DMqxqFMjjTo61qZVWJ1ubPvbIQsL5D/TvwjYEalM8Kthpe3hTzOGrF2TGbAu2uyqeA==}
@@ -5426,7 +5422,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 20.5.0
+      '@types/node': 20.5.3
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: false
@@ -6388,8 +6384,8 @@ packages:
       mimic-fn: 4.0.0
     dev: true
 
-  /openai@4.1.0:
-    resolution: {integrity: sha512-EaCMqi7JI0xw68PUE+DJkAdykgCZEl203QXWmYWm5wRVUmEC8FAeliLkpeWWEafxnC43UtWNdnTMRImOS3C3ZA==}
+  /openai@4.2.0:
+    resolution: {integrity: sha512-zfvpO2eITIxIjTG8T6Cek7NB2dMvP/LW0TRUJ4P9E8+qbBNKw00DrtfF64b+fAV2+wUYCVyynT6iSycJ//TtbA==}
     hasBin: true
     dependencies:
       '@types/node': 18.17.8
