@@ -59,6 +59,7 @@
     "framer-motion": "^10.16.1",
     "idb-keyval": "6.2.1",
     "immer": "^10.0.2",
+    "jojoo": "0.0.3",
     "jotai": "2.4.0",
     "js-cookie": "3.0.5",
     "markdown-to-jsx": "npm:@innei/markdown-to-jsx@7.2.1-beta.0",
@@ -121,5 +122,22 @@
     "budget": 358400,
     "budgetPercentIncreaseRed": 20,
     "showDetails": true
+  },
+  "pnpm": {
+    "overrides": {
+      "array-includes": "npm:@nolyfill/array-includes@latest",
+      "array.prototype.findlastindex": "npm:@nolyfill/array.prototype.findlastindex@latest",
+      "array.prototype.flat": "npm:@nolyfill/array.prototype.flat@latest",
+      "array.prototype.flatmap": "npm:@nolyfill/array.prototype.flatmap@latest",
+      "array.prototype.tosorted": "npm:@nolyfill/array.prototype.tosorted@latest",
+      "has": "npm:@nolyfill/has@latest",
+      "object.assign": "npm:@nolyfill/object.assign@latest",
+      "object.entries": "npm:@nolyfill/object.entries@latest",
+      "object.fromentries": "npm:@nolyfill/object.fromentries@latest",
+      "object.groupby": "npm:@nolyfill/object.groupby@latest",
+      "object.hasown": "npm:@nolyfill/object.hasown@latest",
+      "object.values": "npm:@nolyfill/object.values@latest",
+      "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@latest"
+    }
   }
 }
