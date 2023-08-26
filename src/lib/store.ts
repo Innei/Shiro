@@ -1,3 +1,7 @@
-import { createStore } from 'jotai'
+import { setStore } from 'jojoo'
+import { createStore } from 'jotai/vanilla'
 
-export const jotaiStore = createStore()
+const jotaiStore = createStore()
+setStore(jotaiStore)
+
+export { jotaiStore }

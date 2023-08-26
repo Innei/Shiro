@@ -1,10 +1,6 @@
-import { atom, useAtomValue } from 'jotai'
+import { createAtomHooks } from 'jojoo/react'
+import { atom } from 'jotai'
 
-import { jotaiStore } from '~/lib/store'
-
-const cssPrintMediaAtom = atom(false)
-
-export const useIsPrintMode = () => useAtomValue(cssPrintMediaAtom)
-
-export const setIsPrintMode = (status: boolean) =>
-  jotaiStore.set(cssPrintMediaAtom, status)
+export const [, , useIsPrintMode, , , setIsPrintMode] = createAtomHooks(
+  atom(false),
+)

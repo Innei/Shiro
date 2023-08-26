@@ -7,7 +7,7 @@ html {
   line-height: 1.5;
 }
 
-@screen 2xl {
+@media (min-width: 2160px) {
   html {
     font-size: 15px;
   }
