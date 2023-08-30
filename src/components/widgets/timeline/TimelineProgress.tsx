@@ -11,7 +11,7 @@ import {
 } from '~/lib/datetime'
 
 const PROGRESS_DURATION = 2
-export const TimelinProgress = () => {
+export const TimelineProgress = () => {
   const [percentOfYear, setPercentYear] = useState(0)
   const [percentOfDay, setPercentDay] = useState(0)
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear())
