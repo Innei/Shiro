@@ -28,3 +28,7 @@ export const Loading: Component<LoadingProps> = ({
     </div>
   )
 }
+
+export const FullPageLoading = () => (
+  <Loading useDefaultLoadingText className="h-[calc(100vh-6.5rem-10rem)]" />
+)
