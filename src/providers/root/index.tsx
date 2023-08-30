@@ -16,7 +16,6 @@ import { JotaiStoreProvider } from './jotai-provider'
 import { ModalStackProvider } from './modal-stack-provider'
 import { PageScrollInfoProvider } from './page-scroll-info-provider'
 import { ScriptInjectProvider } from './script-inject-provider'
-import { SentryProvider } from './sentry-provider'
 import { SocketContainer } from './socket-provider'
 
 const loadFeatures = () =>
@@ -38,7 +37,7 @@ export function Providers({ children }: PropsWithChildren) {
         <SocketContainer />
         <ModalStackProvider key="modalStackProvider" />
         <EventProvider key="viewportProvider" />
-        <SentryProvider key="SentryProvider" />
+        {/* <SentryProvider key="SentryProvider" /> */}
         <PageScrollInfoProvider key="PageScrollInfoProvider" />
         <DebugProvider key="debugProvider" />
         <AccentColorProvider />

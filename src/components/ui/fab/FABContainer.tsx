@@ -114,7 +114,7 @@ export const FABContainer = (props: {
       ref={fabContainerRef}
       data-testid="fab-container"
       className={clsx(
-        'font-lg fixed bottom-[calc(2rem+env(safe-area-inset-bottom))] right-4 z-[9] flex flex-col',
+        'font-lg fixed bottom-[calc(2rem+env(safe-area-inset-bottom))] left-[calc(100vw-3rem-1rem)] z-[9] flex flex-col',
         shouldHide ? 'translate-x-[calc(100%+2rem)]' : '',
         'transition-transform duration-300 ease-in-out',
       )}
