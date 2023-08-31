@@ -60,8 +60,8 @@ dependencies:
     specifier: 2.0.0
     version: 2.0.0
   daisyui:
-    specifier: 3.6.3
-    version: 3.6.3
+    specifier: 3.6.4
+    version: 3.6.4
   dayjs:
     specifier: 1.11.9
     version: 1.11.9
@@ -75,8 +75,8 @@ dependencies:
     specifier: 0.2.20
     version: 0.2.20(react@18.2.0)
   framer-motion:
-    specifier: ^10.16.1
-    version: 10.16.1(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^10.16.2
+    version: 10.16.2(react-dom@18.2.0)(react@18.2.0)
   idb-keyval:
     specifier: 6.2.1
     version: 6.2.1
@@ -85,10 +85,10 @@ dependencies:
     version: 10.0.2
   jojoo:
     specifier: 0.0.8
-    version: 0.0.8(immer@10.0.2)(jotai@2.4.0)(react@18.2.0)
+    version: 0.0.8(immer@10.0.2)(jotai@2.4.1)(react@18.2.0)
   jotai:
-    specifier: 2.4.0
-    version: 2.4.0(@types/react@18.2.21)(react@18.2.0)
+    specifier: 2.4.1
+    version: 2.4.1(@types/react@18.2.21)(react@18.2.0)
   js-cookie:
     specifier: 3.0.5
     version: 3.0.5
@@ -138,8 +138,8 @@ dependencies:
     specifier: 0.5.0
     version: 0.5.0
   shiki:
-    specifier: 0.14.3
-    version: 0.14.3
+    specifier: 0.14.4
+    version: 0.14.4
   socket.io-client:
     specifier: 4.7.2
     version: 4.7.2
@@ -1844,14 +1844,14 @@ packages:
     dependencies:
       asn1js: 3.0.5
       pvtsutils: 1.3.2
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /@peculiar/json-schema@1.1.12:
     resolution: {integrity: sha512-coUfuoMeIB7B8/NMekxaDzLhaYmp0HZNPEjYRm9goRou8UZIC3z21s0sL9AWoCw4EG876QyO3kYrc61WNF9B/w==}
     engines: {node: '>=8.0.0'}
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /@peculiar/webcrypto@1.4.1:
@@ -1861,7 +1861,7 @@ packages:
       '@peculiar/asn1-schema': 2.3.6
       '@peculiar/json-schema': 1.1.12
       pvtsutils: 1.3.2
-      tslib: 2.4.1
+      tslib: 2.6.2
       webcrypto-core: 1.7.7
     dev: false
 
@@ -2985,7 +2985,7 @@ packages:
     dependencies:
       pvtsutils: 1.3.2
       pvutils: 1.1.3
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /asynckit@0.4.0:
@@ -3674,8 +3674,8 @@ packages:
       lodash-es: 4.17.21
     dev: false
 
-  /daisyui@3.6.3:
-    resolution: {integrity: sha512-VNWogAjx37H8kNYd2E/+r1OXc6dOvJTKlKltqIKAlNMFVfx2BIKPcmnVxaHQLfj2vhv1mYDBjgWj+1enQ+4yZA==}
+  /daisyui@3.6.4:
+    resolution: {integrity: sha512-8cFEkA2CaTKLUBvEU+9cTx6uvLSN2ZUq9fXxMkdiRS7QM79jBFv3klNkbUaPslmVh0eoeeCk0o98sjmfQ7/Cgg==}
     engines: {node: '>=16.9.0'}
     dependencies:
       colord: 2.9.3
@@ -3813,7 +3813,7 @@ packages:
     resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
     dependencies:
       no-case: 3.0.4
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /dotenv@16.3.1:
@@ -4371,8 +4371,8 @@ packages:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: true
 
-  /framer-motion@10.16.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-K6TXr5mZtitC/dxQCBdg7xzdN0d5IAIrlaqCPKtIQVdzVPGC0qBuJKXggHX1vjnP5gPOFwB1KbCCTWcnFc3kWg==}
+  /framer-motion@10.16.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-aY6L9YMvqMWtfOQptaUvvr8dp97jskXY5UYLQM0vOPxKeERrG/Z034EIQZ/52u7MeCT0HlCQy3/l0HdUZCB9Tw==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -4722,7 +4722,7 @@ packages:
     resolution: {integrity: sha512-oVhqoRDaBXf7sjkll95LHVS6Myyyb1zaunVwk4Z0+WPSW4gjS0pl01zYKHScTuyEhQsFxV5L4DR5r+YqSyqyyg==}
     hasBin: true
 
-  /jojoo@0.0.8(immer@10.0.2)(jotai@2.4.0)(react@18.2.0):
+  /jojoo@0.0.8(immer@10.0.2)(jotai@2.4.1)(react@18.2.0):
     resolution: {integrity: sha512-Vow1/jIejhWDWud9IE7Q2tWuA5fHPtRHvcyRKNqixtHsnk1ZDnjm92k1K7MzxMNJ0awvjSKCtodjKBG7evMsTg==}
     peerDependencies:
       immer: ^10.0.0
@@ -4730,12 +4730,12 @@ packages:
       react: ^18.0.0
     dependencies:
       immer: 10.0.2
-      jotai: 2.4.0(@types/react@18.2.21)(react@18.2.0)
+      jotai: 2.4.1(@types/react@18.2.21)(react@18.2.0)
       react: 18.2.0
     dev: false
 
-  /jotai@2.4.0(@types/react@18.2.21)(react@18.2.0):
-    resolution: {integrity: sha512-NUHJdAJe3C8Prf0DD6EzezCATjkNvfCNI7pgkaX7bCPPsqE0oK8L9RzZsEhz/UxFoGRayXwacTvAli0VEYKkqQ==}
+  /jotai@2.4.1(@types/react@18.2.21)(react@18.2.0):
+    resolution: {integrity: sha512-S4CTLpsZV+LABBXL5PgkMl+5jK3ljfbWmcLqtN7CQ2vio/Hrg3T6IKk/vf2/9hnp1imTPDsaFv7D54de/7Sa+w==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=17.0.0'
@@ -5048,7 +5048,7 @@ packages:
   /lower-case@2.0.2:
     resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /lru-cache@5.1.1:
@@ -5466,7 +5466,7 @@ packages:
     resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
     dependencies:
       lower-case: 2.0.2
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /node-domexception@1.0.0:
@@ -6307,7 +6307,7 @@ packages:
   /pvtsutils@1.3.2:
     resolution: {integrity: sha512-+Ipe2iNUyrZz+8K/2IOo+kKikdtfhRKzNpQbruF2URmqPtoqAs8g3xS7TJvFF2GcPXjh7DkqMnpVveRFq4PgEQ==}
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /pvutils@1.1.3:
@@ -6626,8 +6626,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /shiki@0.14.3:
-    resolution: {integrity: sha512-U3S/a+b0KS+UkTyMjoNojvTgrBHjgp7L6ovhFVZsXmBGnVdQ4K4U9oK0z63w538S91ATngv1vXigHCSWOwnr+g==}
+  /shiki@0.14.4:
+    resolution: {integrity: sha512-IXCRip2IQzKwxArNNq1S+On4KPML3Yyn8Zzs/xRgcgOWIr8ntIK3IKzjFPfjy/7kt9ZMjc+FItfqHRBg8b6tNQ==}
     dependencies:
       ansi-sequence-parser: 1.1.0
       jsonc-parser: 3.2.0
@@ -6681,7 +6681,7 @@ packages:
     resolution: {integrity: sha512-LAOh4z89bGQvl9pFfNF8V146i7o7/CqFPbqzYgP+yYzDIDeS9HaNFtXABamRW+AQzEVODcvE79ljJ+8a9YSdMg==}
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /snakecase-keys@3.2.1:
@@ -7269,7 +7269,7 @@ packages:
       '@peculiar/json-schema': 1.1.12
       asn1js: 3.0.5
       pvtsutils: 1.3.2
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /webidl-conversions@3.0.1:
