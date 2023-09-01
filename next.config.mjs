@@ -19,7 +19,6 @@ let nextConfig = {
   },
   experimental: {
     appDir: true,
-    serverComponentsExternalPackages: ['shiki', 'vscode-oniguruma'],
     serverMinification: true,
 
     // @see https://vercel.com/blog/version-skew-protection
