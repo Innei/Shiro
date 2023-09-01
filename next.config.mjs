@@ -41,6 +41,15 @@ let nextConfig = {
       "default-src 'self'; script-src 'none'; sandbox; style-src 'unsafe-inline';",
   },
 
+  async rewrites() {
+    return {
+      beforeFiles: [
+        { source: '/atom.xml', destination: '/feed' },
+        { source: '/sitemap.xml', destination: '/sitemap' },
+      ],
+    }
+  },
+
   webpack: (config, options) => {
     config.externals.push({
       'utf-8-validate': 'commonjs utf-8-validate',

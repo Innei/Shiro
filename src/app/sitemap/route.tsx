@@ -1,7 +1,6 @@
 import { getQueryClient } from '~/lib/query-client.server'
 import { apiClient } from '~/lib/request'
 
-export const runtime = 'edge'
 export const revalidate = 60 * 60 // 1 hour
 
 export const GET = async () => {
