@@ -327,7 +327,7 @@ const DeleteButton = (props: { id: string }) => {
                     handleDelete()
                     dismiss()
                   }}
-                  className="bg-zinc-100/80 text-red-500 dark:bg-neutral-900/90"
+                  className="bg-zinc-100/80 !text-red-500 dark:bg-neutral-900/90"
                 >
                   确定
                 </StyledButton>
