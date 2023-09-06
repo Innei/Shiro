@@ -68,7 +68,7 @@ const appLabels: { [app: string]: string } = {
   音乐: 'music',
   网易云音乐: 'netease',
   备忘录: 'notes',
-  'Safari 浏览器': 'safari',
+  Safari浏览器: 'safari',
   微信: 'wechat',
   腾讯会议: 'tencent_meeting',
   Alacritty: 'alacritty',
