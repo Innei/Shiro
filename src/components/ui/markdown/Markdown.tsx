@@ -116,12 +116,12 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           gfmTask: {
             react(node, _, state) {
               return (
-                <label
-                  className="mr-2 inline-flex items-center"
+                <input
+                  type="checkbox"
                   key={state?.key}
-                >
-                  <input type="checkbox" checked={node.completed} readOnly />
-                </label>
+                  checked={node.completed}
+                  readOnly
+                />
               )
             },
           },

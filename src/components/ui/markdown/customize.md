@@ -1,6 +1,55 @@
-## Basic
+## List and GFM Tasks
 
-### Table
+1. First
+2. Second
+   1. 2.1
+   2. 2.2
+      1. 3.1
+3. Third
+4. Fourth
+
+- [ ] Checkbox
+- [x] Checkbox Completed
+
+---
+
+- Line
+  - Line 1.1
+- Line 2
+
+## Definition lists
+
+Term 1
+
+: Definition 1
+with lazy continuation.
+
+Term 2 with _inline markup_
+
+: Definition 2
+
+        { some code, part of Definition 2 }
+
+    Third paragraph of definition 2.
+
+_Compact style:_
+
+Term 1
+~ Definition 1
+
+Term 2
+~ Definition 2a
+~ Definition 2b
+
+## [Abbreviations](https://github.com/markdown-it/markdown-it-abbr)
+
+This is HTML abbreviation example.
+
+It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
+
+\*[HTML]: Hyper Text Markup Language
+
+## Table
 
 | 表达内容                                                                                                                                 | 示例          |
 | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------- |

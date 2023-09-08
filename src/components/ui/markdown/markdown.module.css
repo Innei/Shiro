@@ -87,7 +87,7 @@
   }
 
   input[type='checkbox'] {
-    @apply checkbox;
+    @apply checkbox checkbox-xs my-0 mr-2 align-text-bottom;
   }
 
   input[type='checkbox']:disabled,
