@@ -56,8 +56,8 @@ devDependencies:
     specifier: ^8.2.1
     version: 8.2.1
   unplugin-macros:
-    specifier: 0.7.0
-    version: 0.7.0(rollup@3.28.1)
+    specifier: 0.8.3
+    version: 0.8.3(rollup@3.28.1)
   vite-tsconfig-paths:
     specifier: ^4.2.0
     version: 4.2.0(vite@4.4.9)
@@ -224,6 +224,14 @@ packages:
       '@babel/helper-validator-identifier': 7.22.5
       chalk: 2.4.2
       js-tokens: 4.0.0
+    dev: true
+
+  /@babel/parser@7.22.16:
+    resolution: {integrity: sha512-+gPfKv8UWeKKeJTUxe59+OobVcrYHETCsORl61EmSkmgymguYk/X5bp7GuUIXaFsc6y++v8ZxPsLSSuujqDphA==}
+    engines: {node: '>=6.0.0'}
+    hasBin: true
+    dependencies:
+      '@babel/types': 7.22.5
     dev: true
 
   /@babel/parser@7.22.7:
@@ -750,6 +758,21 @@ packages:
       rollup: 3.28.1
     dev: true
 
+  /@rollup/pluginutils@5.0.4(rollup@3.28.1):
+    resolution: {integrity: sha512-0KJnIoRI8A+a1dqOYLxH8vBf8bphDmty5QvIm2hqm7oFCFYKCAZWWd2hXgMibaPsNDhI0AtpYfQZJG47pt/k4g==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      '@types/estree': 1.0.1
+      estree-walker: 2.0.2
+      picomatch: 2.3.1
+      rollup: 3.28.1
+    dev: true
+
   /@types/acorn@4.0.6:
     resolution: {integrity: sha512-veQTnWP+1D/xbxVrPC3zHnCZRjSrKfhbMUlEA43iMZLu7EsnTtkJklIuwrCPbOi8YkvDQAiW05VQQFvvz9oieQ==}
     dependencies:
@@ -884,12 +907,12 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /ast-kit@0.9.4(rollup@3.28.1):
-    resolution: {integrity: sha512-UrZHsdj87OS6NM+IXRii+asdAUA/P0SMa4r1NrZvsUy72hDvCYwk8c9PsbKf1MvJ0BvP+rF1B8tFP54eT370Tg==}
+  /ast-kit@0.11.2(rollup@3.28.1):
+    resolution: {integrity: sha512-Q0DjXK4ApbVoIf9GLyCo252tUH44iTnD/hiJ2TQaJeydYWSpKk0sI34+WMel8S9Wt5pbLgG02oJ+gkgX5DV3sQ==}
     engines: {node: '>=16.14.0'}
     dependencies:
-      '@babel/parser': 7.22.7
-      '@rollup/pluginutils': 5.0.2(rollup@3.28.1)
+      '@babel/parser': 7.22.16
+      '@rollup/pluginutils': 5.0.4(rollup@3.28.1)
       pathe: 1.1.1
     transitivePeerDependencies:
       - rollup
@@ -1395,11 +1418,11 @@ packages:
     resolution: {integrity: sha512-0shqecEPgdFpnI3AP90epXyxZy9g6CRZ+SZ7BcqFwYmtFEnZ1jpevcV5HoyVnlDS9gCnc1UIg3Rsvp3Ci7r8OA==}
     engines: {node: '>=16.14.0'}
     dependencies:
-      magic-string: 0.30.2
+      magic-string: 0.30.3
     dev: true
 
-  /magic-string@0.30.2:
-    resolution: {integrity: sha512-lNZdu7pewtq/ZvWUp9Wpf/x7WzMTsR26TWV03BRZrXFsv+BI6dy8RAiKgm1uM/kyR0rCfUcqvOlXKG66KhIGug==}
+  /magic-string@0.30.3:
+    resolution: {integrity: sha512-B7xGbll2fG/VjP+SWg4sX3JynwIU0mjoTc6MPpKNuIvftk6u6vqhDnk1R80b8C2GBR6ywqy+1DcKBrevBg+bmw==}
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
@@ -2251,17 +2274,17 @@ packages:
       unist-util-visit-parents: 5.1.3
     dev: true
 
-  /unplugin-macros@0.7.0(rollup@3.28.1):
-    resolution: {integrity: sha512-2sNNKHLGuQBYq3n7O5guuUGDQGIJQZYXpZ+wn8OeR+nTzJ4TyIw4PcI0YyUiVmVvh9ZS80nGuSyco+AN6xQqZw==}
+  /unplugin-macros@0.8.3(rollup@3.28.1):
+    resolution: {integrity: sha512-Da67Z7wD4sCRK+TGa76uykyAq320jZ9EbLkmIaRu/VAWKYdzbWPV/J7HBAjxv0xL0E7716iMth9ljpYpigSmXg==}
     engines: {node: '>=16.14.0'}
     dependencies:
-      '@rollup/pluginutils': 5.0.2(rollup@3.28.1)
-      ast-kit: 0.9.4(rollup@3.28.1)
-      magic-string: 0.30.2
+      '@rollup/pluginutils': 5.0.4(rollup@3.28.1)
+      ast-kit: 0.11.2(rollup@3.28.1)
+      magic-string: 0.30.3
       magic-string-ast: 0.3.0
       unplugin: 1.4.0
       vite: 4.4.9
-      vite-node: 0.33.0
+      vite-node: 0.34.4
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -2321,8 +2344,8 @@ packages:
       vfile-message: 3.1.4
     dev: true
 
-  /vite-node@0.33.0:
-    resolution: {integrity: sha512-19FpHYbwWWxDr73ruNahC+vtEdza52kA90Qb3La98yZ0xULqV8A5JLNPUff0f5zID4984tW7l3DH2przTJUZSw==}
+  /vite-node@0.34.4:
+    resolution: {integrity: sha512-ho8HtiLc+nsmbwZMw8SlghESEE3KxJNp04F/jPUCLVvaURwt0d+r9LxEqCX5hvrrOQ0GSyxbYr5ZfRYhQ0yVKQ==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
     dependencies:
