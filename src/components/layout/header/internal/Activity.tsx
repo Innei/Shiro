@@ -12,7 +12,7 @@ import {
 } from '~/atoms/activity'
 import { ImpressionView } from '~/components/common/ImpressionTracker'
 import { FloatPopover } from '~/components/ui/float-popover'
-import { softBouncePrest } from '~/constants/spring'
+import { softBouncePreset } from '~/constants/spring'
 import { TrackerAction } from '~/constants/tracker'
 import useDebounceValue from '~/hooks/common/use-debounce-value'
 import { usePageIsActive } from '~/hooks/common/use-is-active'
@@ -203,7 +203,7 @@ export const Activity = memo(() => {
                 opacity: 0,
                 x: -10,
               }}
-              transition={softBouncePrest}
+              transition={softBouncePreset}
             >
               <FloatPopover
                 TriggerComponent={TriggerComponent}

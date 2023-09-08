@@ -2,14 +2,16 @@
 
 import { flip, offset, shift, useFloating } from '@floating-ui/react-dom'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { AnimatePresence, m } from 'framer-motion'
 import type { UseFloatingOptions } from '@floating-ui/react-dom'
 import type { FC, PropsWithChildren } from 'react'
 
+import { microReboundPreset } from '~/constants/spring'
 import useClickAway from '~/hooks/common/use-click-away'
+import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { clsxm } from '~/lib/helper'
 
 import { RootPortal } from '../portal'
-import styles from './index.module.css'
 
 type FloatPopoverProps<T> = PropsWithChildren<{
   TriggerComponent: FC<T>
@@ -58,11 +60,8 @@ export const FloatPopover = function FloatPopover<T extends {}>(
     ...floatingProps
   } = props
 
-  const [mounted, setMounted] = useState(false)
-
-  const [currentStatus, setCurrentStatus] = useState(false)
   const [open, setOpen] = useState(false)
-  const { x, y, refs, strategy, update, isPositioned } = useFloating({
+  const { x, y, refs, strategy, isPositioned } = useFloating({
     middleware: floatingProps.middleware ?? [
       flip({ padding: padding ?? 20 }),
       offset(offsetValue ?? 10),
@@ -72,67 +71,12 @@ export const FloatPopover = function FloatPopover<T extends {}>(
     placement: floatingProps.placement ?? 'bottom-start',
     whileElementsMounted: floatingProps.whileElementsMounted,
   })
-  const updateOnce = useRef(false)
-  const doPopoverShow = useCallback(() => {
-    setCurrentStatus(true)
-    setMounted(true)
 
-    if (!updateOnce.current) {
-      requestAnimationFrame(() => {
-        update()
-        updateOnce.current = true
-      })
-    }
-  }, [])
-
-  const [containerAnchorRef, setContainerAnchorRef] =
-    useState<HTMLDivElement | null>()
   const containerRef = useRef<HTMLDivElement>(null)
-
-  const handleTransition = useCallback(
-    (status: 'in' | 'out') => {
-      const nextElementSibling =
-        containerAnchorRef?.nextElementSibling as HTMLDivElement
-
-      if (!nextElementSibling) {
-        return
-      }
-
-      if (status === 'in') {
-        nextElementSibling.ontransitionend = null
-        nextElementSibling.classList.add(styles.show)
-      } else {
-        nextElementSibling.classList.remove(styles.show)
-        nextElementSibling.ontransitionend = () => {
-          setOpen(false)
-          setMounted(false)
-        }
-      }
-    },
-    [containerAnchorRef?.nextElementSibling],
-  )
-
-  useEffect(() => {
-    if (!containerAnchorRef) {
-      return
-    }
-
-    if (currentStatus) {
-      setOpen(true)
-      requestAnimationFrame(() => {
-        handleTransition('in')
-      })
-    } else {
-      requestAnimationFrame(() => {
-        handleTransition('out')
-      })
-    }
-  }, [currentStatus, containerAnchorRef, handleTransition])
 
   useClickAway(containerRef, () => {
     if (trigger == 'click' || trigger == 'both') {
       doPopoverDisappear()
-      clickTriggerFlag.current = false
     }
   })
 
@@ -140,28 +84,21 @@ export const FloatPopover = function FloatPopover<T extends {}>(
     if (debug) {
       return
     }
-    if (!animate) {
-      setOpen(false)
-    }
-    setCurrentStatus(false)
+    setOpen(false)
   }, [debug, animate])
 
-  const clickTriggerFlag = useRef(false)
+  const doPopoverShow = useEventCallback(() => {
+    setOpen(true)
+  })
+
   const handleMouseOut = useCallback(() => {
-    if (clickTriggerFlag.current === true) {
-      return
-    }
     doPopoverDisappear()
-  }, [])
-  const handleClickTrigger = useCallback(() => {
-    clickTriggerFlag.current = true
-    doPopoverShow()
   }, [])
 
   const listener = useMemo(() => {
     const baseListener = {
-      onFocus: doPopoverShow,
-      onBlur: doPopoverDisappear,
+      // onFocus: doPopoverShow,
+      // onBlur: doPopoverDisappear,
     }
     switch (trigger) {
       case 'click':
@@ -178,18 +115,12 @@ export const FloatPopover = function FloatPopover<T extends {}>(
       case 'both':
         return {
           ...baseListener,
-          onClick: handleClickTrigger,
+          onClick: doPopoverShow,
           onMouseOver: doPopoverShow,
           onMouseOut: handleMouseOut,
         }
     }
-  }, [
-    doPopoverDisappear,
-    doPopoverShow,
-    handleClickTrigger,
-    handleMouseOut,
-    trigger,
-  ])
+  }, [doPopoverDisappear, doPopoverShow, handleMouseOut, trigger])
 
   const TriggerWrapper = (
     <As
@@ -220,20 +151,19 @@ export const FloatPopover = function FloatPopover<T extends {}>(
     <>
       {TriggerWrapper}
 
-      {mounted && (
-        <RootPortal>
-          <div
-            className={clsxm(
-              'float-popover',
-              'relative z-[99]',
-              popoverWrapperClassNames,
-            )}
-            {...(trigger === 'hover' || trigger === 'both' ? listener : {})}
-            ref={containerRef}
-          >
-            <div ref={setContainerAnchorRef} />
-            {open && (
-              <div
+      <AnimatePresence>
+        {open && (
+          <RootPortal>
+            <m.div
+              className={clsxm(
+                'float-popover',
+                'relative z-[99]',
+                popoverWrapperClassNames,
+              )}
+              {...(trigger === 'hover' || trigger === 'both' ? listener : {})}
+              ref={containerRef}
+            >
+              <m.div
                 tabIndex={-1}
                 role={type === 'tooltip' ? 'tooltip' : 'dialog'}
                 className={clsxm(
@@ -245,14 +175,16 @@ export const FloatPopover = function FloatPopover<T extends {}>(
 
                   'relative z-[2]',
 
-                  headless && styles['headless'],
-                  animate && styles['animate'],
                   type === 'tooltip'
-                    ? `max-w-[25rem] break-all rounded-xl px-4 py-2 ${styles['headless']}`
-                    : styles['popover-root'],
+                    ? `max-w-[25rem] break-all rounded-xl px-4 py-2`
+                    : '',
                   popoverClassNames,
                 )}
                 ref={refs.setFloating}
+                initial={{ translateY: '10px', opacity: 0 }}
+                animate={{ translateY: '0px', opacity: 1 }}
+                exit={{ translateY: '10px', opacity: 0 }}
+                transition={microReboundPreset}
                 style={{
                   position: strategy,
                   top: y ?? '',
@@ -261,11 +193,11 @@ export const FloatPopover = function FloatPopover<T extends {}>(
                 }}
               >
                 {props.children}
-              </div>
-            )}
-          </div>
-        </RootPortal>
-      )}
+              </m.div>
+            </m.div>
+          </RootPortal>
+        )}
+      </AnimatePresence>
     </>
   )
 }

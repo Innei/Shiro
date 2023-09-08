@@ -60,6 +60,7 @@ export const UniversalTextArea = () => {
     $ta.selectionStart = $ta.selectionEnd = $ta.value.length
     $ta.focus()
   }, [])
+
   return (
     <TextArea
       ref={taRef}

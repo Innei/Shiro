@@ -19,7 +19,7 @@ import { PeekLink } from '~/components/widgets/peek/PeekLink'
 import { PostMetaBar } from '~/components/widgets/post'
 import {
   microReboundPreset,
-  softBouncePrest,
+  softBouncePreset,
   softSpringPreset,
 } from '~/constants/spring'
 import { shuffle } from '~/lib/_'
@@ -131,7 +131,7 @@ const Welcome = () => {
             className="group relative leading-[4] [&_*]:inline-block"
             initial={{ opacity: 0.0001, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={softBouncePrest}
+            transition={softBouncePreset}
           >
             {title.template.map((t, i) => {
               const { type } = t
@@ -157,7 +157,7 @@ const Welcome = () => {
 
           <BottomToUpTransitionView
             delay={titleAnimateD + 500}
-            transition={softBouncePrest}
+            transition={softBouncePreset}
             className="my-3"
           >
             <span className="opacity-80">{description}</span>
@@ -195,7 +195,7 @@ const Welcome = () => {
         <m.div
           initial={{ opacity: 0.0001, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={softBouncePrest}
+          transition={softBouncePreset}
           className={clsx(
             'absolute bottom-0 left-0 right-0 flex flex-col center',
 
@@ -298,7 +298,7 @@ const PostScreen = () => {
             initial={{ opacity: 0.0001, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-              ...softBouncePrest,
+              ...softBouncePreset,
               delay: 0.3 + 0.2 * posts.length,
             }}
             className="relative mt-12 w-full text-center"
@@ -336,7 +336,7 @@ const NoteScreen = () => {
               className="mb-6 text-center text-2xl"
               initial={{ opacity: 0.0001, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={softBouncePrest}
+              transition={softBouncePreset}
             >
               看看我的近况，这是我最近的所思所想
             </m.h3>
@@ -388,7 +388,7 @@ const NoteScreen = () => {
                 initial={{ opacity: 0.0001, y: 50 }}
                 animate={{ opacity: 0.8, y: 0 }}
                 transition={{
-                  ...softBouncePrest,
+                  ...softBouncePreset,
                   delay: 0.5,
                 }}
                 className="text-lg"
@@ -506,7 +506,7 @@ const FriendScreen = () => {
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{
                     delay: i * 0.1 + 0.3,
-                    ...softBouncePrest,
+                    ...softBouncePreset,
                   }}
                   className="w-full min-w-0"
                 >

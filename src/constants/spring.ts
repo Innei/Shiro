@@ -25,7 +25,7 @@ export const softSpringPreset: Spring = {
   damping: 20,
 }
 
-export const softBouncePrest: Spring = {
+export const softBouncePreset: Spring = {
   type: 'spring',
   damping: 10,
   stiffness: 100,
