@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import type { PostModel } from '@mx-space/api-client'
 
 import { MdiClockOutline } from '~/components/icons/clock'
@@ -9,12 +10,17 @@ import { FloatPopover } from '~/components/ui/float-popover'
 import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
 import { RelativeTime } from '~/components/ui/relative-time'
 import { clsxm } from '~/lib/helper'
+import { routeBuilder, Routes } from '~/lib/route-builder'
+import { useModalStack } from '~/providers/root/modal-stack-provider'
+
+import { TagDetailModal } from './fab/PostTagsFAB'
 
 export const PostMetaBar: Component<{
   meta: Partial<
     Pick<PostModel, 'created' | 'modified' | 'category' | 'tags' | 'count'>
   >
 }> = ({ className, meta }) => {
+  const { present } = useModalStack()
   return (
     <div
       className={clsxm(
@@ -46,8 +52,44 @@ export const PostMetaBar: Component<{
         <div className="flex min-w-0 items-center space-x-1">
           <FeHash className="translate-y-[0.5px]" />
           <span className="min-w-0 truncate">
-            {meta.category?.name}
-            {meta.tags?.length ? ` / ${meta.tags.join(', ')}` : ''}
+            <Link
+              href={routeBuilder(Routes.Category, {
+                slug: meta.category.slug,
+              })}
+              className="shiro-link--underline font-normal"
+            >
+              {meta.category?.name}
+            </Link>
+
+            {meta.tags?.length ? (
+              <>
+                {' '}
+                /{' '}
+                {meta.tags.map((tag, index) => {
+                  const isLast = index === meta.tags!.length - 1
+
+                  return (
+                    <>
+                      <button
+                        className="shiro-link--underline"
+                        onClick={() =>
+                          present({
+                            content: () => <TagDetailModal name={tag} />,
+                            title: `Tag: ${tag}`,
+                          })
+                        }
+                        key={tag}
+                      >
+                        {tag}
+                      </button>
+                      {!isLast && <span>, </span>}
+                    </>
+                  )
+                })}
+              </>
+            ) : (
+              ''
+            )}
           </span>
         </div>
       )}

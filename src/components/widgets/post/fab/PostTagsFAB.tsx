@@ -69,7 +69,7 @@ const TagInternal = memo(function TagInternal(
   )
 })
 
-const TagDetailModal = (props: TagModel) => {
+export const TagDetailModal = (props: { name: string }) => {
   const { name } = props
   const { data, isLoading } = useQuery({
     queryKey: [name, 'tag'],
