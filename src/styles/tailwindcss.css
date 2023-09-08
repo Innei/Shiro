@@ -82,9 +82,14 @@ a {
     font-size: 1rem;
   }
 }
+
 @layer components {
   .scrollbar-none::-webkit-scrollbar {
     width: 0 !important;
     height: 0 !important;
   }
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
 }
