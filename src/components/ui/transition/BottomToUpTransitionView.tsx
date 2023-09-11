@@ -1,6 +1,6 @@
 'use client'
 
-import { softBouncePrest } from '~/constants/spring'
+import { softBouncePreset } from '~/constants/spring'
 
 import { createTransitionView } from './factor'
 
@@ -13,5 +13,5 @@ export const BottomToUpTransitionView = createTransitionView({
     y: 0,
     opacity: 1,
   },
-  preset: softBouncePrest,
+  preset: softBouncePreset,
 })

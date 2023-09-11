@@ -1,13 +1,8 @@
-import { atom, useAtomValue } from 'jotai'
+import { createAtomHooks } from 'jojoo/react'
+import { setStore } from 'jojoo'
+import { atom } from 'jotai'
 
 import { jotaiStore } from '~/lib/store'
 
-const onlineCountAtom = atom(0)
-
-export const setOnlineCount = (count: number) => {
-  jotaiStore.set(onlineCountAtom, count)
-}
-
-export const useOnlineCount = () => {
-  return useAtomValue(onlineCountAtom)
-}
+setStore(jotaiStore)
+export const [, , useOnlineCount, , , setOnlineCount] = createAtomHooks(atom(0))

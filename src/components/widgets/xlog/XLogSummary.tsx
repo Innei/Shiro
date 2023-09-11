@@ -47,7 +47,7 @@ export const XLogSummary: FC<XLogSummaryProps> = (props) => {
       </div>
 
       <AutoResizeHeight duration={0.3}>
-        <p className="text-base-content/85 !m-0 text-sm leading-loose">
+        <div className="text-base-content/85 !m-0 text-sm leading-loose">
           {isLoading ? (
             <div className="space-y-2">
               <span className="block h-5 w-full animate-pulse rounded-xl bg-zinc-200 dark:bg-neutral-800" />
@@ -57,7 +57,7 @@ export const XLogSummary: FC<XLogSummaryProps> = (props) => {
           ) : (
             data?.data
           )}
-        </p>
+        </div>
         {isLoading && (
           <p className="border-slate-200 text-right text-sm dark:border-slate-800 ">
             (此服务由{' '}

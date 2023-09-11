@@ -1,24 +1,14 @@
 import { useSyncExternalStore } from 'react'
 
-const listeners = new Set<() => void>()
-const subscribe = (listener: () => void) => {
-  listeners.add(listener)
-  const handler = function () {
-    listeners.forEach((listener) => listener())
-  }
-  document.addEventListener('visibilitychange', handler)
-
+const subscribe = (cb: () => void) => {
+  document.addEventListener('visibilitychange', cb)
   return () => {
-    document.removeEventListener('visibilitychange', handler)
-    listeners.delete(listener)
+    document.removeEventListener('visibilitychange', cb)
   }
 }
 
+const getSnapshot = () => document.visibilityState === 'visible'
+const getServerSnapshot = () => true
 export const usePageIsActive = () => {
-  return useSyncExternalStore(
-    subscribe,
-    () => document.visibilityState === 'visible',
-
-    () => true,
-  )
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 }

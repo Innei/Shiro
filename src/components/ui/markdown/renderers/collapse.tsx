@@ -30,7 +30,7 @@ export const MDetails: FC<{ children: ReactNode[] }> = (props) => {
         </i>
         {$head}
       </button>
-      <Collapse isOpened={open} className="my-2">
+      <Collapse withBackground isOpened={open} className="my-2">
         <div
           className={clsx(
             open ? 'opacity-100' : 'opacity-0',

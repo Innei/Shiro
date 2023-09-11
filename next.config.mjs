@@ -19,7 +19,6 @@ let nextConfig = {
   },
   experimental: {
     appDir: true,
-    serverComponentsExternalPackages: ['shiki', 'vscode-oniguruma'],
     serverMinification: true,
 
     // @see https://vercel.com/blog/version-skew-protection
@@ -39,6 +38,15 @@ let nextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy:
       "default-src 'self'; script-src 'none'; sandbox; style-src 'unsafe-inline';",
+  },
+
+  async rewrites() {
+    return {
+      beforeFiles: [
+        { source: '/atom.xml', destination: '/feed' },
+        { source: '/sitemap.xml', destination: '/sitemap' },
+      ],
+    }
   },
 
   webpack: (config, options) => {

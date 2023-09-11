@@ -2,16 +2,44 @@
 
 import * as React from 'react'
 import { AnimatePresence, m } from 'framer-motion'
+import type { Variants } from 'framer-motion'
 
 import { microReboundPreset } from '~/constants/spring'
+import { clsxm } from '~/lib/helper'
 
-export const Collapse = ({
+export const Collapse: Component<{
+  isOpened: boolean
+  withBackground?: boolean
+}> = ({
   isOpened,
   className,
   children,
-}: React.PropsWithChildren<{ isOpened: boolean } & { className?: string }>) => {
-  // By using `AnimatePresence` to mount and unmount the contents, we can animate
-  // them in and out while also only rendering the contents of open accordions
+
+  withBackground = false,
+}) => {
+  const variants = React.useMemo(() => {
+    const v = {
+      open: {
+        opacity: 1,
+        height: 'auto',
+        transition: microReboundPreset,
+      },
+      collapsed: {
+        opacity: 0,
+        height: 0,
+        overflow: 'hidden',
+      },
+    } satisfies Variants
+
+    if (withBackground) {
+      // @ts-expect-error
+      v.open.background = `hsl(var(--a) / 10%)`
+      // @ts-expect-error
+      v.collapsed.background = `hsl(var(--a) / 0%)`
+    }
+
+    return v
+  }, [withBackground])
   return (
     <>
       <AnimatePresence initial={false}>
@@ -21,21 +49,10 @@ export const Collapse = ({
             initial="collapsed"
             animate="open"
             exit="collapsed"
-            variants={{
-              open: {
-                opacity: 1,
-                height: 'auto',
-                transition: microReboundPreset,
-              },
-              collapsed: {
-                opacity: 0,
-                height: 0,
-                overflow: 'hidden',
-              },
-            }}
-            className={className}
+            variants={variants}
+            className={clsxm(withBackground && 'rounded-lg', className)}
           >
-            {children}
+            {withBackground ? <div className="p-4">{children}</div> : children}
           </m.div>
         )}
       </AnimatePresence>

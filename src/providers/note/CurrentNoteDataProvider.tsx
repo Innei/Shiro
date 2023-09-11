@@ -1,6 +1,7 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
+import { createModelDataProvider } from 'jojoo/react'
 import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 
@@ -8,28 +9,26 @@ import { type NoteWrappedPayload } from '@mx-space/api-client'
 
 import { queries } from '~/queries/definition'
 
-import { createDataProvider } from '../internal/createDataProvider'
-
 const {
-  CurrentDataProvider,
-  CurrentDataAtomProvider,
-  getGlobalCurrentData: getCurrentData,
-  setGlobalCurrentData: setCurrentData,
-  useCurrentDataSelector,
-  useSetCurrentData,
-} = createDataProvider<NoteWrappedPayload>()
+  ModelDataProvider,
+  ModelDataAtomProvider,
+  getGlobalModelData: getModelData,
+  setGlobalModelData: setModelData,
+  useModelDataSelector,
+  useSetModelData,
+} = createModelDataProvider<NoteWrappedPayload>()
 
 export {
-  CurrentDataProvider as CurrentNoteDataProvider,
-  CurrentDataAtomProvider as CurrentNoteDataAtomProvider,
-  getCurrentData as getCurrentNoteData,
-  setCurrentData as setCurrentNoteData,
-  useCurrentDataSelector as useCurrentNoteDataSelector,
-  useSetCurrentData as useSetCurrentNoteData,
+  ModelDataProvider as CurrentNoteDataProvider,
+  ModelDataAtomProvider as CurrentNoteDataAtomProvider,
+  getModelData as getCurrentNoteData,
+  setModelData as setCurrentNoteData,
+  useModelDataSelector as useCurrentNoteDataSelector,
+  useSetModelData as useSetCurrentNoteData,
 }
 
 export const SyncNoteDataAfterLoggedIn = () => {
-  const nid = useCurrentDataSelector((data) => data?.data.nid)
+  const nid = useModelDataSelector((data) => data?.data.nid)
   const password = useSearchParams().get('password')
   const { data } = useQuery({
     ...queries.note.byNid(nid?.toString() || '', password),
@@ -38,7 +37,7 @@ export const SyncNoteDataAfterLoggedIn = () => {
 
   useEffect(() => {
     if (data) {
-      setCurrentData((draft) => {
+      setModelData((draft) => {
         draft.data = data.data
       })
     }

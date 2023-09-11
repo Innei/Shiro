@@ -12,7 +12,7 @@ import {
 } from '~/atoms/activity'
 import { ImpressionView } from '~/components/common/ImpressionTracker'
 import { FloatPopover } from '~/components/ui/float-popover'
-import { softBouncePrest } from '~/constants/spring'
+import { softBouncePreset } from '~/constants/spring'
 import { TrackerAction } from '~/constants/tracker'
 import useDebounceValue from '~/hooks/common/use-debounce-value'
 import { usePageIsActive } from '~/hooks/common/use-is-active'
@@ -37,13 +37,18 @@ const appDescription = {
   Code: 'Restart TS Server',
   Infuse: '看片',
   kitty: '撸猫',
+  IINA: '看片',
+  Warp: '耍杂技',
+  'Adobe Photoshop 2023': '抠图',
+  'Microsoft Word': '码字',
+  'Microsoft Excel': '雕花',
+  'Microsoft PowerPoint': '画饼',
 
   'Activity Monitor': 'Maybe 电脑已死机',
 
   msedge: '冲浪',
   firefox: '冲浪',
   QQScreenshot: '截屏',
-  Photoshop: '修图？还是画画？',
   idea64: '写代码',
   umamusume: '玩个锤子，凹种马',
   WindowsTerminal: '运行命令',
@@ -57,6 +62,25 @@ const appLabels: { [app: string]: string } = {
   'Google Chrome': 'chrome',
   'System Preferences': 'system',
   'System Settings': 'system',
+  'Adobe Illustrator 2023': 'illustrator',
+  'Adobe Photoshop 2023': 'photoshop',
+  'Microsoft Word': 'word',
+  'Microsoft Excel': 'excel',
+  'Microsoft PowerPoint': 'powerpoint',
+  IINA: 'iina',
+  Warp: 'warp',
+  RemNote: 'remnote',
+
+  访达: 'finder',
+  邮件: 'mail',
+  地图: 'maps',
+  信息: 'messages',
+  音乐: 'music',
+  网易云音乐: 'netease',
+  备忘录: 'notes',
+  Safari浏览器: 'safari',
+  微信: 'wechat',
+  腾讯会议: 'tencent_meeting',
   Alacritty: 'alacritty',
   Arc: 'arc',
   Chrome: 'chrome',
@@ -199,7 +223,7 @@ export const Activity = memo(() => {
                 opacity: 0,
                 x: -10,
               }}
-              transition={softBouncePrest}
+              transition={softBouncePreset}
             >
               <FloatPopover
                 TriggerComponent={TriggerComponent}

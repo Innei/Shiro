@@ -1,30 +1,29 @@
 'use client'
 
+import { createModelDataProvider } from 'jojoo/react'
 import type { PostModel } from '@mx-space/api-client'
 
 import { isClientSide, isDev } from '~/lib/env'
 
-import { createDataProvider } from '../internal/createDataProvider'
-
 const {
-  CurrentDataProvider,
-  CurrentDataAtomProvider,
-  getGlobalCurrentData,
-  setGlobalCurrentData,
-  useCurrentDataSelector,
-} = createDataProvider<PostModel>()
+  ModelDataProvider,
+  ModelDataAtomProvider,
+  getGlobalModelData,
+  setGlobalModelData,
+  useModelDataSelector,
+} = createModelDataProvider<PostModel>()
 
 declare global {
   interface Window {
-    getCurrentPostData: typeof getGlobalCurrentData
+    getModelPostData: typeof getGlobalModelData
   }
 }
-if (isDev && isClientSide) window.getCurrentPostData = getGlobalCurrentData
+if (isDev && isClientSide) window.getModelPostData = getGlobalModelData
 
 export {
-  CurrentDataProvider as CurrentPostDataProvider,
-  CurrentDataAtomProvider as CurrentPostDataAtomProvider,
-  getGlobalCurrentData as getGlobalCurrentPostData,
-  setGlobalCurrentData as setGlobalCurrentPostData,
-  useCurrentDataSelector as useCurrentPostDataSelector,
+  ModelDataProvider as CurrentPostDataProvider,
+  ModelDataAtomProvider as CurrentPostDataAtomProvider,
+  getGlobalModelData as getGlobalCurrentPostData,
+  setGlobalModelData as setGlobalCurrentPostData,
+  useModelDataSelector as useCurrentPostDataSelector,
 }

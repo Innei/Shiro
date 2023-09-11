@@ -1,5 +1,3 @@
-'use client'
-
 import { memo } from 'react'
 import type { FC } from 'react'
 import type { AiSummaryProps } from '../ai/Summary'
@@ -27,7 +25,7 @@ export const SummarySwitcher: FC<AiSummaryProps> = memo((props) => {
         if (cid) comp = <XLogSummaryAsync cid={cid} />
         break
       case 'openai':
-        if (!process.env.OPENAI_API_KEY) return
+        if (!process.env.OPENAI_API_KEY) break
         if (data) comp = <AISummary data={data} />
     }
   }

@@ -2,6 +2,7 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import { tv } from 'tailwind-variants'
+import type { FC } from 'react'
 
 import { MotionButtonBase } from './MotionButton'
 
@@ -32,12 +33,13 @@ type SharedProps = {
   className?: string
 }
 type ButtonProps = SharedProps & (NativeButtonProps | NativeLinkProps)
-export function StyledButton({
+
+export const StyledButton: FC<ButtonProps> = ({
   variant = 'primary',
   className,
   href,
   ...props
-}: ButtonProps) {
+}) => {
   return href ? (
     <Link
       href={href}

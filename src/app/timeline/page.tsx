@@ -16,7 +16,7 @@ import { Divider } from '~/components/ui/divider'
 import { TimelineList } from '~/components/ui/list/TimelineList'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { PeekLink } from '~/components/widgets/peek/PeekLink'
-import { TimelinProgress } from '~/components/widgets/timeline/TimelineProgress'
+import { TimelineProgress } from '~/components/widgets/timeline/TimelineProgress'
 import { apiClient } from '~/lib/request'
 import { springScrollToElement } from '~/lib/scroller'
 
@@ -183,7 +183,7 @@ export default function TimelinePage() {
         {!memory && (
           <>
             <Divider className="my-8 w-[80px]" />
-            <TimelinProgress />
+            <TimelineProgress />
             <p>活在当下，珍惜眼下</p>
           </>
         )}
