@@ -254,21 +254,24 @@ const ApplyLinkInfo: FC = () => {
             `**失联站点将会定期移除，非法网站会立即禁止并拉黑。**`,
             `<br />`,
             `### 本站信息`,
-          ].join('\n\n') +
-            [
-              '',
-              `**站点标题**: [${
-                seo.title
-              }](${`${location.protocol}//${location.host}`})`,
-              `**站点描述**: ${seo.description}`,
-              `**主人头像**: [点击下载](${avatar})`,
-              `**主人名字**: ${name}`,
-            ].join('\n\n')}
+          ].join('\n\n')}
+        </Markdown>
+        <Markdown className="[&_p]:!my-1">
+          {[
+            '',
+            `**站点标题**: [${
+              seo.title
+            }](${`${location.protocol}//${location.host}`})`,
+            `**站点描述**: ${seo.description}`,
+            `**主人头像**: [点击下载](${avatar})`,
+            `**主人名字**: ${name}`,
+          ].join('\n\n')}
         </Markdown>
       </div>
 
       <StyledButton
         variant="primary"
+        className="mt-5"
         onClick={() => {
           present({
             title: '我想和你交朋友！',
