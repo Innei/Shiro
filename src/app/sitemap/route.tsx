@@ -20,7 +20,8 @@ export const GET = async () => {
     .map(
       (item: any) => `<url>
   <loc>${item.url}</loc>
-  <lastmod>${item.publishedAt || 'N/A'}</lastmod>
+${!!item.published_at && `<lastmod>${item.published_at || 'N/A'}</lastmod>`}
+  <changefreq>daily</changefreq>
   </url>`,
     )
 
