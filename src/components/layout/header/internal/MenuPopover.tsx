@@ -23,23 +23,19 @@ export const MenuPopover: Component<{
       offset={10}
       headless
       popoverWrapperClassNames="z-[19] relative"
-      popoverClassNames="rounded-xl !p-0 focus-visible:!shadow-none focus-visible:!ring-0"
+      popoverClassNames={clsxm([
+        'select-none rounded-xl bg-white/60 outline-none dark:bg-neutral-900/60',
+        'shadow-lg shadow-zinc-800/5 border border-zinc-900/5 backdrop-blur-md',
+        'dark:from-zinc-900/70 dark:to-zinc-800/90 dark:border-zinc-100/10',
+        'relative flex w-[130px] flex-col py-1',
+        'focus-visible:!ring-0',
+      ])}
       TriggerComponent={TriggerComponent}
     >
-      {!!subMenu.length && (
-        <div
-          className={clsxm(
-            'select-none rounded-xl bg-white/60 outline-none dark:bg-neutral-900/60',
-            'shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-md',
-            'dark:from-zinc-900/70 dark:to-zinc-800/90 dark:ring-zinc-100/10',
-            'relative flex w-[130px] flex-col py-1',
-          )}
-        >
-          {subMenu.map((m) => {
-            return <Item key={m.title} currentId={currentId} {...m} />
-          })}
-        </div>
-      )}
+      {!!subMenu.length &&
+        subMenu.map((m) => {
+          return <Item key={m.title} currentId={currentId} {...m} />
+        })}
     </FloatPopover>
   )
 })

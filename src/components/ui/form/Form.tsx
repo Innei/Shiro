@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef } from 'react'
+import { useCallback, useMemo } from 'react'
 import { produce } from 'immer'
 import { atom } from 'jotai'
 import type {
@@ -24,33 +24,31 @@ export const Form = (
   const fieldsAtom = useRefValue(() => atom({}))
   return (
     <FormContext.Provider
-      value={
-        useRef({
-          showErrorMessage,
-          fields: fieldsAtom,
-          getField: (name: string) => {
-            // @ts-expect-error
-            return jotaiStore.get(fieldsAtom)[name]
-          },
-          addField: (name: string, field: Field) => {
-            jotaiStore.set(fieldsAtom, (p) => {
-              return {
-                ...p,
-                [name]: field,
-              }
-            })
-          },
+      value={useRefValue(() => ({
+        showErrorMessage,
+        fields: fieldsAtom,
+        getField: (name: string) => {
+          // @ts-expect-error
+          return jotaiStore.get(fieldsAtom)[name]
+        },
+        addField: (name: string, field: Field) => {
+          jotaiStore.set(fieldsAtom, (p) => {
+            return {
+              ...p,
+              [name]: field,
+            }
+          })
+        },
 
-          removeField: (name: string) => {
-            jotaiStore.set(fieldsAtom, (p) => {
-              const pp = { ...p }
-              // @ts-expect-error
-              delete pp[name]
-              return pp
-            })
-          },
-        }).current
-      }
+        removeField: (name: string) => {
+          jotaiStore.set(fieldsAtom, (p) => {
+            const pp = { ...p }
+            // @ts-expect-error
+            delete pp[name]
+            return pp
+          })
+        },
+      }))}
     >
       <FormConfigContext.Provider
         value={useMemo(() => ({ showErrorMessage }), [showErrorMessage])}

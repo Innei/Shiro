@@ -4,6 +4,7 @@ import React, { memo } from 'react'
 import clsx from 'clsx'
 import {
   AnimatePresence,
+  LayoutGroup,
   m,
   useMotionTemplate,
   useMotionValue,
@@ -23,12 +24,12 @@ import { MenuPopover } from './MenuPopover'
 
 export const HeaderContent = () => {
   return (
-    <>
+    <LayoutGroup>
       <AnimatedMenu>
         <ForDesktop />
       </AnimatedMenu>
       <AccessibleMenu />
-    </>
+    </LayoutGroup>
   )
 }
 

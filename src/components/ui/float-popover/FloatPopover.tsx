@@ -85,7 +85,7 @@ export const FloatPopover = function FloatPopover<T extends {}>(
       return
     }
     setOpen(false)
-  }, [debug, animate])
+  }, [debug])
 
   const doPopoverShow = useEventCallback(() => {
     setOpen(true)
@@ -93,7 +93,7 @@ export const FloatPopover = function FloatPopover<T extends {}>(
 
   const handleMouseOut = useCallback(() => {
     doPopoverDisappear()
-  }, [])
+  }, [doPopoverDisappear])
 
   const listener = useMemo(() => {
     const baseListener = {
