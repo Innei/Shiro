@@ -8,6 +8,7 @@ import React, {
   useMemo,
   useRef,
 } from 'react'
+import clsx from 'clsx'
 import { m } from 'framer-motion'
 import { atom, useAtom } from 'jotai'
 import type { FC } from 'react'
@@ -17,6 +18,7 @@ import type { ITocItem } from './TocItem'
 import { Divider } from '~/components/ui/divider'
 import { RightToLeftTransitionView } from '~/components/ui/transition/RightToLeftTransitionView'
 import { useStateToRef } from '~/hooks/common/use-state-ref'
+import { useMaskScrollArea } from '~/hooks/shared/use-mask-scrollarea'
 import { clsxm } from '~/lib/helper'
 import { springScrollToElement } from '~/lib/scroller'
 
@@ -125,6 +127,10 @@ export const TocTree: Component<
       ? accessory
       : React.createElement(accessory as FC)
   }, [accessory])
+
+  const [scrollContainerRef, scrollClassname] =
+    useMaskScrollArea<HTMLUListElement>()
+
   return (
     <ul
       className={clsxm(
@@ -133,7 +139,10 @@ export const TocTree: Component<
       )}
       ref={containerRef}
     >
-      <ul className="overflow-auto scrollbar-none">
+      <ul
+        className={clsx('overflow-auto scrollbar-none', scrollClassname)}
+        ref={scrollContainerRef}
+      >
         {toc?.map((heading) => {
           return (
             <MemoedItem
