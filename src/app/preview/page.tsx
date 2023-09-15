@@ -16,8 +16,6 @@ import { previewDataAtom } from '~/atoms/preview'
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { Paper } from '~/components/layout/container/Paper'
 import { NoteMetaBar, NoteRootBanner } from '~/components/widgets/note'
-import { PageActionAside } from '~/components/widgets/page/PageActionAside'
-import { PostActionAside } from '~/components/widgets/post'
 import { ArticleRightAside } from '~/components/widgets/shared/ArticleRightAside'
 import { ReadIndicatorForMobile } from '~/components/widgets/shared/ReadIndicator'
 import { debounce } from '~/lib/_'
@@ -134,9 +132,7 @@ const PostPreview = () => {
               </PostMarkdownImageRecordProvider>
 
               <LayoutRightSidePortal>
-                <ArticleRightAside>
-                  <PostActionAside />
-                </ArticleRightAside>
+                <ArticleRightAside />
               </LayoutRightSidePortal>
             </WrappedElementProvider>
           </article>
@@ -192,6 +188,10 @@ const NotePreview = () => {
                 <ErrorBoundary>
                   <NoteMarkdown />
                 </ErrorBoundary>
+
+                <LayoutRightSidePortal>
+                  <ArticleRightAside />
+                </LayoutRightSidePortal>
               </NoteMarkdownImageRecordProvider>
             </WrappedElementProvider>
           </IndentArticleContainer>
@@ -226,9 +226,7 @@ const PagePreview = () => {
               </MarkdownImageRecordProviderInternal>
 
               <LayoutRightSidePortal>
-                <ArticleRightAside>
-                  <PageActionAside />
-                </ArticleRightAside>
+                <ArticleRightAside />
               </LayoutRightSidePortal>
             </WrappedElementProvider>
           </article>

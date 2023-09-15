@@ -2,6 +2,7 @@
 
 import React from 'react'
 import clsx from 'clsx'
+import type { FC } from 'react'
 
 import { useIsMobile } from '~/atoms'
 
@@ -15,7 +16,9 @@ export const ArticleRightAside: Component = ({ children }) => {
   return <ArticleRightAsideImpl>{children}</ArticleRightAsideImpl>
 }
 
-const ArticleRightAsideImpl: Component = ({ children }) => {
+const ArticleRightAsideImpl: FC<{
+  children?: React.ReactNode
+}> = ({ children }) => {
   return (
     <aside className="sticky top-[120px] mt-[120px] h-[calc(100vh-6rem-4.5rem-150px-120px)]">
       <div className="relative h-full">
@@ -26,9 +29,10 @@ const ArticleRightAsideImpl: Component = ({ children }) => {
           accessory={ReadIndicator}
         />
       </div>
-      {React.cloneElement(children as any, {
-        className: 'translate-y-[calc(100%+24px)]',
-      })}
+      {!!children &&
+        React.cloneElement(children as any, {
+          className: 'translate-y-[calc(100%+24px)]',
+        })}
     </aside>
   )
 }
