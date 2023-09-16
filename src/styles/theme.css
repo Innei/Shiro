@@ -145,15 +145,15 @@
 .mask-both {
   mask-image: linear-gradient(
     rgba(255, 255, 255, 0) 0%,
-    rgb(255, 255, 255) 10%,
-    rgb(255, 255, 255) 90%,
+    rgb(255, 255, 255) 20px,
+    rgb(255, 255, 255) calc(100% - 20px),
     rgba(255, 255, 255, 0) 100%
   );
 }
 
 .mask-b {
   mask-image: linear-gradient(
-    rgb(255, 255, 255) 90%,
+    rgb(255, 255, 255) calc(100% - 20px),
     rgba(255, 255, 255, 0) 100%
   );
 }
@@ -161,6 +161,6 @@
 .mask-t {
   mask-image: linear-gradient(
     rgba(255, 255, 255, 0) 0%,
-    rgb(255, 255, 255) 10%
+    rgb(255, 255, 255) 20px
   );
 }
