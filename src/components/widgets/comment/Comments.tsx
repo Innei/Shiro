@@ -57,13 +57,12 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
         {data?.pages.map((data, index) => {
           return (
             <BottomToUpSoftScaleTransitionView key={index}>
-              {data.data.map((comment, index) => {
+              {data.data.map((comment) => {
                 return (
                   <CommentListItem
                     comment={comment}
                     key={comment.id}
                     refId={refId}
-                    index={index}
                   />
                 )
               })}
@@ -80,11 +79,12 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
   )
 }
 
-const CommentListItem: FC<{ comment: any; refId: string; index: number }> =
-  memo(function CommentListItem({ comment, refId, index }) {
+const CommentListItem: FC<{ comment: any; refId: string }> = memo(
+  function CommentListItem({ comment, refId }) {
     return (
       <CommentBoxProvider refId={refId}>
-        <Comment comment={comment} showLine={index > 0} />
+        <Comment comment={comment} />
       </CommentBoxProvider>
     )
-  })
+  },
+)
