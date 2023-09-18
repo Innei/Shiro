@@ -11,11 +11,11 @@ import clsx from 'clsx'
 import { m } from 'framer-motion'
 import { atom, useAtomValue } from 'jotai'
 import Markdown from 'markdown-to-jsx'
-import Image from 'next/image'
 import type { CommentModel } from '@mx-space/api-client'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { PropsWithChildren } from 'react'
 
+import { Avatar } from '~/components/ui/avatar'
 import { RelativeTime } from '~/components/ui/relative-time'
 import { softSpringPreset } from '~/constants/spring'
 import { jotaiStore } from '~/lib/store'
@@ -26,9 +26,8 @@ import { CommentReplyButton } from './CommentReplyButton'
 
 export const Comment: Component<{
   comment: CommentModel & { new?: boolean }
-  showLine?: boolean
 }> = memo(function Comment(props) {
-  const { comment, className, showLine } = props
+  const { comment, className } = props
   const elAtom = useMemo(() => atom<HTMLDivElement | null>(null), [])
   // FIXME 兜一下后端给的脏数据
   if (typeof comment === 'string') return null
@@ -85,14 +84,14 @@ export const Comment: Component<{
           className={clsx('relative my-2', className)}
         >
           <div className="group flex w-full items-stretch gap-2">
-            <div className="flex w-9 shrink-0 items-end">
-              <Image
-                src={avatar}
+            <div className="relative flex w-9 shrink-0 self-end">
+              <Avatar
+                shadow={false}
+                imageUrl={avatar}
                 alt={`${author}'s avatar`}
-                className="h-9 w-9 select-none rounded-full bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800 dark:ring-zinc-800 "
+                className="h-9 w-9 select-none rounded-full bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800 dark:ring-zinc-800"
                 width={24}
                 height={24}
-                unoptimized
               />
             </div>
 
@@ -154,13 +153,6 @@ export const Comment: Component<{
               </div>
             </div>
           </div>
-
-          {showLine && (
-            <span
-              className="absolute left-5 top-0 -ml-px h-[calc(100%-3rem)] w-0.5 rounded bg-zinc-200 dark:bg-neutral-700"
-              aria-hidden="true"
-            />
-          )}
         </m.li>
 
         <CommentBoxHolderProvider />

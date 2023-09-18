@@ -41,6 +41,7 @@ export const PostMetaBar: Component<{
           <FloatPopover
             wrapperClassName="text-xs"
             as="span"
+            type="tooltip"
             TriggerComponent={() => '(已编辑)'}
           >
             编辑于 <RelativeTime date={meta.modified} />
