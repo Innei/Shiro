@@ -9,7 +9,7 @@ import type {
   SayModel,
 } from '@mx-space/api-client'
 import type { InfiniteData } from '@tanstack/react-query'
-import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { sayQueryKey } from '~/app/says/query'
 import { setOnlineCount } from '~/atoms'

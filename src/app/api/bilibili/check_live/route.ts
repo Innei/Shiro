@@ -18,7 +18,7 @@ export const runtime = 'edge'
 
 export const revalidate = 10
 
-export const GET = async (req: NextRequest) => {
+export const GET = async (req: NextRequest): Promise<Response> => {
   const liveId = req.nextUrl.searchParams.get('liveId')
   if (!liveId) {
     return new NextServerResponse().status(400).end()
@@ -57,7 +57,7 @@ export const GET = async (req: NextRequest) => {
     .catch(() => null)
 
   if (!userInfo) {
-    return
+    return response.end()
   }
 
   const info = (userInfo as BLUser).data.info

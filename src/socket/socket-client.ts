@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client'
 import type { EventTypes } from '~/types/events'
-import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import type { Socket } from 'socket.io-client'
 
 import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
