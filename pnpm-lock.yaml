@@ -21,8 +21,8 @@ overrides:
 
 dependencies:
   '@clerk/nextjs':
-    specifier: 4.24.0
-    version: 4.24.0(next@13.5.2)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 4.24.1
+    version: 4.24.1(next@13.5.2)(react-dom@18.2.0)(react@18.2.0)
   '@floating-ui/react-dom':
     specifier: 2.0.2
     version: 2.0.2(react-dom@18.2.0)(react@18.2.0)
@@ -152,11 +152,11 @@ dependencies:
 
 devDependencies:
   '@iconify-json/material-symbols':
-    specifier: 1.1.58
-    version: 1.1.58
+    specifier: 1.1.59
+    version: 1.1.59
   '@iconify-json/mingcute':
-    specifier: 1.1.9
-    version: 1.1.9
+    specifier: 1.1.10
+    version: 1.1.10
   '@iconify/tailwind':
     specifier: 0.1.3
     version: 0.1.3
@@ -724,8 +724,8 @@ packages:
     resolution: {integrity: sha512-s3jaWicZd0pkP0jf5ysyHUI/RE7MHos6qlToFcGWXVp+ykHOy77OUMrfbgJ9it2C5bow7OIQwYYaHjk9XlBQ2A==}
     dev: false
 
-  /@clerk/backend@0.29.1:
-    resolution: {integrity: sha512-PNlnIrNacY88bg2/rD6RvOmMrzHFhIbBHBsDn4OWdzRvb+DzBfgorJR0/tq2Mgf1X3Zor3fux9057JSYT46rFw==}
+  /@clerk/backend@0.29.2:
+    resolution: {integrity: sha512-7BJiQf7tRKuAq61o1LHMEeBkM8HW8HbjxE2bdSF/V2HdW6XlB+FNXFBFWscf5TCB8p5yJWpzTPmGuWT8GSMD+Q==}
     engines: {node: '>=14'}
     dependencies:
       '@clerk/types': 3.52.0
@@ -738,23 +738,23 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /@clerk/clerk-react@4.25.0(react@18.2.0):
-    resolution: {integrity: sha512-7djb97xjNKk5v4TaITgs5RYIrdtKRoY8uEI2SRR9ZFi1JuKbHvJOIosIksF1FRTDoe601FXBgN0LdwIVu1Fwqw==}
+  /@clerk/clerk-react@4.25.1(react@18.2.0):
+    resolution: {integrity: sha512-+RtK6RNWVlT6jFeOlomi6PM2pDOETyi13zSKL/IgrJ68LV8qrtQikrP0n5v0i0YRDvpjB5lpBF0VgmpAJEGNxQ==}
     engines: {node: '>=14'}
     peerDependencies:
       react: '>=16'
     dependencies:
-      '@clerk/shared': 0.22.1(react@18.2.0)
+      '@clerk/shared': 0.23.0(react@18.2.0)
       '@clerk/types': 3.52.0
       react: 18.2.0
       tslib: 2.4.1
     dev: false
 
-  /@clerk/clerk-sdk-node@4.12.6:
-    resolution: {integrity: sha512-fdlAjKVgOHGsfGLNyIImTTgosHNOqCGJTytq2G0+YDjF46RzQ+eCyPDnvnR0wuVuNSM68qIutHn5DUiNTo+Wdw==}
+  /@clerk/clerk-sdk-node@4.12.7:
+    resolution: {integrity: sha512-E8VbfLQ6F6VBRrLbB2o4n2/pKma0qQDw1I7rF4wr5/XazwpmLX29/rUJ9XoF0MspKcPeA7dVzQlvcskpsBjuGw==}
     engines: {node: '>=14'}
     dependencies:
-      '@clerk/backend': 0.29.1
+      '@clerk/backend': 0.29.2
       '@clerk/types': 3.52.0
       '@types/cookies': 0.7.7
       '@types/express': 4.17.14
@@ -764,17 +764,17 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /@clerk/nextjs@4.24.0(next@13.5.2)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-cohOx/92Lq+bOXOCiZNVy4qPHrHJkIkOCNL/swnhigTrRFzFI3b3ZgiTnhALKHiuduM2UKUhPIgmPqRv3ogz4Q==}
+  /@clerk/nextjs@4.24.1(next@13.5.2)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-qCP0LVZk4wPoaL5GSAWjsuuukEKtC+elaqCGjzfoCXMUj2MX4P6PIVj7qaN1Er9kmQtpcSaIly4lUw9CK8UrBQ==}
     engines: {node: '>=14'}
     peerDependencies:
       next: '>=10'
       react: ^17.0.2 || ^18.0.0-0
       react-dom: ^17.0.2 || ^18.0.0-0
     dependencies:
-      '@clerk/backend': 0.29.1
-      '@clerk/clerk-react': 4.25.0(react@18.2.0)
-      '@clerk/clerk-sdk-node': 4.12.6
+      '@clerk/backend': 0.29.2
+      '@clerk/clerk-react': 4.25.1(react@18.2.0)
+      '@clerk/clerk-sdk-node': 4.12.7
       '@clerk/types': 3.52.0
       next: 13.5.2(@babel/core@7.21.0)(react-dom@18.2.0)(react@18.2.0)
       path-to-regexp: 6.2.1
@@ -783,8 +783,8 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /@clerk/shared@0.22.1(react@18.2.0):
-    resolution: {integrity: sha512-nVWJ6GXcxR2wT4uaiwJNIriE/Ov4vhUwYt4DI+M38s95TjaKt/GR4wRvv5DxeOvqRxY8Xc7n1CxyqrFfkYcWEg==}
+  /@clerk/shared@0.23.0(react@18.2.0):
+    resolution: {integrity: sha512-/1QPDnXexJCdND00hjgq7ATz35SY+oUVVWGEXjh/Gl+dQyXTeRZRsA5k6TCj+42A39j14xSgq6MQJHgbb7M6Jg==}
     peerDependencies:
       react: '>=16'
     dependencies:
@@ -1471,14 +1471,14 @@ packages:
       - supports-color
     dev: true
 
-  /@iconify-json/material-symbols@1.1.58:
-    resolution: {integrity: sha512-SqFVzgu+ni25sSNquQZQOKgT6+VL4OkloGNOFr8NniPUBH5JsBuQAY/H1CJaXePHr8Wn3iQxezFzoKgIxj3WCQ==}
+  /@iconify-json/material-symbols@1.1.59:
+    resolution: {integrity: sha512-azzJVyS2AKQ4cxIUUmeMHaTVlU9aWM6M98NEqf8luZ1RJpVWuDdSjExY+x58Y39wPFTf+6hgvS4pRwCJRdpohw==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
 
-  /@iconify-json/mingcute@1.1.9:
-    resolution: {integrity: sha512-bDU36w8G6vKJ2RcX3/lpuUtxmAoB8qLzdGFwioUgGaOw7o7YgviNCTA0h4mHYgh3qZQd/RBGoMf7rG+7nZMcRQ==}
+  /@iconify-json/mingcute@1.1.10:
+    resolution: {integrity: sha512-0PMgTc9RqLN8IZn5Icsu3mPmtruLS4TfecyNd6FuZ8q5e1EnsXIaV6K4J7ybiVxqCzXig5N/KxSceUonvhlhHA==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
