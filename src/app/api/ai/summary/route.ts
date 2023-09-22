@@ -9,6 +9,7 @@ import { apiClient } from '~/lib/request'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
+  fetch,
 })
 
 export const GET = async (req: NextRequest) => {
