@@ -57,19 +57,21 @@ export const PostCopyright: FC = () => {
       <div>
         <p>
           商业转载请联系站长获得授权，非商业转载请注明本文出处及文章链接，您可以自由地在任何媒体以任何形式复制和分发作品，也可以修改和创作，但是分发衍生作品时必须采用相同的许可协议。
-          <br />
+          <br /><br />
           本文采用
           <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">
-            知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可。
+            知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议
           </a>
+          进行许可。
         </p>
+        <br /><br />
         <a
-          rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+          rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
         >
           <img
             alt="知识共享许可协议"
-            style={{ borderWidth: 0 }}
-            src="https://assets.tnxg.whitenuo.cn/images/icons/main/cc_by_nc_sa.png"
+            style={{ borderWidth: 0, margin: '0 auto' }}
+            src="https://assets.tnxg.whitenuo.cn/images/icons/main/cc_by-nc-sa.png"
           />
 
         </a>
