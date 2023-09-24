@@ -63,6 +63,15 @@ export const PostCopyright: FC = () => {
             知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可。
           </a>
         </p>
+        <a
+          rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        >
+          <img
+            alt="知识共享许可协议"
+            style="border-width:0"
+            src="https://assets.tnxg.whitenuo.cn/images/icons/main/cc_by-nc-sa.png"
+          />
+        </a>
       </div>
     </section>
   )
