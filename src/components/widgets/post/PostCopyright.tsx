@@ -68,9 +68,10 @@ export const PostCopyright: FC = () => {
         >
           <img
             alt="知识共享许可协议"
-            style="border-width:0"
-            src="https://assets.tnxg.whitenuo.cn/images/icons/main/cc_by-nc-sa.png"
+            style={{ borderWidth: 0 }}
+            src="https://assets.tnxg.whitenuo.cn/images/icons/main/cc_by_nc_sa.png"
           />
+
         </a>
       </div>
     </section>
