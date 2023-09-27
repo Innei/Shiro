@@ -43,6 +43,7 @@ const appDescription = {
   'Microsoft Word': '码字',
   'Microsoft Excel': '雕花',
   'Microsoft PowerPoint': '画饼',
+  SimplyPiano: '练琴',
 } as any
 const appLabels: { [app: string]: string } = {
   'Activity Monitor': 'activity',
@@ -102,6 +103,7 @@ const appLabels: { [app: string]: string } = {
   TencentMeeting: 'tencent_meeting',
   Lark: 'lark',
   Feishu: 'lark',
+  SimplyPiano: 'simply_piano',
 
   cmusic: 'cmusic',
 }
