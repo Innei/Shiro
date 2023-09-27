@@ -18,7 +18,6 @@ let nextConfig = {
     // reactRemoveProperties: { properties: ['^data-id$', '^data-(\\w+)-id$'] },
   },
   experimental: {
-    appDir: true,
     serverMinification: true,
 
     // @see https://vercel.com/blog/version-skew-protection

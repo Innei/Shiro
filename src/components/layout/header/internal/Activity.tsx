@@ -53,6 +53,7 @@ const appDescription = {
   umamusume: '玩个锤子，凹种马',
   WindowsTerminal: '运行命令',
 
+  SimplyPiano: '练琴',
 } as any
 const appLabels: { [app: string]: string } = {
   'Activity Monitor': 'activity',
@@ -112,6 +113,7 @@ const appLabels: { [app: string]: string } = {
   TencentMeeting: 'tencent_meeting',
   Lark: 'lark',
   Feishu: 'lark',
+  SimplyPiano: 'simply_piano',
 
   cmusic: 'cmusic',
 
