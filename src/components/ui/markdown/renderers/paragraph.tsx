@@ -1,6 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
-import type { DetailedHTMLProps, FC, HTMLAttributes } from 'react'
+import type { DetailedHTMLProps, FC, HTMLAttributes, ReactNode } from 'react'
 
 import { LinkRenderer } from './LinkRenderer'
 
@@ -19,7 +19,12 @@ export const MParagraph: FC<
 
     // isLink
     if (isLink(child)) {
-      return <LinkRenderer href={(child as any)?.props?.href} />
+      const children = (child as any)?.props?.children as ReactNode[]
+      return (
+        <LinkRenderer href={(child as any)?.props?.href}>
+          {children}
+        </LinkRenderer>
+      )
     }
   }
   // console.log(children)

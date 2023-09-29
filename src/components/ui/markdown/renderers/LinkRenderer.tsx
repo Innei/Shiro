@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 import dynamic from 'next/dynamic'
+import type { PropsWithChildren } from 'react'
 
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import {
@@ -24,7 +25,10 @@ import { MLink } from '../../link/MLink'
 const Tweet = dynamic(() => import('~/components/widgets/shared/Tweet'), {
   ssr: false,
 })
-export const LinkRenderer = ({ href }: { href: string }) => {
+export const LinkRenderer = ({
+  href,
+  children,
+}: PropsWithChildren<{ href: string }>) => {
   const url = useMemo(() => {
     try {
       return new URL(href)
@@ -33,14 +37,17 @@ export const LinkRenderer = ({ href }: { href: string }) => {
     }
   }, [href])
 
-  if (!url) {
-    return (
+  const fallbackElement = useMemo(
+    () => (
       <p>
-        <MLink href={href}>
-          <span>{href}</span>
-        </MLink>
+        <MLink href={href}>{children ?? <span>{href}</span>}</MLink>
       </p>
-    )
+    ),
+    [children, href],
+  )
+
+  if (!url) {
+    return fallbackElement
   }
   switch (true) {
     case isTweetUrl(url): {
@@ -136,6 +143,9 @@ export const LinkRenderer = ({ href }: { href: string }) => {
     case isSelfArticleUrl(url): {
       return <LinkCard source="self" id={url.pathname.slice(1)} />
     }
+
+    default:
+      return fallbackElement
   }
 }
 

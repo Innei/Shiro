@@ -139,6 +139,18 @@ https://github.com/toeverything/AFFiNE/blob/himself65/0710/remove-effect/apps/we
 
 https://github.com/toeverything/AFFiNE/blob/himself65/0710/remove-effect/apps/web/src/atoms/index.ts
 
+```
+https://trpc.io/docs/client/react/useInfiniteQuery
+```
+
+https://trpc.io/docs/client/react/useInfiniteQuery
+
+```
+[TRPC](https://trpc.io/docs/client/react/useInfiniteQuery)
+```
+
+[TRPC](https://trpc.io/docs/client/react/useInfiniteQuery)
+
 ## LinkCard
 
 ```
