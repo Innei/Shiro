@@ -63,8 +63,6 @@ export const AISummary: FC<AiSummaryProps> = (props) => {
       retryDelay: 5000,
     },
   )
-  // const isClient = useIsClientTransition()
-  // if (!isClient) return <SummaryContainer isLoading />
 
   return <SummaryContainer isLoading={isLoading} summary={response?.summary} />
 }

@@ -11,11 +11,14 @@ const fetchData = async (cid: string) => {
     return null
   }
 
-  return fetch(`/api/xlog/summary?cid=${cid}&lang=${navigator.language}`, {
-    next: {
-      revalidate: 60 * 10,
+  return fetch(
+    `/api/xlog/summary?cid=${cid}&lang=${navigator.language.split('-')[0]}`,
+    {
+      next: {
+        revalidate: 60 * 10,
+      },
     },
-  })
+  )
     .then((res) => res.json())
     .catch(() => null)
 }
