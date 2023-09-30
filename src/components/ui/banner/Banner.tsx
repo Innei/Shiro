@@ -51,19 +51,19 @@ export const Banner: FC<{
   return (
     <div
       className={clsx(
-        'block items-center space-x-4 rounded-md border p-6 text-neutral-900 dark:bg-opacity-10 dark:text-[#c4c4c4] md:flex ' +
-          `${bgColorMap[props.type] || bgColorMap.info} ${
-            borderColorMap[props.type] || borderColorMap.info
-          }`,
+        'flex flex-col items-center gap-4 rounded-md border p-6 text-neutral-900 dark:bg-opacity-10 dark:text-[#c4c4c4] md:flex md:flex-row',
+        bgColorMap[props.type] || bgColorMap.info,
+        borderColorMap[props.type] || borderColorMap.info,
         placement == 'center' ? 'justify-center' : 'justify-start',
         props.className,
       )}
     >
       {showIcon && (
         <Icon
-          className={`flex-shrink-0 self-start text-3xl ${
-            iconColorMap[props.type] || iconColorMap.info
-          } float-left -mr-2 md:float-none md:mr-2`}
+          className={clsx(
+            `flex-shrink-0 text-3xl md:mr-2 md:self-start md:text-left`,
+            iconColorMap[props.type] || iconColorMap.info,
+          )}
         />
       )}
       {props.message ? (
