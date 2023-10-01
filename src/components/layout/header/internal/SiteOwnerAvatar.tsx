@@ -59,7 +59,7 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
       />
       {isLiving && (
         <>
-          <p className="absolute bottom-0 right-0 z-[1] rounded-md bg-red-400 p-1 font-[system-ui] text-[6px] dark:bg-orange-700">
+          <p className="absolute bottom-0 right-0 z-[1] rounded-md bg-red-400 p-1 font-[system-ui] text-[6px] text-white dark:bg-orange-700">
             LIVE
           </p>
 
