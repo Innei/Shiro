@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 
 import { routeBuilder, Routes } from '~/lib/route-builder'
 
-import NoteLoading from './loading'
+import FullPageLoading from '../friends/loading'
 
 export default function NodeRedirect({ nid }: { nid: number }) {
   const router = useRouter()
@@ -16,5 +16,5 @@ export default function NodeRedirect({ nid }: { nid: number }) {
       }),
     )
   }, [nid])
-  return <NoteLoading />
+  return <FullPageLoading />
 }

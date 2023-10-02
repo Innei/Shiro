@@ -1,5 +1,6 @@
 'use client'
 
+import { queryClient } from '~/providers/root/react-query-provider'
 import { Suspense } from 'react'
 
 import { clsxm } from '~/lib/helper'
@@ -11,16 +12,22 @@ const fetchData = async (cid: string) => {
     return null
   }
 
-  return fetch(
-    `/api/xlog/summary?cid=${cid}&lang=${navigator.language.split('-')[0]}`,
-    {
-      next: {
-        revalidate: 60 * 10,
-      },
+  return queryClient.fetchQuery({
+    queryKey: ['xlog', 'summary', cid],
+    staleTime: 6000,
+    cacheTime: 6000,
+    queryFn: () => {
+      const lang =
+        'navigator' in globalThis ? navigator.language.split('-')[0] : 'zh'
+      return fetch(`/api/xlog/summary?cid=${cid}&lang=${lang}`, {
+        next: {
+          revalidate: 60 * 10,
+        },
+      })
+        .then((res) => res.json())
+        .catch(() => null)
     },
-  )
-    .then((res) => res.json())
-    .catch(() => null)
+  })
 }
 
 export const XLogSummaryAsync = async (
