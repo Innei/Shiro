@@ -1,3 +1,3 @@
-import NoteLoading from '../loading'
+import { FullPageLoading } from '~/components/ui/loading'
 
-export default NoteLoading
+export default FullPageLoading
