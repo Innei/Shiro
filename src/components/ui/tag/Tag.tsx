@@ -23,7 +23,7 @@ export const Tag = memo(function Tag<T>(props: {
         onClick?.(passProps)
       }}
       key={text}
-      className="space-x-1 rounded-md px-3 py-2"
+      className="inline-block space-x-1 rounded-md px-3 py-2"
       style={{
         backgroundColor: addAlphaToHSL(bgColor, 0.7),
       }}
