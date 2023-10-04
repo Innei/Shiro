@@ -25,7 +25,6 @@ export const PostCopyright: FC = () => {
   if (!data) return null
   const { title, link, date } = data
   return (
-
     <section
       className="text-sm leading-loose text-gray-600 dark:text-neutral-400"
       id="copyright"
