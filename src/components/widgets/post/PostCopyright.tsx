@@ -6,6 +6,7 @@ import type { FC } from 'react'
 import { Divider } from '~/components/ui/divider'
 import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
+import { toast } from '~/lib/toast'
 
 export const PostCopyright: FC = () => {
   const name = useAggregationSelector((data) => data.user.name)
@@ -41,6 +42,7 @@ export const PostCopyright: FC = () => {
         <a
           onClick={() => {
             navigator.clipboard.writeText(link)
+            toast('本文链接已复制')
           }}
           data-hide-print
           className="select-none"
