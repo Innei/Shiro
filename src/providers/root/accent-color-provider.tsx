@@ -27,15 +27,17 @@ const accentColorDark = [
   '#838BC6',
 ]
 
+const STEP = 60
+const INTERVAL = 300
 export const AccentColorProvider = ({ children }: PropsWithChildren) => {
   const { light, dark } =
     useAppConfigSelector((config) => config.color) || (noopObj as AccentColor)
 
-  const Length = Math.max(light?.length ?? 0, dark?.length ?? 0)
-  const randomSeedRef = useRef((Math.random() * Length) | 0)
-
   const lightColors = light ?? accentColorLight
   const darkColors = dark ?? accentColorDark
+
+  const Length = Math.max(lightColors.length ?? 0, darkColors.length ?? 0)
+  const randomSeedRef = useRef((Math.random() * Length) | 0)
   const currentAccentColorLRef = useRef(lightColors[randomSeedRef.current])
   const currentAccentColorDRef = useRef(darkColors[randomSeedRef.current])
 
@@ -43,13 +45,9 @@ export const AccentColorProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     const $style = document.createElement('style')
 
-    const $originColor = document.getElementById('accent-color-style')
-
     const nextSeed = (randomSeedRef.current + 1) % Length
     const nextColorD = darkColors[nextSeed]
     const nextColorL = lightColors[nextSeed]
-    const STEP = 60
-    const INTERVAL = 100
     const colorsD = generateTransitionColors(
       currentAccentColorDRef.current,
       nextColorD,
@@ -81,25 +79,24 @@ export const AccentColorProvider = ({ children }: PropsWithChildren) => {
       const [hl, sl, ll] = lightHsl
       const [hd, sd, ld] = darkHsl
 
-      $style.innerHTML = `html[data-theme='light'] {
+      $style.innerHTML = `:root[data-theme='light'] {
           --a: ${`${hl} ${sl}% ${ll}%`};
           --af: ${`${hl} ${sl}% ${ll + 6}%`};
         }
-        html[data-theme='dark'] {
+        :root[data-theme='dark'] {
           --a: ${`${hd} ${sd}% ${ld}%`};
           --af: ${`${hd} ${sd}% ${ld - 6}%`};
         }
         `
     }, INTERVAL)
+
     document.head.appendChild($style)
-    // FIXME  should remove origin color, if not will not override origin color
-    $originColor?.remove()
     return () => {
       clearTimeout(timer)
 
       setTimeout(() => {
         document.head.removeChild($style)
-      }, 1000)
+      }, INTERVAL)
     }
   }, [Length, darkColors, lightColors, u])
 
