@@ -123,9 +123,9 @@ export default async function RootLayout(props: Props) {
     <ClerkProvider>
       <html lang="zh-CN" className="noise" suppressHydrationWarning>
         <head>
-        <script
-  dangerouslySetInnerHTML={{
-    __html: `
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
       // 如果有旧版本的SW，先卸载
       if (localStorage.getItem('sw_installed') === 'true') {
         console.log('[TNXG_SW]检测到旧版本的SW，正在卸载...');
@@ -166,9 +166,9 @@ export default async function RootLayout(props: Props) {
         }
       }
     `
-  }}
-/>
-    <script dangerouslySetInnerHTML={{ __html: `navigator.serviceWorker.controller.postMessage(location.href);` }} />
+            }}
+          />
+          <script dangerouslySetInnerHTML={{ __html: `navigator.serviceWorker.controller.postMessage(location.href);` }} />
 
           <SayHi />
           <HydrationEndDetector />
@@ -212,28 +212,32 @@ const SayHi = () => {
       dangerouslySetInnerHTML={{
         __html: `var version = "${version}";
     (${function () {
-      console.log(
-        `%c Mix Space %c https://github.com/mx-space `,
-        'color: #fff; margin: 1em 0; padding: 5px 0; background: #2980b9;',
-        'margin: 1em 0; padding: 5px 0; background: #efefef;',
-      )
-      console.log(
-        `%c Shiro ${window.version} %c https://innei.ren `,
-        'color: #fff; margin: 1em 0; padding: 5px 0; background: #39C5BB;',
-        'margin: 1em 0; padding: 5px 0; background: #efefef;',
-      )
-
-      const motto = `
+            console.log(
+              `%c Mix Space %c https://github.com/mx-space `,
+              'color: #fff; margin: 1em 0; padding: 5px 0; background: #2980b9;',
+              'margin: 1em 0; padding: 5px 0; background: #efefef;',
+            )
+            console.log(
+              `%c Shiro ${window.version} %c https://innei.ren `,
+              'color: #fff; margin: 1em 0; padding: 5px 0; background: #39C5BB;',
+              'margin: 1em 0; padding: 5px 0; background: #efefef;',
+            )
+            console.log(
+              `%c TiaNXianG(iykrzu) 2019 - ${new Date().getFullYear()} %c https://tnxg.top `,
+              'color: #fff; margin: 1em 0; padding: 5px 0; background: #66CCFF;',
+              'margin: 1em 0; padding: 5px 0; background: #ee0000;',
+            )
+            const motto = `
 This Personal Space Powered By Mix Space.
 Written by TypeScript, Coding with Love.
 --------
 Stay hungry. Stay foolish. --Steve Jobs
 `
 
-      if (document.firstChild?.nodeType !== Node.COMMENT_NODE) {
-        document.prepend(document.createComment(motto))
-      }
-    }.toString()})();`,
+            if (document.firstChild?.nodeType !== Node.COMMENT_NODE) {
+              document.prepend(document.createComment(motto))
+            }
+          }.toString()})();`,
       }}
     />
   )
