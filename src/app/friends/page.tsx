@@ -160,12 +160,14 @@ const Card: FC<{ link: LinkModel }> = ({ link }) => {
       <AnimatePresence mode="wait">{enter && <LayoutBg />}</AnimatePresence>
 
       <Avatar
+        randomColor
         imageUrl={link.avatar}
         lazy
+        radius={8}
         text={link.name[0]}
         alt={`Avatar of ${link.name}`}
         size={64}
-        className="rounded-xl ring-2 ring-gray-400/30 dark:ring-slate-50"
+        className="ring-2 ring-gray-400/30 dark:ring-slate-50"
       />
       <span className="flex h-full flex-col items-center justify-center space-y-2 py-3">
         <span className="text-lg font-medium">{link.name}</span>

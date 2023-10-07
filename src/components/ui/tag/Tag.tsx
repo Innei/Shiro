@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
 
 import { useIsDark } from '~/hooks/common/use-is-dark'
 import { addAlphaToHSL, getColorScheme, stringToHue } from '~/lib/color'
@@ -12,7 +12,10 @@ export const Tag = memo(function Tag<T>(props: {
   count?: number
 }) {
   const { text, count, passProps, onClick } = props
-  const { dark, light } = getColorScheme(stringToHue(text))
+  const { dark, light } = useMemo(
+    () => getColorScheme(stringToHue(text)),
+    [text],
+  )
   const isDark = useIsDark()
 
   const bgColor = isDark ? dark.background : light.background
