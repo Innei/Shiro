@@ -61,6 +61,7 @@ const appLabels: { [app: string]: string } = {
   IINA: 'iina',
   Warp: 'warp',
   RemNote: 'remnote',
+  Goodnotes: 'goodnotes',
 
   访达: 'finder',
   邮件: 'mail',
