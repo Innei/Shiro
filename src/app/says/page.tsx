@@ -1,7 +1,7 @@
 'use client'
 
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { memo, useRef } from 'react'
+import { memo, useMemo } from 'react'
 import { m } from 'framer-motion'
 import Markdown from 'markdown-to-jsx'
 import type { SayModel } from '@mx-space/api-client'
@@ -110,9 +110,10 @@ const Item = memo<{
   const hasSource = !!say.source
   const hasAuthor = !!say.author
   // const color = colorsMap.get(say.id)
-  const { dark: darkColors, light: lightColors } = useRef(
-    getColorScheme(stringToHue(say.id)),
-  ).current
+  const { dark: darkColors, light: lightColors } = useMemo(
+    () => getColorScheme(stringToHue(say.id)),
+    [say.id],
+  )
   const isDark = useIsDark()
 
   return (
