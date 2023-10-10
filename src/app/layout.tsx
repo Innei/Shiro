@@ -58,6 +58,19 @@ export const generateMetadata = async () => {
         type: 'image/svg+xml',
         sizes: 'any',
       },
+      {
+        rel: 'icon',
+        type: 'image/svg+xml',
+        url: config.site.favicon,
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        rel: 'icon',
+        type: 'image/svg+xml',
+        url: config.site.faviconDark || config.site.favicon,
+
+        media: '(prefers-color-scheme: dark)',
+      },
     ],
 
     themeColor: [
