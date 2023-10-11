@@ -217,7 +217,7 @@ const Welcome = () => {
 const PostScreen = () => {
   const { posts } = useHomeQueryData()
   return (
-    <Screen className="h-[120vh]">
+    <Screen className="h-fit min-h-[120vh]">
       <TwoColumnLayout leftContainerClassName="h-[30rem] lg:h-1/2">
         <m.h2
           initial={{
