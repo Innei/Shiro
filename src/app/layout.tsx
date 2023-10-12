@@ -186,6 +186,7 @@ export default async function RootLayout(props: Props) {
           <SayHi />
           <HydrationEndDetector />
           <link rel="stylesheet" href="/assets/css/font.css" />
+          <link rel="stylesheet" href="/assets/css/master.css" />
           <style>
             {`
               body * {

@@ -1,0 +1,173 @@
+/* 黑幕 */
+.heimu,
+.heimu rt {
+    background-color: #252525
+}
+
+span.heimu a.external,
+span.heimu a.external:visited,
+span.heimu a.extiw,
+span.heimu a.extiw:visited {
+    color: #252525
+}
+
+.heimu,
+.heimu a,
+a .heimu,
+.heimu a.new {
+    color: #252525;
+    text-shadow: none
+}
+
+body:not(.heimu_toggle_on) .heimu:hover,
+body:not(.heimu_toggle_on) .heimu:active,
+body:not(.heimu_toggle_on) .heimu.off {
+    transition: color .13s linear;
+    color: white
+}
+
+body:not(.heimu_toggle_on) .heimu:hover a,
+body:not(.heimu_toggle_on) a:hover .heimu,
+body:not(.heimu_toggle_on) .heimu.off a,
+body:not(.heimu_toggle_on) a:hover .heimu.off {
+    transition: color .13s linear;
+    color: lightblue
+}
+
+body:not(.heimu_toggle_on) .heimu.off .new,
+body:not(.heimu_toggle_on) .heimu.off .new:hover,
+body:not(.heimu_toggle_on) .new:hover .heimu.off,
+body:not(.heimu_toggle_on) .heimu:hover .new {
+    transition: color .13s linear;
+    color: #FCC
+}
+
+/* 黑幕s */
+.heimus,
+.heimus rt {
+    background-color: #252525
+}
+
+span.heimus a.external,
+span.heimus a.external:visited,
+span.heimus a.extiw,
+span.heimus a.extiw:visited {
+    color: #252525
+}
+
+.heimus,
+.heimus a,
+a .heimus,
+.heimus a.new {
+    color: #252525;
+    text-shadow: none
+}
+
+body:not(.heimus_toggle_on) .heimus:hover,
+body:not(.heimus_toggle_on) .heimus:active,
+body:not(.heimus_toggle_on) .heimus.off {
+    transition: color .13s linear;
+    color: white
+}
+
+body:not(.heimus_toggle_on) .heimus:hover a,
+body:not(.heimus_toggle_on) a:hover .heimus,
+body:not(.heimus_toggle_on) .heimus.off a,
+body:not(.heimus_toggle_on) a:hover .heimus.off {
+    transition: color .13s linear;
+    color: lightblue
+}
+
+body:not(.heimus_toggle_on) .heimus.off .new,
+body:not(.heimus_toggle_on) .heimus.off .new:hover,
+body:not(.heimus_toggle_on) .new:hover .heimus.off,
+body:not(.heimus_toggle_on) .heimus:hover .new {
+    transition: color .13s linear;
+    color: #FCC
+}
+
+/* 字体 */
+@import url("https://blog.tnxg.top/assets/css/font.css");
+
+@font-face {
+    src: url("https://assets.tnxg.whitenuo.cn/fonts/HarmonyOS_Sans.woff2") format('woff2');
+    font-family: "HarmonyOS_Sans";
+}
+
+@font-face {
+    src: url("https://assets.tnxg.whitenuo.cn/fonts/ysbth.woff2") format('woff2');
+    font-family: "ysbth";
+}
+
+@font-face {
+    src: url("https://assets.tnxg.whitenuo.cn/fonts/CtrlAstr.woff2") format('woff2');
+    font-family: "CtrlAstr";
+}
+
+@font-face {
+    src: url("https://assets.tnxg.whitenuo.cn/fonts/Gsenochian.woff2") format('woff2');
+    font-family: "Gsenochian";
+}
+
+@font-face {
+    src: url("https://assets.tnxg.whitenuo.cn/fonts/Tevyat.woff2") format('woff2');
+    font-family: "Tevyat";
+}
+
+@font-face {
+    src: url("https://assets.tnxg.whitenuo.cn/fonts/JetBrainsMono.woff2") format('woff2');
+    font-family: "JetBrainsMono";
+}
+
+@font-face {
+    src: url("https://assets.tnxg.whitenuo.cn/fonts/AgeFonts001.woff") format('woff');
+    font-family: "AgeFonts001";
+}
+
+.HarmonyOS_Sans {
+    font-family: "HarmonyOS_Sans";
+}
+
+.CtrlAstr {
+    font-family: "CtrlAstr";
+}
+
+.ysbth {
+    font-family: "ysbth";
+}
+
+.Gsenochian {
+    font-family: "Gsenochian";
+}
+
+.Tevyat {
+    font-family: "Tevyat";
+}
+
+.JetBrainsMono {
+    font-family: "JetBrainsMono";
+}
+
+.AgeFonts001 {
+    font-family: "AgeFonts001";
+}
+
+body {
+    cursor: url("https://assets.tnxg.whitenuo.cn/images/cursor/cursor.png"), auto;
+}
+
+a {
+    cursor: url("https://assets.tnxg.whitenuo.cn/images/cursor/pointer.png"), auto;
+}
+
+a:hover {
+    cursor: url("https://assets.tnxg.whitenuo.cn/images/cursor/pointer.png"), auto;
+}
+
+.hty-icon-button {
+    cursor: url("https://assets.tnxg.whitenuo.cn/images/cursor/pointer.png"), pointer;
+}
+
+input {
+    cursor: url("https://assets.tnxg.whitenuo.cn/images/cursor/pointer.png"), auto;
+}
