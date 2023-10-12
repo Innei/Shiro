@@ -49,6 +49,7 @@ export interface Custom {
 
 export interface Site {
   favicon: string
+  faviconDark?: string
 }
 export interface Hero {
   title: Title
