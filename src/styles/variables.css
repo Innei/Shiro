@@ -27,6 +27,7 @@ html {
 ::selection {
   background-color: var(--theme-color);
   color: theme(colors.always.white);
+  text-shadow: none;
 }
 
 [data-theme='dark'] ::selection {
