@@ -143,16 +143,19 @@ export const Gallery: FC<GalleryProps> = (props) => {
     <div
       className={clsx('w-full', 'relative', styles['root'])}
       ref={ref}
+      onTouchMove={handleCancelAutoplay}
       onWheel={handleCancelAutoplay}
-      onTouchStart={handleCancelAutoplay}
     >
       <div
         className={clsx(
           'w-full overflow-auto whitespace-nowrap',
           styles['container'],
         )}
-        ref={setContainerRef}
+        onTouchStart={handleCancelAutoplay}
         onScroll={handleOnScroll}
+        ref={setContainerRef}
+        onTouchMove={handleCancelAutoplay}
+        onWheel={handleCancelAutoplay}
       >
         {images.map((image) => {
           return <GalleryItem key={image.url} image={image} />
@@ -198,7 +201,7 @@ const GalleryItem: FC<{
   return (
     <div
       style={childStyle}
-      className={clsx(styles['child'], 'inline-block')}
+      className={clsx(styles['child'], 'inline-block self-center')}
       key={`${image.url}-${image.name || ''}`}
     >
       <FixedZoomedImage
@@ -210,3 +213,5 @@ const GalleryItem: FC<{
     </div>
   )
 })
+
+GalleryItem.displayName = 'GalleryItem'
