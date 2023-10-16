@@ -25,8 +25,15 @@ import styles from './page.module.css'
 export const MarkdownSelection: Component = (props) => {
   const id = useCurrentNoteDataSelector((data) => data?.data?.id)!
   const title = useCurrentNoteDataSelector((data) => data?.data?.title)!
+  const canComment = useCurrentNoteDataSelector(
+    (data) => data?.data.allowComment,
+  )!
   return (
-    <WithArticleSelectionAction refId={id} title={title}>
+    <WithArticleSelectionAction
+      refId={id}
+      title={title}
+      canComment={canComment}
+    >
       {props.children}
     </WithArticleSelectionAction>
   )

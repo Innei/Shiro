@@ -10,12 +10,14 @@ import { useIsClient } from '~/hooks/common/use-is-client'
 import { stopPropagation } from '~/lib/dom'
 import { useModalStack } from '~/providers/root/modal-stack-provider'
 
+import { useIsInBanCopyContext } from './BanCopyWrapper'
 import { CommentModal } from './CommentModal'
 
 export const WithArticleSelectionAction: Component<{
   refId: string
   title: string
-}> = ({ refId, title, children }) => {
+  canComment: boolean
+}> = ({ refId, title, children, canComment }) => {
   const isMobile = useIsMobile()
   const [pos, setPos] = useState({
     x: 0,
@@ -52,7 +54,12 @@ export const WithArticleSelectionAction: Component<{
     }, 1000)
   }, [])
 
+  const canCopy = !useIsInBanCopyContext()
+
+  const actionCanActivated = canCopy || canComment
+
   if (isMobile || !isClient) return children
+  if (!actionCanActivated) return children
   return (
     <div
       className="relative"
@@ -95,40 +102,46 @@ export const WithArticleSelectionAction: Component<{
               opacity: 0,
             }}
           >
-            <MotionButtonBase
-              data-event="selection-comment"
-              className="rounded-md px-2 py-1 hover:bg-slate-100/80 dark:hover:bg-zinc-900/90"
-              onMouseUp={stopPropagation}
-              onClick={() => {
-                navigator.clipboard.writeText(selectedText)
-                setShow(false)
-              }}
-            >
-              复制
-            </MotionButtonBase>
-            <DividerVertical className="mx-1" />
-            <MotionButtonBase
-              data-event="selection-comment"
-              className="rounded-md px-2 py-1 hover:bg-slate-100/80 dark:hover:bg-zinc-900/90"
-              onClick={() => {
-                present({
-                  title: '评论',
+            {canCopy && (
+              <>
+                <MotionButtonBase
+                  data-event="selection-comment"
+                  className="rounded-md px-2 py-1 hover:bg-slate-100/80 dark:hover:bg-zinc-900/90"
+                  onMouseUp={stopPropagation}
+                  onClick={() => {
+                    navigator.clipboard.writeText(selectedText)
+                    setShow(false)
+                  }}
+                >
+                  复制
+                </MotionButtonBase>
+                <DividerVertical className="mx-1" />
+              </>
+            )}
+            {canComment && (
+              <MotionButtonBase
+                data-event="selection-comment"
+                className="rounded-md px-2 py-1 hover:bg-slate-100/80 dark:hover:bg-zinc-900/90"
+                onClick={() => {
+                  present({
+                    title: '评论',
 
-                  content: (rest) => (
-                    <CommentModal
-                      refId={refId}
-                      title={title}
-                      initialValue={`> ${selectedText
-                        ?.split('\n')
-                        .join('')}\n\n`}
-                      {...rest}
-                    />
-                  ),
-                })
-              }}
-            >
-              引用评论
-            </MotionButtonBase>
+                    content: (rest) => (
+                      <CommentModal
+                        refId={refId}
+                        title={title}
+                        initialValue={`> ${selectedText
+                          ?.split('\n')
+                          .join('')}\n\n`}
+                        {...rest}
+                      />
+                    ),
+                  })
+                }}
+              >
+                引用评论
+              </MotionButtonBase>
+            )}
           </m.div>
         )}
       </AnimatePresence>

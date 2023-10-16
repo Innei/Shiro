@@ -4,14 +4,20 @@ import { ReadIndicatorForMobile } from '~/components/widgets/shared/ReadIndicato
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
-import { MarkdownImageRecordProviderInternal, PageMarkdown } from './pageExtra'
+import {
+  MarkdownImageRecordProviderInternal,
+  MarkdownSelection,
+  PageMarkdown,
+} from './pageExtra'
 
 const PageDetail = () => {
   return (
     <WrappedElementProvider>
       <ReadIndicatorForMobile />
       <MarkdownImageRecordProviderInternal>
-        <PageMarkdown />
+        <MarkdownSelection>
+          <PageMarkdown />
+        </MarkdownSelection>
       </MarkdownImageRecordProviderInternal>
 
       <LayoutRightSidePortal>

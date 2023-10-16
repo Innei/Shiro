@@ -9,6 +9,7 @@ import type { PropsWithChildren } from 'react'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { MainMarkdown } from '~/components/ui/markdown'
 import { GoToAdminEditingButton } from '~/components/widgets/shared/GoToAdminEditingButton'
+import { WithArticleSelectionAction } from '~/components/widgets/shared/WithArticleSelectionAction'
 import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
 import { useCurrentPageDataSelector } from '~/providers/page/CurrentPageDataProvider'
@@ -136,5 +137,20 @@ export const PagePaginator = () => {
         )}
       </div>
     </div>
+  )
+}
+
+export const MarkdownSelection: Component = (props) => {
+  const id = useCurrentPageDataSelector((data) => data?.id)!
+  const title = useCurrentPageDataSelector((data) => data?.title)!
+  const canComment = useCurrentPageDataSelector((data) => data?.allowComment)!
+  return (
+    <WithArticleSelectionAction
+      refId={id}
+      title={title}
+      canComment={canComment}
+    >
+      {props.children}
+    </WithArticleSelectionAction>
   )
 }
