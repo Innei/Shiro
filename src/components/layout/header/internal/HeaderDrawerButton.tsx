@@ -6,7 +6,7 @@ import { atom, useAtom } from 'jotai'
 
 import { CloseIcon } from '~/components/icons/close'
 import { MotionButtonBase } from '~/components/ui/button'
-import { DialogOverlay } from '~/components/ui/dlalog/DialogOverlay'
+import { DialogOverlay } from '~/components/ui/dialog/DialogOverlay'
 import { useIsClient } from '~/hooks/common/use-is-client'
 
 import { HeaderActionButton } from './HeaderActionButton'

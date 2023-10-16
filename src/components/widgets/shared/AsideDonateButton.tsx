@@ -5,7 +5,7 @@ import type { HTMLMotionProps } from 'framer-motion'
 
 import { ImpressionView } from '~/components/common/ImpressionTracker'
 import { MotionButtonBase } from '~/components/ui/button'
-import { DialogOverlay } from '~/components/ui/dlalog/DialogOverlay'
+import { DialogOverlay } from '~/components/ui/dialog/DialogOverlay'
 import { TrackerAction } from '~/constants/tracker'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { clsxm } from '~/lib/helper'
