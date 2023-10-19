@@ -18,11 +18,10 @@ import { CommentSkeleton } from './CommentSkeleton'
 export const buildQueryKey = (refId: string) => ['comments', refId]
 export const Comments: FC<CommentBaseProps> = ({ refId }) => {
   const key = useMemo(() => buildQueryKey(refId), [refId])
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(
-    key,
-    async ({ queryKey, pageParam }) => {
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
+    queryKey: key,
+    queryFn: async ({ queryKey, pageParam }) => {
       const page = pageParam
-      // const { page } = meta as { page: number }
       const [, refId] = queryKey as [string, string]
       const data = await apiClient.comment.getByRefId(refId, {
         page,
@@ -30,17 +29,16 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
       return data.$serialized
     },
 
-    {
-      meta: {
-        persist: false,
-      },
-      getNextPageParam: (lastPage) =>
-        lastPage.pagination.hasNextPage
-          ? lastPage.pagination.currentPage + 1
-          : false,
-      getPreviousPageParam: (firstPage) => firstPage.pagination.currentPage - 1,
+    meta: {
+      persist: false,
     },
-  )
+    getNextPageParam: (lastPage) =>
+      lastPage.pagination.hasNextPage
+        ? lastPage.pagination.currentPage + 1
+        : undefined,
+    getPreviousPageParam: (firstPage) => firstPage.pagination.currentPage - 1,
+    initialPageParam: 1 as number | undefined,
+  })
 
   if (isLoading) {
     return <CommentSkeleton />

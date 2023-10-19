@@ -2,40 +2,41 @@
 
 import { QueryClient } from '@tanstack/react-query'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
-import { del, get, set } from 'idb-keyval'
-import type {
-  PersistedClient,
-  Persister,
-  PersistQueryClientOptions,
-} from '@tanstack/react-query-persist-client'
+import { createStore, del, get, set } from 'idb-keyval'
+import type { PersistQueryClientOptions } from '@tanstack/react-query-persist-client'
 import type { PropsWithChildren } from 'react'
 
-const idbValidKey = 'reactQuery'
-const persister = {
-  persistClient: async (client: PersistedClient) => {
-    set(idbValidKey, client)
+import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister'
+
+const dbStore = createStore('react-query', 'queries')
+
+const asyncStoragePersister = createAsyncStoragePersister({
+  storage: {
+    getItem: async (key) => {
+      const value = await get(key, dbStore)
+      return value
+    },
+    setItem: async (key, value) => {
+      await set(key, value, dbStore)
+    },
+    removeItem: async (key) => {
+      await del(key, dbStore)
+    },
   },
-  restoreClient: async () => {
-    return await get<PersistedClient>(idbValidKey)
-  },
-  removeClient: async () => {
-    await del(idbValidKey)
-  },
-} as Persister
+})
 
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 60 * 5, // 5 minutes
-
       refetchOnWindowFocus: false,
       refetchIntervalInBackground: false,
     },
   },
 })
 
-const persistOptions = {
-  persister,
+const persistOptions: Omit<PersistQueryClientOptions, 'queryClient'> = {
+  persister: asyncStoragePersister,
   maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
   dehydrateOptions: {
     shouldDehydrateQuery: (query) => {
@@ -50,7 +51,7 @@ const persistOptions = {
       }
     },
   },
-} as Omit<PersistQueryClientOptions, 'queryClient'>
+}
 export const ReactQueryProvider = ({ children }: PropsWithChildren) => {
   return (
     <PersistQueryClientProvider

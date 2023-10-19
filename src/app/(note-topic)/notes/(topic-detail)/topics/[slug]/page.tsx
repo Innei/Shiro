@@ -35,6 +35,7 @@ export default function Page() {
       if (!topicId) throw new Error('topicId is not ready :(')
       return await apiClient.note.getNoteByTopicId(topicId, pageParam)
     },
+    initialPageParam: 1,
 
     getNextPageParam: (lastPage) =>
       lastPage.pagination.hasNextPage

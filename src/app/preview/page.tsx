@@ -110,7 +110,7 @@ export default function PreviewPage() {
 
 const PostPreview = () => {
   const data = useAtomValue(previewDataAtom) as PostModel
-  const overrideAtom = useMemo(() => atom(null as null | PostModel), [])
+  const overrideAtom = useMemo(() => atom(null! as PostModel), [])
   return (
     <div className="container m-auto mt-[120px] max-w-7xl px-2 md:px-6 lg:p-0">
       <CurrentPostDataAtomProvider overrideAtom={overrideAtom}>
@@ -147,10 +147,7 @@ const PostPreview = () => {
 const NotePreview = () => {
   const data = useAtomValue(previewDataAtom) as NoteModel
 
-  const overrideAtom = useMemo(
-    () => atom(null as null | NoteWrappedPayload),
-    [],
-  )
+  const overrideAtom = useMemo(() => atom(null! as NoteWrappedPayload), [])
   return (
     <div className="mx-auto mt-[100px] max-w-[60rem]">
       <CurrentNoteDataAtomProvider overrideAtom={overrideAtom}>
@@ -204,7 +201,7 @@ const NotePreview = () => {
 const PagePreview = () => {
   const data = useAtomValue(previewDataAtom) as PageModel
 
-  const overrideAtom = useMemo(() => atom(null as null | PageModel), [])
+  const overrideAtom = useMemo(() => atom(null! as PageModel), [])
 
   return (
     <div className="relative m-auto mt-[120px] min-h-[300px] w-full max-w-5xl px-2 md:px-6 lg:p-0">

@@ -132,9 +132,9 @@ export const Activity = memo(() => {
   const activity = useActivity()
 
   const isPageActive = usePageIsActive()
-  const { data } = useQuery(
-    ['activity'],
-    async () => {
+  const { data } = useQuery({
+    queryKey: ['activity'],
+    queryFn: async () => {
       return await apiClient
         .proxy(endpoint)
         .post<{
@@ -149,18 +149,16 @@ export const Activity = memo(() => {
           return { processName: '', mediaInfo: undefined }
         })
     },
-    {
-      refetchInterval: 1000 * 5 * 60,
-      refetchOnMount: 'always',
-      retry: false,
-      refetchOnReconnect: true,
-      refetchOnWindowFocus: 'always',
-      enabled: enable && isPageActive,
-      meta: {
-        persist: false,
-      },
+    refetchInterval: 1000 * 5 * 60,
+    refetchOnMount: 'always',
+    retry: false,
+    refetchOnReconnect: true,
+    refetchOnWindowFocus: 'always',
+    enabled: enable && isPageActive,
+    meta: {
+      persist: false,
     },
-  )
+  })
 
   useEffect(() => {
     if (!data) return

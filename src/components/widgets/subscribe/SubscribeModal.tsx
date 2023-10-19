@@ -19,7 +19,7 @@ interface SubscribeModalProps {
   defaultTypes?: (keyof typeof SubscribeTypeToBitMap)[]
 }
 
-const subscibeTextMap: Record<string, string> = {
+const subscribeTextMap: Record<string, string> = {
   post_c: '文章',
   note_c: '手记',
   say_c: '说说',
@@ -142,7 +142,7 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
                 id={name}
               />
               <label htmlFor={name} className="text-shizuku">
-                {subscibeTextMap[name]}
+                {subscribeTextMap[name]}
               </label>
             </fieldset>
           ))}

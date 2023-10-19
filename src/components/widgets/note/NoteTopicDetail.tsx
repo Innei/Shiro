@@ -21,12 +21,14 @@ export const NoteTopicDetail: FC<{ topic: TopicModel }> = (props) => {
   const { topic } = props
   const { id: topicId } = topic
 
-  const { data, isLoading } = useQuery([`topic-${topicId}`], () =>
-    apiClient.note.getNoteByTopicId(topicId, 1, 1, {
-      sortBy: 'created',
-      sortOrder: -1,
-    }),
-  )
+  const { data, isLoading } = useQuery({
+    queryKey: [`topic-${topicId}`],
+    queryFn: () =>
+      apiClient.note.getNoteByTopicId(topicId, 1, 1, {
+        sortBy: 'created',
+        sortOrder: -1,
+      }),
+  })
 
   const isClient = useIsClient()
   if (!isClient) {

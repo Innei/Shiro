@@ -28,6 +28,7 @@ export default function Page() {
       const data = await apiClient.say.getAllPaginated(pageParam)
       return data
     },
+    initialPageParam: 1,
     getNextPageParam: (lastPage) =>
       lastPage.pagination.hasNextPage
         ? lastPage.pagination.currentPage + 1

@@ -106,9 +106,9 @@ const PostBox = () => {
 const List = () => {
   const [hasNext, setHasNext] = useState(true)
 
-  const { data, isLoading, fetchNextPage } = useInfiniteQuery(
-    QUERY_KEY,
-    async ({ pageParam }) => {
+  const { data, isLoading, fetchNextPage } = useInfiniteQuery({
+    queryKey: QUERY_KEY,
+    queryFn: async ({ pageParam }) => {
       const { data } = await apiClient.shorthand.getList(
         pageParam,
         undefined,
@@ -120,15 +120,14 @@ const List = () => {
       }
       return data
     },
-    {
-      enabled: hasNext,
-      refetchOnMount: true,
+    enabled: hasNext,
+    refetchOnMount: true,
 
-      getNextPageParam: (l) => {
-        return l.length > 0 && l[l.length - 1]?.id
-      },
+    getNextPageParam: (l) => {
+      return l.length > 0 ? l[l.length - 1]?.id : undefined
     },
-  )
+    initialPageParam: undefined as undefined | string,
+  })
 
   const owner = useAggregationSelector((a) => a.user)!
 

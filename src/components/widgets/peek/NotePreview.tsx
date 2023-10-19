@@ -33,10 +33,7 @@ export const NotePreview: FC<NotePreviewProps> = (props) => {
   const { data, isLoading } = useQuery({
     ...queries.note.byNid(props.noteId.toString()),
   })
-  const overrideAtom = useMemo(
-    () => atom(null as null | NoteWrappedPayload),
-    [],
-  )
+  const overrideAtom = useMemo(() => atom(null! as NoteWrappedPayload), [])
   if (isLoading) return <Loading className="w-full" useDefaultLoadingText />
   if (!data) return null
   return (

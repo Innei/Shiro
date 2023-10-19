@@ -32,7 +32,7 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
   const { data, isLoading } = useQuery({
     ...queries.post.bySlug(category, slug),
   })
-  const overrideAtom = useMemo(() => atom(null as null | PostModel), [])
+  const overrideAtom = useMemo(() => atom(null! as PostModel), [])
   if (isLoading) return <Loading className="w-full" useDefaultLoadingText />
   if (!data) return null
   return (
