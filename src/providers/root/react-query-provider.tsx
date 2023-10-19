@@ -8,7 +8,9 @@ import type { PropsWithChildren } from 'react'
 
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister'
 
-const dbStore = createStore('react-query', 'queries')
+import { isServerSide } from '~/lib/env'
+
+const dbStore = isServerSide ? undefined : createStore('react-query', 'queries')
 
 const asyncStoragePersister = createAsyncStoragePersister({
   storage: {
@@ -45,7 +47,10 @@ const persistOptions: Omit<PersistQueryClientOptions, 'queryClient'> = {
       if (query.meta?.persist === false) return false
 
       if (queryIsReadyForPersistance) {
-        return !((query.state?.data as any)?.pages?.length > 1)
+        return (
+          !((query.state?.data as any)?.pages?.length > 1) ||
+          (!!query.state.data && !(query.state.data as any).pages)
+        )
       } else {
         return false
       }
