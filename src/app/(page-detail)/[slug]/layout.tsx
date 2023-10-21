@@ -9,7 +9,7 @@ import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpT
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { CommentAreaRootLazy } from '~/components/widgets/comment'
 import { TocFAB } from '~/components/widgets/toc/TocFAB'
-import { attachUA } from '~/lib/attach-ua'
+import { attachUAAndRealIp } from '~/lib/attach-ua'
 import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
 import { getQueryClient } from '~/lib/query-client.server'
@@ -32,7 +32,7 @@ export const generateMetadata = async ({
 }): Promise<Metadata> => {
   const { slug } = params
   try {
-    attachUA()
+    attachUAAndRealIp()
     const data = await getQueryClient().fetchQuery(queries.page.bySlug(slug))
     const { title, text } = data
     const description = getSummaryFromMd(text ?? '')
@@ -67,7 +67,7 @@ interface PageParams {
 }
 
 export default async (props: NextPageParams<PageParams>) => {
-  attachUA()
+  attachUAAndRealIp()
   const {
     params: { slug },
   } = props
