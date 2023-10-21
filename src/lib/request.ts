@@ -11,8 +11,9 @@ import { API_URL } from '~/constants/env'
 
 import PKG from '../../package.json'
 import { getToken } from './cookie'
-import { isDev, isServerSide } from './env'
+import { isClientSide, isDev, isServerSide } from './env'
 
+const uuidStorageKey = 'x-uuid'
 const genUUID = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
     const r = (Math.random() * 16) | 0
@@ -21,6 +22,11 @@ const genUUID = () => {
   })
 }
 const uuid = genUUID()
+
+if (isClientSide) {
+  if (!sessionStorage.getItem(uuidStorageKey))
+    sessionStorage.setItem(uuidStorageKey, uuid)
+}
 
 export const apiClient = createClient(axiosAdaptor)(API_URL, {
   controllers: allControllers,
@@ -41,7 +47,8 @@ $axios.interceptors.request.use((config) => {
     if (token) {
       config.headers['Authorization'] = token
     }
-    config.headers['x-uuid'] = uuid
+    config.headers['x-session-uuid'] =
+      globalThis?.sessionStorage?.getItem(uuidStorageKey) ?? uuid
   }
 
   if (isDev && isServerSide) {

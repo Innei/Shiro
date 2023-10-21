@@ -3,6 +3,7 @@
 
 import type { NoteModel } from '@mx-space/api-client'
 
+import { AckRead } from '~/components/common/AckRead'
 import { ClientOnly } from '~/components/common/ClientOnly'
 import {
   NoteActionAside,
@@ -34,6 +35,7 @@ import {
 const NotePage = function (props: NoteModel) {
   return (
     <>
+      <AckRead id={props.id} type="note" />
       <NoteHeaderMetaInfoSetting />
       <IndentArticleContainer>
         <header>
