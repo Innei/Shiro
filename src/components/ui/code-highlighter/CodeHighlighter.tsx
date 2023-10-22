@@ -23,7 +23,7 @@ export const HighLighter: FC<Props> = (props) => {
   const { lang: language, content: value } = props
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(value)
-    toast.success('COPIED!')
+    toast.success('COPIED！已复制！')
   }, [value])
 
   const isPrintMode = useIsPrintMode()
@@ -55,6 +55,7 @@ export const HighLighter: FC<Props> = (props) => {
         <code
           className={`language-${language ?? 'markup'} !bg-transparent`}
           ref={ref}
+          style={{ fontFamily: 'JetBrainsMono' }}
         >
           {value}
         </code>
