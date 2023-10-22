@@ -24,7 +24,7 @@ export const HighLighter: FC<Props> = (props) => {
   useEffect(() => {
     const highlightCode = async () => {
       const highlighter = await createShikiHighlighter({ theme: 'dark-plus' })
-      const twoslash = runTwoSlash(value, language, {})
+      const twoslash = runTwoSlash(value, language || 'markup', {})
       const renderedHtml = renderCodeToHTML(
         twoslash.code,
         language || 'markup',
