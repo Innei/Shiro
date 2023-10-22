@@ -207,7 +207,7 @@ export const Activity = memo(() => {
               key={processName}
               className="pointer-events-auto absolute bottom-0 right-0 top-0 z-[10] flex items-center overflow-hidden lg:right-[-25px]"
               initial={{
-                opacity: 0.2,
+                opacity: 0.0001,
                 y: 15,
               }}
               animate={{
