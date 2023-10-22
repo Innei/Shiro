@@ -51,7 +51,11 @@ export const HighLighter: FC<Props> = (props) => {
         {language?.toUpperCase()}
       </span>
 
-      <pre className="line-numbers !bg-transparent" data-start="1">
+      <pre
+        className="line-numbers !bg-transparent"
+        data-start="1"
+        style={{ fontFamily: 'JetBrainsMono' }}
+      >
         <code
           className={`language-${language ?? 'markup'} !bg-transparent`}
           ref={ref}
