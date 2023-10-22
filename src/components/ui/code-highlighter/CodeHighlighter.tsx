@@ -1,113 +1,66 @@
-import React, { useCallback, useInsertionEffect, useRef } from 'react'
-import type { FC } from 'react'
+// 导入React和一些React钩子和函数
 
-import { useIsPrintMode } from '~/atoms/css-media'
-import { useIsDark } from '~/hooks/common/use-is-dark'
-import { loadScript, loadStyleSheet } from '~/lib/load-script'
-import { toast } from '~/lib/toast'
+// 导入一个自定义钩子，用于检查当前模式是否为打印模式
+// 导入一个自定义钩子，用于检查当前主题是否为深色
+// 导入自定义函数，用于加载脚本和样式表
+// 导入一个自定义弹出通知工具
 
-import styles from './CodeHighlighter.module.css'
+// 导入此组件的CSS模块样式
 
+import {
+  createShikiHighlighter,
+  renderCodeToHTML,
+  runTwoSlash,
+} from 'shiki-twoslash'
+import type { FC } from 'react' // 从React中导入FC类型，用于函数式组件
+
+// 声明一个全局接口，用于在'window'对象上定义'Prism'属性
 declare global {
   interface Window {
     Prism: any
   }
 }
 
+// 定义组件的属性接口
 interface Props {
-  lang: string | undefined
-  content: string
+  lang: string // 代码片段的语言（或未定义）
+  content: string // 要显示的代码内容
 }
 
+// 定义接受'Props'的函数式组件'HighLighter'
 export const HighLighter: FC<Props> = (props) => {
-  const { lang: language, content: value } = props
+  const { lang: language, content: value } = props // 从'props'中解构'lang'和'content'
 
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(value)
-    toast.success('COPIED!')
-  }, [value])
+  // // 定义一个用于将代码复制到剪贴板的回调函数
+  // const handleCopy = useCallback(() => {
+  //   navigator.clipboard.writeText(value); // 使用Clipboard API将代码复制到剪贴板
+  //   toast.success('已复制！'); // 使用'toast'工具显示成功消息
+  // }, [value]);
 
-  const prevThemeCSS = useRef<ReturnType<typeof loadStyleSheet>>()
-  const isPrintMode = useIsPrintMode()
-  const isDark = useIsDark()
+  // // 检查当前模式是否为打印模式
+  // const isPrintMode = useIsPrintMode();
 
-  useInsertionEffect(() => {
-    const css = loadStyleSheet(
-      `https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism-themes/1.9.0/prism-one-${
-        isPrintMode ? 'light' : isDark ? 'dark' : 'light'
-      }.css`,
+  // // 检查当前主题是否为深色
+  // const isDark = useIsDark();
+  // useInsertionEffect(() => {
+  //   const css = loadStyleSheet(
+  //     `https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism-themes/1.9.0/prism-one-${
+  //       isPrintMode ? 'light' : isDark ? 'dark' : 'light'
+  //     }.css`,
+  //   );
+  const go = async () => {
+    const highlighter = await createShikiHighlighter({ theme: 'dark-plus' })
+    const twoslash = runTwoSlash(value, language, {})
+    const html = renderCodeToHTML(
+      twoslash.code,
+      language,
+      { twoslash: true },
+      { themeName: 'dark-plus' },
+      highlighter,
+      twoslash,
     )
+    return html
+  }
 
-    if (prevThemeCSS.current) {
-      const $prev = prevThemeCSS.current
-      css.$link.onload = () => {
-        $prev.remove()
-      }
-    }
-
-    prevThemeCSS.current = css
-  }, [isDark, isPrintMode])
-  useInsertionEffect(() => {
-    loadStyleSheet(
-      'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.css',
-    )
-
-    Promise.all([
-      loadScript(
-        'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/components/prism-core.min.js',
-      ),
-    ])
-      .then(() =>
-        Promise.all([
-          loadScript(
-            'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js',
-          ),
-          loadScript(
-            'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.js',
-          ),
-        ]),
-      )
-      .then(() => {
-        if (ref.current) {
-          requestAnimationFrame(() => {
-            window.Prism?.highlightElement(ref.current)
-
-            requestAnimationFrame(() => {
-              window.Prism?.highlightElement(ref.current)
-            })
-          })
-        } else {
-          requestAnimationFrame(() => {
-            window.Prism?.highlightAll()
-            // highlightAll twice
-
-            requestAnimationFrame(() => {
-              window.Prism?.highlightAll()
-            })
-          })
-        }
-      })
-  }, [])
-
-  const ref = useRef<HTMLElement>(null)
-  return (
-    <div className={styles['code-wrap']}>
-      <span className={styles['language-tip']} aria-hidden>
-        {language?.toUpperCase()}
-      </span>
-
-      <pre className="line-numbers !bg-transparent" data-start="1">
-        <code
-          className={`language-${language ?? 'markup'} !bg-transparent`}
-          ref={ref}
-        >
-          {value}
-        </code>
-      </pre>
-
-      <div className={styles['copy-tip']} onClick={handleCopy} aria-hidden>
-        Copy
-      </div>
-    </div>
-  )
+  return go()
 }
