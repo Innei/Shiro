@@ -31,7 +31,7 @@ export const HighLighter: FC<Props> = (props) => {
 
   useLayoutEffect(() => {
     ;(async () => {
-      const shikiTheme = 'dark_plus'
+      const shikiTheme = 'dark-plus'
       const html = await renderCodeHighlighter(
         value,
         language as string,
