@@ -13,9 +13,9 @@ export interface XLogSummaryProps {
 
 export const XLogSummary: FC<XLogSummaryProps> = (props) => {
   const { cid } = props
-  const { data, isLoading, error } = useQuery(
-    [`getSummary`, cid],
-    async ({ queryKey }) => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: [`getSummary`, cid],
+    queryFn: async ({ queryKey }) => {
       const [, cid] = queryKey
       const data = await fetch(`/api/xlog/summary?cid=${cid}`, {
         next: {
@@ -26,12 +26,10 @@ export const XLogSummary: FC<XLogSummaryProps> = (props) => {
       if (!data.data) throw new Error('内容暂时无法获取')
       return data
     },
-    {
-      enabled: !!cid,
-      staleTime: 1000 * 60 * 60 * 24 * 7,
-      retryDelay: 5000,
-    },
-  )
+    enabled: !!cid,
+    staleTime: 1000 * 60 * 60 * 24 * 7,
+    retryDelay: 5000,
+  })
 
   let Inner: ReactNode = (
     <div

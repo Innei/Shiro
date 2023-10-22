@@ -13,7 +13,7 @@ import { ScrollTop } from '~/components/common/ScrollTop'
 import { Root } from '~/components/layout/root/Root'
 import { SearchPanelWithHotKey } from '~/components/widgets/shared/SearchFAB'
 import { TocAutoScroll } from '~/components/widgets/toc/TocAutoScroll'
-import { attachUA } from '~/lib/attach-ua'
+import { attachUAAndRealIp } from '~/lib/attach-ua'
 import { sansFont, serifFont } from '~/lib/fonts'
 import { getQueryClient } from '~/lib/query-client.server'
 import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
@@ -118,7 +118,7 @@ type Props = {
 }
 
 export default async function RootLayout(props: Props) {
-  attachUA()
+  attachUAAndRealIp()
   const { children } = props
 
   const queryClient = getQueryClient()

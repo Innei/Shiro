@@ -4,7 +4,7 @@ const sharedClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 3,
-      cacheTime: 1000 * 3,
+      gcTime: 1000 * 3,
     },
   },
 })

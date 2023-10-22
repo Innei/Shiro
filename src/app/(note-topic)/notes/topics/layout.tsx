@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { QueryHydrate } from '~/components/common/QueryHydrate'
 import { NormalContainer } from '~/components/layout/container/Normal'
 import { isShallowEqualArray } from '~/lib/_'
-import { attachUA } from '~/lib/attach-ua'
+import { attachUAAndRealIp } from '~/lib/attach-ua'
 import { getQueryClient } from '~/lib/query-client.server'
 
 import { topicsQuery } from './query'
@@ -18,7 +18,7 @@ export default async function Layout(
     slug: string
   }>,
 ) {
-  attachUA()
+  attachUAAndRealIp()
   const queryClient = getQueryClient()
 
   await queryClient.fetchQuery(topicsQuery)

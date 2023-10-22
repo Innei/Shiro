@@ -15,8 +15,8 @@ const fetchData = async (cid: string) => {
   return queryClient.fetchQuery({
     queryKey: ['xlog', 'summary', cid],
     staleTime: 6000,
-    cacheTime: 6000,
-    queryFn: () => {
+    gcTime: 6000,
+    queryFn: async () => {
       const lang =
         'navigator' in globalThis ? navigator.language.split('-')[0] : 'zh'
       return fetch(`/api/xlog/summary?cid=${cid}&lang=${lang}`, {

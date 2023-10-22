@@ -1,4 +1,4 @@
-import { setStore } from 'jojoo'
+import { setGlobalStore as setStore } from 'jojoo'
 import { createStore } from 'jotai/vanilla'
 
 const jotaiStore = createStore()

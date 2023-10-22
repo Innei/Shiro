@@ -8,7 +8,7 @@ import { NoteFontSettingFab } from '~/components/widgets/note/NoteFontFab'
 import { NoteMainContainer } from '~/components/widgets/note/NoteMainContainer'
 import { TocFAB } from '~/components/widgets/toc/TocFAB'
 import { REQUEST_QUERY } from '~/constants/system'
-import { attachUA } from '~/lib/attach-ua'
+import { attachUAAndRealIp } from '~/lib/attach-ua'
 import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
 import { getQueryClient } from '~/lib/query-client.server'
@@ -31,7 +31,7 @@ export const generateMetadata = async ({
   }
 }): Promise<Metadata> => {
   try {
-    attachUA()
+    attachUAAndRealIp()
     const { data } = await getQueryClient().fetchQuery(
       queries.note.byNid(params.id),
     )
@@ -68,7 +68,7 @@ export default async (
     id: string
   }>,
 ) => {
-  attachUA()
+  attachUAAndRealIp()
   const header = headers()
   const searchParams = new URLSearchParams(header.get(REQUEST_QUERY) || '')
   const id = props.params.id

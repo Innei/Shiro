@@ -17,7 +17,7 @@ export const aggregation = {
               theme: AppThemeConfig
             },
         ),
-      cacheTime: 1000 * 60 * 10,
+      gcTime: 1000 * 60 * 10,
       meta: {
         forceHydration: true,
       },

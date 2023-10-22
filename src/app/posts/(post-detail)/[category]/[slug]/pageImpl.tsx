@@ -1,5 +1,6 @@
 import type { PostModel } from '@mx-space/api-client'
 
+import { AckRead } from '~/components/common/AckRead'
 import { ClientOnly } from '~/components/common/ClientOnly'
 import {
   PostActionAside,
@@ -30,6 +31,7 @@ const PostPage = (props: PostModel) => {
 
   return (
     <div className="relative w-full min-w-0">
+      <AckRead id={id} type="post" />
       <HeaderMetaInfoSetting />
       <article className="prose">
         <header className="mb-8">
