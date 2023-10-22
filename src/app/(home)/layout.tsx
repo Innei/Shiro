@@ -12,8 +12,11 @@ export const revalidate = 60
 
 export default async function HomeLayout(props: PropsWithChildren) {
   const queryClient = getQueryClient()
-  await queryClient.fetchQuery(queryKey, async () => {
-    return (await apiClient.aggregate.getTop(5)).$serialized
+  await queryClient.fetchQuery({
+    queryKey,
+    queryFn: async () => {
+      return (await apiClient.aggregate.getTop(5)).$serialized
+    },
   })
 
   const dehydrateState = dehydrate(queryClient, {

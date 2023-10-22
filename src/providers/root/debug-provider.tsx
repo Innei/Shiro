@@ -10,7 +10,7 @@ export const DebugProvider = ({
   return (
     <>
       <Suspense>
-        <ReactQueryDevtools />
+        <ReactQueryDevtools buttonPosition="bottom-left" />
       </Suspense>
       {children}
     </>

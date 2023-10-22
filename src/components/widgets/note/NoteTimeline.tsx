@@ -1,6 +1,6 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { memo } from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 import Link from 'next/link'
@@ -42,18 +42,16 @@ const NoteTimelineImpl = () => {
 
   const noteId = note?.id
 
-  const { data: timelineData } = useQuery(
-    ['notetimeline', noteId],
-    async ({ queryKey }) => {
+  const { data: timelineData } = useQuery({
+    queryKey: ['note_timeline', noteId],
+    queryFn: async ({ queryKey }) => {
       const [, noteId] = queryKey
       if (!noteId) throw ''
       return (await apiClient.note.getMiddleList(noteId, 10)).$serialized.data
     },
-    {
-      enabled: noteId !== undefined,
-      keepPreviousData: true,
-    },
-  )
+    enabled: noteId !== undefined,
+    placeholderData: keepPreviousData,
+  })
 
   const initialData = note
     ? [

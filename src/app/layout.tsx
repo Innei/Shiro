@@ -13,7 +13,7 @@ import { ScrollTop } from '~/components/common/ScrollTop'
 import { Root } from '~/components/layout/root/Root'
 import { SearchPanelWithHotKey } from '~/components/widgets/shared/SearchFAB'
 import { TocAutoScroll } from '~/components/widgets/toc/TocAutoScroll'
-import { attachUA } from '~/lib/attach-ua'
+import { attachUAAndRealIp } from '~/lib/attach-ua'
 import { sansFont, serifFont } from '~/lib/fonts'
 import { getQueryClient } from '~/lib/query-client.server'
 import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
@@ -118,7 +118,7 @@ type Props = {
 }
 
 export default async function RootLayout(props: Props) {
-  attachUA()
+  attachUAAndRealIp()
   const { children } = props
 
   const queryClient = getQueryClient()
@@ -178,10 +178,14 @@ export default async function RootLayout(props: Props) {
           console.error('[TNXG_SW] 安装失败，原因： 浏览器不支持service worker');
         }
       }
-    `
+    `,
             }}
           />
-          <script dangerouslySetInnerHTML={{ __html: `navigator.serviceWorker.controller.postMessage(location.href);` }} />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `navigator.serviceWorker.controller.postMessage(location.href);`,
+            }}
+          />
 
           <SayHi />
           <HydrationEndDetector />
@@ -194,7 +198,6 @@ export default async function RootLayout(props: Props) {
               }
             `}
           </style>
-
         </head>
         <body
           className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
@@ -226,32 +229,32 @@ const SayHi = () => {
       dangerouslySetInnerHTML={{
         __html: `var version = "${version}";
     (${function () {
-            console.log(
-              `%c Mix Space %c https://github.com/mx-space `,
-              'color: #fff; margin: 1em 0; padding: 5px 0; background: #2980b9;',
-              'margin: 1em 0; padding: 5px 0; background: #efefef;',
-            )
-            console.log(
-              `%c Shiro ${window.version} %c https://innei.ren `,
-              'color: #fff; margin: 1em 0; padding: 5px 0; background: #39C5BB;',
-              'margin: 1em 0; padding: 5px 0; background: #efefef;',
-            )
-            console.log(
-              `%c TiaNXianG(iykrzu) 2019 - ${new Date().getFullYear()} %c https://tnxg.top `,
-              'color: #fff; margin: 1em 0; padding: 5px 0; background: #66CCFF;',
-              'margin: 1em 0; padding: 5px 0; background: #ee0000;',
-            )
-            const motto = `
+      console.log(
+        `%c Mix Space %c https://github.com/mx-space `,
+        'color: #fff; margin: 1em 0; padding: 5px 0; background: #2980b9;',
+        'margin: 1em 0; padding: 5px 0; background: #efefef;',
+      )
+      console.log(
+        `%c Shiro ${window.version} %c https://innei.ren `,
+        'color: #fff; margin: 1em 0; padding: 5px 0; background: #39C5BB;',
+        'margin: 1em 0; padding: 5px 0; background: #efefef;',
+      )
+      console.log(
+        `%c TiaNXianG(iykrzu) 2019 - ${new Date().getFullYear()} %c https://tnxg.top `,
+        'color: #fff; margin: 1em 0; padding: 5px 0; background: #66CCFF;',
+        'margin: 1em 0; padding: 5px 0; background: #ee0000;',
+      )
+      const motto = `
 This Personal Space Powered By Mix Space.
 Written by TypeScript, Coding with Love.
 --------
 Stay hungry. Stay foolish. --Steve Jobs
 `
 
-            if (document.firstChild?.nodeType !== Node.COMMENT_NODE) {
-              document.prepend(document.createComment(motto))
-            }
-          }.toString()})();`,
+      if (document.firstChild?.nodeType !== Node.COMMENT_NODE) {
+        document.prepend(document.createComment(motto))
+      }
+    }.toString()})();`,
       }}
     />
   )

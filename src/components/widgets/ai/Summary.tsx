@@ -48,9 +48,9 @@ export const AISummary: FC<AiSummaryProps> = (props) => {
   const { data: response, isLoading } = useQuery<{
     summary: string
     source: string
-  }>(
-    ['ai-summary', data.id, API_URL, data.modified],
-    async () => {
+  }>({
+    queryKey: ['ai-summary', data.id, API_URL, data.modified],
+    queryFn: async () => {
       const data = await fetch(
         `/api/ai/summary?data=${encodeURIComponent(
           JSON.stringify(payload),
@@ -59,10 +59,8 @@ export const AISummary: FC<AiSummaryProps> = (props) => {
       if (!data) throw new Error('请求错误')
       return data
     },
-    {
-      retryDelay: 5000,
-    },
-  )
+    retryDelay: 5000,
+  })
 
   return <SummaryContainer isLoading={isLoading} summary={response?.summary} />
 }

@@ -33,8 +33,6 @@ export default function Page() {
       const { data } = await apiClient.link.getAll()
       return data
     },
-    staleTime: Infinity,
-    cacheTime: Infinity,
     select: useCallback((data: LinkModel[]) => {
       const friends: LinkModel[] = []
       const collections: LinkModel[] = []
@@ -234,13 +232,11 @@ const ApplyLinkInfo: FC = () => {
     user: a.user!,
   }))!
 
-  const { data: canApply } = useQuery(
-    ['can-apply'],
-    () => apiClient.link.canApplyLink(),
-    {
-      initialData: true,
-    },
-  )
+  const { data: canApply } = useQuery({
+    queryKey: ['can-apply'],
+    queryFn: () => apiClient.link.canApplyLink(),
+    initialData: true,
+  })
   const { present } = useModalStack()
   if (!canApply) {
     return <NotSupport className="mt-20" text="主人禁止了申请友链。" />

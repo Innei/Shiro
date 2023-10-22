@@ -163,14 +163,14 @@ const SubmitButton = () => {
   const queryClient = useQueryClient()
   const isReply = useUseCommentReply()
   const originalRefId = useCommentOriginalRefId()
-  const complatedCallback = useCommentCompletedCallback()
+  const completedCallback = useCommentCompletedCallback()
 
-  const wrappedComplatedCallback = <T extends CommentModel>(data: T): T => {
-    complatedCallback?.(data)
+  const wrappedCompletedCallback = <T extends CommentModel>(data: T): T => {
+    completedCallback?.(data)
     return data
   }
 
-  const { isLoading, mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async (refId: string) => {
       const text = jotaiStore.get(textAtom)
       const author = jotaiStore.get(authorAtom)
@@ -202,11 +202,11 @@ const SubmitButton = () => {
                 text,
               },
             })
-            .then(wrappedComplatedCallback)
+            .then(wrappedCompletedCallback)
         } else {
           return apiClient.comment
             .reply(refId, commentDto)
-            .then(wrappedComplatedCallback)
+            .then(wrappedCompletedCallback)
         }
       }
 
@@ -235,13 +235,13 @@ const SubmitButton = () => {
 
             return res
           })
-          .then(wrappedComplatedCallback)
+          .then(wrappedCompletedCallback)
       }
       // @ts-ignore
       commentDto.isWhispers = isWhisper
       return apiClient.comment
         .comment(refId, commentDto)
-        .then(wrappedComplatedCallback)
+        .then(wrappedCompletedCallback)
     },
     mutationKey: [commentRefId, 'comment'],
     onError(error: RequestError) {
@@ -334,12 +334,12 @@ const SubmitButton = () => {
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       type="button"
-      disabled={isLoading}
+      disabled={isPending}
       onClick={onClickSend}
     >
       <TiltedSendIcon className="h-5 w-5 text-zinc-800 dark:text-zinc-200" />
       <m.span className="text-sm" layout="size">
-        {isLoading ? '送信...' : '送信'}
+        {isPending ? '送信...' : '送信'}
       </m.span>
     </m.button>
   )

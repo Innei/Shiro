@@ -6,8 +6,8 @@ import { appStaticConfig } from '~/app.static.config'
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 
 import { AISummary } from '../ai/Summary'
+import { XLogSummary } from '../xlog'
 import { getCidForBaseModel } from '../xlog/utils'
-import { XLogSummaryAsync } from '../xlog/XLogSummaryAsync'
 
 export const SummarySwitcher: FC<AiSummaryProps> = memo((props) => {
   const { enabled, providers } = appStaticConfig.ai.summary
@@ -22,7 +22,7 @@ export const SummarySwitcher: FC<AiSummaryProps> = memo((props) => {
     if (comp) break
     switch (provider) {
       case 'xlog':
-        if (cid) comp = <XLogSummaryAsync cid={cid} />
+        if (cid) comp = <XLogSummary cid={cid} />
         break
       case 'openai':
         if (!process.env.OPENAI_API_KEY) break

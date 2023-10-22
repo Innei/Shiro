@@ -114,9 +114,9 @@ const SearchPanelImpl = () => {
     data: _data,
     isLoading,
     isFetching,
-  } = useQuery(
-    ['search', debouncedKeyword],
-    ({ queryKey }) => {
+  } = useQuery({
+    queryKey: ['search', debouncedKeyword],
+    queryFn: ({ queryKey }) => {
       const [, keyword] = queryKey
       if (!keyword) {
         return
@@ -132,44 +132,41 @@ const SearchPanelImpl = () => {
         )
         .then((data) => data.data)
     },
-    {
-      // initialData: [],
-      select: useCallback((data: any) => {
-        if (!data?.data) {
-          return
+    select: useCallback((data: any) => {
+      if (!data?.data) {
+        return
+      }
+
+      const _list: SearchListType[] = data?.data.map((item: any) => {
+        switch (item.type) {
+          case 'post':
+            return {
+              title: item.title,
+              subtitle: item.category.name,
+              id: item.id,
+              url: `/posts/${item.category.slug}/${item.slug}`,
+            }
+          case 'note':
+            return {
+              title: item.title,
+              subtitle: '手记',
+              id: item.id,
+              url: `/notes/${item.nid}`,
+            }
+          case 'page':
+            return {
+              title: item.title,
+              subtitle: '页面',
+              id: item.id,
+              url: `/pages/${item.slug}`,
+            }
         }
+      })
+      setCurrentSelect(0)
 
-        const _list: SearchListType[] = data?.data.map((item: any) => {
-          switch (item.type) {
-            case 'post':
-              return {
-                title: item.title,
-                subtitle: item.category.name,
-                id: item.id,
-                url: `/posts/${item.category.slug}/${item.slug}`,
-              }
-            case 'note':
-              return {
-                title: item.title,
-                subtitle: '手记',
-                id: item.id,
-                url: `/notes/${item.nid}`,
-              }
-            case 'page':
-              return {
-                title: item.title,
-                subtitle: '页面',
-                id: item.id,
-                url: `/pages/${item.slug}`,
-              }
-          }
-        })
-        setCurrentSelect(0)
-
-        return _list
-      }, []),
-    },
-  )
+      return _list
+    }, []),
+  })
   const data = _data || noopArr
   const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = useCallback(
     (e) => {
