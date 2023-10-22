@@ -3,6 +3,7 @@ import {
   createShikiHighlighter,
   renderCodeToHTML,
   runTwoSlash,
+  setCDN, // 从shiki-twoslash导入setCDN
 } from 'shiki-twoslash'
 import type { FC } from 'react'
 
@@ -23,7 +24,11 @@ export const HighLighter: FC<Props> = (props) => {
 
   useEffect(() => {
     const highlightCode = async () => {
+      // 指定CDN提供程序，例如GitHub CDN
+      setCDN('https://npm.onmicrosoft.cn/shiki/')
+
       const highlighter = await createShikiHighlighter({ theme: 'dark-plus' })
+
       const twoslash = runTwoSlash(value, language || 'markup', {})
       const renderedHtml = renderCodeToHTML(
         twoslash.code,
