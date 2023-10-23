@@ -193,7 +193,7 @@ export default async function RootLayout(props: Props) {
           <link rel="stylesheet" href="/assets/css/master.css" />
           <style>
             {`
-              body * {
+              body * :not(pre>code) {
                 font-family: "HarmonyOS_Regular" !important;
               }
             `}
