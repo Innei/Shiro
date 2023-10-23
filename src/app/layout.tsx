@@ -191,9 +191,10 @@ export default async function RootLayout(props: Props) {
           <HydrationEndDetector />
           <link rel="stylesheet" href="/assets/css/font.css" />
           <link rel="stylesheet" href="/assets/css/master.css" />
+          <link rel="stylesheet" href="/assets/css/shiki.css" />
           <style>
             {`
-            body *:not(code):not(pre):not(.shiki.dark-plus) {
+            body *:not(:is(code,.shiki.dark-plus,pre)) {
                 font-family: "HarmonyOS_Regular" !important;
             }
 
