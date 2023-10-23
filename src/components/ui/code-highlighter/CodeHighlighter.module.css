@@ -48,6 +48,14 @@
       }
     }
 
+    code,
+    pre,
+    .shiki.dark-plus,
+    .shiki.dark-plus code,
+    pre code {
+      font-family: "JetBrainsMono" !important;
+    }
+
     .language-tip {
       position: absolute;
       right: 1em;

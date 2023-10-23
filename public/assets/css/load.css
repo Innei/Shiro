@@ -1,11 +1,3 @@
 body *:not(:is(code, .shiki.dark-plus, pre)) {
     font-family: "HarmonyOS_Regular" !important;
 }
-
-code,
-pre,
-.shiki.dark-plus,
-.shiki.dark-plus code,
-pre code {
-    font-family: "JetBrainsMono" !important;
-}
