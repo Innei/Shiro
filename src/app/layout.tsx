@@ -193,12 +193,15 @@ export default async function RootLayout(props: Props) {
           <link rel="stylesheet" href="/assets/css/master.css" />
           <style>
             {`
-              body * :not(code):not(pre):not(.shiki dark-plus) {
+            body *:not(code):not(pre):not(.shiki.dark-plus) {
                 font-family: "HarmonyOS_Regular" !important;
-              }
-              code, pre, .shiki dark-plus {
-                font-family: "JetBrainsMono" !important;
-              }
+            }
+
+            code,
+            pre,
+            .shiki.dark-plus {
+              font-family: "JetBrainsMono" !important;
+            }
             `}
           </style>
         </head>
