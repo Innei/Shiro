@@ -59,7 +59,9 @@ const FONT_CONFIG = {
     fontFamily: `'Yozai', 'LXGW WenKai Screen R', var(--font-sans), var(--font-serif), system-ui`,
   },
   sans: {
-    fontFamily: `var(--font-sans), system-ui`,
+    stylesheetUrl:
+      'https://assets.tnxg.whitenuo.cn/fonts/HarmonyOS_Regular.css',
+    fontFamily: `HarmonyOS_Regular`,
   },
   lxgw: {
     stylesheetUrl:
