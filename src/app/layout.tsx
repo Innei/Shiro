@@ -191,20 +191,7 @@ export default async function RootLayout(props: Props) {
           <HydrationEndDetector />
           <link rel="stylesheet" href="/assets/css/font.css" />
           <link rel="stylesheet" href="/assets/css/master.css" />
-          <link rel="stylesheet" href="/assets/css/shiki.css" />
-          <style>
-            {`
-            body *:not(:is(code,.shiki.dark-plus,pre)) {
-                font-family: "HarmonyOS_Regular" !important;
-            }
-
-            code,
-            pre,
-            .shiki.dark-plus {
-              font-family: "JetBrainsMono" !important;
-            }
-            `}
-          </style>
+          <link rel="stylesheet" href="/assets/css/load.css" />
         </head>
         <body
           className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
