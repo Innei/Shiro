@@ -2,12 +2,11 @@
   @apply relative flex w-full flex-col overflow-auto;
 
   pre>code {
-    @apply block font-mono text-[14px] font-medium;
+    @apply block text-[14px] font-medium;
 
     background: transparent !important;
 
     font-family: "JetBrainsMono" !important;
-    font-family: "JetBrainsMono";
   }
 
   & {
