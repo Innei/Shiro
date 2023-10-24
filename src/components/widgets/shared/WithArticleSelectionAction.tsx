@@ -8,6 +8,7 @@ import { DividerVertical } from '~/components/ui/divider'
 import { DOMCustomEvents } from '~/constants/event'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { stopPropagation } from '~/lib/dom'
+import { toast } from '~/lib/toast'
 import { useModalStack } from '~/providers/root/modal-stack-provider'
 
 import { useIsInBanCopyContext } from './BanCopyWrapper'
@@ -111,6 +112,7 @@ export const WithArticleSelectionAction: Component<{
                   onClick={() => {
                     navigator.clipboard.writeText(selectedText)
                     setShow(false)
+                    toast.success('已复制到剪贴板')
                   }}
                 >
                   复制
