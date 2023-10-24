@@ -13,8 +13,9 @@ import { loadStyleSheet } from '~/lib/load-script'
 import { Noop } from '~/lib/noop'
 import { jotaiStore } from '~/lib/store'
 
-type Font = 'serif' | 'sans' | 'youzai' | 'lxgw'
-const fontAtom = atomWithStorage<Font>('note-font', 'serif')
+type Font = 'serif' | 'HarmonyOS_Regular' | 'youzai' | 'lxgw'
+// 设置手记字体
+const fontAtom = atomWithStorage<Font>('note-font', 'youzai')
 
 export const NoteFontSettingFab = () => {
   return (
@@ -33,8 +34,8 @@ export const NoteFontSettingFab = () => {
               <SerifFontSvg />
             </FontItem>
 
-            <FontItem type="sans">
-              <SansFont />
+            <FontItem type="HarmonyOS_Regular">
+              <HarmonyOS_RegularFont />
             </FontItem>
 
             <FontItem type="lxgw">
@@ -58,7 +59,7 @@ const FONT_CONFIG = {
       'https://fastly.jsdelivr.net/gh/Innei/static@master/fonts/yozai/stylesheet.css',
     fontFamily: `'Yozai', 'LXGW WenKai Screen R', "HarmonyOS_Regular", var(--font-serif), system-ui`,
   },
-  sans: {
+  HarmonyOS_Regular: {
     stylesheetUrl:
       'https://assets.tnxg.whitenuo.cn/fonts/HarmonyOS_Regular.css',
     fontFamily: `HarmonyOS_Regular`,
@@ -126,8 +127,8 @@ const FontItem: Component<{
   )
 }
 
-export const SansFont = () => {
-  return <span className="font-sans text-[30px]">字</span>
+export const HarmonyOS_RegularFont = () => {
+  return <span className="font-HarmonyOS_Regular text-[30px]">字</span>
 }
 
 export const YouZaiFontSvg = () => {

@@ -195,10 +195,9 @@ const twConfig: Config = {
 
     extend: {
       fontFamily: {
-        sans: '"HarmonyOS_Regular",system-ui,-apple-system,PingFang SC,"Microsoft YaHei",Segoe UI,Roboto,Helvetica,noto sans sc,hiragino sans gb,"sans-serif",Apple Color Emoji,Segoe UI Emoji,Not Color Emoji',
-        serif:
-          '"Noto Serif CJK SC","Noto Serif SC",var(--font-serif),"Source Han Serif SC","Source Han Serif",source-han-serif-sc,SongTi SC,SimSum,"Hiragino Sans GB",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,"Microsoft YaHei","WenQuanYi Micro Hei",sans-serif',
-        mono: `"OperatorMonoSSmLig Nerd Font","Cascadia Code PL","FantasqueSansMono Nerd Font","operator mono","Fira code Retina","Fira code","Consolas", Monaco, "Hannotate SC", monospace, -apple-system`,
+        sans: 'HarmonyOS_Regular',
+        serif: 'Noto Serif CJK SC',
+        mono: 'JetBrainsMono',
       },
       screens: {
         'light-mode': { raw: '(prefers-color-scheme: light)' },

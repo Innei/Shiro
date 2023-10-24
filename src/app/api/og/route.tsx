@@ -6,7 +6,7 @@ import type { NextRequest } from 'next/server'
 import { apiClient } from '~/lib/request'
 
 const fontNormal = fetch(
-  'https://github.com/lxgw/LxgwWenKai/releases/download/v1.300/LXGWWenKai-Regular.ttf',
+  'https://github.com/IKKI2000/harmonyos-fonts/raw/main/fonts/HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Regular.ttf',
 ).then((res) => res.arrayBuffer())
 // export const runtime = 'edge'
 
@@ -104,7 +104,7 @@ export const GET = async (req: NextRequest) => {
 
             background: `linear-gradient(37deg, ${bgAccent} 27.82%, ${bgAccentLight} 79.68%, ${bgAccentUltraLight} 100%)`,
 
-            fontFamily: 'LXGW WenKai Screen R',
+            fontFamily: 'HarmonyOS_Regular',
 
             padding: '5rem',
             alignItems: 'flex-end',
