@@ -56,7 +56,7 @@ const FONT_CONFIG = {
   youzai: {
     stylesheetUrl:
       'https://fastly.jsdelivr.net/gh/Innei/static@master/fonts/yozai/stylesheet.css',
-    fontFamily: `'Yozai', 'LXGW WenKai Screen R', var(--font-sans), var(--font-serif), system-ui`,
+    fontFamily: `'Yozai', 'LXGW WenKai Screen R', "HarmonyOS_Regular", var(--font-serif), system-ui`,
   },
   sans: {
     stylesheetUrl:
@@ -66,7 +66,7 @@ const FONT_CONFIG = {
   lxgw: {
     stylesheetUrl:
       'https://cdnjs.cloudflare.com/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/lxgwwenkaiscreenr.css',
-    fontFamily: `'LXGW WenKai Screen R', Yozai, var(--font-sans), var(--font-serif), system-ui`,
+    fontFamily: `'LXGW WenKai Screen R', Yozai, "HarmonyOS_Regular", var(--font-serif), system-ui`,
   },
 }
 
