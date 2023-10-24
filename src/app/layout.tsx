@@ -190,6 +190,10 @@ export default async function RootLayout(props: Props) {
           <SayHi />
           <HydrationEndDetector />
           <link rel="stylesheet" href="/assets/css/master.css" />
+          <link
+            rel="stylesheet"
+            href="https://assets.tnxg.whitenuo.cn/fonts/HarmonyOS_Regular.css"
+          />
         </head>
         <body
           className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
