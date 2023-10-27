@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { toast } from 'react-toastify'
 import clsx from 'clsx'
 import { AnimatePresence, m } from 'framer-motion'
 
@@ -111,6 +112,7 @@ export const WithArticleSelectionAction: Component<{
                   onClick={() => {
                     navigator.clipboard.writeText(selectedText)
                     setShow(false)
+                    toast.success('已复制到剪贴板')
                   }}
                 >
                   复制

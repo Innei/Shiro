@@ -86,13 +86,13 @@ export const NoteMetaCC = () => {
       {dividerVertical}
       <span className="inline-flex items-center" key="cc">
         <a
-          href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
           target="_blank"
           className="inline-flex cursor-pointer items-center text-current"
           rel="noreferrer"
         >
           <span
-            title="创作共用保留署名-非商业-禁止演绎4.0国际许可证"
+            title="知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议"
             className="inline-flex items-center"
           >
             <CreativeCommonsIcon />

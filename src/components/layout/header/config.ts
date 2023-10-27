@@ -13,6 +13,7 @@ import {
   IonBook,
   MdiFlask,
   MdiLightbulbOn20,
+  RMixPlanet,
 } from '~/components/icons/menu-collection'
 
 export interface IHeaderMenu {
@@ -99,11 +100,11 @@ export const headerMenuConfig: IHeaderMenu[] = [
         path: '/says',
         icon: h(FaSolidComments),
       },
+      {
+        title: '异次元之旅',
+        icon: h(RMixPlanet),
+        path: 'https://travel.moe/go.html',
+      },
     ],
   },
-  // {
-  //   title: '开往',
-  //   icon: h(FaSolidSubway),
-  //   path: 'https://travellings.link',
-  // },
 ]
