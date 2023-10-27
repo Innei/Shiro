@@ -44,6 +44,13 @@ const appDescription = {
   'Microsoft Excel': '雕花',
   'Microsoft PowerPoint': '画饼',
   SimplyPiano: '练琴',
+
+  "Microsoft Edge": '看b站',
+  umamusume: '启动！',
+  WindowsTerminal: 'del /f /s /q c:/ (不是',
+  "卡拉彼丘": '启动！',
+  "Yuanshen.exe": '启动！',
+
 } as any
 const appLabels: { [app: string]: string } = {
   'Activity Monitor': 'activity',
@@ -122,6 +129,14 @@ const appLabels: { [app: string]: string } = {
   Thorium: 'thorium',
 
   cmusic: 'cmusic',
+
+  "Microsoft Edge": "edge",
+  firefox: 'firefox',
+  idea64: 'idea',
+  "Explorer.EXE": 'windows_explorer',
+  WindowsTerminal: 'windows_terminal',
+  "卡拉彼丘": "calatopia",
+  "Yuanshen.exe": "genshin",
 }
 // autocorrect: true
 export const Activity = memo(() => {
