@@ -3,6 +3,7 @@ import '../styles/index.css'
 import { Analytics } from '@vercel/analytics/react'
 import { ToastContainer } from 'react-toastify'
 import type { AggregateRoot } from '@mx-space/api-client'
+import type { Viewport } from 'next'
 import type { AppThemeConfig } from './config'
 
 import { ClerkProvider } from '@clerk/nextjs'
@@ -29,6 +30,16 @@ init()
 export const revalidate = 60
 
 let aggregationData: (AggregateRoot & { theme: AppThemeConfig }) | null = null
+
+export function generateViewport(): Viewport {
+  return {
+    themeColor: [
+      { media: '(prefers-color-scheme: dark)', color: '#000212' },
+      { media: '(prefers-color-scheme: light)', color: '#fafafa' },
+    ],
+  }
+}
+
 export const generateMetadata = async () => {
   const queryClient = getQueryClient()
 
@@ -71,11 +82,6 @@ export const generateMetadata = async () => {
 
         media: '(prefers-color-scheme: dark)',
       },
-    ],
-
-    themeColor: [
-      { media: '(prefers-color-scheme: dark)', color: '#000212' },
-      { media: '(prefers-color-scheme: light)', color: '#fafafa' },
     ],
 
     robots: {
