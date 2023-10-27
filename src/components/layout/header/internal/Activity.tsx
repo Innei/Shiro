@@ -45,11 +45,11 @@ const appDescription = {
   'Microsoft PowerPoint': '画饼',
   SimplyPiano: '练琴',
 
-  "Microsoft Edge": 'Microsoft 边缘(',
-  umamusume: '闪耀！优俊少女，启动！',
+  "Microsoft Edge": '看b站',
+  umamusume: '启动！',
   WindowsTerminal: 'del /f /s /q c:/ (不是',
-  "卡拉彼丘": '卡拉彼丘！启动！',
-  "Yuanshen.exe": '原神！启动！',
+  "卡拉彼丘": '启动！',
+  "Yuanshen.exe": '启动！',
 
 } as any
 const appLabels: { [app: string]: string } = {
@@ -135,8 +135,8 @@ const appLabels: { [app: string]: string } = {
   idea64: 'idea',
   "Explorer.EXE": 'windows_explorer',
   WindowsTerminal: 'windows_terminal',
-  "卡拉彼丘":"calatopia",
-  "Yuanshen.exe":"genshin",
+  "卡拉彼丘": "calatopia",
+  "Yuanshen.exe": "genshin",
 }
 // autocorrect: true
 export const Activity = memo(() => {
