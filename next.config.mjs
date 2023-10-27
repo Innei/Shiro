@@ -22,7 +22,7 @@ let nextConfig = {
 
     // @see https://vercel.com/blog/version-skew-protection
     useDeploymentId: true,
-
+    webpackBuildWorker: true,
     useDeploymentIdServerActions: true,
   },
 
