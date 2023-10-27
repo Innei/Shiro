@@ -160,8 +160,8 @@ export default async function RootLayout(props: Props) {
         if (!!navigator.serviceWorker) {
           navigator.serviceWorker.register('/sw.js?t=' + new Date().getTime())
             .then(async (registration) => {
-              if (localStorage.getItem('TNXG_SW_installed') !== 'true') {
-                localStorage.setItem('TNXG_SW_installed', 'true');
+              if (localStorage.getItem('sw_installed') !== 'true') {
+                localStorage.setItem('sw_installed', 'true');
                 console.log('[TNXG_SW] 安装成功，正在重载页面！');
                 fetch(window.location.href)
                   .then(res => res.text())
