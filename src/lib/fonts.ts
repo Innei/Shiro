@@ -1,4 +1,4 @@
-import { Manrope, Noto_Serif_SC } from 'next/font/google'
+import { Manrope, Noto_Serif_SC, JetBrains_Mono } from 'next/font/google'
 
 const sansFont = Manrope({
   subsets: ['latin'],
@@ -16,4 +16,9 @@ const serifFont = Noto_Serif_SC({
   fallback: ['Noto Serif SC'],
 })
 
-export { sansFont, serifFont }
+const JetBrainsMono = JetBrains_Mono({
+  variable: '--font-mono',
+  display: 'swap',
+})
+
+export { sansFont, serifFont, JetBrainsMono }

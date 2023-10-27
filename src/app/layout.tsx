@@ -142,6 +142,7 @@ export default async function RootLayout(props: Props) {
     <ClerkProvider>
       <html lang="zh-CN" className="noise" suppressHydrationWarning>
         <head>
+          <ServiceWorker />
           <SayHi />
           <HydrationEndDetector />
         </head>
@@ -175,33 +176,66 @@ const SayHi = () => {
       dangerouslySetInnerHTML={{
         __html: `var version = "${version}";
     (${function () {
-      console.log(
-        `%c Mix Space %c https://github.com/mx-space `,
-        'color: #fff; margin: 1em 0; padding: 5px 0; background: #2980b9;',
-        'margin: 1em 0; padding: 5px 0; background: #efefef;',
-      )
-      console.log(
-        `%c Shiro ${window.version} %c https://innei.ren `,
-        'color: #fff; margin: 1em 0; padding: 5px 0; background: #39C5BB;',
-        'margin: 1em 0; padding: 5px 0; background: #efefef;',
-      )
+            console.log(
+              `%c Mix Space %c https://github.com/mx-space `,
+              'color: #fff; margin: 1em 0; padding: 5px 0; background: #2980b9;',
+              'margin: 1em 0; padding: 5px 0; background: #efefef;',
+            )
+            console.log(
+              `%c Shiro ${window.version} %c https://innei.ren `,
+              'color: #fff; margin: 1em 0; padding: 5px 0; background: #39C5BB;',
+              'margin: 1em 0; padding: 5px 0; background: #efefef;',
+            )
 
-      const motto = `
+            const motto = `
 This Personal Space Powered By Mix Space.
 Written by TypeScript, Coding with Love.
 --------
 Stay hungry. Stay foolish. --Steve Jobs
 `
 
-      if (document.firstChild?.nodeType !== Node.COMMENT_NODE) {
-        document.prepend(document.createComment(motto))
-      }
-    }.toString()})();`,
+            if (document.firstChild?.nodeType !== Node.COMMENT_NODE) {
+              document.prepend(document.createComment(motto))
+            }
+          }.toString()})();`,
       }}
     />
   )
 }
 
+const ServiceWorker = () => {
+  return (
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `if (localStorage.getItem('sw_installed') === 'true') {
+          console.log('[Shiro_ServiceWorker]检测到旧版本的SW，正在卸载...');
+          navigator.serviceWorker.getRegistrations()
+              .then(function (registrations) {
+                  for (let registration of registrations) {
+                      registration.unregister();
+                  }
+              });
+          navigator.serviceWorker.register('/sw.js?t=' + new Date().getTime())
+      } else {
+          if (!!navigator.serviceWorker) {
+              navigator.serviceWorker.register('/sw.js?t=' + new Date().getTime())
+                  .then(async (registration) => {
+                      if (localStorage.getItem('sw_installed') !== 'true') {
+                          localStorage.setItem('sw_installed', 'true');
+                          console.log('[Shiro_ServiceWorker] 安装成功，正在重载页面！');
+                          location.reload()
+                      }
+                  }).catch(err => {
+                      console.error('[Shiro_ServiceWorker] 安装失败，原因： ' + err.message);
+                  });
+          } else {
+              console.error('[Shiro_ServiceWorker] 安装失败，原因： 浏览器不支持service worker');
+          }
+      }`,
+      }}
+    />
+  )
+}
 declare global {
   interface Window {
     version: string

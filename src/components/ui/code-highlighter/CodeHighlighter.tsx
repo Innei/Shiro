@@ -1,12 +1,12 @@
-import React, { useCallback, useInsertionEffect, useRef } from 'react'
+import React, { useCallback, useLayoutEffect, useRef } from 'react'
 import type { FC } from 'react'
 
 import { useIsPrintMode } from '~/atoms/css-media'
 import { useIsDark } from '~/hooks/common/use-is-dark'
-import { loadScript, loadStyleSheet } from '~/lib/load-script'
 import { toast } from '~/lib/toast'
 
 import styles from './CodeHighlighter.module.css'
+import { renderCodeHighlighter } from './render.server'
 
 declare global {
   interface Window {
@@ -21,73 +21,28 @@ interface Props {
 
 export const HighLighter: FC<Props> = (props) => {
   const { lang: language, content: value } = props
-
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(value)
-    toast.success('COPIED!')
+    toast.success('COPIED！已复制！')
   }, [value])
 
-  const prevThemeCSS = useRef<ReturnType<typeof loadStyleSheet>>()
   const isPrintMode = useIsPrintMode()
   const isDark = useIsDark()
 
-  useInsertionEffect(() => {
-    const css = loadStyleSheet(
-      `https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism-themes/1.9.0/prism-one-${
-        isPrintMode ? 'light' : isDark ? 'dark' : 'light'
-      }.css`,
-    )
-
-    if (prevThemeCSS.current) {
-      const $prev = prevThemeCSS.current
-      css.$link.onload = () => {
-        $prev.remove()
-      }
-    }
-
-    prevThemeCSS.current = css
-  }, [isDark, isPrintMode])
-  useInsertionEffect(() => {
-    loadStyleSheet(
-      'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.css',
-    )
-
-    Promise.all([
-      loadScript(
-        'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/components/prism-core.min.js',
-      ),
-    ])
-      .then(() =>
-        Promise.all([
-          loadScript(
-            'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js',
-          ),
-          loadScript(
-            'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.js',
-          ),
-        ]),
+  useLayoutEffect(() => {
+    ; (async () => {
+      const shikiTheme = 'dark-plus'
+      const html = await renderCodeHighlighter(
+        value,
+        language as string,
+        shikiTheme,
       )
-      .then(() => {
-        if (ref.current) {
-          requestAnimationFrame(() => {
-            window.Prism?.highlightElement(ref.current)
-
-            requestAnimationFrame(() => {
-              window.Prism?.highlightElement(ref.current)
-            })
-          })
-        } else {
-          requestAnimationFrame(() => {
-            window.Prism?.highlightAll()
-            // highlightAll twice
-
-            requestAnimationFrame(() => {
-              window.Prism?.highlightAll()
-            })
-          })
-        }
-      })
-  }, [])
+      if (!ref.current) {
+        return
+      }
+      ref.current.innerHTML = html
+    })()
+  }, [isDark, value, language, isPrintMode])
 
   const ref = useRef<HTMLElement>(null)
   return (
@@ -96,7 +51,10 @@ export const HighLighter: FC<Props> = (props) => {
         {language?.toUpperCase()}
       </span>
 
-      <pre className="line-numbers !bg-transparent" data-start="1">
+      <pre
+        className="line-numbers !bg-transparent"
+        data-start="1"
+      >
         <code
           className={`language-${language ?? 'markup'} !bg-transparent`}
           ref={ref}
