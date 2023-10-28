@@ -49,18 +49,14 @@ const appDescription = {
   msedge: '冲浪',
   firefox: '冲浪',
   QQScreenshot: '截屏',
-  idea64: '写代码',
-  umamusume: '玩个锤子，凹种马',
-  WindowsTerminal: '运行命令',
 
   SimplyPiano: '练琴',
 
-  "Microsoft Edge": '看b站',
+  'Microsoft Edge': '看b站',
   umamusume: '启动！',
   WindowsTerminal: 'del /f /s /q c:/ (不是',
-  "卡拉彼丘": '启动！',
-  "Yuanshen.exe": '启动！',
-
+  卡拉彼丘: '启动！',
+  'Yuanshen.exe': '启动！',
 } as any
 const appLabels: { [app: string]: string } = {
   'Activity Monitor': 'activity',
@@ -144,19 +140,16 @@ const appLabels: { [app: string]: string } = {
   QQScreenshot: 'qq',
   chrome: 'chrome',
   cloudmusic: 'netease',
-  firefox: 'firefox',
-  idea64: 'idea',
   msedge: 'edge',
   umamusume: 'umamusume',
-  WindowsTerminal: 'windows_terminal',
 
-  "Microsoft Edge": "edge",
+  'Microsoft Edge': 'edge',
   firefox: 'firefox',
   idea64: 'idea',
-  "Explorer.EXE": 'windows_explorer',
+  'Explorer.EXE': 'windows_explorer',
   WindowsTerminal: 'windows_terminal',
-  "卡拉彼丘": "calatopia",
-  "Yuanshen.exe": "genshin",
+  卡拉彼丘: 'calatopia',
+  'Yuanshen.exe': 'genshin',
 }
 // autocorrect: true
 export const Activity = memo(() => {
