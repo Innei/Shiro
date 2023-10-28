@@ -24,7 +24,6 @@ export const HeaderLeftButtonArea: Component = ({ children }) => {
     <div
       className={clsxm(
         'relative flex h-full w-full items-center justify-center lg:hidden',
-        styles['header--grid__left-button'],
       )}
     >
       {children}
