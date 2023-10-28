@@ -14,11 +14,11 @@ export const MFootNote: FC<PropsWithChildren> = (props) => {
           <div id={`fn:${index}`}>
             <p>{child}</p>
             <a
-              href={`#fn:${index}`}
+              href={`#fnref:${index}`}
               onClick={(e) => {
                 e.preventDefault()
                 springScrollToElement(
-                  document.getElementById(`fn:${index}`)!,
+                  document.getElementById(`fnref:${index + 1}`)!,
                   -window.innerHeight / 2,
                 )
               }}

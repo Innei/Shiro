@@ -172,7 +172,6 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
                     href={`#fn:${content}`}
                     onClick={(e) => {
                       e.preventDefault()
-
                       springScrollToElement(
                         document.getElementById(`fn:${content}`)!,
                         -window.innerHeight / 2,
