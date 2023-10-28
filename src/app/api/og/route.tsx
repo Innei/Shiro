@@ -1,4 +1,4 @@
-import { ImageResponse } from 'next/server'
+import { ImageResponse } from 'next/og'
 import uniqolor from 'uniqolor'
 import type { AggregateRoot } from '@mx-space/api-client'
 import type { NextRequest } from 'next/server'
