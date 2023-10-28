@@ -174,7 +174,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
                       e.preventDefault()
 
                       springScrollToElement(
-                        document.getElementById(content)!,
+                        document.getElementById(`fn:${content}`)!,
                         -window.innerHeight / 2,
                       )
                     }}
