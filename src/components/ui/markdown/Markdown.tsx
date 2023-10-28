@@ -9,6 +9,7 @@ import Script from 'next/script'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { FC, PropsWithChildren } from 'react'
 
+import { FloatPopover } from '~/components/ui/float-popover'
 import { MAIN_MARKDOWN_ID } from '~/constants/dom-id'
 import { isDev } from '~/lib/env'
 import { noopObj } from '~/lib/noop'
@@ -166,24 +167,46 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
                   return undefined
                 }
               })()
-
+              const footnotes = () => {
+                return (
+                  <Fragment key={state?.key}>
+                    <a
+                      href={`#fn:${content}`}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        springScrollToElement(
+                          document.getElementById(`fn:${content}`)!,
+                          -window.innerHeight / 2,
+                        )
+                        redHighlight(`fn:${content}`)
+                      }}
+                    >
+                      <sup id={`fnref:${content}`}>{`[^${content}]`}</sup>
+                    </a>
+                    {linkCardId && (
+                      <LinkCard id={linkCardId} source="mx-space" />
+                    )}
+                  </Fragment>
+                )
+              }
               return (
-                <Fragment key={state?.key}>
-                  <a
-                    href={`#fn:${content}`}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      springScrollToElement(
-                        document.getElementById(`fn:${content}`)!,
-                        -window.innerHeight / 2,
-                      )
-                      redHighlight(`fn:${content}`)
-                    }}
-                  >
-                    <sup id={`fnref:${content}`}>{`[^${content}]`}</sup>
-                  </a>
-                  {linkCardId && <LinkCard id={linkCardId} source="mx-space" />}
-                </Fragment>
+                <FloatPopover
+                  as="span"
+                  TriggerComponent={footnotes}
+                  type="popover"
+                  wrapperClassName="footnotes_text"
+                >
+                  <div className="space-y-2 leading-relaxed">
+                    <p className="flex items-center space-x-1 opacity-80">
+                      <span
+                        className="font-medium"
+                        dangerouslySetInnerHTML={{
+                          __html: footnote?.footnote?.substring(1),
+                        }}
+                      />
+                    </p>
+                  </div>
+                </FloatPopover>
               )
             },
           },
