@@ -84,11 +84,11 @@ const GatewayCountTrigger = () => {
   if (!isActive) return null
   return (
     <span key={count}>
-      正在被{' '}
+      现在有{' '}
       <span>
         <NumberSmoothTransition>{count}</NumberSmoothTransition>
       </span>{' '}
-      人看爆
+      位小伙伴在偷偷阅览本站哦
     </span>
   )
 }

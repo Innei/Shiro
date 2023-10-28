@@ -42,15 +42,3 @@ export const MFootNote: FC<PropsWithChildren> = (props) => {
     </div>
   )
 }
-
-export function red_highlight(id: string) {
-  const fnRefElement = document.getElementById(id)
-  if (fnRefElement) {
-    fnRefElement.style.color = 'red'
-    setTimeout(() => {
-      fnRefElement.style.color = ''
-    }, 5000)
-  } else {
-    console.log(`Element with id fnref:${id} not found.`)
-  }
-}
