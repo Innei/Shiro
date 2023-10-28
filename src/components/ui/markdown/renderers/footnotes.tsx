@@ -4,6 +4,7 @@ import type { FC, PropsWithChildren } from 'react'
 import { springScrollToElement } from '~/lib/scroller'
 
 import { Divider } from '../../divider'
+import { redHighlight } from '../utils/redHighlight'
 
 export const MFootNote: FC<PropsWithChildren> = (props) => {
   return (
@@ -13,9 +14,9 @@ export const MFootNote: FC<PropsWithChildren> = (props) => {
         if (React.isValidElement(child)) {
           return (
             <div id={`fn:${index + 1}`}>
-              <p style={{ display: 'inline' }}>
+              <p className="inline">
                 {React.cloneElement(child as React.ReactElement<any>, {
-                  style: { display: 'inline' }, // 设置child的display样式
+                  style: { display: 'inline' }, // 设置 child 的 display 样式
                 })}
                 <a
                   href={`#fnref:${index + 1}`}
@@ -25,9 +26,9 @@ export const MFootNote: FC<PropsWithChildren> = (props) => {
                       document.getElementById(`fnref:${index + 1}`)!,
                       -window.innerHeight / 2,
                     )
-                    red_highlight(`fnref:${index + 1}`)
+                    redHighlight(`fnref:${index + 1}`)
                   }}
-                  style={{ display: 'inline' }}
+                  className="inline"
                 >
                   ↩
                 </a>
@@ -40,16 +41,4 @@ export const MFootNote: FC<PropsWithChildren> = (props) => {
       })}
     </div>
   )
-}
-
-export function red_highlight(id: string) {
-  const fnRefElement = document.getElementById(id)
-  if (fnRefElement) {
-    fnRefElement.style.color = 'red'
-    setTimeout(() => {
-      fnRefElement.style.color = ''
-    }, 5000)
-  } else {
-    console.log(`Element with id fnref:${id} not found.`)
-  }
 }
