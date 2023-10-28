@@ -60,8 +60,8 @@ dependencies:
     specifier: 2.0.0
     version: 2.0.0
   daisyui:
-    specifier: 3.9.3
-    version: 3.9.3
+    specifier: 3.9.4
+    version: 3.9.4
   dayjs:
     specifier: 1.11.10
     version: 1.11.10
@@ -108,8 +108,8 @@ dependencies:
     specifier: 0.2.1
     version: 0.2.1(next@14.0.0)(react-dom@18.2.0)(react@18.2.0)
   openai:
-    specifier: 4.14.0
-    version: 4.14.0
+    specifier: 4.14.1
+    version: 4.14.1
   qrcode.react:
     specifier: 3.1.0
     version: 3.1.0(react@18.2.0)
@@ -152,8 +152,8 @@ dependencies:
 
 devDependencies:
   '@iconify-json/material-symbols':
-    specifier: 1.1.60
-    version: 1.1.60
+    specifier: 1.1.61
+    version: 1.1.61
   '@iconify-json/mingcute':
     specifier: 1.1.11
     version: 1.1.11
@@ -1346,8 +1346,8 @@ packages:
       - supports-color
     dev: true
 
-  /@iconify-json/material-symbols@1.1.60:
-    resolution: {integrity: sha512-SUkRdmUQnKjcGLnVvBm88khjmS7HyJdP5/8FH6JenxcySVlt06mBuk8z14LmHwNf24alN+17JRb8AsgbPR3lHA==}
+  /@iconify-json/material-symbols@1.1.61:
+    resolution: {integrity: sha512-NbLHV5VF5MZsfydXvr4M/jCODjBHzOg3ctLMQ39yOtY7+VZgVkBuJiMlp3zKWcWPHIt1J3t0CLwVLZ9szyL8BA==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
@@ -3555,8 +3555,8 @@ packages:
       lodash-es: 4.17.21
     dev: false
 
-  /daisyui@3.9.3:
-    resolution: {integrity: sha512-8li177QCu6dqlEOzE3h/dAV1y9Movbjx5bzJIO/hNqMNZtJkbHM0trjTzbDejV7N57eNGdjBvAGtxZYKzS4jow==}
+  /daisyui@3.9.4:
+    resolution: {integrity: sha512-fvi2RGH4YV617/6DntOVGcOugOPym9jTGWW2XySb5ZpvdWO4L7bEG77VHirrnbRUEWvIEVXkBpxUz2KFj0rVnA==}
     engines: {node: '>=16.9.0'}
     dependencies:
       colord: 2.9.3
@@ -5776,8 +5776,8 @@ packages:
       mimic-fn: 4.0.0
     dev: true
 
-  /openai@4.14.0:
-    resolution: {integrity: sha512-pWQYkFWdeudR1yLyS/rFfIv/MTXqFEtlN4EKVm0F6KKKGjhuthznPOCC4hxfAFmjlgbpJJXhQQ/oBeB9bxFmUw==}
+  /openai@4.14.1:
+    resolution: {integrity: sha512-aBb7DVdzSnEUBFHTbnVoitauefvjRuUHS5pa7lm1m5JmHifD+1Hff1RzxYC12ogugVcCmWT99NZNfzyD6n/0IQ==}
     hasBin: true
     dependencies:
       '@types/node': 18.18.7
