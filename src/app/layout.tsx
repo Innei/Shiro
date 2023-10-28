@@ -165,7 +165,6 @@ export default async function RootLayout(props: Props) {
                 } else {
                   console.error('[TNXG_SW] 安装失败，原因： 浏览器不支持service worker');
                 }
-              }
             `,
             }}
           />
