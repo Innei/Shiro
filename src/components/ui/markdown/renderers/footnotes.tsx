@@ -12,20 +12,23 @@ export const MFootNote: FC<PropsWithChildren> = (props) => {
       {React.Children.map(props.children, (child, index) => {
         return (
           <div id={`fn:${index + 1}`}>
-            {child}
-            <a
-              href={`#fnref:${index + 1}`}
-              onClick={(e) => {
-                e.preventDefault()
-                springScrollToElement(
-                  document.getElementById(`fnref:${index + 1}`)!,
-                  -window.innerHeight / 2,
-                )
-                highlight(`${index + 1}`)
-              }}
-            >
-              ↩
-            </a>
+            <p style={{ display: 'inline' }}>
+              {child}
+              <a
+                href={`#fnref:${index + 1}`}
+                onClick={(e) => {
+                  e.preventDefault()
+                  springScrollToElement(
+                    document.getElementById(`fnref:${index + 1}`)!,
+                    -window.innerHeight / 2,
+                  )
+                  red_highlight(`fnref:${index + 1}`)
+                }}
+                style={{ display: 'inline' }}
+              >
+                ↩
+              </a>
+            </p>
           </div>
         )
       })}
@@ -33,8 +36,8 @@ export const MFootNote: FC<PropsWithChildren> = (props) => {
   )
 }
 
-function highlight(id: string) {
-  const fnRefElement = document.getElementById(`fnref:${id}`)
+export function red_highlight(id: string) {
+  const fnRefElement = document.getElementById(id)
   if (fnRefElement) {
     fnRefElement.style.color = 'red'
     setTimeout(() => {

@@ -32,7 +32,7 @@ import {
   MTableRow,
 } from './renderers'
 import { MDetails } from './renderers/collapse'
-import { MFootNote } from './renderers/footnotes'
+import { MFootNote, red_highlight } from './renderers/footnotes'
 import { MHeader } from './renderers/heading'
 import { MarkdownImage } from './renderers/image'
 import { MTag } from './renderers/tag'
@@ -176,6 +176,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
                         document.getElementById(`fn:${content}`)!,
                         -window.innerHeight / 2,
                       )
+                      red_highlight(`fn:${content}`)
                     }}
                   >
                     <sup id={`fnref:${content}`}>{`[^${content}]`}</sup>
