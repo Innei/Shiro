@@ -207,31 +207,26 @@ const ServiceWorker = () => {
   return (
     <script
       dangerouslySetInnerHTML={{
-        __html: `if (localStorage.getItem('sw_installed') === 'true') {
-          console.log('[Shiro_ServiceWorker]检测到旧版本的SW，正在卸载...');
-          navigator.serviceWorker.getRegistrations()
-              .then(function (registrations) {
-                  for (let registration of registrations) {
-                      registration.unregister();
-                  }
-              });
+        __html: `if (!!navigator.serviceWorker) {
           navigator.serviceWorker.register('/sw.js?t=' + new Date().getTime())
-      } else {
-          if (!!navigator.serviceWorker) {
-              navigator.serviceWorker.register('/sw.js?t=' + new Date().getTime())
-                  .then(async (registration) => {
-                      if (localStorage.getItem('sw_installed') !== 'true') {
-                          localStorage.setItem('sw_installed', 'true');
-                          console.log('[Shiro_ServiceWorker] 安装成功，正在重载页面！');
-                          location.reload()
-                      }
-                  }).catch(err => {
-                      console.error('[Shiro_ServiceWorker] 安装失败，原因： ' + err.message);
+            .then(async (registration) => {
+              if (localStorage.getItem('sw_installed') !== 'true') {
+                localStorage.setItem('sw_installed', 'true');
+                console.log('[TNXG_SW] 安装成功，正在重载页面！');
+                fetch(window.location.href)
+                  .then(res => res.text())
+                  .then(text => {
+                    document.open();
+                    document.write(text);
+                    document.close();
                   });
-          } else {
-              console.error('[Shiro_ServiceWorker] 安装失败，原因： 浏览器不支持service worker');
-          }
-      }`,
+              }
+            }).catch(err => {
+              console.error('[TNXG_SW] 安装失败，原因： ' + err.message);
+            });
+        } else {
+          console.error('[TNXG_SW] 安装失败，原因： 浏览器不支持service worker');
+        }`,
       }}
     />
   )

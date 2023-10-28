@@ -10,6 +10,7 @@
 
 - [静かな森](https://innei.in)
 - [可愛い松](https://blog.wibus.ren/)
+- [HuaSui](https://www.vlo.cc/)
 - [天翔 TNXG](https://tnxg.top)
 - [Star](https://xingbest.xyz)
 
