@@ -36,6 +36,7 @@ import { MFootNote } from './renderers/footnotes'
 import { MHeader } from './renderers/heading'
 import { MarkdownImage } from './renderers/image'
 import { MTag } from './renderers/tag'
+import { redHighlight } from './utils/redHighlight'
 
 const CodeBlock = dynamic(() => import('~/components/widgets/shared/CodeBlock'))
 
@@ -156,7 +157,6 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
                   const thisUrl = new URL(footnote?.footnote?.replace(': ', ''))
                   const isCurrentHost =
                     thisUrl.hostname === window.location.hostname
-
                   if (!isCurrentHost && !isDev) {
                     return undefined
                   }
@@ -170,18 +170,17 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
               return (
                 <Fragment key={state?.key}>
                   <a
-                    href={sanitizeUrl(target)!}
+                    href={`#fn:${content}`}
                     onClick={(e) => {
                       e.preventDefault()
-
                       springScrollToElement(
-                        document.getElementById(content)!,
-
+                        document.getElementById(`fn:${content}`)!,
                         -window.innerHeight / 2,
                       )
+                      redHighlight(`fn:${content}`)
                     }}
                   >
-                    <sup key={state?.key}>^{content}</sup>
+                    <sup id={`fnref:${content}`}>{`[^${content}]`}</sup>
                   </a>
                   {linkCardId && <LinkCard id={linkCardId} source="mx-space" />}
                 </Fragment>
