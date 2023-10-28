@@ -156,7 +156,6 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
                   const thisUrl = new URL(footnote?.footnote?.replace(': ', ''))
                   const isCurrentHost =
                     thisUrl.hostname === window.location.hostname
-
                   if (!isCurrentHost && !isDev) {
                     return undefined
                   }
@@ -176,12 +175,11 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
 
                       springScrollToElement(
                         document.getElementById(content)!,
-
                         -window.innerHeight / 2,
                       )
                     }}
                   >
-                    <sup key={state?.key}>^{content}</sup>
+                    <sup id={`fnref:${content}`} />
                   </a>
                   {linkCardId && <LinkCard id={linkCardId} source="mx-space" />}
                 </Fragment>
