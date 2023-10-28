@@ -12,22 +12,20 @@ export const MFootNote: FC<PropsWithChildren> = (props) => {
       {React.Children.map(props.children, (child, index) => {
         return (
           <div id={`fn:${index + 1}`}>
-            <p>
-              {child}
-              <a
-                href={`#fnref:${index + 1}`}
-                onClick={(e) => {
-                  e.preventDefault()
-                  springScrollToElement(
-                    document.getElementById(`fnref:${index + 1}`)!,
-                    -window.innerHeight / 2,
-                  )
-                  highlight(`${index + 1}`)
-                }}
-              >
-                ↩
-              </a>
-            </p>
+            {child}
+            <a
+              href={`#fnref:${index + 1}`}
+              onClick={(e) => {
+                e.preventDefault()
+                springScrollToElement(
+                  document.getElementById(`fnref:${index + 1}`)!,
+                  -window.innerHeight / 2,
+                )
+                highlight(`${index + 1}`)
+              }}
+            >
+              ↩
+            </a>
           </div>
         )
       })}
