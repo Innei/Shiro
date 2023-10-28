@@ -169,7 +169,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
               return (
                 <Fragment key={state?.key}>
                   <a
-                    href={sanitizeUrl(target)!}
+                    href={`#fn:${content}`}
                     onClick={(e) => {
                       e.preventDefault()
 
