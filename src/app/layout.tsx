@@ -146,56 +146,56 @@ export default async function RootLayout(props: Props) {
             dangerouslySetInnerHTML={{
               __html: `
               if (localStorage.getItem('sw_installed') === 'true') {
-                fetch("/api?version")
-                    .then(res => res.json())
-                    .then(json => {
-                        if (json.version !== localStorage.getItem('sw_version')) {
-                            localStorage.setItem('sw_version', json.version);
-                            console.log('[TNXG_SW] 有新版本，正在重载页面！');
-                            fetch(window.location.href)
-                                .then(res => res.text())
-                                .then(text => {
-                                    document.open();
-                                    document.write(text);
-                                    document.close();
-                                });
-                        } else {
-                            console.log('[TNXG_SW] 无新版本，不重载页面！');
-                        }
-                    }
-                    ).catch(err => {
-                        console.error('[TNXG_SW] 获取版本信息失败，原因： ' + err.message);
-                    });
-            } else {
-                if (!!navigator.serviceWorker) {
-                    navigator.serviceWorker.register('/sw.js?t=' + new Date().getTime())
-                        .then(async (registration) => {
-                            if (localStorage.getItem('sw_installed') !== 'true') {
-                                localStorage.setItem('sw_installed', 'true');
-                                fetch("/api?version")
-                                    .then(res => res.json())
-                                    .then(json => {
-                                        localStorage.setItem('sw_version', json.version);
-                                    }
-                                    ).catch(err => {
-                                        console.error('[TNXG_SW] 获取版本信息失败，原因： ' + err.message);
-                                    });
-                                console.log('[TNXG_SW] 安装成功，正在重载页面！');
-                                fetch(window.location.href)
-                                    .then(res => res.text())
-                                    .then(text => {
-                                        document.open();
-                                        document.write(text);
-                                        document.close();
-                                    });
-                            }
-                        }).catch(err => {
-                            console.error('[TNXG_SW] 安装失败，原因： ' + err.message);
-                        });
-                } else {
-                    console.error('[TNXG_SW] 安装失败，原因： 浏览器不支持service worker');
-                }
-            }
+                  fetch("/sw-req/api?version")
+                      .then(res => res.json())
+                      .then(json => {
+                          if (json.version !== localStorage.getItem('sw_version')) {
+                              localStorage.setItem('sw_version', json.version);
+                              console.log('[TNXG_SW] 有新版本，正在重载页面！');
+                              fetch(window.location.href)
+                                  .then(res => res.text())
+                                  .then(text => {
+                                      document.open();
+                                      document.write(text);
+                                      document.close();
+                                  });
+                          } else {
+                              console.log('[TNXG_SW] 无新版本，不重载页面！');
+                          }
+                      }
+                      ).catch(err => {
+                          console.error('[TNXG_SW] 获取版本信息失败，原因： ' + err.message);
+                      });
+              } else {
+                  if (!!navigator.serviceWorker) {
+                      navigator.serviceWorker.register('/sw.js?t=' + new Date().getTime())
+                          .then(async (registration) => {
+                              if (localStorage.getItem('sw_installed') !== 'true') {
+                                  localStorage.setItem('sw_installed', 'true');
+                                  console.log('[TNXG_SW] 安装成功，正在重载页面！');
+                                  fetch(window.location.href)
+                                      .then(res => res.text())
+                                      .then(text => {
+                                          document.open();
+                                          document.write(text);
+                                          document.close();
+                                      });
+                                  fetch("/sw-req/api?version")
+                                      .then(res => res.json())
+                                      .then(json => {
+                                          localStorage.setItem('sw_version', json.version);
+                                      }
+                                      ).catch(err => {
+                                          console.error('[TNXG_SW] 获取版本信息失败，原因： ' + err.message);
+                                      });
+                              }
+                          }).catch(err => {
+                              console.error('[TNXG_SW] 安装失败，原因： ' + err.message);
+                          });
+                  } else {
+                      console.error('[TNXG_SW] 安装失败，原因： 浏览器不支持service worker');
+                  }
+              }
     `,
             }}
           />
