@@ -1,5 +1,6 @@
 'use client'
 
+import { Fragment } from 'react'
 import Link from 'next/link'
 import type { PostModel } from '@mx-space/api-client'
 
@@ -70,7 +71,7 @@ export const PostMetaBar: Component<{
                   const isLast = index === meta.tags!.length - 1
 
                   return (
-                    <>
+                    <Fragment key={tag}>
                       <button
                         className="shiro-link--underline"
                         onClick={() =>
@@ -84,7 +85,7 @@ export const PostMetaBar: Component<{
                         {tag}
                       </button>
                       {!isLast && <span>, </span>}
-                    </>
+                    </Fragment>
                   )
                 })}
               </>
