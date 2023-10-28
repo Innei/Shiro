@@ -12,8 +12,8 @@ export const MFootNote: FC<PropsWithChildren> = (props) => {
       {React.Children.map(props.children, (child, index) => {
         return (
           <div id={`fn:${index + 1}`}>
-            <p style={{ display: 'inline' }}>
-              {child}
+            <p>
+              <span style={{ display: 'inline' }}>{child}</span>
               <a
                 href={`#fnref:${index + 1}`}
                 onClick={(e) => {
