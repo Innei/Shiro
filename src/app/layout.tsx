@@ -141,6 +141,7 @@ export default async function RootLayout(props: Props) {
     // <ClerkProvider localization={ClerkZhCN}>
     <ClerkProvider>
       <html lang="zh-CN" className="noise" suppressHydrationWarning>
+        <ASCIIart />
         <head>
           <script
             dangerouslySetInnerHTML={{
@@ -179,12 +180,6 @@ export default async function RootLayout(props: Props) {
     `,
             }}
           />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `navigator.serviceWorker.controller.postMessage(location.href);`,
-            }}
-          />
-
           <SayHi />
           <HydrationEndDetector />
           <link rel="stylesheet" href="/assets/css/master.css" />
@@ -215,6 +210,67 @@ export default async function RootLayout(props: Props) {
       <Analytics />
     </ClerkProvider>
   )
+}
+
+const ASCIIart = () => {
+  return `
+  <!--
+    同人的诞生就是对于某个故事的意难平，正是因为这些意难平，众多优秀的作品才会从幕后走到台前。
+    这些故事的诞生就是为了让我们能够在这个世界上找到一些共鸣，找到一些温暖。
+    它们让我们看到了不同的可能性，让我们感受到了不同的情感。
+    它们，就是同人，就是本就不属于这个残酷世界的美好故事。
+    我们，热爱着这一切的人们，与现实有着不可跨越的鸿沟，这无疑使我们与他人更显得格格不入。
+    但是，我们却不会因此而放弃，我们却不会因此而停下脚步，我们会继续前行，去追寻那本不属于这个世界的，美好的故事。
+-->
+<!--
+                          o                           *~+                      
+                     o ^n                       n * z                      
+                     . .**;                   -     o                      
+                    ^.  -  o      ..  ^^.   .v      ^                      
+                    .    i  nv             -1  +    z                      
+                     .   +     +~;    * z     v   *n                       
+                      in ^   .   -     .^~         -z   .                  
+                     a.    ^   .         *n   -       o   -                
+                    - ^   +              ~-z           z   *n              
+                  +^ -   -    ^             z          +*  n               
+                  ;       -  .+          - + z          -1o                
+                 v .    -     .          .. ^ -.. .      ;^                
+                 n - .   ;. . ^          .  ^   z         z*               
+               v ;-      + -^ n      -   *o o  ^  o    *^  a               
+           ;+   o.       ; no~ *+        v~-*a.   o+.+ ~-  ^n              
+                n..      ~^.uo  n       . ;v   n*         n~+aa            
+                ^~.     +** -1vnazn+     nv;azzvu         a~.              
+                ;v      v^~nz n   ; on*;     - zv ^       ao^              
+                n*       ;;  ^^ -~^  *   -      ~         o.^              
+                 ~   ..  .z-         ;         n +       ++                
+                 ~~  ;    oz                  n~a      ;.a-                
+                 z*o z^   ozv      *           u^   -~- o-^                
+                 ~* o^^-  ~  ++              u+-+    o++ .o                
+                  ;   zn ~;; -  .i-       u~  ~-   n+ ;. *o                
+                ~ ~    .  ..n + au+ ;1a+  zo.1o;   ..; . *~.               
+                + v     +  *   ^u    - z     ana   ;   - . ~               
+               * -z      * ^. vuz^     ~    o^a* -     ~;  *               
+               ^  v       -n~     .   ^*  v   u        un + ;              
+              ~ - .        ; a      o.;o~    z- .     - o^u*               
+              ..ao          ~n*      ^z^      ...     v *u o*o             
+             ;v .u^n n    .-+auz+1   *~  .n +;~^       *    ^ ~            
+            .-~    a- v+    .n +.  a;+;~~    .v    . ..+    -;.            
+            *n      .+v +;uuu^~ n~;z  a *~v  *    v +.       ; z           
+           ^ a        on   .~; -ono+v .~+ ^ ~**+ o*        - .* +          
+           * +         -.- ;-      aa*!     *;n; v            v v          
+          ~ *           -~  oiai.  ^^  n ^uiv*.^z ~           +.-.         
+          . ;            v          v            ;            +a n         
+         o; + .                      nv          a           o~  ~         
+             ;+     +                -;-         ~  -~       ;n  *         
+        n+   n*       .v  ;                         .         u  ^         
+        .~   ^v        ~;-*.                    a  ^          + *^.        
+       . v   **            nn                  1  v            u-++        
+       ~ z   ^               o  -;  ^  o -ozu.1 -              ~^^^        
+       ~+a   u               n      a~+o      ;                !*o-        
+       ~*o   i         1o-  -a        + **    no    *~no      u -v         
+       目白樱落 メジロさくらがちる Mejiro Sakuragachiru
+-->
+  `
 }
 
 const SayHi = () => {
