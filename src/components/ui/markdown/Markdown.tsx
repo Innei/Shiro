@@ -179,7 +179,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
                       )
                     }}
                   >
-                    <sup id={`fnref:${content}`} />
+                    <sup id={`fnref:${content}`}>{`[^${content}]`}</sup>
                   </a>
                   {linkCardId && <LinkCard id={linkCardId} source="mx-space" />}
                 </Fragment>
