@@ -212,7 +212,7 @@ const ServiceWorker = () => {
             .then(async (registration) => {
               if (localStorage.getItem('sw_installed') !== 'true') {
                 localStorage.setItem('sw_installed', 'true');
-                console.log('[TNXG_SW] 安装成功，正在重载页面！');
+                console.log('[Shiro_ServiceWorker] 安装成功，正在重载页面！');
                 fetch(window.location.href)
                   .then(res => res.text())
                   .then(text => {
@@ -222,10 +222,10 @@ const ServiceWorker = () => {
                   });
               }
             }).catch(err => {
-              console.error('[TNXG_SW] 安装失败，原因： ' + err.message);
+              console.error('[Shiro_ServiceWorker] 安装失败，原因： ' + err.message);
             });
         } else {
-          console.error('[TNXG_SW] 安装失败，原因： 浏览器不支持service worker');
+          console.error('[Shiro_ServiceWorker] 安装失败，原因： 浏览器不支持service worker');
         }`,
       }}
     />
