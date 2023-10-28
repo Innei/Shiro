@@ -11,16 +11,17 @@ export const MFootNote: FC<PropsWithChildren> = (props) => {
       <Divider />
       {React.Children.map(props.children, (child, index) => {
         return (
-          <div id={`fn:${index}`}>
+          <div id={`fn:${index + 1}`}>
             <p>{child}</p>
             <a
-              href={`#fnref:${index}`}
+              href={`#fnref:${index + 1}`}
               onClick={(e) => {
                 e.preventDefault()
                 springScrollToElement(
                   document.getElementById(`fnref:${index + 1}`)!,
                   -window.innerHeight / 2,
                 )
+                highlight(`${index + 1}`)
               }}
             >
               ↩
@@ -30,4 +31,16 @@ export const MFootNote: FC<PropsWithChildren> = (props) => {
       })}
     </div>
   )
+}
+
+function highlight(id: string) {
+  const fnRefElement = document.getElementById(`fnref:${id}`)
+  if (fnRefElement) {
+    fnRefElement.style.color = 'red'
+    setTimeout(() => {
+      fnRefElement.style.color = ''
+    }, 5000)
+  } else {
+    console.log(`Element with id fnref:${id} not found.`)
+  }
 }
