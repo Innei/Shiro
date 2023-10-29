@@ -8,7 +8,7 @@ import { useEventCallback } from '../common/use-event-callback'
 export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>() => {
   const containerRef = useRef<T>(null)
   const [isScrollToBottom, setIsScrollToBottom] = useState(false)
-  const [isScrollToTop, setIsScrollToTop] = useState(true)
+  const [isScrollToTop, setIsScrollToTop] = useState(false)
   const [canScroll, setCanScroll] = useState(false)
   const h = useViewport((v) => v.h)
 
@@ -18,7 +18,12 @@ export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>() => {
     if (!$) return
 
     // if $ can not scroll, return null
-    if ($.scrollHeight <= $.clientHeight + 2) return
+    if ($.scrollHeight <= $.clientHeight + 2) {
+      setCanScroll(false)
+      setIsScrollToBottom(false)
+      setIsScrollToTop(false)
+      return
+    }
 
     setCanScroll(true)
 
@@ -56,10 +61,12 @@ export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>() => {
 
   return [
     containerRef,
-    clsx(
-      isScrollToBottom && 'mask-t',
-      isScrollToTop && 'mask-b',
-      canScroll && !isScrollToBottom && !isScrollToTop && 'mask-both',
-    ),
-  ]
+    canScroll
+      ? clsx(
+          isScrollToBottom && 'mask-t',
+          isScrollToTop && 'mask-b',
+          !isScrollToBottom && !isScrollToTop && 'mask-both',
+        )
+      : '',
+  ] as const
 }

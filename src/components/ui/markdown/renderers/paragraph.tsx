@@ -27,7 +27,7 @@ export const MParagraph: FC<
       )
     }
   }
-  // console.log(children)
+
   return (
     <p className={clsx('paragraph', className)} {...rest}>
       {children}

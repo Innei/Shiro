@@ -37,6 +37,7 @@ import { MFootNote } from './renderers/footnotes'
 import { MHeader } from './renderers/heading'
 import { MarkdownImage } from './renderers/image'
 import { MTag } from './renderers/tag'
+import { getFootNoteDomId } from './utils/get-id'
 import { redHighlight } from './utils/redHighlight'
 
 const CodeBlock = dynamic(() => import('~/components/widgets/shared/CodeBlock'))
@@ -167,46 +168,34 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
                   return undefined
                 }
               })()
-              const footnotes = () => {
-                return (
-                  <Fragment key={state?.key}>
-                    <a
-                      href={`#fn:${content}`}
-                      onClick={(e) => {
-                        e.preventDefault()
-                        springScrollToElement(
-                          document.getElementById(`fn:${content}`)!,
-                          -window.innerHeight / 2,
-                        )
-                        redHighlight(`fn:${content}`)
-                      }}
-                    >
-                      <sup id={`fnref:${content}`}>{`[^${content}]`}</sup>
-                    </a>
-                    {linkCardId && (
-                      <LinkCard id={linkCardId} source="mx-space" />
-                    )}
-                  </Fragment>
-                )
-              }
+
               return (
-                <FloatPopover
-                  as="span"
-                  TriggerComponent={footnotes}
-                  type="popover"
-                  wrapperClassName="footnotes_text"
-                >
-                  <div className="space-y-2 leading-relaxed">
-                    <p className="flex items-center space-x-1 opacity-80">
-                      <span
-                        className="font-medium"
-                        dangerouslySetInnerHTML={{
-                          __html: footnote?.footnote?.substring(1),
+                <Fragment key={state?.key}>
+                  <FloatPopover
+                    wrapperClassName="inline"
+                    as="span"
+                    TriggerComponent={() => (
+                      <a
+                        href={`#fn:${content}`}
+                        onClick={(e) => {
+                          e.preventDefault()
+                          const id = getFootNoteDomId(content)
+                          springScrollToElement(
+                            document.getElementById(id)!,
+                            -window.innerHeight / 2,
+                          )
+                          redHighlight(id)
                         }}
-                      />
-                    </p>
-                  </div>
-                </FloatPopover>
+                      >
+                        <sup id={`fnref:${content}`}>{`[^${content}]`}</sup>
+                      </a>
+                    )}
+                    type="tooltip"
+                  >
+                    {footnote?.footnote?.substring(1)}
+                  </FloatPopover>
+                  {linkCardId && <LinkCard id={linkCardId} source="mx-space" />}
+                </Fragment>
               )
             },
           },
