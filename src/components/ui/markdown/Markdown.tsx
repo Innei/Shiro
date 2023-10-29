@@ -19,6 +19,7 @@ import { Gallery } from '../gallery'
 import { LinkCard } from '../link-card'
 import { MLink } from '../link/MLink'
 import styles from './markdown.module.css'
+import { AlertsRule } from './parsers/alert'
 import { ContainerRule } from './parsers/container'
 import { InsertRule } from './parsers/ins'
 import { KateXRule } from './parsers/katex'
@@ -249,6 +250,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           ins: InsertRule,
           kateX: KateXRule,
           container: ContainerRule,
+          alerts: AlertsRule,
 
           ...additionalParserRules,
         },
