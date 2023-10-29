@@ -84,6 +84,7 @@ export const MLink: FC<{
 
   const showRichLink = !!parsedType && !!parsedName
 
+  console.log(text || parsedName, 'text || parsedName')
   return (
     <FloatPopover
       as="span"

@@ -88,6 +88,8 @@
 
   input[type='checkbox'] {
     @apply checkbox checkbox-xs my-0 mr-2 align-text-bottom;
+
+    vertical-align: inherit;
   }
 
   input[type='checkbox']:disabled,

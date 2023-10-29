@@ -4,6 +4,7 @@ import type { FC, PropsWithChildren } from 'react'
 import { springScrollToElement } from '~/lib/scroller'
 
 import { Divider } from '../../divider'
+import { getFootNoteDomId, getFootNoteRefDomId } from '../utils/get-id'
 import { redHighlight } from '../utils/redHighlight'
 
 export const MFootNote: FC<PropsWithChildren> = (props) => {
@@ -13,20 +14,22 @@ export const MFootNote: FC<PropsWithChildren> = (props) => {
       {React.Children.map(props.children, (child, index) => {
         if (React.isValidElement(child)) {
           return (
-            <div id={`fn:${index + 1}`}>
+            <div id={`${getFootNoteDomId(index + 1)}`}>
               <p className="inline">
                 {React.cloneElement(child as React.ReactElement<any>, {
-                  style: { display: 'inline' }, // 设置 child 的 display 样式
+                  className: 'inline',
                 })}
                 <a
-                  href={`#fnref:${index + 1}`}
+                  href={`#${getFootNoteRefDomId(index + 1)}`}
                   onClick={(e) => {
                     e.preventDefault()
                     springScrollToElement(
-                      document.getElementById(`fnref:${index + 1}`)!,
+                      document.getElementById(
+                        `${getFootNoteRefDomId(index + 1)}`,
+                      )!,
                       -window.innerHeight / 2,
                     )
-                    redHighlight(`fnref:${index + 1}`)
+                    redHighlight(`${getFootNoteRefDomId(index + 1)}`)
                   }}
                   className="inline"
                 >

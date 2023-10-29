@@ -18,6 +18,7 @@ const shouldCatchContainerName = [
   'info',
   'success',
   'warning',
+  'note',
 ].join('|')
 export const ContainerRule: MarkdownToJSX.Rule = {
   match: blockRegex(
@@ -47,6 +48,7 @@ export const ContainerRule: MarkdownToJSX.Rule = {
       case 'error':
       case 'danger':
       case 'info':
+      case 'note':
       case 'success':
       case 'warning': {
         const transformMap = {

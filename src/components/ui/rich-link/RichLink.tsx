@@ -21,7 +21,7 @@ export const RichLink: FC<{
   if (!urlPrefix) return null
 
   return (
-    <span className="mx-1 inline-flex items-center space-x-1 align-bottom">
+    <span className="mx-1 inline-flex items-center space-x-1 align-text-bottom">
       <Favicon source={source} />
       <a
         target="_blank"

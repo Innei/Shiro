@@ -18,7 +18,12 @@ export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>() => {
     if (!$) return
 
     // if $ can not scroll, return null
-    if ($.scrollHeight <= $.clientHeight + 2) return
+    if ($.scrollHeight <= $.clientHeight + 2) {
+      setCanScroll(false)
+      setIsScrollToBottom(false)
+      setIsScrollToTop(false)
+      return
+    }
 
     setCanScroll(true)
 
@@ -56,10 +61,12 @@ export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>() => {
 
   return [
     containerRef,
-    clsx(
-      isScrollToBottom && 'mask-t',
-      isScrollToTop && 'mask-b',
-      canScroll && !isScrollToBottom && !isScrollToTop && 'mask-both',
-    ),
-  ]
+    canScroll
+      ? clsx(
+          isScrollToBottom && 'mask-t',
+          isScrollToTop && 'mask-b',
+          !isScrollToBottom && !isScrollToTop && 'mask-both',
+        )
+      : '',
+  ] as const
 }
