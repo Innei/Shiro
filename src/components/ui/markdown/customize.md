@@ -128,16 +128,23 @@ https://codesandbox.io/s/framer-motion-layoutroot-prop-forked-p39g96
 https://codesandbox.io/s/framer-motion-layoutroot-prop-forked-p39g96
 
 ```
-https://github.com/toeverything/AFFiNE/blob/master/.github/workflows/nx.yml
+https://github.com/Innei/Shiro/blob/108d4c3e927e1c9c9304e41a0631f91958477d9f/src/providers/root/modal-stack-provider.tsx
 ```
 
-https://github.com/toeverything/AFFiNE/blob/master/.github/workflows/nx.yml
+https://github.com/Innei/Shiro/blob/108d4c3e927e1c9c9304e41a0631f91958477d9f/src/providers/root/modal-stack-provider.tsx
 
 ```
-https://github.com/toeverything/AFFiNE/blob/himself65/0710/remove-effect/apps/web/src/atoms/index.ts
+https://github.com/Innei/Shiro/pull/129
 ```
 
-https://github.com/toeverything/AFFiNE/blob/himself65/0710/remove-effect/apps/web/src/atoms/index.ts
+https://github.com/Innei/Shiro/pull/129
+
+
+```
+https://github.com/Innei/Shiro/commit/6957e011439eb2d3cbf42bfb67ed81b07d4bcc2a
+```
+
+https://github.com/Innei/Shiro/commit/6957e011439eb2d3cbf42bfb67ed81b07d4bcc2a
 
 ```
 https://trpc.io/docs/client/react/useInfiniteQuery
@@ -200,6 +207,17 @@ Inline https://github.com/Innei
 [Innei 太菜了]{GH@Innei}
 
 ## Alerts
+
+```
+> [!NOTE]
+> Highlights information that users should take into account, even when skimming.
+
+> [!IMPORTANT]
+> Crucial information necessary for users to succeed.
+
+> [!WARNING]
+> Critical content demanding immediate user attention due to potential risks.
+```
 
 > [!NOTE]
 > Highlights information that users should take into account, even when skimming.
