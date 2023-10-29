@@ -84,11 +84,17 @@ docker build \
 docker run --name shiro -d -p 2323:2323 shiro
 ```
 
+## Markdown 扩展语法
+
+请阅读 https://shiro.innei.in/markdown
+
 ## :heart: 鸣谢 & 许可
 
 2023 © Innei，本项目采用 MIT 许可证发布。
 
-感谢 GPT-4 和 [cali.so](https://github.com/CaliCastle/cali.so) 的支持，以及 Mix Space Team 和广大社区朋友们的贡献。
+部分代码由 GPT-4 和 [cali.so](https://github.com/CaliCastle/cali.so) 提供。
+
+感谢 Mix Space Team 和广大社区朋友们的贡献。
 
 ![powered-by-vercel](https://images.ctfassets.net/e5382hct74si/78Olo8EZRdUlcDUFQvnzG7/fa4cdb6dc04c40fceac194134788a0e2/1618983297-powered-by-vercel.svg)
 
