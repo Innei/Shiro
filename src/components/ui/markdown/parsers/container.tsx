@@ -20,6 +20,7 @@ const shouldCatchContainerName = [
   'warning',
   'note',
 ].join('|')
+
 export const ContainerRule: MarkdownToJSX.Rule = {
   match: blockRegex(
     new RegExp(

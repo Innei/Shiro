@@ -1,6 +1,6 @@
 import { createElement, Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { createBrowserRouter } from 'react-router-dom'
+import { createHashRouter } from 'react-router-dom'
 import type { RouteObject } from 'react-router-dom'
 
 import {
@@ -34,7 +34,7 @@ children.push({
   Component: Debug,
   name: 'debug',
 })
-export const routes = createBrowserRouter([
+export const routes = createHashRouter([
   {
     path: '/',
     Component: Root,
