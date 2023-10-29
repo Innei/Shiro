@@ -86,7 +86,7 @@ docker run --name shiro -d -p 2323:2323 shiro
 
 ## Markdown 扩展语法
 
-请阅读 https://shiro.innei.in/markdown
+请阅读 https://shiro.innei.in/#/markdown
 
 ## :heart: 鸣谢 & 许可
 
