@@ -69,11 +69,11 @@ dependencies:
     specifier: 5.5.2
     version: 5.5.2
   emoji-picker-react:
-    specifier: 4.5.6
-    version: 4.5.6(react@18.2.0)
+    specifier: 4.5.7
+    version: 4.5.7(react@18.2.0)
   foxact:
-    specifier: 0.2.20
-    version: 0.2.20(react@18.2.0)
+    specifier: 0.2.22
+    version: 0.2.22(react@18.2.0)
   framer-motion:
     specifier: ^10.16.4
     version: 10.16.4(react-dom@18.2.0)(react@18.2.0)
@@ -236,8 +236,8 @@ devDependencies:
     specifier: 3.0.5
     version: 3.0.5(tailwindcss@3.3.5)
   tailwind-variants:
-    specifier: 0.1.17
-    version: 0.1.17(tailwindcss@3.3.5)
+    specifier: 0.1.18
+    version: 0.1.18(tailwindcss@3.3.5)
   tailwindcss:
     specifier: ^3.3.5
     version: 3.3.5
@@ -3724,8 +3724,8 @@ packages:
     resolution: {integrity: sha512-Sqc/nso4cjxhOwWJsp9xkVm8OF5c+mJLZJFoFfzRuKO+yWiN7K8c96xmtughYb0d/fZ8UC6cLIQ/p4BR6Pv3/A==}
     dev: false
 
-  /emoji-picker-react@4.5.6(react@18.2.0):
-    resolution: {integrity: sha512-1dLsV04WQifRpD92/wHhgsJbNg7FQoHWPaiDyU+AEtmq3umUhVTs/8ZzhdoU2HvThg3hK3hRcBn3nRJHjBjWkQ==}
+  /emoji-picker-react@4.5.7(react@18.2.0):
+    resolution: {integrity: sha512-a1vJBY9AXvFkl4nbdBVovhOYdKw8dM0tPDxfvj6GuMvvBpjSg7QgJqs2gU4ZDvRSRQ7edxHVy8qU+Ns1lejQVQ==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=16'
@@ -4327,8 +4327,8 @@ packages:
       fetch-blob: 3.2.0
     dev: true
 
-  /foxact@0.2.20(react@18.2.0):
-    resolution: {integrity: sha512-7Mez3d+t1xD+Qq85Xst03OFrLw+DlTXK7qn6bicIPIgnIDEopnRG5Bkz3/RgQp74+wvWb47BrUeq+tIFGbHxIg==}
+  /foxact@0.2.22(react@18.2.0):
+    resolution: {integrity: sha512-RQd5+XSqWbRNYc4Un5eS6+P6oFrZxqOIb7xVw71SXWNnRlHoFqSuGDOt3bShrvQPmBXSw60We+tX5Gf6naxxGA==}
     peerDependencies:
       react: '*'
     peerDependenciesMeta:
@@ -7120,8 +7120,8 @@ packages:
       tailwindcss: 3.3.5
     dev: true
 
-  /tailwind-variants@0.1.17(tailwindcss@3.3.5):
-    resolution: {integrity: sha512-EJsiQPCdFbTEju6mW8xL/QQnSl1LBVWowhCfjvHTK4JLuOzpXD5+47q1nWNhSOa2W42mJGtY9d5TAtmnAfdK4g==}
+  /tailwind-variants@0.1.18(tailwindcss@3.3.5):
+    resolution: {integrity: sha512-yoydMYm3FbZRw7wak+E2sqwYv2Uo3YWRqVZR03DGqDGm0ytzDrEnWO/Q/GMHdhaz8adOvycKw/bwCgQFCfmfhg==}
     engines: {node: '>=16.x', pnpm: '>=7.x'}
     peerDependencies:
       tailwindcss: '*'
