@@ -48,7 +48,7 @@ jobs:
       - name: Build project
         run: |
           cd storybook
-          npm build build
+          npm run build
         env:
           CI: true
       - name: Deploy with gh-pages
