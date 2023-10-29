@@ -78,7 +78,7 @@ export const Favicon: Component<FaviconProps> = (props) => {
   if (!prefixToIconMap[nextSource]) return null
 
   return (
-    <span className={clsxm('mr-1 [&_svg]:inline', className)}>
+    <span className={clsxm('mr-1 align-text-bottom [&_svg]:inline', className)}>
       {prefixToIconMap[nextSource]}
     </span>
   )

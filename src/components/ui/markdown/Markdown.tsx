@@ -132,10 +132,14 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           link: {
             react(node, output, state) {
               const { target, title } = node
-              const realText =
-                node.content[0]?.content === node.target
-                  ? void 0
-                  : node.content[0]?.content
+
+              let realText = ''
+
+              for (const child of node.content) {
+                if (child.type === 'text') {
+                  realText += child.content
+                }
+              }
 
               return (
                 <MLink
