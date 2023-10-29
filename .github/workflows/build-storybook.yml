@@ -41,6 +41,7 @@ jobs:
         run: |
           cd storybook
           npm run build
+          echo "shiro.innei.in" > dist/CNAME
         env:
           CI: true
       - name: Deploy with gh-pages
