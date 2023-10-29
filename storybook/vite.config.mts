@@ -38,6 +38,7 @@ export default defineConfig({
     __COMPONENT_ROOT__: `"${resolve(__dirname, '..')}"`,
     'process.env': { ...env },
   },
+  base: '',
   resolve: {
     alias: {
       'next/image': resolve(__dirname, './mock-packages/next_image'),
