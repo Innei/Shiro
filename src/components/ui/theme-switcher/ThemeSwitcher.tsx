@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback } from 'react'
+import { flushSync } from 'react-dom'
 import { atom } from 'jotai'
 import { useTheme } from 'next-themes'
 import { tv } from 'tailwind-variants'
@@ -146,8 +147,7 @@ const ButtonGroup = () => {
 
     document
       .startViewTransition(() => {
-        setTheme(theme)
-        return Promise.resolve()
+        flushSync(() => setTheme(theme))
       })
       ?.ready.then(() => {
         if (mousePosition.x === 0) return

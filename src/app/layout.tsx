@@ -23,6 +23,7 @@ import { queries } from '~/queries/definition'
 import { Providers } from '../providers/root'
 import { Analyze } from './analyze'
 import { init } from './init'
+import { InitInClient } from './InitInClient'
 
 const { version } = PKG
 init()
@@ -162,6 +163,7 @@ export default async function RootLayout(props: Props) {
           </Providers>
           <ToastContainer />
           <ScrollTop />
+          <InitInClient />
         </body>
       </html>
       <Analytics />

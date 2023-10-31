@@ -56,6 +56,9 @@ dependencies:
   axios:
     specifier: 1.6.0
     version: 1.6.0
+  bypass-vue-devtools:
+    specifier: 0.0.6
+    version: 0.0.6
   clsx:
     specifier: 2.0.0
     version: 2.0.0
@@ -2959,6 +2962,10 @@ packages:
     engines: {node: '>=10.16.0'}
     dependencies:
       streamsearch: 1.1.0
+    dev: false
+
+  /bypass-vue-devtools@0.0.6:
+    resolution: {integrity: sha512-IsISvCpyIXOUEiXtvoBm3JQczMhmBLhwsTtdUVStKXH166M52oVKkcR10HXoyu2wXYAlx6chk0tlQHoRznxHwA==}
     dev: false
 
   /cac@6.7.14:
