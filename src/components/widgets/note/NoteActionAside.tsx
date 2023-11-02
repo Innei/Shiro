@@ -2,6 +2,7 @@
 
 import { m, useAnimationControls, useForceUpdate } from 'framer-motion'
 
+import { useIsMobile } from '~/atoms'
 import { MotionButtonBase } from '~/components/ui/button'
 import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
 import { useIsClient } from '~/hooks/common/use-is-client'
@@ -18,6 +19,7 @@ import {
 } from '~/providers/note/CurrentNoteDataProvider'
 import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
 import { useModalStack } from '~/providers/root/modal-stack-provider'
+import { useIsEoFWrappedElement } from '~/providers/shared/WrappedElementProvider'
 
 import {
   ActionAsideContainer,
@@ -28,6 +30,19 @@ import { AsideCommentButton } from '../shared/AsideCommentButton'
 import { AsideDonateButton } from '../shared/AsideDonateButton'
 import { ShareModal } from '../shared/ShareModal'
 import { usePresentSubscribeModal } from '../subscribe'
+
+export const NoteBottomBarAction: Component = () => {
+  const isMobile = useIsMobile()
+  if (!isMobile) return null
+  return (
+    <div className="mb-8 flex items-center justify-center space-x-8">
+      <LikeButton />
+      <ShareButton />
+      <SubscribeButton />
+      <AsideDonateButton />
+    </div>
+  )
+}
 
 export const NoteActionAside: Component = ({ className }) => {
   return (
@@ -50,7 +65,10 @@ const NoteAsideCommentButton = () => {
         id: data?.id,
       }
     }) || {}
+
+  const isEoF = useIsEoFWrappedElement()
   if (!id) return null
+  if (isEoF) return null
   return <AsideCommentButton refId={id} title={title!} />
 }
 

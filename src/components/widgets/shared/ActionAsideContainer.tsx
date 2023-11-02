@@ -3,7 +3,7 @@
 import { useViewport } from '~/atoms'
 import { clsxm } from '~/lib/helper'
 import { usePageScrollLocationSelector } from '~/providers/root/page-scroll-info-provider'
-import { useIsEOWrappedElement } from '~/providers/shared/WrappedElementProvider'
+import { useIsEoFWrappedElement } from '~/providers/shared/WrappedElementProvider'
 
 export const asideButtonStyles = {
   base: 'text-[24px] opacity-80 duration-200 hover:opacity-100 relative',
@@ -13,7 +13,7 @@ export const ActionAsideIcon: Component = (props) => {
   return <i className={clsxm(asideButtonStyles.base, props.className)} />
 }
 export const ActionAsideContainer: Component = ({ className, children }) => {
-  const isEOA = useIsEOWrappedElement()
+  const isEOA = useIsEoFWrappedElement()
   const h = useViewport((v) => v.h)
 
   const isEndOfPage = usePageScrollLocationSelector(

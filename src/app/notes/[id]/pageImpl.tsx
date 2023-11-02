@@ -7,6 +7,7 @@ import { AckRead } from '~/components/common/AckRead'
 import { ClientOnly } from '~/components/common/ClientOnly'
 import {
   NoteActionAside,
+  NoteBottomBarAction,
   NoteFooterNavigationBarForMobile,
   NoteTopic,
 } from '~/components/widgets/note'
@@ -71,9 +72,12 @@ const NotePage = function (props: NoteModel) {
       </IndentArticleContainer>
 
       {/* <SubscribeBell defaultType="note_c" /> */}
-      <NoteTopic />
-      <XLogInfoForNote />
-      <NoteFooterNavigationBarForMobile />
+      <ClientOnly>
+        <NoteBottomBarAction />
+        <NoteTopic />
+        <XLogInfoForNote />
+        <NoteFooterNavigationBarForMobile />
+      </ClientOnly>
     </>
   )
 }

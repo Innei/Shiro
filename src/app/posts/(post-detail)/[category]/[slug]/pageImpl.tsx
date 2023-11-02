@@ -4,6 +4,7 @@ import { AckRead } from '~/components/common/AckRead'
 import { ClientOnly } from '~/components/common/ClientOnly'
 import {
   PostActionAside,
+  PostBottomBarAction,
   PostCopyright,
   PostOutdate,
   PostRelated,
@@ -67,6 +68,7 @@ const PostPage = (props: PostModel) => {
         <PostCopyright />
         {/* <SubscribeBell defaultType="post_c" /> */}
         <XLogInfoForPost />
+        <PostBottomBarAction />
       </ClientOnly>
     </div>
   )

@@ -37,7 +37,7 @@ export const usePresentSubscribeModal = (
     present: () => {
       const dispose = present({
         title: '邮件订阅',
-
+        clickOutsideToDismiss: true,
         content: () => (
           <SubscribeModal onConfirm={dispose} defaultTypes={defaultTypes} />
         ),

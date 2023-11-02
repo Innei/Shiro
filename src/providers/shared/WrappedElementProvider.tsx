@@ -36,7 +36,7 @@ const [
 
 const [
   IsEOArticleElementProviderInternal,
-  useIsEOWrappedElement,
+  useIsEoFWrappedElement,
   useSetIsEOArticleElement,
 ] = createContextState<boolean>(false)
 
@@ -132,7 +132,7 @@ export {
   WrappedElementProvider,
   useSetWrappedElement,
   useWrappedElement,
-  useIsEOWrappedElement,
+  useIsEoFWrappedElement,
   useWrappedElementSize,
   useWrappedElementPositsion,
 }

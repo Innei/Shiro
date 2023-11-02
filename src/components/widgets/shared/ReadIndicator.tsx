@@ -8,7 +8,7 @@ import { useIsMobile } from '~/atoms'
 import { RootPortal } from '~/components/ui/portal'
 import { useReadPercent } from '~/hooks/shared/use-read-percent'
 import { clsxm } from '~/lib/helper'
-import { useIsEOWrappedElement } from '~/providers/shared/WrappedElementProvider'
+import { useIsEoFWrappedElement } from '~/providers/shared/WrappedElementProvider'
 
 export const ReadIndicator: Component<{
   as?: ElementType
@@ -31,7 +31,7 @@ export const ReadIndicator: Component<{
 
 const ReadIndicatorVertical: Component = ({ className }) => {
   const readPercent = useDeferredValue(useReadPercent())
-  const isEOA = useIsEOWrappedElement()
+  const isEOA = useIsEoFWrappedElement()
   return (
     <RootPortal>
       <div

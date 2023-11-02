@@ -2,6 +2,7 @@
 
 import { m, useAnimationControls, useForceUpdate } from 'framer-motion'
 
+import { useIsMobile } from '~/atoms'
 import { ThumbsupIcon } from '~/components/icons/thumbs-up'
 import { MotionButtonBase } from '~/components/ui/button'
 import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
@@ -28,6 +29,19 @@ import { AsideCommentButton } from '../shared/AsideCommentButton'
 import { AsideDonateButton } from '../shared/AsideDonateButton'
 import { ShareModal } from '../shared/ShareModal'
 import { usePresentSubscribeModal } from '../subscribe'
+
+export const PostBottomBarAction: Component = () => {
+  const isMobile = useIsMobile()
+  if (!isMobile) return null
+  return (
+    <div className="flex items-center justify-center space-x-8">
+      <LikeButton />
+      <ShareButton />
+      <SubscribeButton />
+      <AsideDonateButton />
+    </div>
+  )
+}
 
 export const PostActionAside: Component = ({ className }) => {
   return (

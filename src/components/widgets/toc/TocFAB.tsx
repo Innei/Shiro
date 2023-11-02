@@ -27,7 +27,7 @@ export const TocFAB = () => {
   const presentToc = useCallback(() => {
     const dispose = present({
       title: 'Table of Content',
-
+      clickOutsideToDismiss: true,
       content: () => (
         <TocTree
           $headings={$headings!}
