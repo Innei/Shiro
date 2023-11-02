@@ -16,9 +16,11 @@ import { usePathname } from 'next/navigation'
 import type { Target, Transition } from 'framer-motion'
 import type { FC, PropsWithChildren, SyntheticEvent } from 'react'
 
+import { useIsMobile } from '~/atoms'
 import { CloseIcon } from '~/components/icons/close'
 import { DialogOverlay } from '~/components/ui/dialog/DialogOverlay'
 import { Divider } from '~/components/ui/divider'
+import { PresentSheet, sheetStackAtom } from '~/components/ui/sheet'
 import { microReboundPreset } from '~/constants/spring'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { useIsUnMounted } from '~/hooks/common/use-is-unmounted'
@@ -193,6 +195,21 @@ const Modal: Component<{
 
   const ModalProps: ModalContentPropsInternal = {
     dismiss: close,
+  }
+
+  const isMobile = useIsMobile()
+
+  if (isMobile) {
+    const drawerLength = jotaiStore.get(sheetStackAtom).length
+
+    return (
+      <PresentSheet
+        open
+        zIndex={1000 + drawerLength}
+        onOpenChange={onClose}
+        content={createElement(content, ModalProps)}
+      />
+    )
   }
 
   if (CustomModalComponent) {

@@ -149,6 +149,9 @@ dependencies:
   uniqolor:
     specifier: 1.1.0
     version: 1.1.0
+  vaul:
+    specifier: 0.7.7
+    version: 0.7.7(@types/react-dom@18.2.14)(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)
   xss:
     specifier: 1.0.14
     version: 1.0.14
@@ -7502,6 +7505,20 @@ packages:
       diff: 5.1.0
       kleur: 4.1.5
       sade: 1.8.1
+    dev: false
+
+  /vaul@0.7.7(@types/react-dom@18.2.14)(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-NAQTE8836Daxq+VC74srRfGqiOLQft4yc0x8YsO6Vowti0RC7LWzSpIxKd7RGegzgMMZOho+9ysH+uI6o+tUVw==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    dependencies:
+      '@radix-ui/react-dialog': 1.0.5(@types/react-dom@18.2.14)(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
     dev: false
 
   /watchpack@2.4.0:

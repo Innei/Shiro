@@ -155,7 +155,9 @@ export default async function RootLayout(props: Props) {
               appConfig={themeConfig.config}
             />
 
-            <Root>{children}</Root>
+            <div data-theme>
+              <Root>{children}</Root>
+            </div>
 
             <TocAutoScroll />
             <SearchPanelWithHotKey />
