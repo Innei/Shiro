@@ -18,7 +18,7 @@ import { apiClient } from '~/lib/request'
 
 import styles from './LinkCard.module.css'
 
-export type LinkCardSource = 'gh' | 'self' | 'mx-space' | 'gh-commit'
+export type LinkCardSource = 'gh' | 'self' | 'mx-space' | 'gh-commit' | 'gh-pr'
 export interface LinkCardProps {
   id: string
   source?: LinkCardSource
@@ -174,17 +174,12 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
           setCardInfo({
             image: data.author.avatarUrl,
             title: (
-              <span className="space-x-2">
-                <span>
-                  {namespace}/{repo}
-                </span>
-                <span className="font-normal">
-                  {data.commit.message.replace(/Signed-off-by:.+/, '')}
-                </span>
+              <span className="font-normal">
+                {data.commit.message.replace(/Signed-off-by:.+/, '')}
               </span>
             ),
             desc: (
-              <span className="space-x-5 font-mono">
+              <span className="flex items-center space-x-5 font-mono">
                 <span className="text-uk-green-light">
                   +{data.stats.additions}
                 </span>
@@ -193,6 +188,46 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
                 </span>
 
                 <span className="text-sm">{data.sha.slice(0, 7)}</span>
+
+                <span className="text-sm opacity-80">
+                  {namespace}/{repo}
+                </span>
+              </span>
+            ),
+          })
+          setFullUrl(data.htmlUrl)
+        }
+
+        return true
+      }
+
+      case 'gh-pr': {
+        // ${owner}/${repo}/${pr}
+        const [owner, repo, pr] = id.split('/')
+        if (!owner || !repo || !pr) {
+          return false
+        }
+        fetchFnRef.current = async () => {
+          const data = await fetchGitHubApi<any>(
+            `https://api.github.com/repos/${owner}/${repo}/pulls/${pr}`,
+          )
+            .then((data) => camelcaseKeys(data))
+            .catch(() => {
+              // set fallback url
+              //
+              setFullUrl(`https://github.com/${owner}/${repo}/commit/${pr}`)
+            })
+
+          setCardInfo({
+            image: data.user.avatarUrl,
+            title: <span>{data.title}</span>,
+            desc: (
+              <span className="flex items-center space-x-5 font-mono">
+                <span className="text-uk-green-light">+{data.additions}</span>
+                <span className="text-uk-red-light">-{data.deletions}</span>
+                <span className="text-sm opacity-80">
+                  {owner}/{repo}
+                </span>
               </span>
             ),
           })

@@ -4,12 +4,18 @@ export const getTweetId = (url: URL) => {
   return url.pathname.split('/').pop()!
 }
 
+const GITHUB_HOST = 'github.com'
+
 export const isGithubRepoUrl = (url: URL) => {
   return (
-    url.hostname === 'github.com' &&
+    url.hostname === GITHUB_HOST &&
     url.pathname.startsWith('/') &&
     url.pathname.split('/').length === 3
   )
+}
+
+export const isGithubPrUrl = (url: URL) => {
+  return url.hostname === GITHUB_HOST && url.pathname.includes('/pull/')
 }
 
 export const isYoutubeUrl = (url: URL) => {
@@ -22,17 +28,17 @@ export const isGistUrl = (url: URL) => {
 
 export const isGithubCommitUrl = (url: URL) => {
   const [_, , , type] = url.pathname.split('/')
-  return url.hostname === 'github.com' && type === 'commit'
+  return url.hostname === GITHUB_HOST && type === 'commit'
 }
 
 export const isGithubProfileUrl = (url: URL) => {
-  return url.hostname === 'github.com' && url.pathname.split('/').length === 2
+  return url.hostname === GITHUB_HOST && url.pathname.split('/').length === 2
 }
 
 export const isGithubFilePreviewUrl = (url: URL) => {
   // https://github.com/Innei/sprightly/blob/14234594f44956e6f56f1f92952ce82db37ef4df/src/socket/handler.ts
   const [_, , , type] = url.pathname.split('/')
-  return url.hostname === 'github.com' && type === 'blob'
+  return url.hostname === GITHUB_HOST && type === 'blob'
 }
 
 export const isTweetUrl = (url: URL) => {
@@ -44,7 +50,7 @@ export const isTwitterProfileUrl = (url: URL) => {
 }
 
 export const isGithubUrl = (url: URL) => {
-  return url.hostname === 'github.com'
+  return url.hostname === GITHUB_HOST
 }
 
 export const isTwitterUrl = (url: URL) => {
@@ -142,5 +148,15 @@ export const parseZhihuProfileUrl = (url: URL) => {
   return {
     type,
     id,
+  }
+}
+
+export const parseGithubPrUrl = (url: URL) => {
+  const [_, owner, repo, type, pr] = url.pathname.split('/')
+  return {
+    owner,
+    repo,
+    type,
+    pr,
   }
 }

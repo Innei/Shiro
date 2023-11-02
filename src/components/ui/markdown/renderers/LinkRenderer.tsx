@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import dynamic from 'next/dynamic'
-import type { PropsWithChildren } from 'react'
+import type { FC, PropsWithChildren, ReactNode } from 'react'
 
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import {
@@ -9,12 +9,13 @@ import {
   isGistUrl,
   isGithubCommitUrl,
   isGithubFilePreviewUrl,
-  isGithubRepoUrl,
+  isGithubPrUrl,
+  isGithubUrl,
   isSelfArticleUrl,
   isTweetUrl,
   isYoutubeUrl,
   parseGithubGistUrl,
-  parseGithubRepoUrl,
+  parseGithubPrUrl,
   parseGithubTypedUrl,
 } from '~/lib/link-parser'
 
@@ -25,7 +26,11 @@ import { MLink } from '../../link/MLink'
 const Tweet = dynamic(() => import('~/components/widgets/shared/Tweet'), {
   ssr: false,
 })
-export const LinkRenderer = ({
+
+/**
+ * 单行链接的渲染
+ */
+export const BlockLinkRenderer = ({
   href,
   children,
 }: PropsWithChildren<{ href: string }>) => {
@@ -49,16 +54,21 @@ export const LinkRenderer = ({
   if (!url) {
     return fallbackElement
   }
+
   switch (true) {
+    case isGithubUrl(url): {
+      return (
+        <GithubUrlRenderL
+          url={url}
+          href={href}
+          fallbackElement={fallbackElement}
+        />
+      )
+    }
     case isTweetUrl(url): {
       const id = getTweetId(url)
 
       return <Tweet id={id} />
-    }
-
-    case isGithubRepoUrl(url): {
-      const { owner, repo } = parseGithubRepoUrl(url)
-      return <LinkCard id={`${owner}/${repo}`} source="gh" />
     }
 
     case isYoutubeUrl(url): {
@@ -75,56 +85,7 @@ export const LinkRenderer = ({
         </FixedRatioContainer>
       )
     }
-    case isGistUrl(url): {
-      const { owner, id } = parseGithubGistUrl(url)
-      return (
-        <>
-          <iframe
-            src={`https://gist.github.com/${owner}/${id}.pibb`}
-            className="h-[300px] w-full overflow-auto border-0"
-          />
 
-          <a
-            className="mt-2 flex space-x-2 center"
-            href={href}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <GitHubBrandIcon />
-            <span>{href}</span>
-          </a>
-        </>
-      )
-    }
-
-    case isGithubCommitUrl(url): {
-      const { owner, repo, id } = parseGithubTypedUrl(url)
-      return (
-        <>
-          <p>
-            <MLink href={href}>{href}</MLink>
-          </p>
-          <LinkCard id={`${owner}/${repo}/commit/${id}`} source="gh-commit" />
-        </>
-      )
-    }
-    case isGithubFilePreviewUrl(url): {
-      const { owner, repo, afterTypeString } = parseGithubTypedUrl(url)
-      const splitString = afterTypeString.split('/')
-      const ref = splitString[0]
-      const path = ref ? splitString.slice(1).join('/') : afterTypeString
-      return (
-        <>
-          <MLink href={href}>{href}</MLink>
-          <EmbedGithubFile
-            owner={owner}
-            repo={repo}
-            path={path}
-            refType={ref}
-          />
-        </>
-      )
-    }
     case isCodesandboxUrl(url): {
       // https://codesandbox.io/s/framer-motion-layoutroot-prop-forked-p39g96
       // to
@@ -170,4 +131,71 @@ const FixedRatioContainer = ({
       </div>
     </div>
   )
+}
+
+const GithubUrlRenderL: FC<{
+  url: URL
+  href?: string
+  fallbackElement: ReactNode
+}> = (props) => {
+  const { url, href = url.href, fallbackElement } = props
+  console.log('url', url.toString(), isGithubPrUrl(url))
+  switch (true) {
+    case isGistUrl(url): {
+      const { owner, id } = parseGithubGistUrl(url)
+      return (
+        <>
+          <iframe
+            src={`https://gist.github.com/${owner}/${id}.pibb`}
+            className="h-[300px] w-full overflow-auto border-0"
+          />
+
+          <a
+            className="mt-2 flex space-x-2 center"
+            href={href}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <GitHubBrandIcon />
+            <span>{href}</span>
+          </a>
+        </>
+      )
+    }
+    case isGithubPrUrl(url): {
+      const { owner, repo, pr } = parseGithubPrUrl(url)
+      return <LinkCard id={`${owner}/${repo}/${pr}`} source="gh-pr" />
+    }
+
+    case isGithubCommitUrl(url): {
+      const { owner, repo, id } = parseGithubTypedUrl(url)
+      return (
+        <>
+          <p>
+            <MLink href={href}>{href}</MLink>
+          </p>
+          <LinkCard id={`${owner}/${repo}/commit/${id}`} source="gh-commit" />
+        </>
+      )
+    }
+    case isGithubFilePreviewUrl(url): {
+      const { owner, repo, afterTypeString } = parseGithubTypedUrl(url)
+      const splitString = afterTypeString.split('/')
+      const ref = splitString[0]
+      const path = ref ? splitString.slice(1).join('/') : afterTypeString
+      return (
+        <>
+          <MLink href={href}>{href}</MLink>
+          <EmbedGithubFile
+            owner={owner}
+            repo={repo}
+            path={path}
+            refType={ref}
+          />
+        </>
+      )
+    }
+  }
+
+  return fallbackElement
 }
