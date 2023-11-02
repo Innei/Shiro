@@ -11,6 +11,8 @@ import { useIsClient } from '~/hooks/common/use-is-client'
 import { clsxm } from '~/lib/helper'
 import { useAppConfigSelector } from '~/providers/root/aggregation-data-provider'
 
+import { ActionAsideIcon } from './ActionAsideContainer'
+
 // TODO this component only use once in current page.
 const positionAtom = atom({
   x: 0,
@@ -119,7 +121,7 @@ const DonateButtonInternal: Component<HTMLMotionProps<'button'>> = ({
       }}
       {...props}
     >
-      <i className="icon-[mingcute--teacup-line] text-[24px] opacity-80 duration-200 hover:text-uk-brown-dark hover:opacity-100" />
+      <ActionAsideIcon className="icon-[mingcute--teacup-line] hover:text-uk-brown-dark" />
     </MotionButtonBase>
   )
 }

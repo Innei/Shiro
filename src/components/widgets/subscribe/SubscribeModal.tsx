@@ -12,7 +12,7 @@ import { apiClient } from '~/lib/request'
 import { toast } from '~/lib/toast'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
-import { useSubscribeStatusQuery } from './hooks'
+import { useIsEnableSubscribe, useSubscribeStatusQuery } from './hooks'
 
 interface SubscribeModalProps {
   onConfirm: () => void
@@ -61,6 +61,8 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
 }) => {
   const [state, dispatch] = useFormData()
 
+  const canSub = useIsEnableSubscribe()
+
   const stateRef = useStateToRef(state)
 
   useEffect(() => {
@@ -86,6 +88,10 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
   const query = useSubscribeStatusQuery()
 
   const handleSubList: React.EventHandler<any> = async (e) => {
+    if (!canSub) {
+      toast.error('订阅功能暂时没有开启哦')
+      return
+    }
     preventDefault(e)
     const { email, types } = state
     await apiClient.subscribe.subscribe(

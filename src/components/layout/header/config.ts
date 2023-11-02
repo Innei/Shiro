@@ -101,7 +101,7 @@ export const headerMenuConfig: IHeaderMenu[] = [
         icon: h(FaSolidComments),
       },
       {
-        title: '异次元之旅',
+        title: '跃迁',
         icon: h(RMixPlanet),
         path: 'https://travel.moe/go.html',
       },

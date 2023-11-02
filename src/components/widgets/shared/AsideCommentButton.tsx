@@ -4,6 +4,7 @@ import { MotionButtonBase } from '~/components/ui/button'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { useModalStack } from '~/providers/root/modal-stack-provider'
 
+import { ActionAsideIcon } from './ActionAsideContainer'
 import { CommentModal } from './CommentModal'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -28,7 +29,7 @@ export const AsideCommentButton = (
         })
       }}
     >
-      <i className="icon-[mingcute--comment-line] text-[24px] opacity-80 duration-200 hover:text-uk-pink-dark hover:opacity-100" />
+      <ActionAsideIcon className="icon-[mingcute--comment-line] hover:text-uk-pink-dark" />
     </MotionButtonBase>
   )
 }

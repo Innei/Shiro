@@ -15,7 +15,6 @@ import { ArticleRightAside } from '~/components/widgets/shared/ArticleRightAside
 import { BanCopyWrapper } from '~/components/widgets/shared/BanCopyWrapper'
 import { ReadIndicatorForMobile } from '~/components/widgets/shared/ReadIndicator'
 import { SummarySwitcher } from '~/components/widgets/shared/SummarySwitcher'
-import { SubscribeBell } from '~/components/widgets/subscribe'
 import { XLogInfoForNote } from '~/components/widgets/xlog'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
@@ -71,7 +70,7 @@ const NotePage = function (props: NoteModel) {
         </NoteHideIfSecret>
       </IndentArticleContainer>
 
-      <SubscribeBell defaultType="note_c" />
+      {/* <SubscribeBell defaultType="note_c" /> */}
       <NoteTopic />
       <XLogInfoForNote />
       <NoteFooterNavigationBarForMobile />

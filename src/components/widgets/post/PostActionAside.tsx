@@ -19,20 +19,34 @@ import {
 } from '~/providers/post/CurrentPostDataProvider'
 import { useModalStack } from '~/providers/root/modal-stack-provider'
 
-import { ActionAsideContainer } from '../shared/ActionAsideContainer'
+import {
+  ActionAsideContainer,
+  ActionAsideIcon,
+  asideButtonStyles,
+} from '../shared/ActionAsideContainer'
 import { AsideCommentButton } from '../shared/AsideCommentButton'
 import { AsideDonateButton } from '../shared/AsideDonateButton'
 import { ShareModal } from '../shared/ShareModal'
+import { usePresentSubscribeModal } from '../subscribe'
 
 export const PostActionAside: Component = ({ className }) => {
   return (
     <ActionAsideContainer className={className}>
       <LikeButton />
       <ShareButton />
-
+      <SubscribeButton />
       <AsideDonateButton />
       <PostAsideCommentButton />
     </ActionAsideContainer>
+  )
+}
+
+const SubscribeButton = () => {
+  const { present } = usePresentSubscribeModal(['post_c'])
+  return (
+    <MotionButtonBase className="flex flex-col space-y-2" onClick={present}>
+      <ActionAsideIcon className="icon-[material-symbols--notifications-active-outline] hover:text-accent" />
+    </MotionButtonBase>
   )
 }
 
@@ -96,7 +110,8 @@ const LikeButton = () => {
     >
       <m.i
         className={clsxm(
-          'relative text-[24px] opacity-80 duration-200 hover:text-uk-orange-light hover:opacity-100',
+          'hover:text-uk-orange-light hover:opacity-100',
+          asideButtonStyles.base,
 
           isLiked && 'text-uk-orange-dark',
         )}
@@ -163,7 +178,7 @@ const ShareButton = () => {
         }
       }}
     >
-      <i className="icon-[mingcute--share-forward-line] text-[24px] opacity-80 duration-200 hover:text-uk-cyan-light hover:opacity-100" />
+      <ActionAsideIcon className="icon-[mingcute--share-forward-line] hover:text-uk-cyan-light" />
     </MotionButtonBase>
   )
 }
