@@ -113,6 +113,7 @@ export const FABContainer = (props: {
     <div
       ref={fabContainerRef}
       data-testid="fab-container"
+      data-hide-print
       className={clsx(
         'font-lg fixed bottom-[calc(2rem+env(safe-area-inset-bottom))] left-[calc(100vw-3rem-1rem)] z-[9] flex flex-col',
         shouldHide ? 'translate-x-[calc(100%+2rem)]' : '',

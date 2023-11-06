@@ -33,7 +33,6 @@ export const XLogSummary: FC<XLogSummaryProps> = (props) => {
 
   let Inner: ReactNode = (
     <div
-      data-hide-print
       className={clsxm(
         `space-y-2 rounded-xl border border-slate-200 p-4 dark:border-neutral-800`,
         props.className,
@@ -74,7 +73,7 @@ export const XLogSummary: FC<XLogSummaryProps> = (props) => {
   }
 
   return (
-    <AutoResizeHeight duration={0.2} className="mt-4">
+    <AutoResizeHeight duration={0.2} className="mt-4 print:hidden">
       {Inner}
     </AutoResizeHeight>
   )
