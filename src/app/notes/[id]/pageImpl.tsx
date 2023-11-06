@@ -73,6 +73,7 @@ const NotePage = function (props: NoteModel) {
 
       {/* <SubscribeBell defaultType="note_c" /> */}
       <ClientOnly>
+        <div className="mt-8" data-hide-print />
         <NoteBottomBarAction />
         <NoteTopic />
         <XLogInfoForNote />
