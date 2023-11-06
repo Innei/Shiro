@@ -38,7 +38,7 @@ import { MFootNote } from './renderers/footnotes'
 import { MHeader } from './renderers/heading'
 import { MarkdownImage } from './renderers/image'
 import { MTag } from './renderers/tag'
-import { getFootNoteDomId } from './utils/get-id'
+import { getFootNoteDomId, getFootNoteRefDomId } from './utils/get-id'
 import { redHighlight } from './utils/redHighlight'
 
 const CodeBlock = dynamic(() => import('~/components/widgets/shared/CodeBlock'))
@@ -157,7 +157,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
 
           footnoteReference: {
             react(node, output, state) {
-              const { footnoteMap, target, content } = node
+              const { footnoteMap, content } = node
               const footnote = footnoteMap.get(content)
               const linkCardId = (() => {
                 try {
@@ -181,7 +181,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
                     as="span"
                     TriggerComponent={() => (
                       <a
-                        href={`#fn:${content}`}
+                        href={`${getFootNoteDomId(content)}`}
                         onClick={(e) => {
                           e.preventDefault()
                           const id = getFootNoteDomId(content)
@@ -192,7 +192,9 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
                           redHighlight(id)
                         }}
                       >
-                        <sup id={`fnref:${content}`}>{`[^${content}]`}</sup>
+                        <sup
+                          id={`${getFootNoteRefDomId(content)}`}
+                        >{`[^${content}]`}</sup>
                       </a>
                     )}
                     type="tooltip"
