@@ -11,25 +11,24 @@ export const MFootNote: FC<PropsWithChildren> = (props) => {
   return (
     <div className="children:my-2 children:leading-6 children:text-base mt-4">
       <Divider />
-      {React.Children.map(props.children, (child, index) => {
+      {React.Children.map(props.children, (child) => {
         if (React.isValidElement(child)) {
+          const id = child.props.id
           return (
-            <div id={`${getFootNoteDomId(index + 1)}`}>
+            <div id={`${getFootNoteDomId(id)}`}>
               <p className="inline">
-                {React.cloneElement(child as React.ReactElement<any>, {
+                {React.cloneElement(child as React.ReactElement, {
                   className: 'inline',
                 })}
                 <a
-                  href={`#${getFootNoteRefDomId(index + 1)}`}
+                  href={`#${getFootNoteRefDomId(id)}`}
                   onClick={(e) => {
                     e.preventDefault()
                     springScrollToElement(
-                      document.getElementById(
-                        `${getFootNoteRefDomId(index + 1)}`,
-                      )!,
+                      document.getElementById(`${getFootNoteRefDomId(id)}`)!,
                       -window.innerHeight / 2,
                     )
-                    redHighlight(`${getFootNoteRefDomId(index + 1)}`)
+                    redHighlight(`${getFootNoteRefDomId(id)}`)
                   }}
                   className="inline"
                 >
