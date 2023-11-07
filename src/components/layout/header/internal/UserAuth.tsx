@@ -6,13 +6,9 @@ import dynamic from 'next/dynamic'
 import { usePathname } from 'next/navigation'
 
 import { getAdminUrl, useIsLogged } from '~/atoms'
-import { UserArrowLeftIcon } from '~/components/icons/user-arrow-left'
 import { MotionButtonBase } from '~/components/ui/button'
-import { FloatPopover } from '~/components/ui/float-popover'
 import { urlBuilder } from '~/lib/url-builder'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
-
-import { HeaderActionButton } from './HeaderActionButton'
 
 const UserAuthFromIcon = dynamic(() =>
   import('./UserAuthFromIcon').then((mod) => mod.UserAuthFromIcon),
@@ -21,14 +17,9 @@ const UserAuthFromIcon = dynamic(() =>
 const SignedIn = dynamic(() =>
   import('@clerk/nextjs').then((mod) => mod.SignedIn),
 )
-const SignedOut = dynamic(() =>
-  import('@clerk/nextjs').then((mod) => mod.SignedOut),
-)
+
 const UserButton = dynamic(() =>
   import('@clerk/nextjs').then((mod) => mod.UserButton),
-)
-const SignInButton = dynamic(() =>
-  import('@clerk/nextjs').then((mod) => mod.SignInButton),
 )
 
 const OwnerAvatar = () => {
@@ -74,26 +65,6 @@ export function UserAuth() {
           </div>
         </div>
       </SignedIn>
-      <SignedOut key="sign-in">
-        <FloatPopover
-          TriggerComponent={TriggerComponent}
-          wrapperClassName="h-full w-full flex items-center justify-center"
-          type="tooltip"
-        >
-          登录
-        </FloatPopover>
-      </SignedOut>
     </AnimatePresence>
-  )
-}
-
-const TriggerComponent = () => {
-  const pathname = usePathname()
-  return (
-    <SignInButton mode="modal" redirectUrl={urlBuilder(pathname).href}>
-      <HeaderActionButton aria-label="Guest Login">
-        <UserArrowLeftIcon className="h-4 w-4" />
-      </HeaderActionButton>
-    </SignInButton>
   )
 }
