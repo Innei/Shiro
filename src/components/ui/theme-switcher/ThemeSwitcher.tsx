@@ -1,14 +1,11 @@
 'use client'
 
-import { useCallback } from 'react'
 import { flushSync } from 'react-dom'
-import { atom } from 'jotai'
 import { useTheme } from 'next-themes'
 import { tv } from 'tailwind-variants'
 
 import { useIsClient } from '~/hooks/common/use-is-client'
-import { isUndefined } from '~/lib/_'
-import { jotaiStore } from '~/lib/store'
+import { transitionViewIfSupported } from '~/lib/dom'
 
 const styles = tv({
   base: 'rounded-inherit inline-flex h-[32px] w-[32px] items-center justify-center border-0 text-current',
@@ -88,16 +85,9 @@ const DarkIcon = () => {
   )
 }
 
-const mousePositionAtom = atom({ x: 0, y: 0 })
 export const ThemeSwitcher = () => {
-  const handleClient: React.MouseEventHandler = useCallback((e) => {
-    jotaiStore.set(mousePositionAtom, {
-      x: e.clientX,
-      y: e.clientY,
-    })
-  }, [])
   return (
-    <div className="relative inline-block" onClick={handleClient}>
+    <div className="relative inline-block">
       <ThemeIndicator />
       <ButtonGroup />
     </div>
@@ -125,48 +115,9 @@ const ButtonGroup = () => {
   const { setTheme } = useTheme()
 
   const buildThemeTransition = (theme: 'light' | 'dark' | 'system') => {
-    if (
-      !('startViewTransition' in document) ||
-      window.matchMedia(`(prefers-reduced-motion: reduce)`).matches
-    ) {
-      setTheme(theme)
-      return
-    }
-
-    const $document = document.documentElement
-
-    const mousePosition = jotaiStore.get(mousePositionAtom)
-    const { x, y } = mousePosition
-
-    if (isUndefined(x) && isUndefined(y)) return
-
-    const endRadius = Math.hypot(
-      Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y),
-    )
-
-    document
-      .startViewTransition(() => {
-        flushSync(() => setTheme(theme))
-      })
-      ?.ready.then(() => {
-        if (mousePosition.x === 0) return
-        const clipPath = [
-          `circle(0px at ${x}px ${y}px)`,
-          `circle(${endRadius}px at ${x}px ${y}px)`,
-        ]
-
-        $document.animate(
-          {
-            clipPath,
-          },
-          {
-            duration: 300,
-            easing: 'ease-in',
-            pseudoElement: '::view-transition-new(root)',
-          },
-        )
-      })
+    transitionViewIfSupported(() => {
+      flushSync(() => setTheme(theme))
+    })
   }
 
   return (

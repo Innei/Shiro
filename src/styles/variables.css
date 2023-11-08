@@ -34,24 +34,34 @@ html {
   color: theme(colors.always.neutral.800);
 }
 
-::view-transition-old(root),
 ::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
+  animation: turnOff 800ms ease-in-out;
 }
 ::view-transition-old(root) {
-  z-index: 9999;
-}
-::view-transition-new(root) {
-  z-index: 1;
-}
-[data-theme='dark']::view-transition-old(root) {
-  z-index: 1;
-}
-[data-theme='dark']::view-transition-new(root) {
-  z-index: 9999;
+  animation: none;
 }
 
-[data-theme='light']::view-transition-new(root) {
-  z-index: 9999;
+@keyframes turnOn {
+  0% {
+    clip-path: polygon(0% 0%, 100% 0, 100% 0, 0 0);
+  }
+  100% {
+    clip-path: polygon(0% 0%, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+[data-theme='dark']::view-transition-new(root) {
+  animation: turnOn 800ms ease-in-out;
+}
+::view-transition-old(root) {
+  animation: none;
+}
+
+@keyframes turnOff {
+  0% {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+  }
+  100% {
+    clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 0);
+  }
 }

@@ -12,7 +12,7 @@ export const MarkdownCustomize: DocumentComponent = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <main className="relative m-auto mt-6 max-w-[800px] border border-accent/10">
+        <main className="relative m-auto mt-6 max-w-[800px]">
           <Markdown
             extendsRules={{
               codeBlock: {
