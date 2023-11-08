@@ -145,7 +145,8 @@ export const eventHandler = (
       break
     }
 
-    case EventTypes.PAGE_UPDATED: {
+    case EventTypes.PAGE_UPDATED:
+    case EventTypes.PAGE_UPDATE: {
       const { slug } = data
       if (getCurrentPageData()?.slug === slug) {
         setCurrentPageData((draft) => {
