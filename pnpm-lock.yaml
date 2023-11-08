@@ -36,17 +36,17 @@ dependencies:
     specifier: 2.0.0
     version: 2.0.0(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
   '@tanstack/query-async-storage-persister':
-    specifier: 5.7.2
-    version: 5.7.2
+    specifier: 5.8.1
+    version: 5.8.1
   '@tanstack/react-query':
-    specifier: 5.7.2
-    version: 5.7.2(react-dom@18.2.0)(react@18.2.0)
+    specifier: 5.8.1
+    version: 5.8.1(react-dom@18.2.0)(react@18.2.0)
   '@tanstack/react-query-devtools':
-    specifier: 5.7.4
-    version: 5.7.4(@tanstack/react-query@5.7.2)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 5.8.1
+    version: 5.8.1(@tanstack/react-query@5.8.1)(react-dom@18.2.0)(react@18.2.0)
   '@tanstack/react-query-persist-client':
-    specifier: 5.7.2
-    version: 5.7.2(@tanstack/react-query@5.7.2)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 5.8.1
+    version: 5.8.1(@tanstack/react-query@5.8.1)(react-dom@18.2.0)(react@18.2.0)
   '@vercel/analytics':
     specifier: 1.1.1
     version: 1.1.1
@@ -111,8 +111,8 @@ dependencies:
     specifier: 0.2.1
     version: 0.2.1(next@14.0.1)(react-dom@18.2.0)(react@18.2.0)
   openai:
-    specifier: 4.15.4
-    version: 4.15.4
+    specifier: 4.16.1
+    version: 4.16.1
   qrcode.react:
     specifier: 3.1.0
     version: 3.1.0(react@18.2.0)
@@ -185,8 +185,8 @@ devDependencies:
     specifier: 1.1.3
     version: 1.1.3
   '@types/node':
-    specifier: 20.8.10
-    version: 20.8.10
+    specifier: 20.9.0
+    version: 20.9.0
   '@types/react':
     specifier: 18.2.37
     version: 18.2.37
@@ -2257,54 +2257,54 @@ packages:
       tailwindcss: 3.3.5
     dev: true
 
-  /@tanstack/query-async-storage-persister@5.7.2:
-    resolution: {integrity: sha512-8uzYKXhMbrW7qPCSZDcV19yCanGO8NVbi3GGK0k6Q9E7SOxkV92NjofzIgbSh+mwfAHuHpusPxWSDxqfDSBpNw==}
+  /@tanstack/query-async-storage-persister@5.8.1:
+    resolution: {integrity: sha512-lh0zjazEeC/PRDDCuYYltrWJEBUbAiHRG+2KQRpmEtK+Z4VAfWrrGoUcmfNIi8B32yJCirxxISIahy0itlRycQ==}
     dependencies:
-      '@tanstack/query-persist-client-core': 5.7.2
+      '@tanstack/query-persist-client-core': 5.8.1
     dev: false
 
-  /@tanstack/query-core@5.7.2:
-    resolution: {integrity: sha512-vPYoNCOI8W+jFLnyEAYQL7/qURE7XzVE/TvkmNSko8LU55jFshee342p4GNFOTsYFgJty7Da5bw4m2P3vaKWMw==}
+  /@tanstack/query-core@5.8.1:
+    resolution: {integrity: sha512-Y0enatz2zQXBAsd7XmajlCs+WaitdR7dIFkqz9Xd7HL4KV04JOigWVreYseTmNH7YFSBSC/BJ9uuNp1MAf+GfA==}
     dev: false
 
   /@tanstack/query-devtools@5.7.4:
     resolution: {integrity: sha512-wx+gwRZUZq7ISXKFJgaAYvVPt+DwTaLKlzaVLB9SLBFIzcL8Jz8jDQGR9ZQp7/O7SVj0TohS8aFuiiGzQUvWyg==}
     dev: false
 
-  /@tanstack/query-persist-client-core@5.7.2:
-    resolution: {integrity: sha512-MrQeL/iwG2jbzXQhiSjkmATeerCVIW5vJhaBTOnKPYrGmhzRt8CSOOGRjSSEyO3RjLCA+0OlirjdWKDDc4Od6w==}
+  /@tanstack/query-persist-client-core@5.8.1:
+    resolution: {integrity: sha512-V7Nt1V3jTgoPt2l0/XgHAHyMrbGynx4Wzo8EGkDjxv8ih/jDQt8yMvyk99ZqvtU80ch1DCElqIM8n3CHcV/KrA==}
     dependencies:
-      '@tanstack/query-core': 5.7.2
+      '@tanstack/query-core': 5.8.1
     dev: false
 
-  /@tanstack/react-query-devtools@5.7.4(@tanstack/react-query@5.7.2)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-yzpXyiPyZHJP1zaX2qpEbjqQ64vrgPVdkW3PGqtfyYwvhepLmyEEI2DZF+lydMaLrEfXqPycOrAiHKeWcuROVQ==}
+  /@tanstack/react-query-devtools@5.8.1(@tanstack/react-query@5.8.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-sE6El2Yj98LlPDzf2Ju9IjWPZvqh2RgoQZ+Jomrfm80uA1HlHUvhXuOB0mOcyc706ZpNpL54no59JbgpHcMuUg==}
     peerDependencies:
-      '@tanstack/react-query': ^5.7.2
+      '@tanstack/react-query': ^5.8.1
       react: ^18.0.0
       react-dom: ^18.0.0
     dependencies:
       '@tanstack/query-devtools': 5.7.4
-      '@tanstack/react-query': 5.7.2(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-query': 5.8.1(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/react-query-persist-client@5.7.2(@tanstack/react-query@5.7.2)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-Qx+u7Jww98tVVg5nY1WnO4ki4gWTM1S0BBydry4G99g3fqSWwYCTWBYgOkiJfHktqoqfJL9X7MFsn8EdNQCMsw==}
+  /@tanstack/react-query-persist-client@5.8.1(@tanstack/react-query@5.8.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-rH562Zgox1RBFu7UEaaBgNcJjETGeGwZa/T+pktul6aPdbCG0rTV6XBq0Uda227bTi4V1o/s3RLXKIBZs2j21A==}
     peerDependencies:
-      '@tanstack/react-query': ^5.7.2
+      '@tanstack/react-query': ^5.8.1
       react: ^18.0.0
       react-dom: ^18.0.0
     dependencies:
-      '@tanstack/query-persist-client-core': 5.7.2
-      '@tanstack/react-query': 5.7.2(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/query-persist-client-core': 5.8.1
+      '@tanstack/react-query': 5.8.1(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/react-query@5.7.2(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-NMsfz0Wd3VPDvSpX9sw2x07r0kf9HwuAlNNHQvwMUHM7EcuVN/LYmlmTe40dWER1c/92Jhc5LODdtW0PyvHsFg==}
+  /@tanstack/react-query@5.8.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-YMagxS8iNPOLg0pK6WOjdSDlAvWKOf69udLOwQrBVmkC2SRLNLko7elo5Ro3ptlJkXvTVHidxC/h5KGi5bH1XQ==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -2315,7 +2315,7 @@ packages:
       react-native:
         optional: true
     dependencies:
-      '@tanstack/query-core': 5.7.2
+      '@tanstack/query-core': 5.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
@@ -2324,13 +2324,13 @@ packages:
     resolution: {integrity: sha512-N7UDG0/xiPQa2D/XrVJXjkWbpqHCd2sBaB32ggRF2l83RhPfamgKGF8gwwqyksS95qUS5ZYF9aF+lLPRlwI2UA==}
     dependencies:
       '@types/connect': 3.4.37
-      '@types/node': 20.8.10
+      '@types/node': 20.9.0
     dev: false
 
   /@types/connect@3.4.37:
     resolution: {integrity: sha512-zBUSRqkfZ59OcwXon4HVxhx5oWCJmc0OtBTK05M+p0dYjgN6iTwIL2T/WbsQZrEsdnwaF9cWQ+azOnpPvIqY3Q==}
     dependencies:
-      '@types/node': 20.8.10
+      '@types/node': 20.9.0
     dev: false
 
   /@types/cookies@0.7.7:
@@ -2339,7 +2339,7 @@ packages:
       '@types/connect': 3.4.37
       '@types/express': 4.17.14
       '@types/keygrip': 1.0.4
-      '@types/node': 20.8.10
+      '@types/node': 20.9.0
     dev: false
 
   /@types/d3-scale-chromatic@3.0.1:
@@ -2365,7 +2365,7 @@ packages:
   /@types/express-serve-static-core@4.17.39:
     resolution: {integrity: sha512-BiEUfAiGCOllomsRAZOiMFP7LAnrifHpt56pc4Z7l9K6ACyN06Ns1JLMBxwkfLOjJRlSf06NwWsT7yzfpaVpyQ==}
     dependencies:
-      '@types/node': 20.8.10
+      '@types/node': 20.9.0
       '@types/qs': 6.9.9
       '@types/range-parser': 1.2.6
       '@types/send': 0.17.3
@@ -2384,7 +2384,7 @@ packages:
     resolution: {integrity: sha512-sF59BlXtUdzEAL1u0MSvuzWd7PdZvZEtnaVkzX5mjpdWTJ8brG0jUqve3jPCzSzvAKKMHTG8F8o/WMQLtleZdQ==}
     dependencies:
       '@types/jsonfile': 6.1.3
-      '@types/node': 20.8.10
+      '@types/node': 20.9.0
     dev: true
 
   /@types/http-errors@2.0.3:
@@ -2406,7 +2406,7 @@ packages:
   /@types/jsonfile@6.1.3:
     resolution: {integrity: sha512-/yqTk2SZ1wIezK0hiRZD7RuSf4B3whFxFamB1kGStv+8zlWScTMcHanzfc0XKWs5vA1TkHeckBlOyM8jxU8nHA==}
     dependencies:
-      '@types/node': 20.8.10
+      '@types/node': 20.9.0
     dev: true
 
   /@types/keygrip@1.0.4:
@@ -2442,14 +2442,14 @@ packages:
   /@types/node-fetch@2.6.2:
     resolution: {integrity: sha512-DHqhlq5jeESLy19TYhLakJ07kNumXWjcDdxXsLUMJZ6ue8VZJj4kLPQVE/2mdHh3xZziNF1xppu5lwmS53HR+A==}
     dependencies:
-      '@types/node': 20.8.10
+      '@types/node': 20.9.0
       form-data: 3.0.1
     dev: false
 
   /@types/node-fetch@2.6.7:
     resolution: {integrity: sha512-lX17GZVpJ/fuCjguZ5b3TjEbSENxmEk1B2z02yoXSK9WMEWRivhdSY73wWMn6bpcCDAOh6qAdktpKHIlkDk2lg==}
     dependencies:
-      '@types/node': 20.8.10
+      '@types/node': 20.9.0
       form-data: 4.0.0
     dev: false
 
@@ -2462,8 +2462,8 @@ packages:
     dependencies:
       undici-types: 5.26.5
 
-  /@types/node@20.8.10:
-    resolution: {integrity: sha512-TlgT8JntpcbmKUFzjhsyhGfP2fsiz1Mv56im6enJ905xG1DAYesxJaeSbGqQmAw8OWPdhyJGhGSQGKRNJ45u9w==}
+  /@types/node@20.9.0:
+    resolution: {integrity: sha512-nekiGu2NDb1BcVofVcEKMIwzlx4NjHlcjhoxxKBNLtz15Y1z7MYf549DFvkHSId02Ax6kGwWntIBPC3l/JZcmw==}
     dependencies:
       undici-types: 5.26.5
 
@@ -2478,7 +2478,7 @@ packages:
   /@types/pg@8.6.6:
     resolution: {integrity: sha512-O2xNmXebtwVekJDD+02udOncjVcMZQuTEQEMpKJ0ZRf5E7/9JJX3izhKUcUifBkyKpljyUM6BTgy2trmviKlpw==}
     dependencies:
-      '@types/node': 20.8.10
+      '@types/node': 20.9.0
       pg-protocol: 1.6.0
       pg-types: 2.2.0
     dev: false
@@ -2525,7 +2525,7 @@ packages:
     resolution: {integrity: sha512-/7fKxvKUoETxjFUsuFlPB9YndePpxxRAOfGC/yJdc9kTjTeP5kRCTzfnE8kPUKCeyiyIZu0YQ76s50hCedI1ug==}
     dependencies:
       '@types/mime': 1.3.4
-      '@types/node': 20.8.10
+      '@types/node': 20.9.0
     dev: false
 
   /@types/serve-static@1.15.4:
@@ -2533,7 +2533,7 @@ packages:
     dependencies:
       '@types/http-errors': 2.0.3
       '@types/mime': 3.0.3
-      '@types/node': 20.8.10
+      '@types/node': 20.9.0
     dev: false
 
   /@types/unist@2.0.9:
@@ -4166,7 +4166,7 @@ packages:
     resolution: {integrity: sha512-EzV94NYKoO09GLXGjXj9JIlXijVck4ONSr5wiCWDvhsvj5jxSrzTmRU/9C1DyB6uToszLs8aifA6NQ7lEQdvFw==}
     engines: {node: '>= 0.8'}
     dependencies:
-      '@types/node': 20.8.10
+      '@types/node': 20.9.0
       require-like: 0.1.2
     dev: true
 
@@ -5789,8 +5789,8 @@ packages:
       mimic-fn: 4.0.0
     dev: true
 
-  /openai@4.15.4:
-    resolution: {integrity: sha512-EnlSl1p8n7Q/HnBf4+VOEcYloBKKe23sKOFfH/WJcw+XVyWav4lwDK4wCmsUY1wS4RFOdbA2EwBUB2p5WEPmoQ==}
+  /openai@4.16.1:
+    resolution: {integrity: sha512-Gr+uqUN1ICSk6VhrX64E+zL7skjI1TgPr/XUN+ZQuNLLOvx15+XZulx/lSW4wFEAQzgjBDlMBbBeikguGIjiMg==}
     hasBin: true
     dependencies:
       '@types/node': 18.18.7
