@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useLayoutEffect, useState } from 'react'
 import clsx from 'clsx'
 import type { FC, ReactNode } from 'react'
 
+import { useIsPrintMode } from '~/atoms'
 import { IcRoundKeyboardDoubleArrowRight } from '~/components/icons/arrow'
 
 import { Collapse } from '../../collapse'
@@ -10,6 +11,11 @@ export const MDetails: FC<{ children: ReactNode[] }> = (props) => {
   const [open, setOpen] = useState(false)
 
   const $head = props.children[0]
+
+  const isInPrint = useIsPrintMode()
+  useLayoutEffect(() => {
+    isInPrint && setOpen(true)
+  }, [isInPrint])
 
   const handleOpen = useCallback(() => {
     setOpen((o) => !o)

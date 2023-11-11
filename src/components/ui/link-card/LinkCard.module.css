@@ -4,13 +4,13 @@
   box-sizing: border-box;
   flex-direction: row;
   align-items: center;
-  width: 390px;
-  min-height: 84px;
-  border-radius: 8px;
+  width: 27.857rem;
+  min-height: 6rem;
+  border-radius: 0.571rem;
   max-width: 100%;
   overflow: hidden;
-  margin: 16px auto;
-  padding: 12px 18px;
+  margin: 1.143rem auto;
+  padding: 0.857rem 1.286rem;
   backdrop-filter: blur(20px) saturate(180%);
   transition: background-color 0.2s ease-in-out;
 
@@ -28,62 +28,62 @@
 }
 
 .title {
-  line-height: 20px;
+  line-height: 1.429rem;
   display: -webkit-box;
   text-overflow: ellipsis;
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  font-size: 15px;
+  font-size: 1.071rem;
   font-weight: 500;
-  margin-bottom: 2px;
+  margin-bottom: 0.143rem;
 }
 
 .desc {
   @apply truncate text-neutral-500 dark:text-neutral-400;
 
   display: block;
-  margin-top: 6px;
+  margin-top: 0.429rem;
   min-width: 0;
-  font-size: 13px;
-  height: 18px;
-  line-height: 18px;
+  font-size: 1rem;
+  height: 1.143rem;
+  line-height: 1.143rem;
 }
 
 .image {
   @apply aspect-square flex-shrink-0 bg-cover bg-center bg-no-repeat;
   @apply bg-gray-50 dark:bg-neutral-700;
 
-  height: 60px;
-  width: 60px;
-  margin-left: 20px;
-  border-radius: 8px;
+  height: 3rem;
+  width: 3rem;
+  margin-left: 0.1rem;
+  border-radius: 0.041rem;
 }
 
 .skeleton {
   & .title,
   & .desc {
-    border-radius: 99px;
+    border-radius: 7.071rem;
   }
 
   & .title {
-    width: 50%;
-    height: 20px;
+    width: 3.571rem;
+    height: 1.429rem;
 
     @apply bg-gray-200 dark:bg-neutral-700;
   }
 
   & .desc {
     width: 100%;
-    margin-top: 12px;
-    height: 14px;
+    margin-top: 0.857rem;
+    height: 1rem;
 
     @apply bg-gray-200 dark:bg-neutral-700;
   }
 
   & .image {
-    height: 50px;
-    width: 50px;
+    height: 3.571rem;
+    width: 3.571rem;
 
     @apply bg-gray-200 dark:bg-neutral-700;
   }

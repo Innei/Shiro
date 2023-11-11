@@ -11,8 +11,8 @@ const CommentSkeletonSingle = () => {
             <span className="flex flex-grow items-center gap-2">
               <span className="ml-2 h-4 w-20 bg-gray-300 dark:bg-neutral-600" />
               <span className="flex select-none items-center space-x-2">
-                <span className="inline-flex h-4 w-20 bg-gray-300 text-[10px] font-medium opacity-40 dark:bg-neutral-600" />
-                <span className="h-4 w-20 bg-gray-300 text-[10px] opacity-30 dark:bg-neutral-600" />
+                <span className="inline-flex h-4 w-20 bg-gray-300 text-[0.71rem] font-medium opacity-40 dark:bg-neutral-600" />
+                <span className="h-4 w-20 bg-gray-300 text-[0.71rem] opacity-30 dark:bg-neutral-600" />
               </span>
             </span>
           </span>

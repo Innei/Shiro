@@ -22,7 +22,7 @@ export const CommentReplyButton: FC<{
       <button
         aria-label="回复"
         className={clsx(
-          'absolute bottom-0 right-0 translate-x-2/3 translate-y-1/4 text-[12px] opacity-90',
+          'absolute bottom-0 right-0 translate-x-2/3 translate-y-1/4 text-xs opacity-90',
           'aspect-square rounded-full',
           'box-content flex h-6 w-6 p-[2px] center',
           'border border-slate-200 bg-zinc-100 dark:border-neutral-700 dark:bg-gray-800',
