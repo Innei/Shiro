@@ -107,7 +107,7 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
 
   return (
     <figure>
-      <span className="relative flex justify-center">
+      <span className="relative flex justify-center" data-hide-print>
         <LazyLoad placeholder={placeholder} offset={30}>
           <span>
             {imageLoadStatus !== ImageLoadStatus.Loaded && placeholder}
@@ -148,6 +148,12 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
         </LazyLoad>
       </span>
 
+      <img
+        className="max-w-1/3 hidden print:block"
+        src={src}
+        alt={alt || title}
+      />
+
       {!!figcaption && (
         <figcaption className="mt-1 flex flex-col items-center justify-center">
           <Divider className="w-[80px] opacity-80" />
@@ -155,14 +161,6 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
         </figcaption>
       )}
     </figure>
-  )
-}
-
-export const ZoomedImage: Component<TImageProps> = (props) => {
-  return (
-    <span className="block text-center">
-      <ImageLazy {...props} zoom />
-    </span>
   )
 }
 

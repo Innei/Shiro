@@ -18,6 +18,10 @@
 
       /* @apply border-accent/20 dark:border-accent/20; */
       @apply border-accent/10;
+
+      @media print {
+        @apply border-none;
+      }
     }
 
     blockquote {
@@ -87,9 +91,7 @@
 .with-serif {
   :global {
     main {
-      @apply font-serif;
-
-      font-size: 16px;
+      @apply font-serif text-lg leading-[1.8];
     }
 
     strong,

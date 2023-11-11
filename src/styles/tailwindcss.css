@@ -7,6 +7,12 @@ html {
   line-height: 1.5;
 }
 
+@media print {
+  html {
+    font-size: 12px;
+  }
+}
+
 @media (min-width: 2160px) {
   html {
     font-size: 15px;
@@ -51,6 +57,13 @@ html.noise body::before {
   background-repeat: repeat;
 }
 
+@media print {
+  /* styles for print */
+  html.noise body::before {
+    display: none;
+  }
+}
+
 * {
   tab-size: 2;
 }
@@ -69,7 +82,7 @@ html.noise body::before {
 
 input,
 textarea {
-  font-size: 16px;
+  font-size: max(16px, 1rem);
 }
 
 a {

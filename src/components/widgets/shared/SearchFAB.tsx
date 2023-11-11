@@ -232,7 +232,7 @@ const SearchPanelImpl = () => {
     >
       <input
         autoFocus
-        className="w-full border-b border-zinc-200 bg-transparent p-4 px-5 text-[16px] leading-4 dark:border-neutral-700"
+        className="w-full border-b border-zinc-200 bg-transparent p-4 px-5 text-lg leading-4 dark:border-neutral-700"
         placeholder="Search..."
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}

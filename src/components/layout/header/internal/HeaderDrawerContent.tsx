@@ -27,7 +27,7 @@ export const HeaderDrawerContent = () => {
             key={section.path}
           >
             <LinkInternal className="block" href={section.path}>
-              <span className="flex items-center space-x-2 py-2 text-[16px]">
+              <span className="flex items-center space-x-2 py-2 text-lg">
                 <i>{section.icon}</i>
                 <h2>{section.title}</h2>
               </span>

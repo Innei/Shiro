@@ -20,7 +20,7 @@ export const CommentAreaRoot: FC<
   // 兜下后端的数据，默认开
   if (!allowComment && typeof allowComment !== 'undefined') {
     return (
-      <p className="mt-[100px] text-center text-xl font-medium">评论已关闭</p>
+      <p className="mt-[7.1rem] text-center text-xl font-medium">评论已关闭</p>
     )
   }
 

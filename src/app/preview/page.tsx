@@ -173,7 +173,7 @@ const NotePreview = () => {
           <IndentArticleContainer>
             <header>
               <NoteTitle />
-              <span className="flex flex-wrap items-center text-[13px] text-neutral-content/60">
+              <span className="flex flex-wrap items-center text-sm text-neutral-content/60">
                 <NoteHeaderDate />
                 <NoteMetaBar />
               </span>

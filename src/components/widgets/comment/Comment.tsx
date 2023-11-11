@@ -111,14 +111,14 @@ export const Comment: Component<{
                 <span className="flex flex-grow flex-wrap items-center gap-2">
                   {authorElement}
                   <span className="flex min-w-0 flex-shrink select-none flex-wrap items-center space-x-2 self-end">
-                    <span className="inline-flex flex-shrink-0 text-[10px] font-medium opacity-40">
+                    <span className="inline-flex flex-shrink-0 text-[0.71rem] font-medium opacity-40">
                       <RelativeTime date={comment.created} />
                     </span>
-                    <span className="break-all text-[10px] opacity-30">
+                    <span className="break-all text-[0.71rem] opacity-30">
                       {key}
                     </span>
                     {!!location && (
-                      <span className="min-w-0 max-w-full truncate break-all text-[10px] opacity-[0.35]">
+                      <span className="min-w-0 max-w-full truncate break-all text-[0.71rem] opacity-[0.35]">
                         来自：{location}
                       </span>
                     )}
