@@ -215,7 +215,7 @@ const SearchPanelImpl = () => {
     <m.div
       className={clsx(
         'h-[600px] max-h-[80vh] w-[800px] max-w-[100vw] rounded-none md:h-screen md:max-h-[60vh] md:max-w-[80vw]',
-        'min-h-50 flex flex-col overflow-hidden bg-slate-50/80 shadow-2xl backdrop-blur-md dark:bg-neutral-900/80 md:rounded-xl',
+        'min-h-50 flex flex-col bg-slate-50/80 shadow-2xl backdrop-blur-md dark:bg-neutral-900/80 md:rounded-xl',
         'border-0 border-zinc-200 dark:border-zinc-800 md:border',
       )}
       onKeyDown={handleKeyDown}
@@ -232,7 +232,7 @@ const SearchPanelImpl = () => {
     >
       <input
         autoFocus
-        className="w-full border-b border-zinc-200 bg-transparent p-4 px-5 text-lg leading-4 dark:border-neutral-700"
+        className="w-full flex-shrink-0 border-b border-zinc-200 bg-transparent p-4 px-5 text-lg leading-4 dark:border-neutral-700"
         placeholder="Search..."
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
@@ -253,8 +253,8 @@ const SearchPanelImpl = () => {
         }}
       />
       <div />
-      <div className="overflow-overlay relative flex-shrink flex-grow">
-        <ul className="h-full px-3 py-4" ref={listRef}>
+      <div className="relative h-0 flex-shrink flex-grow overflow-auto">
+        <ul className="h-full px-2 py-4" ref={listRef}>
           {data.length === 0 && !isLoading ? (
             <div className="flex h-full items-center justify-center">
               <div className="flex flex-col items-center space-y-2">
@@ -278,7 +278,7 @@ const SearchPanelImpl = () => {
         </ul>
       </div>
 
-      <div className="flex items-center justify-end px-4 py-2">
+      <div className="flex flex-shrink-0 items-center justify-end px-4 py-2">
         <a
           href="https://www.algolia.com"
           target="_blank"
@@ -310,7 +310,7 @@ const SearchItem = memo(function Item({
   return (
     <li
       className={clsx(
-        'relative flex w-full justify-between px-2',
+        'relative flex w-full justify-between px-1',
         'before:absolute before:inset-0 before:rounded-md before:content-auto',
         'before:z-0 hover:before:bg-zinc-200/80 dark:hover:before:bg-zinc-800/80',
         isSelect && 'before:bg-zinc-200/80 dark:before:bg-zinc-800/80',
