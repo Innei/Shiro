@@ -74,6 +74,7 @@ const SearchPanel = () => {
 
   return (
     <Dialog.Root open>
+      {panelOpen && <Dialog.Overlay />}
       <AnimatePresence>
         {panelOpen && (
           <Dialog.Portal>
