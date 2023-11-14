@@ -21,6 +21,7 @@ export const PostTagsFAB = () => {
       onClick={() => {
         present({
           content: TagsModal,
+          clickOutsideToDismiss: true,
           title: '标签云',
         })
       }}

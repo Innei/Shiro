@@ -19,6 +19,7 @@ import {
   useCurrentPostDataSelector,
 } from '~/providers/post/CurrentPostDataProvider'
 import { useModalStack } from '~/providers/root/modal-stack-provider'
+import { useIsEoFWrappedElement } from '~/providers/shared/WrappedElementProvider'
 
 import {
   ActionAsideContainer,
@@ -72,7 +73,10 @@ const PostAsideCommentButton = () => {
         id: data?.id,
       }
     }) || {}
+  const isEof = useIsEoFWrappedElement()
   if (!id) return null
+  if (isEof) return null
+
   return <AsideCommentButton refId={id} title={title!} />
 }
 
