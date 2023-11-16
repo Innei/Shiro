@@ -16,7 +16,7 @@ import { noopObj } from '~/lib/noop'
 import { springScrollToElement } from '~/lib/scroller'
 
 import { Gallery } from '../gallery'
-import { LinkCard } from '../link-card'
+import { LinkCard, LinkCardSource } from '../link-card'
 import { MLink } from '../link/MLink'
 import styles from './markdown.module.css'
 import { AlertsRule } from './parsers/alert'
@@ -201,7 +201,12 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
                   >
                     {footnote?.footnote?.substring(1)}
                   </FloatPopover>
-                  {linkCardId && <LinkCard id={linkCardId} source="mx-space" />}
+                  {linkCardId && (
+                    <LinkCard
+                      id={linkCardId}
+                      source={LinkCardSource.MixSpace}
+                    />
+                  )}
                 </Fragment>
               )
             },

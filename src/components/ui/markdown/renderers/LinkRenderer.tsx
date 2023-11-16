@@ -10,6 +10,7 @@ import {
   isGithubCommitUrl,
   isGithubFilePreviewUrl,
   isGithubPrUrl,
+  isGithubRepoUrl,
   isGithubUrl,
   isSelfArticleUrl,
   isTweetUrl,
@@ -20,7 +21,7 @@ import {
 } from '~/lib/link-parser'
 
 import { EmbedGithubFile } from '../../../widgets/shared/EmbedGithubFile'
-import { LinkCard } from '../../link-card'
+import { LinkCard, LinkCardSource } from '../../link-card'
 import { MLink } from '../../link/MLink'
 
 const Tweet = dynamic(() => import('~/components/widgets/shared/Tweet'), {
@@ -102,7 +103,9 @@ export const BlockLinkRenderer = ({
       )
     }
     case isSelfArticleUrl(url): {
-      return <LinkCard source="self" id={url.pathname.slice(1)} />
+      return (
+        <LinkCard source={LinkCardSource.Self} id={url.pathname.slice(1)} />
+      )
     }
 
     default:
@@ -139,8 +142,12 @@ const GithubUrlRenderL: FC<{
   fallbackElement: ReactNode
 }> = (props) => {
   const { url, href = url.href, fallbackElement } = props
-  console.log('url', url.toString(), isGithubPrUrl(url))
+
   switch (true) {
+    case isGithubRepoUrl(url): {
+      const { owner, repo } = parseGithubTypedUrl(url)
+      return <LinkCard id={`${owner}/${repo}`} source={LinkCardSource.GHRepo} />
+    }
     case isGistUrl(url): {
       const { owner, id } = parseGithubGistUrl(url)
       return (
@@ -164,7 +171,9 @@ const GithubUrlRenderL: FC<{
     }
     case isGithubPrUrl(url): {
       const { owner, repo, pr } = parseGithubPrUrl(url)
-      return <LinkCard id={`${owner}/${repo}/${pr}`} source="gh-pr" />
+      return (
+        <LinkCard id={`${owner}/${repo}/${pr}`} source={LinkCardSource.GHPr} />
+      )
     }
 
     case isGithubCommitUrl(url): {
@@ -174,7 +183,10 @@ const GithubUrlRenderL: FC<{
           <p>
             <MLink href={href}>{href}</MLink>
           </p>
-          <LinkCard id={`${owner}/${repo}/commit/${id}`} source="gh-commit" />
+          <LinkCard
+            id={`${owner}/${repo}/commit/${id}`}
+            source={LinkCardSource.GHCommit}
+          />
         </>
       )
     }

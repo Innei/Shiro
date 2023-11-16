@@ -11,6 +11,7 @@ export const fetchGitHubApi = <T>(path: string) => {
       if (res.status === 403) {
         throw new Error('GitHub API rate limit exceeded')
       }
+
       return res.json()
     }),
     fetch(reverseProxy + nextPath).then((res) => res.json()),

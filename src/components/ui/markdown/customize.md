@@ -227,3 +227,16 @@ Inline https://github.com/Innei
 
 > [!WARNING]
 > Critical content demanding immediate user attention due to potential risks.
+
+## KateX
+
+```
+$ c = \pm\sqrt{a^2 + b^2} $
+```
+
+$ c = \pm\sqrt{a^2 + b^2} $
+
+```
+$c = \pm\sqrt{a^2 + b^2}$
+```
+$c = \pm\sqrt{a^2 + b^2}$

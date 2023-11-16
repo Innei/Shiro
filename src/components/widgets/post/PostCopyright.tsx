@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 import type { FC } from 'react'
 
 import { Divider } from '~/components/ui/divider'
+import { toast } from '~/lib/toast'
 import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
@@ -36,9 +37,10 @@ export const PostCopyright: FC = () => {
         <a
           onClick={() => {
             navigator.clipboard.writeText(link)
+            toast.success('已复制文章链接')
           }}
           data-hide-print
-          className="select-none"
+          className="cursor-pointer select-none"
         >
           [复制]
         </a>

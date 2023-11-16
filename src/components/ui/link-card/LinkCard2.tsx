@@ -14,9 +14,8 @@ import { preventDefault } from '~/lib/dom'
 import { fetchGitHubApi } from '~/lib/github'
 import { apiClient } from '~/lib/request'
 
+import { LinkCardSource } from './enums'
 import styles from './LinkCard.module.css'
-
-export type LinkCardSource = 'gh' | 'self' | 'mx-space' | 'gh-commit' | 'gh-pr'
 
 export interface LinkCardProps {
   id: string
@@ -37,7 +36,7 @@ export const LinkCard = (props: LinkCardProps) => {
 }
 
 const LinkCardImpl: FC<LinkCardProps> = (props) => {
-  const { id, source = 'self', className } = props
+  const { id, source = LinkCardSource.Self, className } = props
 
   const [loading, setLoading] = useState(true)
   const [isError, setIsError] = useState(false)
@@ -158,11 +157,11 @@ type FetchObject = {
 
 function validTypeAndFetchFunction(source: LinkCardSource, id: string) {
   const fetchDataFunctions = {
-    'mx-space': fetchMxSpaceData,
-    gh: fetchGitHubData,
-    'gh-commit': fetchGitHubCommitData,
-    'gh-pr': fetchGitHubPRData,
-    self: fetchMxSpaceData,
+    [LinkCardSource.MixSpace]: fetchMxSpaceData,
+    [LinkCardSource.GHRepo]: fetchGitHubData,
+    [LinkCardSource.GHCommit]: fetchGitHubCommitData,
+    [LinkCardSource.GHPr]: fetchGitHubPRData,
+    [LinkCardSource.Self]: fetchMxSpaceData,
   } as Record<LinkCardSource, FetchObject>
 
   const fetchFunction = fetchDataFunctions[source]

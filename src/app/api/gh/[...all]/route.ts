@@ -24,6 +24,10 @@ export const GET = async (req: NextRequest) => {
   )
   headers.set('Authorization', `Bearer ${process.env.GH_TOKEN}`)
 
+  if (!process.env.GH_TOKEN) {
+    return NextResponse.error()
+  }
+
   const response = await fetch(url, {
     headers,
   })
