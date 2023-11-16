@@ -1,9 +1,10 @@
 import type { DocumentComponent } from 'storybook/typings'
 
+import { LinkCardSource } from './enums'
 import { LinkCard } from './LinkCard2'
 
 export const LinkCardDemo1: DocumentComponent = () => {
-  return <LinkCard id="notes/145" source="mx-space" />
+  return <LinkCard id="notes/145" source={LinkCardSource.MixSpace} />
 }
 
 LinkCardDemo1.meta = {
@@ -11,7 +12,7 @@ LinkCardDemo1.meta = {
   title: 'LinkCard - Mix Space Note',
 }
 export const LinkCardDemo2: DocumentComponent = () => {
-  return <LinkCard id="innei/innei" source="gh" />
+  return <LinkCard id="innei/innei" source={LinkCardSource.GHRepo} />
 }
 
 LinkCardDemo2.meta = {
@@ -20,7 +21,7 @@ LinkCardDemo2.meta = {
 }
 
 export const LinkCardDemo3: DocumentComponent = () => {
-  return <LinkCard id="notes/1451" source="mx-space" />
+  return <LinkCard id="notes/1451" source={LinkCardSource.MixSpace} />
 }
 
 LinkCardDemo3.meta = {
@@ -29,7 +30,7 @@ LinkCardDemo3.meta = {
 }
 
 export const LinkCardDemo4: DocumentComponent = () => {
-  return <LinkCard id="innei/shiro/132" source="gh-pr" />
+  return <LinkCard id="innei/shiro/132" source={LinkCardSource.GHPr} />
 }
 
 LinkCardDemo4.meta = {
@@ -41,7 +42,7 @@ export const LinkCardDemo5: DocumentComponent = () => {
   return (
     <LinkCard
       id="innei/shiro/commit/0bf51cd8cf8457a2666906dea4a333081fc2a2b8"
-      source="gh-commit"
+      source={LinkCardSource.GHCommit}
     />
   )
 }
