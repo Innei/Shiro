@@ -1,5 +1,6 @@
 import { atom, useAtomValue } from 'jotai'
 
+import { getToken } from '~/lib/cookie'
 import { apiClient } from '~/lib/request'
 import { jotaiStore } from '~/lib/store'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
@@ -32,10 +33,15 @@ export const useAppUrl = () => {
 
 export const useResolveAdminUrl = () => {
   const { adminUrl } = useAppUrl()
-  return (path: string) => {
+  return (path?: string) => {
     if (!adminUrl) {
       return ''
     }
-    return adminUrl.replace(/\/$/, '').concat(path || '')
+    const parsedUrl = new URL(adminUrl.replace(/\/$/, '').concat(path || ''))
+    const token = getToken()
+    if (token) {
+      parsedUrl.searchParams.set('token', token)
+    }
+    return parsedUrl.toString()
   }
 }

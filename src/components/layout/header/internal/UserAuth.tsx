@@ -5,7 +5,7 @@ import { AnimatePresence } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { usePathname } from 'next/navigation'
 
-import { getAdminUrl, useIsLogged } from '~/atoms'
+import { useIsLogged, useResolveAdminUrl } from '~/atoms'
 import { MotionButtonBase } from '~/components/ui/button'
 import { urlBuilder } from '~/lib/url-builder'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
@@ -24,13 +24,11 @@ const UserButton = dynamic(() =>
 
 const OwnerAvatar = () => {
   const ownerAvatar = useAggregationSelector((s) => s.user.avatar)!
-
+  const resolveAdminUrl = useResolveAdminUrl()
   return (
     <MotionButtonBase
       onClick={() => {
-        const adminUrl = getAdminUrl()
-        if (!adminUrl) return
-        window.open(adminUrl, '_blank')
+        window.open(resolveAdminUrl(), '_blank')
       }}
       className="pointer-events-auto flex h-10 w-10 items-center justify-center overflow-hidden rounded-full"
     >
