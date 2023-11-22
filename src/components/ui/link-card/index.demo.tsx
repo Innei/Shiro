@@ -1,7 +1,7 @@
 import type { DocumentComponent } from 'storybook/typings'
 
 import { LinkCardSource } from './enums'
-import { LinkCard } from './LinkCard2'
+import { LinkCard } from './LinkCard'
 
 export const LinkCardDemo1: DocumentComponent = () => {
   return <LinkCard id="notes/145" source={LinkCardSource.MixSpace} />

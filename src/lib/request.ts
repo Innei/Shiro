@@ -37,15 +37,14 @@ export const $axios = axiosAdaptor.default as AxiosInstance
 $axios.defaults.timeout = 8000
 
 if (typeof window === 'undefined')
-  $axios.defaults.headers.common[
-    'User-Agent'
-  ] = `NextJS/v${PKG.dependencies.next} ${PKG.name}/${PKG.version}`
+  $axios.defaults.headers.common['User-Agent'] =
+    `NextJS/v${PKG.dependencies.next} ${PKG.name}/${PKG.version}`
 
 $axios.interceptors.request.use((config) => {
   const token = getToken()
   if (config.headers) {
     if (token) {
-      config.headers['Authorization'] = token
+      config.headers['Authorization'] = `bearer ${token}`
     }
     config.headers['x-session-uuid'] =
       globalThis?.sessionStorage?.getItem(uuidStorageKey) ?? uuid
@@ -66,8 +65,8 @@ export const getErrorMessageFromRequestError = (error: RequestError) => {
     typeof messagesOrMessage === 'string'
       ? messagesOrMessage
       : Array.isArray(messagesOrMessage)
-      ? messagesOrMessage[0]
-      : undefined
+        ? messagesOrMessage[0]
+        : undefined
 
   return bizMessage || axiosError.message
 }
