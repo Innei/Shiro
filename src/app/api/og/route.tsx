@@ -11,6 +11,7 @@ import { apiClient } from '~/lib/request'
 // export const runtime = 'edge'
 
 export const revalidate = 60 * 60 * 24 // 24 hours
+
 export const GET = async (req: NextRequest) => {
   try {
     // const fontData = await fontNormal
