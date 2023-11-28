@@ -1,7 +1,7 @@
 import { useEffect, useId, useState } from 'react'
-import { useTheme } from 'next-themes'
 import type { FC } from 'react'
 
+import { useIsDark } from '~/hooks/common/use-is-dark'
 import { useWrappedElementSize } from '~/providers/shared/WrappedElementProvider'
 
 import { FixedZoomedImage } from '../../ui/image'
@@ -15,11 +15,12 @@ export const Mermaid: FC<{
   const [width, setWidth] = useState<number>()
   const [height, setHeight] = useState<number>()
 
-  const isDark = useTheme().theme === 'dark'
+  const isDark = useIsDark()
 
   useEffect(() => {
     import('mermaid').then(async (mo) => {
       const mermaid = mo.default
+
       mermaid.initialize({
         theme: isDark ? 'dark' : 'default',
       })
