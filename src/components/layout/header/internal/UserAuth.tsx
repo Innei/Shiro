@@ -5,7 +5,7 @@ import { AnimatePresence } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { usePathname } from 'next/navigation'
 
-import { useSignIn } from '@clerk/nextjs'
+import { useSignIn, useUser } from '@clerk/nextjs'
 
 import { refreshToken, useIsLogged, useResolveAdminUrl } from '~/atoms'
 import { UserArrowLeftIcon } from '~/components/icons/user-arrow-left'
@@ -56,10 +56,12 @@ export function UserAuth() {
 
   const { isLoaded } = useSignIn()
 
+  const user = useUser()
+
   useEffect(() => {
     // token 刷新，使用 mx token 替换
-    if (isLoaded) refreshToken()
-  }, [isLoaded])
+    if (isLoaded && user.user?.publicMetadata.role === 'admin') refreshToken()
+  }, [isLoaded, user.user?.publicMetadata.role])
 
   if (isLogged) {
     return <OwnerAvatar />

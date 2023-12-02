@@ -36,19 +36,19 @@ export const login = async (username?: string, password?: string) => {
   if (!token) {
     return
   }
-  const outdateToast = () => toast.warn('登录身份过期了，再登录一下吧！')
+  // const outdateToast = () => toast.warn('登录身份过期了，再登录一下吧！')
   const validated = await apiClient.user
     .checkTokenValid(token)
     .then((res) => !!res.ok)
 
     .catch(() => {
       removeToken()
-      outdateToast()
+      // outdateToast()
       return false
     })
 
   if (!validated) {
-    outdateToast()
+    // outdateToast()
     removeToken()
     return
   }
