@@ -45,7 +45,6 @@ const MemoedHeader = memo(() => {
         <HeaderLogoArea>
           <AnimatedLogo />
 
-          {/* <SiteOwnerAvatar className="absolute bottom-[10px] right-[2px] hidden lg:inline-block" /> */}
           <OnlyMobile>
             <HeaderMeta />
           </OnlyMobile>

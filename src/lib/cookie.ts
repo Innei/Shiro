@@ -1,13 +1,15 @@
 import dayjs from 'dayjs'
 import Cookies from 'js-cookie'
 
+import { constants } from '@clerk/nextjs/server'
+
 export const TokenKey = 'mx-token'
 
-/**
- * 带了 bearer
- */
 export function getToken(): string | null {
-  const token = Cookies.get(TokenKey)
+  const clerkJwt = Cookies.get(constants.Cookies.Session)
+
+  const token = Cookies.get(TokenKey) || clerkJwt
+
   return token || null
 }
 
