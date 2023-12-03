@@ -22,6 +22,7 @@ import { queries } from '~/queries/definition'
 
 import { Providers } from '../providers/root'
 import { Analyze } from './analyze'
+import { ClientInit } from './ClientInit'
 import { init } from './init'
 import { InitInClient } from './InitInClient'
 
@@ -141,6 +142,7 @@ export default async function RootLayout(props: Props) {
   return (
     // <ClerkProvider localization={ClerkZhCN}>
     <ClerkProvider>
+      <ClientInit />
       <html lang="zh-CN" className="noise" suppressHydrationWarning>
         <head>
           <SayHi />

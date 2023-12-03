@@ -30,10 +30,6 @@ html {
   text-shadow: none;
 }
 
-[data-theme='dark'] ::selection {
-  color: theme(colors.always.neutral.800);
-}
-
 ::view-transition-new(root) {
   animation: turnOff 800ms ease-in-out;
 }

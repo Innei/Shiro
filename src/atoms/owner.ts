@@ -36,28 +36,25 @@ export const login = async (username?: string, password?: string) => {
   if (!token) {
     return
   }
-  const outdateToast = () => toast.warn('登录身份过期了，再登录一下吧！')
+  // const outdateToast = () => toast.warn('登录身份过期了，再登录一下吧！')
   const validated = await apiClient.user
     .checkTokenValid(token)
     .then((res) => !!res.ok)
 
     .catch(() => {
       removeToken()
-      outdateToast()
+      // outdateToast()
       return false
     })
 
   if (!validated) {
-    outdateToast()
+    // outdateToast()
     removeToken()
     return
   }
 
-  await apiClient.user.proxy.login.put<{ token: string }>().then((res) => {
-    jotaiStore.set(isLoggedAtom, true)
-    toast(`欢迎回来，${jotaiStore.get(ownerAtom)?.name}`, 'success')
-    setToken(res.token)
-  })
+  await refreshToken()
+  toast(`欢迎回来，${jotaiStore.get(ownerAtom)?.name}`, 'success')
 
   return true
 }
@@ -65,3 +62,15 @@ export const login = async (username?: string, password?: string) => {
 export const useIsLogged = () => useAtomValue(isLoggedAtom)
 
 export const isLogged = () => jotaiStore.get(isLoggedAtom)
+
+export const refreshToken = async () => {
+  const token = getToken()
+  if (!token) return
+  await apiClient.user.proxy.login.put<{ token: string }>().then((res) => {
+    jotaiStore.set(isLoggedAtom, true)
+
+    setToken(res.token)
+  })
+
+  await fetchAppUrl()
+}
