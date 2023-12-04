@@ -35,6 +35,9 @@ steps:
       - name: shiro-env
         path: /drone/src/.env
 
+    depends_on:
+      - install
+
   - name: package
     image: node:20-alpine
     commands:
@@ -55,7 +58,7 @@ steps:
         path: /drone/src/.next
 
     depends_on:
-      - install
+      - build
 # trigger:
 #   event:
 #     include:
