@@ -64,7 +64,7 @@ steps:
     depends_on:
       - build
 
-  - name: deploy
+  - name: transfer file
     image: appleboy/drone-scp
     settings:
       host:
@@ -74,11 +74,32 @@ steps:
       key:
         from_secret: ssh_key
       port: 22
-      target: /home/deploy/shiro.zip
+      target: /home/deploy/shiro
       source:
         - assets/release.zip
       rm_target: true
       strip_components: 1
+      debug: true
+    depends_on:
+      - package
+
+  - name: deploy
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        from_secret: ssh_host
+      username:
+        from_secret: ssh_username
+      key:
+        from_secret: ssh_key
+      port: 22
+      script:
+        - cd /home/deploy/shiro
+        - unzip -o release.zip
+        - rm release.zip
+        - cd next/standalone
+        - pm2 restart ecosystem.config.js
+
       debug: true
     depends_on:
       - package
