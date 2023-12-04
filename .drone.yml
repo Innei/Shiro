@@ -7,7 +7,7 @@ steps:
   - name: install
     image: node:20-alpine
     commands:
-        - 'wget http://drone-http:8080/.env'
+        - 'wget http://10.0.0.33:18888/.env'
         - 'cat .env'
   #     - 'npm i -g pnpm'
   #     - 'pnpm install --no-frozen-lockfil'
