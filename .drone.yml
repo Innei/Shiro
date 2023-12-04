@@ -33,7 +33,8 @@ steps:
       - 'zip -r ../dist.zip .'
     volumes:
       - name: shiro
-        path: /app
+        path: /drone/src
+
     depends_on:
       - install
 # trigger:
