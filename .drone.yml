@@ -3,10 +3,17 @@ name: test
 platform:
   os: linux
   arch: amd64
+
+volumes:
+  - name: shiro
+    host:
+      path: /tmp/shiro
+
 steps:
   - name: install
     image: node:20-alpine
     commands:
+      - 'pwd'
       - 'wget http://10.0.0.33:18888/shiro/.env'
       - 'npm i -g pnpm'
       - 'pnpm install --no-frozen-lockfil'
@@ -22,15 +29,11 @@ steps:
       - 'rm -rf .next/standalone'
       - 'cp .next/* temp/.next -r'
       - 'cp public temp/ -r'
-      #         COPY --from=builder /app/public ./public
-      # COPY --from=builder /app/.next/standalone ./
-      # COPY --from=builder /app/.next/static ./.next/static
-      # COPY --from=builder /app/.next/server ./.next/server
       - 'cd temp'
       - 'zip -r ../dist.zip .'
     volumes:
-      - name: shiro-build
-        path: /tmp/shiro
+      - name: shiro
+        path: /app
     depends_on:
       - install
 # trigger:
