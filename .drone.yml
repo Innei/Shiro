@@ -27,7 +27,7 @@ steps:
       - 'nslookup fonts.gstatic.com'
       - 'npm run build'
       - 'cd .next/standalone'
-      - 'npm i sharp'
+
     volumes:
       - name: shiro-env
         path: /drone/src/.env
@@ -94,10 +94,12 @@ steps:
         from_secret: ssh_key
       port: 22
       script:
-        - cd /home/deploy/shiro
+        - '\npm install --os=linux --cpu=x64 sharp --registry=https://registry.npmmirror.com'
+        - cd ~/shiro
         - unzip -o release.zip
         - rm release.zip
         - cd next/standalone
+        - cp -r ~/node_modules/sharp ./node_modules
         - pm2 restart ecosystem.config.js
 
       debug: true
