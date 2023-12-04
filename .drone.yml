@@ -7,18 +7,17 @@ steps:
   - name: install
     image: node:20-alpine
     commands:
-        - 'wget http://10.0.0.33:18888/.env'
-        - 'cat .env'
-  #     - 'npm i -g pnpm'
-  #     - 'pnpm install --no-frozen-lockfil'
 
-  # - name: build
-  #   image: node:20-alpine
-  #   commands:
-  #     - 'npm i -g @vercel/cli'
-  #     - 'npm run build'
-  #   depends_on:
-  #     - install
+        - 'npm i -g pnpm'
+        - 'pnpm install --no-frozen-lockfil'
+
+  - name: build
+    image: node:20-alpine
+    commands:
+        - 'wget http://10.0.0.33:18888/shiro/.env'
+        - 'npm run build'
+    depends_on:
+      - install
 # trigger:
 #   event:
 #     include:
