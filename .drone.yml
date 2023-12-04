@@ -43,6 +43,8 @@ steps:
   - name: package
     image: node:20-alpine
     commands:
+      - 'sh ./standalone-bundle.sh'
+
       - 'pwd'
       - 'ls -a'
       - 'apk add zip'
