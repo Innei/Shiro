@@ -30,6 +30,7 @@ steps:
   - name: build
     image: node:20-alpine
     commands:
+      - 'nslookup fonts.gstatic.com'
       - 'npm run build'
     volumes:
       - name: shiro-env
@@ -43,6 +44,9 @@ steps:
   - name: package
     image: node:20-alpine
     commands:
+      - 'pwd'
+      - 'ls'
+      - 'ls .next'
       - 'apk add zip'
       - 'sh ./standalone-bundle.sh'
 

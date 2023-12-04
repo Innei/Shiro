@@ -1,6 +1,7 @@
 #!env bash
 set -e
 CWD=$(pwd)
+
 cd .next
 pwd
 rm -rf cache
