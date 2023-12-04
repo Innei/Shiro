@@ -49,6 +49,12 @@ steps:
     depends_on:
       - build
 
+trigger:
+   branch:
+     - main
+   event:
+     include:
+       - push
 ---
 kind: pipeline
 name: deploy
