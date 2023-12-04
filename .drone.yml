@@ -37,6 +37,8 @@ steps:
     commands:
       - 'nslookup fonts.gstatic.com'
       - 'npm run build'
+      - 'cd .next/standalone'
+      - 'pnpm i sharp'
     volumes:
       - name: shiro-env
         path: /drone/src/.env
