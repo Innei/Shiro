@@ -87,8 +87,7 @@ steps:
     volumes:
       - name: shiro-dist
         path: /drone/src/assets
-    depends_on:
-      - package
+
 
   - name: deploy
     image: appleboy/drone-ssh
