@@ -105,13 +105,10 @@ steps:
       debug: true
     depends_on:
       - package
-# trigger:
-#   event:
-#     include:
-#       - push
-# node:
-#   node: runner-slave-A
-# trigger:
-#   event:
-#     include:
-#       - tag
+
+trigger:
+  branch:
+    - main
+  event:
+    include:
+      - push
