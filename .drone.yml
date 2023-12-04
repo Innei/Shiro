@@ -16,10 +16,10 @@ steps:
       - 'npm run build'
     depends_on:
       - install
-# trigger:
-#   event:
-#     include:
-#       - push
+trigger:
+  event:
+    include:
+      - push
 # node:
 #   node: runner-slave-A
 # trigger:
