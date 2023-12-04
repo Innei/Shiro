@@ -53,7 +53,8 @@ steps:
       - 'cp .next/* temp/ -r'
       - 'cp public temp/ -r'
       - 'mkdir -p assets'
-      - 'zip -r ./assets/dist.zip ./tmp -P tmp'
+      - 'cd temp'
+      - 'zip -r ../assets/dist.zip ./'
 
     volumes:
       - name: shiro
