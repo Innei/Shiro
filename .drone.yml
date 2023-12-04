@@ -19,22 +19,11 @@ volumes:
       path: /etc/resolv.conf
 
 steps:
-  - name: install
-    image: node:20-alpine
-    commands:
-      - 'pwd'
-      # - 'wget http://10.0.0.33:18888/shiro/.env'
-      - 'npm i -g pnpm'
-      - 'pnpm install --no-frozen-lockfil'
-    volumes:
-      - name: shiro-env
-        path: /drone/src/.env
-      - name: dns
-        path: /etc/resolv.conf
-
   - name: build
     image: node:20-alpine
     commands:
+      - 'npm i -g pnpm'
+      - 'pnpm install --no-frozen-lockfile'
       - 'nslookup fonts.gstatic.com'
       - 'npm run build'
       - 'cd .next/standalone'
