@@ -51,7 +51,7 @@ export const NoteTitle = () => {
       <GoToAdminEditingButton
         type="notes"
         id={id!}
-        className="absolute -top-6 right-0"
+        className="absolute right-0 top-0"
       />
     </>
   )

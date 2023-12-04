@@ -34,6 +34,12 @@
 - Socket.IO
 - TailwindCSS
 
+## 📄 使用文档
+
+前往：https://mx-space.js.org/themes/shiro
+
+感谢 @wibus-wee 和 @wuhang2003 等其他社区贡献者编写。
+
 ## :camera: 截图
 
 <img width="1471" alt="Live Demo" src="https://github.com/Innei/Shiro/assets/41265413/bf8af4ec-0f0c-441a-8c06-4b44e1649597">
