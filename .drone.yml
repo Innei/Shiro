@@ -34,8 +34,8 @@ steps:
     volumes:
       - name: shiro-env
         path: /drone/src/.env
-      - name: shiro-dist
-        path: /drone/src/.next
+      # - name: shiro-dist
+      #   path: /drone/src/.next
 
     depends_on:
       - install
@@ -59,7 +59,7 @@ steps:
       - name: shiro
         path: /drone/src/assets
       - name: shiro-dist
-        path: /drone/src/.next
+        path: /drone/src/temp
 
     depends_on:
       - build
