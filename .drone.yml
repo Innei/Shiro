@@ -7,15 +7,30 @@ steps:
   - name: install
     image: node:20-alpine
     commands:
-        - 'wget http://10.0.0.33:18888/shiro/.env'
-        - 'npm i -g pnpm'
-        - 'pnpm install --no-frozen-lockfil'
+      - 'wget http://10.0.0.33:18888/shiro/.env'
+      - 'npm i -g pnpm'
+      - 'pnpm install --no-frozen-lockfil'
 
   - name: build
     image: node:20-alpine
     commands:
-
-        - 'npm run build'
+      - 'npm run build'
+      - 'apk add zip'
+      - 'mkdir -p temp'
+      - 'rm -rf .next/cache'
+      - 'cp .next/standalone/* temp/ -r'
+      - 'rm -rf .next/standalone'
+      - 'cp .next/* temp/.next -r'
+      - 'cp public temp/ -r'
+      #         COPY --from=builder /app/public ./public
+      # COPY --from=builder /app/.next/standalone ./
+      # COPY --from=builder /app/.next/static ./.next/static
+      # COPY --from=builder /app/.next/server ./.next/server
+      - 'cd temp'
+      - 'zip -r ../dist.zip .'
+    volumes:
+      - name: shiro-build
+        path: /tmp/shiro
     depends_on:
       - install
 # trigger:
