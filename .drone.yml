@@ -1,5 +1,5 @@
 kind: pipeline
-name: test
+name: build
 platform:
   os: linux
   arch: amd64
@@ -33,8 +33,6 @@ steps:
         path: /drone/src/.env
       - name: dns
         path: /etc/resolv.conf
-      # - name: shiro-dist
-      #   path: /drone/src/.next
 
   - name: package
     image: node:20-alpine
@@ -44,26 +42,33 @@ steps:
       - 'ls .next'
       - 'apk add zip'
       - 'sh ./standalone-bundle.sh'
-
-      # - 'mkdir -p temp'
-      # - 'rm -rf .next/cache'
-      # - 'cp .next/standalone/* temp/ -r'
-      # - 'rm -rf .next/standalone'
-      # - 'cp .next/* temp/ -r'
-      # - 'cp public temp/ -r'
-      # - 'mkdir -p assets'
-      # - 'cd temp'
-      # - 'zip -r ../assets/dist.zip ./'
-
-    # volumes:
-    #   - name: shiro
-    #     path: /drone/src/assets
-    #   - name: shiro-dist
-    #     path: /drone/src/temp
+    volumes:
+      - name: shiro-dist
+        path: /drone/src/assets
 
     depends_on:
       - build
 
+trigger:
+  branch:
+    - main
+  event:
+    include:
+      - push
+
+---
+kind: pipeline
+name: deploy
+platform:
+  os: linux
+  arch: amd64
+
+volumes:
+  - name: shiro-dist
+    host:
+      path: /tmp/shiro-dist
+
+steps:
   - name: transfer file
     image: appleboy/drone-scp
     settings:
@@ -80,6 +85,9 @@ steps:
       rm_target: true
       strip_components: 1
       debug: true
+    volumes:
+      - name: shiro-dist
+        path: /drone/src/assets
     depends_on:
       - package
 
@@ -101,14 +109,9 @@ steps:
         - cd next/standalone
         - cp -r ~/node_modules/sharp ./node_modules
         - pm2 restart ecosystem.config.js
-
       debug: true
     depends_on:
       - package
 
-trigger:
-  branch:
-    - main
-  event:
-    include:
-      - push
+depends_on:
+  - build
