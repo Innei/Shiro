@@ -8,6 +8,9 @@ volumes:
   - name: shiro
     host:
       path: /tmp/shiro
+  - name: shiro-env
+    host:
+      path: /home/innei/docker-compose/drone/public/shiro/.env
 
 steps:
   - name: install
@@ -17,6 +20,9 @@ steps:
       - 'wget http://10.0.0.33:18888/shiro/.env'
       - 'npm i -g pnpm'
       - 'pnpm install --no-frozen-lockfil'
+    volumes:
+      - name: shiro-env
+        path: /drone/src/.env
 
   - name: build
     image: node:20-alpine
@@ -27,7 +33,7 @@ steps:
       - 'rm -rf .next/cache'
       - 'cp .next/standalone/* temp/ -r'
       - 'rm -rf .next/standalone'
-      - 'cp .next/* temp/.next -r'
+      - 'cp .next/* temp/ -r'
       - 'cp public temp/ -r'
       - 'mkdir assets'
       - 'zip -r ./assets/dist.zip ./tmp -P tmp'
