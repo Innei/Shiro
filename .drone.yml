@@ -1,5 +1,5 @@
 kind: pipeline
-name: build
+name: build-and-package
 platform:
   os: linux
   arch: amd64
@@ -114,4 +114,4 @@ steps:
       - package
 
 depends_on:
-  - build
+  - build-and-package
