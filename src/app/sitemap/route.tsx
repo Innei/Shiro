@@ -2,7 +2,7 @@ import { getQueryClient } from '~/lib/query-client.server'
 import { apiClient } from '~/lib/request'
 
 export const revalidate = 60 * 60 // 1 hour
-
+export const dynamic = 'force-dynamic'
 export const GET = async () => {
   const queryClient = getQueryClient()
 
