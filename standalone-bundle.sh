@@ -16,4 +16,6 @@ cp $CWD/ecosystem.standalone.config.js ./ecosystem.config.js
 
 cd ..
 
+mkdir -p $CWD/assets
+
 zip --symlinks -r $CWD/assets/release.zip ./*

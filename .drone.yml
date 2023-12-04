@@ -45,7 +45,7 @@ steps:
     image: node:20-alpine
     commands:
       - 'pwd'
-      - 'ls'
+      - 'ls -a'
       - 'ls .next'
       - 'apk add zip'
       - 'sh ./standalone-bundle.sh'
