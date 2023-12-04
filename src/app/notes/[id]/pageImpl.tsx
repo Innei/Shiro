@@ -20,6 +20,7 @@ import { XLogInfoForNote } from '~/components/widgets/xlog'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
+import { NoteHeadCover } from '../../../components/widgets/note/NoteHeadCover'
 import { NoteHideIfSecret } from '../../../components/widgets/note/NoteHideIfSecret'
 import { NoteMetaBar } from '../../../components/widgets/note/NoteMetaBar'
 import {
@@ -36,6 +37,8 @@ const NotePage = function (props: NoteModel) {
   return (
     <>
       <AckRead id={props.id} type="note" />
+
+      {props.meta?.cover && <NoteHeadCover image={props.meta.cover} />}
       <NoteHeaderMetaInfoSetting />
       <IndentArticleContainer>
         <header>

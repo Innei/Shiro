@@ -316,8 +316,8 @@ const fetchMxSpaceData: FetchObject = {
         setFullUrl(`/posts/${cate}/${slug}`)
       } else if (type === 'notes') {
         const [nid] = rest
-        const response = await apiClient.note.getNoteById(nid)
-        data = response
+        const response = await apiClient.note.getNoteById(+nid)
+        data = response.data
         setFullUrl(`/notes/${nid}`)
       }
 
