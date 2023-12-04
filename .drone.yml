@@ -110,9 +110,3 @@ depends_on:
   - build-and-package
 
 
-trigger:
-  branch:
-    - main
-  event:
-    include:
-      - push
