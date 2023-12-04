@@ -109,7 +109,7 @@ steps:
         - pm2 restart ecosystem.config.js
       debug: true
     depends_on:
-      - package
+      - transfer file
 
 depends_on:
   - build-and-package
