@@ -29,11 +29,11 @@ steps:
       - 'rm -rf .next/standalone'
       - 'cp .next/* temp/.next -r'
       - 'cp public temp/ -r'
-      - 'cd temp'
-      - 'zip -r ../dist.zip .'
+      - 'mkdir assets'
+      - 'zip -r ./assets/dist.zip ./tmp -P tmp'
     volumes:
       - name: shiro
-        path: /drone/src
+        path: /drone/src/assets
 
     depends_on:
       - install
