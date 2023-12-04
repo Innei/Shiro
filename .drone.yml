@@ -49,13 +49,6 @@ steps:
     depends_on:
       - build
 
-trigger:
-  branch:
-    - main
-  event:
-    include:
-      - push
-
 ---
 kind: pipeline
 name: deploy
@@ -115,3 +108,11 @@ steps:
 
 depends_on:
   - build-and-package
+
+
+trigger:
+  branch:
+    - main
+  event:
+    include:
+      - push
