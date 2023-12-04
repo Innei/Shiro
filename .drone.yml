@@ -36,9 +36,6 @@ steps:
       # - name: shiro-dist
       #   path: /drone/src/.next
 
-    depends_on:
-      - install
-
   - name: package
     image: node:20-alpine
     commands:
