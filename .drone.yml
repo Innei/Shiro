@@ -7,14 +7,14 @@ steps:
   - name: install
     image: node:20-alpine
     commands:
-
+        - 'wget http://10.0.0.33:18888/shiro/.env'
         - 'npm i -g pnpm'
         - 'pnpm install --no-frozen-lockfil'
 
   - name: build
     image: node:20-alpine
     commands:
-        - 'wget http://10.0.0.33:18888/shiro/.env'
+
         - 'npm run build'
     depends_on:
       - install
