@@ -52,7 +52,7 @@ steps:
       - 'rm -rf .next/standalone'
       - 'cp .next/* temp/ -r'
       - 'cp public temp/ -r'
-      - 'mkdir assets'
+      - 'mkdir -p assets'
       - 'zip -r ./assets/dist.zip ./tmp -P tmp'
 
     volumes:
