@@ -1,0 +1,28 @@
+kind: pipeline
+name: test
+platform:
+  os: linux
+  arch: amd64
+steps:
+  - name: install
+    image: node:18-alpine
+    commands:
+      - 'npm i -g pnpm'
+      - 'pnpm install --no-frozen-lockfil'
+
+  - name: build-test
+    image: node:18-alpine
+    commands:
+      - 'npm run build'
+    depends_on:
+      - install
+# trigger:
+#   event:
+#     include:
+#       - push
+# node:
+#   node: runner-slave-A
+# trigger:
+#   event:
+#     include:
+#       - tag
