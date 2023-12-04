@@ -46,24 +46,43 @@ steps:
       - 'apk add zip'
       - 'sh ./standalone-bundle.sh'
 
-      - 'mkdir -p temp'
-      - 'rm -rf .next/cache'
-      - 'cp .next/standalone/* temp/ -r'
-      - 'rm -rf .next/standalone'
-      - 'cp .next/* temp/ -r'
-      - 'cp public temp/ -r'
-      - 'mkdir -p assets'
-      - 'cd temp'
-      - 'zip -r ../assets/dist.zip ./'
+      # - 'mkdir -p temp'
+      # - 'rm -rf .next/cache'
+      # - 'cp .next/standalone/* temp/ -r'
+      # - 'rm -rf .next/standalone'
+      # - 'cp .next/* temp/ -r'
+      # - 'cp public temp/ -r'
+      # - 'mkdir -p assets'
+      # - 'cd temp'
+      # - 'zip -r ../assets/dist.zip ./'
 
-    volumes:
-      - name: shiro
-        path: /drone/src/assets
-      - name: shiro-dist
-        path: /drone/src/temp
+    # volumes:
+    #   - name: shiro
+    #     path: /drone/src/assets
+    #   - name: shiro-dist
+    #     path: /drone/src/temp
 
     depends_on:
       - build
+
+  - name: deploy
+    image: appleboy/drone-scp
+    settings:
+      host:
+        from_secret: ssh_host
+      username:
+        from_secret: ssh_username
+      key:
+        from_secret: ssh_key
+      port: 22
+      target: /home/deploy/shiro.zip
+      source:
+        - assets/release.zip
+      rm_target: true
+      strip_components: 1
+      debug: true
+    depends_on:
+      - package
 # trigger:
 #   event:
 #     include:
