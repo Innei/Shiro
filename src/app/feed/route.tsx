@@ -29,8 +29,6 @@ interface RSSProps {
   }[]
 }
 
-export const dynamic = 'force-dynamic' 
-
 export async function GET() {
   const ReactDOM = (await import('react-dom/server')).default
   const queryClient = getQueryClient()
