@@ -104,9 +104,10 @@ steps:
         - cd ~/shiro
         - unzip -o release.zip
         - rm release.zip
-        - cd next/standalone
+        - ls
+        - cd standalone
         - cp -r ~/node_modules/sharp ./node_modules
-        - pm2 restart ecosystem.config.js
+        - ~/.n/bin/pm2 restart ecosystem.config.js
       debug: true
     depends_on:
       - transfer file
