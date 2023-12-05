@@ -50,11 +50,11 @@ steps:
       - build
 
 trigger:
-   branch:
-     - main
-   event:
-     include:
-       - push
+  branch:
+    - main
+  event:
+    include:
+      - push
 ---
 kind: pipeline
 name: deploy
@@ -88,7 +88,6 @@ steps:
       - name: shiro-dist
         path: /drone/src/assets
 
-
   - name: deploy
     image: appleboy/drone-ssh
     settings:
@@ -114,5 +113,9 @@ steps:
 
 depends_on:
   - build-and-package
-
-
+trigger:
+  branch:
+    - main
+  event:
+    include:
+      - push
