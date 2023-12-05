@@ -1,0 +1,121 @@
+kind: pipeline
+name: build-and-package
+platform:
+  os: linux
+  arch: amd64
+
+volumes:
+  - name: shiro
+    host:
+      path: /tmp/shiro
+  - name: shiro-dist
+    host:
+      path: /tmp/shiro-dist
+  - name: shiro-env
+    host:
+      path: /home/innei/docker-compose/drone/public/shiro/.env
+  - name: dns
+    host:
+      path: /etc/resolv.conf
+
+steps:
+  - name: build
+    image: node:20-alpine
+    commands:
+      - 'npm i -g pnpm'
+      - 'pnpm install --no-frozen-lockfile'
+      - 'nslookup fonts.gstatic.com'
+      - 'npm run build'
+      - 'cd .next/standalone'
+
+    volumes:
+      - name: shiro-env
+        path: /drone/src/.env
+      - name: dns
+        path: /etc/resolv.conf
+
+  - name: package
+    image: node:20-alpine
+    commands:
+      - 'pwd'
+      - 'ls -a'
+      - 'ls .next'
+      - 'apk add zip'
+      - 'sh ./standalone-bundle.sh'
+    volumes:
+      - name: shiro-dist
+        path: /drone/src/assets
+
+    depends_on:
+      - build
+
+trigger:
+  branch:
+    - main
+  event:
+    include:
+      - push
+---
+kind: pipeline
+name: deploy
+platform:
+  os: linux
+  arch: amd64
+
+volumes:
+  - name: shiro-dist
+    host:
+      path: /tmp/shiro-dist
+
+steps:
+  - name: transfer file
+    image: appleboy/drone-scp
+    settings:
+      host:
+        from_secret: ssh_host
+      username:
+        from_secret: ssh_username
+      key:
+        from_secret: ssh_key
+      port: 22
+      target: /home/deploy/shiro
+      source:
+        - assets/release.zip
+      rm_target: true
+      strip_components: 1
+      debug: true
+    volumes:
+      - name: shiro-dist
+        path: /drone/src/assets
+
+  - name: deploy
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        from_secret: ssh_host
+      username:
+        from_secret: ssh_username
+      key:
+        from_secret: ssh_key
+      port: 22
+      script:
+        - '\npm install --os=linux --cpu=x64 sharp --registry=https://registry.npmmirror.com'
+        - cd ~/shiro
+        - unzip -o release.zip
+        - rm release.zip
+        - ls
+        - cd standalone
+        - cp -r ~/node_modules/sharp ./node_modules
+        - ~/.n/bin/pm2 restart ecosystem.config.js
+      debug: true
+    depends_on:
+      - transfer file
+
+depends_on:
+  - build-and-package
+trigger:
+  branch:
+    - main
+  event:
+    include:
+      - push
