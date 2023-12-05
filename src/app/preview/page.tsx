@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import Balancer from 'react-wrap-balancer'
+import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { atom, useAtomValue } from 'jotai'
 import type {
   NoteModel,
@@ -18,7 +19,6 @@ import { Paper } from '~/components/layout/container/Paper'
 import { NoteMetaBar, NoteRootBanner } from '~/components/widgets/note'
 import { ArticleRightAside } from '~/components/widgets/shared/ArticleRightAside'
 import { ReadIndicatorForMobile } from '~/components/widgets/shared/ReadIndicator'
-import { debounce } from '~/lib/_'
 import { jotaiStore } from '~/lib/store'
 import { isNoteModel, isPageModel, isPostModel } from '~/lib/url-builder'
 import {
@@ -60,7 +60,7 @@ import {
 } from '../posts/(post-detail)/[category]/[slug]/pageExtra'
 
 export default function PreviewPage() {
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const search = location.search
     const searchParams = new URLSearchParams(search)
 
@@ -70,20 +70,34 @@ export default function PreviewPage() {
       return
     }
     targetOrigin = decodeURIComponent(targetOrigin)
-    window.opener.postMessage('Preview Page Ready', targetOrigin)
 
-    const handler = debounce((e) => {
-      if (e.origin !== targetOrigin) {
+    const handler = (e: MessageEvent) => {
+      const parsedData = (() => {
+        try {
+          const parsedData = JSON.parse(e.data)
+          return parsedData
+        } catch {
+          console.debug('preview page receive data', e?.data)
+          return null
+        }
+      })()
+
+      if (!parsedData) return
+      const PREVIEW_HASH = new URLSearchParams(location.search).get('key')
+      if (!PREVIEW_HASH) return
+      console.debug('preview page receive data', parsedData)
+      if (parsedData.key !== PREVIEW_HASH) {
         return
       }
-
-      const parsedData = JSON.parse(e.data)
 
       if (parsedData.type === 'preview') {
         jotaiStore.set(previewDataAtom, simpleCamelcaseKeys(parsedData.data))
       }
-    }, 100)
+    }
     window.addEventListener('message', handler)
+
+    console.debug('preview page ready')
+    window.opener.postMessage('ok', targetOrigin)
     return () => {
       window.removeEventListener('message', handler)
     }
