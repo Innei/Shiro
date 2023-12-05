@@ -26,7 +26,6 @@ steps:
       - 'pnpm install --no-frozen-lockfile'
       - 'nslookup fonts.gstatic.com'
       - 'npm run build'
-      - 'cd .next/standalone'
 
     volumes:
       - name: shiro-env

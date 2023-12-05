@@ -35,6 +35,9 @@ type TImageProps = {
 type BaseImageProps = {
   zoom?: boolean
   placeholder?: ReactNode
+
+  height?: number
+  width?: number
 }
 
 export enum ImageLoadStatus {
@@ -63,6 +66,8 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
   zoom,
 
   placeholder,
+  height,
+  width,
 }) => {
   // @ts-ignore
   const [zoomer_] = useState(() => {
@@ -125,6 +130,8 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
             </div>
           )}
           <OptimizedImage
+            height={height}
+            width={width}
             src={src}
             title={title}
             alt={alt || title || ''}
@@ -172,15 +179,25 @@ interface FixedImageProps extends TImageProps {
 }
 export const FixedZoomedImage: Component<FixedImageProps> = (props) => {
   const placeholder = useMemo(() => {
-    return <Placeholder containerWidth={props.containerWidth} src={props.src} />
-  }, [props.containerWidth, props.src])
+    return <Placeholder {...props} />
+  }, [props])
   return <ImageLazy zoom placeholder={placeholder} {...props} />
 }
 
 const Placeholder: FC<
-  Pick<FixedImageProps, 'src' | 'containerWidth' | 'height' | 'width'>
-> = ({ src, containerWidth, height: manualHeight, width: manualWidth }) => {
+  Pick<
+    FixedImageProps,
+    'src' | 'containerWidth' | 'height' | 'width' | 'accent'
+  >
+> = ({
+  src,
+  containerWidth,
+  height: manualHeight,
+  width: manualWidth,
+  accent,
+}) => {
   const imageMeta = useMarkdownImageRecord(src)
+  const accentColor = accent || imageMeta?.accent
 
   const scaledSize = useMemo(() => {
     let nextHeight = manualHeight
@@ -210,7 +227,7 @@ const Placeholder: FC<
     }
   }, [manualHeight, manualWidth, containerWidth, imageMeta])
 
-  if (!scaledSize) return <NoFixedPlaceholder accent={imageMeta?.accent} />
+  if (!scaledSize) return <NoFixedPlaceholder accent={accentColor} />
 
   return (
     <span
@@ -223,7 +240,7 @@ const Placeholder: FC<
       style={{
         height: scaledSize.scaleHeight,
         width: scaledSize.scaleWidth,
-        backgroundColor: imageMeta?.accent,
+        backgroundColor: accentColor,
       }}
     />
   )
@@ -247,17 +264,8 @@ const NoFixedPlaceholder = ({ accent }: { accent?: string }) => {
 
 // @ts-expect-error
 const OptimizedImage: FC<React.JSX.IntrinsicElements['img']> = forwardRef(
-  (
-    {
-      src,
-      alt,
-      placeholder,
-
-      ...rest
-    },
-    ref,
-  ) => {
-    const { height, width } = useMarkdownImageRecord(src!) || {}
+  ({ src, alt, placeholder, ...rest }, ref) => {
+    const { height, width } = useMarkdownImageRecord(src!) || rest
     if (!height || !width)
       return <img alt={alt} src={src} ref={ref} {...rest} />
     return (
@@ -267,8 +275,8 @@ const OptimizedImage: FC<React.JSX.IntrinsicElements['img']> = forwardRef(
         priority
         src={src!}
         {...rest}
-        height={height}
-        width={width}
+        height={+height}
+        width={+width}
         ref={ref as any}
       />
     )
