@@ -17,6 +17,13 @@ volumes:
   - name: dns
     host:
       path: /etc/resolv.conf
+  - name: node_modules
+    host:
+      path: /tmp/shiro_node_modules
+
+  - name: cache
+    host:
+      path: /tmp/shiro_next_cache
 
 steps:
   - name: build
@@ -32,6 +39,10 @@ steps:
         path: /drone/src/.env
       - name: dns
         path: /etc/resolv.conf
+      - name: node_modules
+        path: /drone/src/node_modules
+      - name: cache
+        path: /drone/src/.next
 
   - name: package
     image: node:20-alpine
@@ -44,6 +55,10 @@ steps:
     volumes:
       - name: shiro-dist
         path: /drone/src/assets
+      - name: node_modules
+        path: /drone/src/node_modules
+      - name: cache
+        path: /drone/src/.next
 
     depends_on:
       - build

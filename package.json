@@ -25,7 +25,7 @@
   "scripts": {
     "prepare": "pnpm exec simple-git-hooks && test -f .env || cp .env.template .env",
     "start": "npm run dev",
-    "prebuild": "rimraf .next",
+    "prebuild": "rimraf .next || exit 0",
     "dev": "cross-env NODE_ENV=development next dev -p 2323",
     "analyze": "cross-env NODE_ENV=production ANALYZE=true BUNDLE_ANALYZE=browser next build",
     "build": "cross-env NODE_ENV=production next build",
