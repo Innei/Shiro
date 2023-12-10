@@ -14,18 +14,25 @@ volumes:
   - name: shiro-env
     host:
       path: /home/innei/docker-compose/drone/public/shiro/.env
-  - name: dns
-    host:
-      path: /etc/resolv.conf
-  - name: node_modules
-    host:
-      path: /tmp/shiro_node_modules
 
+  - name: node_modules_cache
+    host:
+      path: /tmp/drone/cache
   - name: cache
     host:
       path: /tmp/shiro_next_cache
 
 steps:
+  - name: restore-cache
+    image: drillster/drone-volume-cache
+    settings:
+      restore: true
+      mount:
+        - ./node_modules
+    volumes:
+      - name: node_modules_cache
+        path: /cache
+
   - name: build
     image: node:20-alpine
     commands:
@@ -37,12 +44,18 @@ steps:
     volumes:
       - name: shiro-env
         path: /drone/src/.env
-      - name: dns
-        path: /etc/resolv.conf
-      - name: node_modules
-        path: /drone/src/node_modules
       - name: cache
         path: /drone/src/.next
+
+  - name: rebuild-cache
+    image: drillster/drone-volume-cache
+    settings:
+      rebuild: true
+      mount:
+        - ./node_modules
+    volumes:
+      - name: node_modules_cache
+        path: /cache
 
   - name: package
     image: node:20-alpine
@@ -55,8 +68,6 @@ steps:
     volumes:
       - name: shiro-dist
         path: /drone/src/assets
-      - name: node_modules
-        path: /drone/src/node_modules
       - name: cache
         path: /drone/src/.next
 
