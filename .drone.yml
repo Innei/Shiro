@@ -41,6 +41,8 @@ steps:
       - 'nslookup fonts.gstatic.com'
       - 'npm run build'
 
+    depends_on:
+      - restore-cache
     volumes:
       - name: shiro-env
         path: /drone/src/.env
@@ -56,6 +58,9 @@ steps:
     volumes:
       - name: node_modules_cache
         path: /cache
+
+    depends_on:
+      - build
 
   - name: package
     image: node:20-alpine
