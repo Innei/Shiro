@@ -144,7 +144,7 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
               status: imageLoadStatus,
               className: imageStyles[ImageLoadStatus.Loaded],
             })}
-            onAnimationEnd={(e) => {
+            onAnimationEnd={(e: Event) => {
               if (ImageLoadStatus.Loaded) {
                 ;(e.target as HTMLElement).classList.remove(
                   imageStyles[ImageLoadStatus.Loaded],
@@ -262,25 +262,21 @@ const NoFixedPlaceholder = ({ accent }: { accent?: string }) => {
   )
 }
 
-// @ts-expect-error
-const OptimizedImage: FC<React.JSX.IntrinsicElements['img']> = forwardRef(
-  ({ src, alt, placeholder, ...rest }, ref) => {
-    const { height, width } = useMarkdownImageRecord(src!) || rest
-    if (!height || !width)
-      return <img alt={alt} src={src} ref={ref} {...rest} />
-    return (
-      <Image
-        alt={alt || ''}
-        fetchPriority="high"
-        priority
-        src={src!}
-        {...rest}
-        height={+height}
-        width={+width}
-        ref={ref as any}
-      />
-    )
-  },
-)
+const OptimizedImage: FC<any> = forwardRef(({ src, alt, ...rest }, ref) => {
+  const { height, width } = useMarkdownImageRecord(src!) || rest
+  if (!height || !width) return <img alt={alt} src={src} ref={ref} {...rest} />
+  return (
+    <Image
+      alt={alt || ''}
+      fetchPriority="high"
+      priority
+      src={src!}
+      {...rest}
+      height={+height}
+      width={+width}
+      ref={ref as any}
+    />
+  )
+})
 
 OptimizedImage.displayName = 'OptimizedImage'
