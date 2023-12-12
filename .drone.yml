@@ -7,20 +7,20 @@ platform:
 volumes:
   - name: shiro
     host:
-      path: /tmp/shiro
+      path: /drone/tmp/shiro
   - name: shiro-dist
     host:
-      path: /tmp/shiro-dist
+      path: /drone/tmp/shiro-dist
   - name: shiro-env
     host:
       path: /home/innei/docker-compose/drone/public/shiro/.env
 
   - name: node_modules_cache
     host:
-      path: /tmp/drone/cache
+      path: /drone/tmp/cache
   - name: cache
     host:
-      path: /tmp/shiro_next_cache
+      path: /drone/tmp/shiro_next_cache
 
 steps:
   - name: restore-cache
@@ -94,7 +94,7 @@ platform:
 volumes:
   - name: shiro-dist
     host:
-      path: /tmp/shiro-dist
+      path: /drone/tmp/shiro-dist
 
 steps:
   - name: transfer file
