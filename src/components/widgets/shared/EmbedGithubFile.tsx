@@ -107,7 +107,7 @@ export const EmbedGithubFile = memo(
     if (!data) return null
 
     return (
-      <div className="h-[50vh] overflow-auto">
+      <div className="h-[50vh] w-full overflow-auto">
         <HighLighter content={data} lang={fileType} />
       </div>
     )

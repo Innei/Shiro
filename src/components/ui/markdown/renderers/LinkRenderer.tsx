@@ -196,15 +196,17 @@ const GithubUrlRenderL: FC<{
       const ref = splitString[0]
       const path = ref ? splitString.slice(1).join('/') : afterTypeString
       return (
-        <>
-          <MLink href={href}>{href}</MLink>
+        <div className="flex w-full flex-col items-center">
           <EmbedGithubFile
             owner={owner}
             repo={repo}
             path={path}
             refType={ref}
           />
-        </>
+          <div className="mt-4">
+            <MLink href={href}>{href}</MLink>
+          </div>
+        </div>
       )
     }
   }
