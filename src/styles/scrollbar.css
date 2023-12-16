@@ -16,6 +16,10 @@ body {
   ::-webkit-scrollbar-thumb:hover {
     background: theme(colors.zinc.800/96);
   }
+
+  *::-webkit-scrollbar{
+    background: theme(colors.zinc.800);
+  }
 }
 
 *::-webkit-scrollbar-thumb,
