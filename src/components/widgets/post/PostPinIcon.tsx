@@ -1,12 +1,12 @@
 'use client'
 
-import { memo, useState } from 'react'
+import { useState } from 'react'
 
 import { apiClient } from '~/lib/request'
 
 import { PinIconToggle } from '../shared/PinIconToggle'
 
-export const PostPinIcon = memo(({ pin, id }: { pin: boolean; id: string }) => {
+export const PostPinIcon = ({ pin, id }: { pin: boolean; id: string }) => {
   const [pinState, setPinState] = useState(pin)
   return (
     <PinIconToggle
@@ -21,4 +21,4 @@ export const PostPinIcon = memo(({ pin, id }: { pin: boolean; id: string }) => {
       pin={pinState}
     />
   )
-})
+}

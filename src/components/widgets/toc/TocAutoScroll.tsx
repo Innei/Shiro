@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 
-import { escapeSelector } from './escapeSelector'
+import { escapeSelector } from '~/lib/dom'
 
 export const TocAutoScroll: Component = () => {
   useEffect(() => {

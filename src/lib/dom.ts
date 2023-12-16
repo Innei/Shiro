@@ -16,3 +16,7 @@ export const transitionViewIfSupported = (updateCb: () => any) => {
     updateCb()
   }
 }
+
+export function escapeSelector(selector: string) {
+  return selector.replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '\\$&')
+}

@@ -178,6 +178,28 @@ const MemoedItem = memo<{
     // containerRef
   } = props
 
+  const itemRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    if (!isActive) return
+
+    const $item = itemRef.current
+    if (!$item) return
+    const $container = $item.parentElement
+    if (!$container) return
+    const itemInContainerTop = $item.offsetTop
+    const halfOfContainerHeight = $container.clientHeight / 2
+    // 如果当前元素在容器的上半部分，不滚动
+    if (itemInContainerTop < halfOfContainerHeight) {
+      if ($container.scrollTop < halfOfContainerHeight) {
+        $container.scrollTop = 0
+      }
+    } else {
+      // 如果当前元素在容器的下半部分，滚动到容器中间
+      $container.scrollTop = itemInContainerTop + halfOfContainerHeight
+    }
+  }, [isActive])
+
   return (
     <RightToLeftTransitionView
       timeout={
@@ -189,6 +211,7 @@ const MemoedItem = memo<{
       key={heading.title}
       as="li"
       className="relative leading-none"
+      ref={itemRef}
     >
       {isActive && (
         <m.span

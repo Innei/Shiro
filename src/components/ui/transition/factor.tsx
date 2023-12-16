@@ -1,6 +1,6 @@
 'use client'
 
-import { memo, useMemo } from 'react'
+import { forwardRef, memo, useMemo } from 'react'
 import { m } from 'framer-motion'
 import type {
   HTMLMotionProps,
@@ -8,7 +8,11 @@ import type {
   Target,
   TargetAndTransition,
 } from 'framer-motion'
-import type { FC, PropsWithChildren } from 'react'
+import type {
+  ForwardRefExoticComponent,
+  PropsWithChildren,
+  RefAttributes,
+} from 'react'
 import type { BaseTransitionProps } from './typings'
 
 import { isHydrationEnded } from '~/components/common/HydrationEndDetector'
@@ -21,12 +25,13 @@ interface TransitionViewParams {
   preset?: Spring
 }
 
-export const createTransitionView = (
-  params: TransitionViewParams,
-): FC<PropsWithChildren<BaseTransitionProps>> => {
+export const createTransitionView = (params: TransitionViewParams) => {
   const { from, to, initial, preset } = params
 
-  const TransitionView = (props: PropsWithChildren<BaseTransitionProps>) => {
+  const TransitionView = forwardRef<
+    HTMLElement,
+    PropsWithChildren<BaseTransitionProps>
+  >((props, ref) => {
     const {
       timeout = {},
       duration = 0.5,
@@ -40,7 +45,9 @@ export const createTransitionView = (
 
     const { enter = delay, exit = delay } = timeout
 
-    const MotionComponent = m[as] as FC<HTMLMotionProps<any>>
+    const MotionComponent = m[as] as ForwardRefExoticComponent<
+      HTMLMotionProps<any> & RefAttributes<HTMLElement>
+    >
 
     return (
       <MotionComponent
@@ -53,6 +60,7 @@ export const createTransitionView = (
               : initial || from,
           [],
         )}
+        ref={ref}
         animate={{
           ...to,
           transition: {
@@ -78,7 +86,8 @@ export const createTransitionView = (
         {props.children}
       </MotionComponent>
     )
-  }
+  })
+  TransitionView.displayName = `forwardRef(TransitionView)`
   const MemoedTransitionView = memo(TransitionView)
   MemoedTransitionView.displayName = `MemoedTransitionView`
   return MemoedTransitionView

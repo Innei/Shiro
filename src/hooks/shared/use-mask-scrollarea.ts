@@ -5,6 +5,7 @@ import { useViewport } from '~/atoms'
 
 import { useEventCallback } from '../common/use-event-callback'
 
+const THRESHOLD = 0
 export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>() => {
   const containerRef = useRef<T>(null)
   const [isScrollToBottom, setIsScrollToBottom] = useState(false)
@@ -17,7 +18,7 @@ export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>() => {
 
     if (!$) return
 
-    // if $ can not scroll, return null
+    // if $ can not scroll
     if ($.scrollHeight <= $.clientHeight + 2) {
       setCanScroll(false)
       setIsScrollToBottom(false)
@@ -27,28 +28,17 @@ export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>() => {
 
     setCanScroll(true)
 
-    // to bottom
-    if ($.scrollTop + $.clientHeight + 20 > $.scrollHeight) {
-      setIsScrollToBottom(true)
-      setIsScrollToTop(false)
-    }
-
-    // if scroll to top,
-    // set isScrollToTop to true
-    else if ($.scrollTop < 20) {
-      setIsScrollToTop(true)
-      setIsScrollToBottom(false)
-    } else {
-      setIsScrollToBottom(false)
-      setIsScrollToTop(false)
-    }
+    // if $ can scroll
+    const isScrollToBottom =
+      $.scrollTop + $.clientHeight >= $.scrollHeight - THRESHOLD
+    const isScrollToTop = $.scrollTop <= THRESHOLD
+    setIsScrollToBottom(isScrollToBottom)
+    setIsScrollToTop(isScrollToTop)
   })
   useEffect(() => {
     const $ = containerRef.current
     if (!$) return
     $.addEventListener('scroll', eventHandler)
-
-    eventHandler()
 
     return () => {
       $.removeEventListener('scroll', eventHandler)
