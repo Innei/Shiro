@@ -11,6 +11,7 @@ module.exports = {
         NODE_ENV: 'production',
         ...require('dotenv').config().parsed,
       },
+      log_date_format: 'YYYY-MM-DD HH:mm:ss',
     },
   ],
 }
