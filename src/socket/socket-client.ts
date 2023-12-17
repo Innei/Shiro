@@ -18,13 +18,15 @@ class SocketClient {
   private router: AppRouterInstance
 
   constructor() {
-    this.socket = io(`${GATEWAY_URL}/web`, {
+    const gatewayUrlWithoutTrailingSlash = GATEWAY_URL.replace(/\/$/, '');
+
+    this.socket = io(`${gatewayUrlWithoutTrailingSlash}/web`, {
       timeout: 10000,
       reconnectionDelay: 3000,
       autoConnect: false,
       reconnectionAttempts: 3,
       transports: ['websocket'],
-    })
+    });
   }
 
   setRouter(router: AppRouterInstance) {
