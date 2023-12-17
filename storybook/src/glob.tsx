@@ -2,7 +2,7 @@ import React, { createElement, Fragment } from 'react'
 import type { FC, ReactNode } from 'react'
 import type { DocumentComponent, DocumentPageMeta } from '../typings'
 
-import { Markdown } from './components/Mardown'
+import { Markdown } from './components/Markdown'
 
 import { GLOB_PATH } from '../config' assert { type: 'macro' }
 // TODO find project root

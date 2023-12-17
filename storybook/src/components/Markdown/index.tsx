@@ -13,3 +13,4 @@ export const Markdown = memo((props: { value: string }) => {
     />
   )
 })
+Markdown.displayName = 'Markdown'
