@@ -18,10 +18,8 @@ class SocketClient {
   private router: AppRouterInstance
 
   constructor() {
-    // 如果 GATEWAY_URL 已经包含斜杠，确保它不以斜杠结尾
     const gatewayUrlWithoutTrailingSlash = GATEWAY_URL.replace(/\/$/, '');
 
-    // 拼接路径，确保路径之间没有多余的斜杠
     this.socket = io(`${gatewayUrlWithoutTrailingSlash}/web`, {
       timeout: 10000,
       reconnectionDelay: 3000,
