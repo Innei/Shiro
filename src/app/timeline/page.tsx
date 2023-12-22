@@ -9,7 +9,6 @@ import type { TimelineData } from '@mx-space/api-client'
 
 import { TimelineType } from '@mx-space/api-client'
 
-import { useIsMobile } from '~/atoms'
 import { SolidBookmark } from '~/components/icons/bookmark'
 import { NormalContainer } from '~/components/layout/container/Normal'
 import { Divider } from '~/components/ui/divider'
@@ -219,7 +218,6 @@ const Item = memo<{
   item: MapType
 }>(({ item }) => {
   const router = useRouter()
-  const isMobile = useIsMobile()
 
   return (
     <li
@@ -252,11 +250,9 @@ const Item = memo<{
           />
         )}
       </span>
-      {!isMobile && (
-        <span className="text-sm">
-          {item.meta.map((m, i) => (i === 0 ? m : `/${m}`))}
-        </span>
-      )}
+      <span className="hidden text-sm lg:inline">
+        {item.meta.map((m, i) => (i === 0 ? m : `/${m}`))}
+      </span>
     </li>
   )
 })
