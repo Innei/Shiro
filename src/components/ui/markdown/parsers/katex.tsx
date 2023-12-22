@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {
+  blockRegex,
   parseCaptureInline,
   Priority,
   simpleInlineRegex,
@@ -48,4 +49,25 @@ const LateX: FC<{ children: string }> = (props) => {
   }, [])
 
   return <span dangerouslySetInnerHTML={{ __html: html }} />
+}
+
+export const KateXBlockRule: MarkdownToJSX.Rule = {
+  match: blockRegex(
+    new RegExp(`^\\s*\\$\\$ *(?<content>[\\s\\S]+?)\\s*\\$\\$ *(?:\n *)+\n?`),
+  ),
+
+  order: Priority.LOW,
+  parse(capture) {
+    return {
+      type: 'kateXBlock',
+      groups: capture.groups,
+    }
+  },
+  react(node, _, state?) {
+    return (
+      <div key={state?.key}>
+        <LateX>{node.groups.content}</LateX>
+      </div>
+    )
+  },
 }

@@ -240,3 +240,19 @@ $ c = \pm\sqrt{a^2 + b^2} $
 $c = \pm\sqrt{a^2 + b^2}$
 ```
 $c = \pm\sqrt{a^2 + b^2}$
+
+```
+$$
+
+P\left(U,T\right)=100\left.\left(0.6\min\left(1,\frac{U-0.70}{0.90-0.70}\right)+0.4\min\left(1,\frac{T-4000}{14000-4000}\right)\right)\right.
+
+$$
+```
+
+$$
+
+P\left(U,T\right)=100\left.\left(0.6\min\left(1,\frac{U-0.70}{0.90-0.70}\right)+0.4\min\left(1,\frac{T-4000}{14000-4000}\right)\right)\right.
+
+$$
+
+-
