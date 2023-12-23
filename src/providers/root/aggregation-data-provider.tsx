@@ -7,7 +7,7 @@ import type { AggregateRoot } from '@mx-space/api-client'
 import type { AppConfig } from '~/app/config'
 import type { FC, PropsWithChildren } from 'react'
 
-import { fetchAppUrl } from '~/atoms'
+import { fetchAppUrl, setWebUrl } from '~/atoms'
 import { login } from '~/atoms/owner'
 import { useBeforeMounted } from '~/hooks/common/use-before-mounted'
 import { jotaiStore } from '~/lib/store'
@@ -24,6 +24,7 @@ export const AggregationProvider: FC<
   useBeforeMounted(() => {
     if (!aggregationData) return
     jotaiStore.set(aggregationDataAtom, aggregationData)
+    setWebUrl(aggregationData.url.webUrl)
   })
   useBeforeMounted(() => {
     if (!appConfig) return
@@ -38,9 +39,11 @@ export const AggregationProvider: FC<
   useEffect(() => {
     if (!aggregationData) return
     jotaiStore.set(aggregationDataAtom, aggregationData)
+    setWebUrl(aggregationData.url.webUrl)
   }, [aggregationData])
 
   const callOnceRef = useRef(false)
+
   useEffect(() => {
     if (callOnceRef.current) return
     if (!aggregationData?.user) return
