@@ -91,6 +91,11 @@ export default function PreviewPage() {
       }
 
       if (parsedData.type === 'preview') {
+        if (
+          JSON.stringify(jotaiStore.get(previewDataAtom)) ===
+          JSON.stringify(parsedData.data)
+        )
+          return
         jotaiStore.set(previewDataAtom, simpleCamelcaseKeys(parsedData.data))
       }
     }
@@ -98,8 +103,13 @@ export default function PreviewPage() {
 
     console.debug('preview page ready')
     window.opener.postMessage('ok', targetOrigin)
+
+    const timer = setInterval(() => {
+      window.opener.postMessage('ok', targetOrigin)
+    }, 3000)
     return () => {
       window.removeEventListener('message', handler)
+      clearInterval(timer)
     }
   }, [])
 
