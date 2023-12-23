@@ -77,7 +77,7 @@ export const isSelfArticleUrl = (url: URL) => {
   if (isDev && url.hostname === 'innei.in') return true
   return (
     url.hostname === location.hostname &&
-    ['posts/', 'notes/'].some((path) => url.pathname.startsWith(path))
+    ['/posts/', '/notes/'].some((path) => url.pathname.startsWith(path))
   )
 }
 
