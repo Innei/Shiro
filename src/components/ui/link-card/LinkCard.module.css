@@ -26,6 +26,7 @@
   display: block;
   min-width: 0;
   margin-right: 0.55rem;
+  z-index: 1;
 }
 
 .title {
@@ -53,7 +54,7 @@
 
 .image {
   @apply aspect-square flex-shrink-0 bg-cover bg-center bg-no-repeat;
-  @apply bg-gray-50 dark:bg-neutral-700;
+  @apply z-[1] bg-gray-50 dark:bg-neutral-700;
 
   height: 3rem;
   width: 3rem;

@@ -17,9 +17,9 @@ import type { FC, ReactNode } from 'react'
 
 import { LazyLoad } from '~/components/common/Lazyload'
 import { useIsUnMounted } from '~/hooks/common/use-is-unmounted'
-import { calculateDimensions } from '~/lib/calc-image'
 import { isDev } from '~/lib/env'
 import { clsxm } from '~/lib/helper'
+import { calculateDimensions } from '~/lib/image'
 import { useMarkdownImageRecord } from '~/providers/article/MarkdownImageRecordProvider'
 
 import { Divider } from '../divider'

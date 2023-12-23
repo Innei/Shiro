@@ -82,6 +82,9 @@ const ForDesktop: Component<{
   shouldHideNavBg?: boolean
   animatedIcon?: boolean
 }> = ({ className, shouldHideNavBg, animatedIcon = true }) => {
+  const { config: headerMenuConfig } = useHeaderConfig()
+  const pathname = usePathname()
+
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
   const radius = useMotionValue(0)
@@ -94,9 +97,6 @@ const ForDesktop: Component<{
     },
     [mouseX, mouseY, radius],
   )
-
-  const { config: headerMenuConfig } = useHeaderConfig()
-  const pathname = usePathname()
 
   const background = useMotionTemplate`radial-gradient(${radius}px circle at ${mouseX}px ${mouseY}px, var(--spotlight-color) 0%, transparent 65%)`
 

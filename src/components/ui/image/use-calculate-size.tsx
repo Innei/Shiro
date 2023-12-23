@@ -1,6 +1,6 @@
 import { useCallback, useReducer } from 'react'
 
-import { calculateDimensions } from '~/lib/calc-image'
+import { calculateDimensions } from '~/lib/image'
 
 const initialState = { height: 0, width: 0 }
 type Action = { type: 'set'; height: number; width: number } | { type: 'reset' }
