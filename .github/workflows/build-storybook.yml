@@ -41,6 +41,8 @@ jobs:
         run: |
           cd storybook
           npm run build
+          mkdir scripts
+          wget https://github.com/Innei/Shiro/raw/main/scripts/vercel-build-pre.sh > scripts/vercel-build-pre.sh
           echo "shiro.innei.in" > dist/CNAME
         env:
           CI: true
