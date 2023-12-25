@@ -1,11 +1,11 @@
 import { usePageScrollLocationSelector } from '~/providers/root/page-scroll-info-provider'
 import {
-  useWrappedElementPositsion,
+  useWrappedElementPosition,
   useWrappedElementSize,
 } from '~/providers/shared/WrappedElementProvider'
 
 export const useReadPercent = () => {
-  const { y } = useWrappedElementPositsion()
+  const { y } = useWrappedElementPosition()
   const { h } = useWrappedElementSize()
   const readPercent = usePageScrollLocationSelector(
     (scrollTop) => {
