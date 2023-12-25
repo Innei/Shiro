@@ -26,9 +26,9 @@ const [
 })
 
 const [
-  ElementPositsionProviderInternal,
-  useWrappedElementPositsion,
-  useSetElementPositsion,
+  ElementPositionProviderInternal,
+  useWrappedElementPosition,
+  useSetElementPosition,
 ] = createContextState({
   x: 0,
   y: 0,
@@ -43,7 +43,7 @@ const [
 const Providers = [
   <WrappedElementProviderInternal key="ArticleElementProviderInternal" />,
   <ElementSizeProviderInternal key="ElementSizeProviderInternal" />,
-  <ElementPositsionProviderInternal key="ElementPositsionProviderInternal" />,
+  <ElementPositionProviderInternal key="ElementPositionProviderInternal" />,
   <IsEOArticleElementProviderInternal key="IsEOArticleElementProviderInternal" />,
 ]
 const WrappedElementProvider: Component = ({ children, className }) => {
@@ -56,7 +56,7 @@ const WrappedElementProvider: Component = ({ children, className }) => {
 }
 const ArticleElementResizeObserver = () => {
   const setSize = useSetWrappedElementSize()
-  const setPos = useSetElementPositsion()
+  const setPos = useSetElementPosition()
   const $article = useWrappedElement()
   useIsomorphicLayoutEffect(() => {
     if (!$article) return
@@ -134,5 +134,5 @@ export {
   useWrappedElement,
   useIsEoFWrappedElement,
   useWrappedElementSize,
-  useWrappedElementPositsion,
+  useWrappedElementPosition,
 }
