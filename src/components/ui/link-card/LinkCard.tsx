@@ -124,8 +124,12 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
         (loading || isError) && styles['skeleton'],
         isError && styles['error'],
         'group',
+
         className,
       )}
+      style={{
+        borderColor: cardInfo?.color ? `${cardInfo.color}30` : '',
+      }}
       onClick={handleCanPeek}
       onMouseMove={handleMouseMove}
     >
