@@ -10,6 +10,7 @@ import {
   PostMarkdownImageRecordProvider,
   PostMetaBarInternal,
 } from '~/app/posts/(post-detail)/[category]/[slug]/pageExtra'
+import { AckRead } from '~/components/common/AckRead'
 import { Paper } from '~/components/layout/container/Paper'
 import { Loading } from '~/components/ui/loading'
 import {
@@ -54,6 +55,7 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
   return (
     <CurrentPostDataAtomProvider overrideAtom={overrideAtom}>
       <CurrentPostDataProvider data={data} />
+      {!!data.id && <AckRead id={data.id} type="post" />}
       <Paper>
         <article className="prose relative w-full min-w-0">
           <header className="mb-8">
