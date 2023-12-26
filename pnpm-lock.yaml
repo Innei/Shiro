@@ -75,8 +75,8 @@ dependencies:
     specifier: 4.6.0
     version: 4.6.0(react@18.2.0)
   foxact:
-    specifier: 0.2.27
-    version: 0.2.27(react@18.2.0)
+    specifier: 0.2.28
+    version: 0.2.28(react@18.2.0)(rollup@3.29.4)
   framer-motion:
     specifier: ^10.16.16
     version: 10.16.16(react-dom@18.2.0)(react@18.2.0)
@@ -4331,8 +4331,8 @@ packages:
       fetch-blob: 3.2.0
     dev: true
 
-  /foxact@0.2.27(react@18.2.0):
-    resolution: {integrity: sha512-ggCAdCdqtjhONyrxU9rCWiEBd0OHHgSWPeycP8m/jXXzN2mIS04RULzrEUAWjkj/9o6yFLFnXAyqbMssLCxTKw==}
+  /foxact@0.2.28(react@18.2.0)(rollup@3.29.4):
+    resolution: {integrity: sha512-YcpRh9tK8D7//bPnURtIXGoHK6CwpUdR07hybWQF/DdSoR6PPL/LyaXPRcPLt+m4Zx394o8ByezOcEU7BSdwSQ==}
     peerDependencies:
       react: '*'
     peerDependenciesMeta:
@@ -4341,7 +4341,10 @@ packages:
     dependencies:
       client-only: 0.0.1
       react: 18.2.0
+      rollup-preserve-directives: 1.1.0(rollup@3.29.4)
       server-only: 0.0.1
+    transitivePeerDependencies:
+      - rollup
     dev: false
 
   /fraction.js@4.3.7:
@@ -5276,6 +5279,13 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
+
+  /magic-string@0.30.5:
+    resolution: {integrity: sha512-7xlpfBaQaP/T6Vh8MO/EqXSW5En6INHEvEXQiuff7Gku0PWjU3uf6w/j9o7O+SpB5fOAkrI5HeoNgwjEO0pFsA==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@jridgewell/sourcemap-codec': 1.4.15
+    dev: false
 
   /map-obj@4.3.0:
     resolution: {integrity: sha512-hdN1wVrZbb29eBGiGjJbeP8JbKjq1urkHJ/LIP/NY48MZ1QVXUsQBV1G1zvYFHn1XE06cwjBsOI2K3Ulnj1YXQ==}
@@ -6746,13 +6756,21 @@ packages:
     resolution: {integrity: sha512-IXgzBWvWQwE6PrDI05OvmXUIruQTcoMDzRsOd5CDvHCVLcLHMTSYvOK5Cm46kWqlV3yAbuSpBZdJ5oP5OUoStg==}
     dev: false
 
+  /rollup-preserve-directives@1.1.0(rollup@3.29.4):
+    resolution: {integrity: sha512-LL8yNGqtOrSL104TlTX12Ih5wgLHRFL/V2TY9DjGW0EKER5KQcLuYh3iL5T4L/YPP9TR4pvyh+imA+OetYNcyA==}
+    peerDependencies:
+      rollup: ^2.0.0 || ^3.0.0 || ^4.0.0
+    dependencies:
+      magic-string: 0.30.5
+      rollup: 3.29.4
+    dev: false
+
   /rollup@3.29.4:
     resolution: {integrity: sha512-oWzmBZwvYrU0iJHtDmhsm662rC15FRXmcjCk1xD771dFDx5jJ02ufAQQTn0etB2emNk4J9EZg/yWKpsn9BWGRw==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.3
-    dev: true
 
   /run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
