@@ -42,11 +42,11 @@ const persistOptions: Omit<PersistQueryClientOptions, 'queryClient'> = {
   maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
   dehydrateOptions: {
     shouldDehydrateQuery: (query) => {
-      const queryIsReadyForPersistance = query.state.status === 'success'
+      const queryIsReadyForPersistence = query.state.status === 'success'
 
       if (query.meta?.persist === false) return false
 
-      if (queryIsReadyForPersistance) {
+      if (queryIsReadyForPersistence) {
         return (
           !((query.state?.data as any)?.pages?.length > 1) ||
           (!!query.state.data && !(query.state.data as any).pages)
