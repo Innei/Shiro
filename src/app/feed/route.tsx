@@ -1,7 +1,14 @@
-import { compiler } from 'markdown-to-jsx'
+import {
+  blockRegex,
+  compiler,
+  parseCaptureInline,
+  Priority,
+  simpleInlineRegex,
+} from 'markdown-to-jsx'
 import RemoveMarkdown from 'remove-markdown'
 import xss from 'xss'
 import type { AggregateRoot } from '@mx-space/api-client'
+import type { MarkdownToJSX } from 'markdown-to-jsx'
 
 import { InsertRule } from '~/components/ui/markdown/parsers/ins'
 import { MarkRule } from '~/components/ui/markdown/parsers/mark'
@@ -12,7 +19,7 @@ import { getQueryClient } from '~/lib/query-client.server'
 import { apiClient } from '~/lib/request'
 
 export const dynamic = 'force-dynamic'
-export const revalidate = 60 * 60 // 1 hour
+export const revalidate = 60 * 10 // 10 min
 
 interface RSSProps {
   title: string
@@ -50,25 +57,27 @@ export async function GET() {
   const now = new Date()
   const xml = `<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
 <channel>
-<atom:link href="${xss(url)}/feed" rel="self" type="application/rss+xml"/>
+<atom:link href="${xss(
+    escapeXml(url),
+  )}/feed" rel="self" type="application/rss+xml"/>
 <title>${title}</title>
-<link>${xss(url)}</link>
-<description>${description}</description>
+<link>${xss(escapeXml(url))}</link>
+<description>${escapeXml(description)}</description>
 <language>zh-CN</language>
-<copyright>© ${author} </copyright>
+<copyright>© ${escapeXml(author)} </copyright>
 <pubDate>${now.toUTCString()}</pubDate>
 <generator>Mix Space CMS (https://github.com/mx-space)</generator>
 <docs>https://mx-space.js.org</docs>
 <image>
-    <url>${xss(avatar || '')}</url>
-    <title>${title}</title>
-    <link>${xss(url)}</link>
+    <url>${xss(escapeXml(avatar) || '')}</url>
+    <title>${escapeXml(title)}</title>
+    <link>${xss(escapeXml(url))}</link>
 </image>
 ${await Promise.all(
   data.map(async (item) => {
     return `<item>
     <title>${escapeXml(item.title)}</title>
-    <link>${xss(item.link)}</link>
+    <link>${escapeXml(xss(item.link))}</link>
     <pubDate>${new Date(item.created!).toUTCString()}</pubDate>
     <description>${escapeXml(
       xss(RemoveMarkdown(item.text).slice(0, 50)),
@@ -76,7 +85,7 @@ ${await Promise.all(
     <content:encoded><![CDATA[
       ${`<blockquote>该渲染由 Shiro API 生成，可能存在排版问题，最佳体验请前往：<a href='${xss(
         item.link,
-      )}'>${xss(item.link)}</a></blockquote>
+      )}'>${escapeXml(xss(item.link))}</a></blockquote>
 ${ReactDOM.renderToString(
   <div>
     {compiler(item.text, {
@@ -92,6 +101,11 @@ ${ReactDOM.renderToString(
 
         mark: MarkRule,
         ins: InsertRule,
+
+        kateX: KateXRule,
+        kateXBlock: KateXBlockRule,
+        container: ContainerRule,
+        alerts: AlertsRule,
       },
     })}
   </div>,
@@ -113,4 +127,85 @@ ${ReactDOM.renderToString(
       'Content-Type': 'application/xml',
     },
   })
+}
+
+const NotSupportRender = () => <div>这个内容只能在原文中查看哦</div>
+
+const ALERT_BLOCKQUOTE_R =
+  /^(> \[!(?<type>NOTE|IMPORTANT|WARNING)\].*?)(?<body>(?:\n *>.*?)*)(?=\n{2,}|$)/
+
+const KateXRule: MarkdownToJSX.Rule = {
+  match: simpleInlineRegex(
+    /^\$\s{0,}((?:\[.*?\]|<.*?>(?:.*?<.*?>)?|`.*?`|.)*?)\s{0,}\$/,
+  ),
+  order: Priority.LOW,
+  parse: parseCaptureInline,
+  react(node, _, state?) {
+    return <NotSupportRender key={state?.key} />
+  },
+}
+const KateXBlockRule: MarkdownToJSX.Rule = {
+  match: blockRegex(
+    new RegExp(`^\\s*\\$\\$ *(?<content>[\\s\\S]+?)\\s*\\$\\$ *(?:\n *)+\n?`),
+  ),
+
+  order: Priority.LOW,
+  parse(capture) {
+    return {
+      type: 'kateXBlock',
+      groups: capture.groups,
+    }
+  },
+  react(node, _, state?) {
+    return <NotSupportRender key={state?.key} />
+  },
+}
+
+export const AlertsRule: MarkdownToJSX.Rule = {
+  match: blockRegex(ALERT_BLOCKQUOTE_R),
+  order: Priority.HIGH,
+  parse(capture) {
+    return {
+      raw: capture[0],
+      parsed: {
+        ...capture.groups,
+      },
+    }
+  },
+  react(node, output, state) {
+    return <NotSupportRender key={state?.key} />
+  },
+}
+
+const shouldCatchContainerName = [
+  'gallery',
+  'banner',
+  'carousel',
+
+  'warn',
+  'error',
+  'danger',
+  'info',
+  'success',
+  'warning',
+  'note',
+].join('|')
+
+export const ContainerRule: MarkdownToJSX.Rule = {
+  match: blockRegex(
+    new RegExp(
+      `^\\s*::: *(?<name>(${shouldCatchContainerName})) *({(?<params>(.*?))})? *\n(?<content>[\\s\\S]+?)\\s*::: *(?:\n *)+\n?`,
+    ),
+  ),
+  order: Priority.MED,
+  parse(capture) {
+    const { groups } = capture
+    return {
+      ...groups,
+    }
+  },
+  // @ts-ignore
+  react(node, _, state) {
+    return <NotSupportRender key={state?.key} />
+  },
 }

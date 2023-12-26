@@ -34,13 +34,6 @@ const typedIconMap = {
  * > Highlights information that users should take into account, even when skimming.
  */
 const ALERT_BLOCKQUOTE_R =
-  // /^( *> *\[!(NOTE|IMPORTANT|WARNING)\] *\n(?: *>.*(?:\n|$))+)/m
-  // /^( *> *\[!(?:(?<type>NOTE|IMPORTANT|WARNING))\](?<body>.*(\n *>.*?)*))(?=\n *> *\[(NOTE|IMPORTANT|WARNING)\]|$)/
-  // /^(> *\[!(?<type>NOTE|IMPORTANT|WARNING)\](?<body>(?:\n?.*?)*))((?:\n{2,})|$)/
-  // /^*> *\[!(?<type>NOTE|IMPORTANT|WARNING)\](?<body>(?:\n? *>.*?)*?)(?=\n{2,}|$)/
-  // /^( *> *\[!(?<type>NOTE|IMPORTANT|WARNING)\].*?(?:\n(?! *> *\[(NOTE|IMPORTANT|WARNING)\]).*?)*)/
-
-  // /^(> \[!(?<type>NOTE|IMPORTANT|WARNING)\])(?<body>(?:\n? *>.*?(?!\n *> *\[(?:NOTE|IMPORTANT|WARNING)\]))*)/
   /^(> \[!(?<type>NOTE|IMPORTANT|WARNING)\].*?)(?<body>(?:\n *>.*?)*)(?=\n{2,}|$)/
 
 export const AlertsRule: MarkdownToJSX.Rule = {
