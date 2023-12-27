@@ -21,9 +21,13 @@ export const CommentBoxAuthedInput = () => {
   useEffect(() => {
     if (!user) return
     setter('author', displayName)
-    setter('avatar', user.profileImageUrl)
+    setter('avatar', user.imageUrl)
     setter('mail', user.primaryEmailAddress?.emailAddress || '')
-  }, [displayName, user])
+
+    const strategy = user.primaryEmailAddress?.verification.strategy
+
+    strategy && setter('source', strategy)
+  }, [displayName, setter, user])
 
   if (!user) return <CommentBoxAuthedInputSkeleton />
   return (
@@ -37,7 +41,7 @@ export const CommentBoxAuthedInput = () => {
       >
         <Image
           className="rounded-full object-cover"
-          src={user.profileImageUrl}
+          src={user.imageUrl}
           alt={`${displayName}'s avatar`}
           width={48}
           height={48}

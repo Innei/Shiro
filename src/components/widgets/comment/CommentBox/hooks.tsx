@@ -69,11 +69,14 @@ export const useSetCommentBoxValues = <
   T extends keyof CommentContextValue,
 >() => {
   const ctx = useContext(CommentBoxContext)
-  return (key: T, value: ExtractAtomValue<CommentContextValue[T]>) => {
-    const atom = ctx[key]
-    if (!atom) throw new Error(`atom ${key} not found`)
-    jotaiStore.set(atom as any, value)
-  }
+  return useCallback(
+    (key: T, value: ExtractAtomValue<CommentContextValue[T]>) => {
+      const atom = ctx[key]
+      if (!atom) throw new Error(`atom ${key} not found`)
+      jotaiStore.set(atom as any, value)
+    },
+    [ctx],
+  )
 }
 
 // Comment Mode

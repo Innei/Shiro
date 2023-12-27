@@ -17,6 +17,7 @@ import type { PropsWithChildren } from 'react'
 
 import { Avatar } from '~/components/ui/avatar'
 import { RelativeTime } from '~/components/ui/relative-time'
+import { UserAuthStrategyIcon } from '~/components/ui/user/UserAuthStrategyIcon'
 import { softSpringPreset } from '~/constants/spring'
 import { jotaiStore } from '~/lib/store'
 
@@ -40,6 +41,7 @@ export const Comment: Component<{
     location,
     isWhispers,
     url,
+    source,
   } = comment
   const parentId =
     typeof comment.parent === 'string' ? comment.parent : comment.parent?.id
@@ -93,6 +95,12 @@ export const Comment: Component<{
                 width={24}
                 height={24}
               />
+              {source && (
+                <UserAuthStrategyIcon
+                  className="absolute bottom-0.5 right-0.5 h-3.5 w-3.5 ring-1 ring-slate-100 dark:ring-zinc-800"
+                  strategy={source}
+                />
+              )}
             </div>
 
             {/* Header */}
