@@ -73,6 +73,7 @@ export const NoteHeadCover = ({ image }: { image: string }) => {
     <>
       <AutoResizeHeight>
         <div
+          data-hide-print
           className={clsx(
             'z-1 absolute left-0 right-0 top-0',
             imageBlob ? 'h-[224px]' : '0',
@@ -88,7 +89,7 @@ export const NoteHeadCover = ({ image }: { image: string }) => {
       </AutoResizeHeight>
 
       <AutoResizeHeight>
-        <div className={imageBlob ? 'h-[120px]' : 'h-0'} />
+        <div data-hide-print className={imageBlob ? 'h-[120px]' : 'h-0'} />
       </AutoResizeHeight>
     </>
   )
