@@ -161,7 +161,7 @@ const KateXBlockRule: MarkdownToJSX.Rule = {
   },
 }
 
-export const AlertsRule: MarkdownToJSX.Rule = {
+const AlertsRule: MarkdownToJSX.Rule = {
   match: blockRegex(ALERT_BLOCKQUOTE_R),
   order: Priority.HIGH,
   parse(capture) {
@@ -191,7 +191,7 @@ const shouldCatchContainerName = [
   'note',
 ].join('|')
 
-export const ContainerRule: MarkdownToJSX.Rule = {
+const ContainerRule: MarkdownToJSX.Rule = {
   match: blockRegex(
     new RegExp(
       `^\\s*::: *(?<name>(${shouldCatchContainerName})) *({(?<params>(.*?))})? *\n(?<content>[\\s\\S]+?)\\s*::: *(?:\n *)+\n?`,
