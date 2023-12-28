@@ -182,7 +182,6 @@ const SubmitButton = () => {
       const commentDto: CommentDto = { text, author, mail, avatar, source, url }
 
       if (isLogged) {
-        delete commentDto.source
         delete commentDto.avatar
       }
 
@@ -200,6 +199,7 @@ const SubmitButton = () => {
             .post<CommentModel>({
               data: {
                 text,
+                source,
               },
             })
             .then(wrappedCompletedCallback)
@@ -218,7 +218,7 @@ const SubmitButton = () => {
         return apiClient.comment.proxy.master
           .comment(refId)
           .post<CommentModel>({
-            data: { text },
+            data: { text, source },
           })
           .then(async (res) => {
             if (syncToRecently)
@@ -253,8 +253,8 @@ const SubmitButton = () => {
       const toastCopy = isLogged
         ? '发表成功啦~'
         : isReply
-        ? '感谢你的回复！'
-        : '感谢你的评论！'
+          ? '感谢你的回复！'
+          : '感谢你的评论！'
 
       const commentListQueryKey = buildQueryKey(originalRefId)
 

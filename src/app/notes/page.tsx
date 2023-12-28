@@ -5,12 +5,11 @@ import { apiClient } from '~/lib/request'
 
 import Redirect from './redirect'
 
-export const revalidate = 60
-
 export default async function Page() {
   const data = await fetch(apiClient.note.proxy.latest.toString(true), {
     next: {
-      revalidate: 30,
+      revalidate: 60 * 60,
+      tags: ['note'],
     },
   })
     .then((res) => res.json() as Promise<NoteWrappedPayload>)

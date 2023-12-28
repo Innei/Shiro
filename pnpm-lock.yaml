@@ -172,6 +172,9 @@ devDependencies:
   '@innei/prettier':
     specifier: 0.12.0
     version: 0.12.0
+  '@mx-space/webhook':
+    specifier: 0.2.2
+    version: 0.2.2
   '@next/bundle-analyzer':
     specifier: 14.0.4
     version: 14.0.4
@@ -1496,6 +1499,10 @@ packages:
   /@mx-space/api-client@1.6.2:
     resolution: {integrity: sha512-NjLj3SQMYoNtcTsl7fyJurkawHBqK8hg7IKdpjl1pEtDL1zpgrReH9YqMfU9so7ywllh/LUncX2xpHKI+OsCOg==}
     dev: false
+
+  /@mx-space/webhook@0.2.2:
+    resolution: {integrity: sha512-f73DVF38ISm6NzfuAyO9buB4EUHQ3AL8gbEhkBdddQFlCbf4MlVpPLHwo/k7Za87feSQPhEuYow/MOp2BaSmGA==}
+    dev: true
 
   /@neondatabase/serverless@0.6.0:
     resolution: {integrity: sha512-qXxBRYN0m2v8kVQBfMxbzNGn2xFAhTXFibzQlE++NfJ56Shz3m7+MyBBtXDlEH+3Wfa6lToDXf1MElocY4sJ3w==}
