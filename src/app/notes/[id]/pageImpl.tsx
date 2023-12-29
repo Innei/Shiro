@@ -38,7 +38,7 @@ const NotePage = function (props: NoteModel) {
     <>
       <AckRead id={props.id} type="note" />
 
-      {props.meta?.cover && <NoteHeadCover image={props.meta.cover} />}
+      <NoteHeadCover image={props.meta?.cover} />
       <NoteHeaderMetaInfoSetting />
       <IndentArticleContainer>
         <header>

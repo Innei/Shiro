@@ -60,7 +60,7 @@ export const NotePreview: FC<NotePreviewProps> = (props) => {
       <CurrentNoteDataProvider data={data} />
       {!!note.id && <AckRead id={note.id} type="note" />}
       <Paper>
-        {note.meta?.cover && <NoteHeadCover image={note.meta.cover} />}
+        <NoteHeadCover image={note.meta?.cover} />
         <IndentArticleContainer>
           <header>
             <NoteTitle />
