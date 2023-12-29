@@ -17,7 +17,10 @@ import type { PropsWithChildren } from 'react'
 
 import { Avatar } from '~/components/ui/avatar'
 import { RelativeTime } from '~/components/ui/relative-time'
-import { UserAuthStrategyIcon } from '~/components/ui/user/UserAuthStrategyIcon'
+import {
+  getStrategyIconComponent,
+  UserAuthStrategyIcon,
+} from '~/components/ui/user/UserAuthStrategyIcon'
 import { softSpringPreset } from '~/constants/spring'
 import { jotaiStore } from '~/lib/store'
 
@@ -85,7 +88,7 @@ export const Comment: Component<{
           data-parent-id={parentId}
           className={clsx('relative my-2', className)}
         >
-          <div className="group flex w-full items-stretch gap-2">
+          <div className="group flex w-full items-stretch gap-4">
             <div className="relative flex w-9 shrink-0 self-end">
               <Avatar
                 shadow={false}
@@ -95,11 +98,10 @@ export const Comment: Component<{
                 width={24}
                 height={24}
               />
-              {source && (
-                <UserAuthStrategyIcon
-                  className="absolute bottom-0.5 right-0.5 h-3.5 w-3.5"
-                  strategy={source}
-                />
+              {source && !!getStrategyIconComponent(source) && (
+                <div className="absolute -right-1.5 bottom-1 flex h-3.5 w-3.5 rounded-full bg-white ring-[1.5px] ring-zinc-200 center dark:bg-zinc-800 dark:ring-black">
+                  <UserAuthStrategyIcon strategy={source} className="h-3 w-3" />
+                </div>
               )}
             </div>
 

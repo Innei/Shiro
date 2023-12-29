@@ -16,7 +16,7 @@ import {
 
 const prefixToIconMap = {
   GH: <GitHubBrandIcon className="text-[#1D2127] dark:text-[#FFFFFF]" />,
-  TW: <TwitterIcon className="text-[#1DA1F2]" />,
+  TW: <TwitterIcon />,
   TG: <IcBaselineTelegram className="text-[#2AABEE]" />,
   BL: <BilibiliIcon className="text-[#469ECF]" />,
   ZH: <SimpleIconsZhihu className="text-[#0084FF]" />,

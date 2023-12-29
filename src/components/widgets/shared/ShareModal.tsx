@@ -14,7 +14,7 @@ const QRCodeSVG = dynamic(
 const shareList = [
   {
     name: 'Twitter',
-    icon: <TwitterIcon className="text-[#1DA1F2]" />,
+    icon: <TwitterIcon />,
     onClick: (data: ShareData) => {
       window.open(
         `https://twitter.com/intent/tweet?url=${data.url}&text=${
