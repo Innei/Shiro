@@ -97,7 +97,7 @@ export const Comment: Component<{
               />
               {source && (
                 <UserAuthStrategyIcon
-                  className="absolute bottom-0.5 right-0.5 h-3.5 w-3.5 ring-1 ring-slate-100 dark:ring-zinc-800"
+                  className="absolute bottom-0.5 right-0.5 h-3.5 w-3.5"
                   strategy={source}
                 />
               )}
