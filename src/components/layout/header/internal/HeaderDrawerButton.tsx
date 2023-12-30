@@ -36,7 +36,7 @@ export const HeaderDrawerButton = () => {
 
                 <Dialog.Content>
                   <m.dialog
-                    className="fixed left-0 right-0 top-0 z-[12] m-0 block w-full overflow-auto rounded-xl bg-base-100/90 px-3 backdrop-blur-sm"
+                    className="fixed left-0 right-0 top-0 z-[12] m-0 block h-screen w-full overflow-auto rounded-xl bg-base-100/90 px-3 backdrop-blur-sm"
                     initial={{ opacity: 0.8 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
