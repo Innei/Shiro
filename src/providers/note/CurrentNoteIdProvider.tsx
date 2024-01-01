@@ -7,34 +7,33 @@ import type { FC, PropsWithChildren } from 'react'
 import { useBeforeMounted } from '~/hooks/common/use-before-mounted'
 import { jotaiStore } from '~/lib/store'
 
-const currentNoteIdAtom = atom<null | string>(null)
-const CurrentNoteIdProvider: FC<
+const currentNoteNidAtom = atom<null | string>(null)
+export const CurrentNoteNidProvider: FC<
   {
-    noteId: string
+    nid: string
   } & PropsWithChildren
-> = memo(({ noteId, children }) => {
-  const setNoteId = useSetAtom(currentNoteIdAtom)
+> = memo(({ nid, children }) => {
+  const setNoteId = useSetAtom(currentNoteNidAtom)
   useBeforeMounted(() => {
     // setNoteId(noteId)
-    jotaiStore.set(currentNoteIdAtom, noteId)
+    jotaiStore.set(currentNoteNidAtom, nid)
   })
 
   useEffect(() => {
-    setNoteId(noteId)
-  }, [noteId])
+    setNoteId(nid)
+  }, [nid])
 
   return children
 })
-CurrentNoteIdProvider.displayName = 'CurrentNoteIdProvider'
-const useCurrentNoteId = () => {
-  return useAtomValue(currentNoteIdAtom)
+CurrentNoteNidProvider.displayName = 'CurrentNoteIdProvider'
+
+export const useCurrentNoteNid = () => {
+  return useAtomValue(currentNoteNidAtom)
 }
 
 /**
  * Only used in error page to set current note id
  */
-const setCurrentNoteId = (noteId: string) => {
-  jotaiStore.set(currentNoteIdAtom, noteId)
+export const setCurrentNoteNid = (noteId: string) => {
+  jotaiStore.set(currentNoteNidAtom, noteId)
 }
-
-export { useCurrentNoteId, CurrentNoteIdProvider, setCurrentNoteId }

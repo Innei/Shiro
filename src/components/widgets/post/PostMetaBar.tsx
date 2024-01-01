@@ -1,12 +1,13 @@
 'use client'
 
 import { Fragment } from 'react'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import type { PostModel } from '@mx-space/api-client'
 
 import { MdiClockOutline } from '~/components/icons/clock'
 import { FeHash } from '~/components/icons/fa-hash'
 import { ThumbsupIcon } from '~/components/icons/thumbs-up'
+import { MotionButtonBase } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
 import { RelativeTime } from '~/components/ui/relative-time'
@@ -22,6 +23,7 @@ export const PostMetaBar: Component<{
   >
 }> = ({ className, meta }) => {
   const { present } = useModalStack()
+  const router = useRouter()
   return (
     <div
       className={clsxm(
@@ -54,14 +56,19 @@ export const PostMetaBar: Component<{
         <div className="flex min-w-0 items-center space-x-1">
           <FeHash className="translate-y-[0.5px]" />
           <span className="min-w-0 truncate">
-            <Link
-              href={routeBuilder(Routes.Category, {
-                slug: meta.category.slug,
-              })}
+            <MotionButtonBase
+              onClick={() =>
+                !!meta.category &&
+                router.push(
+                  routeBuilder(Routes.Category, {
+                    slug: meta.category.slug,
+                  }),
+                )
+              }
               className="shiro-link--underline font-normal"
             >
-              {meta.category?.name}
-            </Link>
+              <span>{meta.category?.name}</span>
+            </MotionButtonBase>
 
             {meta.tags?.length ? (
               <>

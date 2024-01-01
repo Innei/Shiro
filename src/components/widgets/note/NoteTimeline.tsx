@@ -13,10 +13,10 @@ import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { springScrollToTop } from '~/lib/scroller'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
-import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
+import { useCurrentNoteNid } from '~/providers/note/CurrentNoteIdProvider'
 
 export const NoteTimeline = memo(() => {
-  const noteId = useCurrentNoteId()
+  const noteId = useCurrentNoteNid()
   if (!noteId) return null
   return <NoteTimelineImpl />
 })
@@ -38,7 +38,7 @@ const NoteTimelineImpl = () => {
       created: note.created,
     }
   })
-  const noteNid = useCurrentNoteId()
+  const noteNid = useCurrentNoteNid()
 
   const noteId = note?.id
 

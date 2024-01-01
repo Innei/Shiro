@@ -1,8 +1,5 @@
 import React from 'react'
-import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-
-import { RequestError } from '@mx-space/api-client'
 
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
@@ -19,17 +16,22 @@ import { queries } from '~/queries/definition'
 
 import PostPage from './pageImpl'
 
+const getData = async (params: PageParams) => {
+  const { category, slug } = params
+  attachUAAndRealIp()
+  const data = await getQueryClient().fetchQuery(
+    queries.post.bySlug(category, slug),
+  )
+  return data
+}
 export const generateMetadata = async ({
   params,
 }: {
   params: PageParams
 }): Promise<Metadata> => {
-  const { category, slug } = params
+  const { slug } = params
   try {
-    attachUAAndRealIp()
-    const data = await getQueryClient().fetchQuery(
-      queries.post.bySlug(category, slug),
-    )
+    const data = await getData(params)
     const {
       title,
       category: { slug: categorySlug },
@@ -69,20 +71,7 @@ interface PageParams {
 }
 
 export default async (props: NextPageParams<PageParams>) => {
-  attachUAAndRealIp()
-  const {
-    params: { category, slug },
-  } = props
-  const query = queries.post.bySlug(category, slug)
-  // const queryKey = query.queryKey
-  const data = await getQueryClient()
-    .fetchQuery(query)
-    .catch((error) => {
-      if (error instanceof RequestError && error.status === 404) {
-        return notFound()
-      }
-      throw error
-    })
+  const data = await getData(props.params)
 
   return (
     <>

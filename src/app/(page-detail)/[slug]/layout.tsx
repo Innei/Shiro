@@ -1,8 +1,5 @@
 import React from 'react'
-import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-
-import { RequestError } from '@mx-space/api-client'
 
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
@@ -25,6 +22,14 @@ import {
   PageTitle,
 } from './pageExtra'
 
+const getData = async (params: PageParams) => {
+  attachUAAndRealIp()
+  const data = await getQueryClient().fetchQuery(
+    queries.page.bySlug(params.slug),
+  )
+  return data
+}
+
 export const generateMetadata = async ({
   params,
 }: {
@@ -32,8 +37,8 @@ export const generateMetadata = async ({
 }): Promise<Metadata> => {
   const { slug } = params
   try {
-    attachUAAndRealIp()
-    const data = await getQueryClient().fetchQuery(queries.page.bySlug(slug))
+    const data = await getData(params)
+
     const { title, text } = data
     const description = getSummaryFromMd(text ?? '')
 
@@ -67,22 +72,7 @@ interface PageParams {
 }
 
 export default async (props: NextPageParams<PageParams>) => {
-  attachUAAndRealIp()
-  const {
-    params: { slug },
-  } = props
-
-  if (!slug) return notFound()
-  const query = queries.page.bySlug(slug)
-  const data = await getQueryClient()
-    .fetchQuery(query)
-    .catch((error) => {
-      if (error instanceof RequestError && error.status === 404) {
-        return notFound()
-      }
-      throw error
-    })
-
+  const data = await getData(props.params)
   return (
     <>
       <CurrentPageDataProvider data={data} />

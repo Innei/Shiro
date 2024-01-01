@@ -12,17 +12,32 @@ import { attachUAAndRealIp } from '~/lib/attach-ua'
 import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
 import { getQueryClient } from '~/lib/query-client.server'
+import { requestErrorHandler } from '~/lib/request.server'
 import {
   CurrentNoteDataProvider,
   SyncNoteDataAfterLoggedIn,
 } from '~/providers/note/CurrentNoteDataProvider'
-import { CurrentNoteIdProvider } from '~/providers/note/CurrentNoteIdProvider'
+import { CurrentNoteNidProvider } from '~/providers/note/CurrentNoteIdProvider'
 import { queries } from '~/queries/definition'
 
 import { Paper } from '../../../components/layout/container/Paper'
 import NotePage from './pageImpl'
 import { Transition } from './Transition'
 
+const getData = async (params: { id: string }) => {
+  attachUAAndRealIp()
+  const header = headers()
+  const searchParams = new URLSearchParams(header.get(REQUEST_QUERY) || '')
+  const id = params.id
+  const query = queries.note.byNid(
+    id,
+    searchParams.get('password') || undefined,
+  )
+  const data = await getQueryClient()
+    .fetchQuery(query)
+    .catch(requestErrorHandler)
+  return data
+}
 export const generateMetadata = async ({
   params,
 }: {
@@ -31,10 +46,7 @@ export const generateMetadata = async ({
   }
 }): Promise<Metadata> => {
   try {
-    attachUAAndRealIp()
-    const { data } = await getQueryClient().fetchQuery(
-      queries.note.byNid(params.id),
-    )
+    const data = (await getData(params)).data
     const { title, text } = data
     const description = getSummaryFromMd(text ?? '')
 
@@ -68,26 +80,20 @@ export default async (
     id: string
   }>,
 ) => {
-  attachUAAndRealIp()
-  const header = headers()
-  const searchParams = new URLSearchParams(header.get(REQUEST_QUERY) || '')
-  const id = props.params.id
-  const query = queries.note.byNid(
-    id,
-    searchParams.get('password') || undefined,
-  )
-  const data = await getQueryClient().fetchQuery(query)
+  const { params } = props
+  const { id: nid } = params
+  const data = await getData(params)
 
   const { id: noteObjectId, allowComment } = data.data
 
   return (
     <>
-      <CurrentNoteIdProvider noteId={id} />
+      <CurrentNoteNidProvider nid={nid} />
       <CurrentNoteDataProvider data={data} />
       <SyncNoteDataAfterLoggedIn />
 
       <Transition className="min-w-0" lcpOptimization>
-        <Paper key={id} as={NoteMainContainer}>
+        <Paper key={nid} as={NoteMainContainer}>
           <NotePage {...data.data} />
         </Paper>
         <BottomToUpSoftScaleTransitionView delay={500}>

@@ -5,6 +5,7 @@ import { QueryHydrate } from '~/components/common/QueryHydrate'
 import { isShallowEqualArray } from '~/lib/_'
 import { getQueryClient } from '~/lib/query-client.server'
 import { apiClient } from '~/lib/request'
+import { requestErrorHandler } from '~/lib/request.server'
 
 import { queryKey } from './query'
 
@@ -12,12 +13,14 @@ export const revalidate = 60
 
 export default async function HomeLayout(props: PropsWithChildren) {
   const queryClient = getQueryClient()
-  await queryClient.fetchQuery({
-    queryKey,
-    queryFn: async () => {
-      return (await apiClient.aggregate.getTop(5)).$serialized
-    },
-  })
+  await queryClient
+    .fetchQuery({
+      queryKey,
+      queryFn: async () => {
+        return (await apiClient.aggregate.getTop(5)).$serialized
+      },
+    })
+    .catch(requestErrorHandler)
 
   const dehydrateState = dehydrate(queryClient, {
     shouldDehydrateQuery(query) {

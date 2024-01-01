@@ -1,6 +1,7 @@
 import React from 'react'
 import type { FC, PropsWithChildren } from 'react'
 
+import { KeyboardReturnRounded } from '~/components/icons/return'
 import { springScrollToElement } from '~/lib/scroller'
 
 import { Divider } from '../../divider'
@@ -16,7 +17,7 @@ export const MFootNote: FC<PropsWithChildren> = (props) => {
           const id = child.props.id
           return (
             <div id={`${getFootNoteDomId(id)}`}>
-              <p className="inline">
+              <div className="inline">
                 {React.cloneElement(child as React.ReactElement, {
                   className: 'inline',
                 })}
@@ -30,11 +31,15 @@ export const MFootNote: FC<PropsWithChildren> = (props) => {
                     )
                     redHighlight(`${getFootNoteRefDomId(id)}`)
                   }}
-                  className="inline"
+                  className="ml-2 inline-flex items-center"
                 >
-                  ↩
+                  <KeyboardReturnRounded />
+                  <span className="sr-only">
+                    返回
+                    {id}
+                  </span>
                 </a>
-              </p>
+              </div>
             </div>
           )
         } else {

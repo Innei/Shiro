@@ -9,7 +9,7 @@ import { useParams } from 'next/navigation'
 import { NotFound404 } from '~/components/common/404'
 import { NotePasswordForm } from '~/components/widgets/note/NotePasswordForm'
 import { isRequestError, pickStatusCode } from '~/lib/is-error'
-import { setCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
+import { setCurrentNoteNid } from '~/providers/note/CurrentNoteIdProvider'
 
 import { Paper } from '../../components/layout/container/Paper'
 
@@ -70,7 +70,7 @@ export default ({ error, reset }: { error: Error; reset: () => void }) => {
 const NoteSetCurrnetId = () => {
   const { id } = useParams()
   useEffect(() => {
-    setCurrentNoteId(id as string)
+    setCurrentNoteNid(id as string)
   }, [id])
   return null
 }

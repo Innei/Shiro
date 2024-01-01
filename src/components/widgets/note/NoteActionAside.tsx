@@ -17,7 +17,7 @@ import {
   setCurrentNoteData,
   useCurrentNoteDataSelector,
 } from '~/providers/note/CurrentNoteDataProvider'
-import { useCurrentNoteId } from '~/providers/note/CurrentNoteIdProvider'
+import { useCurrentNoteNid } from '~/providers/note/CurrentNoteIdProvider'
 import { useModalStack } from '~/providers/root/modal-stack-provider'
 import { useIsEoFWrappedElement } from '~/providers/shared/WrappedElementProvider'
 
@@ -78,7 +78,7 @@ const LikeButton = () => {
 
   const likeCount = useCurrentNoteDataSelector((data) => data?.data.count.like)
   const id = useCurrentNoteDataSelector((data) => data?.data.id)
-  const nid = useCurrentNoteId()
+  const nid = useCurrentNoteNid()
 
   if (!id) return null
 
