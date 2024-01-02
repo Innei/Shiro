@@ -26,8 +26,10 @@ export default async function Layout(
     <QueryHydrate
       state={dehydrate(queryClient, {
         shouldDehydrateQuery: (query) => {
-          // @ts-expect-error
-          return isShallowEqualArray(query.queryKey, topicsQuery.queryKey)
+          return isShallowEqualArray(
+            query.queryKey as any,
+            topicsQuery.queryKey,
+          )
         },
       })}
     >
