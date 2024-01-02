@@ -76,27 +76,29 @@ const NoteHeadCoverImpl = ({ image }: { image: string }) => {
 
   return (
     <>
-      <AutoResizeHeight>
-        {imageBlob && (
+      {!!imageBlob && (
+        <div
+          data-hide-print
+          className={clsx(
+            'z-1 absolute left-0 right-0 top-0',
+            imageBlob ? 'h-[224px]' : '0',
+            'top-[-6.5rem] md:top-0',
+          )}
+        >
           <div
-            data-hide-print
-            className={clsx(
-              'z-1 absolute left-0 right-0 top-0',
-              imageBlob ? 'h-[224px]' : '0',
-            )}
-          >
-            <div
-              style={{
-                backgroundImage: `url(${imageBlob})`,
-              }}
-              className="cover-mask-b h-full w-full bg-cover bg-center bg-no-repeat"
-            />
-          </div>
-        )}
-      </AutoResizeHeight>
+            style={{
+              backgroundImage: `url(${imageBlob})`,
+            }}
+            className="cover-mask-b h-full w-full bg-cover bg-center bg-no-repeat"
+          />
+        </div>
+      )}
 
       <AutoResizeHeight>
-        <div data-hide-print className={imageBlob ? 'h-[120px]' : 'h-0'} />
+        <div
+          data-hide-print
+          className={clsx(imageBlob ? 'h-[120px]' : 'h-0', 'hidden md:block')}
+        />
       </AutoResizeHeight>
     </>
   )

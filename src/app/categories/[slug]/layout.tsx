@@ -33,6 +33,9 @@ export default async function Layout(
   }>,
 ) {
   const queryClient = getQueryClient()
+  const query = getPageBySlugQuery(props.params.slug)
+  const queryKey = query.queryKey
+  await queryClient.fetchQuery(query)
 
   await getData(props.params)
 
@@ -40,8 +43,7 @@ export default async function Layout(
     <QueryHydrate
       state={dehydrate(queryClient, {
         shouldDehydrateQuery: (query) => {
-          // @ts-expect-error
-          return isShallowEqualArray(query.queryKey, queryKey)
+          return isShallowEqualArray(query.queryKey as any, queryKey)
         },
       })}
     >
