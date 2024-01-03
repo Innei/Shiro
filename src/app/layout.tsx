@@ -147,6 +147,8 @@ export default async function RootLayout(props: Props) {
         <head>
           <SayHi />
           <HydrationEndDetector />
+
+          <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
         </head>
         <body
           className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
