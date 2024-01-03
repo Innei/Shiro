@@ -13,6 +13,7 @@ import {
   isGithubRepoUrl,
   isGithubUrl,
   isSelfArticleUrl,
+  isTMDBUrl,
   isTweetUrl,
   isYoutubeUrl,
   parseGithubGistUrl,
@@ -105,6 +106,11 @@ export const BlockLinkRenderer = ({
     case isSelfArticleUrl(url): {
       return (
         <LinkCard source={LinkCardSource.Self} id={url.pathname.slice(1)} />
+      )
+    }
+    case isTMDBUrl(url): {
+      return (
+        <LinkCard source={LinkCardSource.TMDB} id={url.pathname.slice(1)} />
       )
     }
 

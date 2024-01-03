@@ -99,6 +99,10 @@ export const isWikipediaUrl = (url: URL) => {
   return url.hostname.includes('wikipedia.org')
 }
 
+export const isTMDBUrl = (url: URL) => {
+  return url.hostname.includes('themoviedb.org')
+}
+
 export const parseSelfArticleUrl = (url: URL) => {
   const [_, type, ...rest] = url.pathname.split('/')
   switch (type) {
@@ -164,5 +168,13 @@ export const parseGithubPrUrl = (url: URL) => {
     repo,
     type,
     pr,
+  }
+}
+
+export const parseTMDBUrl = (url: URL) => {
+  const [_, type, id] = url.pathname.split('/')
+  return {
+    type,
+    id,
   }
 }

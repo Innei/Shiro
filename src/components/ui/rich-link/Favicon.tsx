@@ -1,6 +1,7 @@
 import { BilibiliIcon } from '~/components/icons/platform/BilibiliIcon'
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import { IcBaselineTelegram } from '~/components/icons/platform/Telegram'
+import { SimpleIconsThemoviedatabase } from '~/components/icons/platform/TheMovieDB'
 import { TwitterIcon } from '~/components/icons/platform/Twitter'
 import { WikipediaIcon } from '~/components/icons/platform/WikipediaIcon'
 import { SimpleIconsZhihu } from '~/components/icons/platform/ZhihuIcon'
@@ -9,6 +10,7 @@ import {
   isBilibiliUrl,
   isGithubUrl,
   isTelegramUrl,
+  isTMDBUrl,
   isTwitterUrl,
   isWikipediaUrl,
   isZhihuUrl,
@@ -21,6 +23,9 @@ const prefixToIconMap = {
   BL: <BilibiliIcon className="text-[#469ECF]" />,
   ZH: <SimpleIconsZhihu className="text-[#0084FF]" />,
   WI: <WikipediaIcon className="text-current" />,
+  TMDB: (
+    <SimpleIconsThemoviedatabase className="text-[#0D243F] dark:text-[#5CB7D2]" />
+  ),
 }
 
 const getUrlSource = (url: URL) => {
@@ -48,6 +53,10 @@ const getUrlSource = (url: URL) => {
     {
       type: 'WI',
       test: isWikipediaUrl,
+    },
+    {
+      type: 'TMDB',
+      test: isTMDBUrl,
     },
   ]
 

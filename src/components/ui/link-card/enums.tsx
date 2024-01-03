@@ -6,4 +6,5 @@ export enum LinkCardSource {
   MixSpace = 'mx-space',
   GHCommit = 'gh-commit',
   GHPr = 'gh-pr',
+  TMDB = 'tmdb',
 }
