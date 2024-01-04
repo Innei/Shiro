@@ -30,10 +30,17 @@ export const KateXRule: MarkdownToJSX.Rule = {
   },
 }
 
-const LateX: FC<{ children: string }> = (props) => {
-  const { children } = props
+type LateXProps = {
+  children: string
+  mode?: string // If `display` the math will be rendered in display mode. Otherwise the math will be rendered in inline mode.
+}
+
+const LateX: FC<LateXProps> = (props) => {
+  const { children, mode } = props
 
   const [html, setHtml] = useState('')
+
+  const displayMode = mode === 'display'
 
   useInsertionEffect(() => {
     loadStyleSheet(
@@ -43,7 +50,7 @@ const LateX: FC<{ children: string }> = (props) => {
       'https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.js',
     ).then(() => {
       // @ts-ignore
-      const html = window.katex.renderToString(children)
+      const html = window.katex.renderToString(children, { displayMode })
       setHtml(html)
     })
   }, [])
@@ -66,7 +73,7 @@ export const KateXBlockRule: MarkdownToJSX.Rule = {
   react(node, _, state?) {
     return (
       <div key={state?.key}>
-        <LateX>{node.groups.content}</LateX>
+        <LateX mode="display">{node.groups.content}</LateX>
       </div>
     )
   },
