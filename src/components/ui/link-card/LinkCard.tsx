@@ -51,6 +51,7 @@ type CardState = {
 
   classNames?: Partial<{
     image: string
+    cardRoot: string
   }>
 }
 
@@ -128,13 +129,14 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
       href={fullUrl}
       target={source !== 'self' ? '_blank' : '_self'}
       ref={ref}
-      className={clsx(
+      className={clsxm(
         styles['card-grid'],
         (loading || isError) && styles['skeleton'],
         isError && styles['error'],
         'group',
 
         className,
+        classNames.cardRoot,
       )}
       style={{
         borderColor: cardInfo?.color ? `${cardInfo.color}30` : '',
@@ -467,6 +469,7 @@ const fetchTheMovieDBData: FetchObject = {
 
       classNames: {
         image: 'self-start mt-4',
+        cardRoot: '!w-full',
       },
     })
     setFullUrl(json.homepage)

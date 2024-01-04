@@ -189,10 +189,11 @@ const twConfig: Config = {
     'group-hover:opacity-100',
     'transition-opacity',
     'group-hover:animation-blink',
+
+    '!w-full',
+    'w-full',
   ],
   theme: {
-    // colors: createVariableColors(twColors),
-
     extend: {
       fontFamily: {
         sans: 'var(--font-sans),system-ui,-apple-system,PingFang SC,"Microsoft YaHei",Segoe UI,Roboto,Helvetica,noto sans sc,hiragino sans gb,"sans-serif",Apple Color Emoji,Segoe UI Emoji,Not Color Emoji',
