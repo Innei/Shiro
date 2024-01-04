@@ -27,6 +27,8 @@ export interface LinkCardProps {
   id: string
   source?: LinkCardSource
   className?: string
+
+  fallbackUrl?: string
 }
 
 export const LinkCard = (props: LinkCardProps) => {
@@ -53,11 +55,11 @@ type CardState = {
 }
 
 const LinkCardImpl: FC<LinkCardProps> = (props) => {
-  const { id, source = LinkCardSource.Self, className } = props
+  const { id, source = LinkCardSource.Self, className, fallbackUrl } = props
 
   const [loading, setLoading] = useState(true)
   const [isError, setIsError] = useState(false)
-  const [fullUrl, setFullUrl] = useState('about:blank')
+  const [fullUrl, setFullUrl] = useState(fallbackUrl || 'javascript:;')
 
   const [cardInfo, setCardInfo] = useState<CardState>()
 

@@ -105,12 +105,20 @@ export const BlockLinkRenderer = ({
     }
     case isSelfArticleUrl(url): {
       return (
-        <LinkCard source={LinkCardSource.Self} id={url.pathname.slice(1)} />
+        <LinkCard
+          fallbackUrl={url.toString()}
+          source={LinkCardSource.Self}
+          id={url.pathname.slice(1)}
+        />
       )
     }
     case isTMDBUrl(url): {
       return (
-        <LinkCard source={LinkCardSource.TMDB} id={url.pathname.slice(1)} />
+        <LinkCard
+          fallbackUrl={url.toString()}
+          source={LinkCardSource.TMDB}
+          id={url.pathname.slice(1)}
+        />
       )
     }
 
@@ -178,7 +186,11 @@ const GithubUrlRenderL: FC<{
     case isGithubPrUrl(url): {
       const { owner, repo, pr } = parseGithubPrUrl(url)
       return (
-        <LinkCard id={`${owner}/${repo}/${pr}`} source={LinkCardSource.GHPr} />
+        <LinkCard
+          fallbackUrl={url.toString()}
+          id={`${owner}/${repo}/${pr}`}
+          source={LinkCardSource.GHPr}
+        />
       )
     }
 
@@ -190,6 +202,7 @@ const GithubUrlRenderL: FC<{
             <MLink href={href}>{href}</MLink>
           </p>
           <LinkCard
+            fallbackUrl={url.toString()}
             id={`${owner}/${repo}/commit/${id}`}
             source={LinkCardSource.GHCommit}
           />
