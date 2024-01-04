@@ -44,10 +44,10 @@ const LateX: FC<LateXProps> = (props) => {
 
   useInsertionEffect(() => {
     loadStyleSheet(
-      'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css',
+      'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css',
     )
     loadScript(
-      'https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.js',
+      'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js',
     ).then(() => {
       // @ts-ignore
       const html = window.katex.renderToString(children, { displayMode })
