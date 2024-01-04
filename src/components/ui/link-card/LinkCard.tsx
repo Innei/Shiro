@@ -239,7 +239,21 @@ const fetchGitHubRepoData: FetchObject = {
       const data = camelcaseKeys(response)
 
       setCardInfo({
-        title: data.name,
+        title: (
+          <span className="flex items-center gap-2">
+            <span className="flex-1">{data.name}</span>
+            <span className="flex-shrink-0 self-end justify-self-end">
+              {data.stargazersCount > 0 && (
+                <span className="inline-flex flex-shrink-0 items-center gap-1 self-center text-sm text-orange-400 dark:text-yellow-500">
+                  <i className="icon-[mingcute--star-line]" />
+                  <span className="font-sans font-medium">
+                    {data.stargazersCount}
+                  </span>
+                </span>
+              )}
+            </span>
+          </span>
+        ),
         desc: data.description,
         image: data.owner.avatarUrl,
         color: (LanguageToColorMap as any)[data.language?.toLowerCase()],
