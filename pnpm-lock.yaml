@@ -54,8 +54,8 @@ dependencies:
     specifier: 0.5.1
     version: 0.5.1
   axios:
-    specifier: 1.6.3
-    version: 1.6.3
+    specifier: 1.6.4
+    version: 1.6.4
   bypass-vue-devtools:
     specifier: 0.0.6
     version: 0.0.6
@@ -75,8 +75,8 @@ dependencies:
     specifier: 4.6.0
     version: 4.6.0(react@18.2.0)
   foxact:
-    specifier: 0.2.28
-    version: 0.2.28(react@18.2.0)(rollup@3.29.4)
+    specifier: 0.2.30
+    version: 0.2.30(react@18.2.0)(rollup@3.29.4)
   framer-motion:
     specifier: ^10.16.16
     version: 10.16.16(react-dom@18.2.0)(react@18.2.0)
@@ -144,8 +144,8 @@ dependencies:
     specifier: ^0.0.1
     version: 0.0.1
   socket.io-client:
-    specifier: 4.7.2
-    version: 4.7.2
+    specifier: 4.7.3
+    version: 4.7.3
   tailwind-merge:
     specifier: 2.2.0
     version: 2.2.0
@@ -164,8 +164,8 @@ devDependencies:
     specifier: 1.1.68
     version: 1.1.68
   '@iconify-json/mingcute':
-    specifier: 1.1.14
-    version: 1.1.14
+    specifier: 1.1.15
+    version: 1.1.15
   '@iconify/tailwind':
     specifier: 0.1.4
     version: 0.1.4
@@ -248,8 +248,8 @@ devDependencies:
     specifier: 3.0.5
     version: 3.0.5(tailwindcss@3.4.0)
   tailwind-variants:
-    specifier: 0.1.19
-    version: 0.1.19(tailwindcss@3.4.0)
+    specifier: 0.1.20
+    version: 0.1.20(tailwindcss@3.4.0)
   tailwindcss:
     specifier: ^3.4.0
     version: 3.4.0
@@ -1377,8 +1377,8 @@ packages:
       '@iconify/types': 2.0.0
     dev: true
 
-  /@iconify-json/mingcute@1.1.14:
-    resolution: {integrity: sha512-oWeGJzNBHPLFLdjqYFg80GL12F7vp+qCpSqt34G9CzP/20eduYLZyB1gB8GW2beTl335lssJo28QT/ObyJ3YpQ==}
+  /@iconify-json/mingcute@1.1.15:
+    resolution: {integrity: sha512-QipLTzA5xE8gJiq9ajlqVuQufFzoMy18vKIqimJRV39+X1qqKbj8vDEbnIJPlfMpLlmBqmHtIdpiRSf4+S/wLA==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
@@ -2916,10 +2916,10 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /axios@1.6.3:
-    resolution: {integrity: sha512-fWyNdeawGam70jXSVlKl+SUNVcL6j6W79CuSIPfi6HnDUmSCH6gyUys/HrqHeA/wU0Az41rRgean494d0Jb+ww==}
+  /axios@1.6.4:
+    resolution: {integrity: sha512-heJnIs6N4aa1eSthhN9M5ioILu8Wi8vmQW9iHQ9NUvfkJb0lEEDUiIdQNAuBtfUt3FxReaKdpQA5DbmMOqzF/A==}
     dependencies:
-      follow-redirects: 1.15.3
+      follow-redirects: 1.15.4
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -4290,8 +4290,8 @@ packages:
     resolution: {integrity: sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==}
     dev: true
 
-  /follow-redirects@1.15.3:
-    resolution: {integrity: sha512-1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==}
+  /follow-redirects@1.15.4:
+    resolution: {integrity: sha512-Cr4D/5wlrb0z9dgERpUL3LrmPKVDsETIJhaCMeDfuFYcqa5bldGV6wBsAN6X/vxlXQtFBMrXdXxdL8CbDTGniw==}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -4351,8 +4351,8 @@ packages:
       fetch-blob: 3.2.0
     dev: true
 
-  /foxact@0.2.28(react@18.2.0)(rollup@3.29.4):
-    resolution: {integrity: sha512-YcpRh9tK8D7//bPnURtIXGoHK6CwpUdR07hybWQF/DdSoR6PPL/LyaXPRcPLt+m4Zx394o8ByezOcEU7BSdwSQ==}
+  /foxact@0.2.30(react@18.2.0)(rollup@3.29.4):
+    resolution: {integrity: sha512-XE5vn299IxC3GA39ngbp8fhTYn56iD65Z6lHPihWobGXWhYaA9cKbhG+avTZ9OeEtc/0zxAkpJskLIOubUwVxg==}
     peerDependencies:
       react: '*'
     peerDependenciesMeta:
@@ -6977,8 +6977,8 @@ packages:
       type-fest: 2.19.0
     dev: false
 
-  /socket.io-client@4.7.2:
-    resolution: {integrity: sha512-vtA0uD4ibrYD793SOIAwlo8cj6haOeMHrGvwPxJsxH7CeIksqJ+3Zc06RvWTIFgiSqx4A3sOnTXpfAEE2Zyz6w==}
+  /socket.io-client@4.7.3:
+    resolution: {integrity: sha512-nU+ywttCyBitXIl9Xe0RSEfek4LneYkJxCeNnKCuhwoH4jGXO1ipIUw/VA/+Vvv2G1MTym11fzFC0SxkrcfXDw==}
     engines: {node: '>=10.0.0'}
     dependencies:
       '@socket.io/component-emitter': 3.1.0
@@ -7218,8 +7218,8 @@ packages:
       tailwindcss: 3.4.0
     dev: true
 
-  /tailwind-variants@0.1.19(tailwindcss@3.4.0):
-    resolution: {integrity: sha512-D9Yf5WqsxodnCtjZt6KifEoKwW8rTURXQV03KRKlojITQM5gV1vPVWufWNiIvd/ptC3QybYFpwmHK9cs4Ei08Q==}
+  /tailwind-variants@0.1.20(tailwindcss@3.4.0):
+    resolution: {integrity: sha512-AMh7x313t/V+eTySKB0Dal08RHY7ggYK0MSn/ad8wKWOrDUIzyiWNayRUm2PIJ4VRkvRnfNuyRuKbLV3EN+ewQ==}
     engines: {node: '>=16.x', pnpm: '>=7.x'}
     peerDependencies:
       tailwindcss: '*'
