@@ -44,7 +44,7 @@ export const LinkCard = (props: LinkCardProps) => {
 }
 
 type CardState = {
-  title: ReactNode
+  title?: ReactNode
   desc?: ReactNode
   image?: string
   color?: string
@@ -431,6 +431,9 @@ const fetchTheMovieDBData: FetchObject = {
   async fetch(id, setCardInfo, setFullUrl) {
     const [type, realId] = id.split('/')
 
+    setCardInfo({
+      classNames: { cardRoot: '!w-full' },
+    })
     const json = await fetch(`/api/tmdb/${type}/${realId}?language=zh-CN`)
       .then((r) => r.json())
       .catch((err) => {
@@ -472,6 +475,6 @@ const fetchTheMovieDBData: FetchObject = {
         cardRoot: '!w-full',
       },
     })
-    setFullUrl(json.homepage)
+    json.homepage && setFullUrl(json.homepage)
   },
 }
