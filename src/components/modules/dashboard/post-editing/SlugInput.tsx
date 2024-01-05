@@ -40,7 +40,7 @@ export const SlugInput = () => {
             setSlug(e.target.value)
           }}
         />
-        <span className="pointer-events-none text-transparent">
+        <span className="pointer-events-none whitespace-nowrap text-transparent">
           {slug}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </span>

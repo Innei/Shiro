@@ -1,10 +1,16 @@
 import { PresentComponentFab } from '../../writing/PresentComponentFab'
 import { SidebarWrapper } from '../../writing/SidebarBase'
+import { CategorySelector } from './CategorySelector'
+import { PostCombinedSwitch } from './PostCombinedSwitch'
+import { TagsInput } from './TagsInput'
 
 const Sidebar = () => {
   return (
     <SidebarWrapper>
-      {/* <CategorySelector />
+      <CategorySelector />
+      <TagsInput />
+      <PostCombinedSwitch />
+      {/* 
       <TagsInput />
       <RelatedPostSelector />
       <SummaryInput />

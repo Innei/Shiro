@@ -1,0 +1,10 @@
+#dashboard {
+  *:focus {
+    outline: none;
+  }
+
+  *:focus-visible {
+    outline: 0 !important;
+    box-shadow: none;
+  }
+}

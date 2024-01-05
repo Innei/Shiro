@@ -1,24 +1,23 @@
-import { Select, SelectItem } from '@nextui-org/react'
-import React, { useMemo } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import React from 'react'
 import { produce } from 'immer'
-import { useEventCallback } from 'usehooks-ts'
-import type { Selection } from '@nextui-org/react'
+import type { SelectValue } from '~/components/ui/select'
 
-import { useI18n } from '~/i18n/hooks'
-import { trpc } from '~/lib/trpc'
+import { Select } from '~/components/ui/select'
+import { useEventCallback } from '~/hooks/common/use-event-callback'
+import { queries } from '~/queries/definition'
 
+import { SidebarSection } from '../../writing/SidebarBase'
 import {
   usePostModelDataSelector,
   usePostModelSetModelData,
 } from '../data-provider'
 
 export const CategorySelector = () => {
-  const t = useI18n()
-  const { data = [], isLoading } = trpc.category.getAllForSelector.useQuery()
+  const { data, isLoading } = useQuery(queries.admin.post.allCategories())
   const categoryId = usePostModelDataSelector((data) => data?.categoryId)
   const setter = usePostModelSetModelData()
-  const handleSelectionChange = useEventCallback((value: Selection) => {
-    const newCategoryId = Array.from(new Set(value).values())[0] as string
+  const handleSelectionChange = useEventCallback((newCategoryId: string) => {
     if (newCategoryId === categoryId) return
 
     setter((prev) => {
@@ -27,24 +26,22 @@ export const CategorySelector = () => {
       })
     })
   })
+
+  const selectValues: SelectValue<string>[] = (data?.data || []).map(
+    (item) => ({
+      label: item.name,
+      value: item.id,
+    }),
+  )
+
   return (
-    <div className="flex flex-col space-y-3">
-      <Select
-        className="mt-5"
-        label={t('common.category')}
-        labelPlacement="outside"
+    <SidebarSection label="分类">
+      <Select<string>
         isLoading={isLoading}
-        selectedKeys={useMemo(() => new Set([categoryId]), [categoryId])}
-        onSelectionChange={handleSelectionChange}
-        variant="flat"
-        size="sm"
-      >
-        {data?.map((item) => (
-          <SelectItem key={item.id} value={item.value}>
-            {item.label}
-          </SelectItem>
-        ))}
-      </Select>
-    </div>
+        onChange={handleSelectionChange}
+        values={selectValues}
+        value={categoryId}
+      />
+    </SidebarSection>
   )
 }

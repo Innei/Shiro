@@ -6,8 +6,13 @@ import type { PropsWithChildren } from 'react'
 
 import { clsxm } from '~/lib/helper'
 
+export type SelectValue<T> = {
+  value: T
+  label: string
+}
+
 interface SelectProps<T> {
-  values: { value: T; label: string }[]
+  values: SelectValue<T>[]
   value: T
   onChange: (
     value: T,
@@ -16,6 +21,9 @@ interface SelectProps<T> {
       label: string
     },
   ) => void
+
+  isLoading?: boolean
+  placeholder?: string
 }
 
 export const Select = function Select<T>(
@@ -23,7 +31,7 @@ export const Select = function Select<T>(
     className?: string
   },
 ) {
-  const { value, className, values, onChange } = props
+  const { value, className, values, onChange, isLoading, placeholder } = props
   return (
     <SelectImpl.Root
       // @ts-expect-error
@@ -36,19 +44,24 @@ export const Select = function Select<T>(
       <SelectImpl.Trigger
         className={clsxm(
           'inline-flex w-full items-center justify-between gap-1 rounded-lg border border-neutral-400/50 dark:border-neutral-700',
-          'px-2 py-1',
+          'p-2',
           'text-[0.9em]',
+
           className,
         )}
       >
-        <SelectImpl.Value placeholder="SelectImpl a fruit…" />
+        <SelectImpl.Value placeholder={placeholder} />
         <SelectImpl.Icon>
-          <i className="icon-[mingcute--down-line]" />
+          {isLoading ? (
+            <i className="mingcute--loading-line animate-spin" />
+          ) : (
+            <i className="icon-[mingcute--down-line]" />
+          )}
         </SelectImpl.Icon>
       </SelectImpl.Trigger>
       <SelectImpl.Portal>
-        <SelectImpl.Content className="z-[10] rounded-lg border border-zinc-200 bg-zinc-50/80 backdrop-blur dark:border-neutral-800 dark:bg-neutral-800 dark:bg-neutral-900/60">
-          <SelectImpl.ScrollUpButton className="SelectScrollButton">
+        <SelectImpl.Content className="z-[990] rounded-lg border border-zinc-200 bg-zinc-50/80 backdrop-blur dark:border-neutral-800 dark:bg-neutral-800 dark:bg-neutral-900/60">
+          <SelectImpl.ScrollUpButton className="flex h-3 items-center justify-center">
             <i className="icon-[mingcute--up-line]" />
           </SelectImpl.ScrollUpButton>
           <SelectImpl.Viewport>
@@ -62,9 +75,8 @@ export const Select = function Select<T>(
                 {item.label}
               </SelectItem>
             ))}
-            <SelectImpl.Separator className="SelectSeparator" />
           </SelectImpl.Viewport>
-          <SelectImpl.ScrollDownButton className="SelectScrollButton">
+          <SelectImpl.ScrollDownButton className="flex h-3 items-center justify-center">
             <i className="icon-[mingcute--down-line]" />
           </SelectImpl.ScrollDownButton>
         </SelectImpl.Content>
@@ -79,7 +91,7 @@ const SelectItem = React.forwardRef<
 >(({ children, ...props }, forwardedRef) => {
   return (
     <SelectImpl.Item
-      className="flex cursor-auto items-center justify-between rounded-lg px-3 py-1 hover:bg-slate-100 dark:hover:bg-neutral-800"
+      className="flex cursor-auto items-center justify-between rounded-sm px-3 py-1 hover:bg-zinc-200 dark:hover:bg-neutral-800"
       {...props}
       ref={forwardedRef}
     >

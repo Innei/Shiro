@@ -11,6 +11,10 @@ import { DashboardAppProviders } from '~/providers/root'
 import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
 import { queries } from '~/queries/definition'
 
+import './dashboard.css'
+
+import { FABContainer } from '~/components/ui/fab'
+
 export default async function RootLayout({ children }: PropsWithChildren) {
   const queryClient = getQueryClient()
   const data = await queryClient.fetchQuery({
@@ -26,6 +30,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
         <HydrationEndDetector />
       </head>
       <body
+        id="dashboard"
         className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
       >
         <div className="fixed inset-0 bg-gray-50 dark:bg-black" />
@@ -44,6 +49,9 @@ export default async function RootLayout({ children }: PropsWithChildren) {
                 </main>
               </div>
             </ComposedKBarProvider>
+            <FABContainer>
+              <></>
+            </FABContainer>
           </ClientOnly>
         </DashboardAppProviders>
         <ToastContainer />

@@ -11,6 +11,8 @@ import { toast } from '~/lib/toast'
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const { data: ok, isLoading } = useQuery({
     queryKey: ['check-auth'],
+    // 5 min ,
+    refetchInterval: 5 * 60 * 1000,
     queryFn: async () => {
       const { ok } = await apiClient.proxy('master')('check_logged').get<{
         ok: number

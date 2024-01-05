@@ -1,3 +1,5 @@
+import type { TagModel } from '@mx-space/api-client'
+
 import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 
@@ -51,6 +53,23 @@ export const postAdmin = {
         const data = await apiClient.post.getPost(id)
 
         return data.$serialized
+      },
+    }),
+
+  getAllTags: () =>
+    defineQuery({
+      queryKey: ['postAdmin', 'getAllTags'],
+      queryFn: async () => {
+        const { data } = await apiClient.proxy.categories.get<{
+          data: TagModel[]
+        }>({
+          params: { type: 'Tag' },
+        })
+        return data.map((i) => ({
+          label: `${i.name} (${i.count})`,
+          value: i.name,
+          key: i.name,
+        }))
       },
     }),
 }

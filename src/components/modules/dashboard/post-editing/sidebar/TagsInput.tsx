@@ -1,95 +1,70 @@
+import { useQuery } from '@tanstack/react-query'
 import React from 'react'
-import type { PostTag } from '@model'
 
-import { select } from '@nextui-org/theme'
+import { queries } from '~/queries/definition'
 
-import { AddTag, Label, Tag } from '~/components/ui'
-import { useI18n } from '~/i18n/hooks'
-import { trpc } from '~/lib/trpc'
-
+import { SidebarSection } from '../../writing/SidebarBase'
 import {
   usePostModelDataSelector,
   usePostModelSetModelData,
 } from '../data-provider'
-
-const styles = select({
-  variant: 'faded',
-})
+import { AddTag, PostTag } from './Tag'
 
 export const TagsInput = () => {
   const tags = usePostModelDataSelector((data) => data?.tags)
-  const t = useI18n()
 
   const setter = usePostModelSetModelData()
-  const handleClose = (tag: PostTag) => {
+  const handleClose = (tag: string) => {
     setter((prev) => {
-      const newTags = prev.tags.filter((t) => t.id !== tag.id)
+      const newTags = prev.tags.filter((t) => t !== tag)
       return {
         ...prev,
         tags: newTags,
-        tagIds: newTags.map((t) => t.id),
       }
     })
   }
 
   return (
-    <div>
-      <Label>{t('common.tags')}</Label>
-
-      <div className="mt-2 flex flex-wrap gap-2">
+    <SidebarSection label="标签">
+      <div className="flex flex-wrap items-center gap-2">
         {tags?.map((tag) => (
-          <Tag canClose key={tag.id} onClose={() => handleClose(tag)}>
-            {tag.name}
-          </Tag>
+          <PostTag canClose key={tag} onClose={() => handleClose(tag)}>
+            {tag}
+          </PostTag>
         ))}
 
         <TagCompletion />
       </div>
-    </div>
+    </SidebarSection>
   )
 }
 
 const TagCompletion = () => {
-  const { data: tags } = trpc.post.tags.useQuery(void 0, {
-    refetchOnMount: true,
-  })
-
-  const { mutateAsync: createTag } = trpc.post.createTag.useMutation()
+  const { data } = useQuery(queries.admin.post.getAllTags())
 
   const setter = usePostModelSetModelData()
 
   const existsTags = usePostModelDataSelector(
-    (data) => data?.tags.map((t) => ({ id: t.id })),
+    (data) => data?.tags.map((t) => ({ label: t, value: t })) ?? [],
   )
 
   return (
     <AddTag
-      allTags={tags}
+      allTags={data}
       existsTags={existsTags}
       onSelected={(suggestion) => {
         setter((prev) => {
-          if (prev.tagIds.find((id) => id === suggestion.value)) return prev
           return {
             ...prev,
-            tags: [
-              ...prev.tags,
-              { id: suggestion.value, name: suggestion.name, postId: [] },
-            ],
-            tagIds: [...prev.tagIds, suggestion.value],
+            tags: [...prev.tags, suggestion.name],
           }
         })
       }}
       onEnter={async (value) => {
-        const data = await createTag({
-          name: value,
-        })
-
         setter((prev) => {
-          if (prev.tagIds.find((id) => id === data.id)) return prev
           return {
             ...prev,
-            tags: [...prev.tags, { id: data.id, name: value, postId: [] }],
-            tagIds: [...prev.tagIds, data.id],
+            tags: [...prev.tags, value],
           }
         })
       }}
