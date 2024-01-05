@@ -27,8 +27,28 @@ export const postAdmin = {
   paginate: (page: number) =>
     defineQuery({
       queryKey: ['postAdmin', 'paginate', page],
-      queryFn: async ({ queryKey }) => {
+      queryFn: async () => {
         const data = await apiClient.post.getList(page)
+
+        return data.$serialized
+      },
+    }),
+
+  allCategories: () =>
+    defineQuery({
+      queryKey: ['postAdmin', 'allCategories'],
+      queryFn: async () => {
+        const data = await apiClient.category.getAllCategories()
+
+        return data.$serialized
+      },
+    }),
+
+  getPost: (id: string) =>
+    defineQuery({
+      queryKey: ['postAdmin', 'getPost', id],
+      queryFn: async () => {
+        const data = await apiClient.post.getPost(id)
 
         return data.$serialized
       },

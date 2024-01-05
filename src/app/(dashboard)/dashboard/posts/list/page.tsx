@@ -98,7 +98,7 @@ const cardSlot: CardProps<PostModel>['slots'] = {
       <>
         <Link
           className="absolute inset-0 bottom-8 z-[1]"
-          href={`/dashboard/posts/edit/${data.id}`}
+          href={`/dashboard/posts/edit?id=${data.id}`}
         />
       </>
     )

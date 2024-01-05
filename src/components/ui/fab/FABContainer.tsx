@@ -72,13 +72,15 @@ export const FABPortable = typescriptHappyForwardRef(
       children: React.JSX.Element
 
       onClick: () => void
+      onlyShowInMobile?: boolean
     },
     ref: React.ForwardedRef<HTMLButtonElement>,
   ) => {
     const { onClick, children } = props
     const id = useId()
     const portalElement = useAtomValue(fabContainerElementAtom)
-
+    const isMobile = useIsMobile()
+    if (props.onlyShowInMobile && !isMobile) return null
     if (!portalElement) return null
 
     return (

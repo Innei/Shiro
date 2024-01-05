@@ -130,3 +130,17 @@ export const isShallowEqualArray = <T>(arr1: T[], arr2: T[]): boolean => {
 
   return true
 }
+
+export const merge = <T extends object, U extends object>(
+  ...objs: (T | U)[]
+): T & U => {
+  const result: any = {}
+
+  for (const obj of objs) {
+    for (const key in obj) {
+      result[key] = (obj as any)[key]
+    }
+  }
+
+  return result
+}
