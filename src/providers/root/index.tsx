@@ -12,7 +12,6 @@ import type { PropsWithChildren } from 'react'
 import { PeekPortal } from '~/components/modules/peek/PeekPortal'
 
 import { ProviderComposer } from '../../components/common/ProviderComposer'
-import { AccentColorProvider } from './accent-color-provider'
 import { AuthProvider } from './auth-provider'
 import { DebugProvider } from './debug-provider'
 import { EventProvider } from './event-provider'
@@ -50,7 +49,7 @@ export function WebAppProviders({ children }: PropsWithChildren) {
         {/* <SentryProvider key="SentryProvider" /> */}
         <PageScrollInfoProvider key="PageScrollInfoProvider" />
         <DebugProvider key="debugProvider" />
-        <AccentColorProvider />
+
         <ScriptInjectProvider />
       </ProviderComposer>
     </>

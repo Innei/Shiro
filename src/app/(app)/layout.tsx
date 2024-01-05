@@ -7,6 +7,7 @@ import PKG from '~/../package.json'
 import { HydrationEndDetector } from '~/components/common/HydrationEndDetector'
 import { ScrollTop } from '~/components/common/ScrollTop'
 import { Root } from '~/components/layout/root/Root'
+import { AccentColorStyleInjector } from '~/components/modules/shared/AccentColorStyleInjector'
 import { SearchPanelWithHotKey } from '~/components/modules/shared/SearchFAB'
 import { TocAutoScroll } from '~/components/modules/toc/TocAutoScroll'
 import { attachUAAndRealIp } from '~/lib/attach-ua'
@@ -137,7 +138,7 @@ export default async function RootLayout(props: Props) {
         <head>
           <SayHi />
           <HydrationEndDetector />
-
+          <AccentColorStyleInjector />
           <link
             rel="shortcut icon"
             href={themeConfig.config.site.faviconDark}

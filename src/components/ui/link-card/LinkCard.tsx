@@ -471,8 +471,8 @@ const fetchTheMovieDBData: FetchObject = {
       }).color,
 
       classNames: {
-        image: 'self-start mt-4',
-        cardRoot: '!w-full',
+        image: 'self-start !h-[75px] !w-[50px]',
+        cardRoot: '!w-full !flex-row-reverse',
       },
     })
     json.homepage && setFullUrl(json.homepage)

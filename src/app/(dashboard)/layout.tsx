@@ -13,6 +13,7 @@ import { queries } from '~/queries/definition'
 
 import './dashboard.css'
 
+import { AccentColorStyleInjector } from '~/components/modules/shared/AccentColorStyleInjector'
 import { FABContainer } from '~/components/ui/fab'
 
 export default async function RootLayout({ children }: PropsWithChildren) {
@@ -28,6 +29,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
       <head>
         <title>Shiro · Light Dashboard | Powered by Mix Space</title>
         <HydrationEndDetector />
+        <AccentColorStyleInjector />
       </head>
       <body
         id="dashboard"
