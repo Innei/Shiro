@@ -42,6 +42,8 @@ const LateX: FC<LateXProps> = (props) => {
 
   const displayMode = mode === 'display'
 
+  const throwOnError = false // render unsupported commands as text instead of throwing a `ParseError`
+
   useInsertionEffect(() => {
     loadStyleSheet(
       'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css',
@@ -50,7 +52,7 @@ const LateX: FC<LateXProps> = (props) => {
       'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js',
     ).then(() => {
       // @ts-ignore
-      const html = window.katex.renderToString(children, { displayMode })
+      const html = window.katex.renderToString(children, { displayMode, throwOnError })
       setHtml(html)
     })
   }, [])
