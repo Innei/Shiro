@@ -22,3 +22,15 @@ export const post = {
       },
     }),
 }
+
+export const postAdmin = {
+  paginate: (page: number) =>
+    defineQuery({
+      queryKey: ['postAdmin', 'paginate', page],
+      queryFn: async ({ queryKey }) => {
+        const data = await apiClient.post.getList(page)
+
+        return data.$serialized
+      },
+    }),
+}

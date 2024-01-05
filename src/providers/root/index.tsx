@@ -1,6 +1,9 @@
 'use client'
 
-import { ReactQueryProvider } from './react-query-provider'
+import {
+  ReactQueryProvider,
+  ReactQueryProviderForDashboard,
+} from './react-query-provider'
 import { Provider as BalancerProvider } from 'react-wrap-balancer'
 import { LazyMotion } from 'framer-motion'
 import { ThemeProvider } from 'next-themes'
@@ -20,18 +23,24 @@ import { SocketContainer } from './socket-provider'
 
 const loadFeatures = () =>
   import('./framer-lazy-feature').then((res) => res.default)
-const contexts: JSX.Element[] = [
+
+const baseContexts: JSX.Element[] = [
   <ThemeProvider key="themeProvider" />,
-  <ReactQueryProvider key="reactQueryProvider" />,
+
   <JotaiStoreProvider key="jotaiStoreProvider" />,
 
   <BalancerProvider key="balancerProvider" />,
   <LazyMotion features={loadFeatures} strict key="framer" />,
 ]
+
+const webappContexts: JSX.Element[] = baseContexts.concat(
+  <ReactQueryProvider key="reactQueryProvider" />,
+)
+
 export function WebAppProviders({ children }: PropsWithChildren) {
   return (
     <>
-      <ProviderComposer contexts={contexts}>
+      <ProviderComposer contexts={webappContexts}>
         {children}
         <PeekPortal />
         <SocketContainer />
@@ -46,10 +55,13 @@ export function WebAppProviders({ children }: PropsWithChildren) {
     </>
   )
 }
+const dashboardContexts: JSX.Element[] = baseContexts.concat(
+  <ReactQueryProviderForDashboard key="reactQueryProvider" />,
+)
 export function DashboardAppProviders({ children }: PropsWithChildren) {
   return (
     <>
-      <ProviderComposer contexts={contexts}>
+      <ProviderComposer contexts={dashboardContexts}>
         {children}
 
         <ModalStackProvider key="modalStackProvider" />
