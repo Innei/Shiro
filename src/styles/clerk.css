@@ -2,7 +2,8 @@
 .cl-userButtonPopoverCard {
   @apply border shadow-xl shadow-zinc-500/10 backdrop-blur-xl backdrop-saturate-150;
   @apply border-zinc-200 bg-zinc-50/80 text-zinc-800;
-  @apply py-4;
+  @apply pointer-events-auto py-4;
+
   --accent: theme('colors.zinc.900');
   --accentDark: theme('colors.zinc.800');
 }
