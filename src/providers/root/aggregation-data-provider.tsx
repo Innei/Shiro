@@ -4,7 +4,6 @@ import { useCallback, useEffect, useRef } from 'react'
 import { atom, useAtomValue } from 'jotai'
 import { selectAtom } from 'jotai/utils'
 import type { AggregateRoot } from '@mx-space/api-client'
-import type { AppConfig } from '~/app/config'
 import type { FC, PropsWithChildren } from 'react'
 
 import { fetchAppUrl, setWebUrl } from '~/atoms'

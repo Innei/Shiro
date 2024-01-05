@@ -1,5 +1,3 @@
-import type { LinkSection, OtherInfo } from '~/app/config'
-
 export const defaultLinkSections: LinkSection[] = [
   {
     name: '关于',

@@ -1,6 +1,5 @@
 import { isServer } from '@tanstack/react-query'
 import type { AggregateRoot } from '@mx-space/api-client'
-import type { AppThemeConfig } from '~/app/config'
 
 import { apiClient } from '~/lib/request'
 

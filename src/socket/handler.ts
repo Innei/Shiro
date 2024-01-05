@@ -11,7 +11,7 @@ import type {
 import type { InfiniteData } from '@tanstack/react-query'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { sayQueryKey } from '~/app/says/query'
+import { sayQueryKey } from '~/app/(app)/says/query'
 import { setOnlineCount } from '~/atoms'
 import { setActivityMediaInfo, setActivityProcessName } from '~/atoms/activity'
 import {

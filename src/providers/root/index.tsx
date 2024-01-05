@@ -6,7 +6,7 @@ import { LazyMotion } from 'framer-motion'
 import { ThemeProvider } from 'next-themes'
 import type { PropsWithChildren } from 'react'
 
-import { PeekPortal } from '~/components/widgets/peek/PeekPortal'
+import { PeekPortal } from '~/components/modules/peek/PeekPortal'
 
 import { ProviderComposer } from '../../components/common/ProviderComposer'
 import { AccentColorProvider } from './accent-color-provider'
@@ -28,7 +28,7 @@ const contexts: JSX.Element[] = [
   <BalancerProvider key="balancerProvider" />,
   <LazyMotion features={loadFeatures} strict key="framer" />,
 ]
-export function Providers({ children }: PropsWithChildren) {
+export function WebAppProviders({ children }: PropsWithChildren) {
   return (
     <>
       <ProviderComposer contexts={contexts}>
@@ -42,6 +42,20 @@ export function Providers({ children }: PropsWithChildren) {
         <DebugProvider key="debugProvider" />
         <AccentColorProvider />
         <ScriptInjectProvider />
+      </ProviderComposer>
+    </>
+  )
+}
+export function DashboardAppProviders({ children }: PropsWithChildren) {
+  return (
+    <>
+      <ProviderComposer contexts={contexts}>
+        {children}
+
+        <ModalStackProvider key="modalStackProvider" />
+        <EventProvider key="viewportProvider" />
+
+        <DebugProvider key="debugProvider" />
       </ProviderComposer>
     </>
   )

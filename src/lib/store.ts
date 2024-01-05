@@ -1,3 +1,3 @@
-import { getDefaultStore } from 'jotai/vanilla'
+import { getGlobalStore } from 'jojoo'
 
-export const jotaiStore = getDefaultStore()
+export const jotaiStore = getGlobalStore()

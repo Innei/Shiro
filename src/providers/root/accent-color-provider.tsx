@@ -1,6 +1,5 @@
 import { useRef } from 'react'
 import { useServerInsertedHTML } from 'next/navigation'
-import type { AccentColor } from '~/app/config'
 import type { PropsWithChildren } from 'react'
 
 import { hexToHsl } from '~/lib/color'
