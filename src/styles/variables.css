@@ -2,7 +2,7 @@ html {
   --border-color: #eee;
   --font-sans: theme('fontFamily.sans');
   --theme-color: var(--auto-theme-color, theme('colors.accent'));
-  --hover-color: var(--auto-hover-color, theme('colors.accent-focus'));
+  --hover-color: var(--auto-hover-color, theme('colors.accent/80'));
   --header-height: auto;
   /* Accent color for form controls */
   accent-color: var(--theme-color);

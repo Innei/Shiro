@@ -1,12 +1,10 @@
-import { useRef } from 'react'
-import { useServerInsertedHTML } from 'next/navigation'
+import Color from 'colorjs.io'
 import type { AccentColor } from '~/app/config'
-import type { PropsWithChildren } from 'react'
+import type { FC } from 'react'
 
-import { hexToHsl } from '~/lib/color'
-import { noopObj } from '~/lib/noop'
-
-import { useAppConfigSelector } from './aggregation-data-provider'
+const hexToOklchString = (hex: string) => {
+  return new Color(hex).oklch
+}
 
 const accentColorLight = [
   // 浅葱
@@ -26,47 +24,42 @@ const accentColorDark = [
   '#99D8CF',
   '#838BC6',
 ]
-
-export const AccentColorProvider = ({ children }: PropsWithChildren) => {
-  const { light, dark } =
-    useAppConfigSelector((config) => config.color) || (noopObj as AccentColor)
+const defaultAccentColor = { light: accentColorLight, dark: accentColorDark }
+export const AccentColorStyleInjector: FC<{
+  color?: AccentColor
+}> = ({ color }) => {
+  const { light, dark } = color || defaultAccentColor
 
   const lightColors = light ?? accentColorLight
   const darkColors = dark ?? accentColorDark
 
   const Length = Math.max(lightColors.length ?? 0, darkColors.length ?? 0)
-  const randomSeedRef = useRef((Math.random() * Length) | 0)
-  const currentAccentColorLRef = useRef(lightColors[randomSeedRef.current])
-  const currentAccentColorDRef = useRef(darkColors[randomSeedRef.current])
+  const randomSeedRef = (Math.random() * Length) | 0
+  const currentAccentColorLRef = lightColors[randomSeedRef]
+  const currentAccentColorDRef = darkColors[randomSeedRef]
 
-  useServerInsertedHTML(() => {
-    const lightHsl = hexToHsl(currentAccentColorLRef.current)
-    const darkHsl = hexToHsl(currentAccentColorDRef.current)
+  const lightOklch = hexToOklchString(currentAccentColorLRef)
+  const darkOklch = hexToOklchString(currentAccentColorDRef)
 
-    const [hl, sl, ll] = lightHsl
-    const [hd, sd, ld] = darkHsl
+  const [hl, sl, ll] = lightOklch
+  const [hd, sd, ld] = darkOklch
 
-    return (
-      <style
-        id="accent-color-style"
-        data-light={currentAccentColorLRef.current}
-        data-dark={currentAccentColorDRef.current}
-        dangerouslySetInnerHTML={{
-          __html: `html[data-theme='light'] {
-          --a: ${`${hl} ${sl}% ${ll}%`};
-          --af: ${`${hl} ${sl}% ${ll + 6}%`};
+  return (
+    <style
+      id="accent-color-style"
+      data-light={currentAccentColorLRef}
+      data-dark={currentAccentColorDRef}
+      dangerouslySetInnerHTML={{
+        __html: `html[data-theme='light'] {
+          --a: ${`${hl} ${sl} ${ll}`};
         }
         html[data-theme='dark'] {
-          --a: ${`${hd} ${sd}% ${ld}%`};
-          --af: ${`${hd} ${sd}% ${ld - 6}%`};
+          --a: ${`${hd} ${sd} ${ld}`};
         }
         `,
-        }}
-      />
-    )
-  })
-
-  return children
+      }}
+    />
+  )
 }
 
 // const isSafari = () =>

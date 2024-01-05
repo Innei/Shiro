@@ -17,7 +17,7 @@ body {
     background: theme(colors.zinc.800/96);
   }
 
-  *::-webkit-scrollbar{
+  *::-webkit-scrollbar {
     background: theme(colors.zinc.800);
   }
 }
@@ -25,7 +25,7 @@ body {
 *::-webkit-scrollbar-thumb,
 *::-webkit-scrollbar-thumb:hover {
   background-color: transparent;
-  border: 3px solid theme(colors.zinc.200/20);
+  border: 3px solid theme(colors.zinc.300/40);
   border-radius: 5px;
 }
 
@@ -40,7 +40,7 @@ body {
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: theme(colors.neutral-focus);
+  background: theme(colors.neutral/80);
 }
 
 *::-webkit-scrollbar-corner {

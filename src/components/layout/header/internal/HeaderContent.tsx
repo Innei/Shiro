@@ -199,7 +199,7 @@ function AnimatedItem({
         href={href}
         className={clsxm(
           'relative block whitespace-nowrap px-4 py-2 transition',
-          isActive ? 'text-accent' : 'hover:text-accent-focus',
+          isActive ? 'text-accent' : 'hover:text-accent/80',
           isActive ? 'active' : '',
           className,
         )}
