@@ -24,7 +24,6 @@ export const ComposedKBarProvider: FC<PropsWithChildren> = ({ children }) => {
     () =>
       flattedRoutes
         .map<Action | null>(([fullpath, route]) => {
-          console.log(route)
           if (route.redirect) return null
 
           let name = ''

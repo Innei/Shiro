@@ -13,6 +13,7 @@ import { PeekPortal } from '~/components/modules/peek/PeekPortal'
 
 import { ProviderComposer } from '../../components/common/ProviderComposer'
 import { AccentColorProvider } from './accent-color-provider'
+import { AuthProvider } from './auth-provider'
 import { DebugProvider } from './debug-provider'
 import { EventProvider } from './event-provider'
 import { JotaiStoreProvider } from './jotai-provider'
@@ -57,6 +58,7 @@ export function WebAppProviders({ children }: PropsWithChildren) {
 }
 const dashboardContexts: JSX.Element[] = baseContexts.concat(
   <ReactQueryProviderForDashboard key="reactQueryProvider" />,
+  <AuthProvider key="auth" />,
 )
 export function DashboardAppProviders({ children }: PropsWithChildren) {
   return (

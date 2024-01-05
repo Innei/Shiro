@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import { m } from 'framer-motion'
 import { atom, useAtom, useSetAtom } from 'jotai'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import type { DashboardRoute } from '~/app/(dashboard)/routes'
 import type { MouseEventHandler, ReactNode } from 'react'
 
@@ -98,21 +98,21 @@ const HeaderMenu: Component = ({ className }) => {
         title,
         path: route.path,
         icon: route?.icon,
+
+        redirect: route.redirect,
       }
     })
-    .filter(Boolean) as { title: string; path: string; icon?: ReactNode }[]
+    .filter(Boolean) as {
+    title: string
+    path: string
+    icon?: ReactNode
+    redirect?: string
+  }[]
 
   const pathname = usePathname()
 
-  const router = useRouter()
-  const handleNav: MouseEventHandler<HTMLAnchorElement> = useCallback((e) => {
-    e.preventDefault()
-
+  const onNav: MouseEventHandler<HTMLAnchorElement> = useCallback(() => {
     setHeaderDrawer(false)
-    const href = new URL((e.currentTarget as HTMLAnchorElement).href).pathname
-
-    if (href.startsWith(location.pathname)) return
-    router.push(href)
   }, [])
 
   return (
@@ -129,8 +129,8 @@ const HeaderMenu: Component = ({ className }) => {
         return (
           <li key={dashboardPath}>
             <Link
-              href={dashboardPath}
-              onClick={isActive ? preventDefault : handleNav}
+              href={menu.redirect ?? dashboardPath}
+              onClick={isActive ? preventDefault : onNav}
               className="relative flex items-center gap-1 rounded-xl p-2 duration-200 hover:bg-slate-300 dark:hover:bg-gray-800"
             >
               {isActive && (
@@ -205,29 +205,27 @@ const SecondaryLevelMenu = () => {
 }
 
 const Breadcrumb = () => {
-  // const routeObject = useCurrentRouteObject()
+  const routeObject = useParentRouteObject(usePathname())
+  if (!routeObject) return null
+  const routes = [routeObject]
+  let parent = routeObject?.parent
+  while (parent) {
+    routes.unshift(parent)
+    parent = parent.parent
+  }
 
-  // const routes = [routeObject]
-  // let parent = routeObject.parent
-  // while (parent) {
-  //   routes.unshift(parent)
-  //   parent = parent.parent
-  // }
+  return (
+    <>
+      {routes.map((route, index) => {
+        const isLast = index === routes.length - 1
 
-  // const extractTitle = useExtractTitleFunction()
-  // return (
-  //   <>
-  //     {routes.map((route, index) => {
-  //       const isLast = index === routes.length - 1
-
-  //       return (
-  //         <span key={route.path} className={clsx('flex items-center py-1')}>
-  //           <span>{extractTitle(route.meta?.title)}</span>
-  //           {!isLast && <BreadcrumbDivider className="opacity-20" />}
-  //         </span>
-  //       )
-  //     })}
-  //   </>
-  // )
-  return null
+        return (
+          <span key={route.path} className={clsx('flex items-center py-1')}>
+            <span>{route.title}</span>
+            {!isLast && <BreadcrumbDivider className="opacity-20" />}
+          </span>
+        )
+      })}
+    </>
+  )
 }

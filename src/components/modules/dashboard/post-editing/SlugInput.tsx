@@ -34,14 +34,15 @@ export const SlugInput = () => {
 
       <div className="relative ml-1 inline-flex min-w-[2rem] items-center rounded-md bg-white py-1 dark:bg-zinc-900 [&_*]:leading-4">
         <input
-          className="input input-xs absolute w-full translate-y-[1px] !border-0 bg-transparent !outline-none"
+          className="input input-sm absolute w-full translate-y-[1px] !border-0 bg-transparent !outline-none"
           value={slug}
           onChange={(e) => {
             setSlug(e.target.value)
           }}
         />
         <span className="pointer-events-none text-transparent">
-          {slug}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          {slug}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </span>
       </div>
     </>
