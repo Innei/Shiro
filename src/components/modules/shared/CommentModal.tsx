@@ -1,4 +1,4 @@
-import type { ModalContentComponent } from '~/providers/root/modal-stack-provider'
+import type { ModalContentComponent } from '~/components/ui/modal'
 
 import { CommentBoxRootLazy, CommentsLazy } from '../comment'
 

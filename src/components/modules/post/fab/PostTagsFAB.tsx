@@ -9,10 +9,10 @@ import { EmptyIcon } from '~/components/icons/empty'
 import { FABPortable } from '~/components/ui/fab'
 import { TimelineList } from '~/components/ui/list/TimelineList'
 import { Loading } from '~/components/ui/loading'
+import { useModalStack } from '~/components/ui/modal'
 import { Tag } from '~/components/ui/tag/Tag'
 import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
-import { useModalStack } from '~/providers/root/modal-stack-provider'
 
 export const PostTagsFAB = () => {
   const { present } = useModalStack()

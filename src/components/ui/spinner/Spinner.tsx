@@ -1,4 +1,5 @@
 import { forwardRef } from 'react'
+import clsx from 'clsx'
 
 export const Spinner = forwardRef<
   HTMLDivElement,
@@ -22,9 +23,14 @@ export const Spinner = forwardRef<
 
 Spinner.displayName = 'Spinner'
 
-export const AbsoluteCenterSpinner: Component = ({ children }) => {
+export const AbsoluteCenterSpinner: Component = ({ children, className }) => {
   return (
-    <div className="absolute inset-0 z-[10] flex flex-col items-center justify-center gap-6">
+    <div
+      className={clsx(
+        'inset-0 z-[10] flex flex-col items-center justify-center gap-6',
+        className,
+      )}
+    >
       <Spinner />
       {children}
     </div>

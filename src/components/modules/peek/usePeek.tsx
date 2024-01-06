@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 
 import { useIsMobile } from '~/atoms'
-import { useModalStack } from '~/providers/root/modal-stack-provider'
+import { useModalStack } from '~/components/ui/modal'
 
 import { PeekModal } from './PeekModal'
 

@@ -5,6 +5,7 @@ import { m, useAnimationControls, useForceUpdate } from 'framer-motion'
 import { useIsMobile } from '~/atoms'
 import { ThumbsupIcon } from '~/components/icons/thumbs-up'
 import { MotionButtonBase } from '~/components/ui/button'
+import { useModalStack } from '~/components/ui/modal'
 import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { isLikedBefore, setLikeId } from '~/lib/cookie'
@@ -18,7 +19,6 @@ import {
   setGlobalCurrentPostData,
   useCurrentPostDataSelector,
 } from '~/providers/post/CurrentPostDataProvider'
-import { useModalStack } from '~/providers/root/modal-stack-provider'
 import { useIsEoFWrappedElement } from '~/providers/shared/WrappedElementProvider'
 
 import {

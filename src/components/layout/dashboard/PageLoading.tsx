@@ -6,7 +6,7 @@ interface Props {
 
 export const PageLoading: Component<Props> = (props) => {
   return (
-    <AbsoluteCenterSpinner>
+    <AbsoluteCenterSpinner className="!fixed">
       <span>{props.loadingText}</span>
     </AbsoluteCenterSpinner>
   )

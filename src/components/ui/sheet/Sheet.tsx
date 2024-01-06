@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { atom, useStore } from 'jotai'
 import { Drawer } from 'vaul'
-import type { FC, PropsWithChildren } from 'react'
+import type { FC, PropsWithChildren, ReactNode } from 'react'
 
 export interface PresentSheetProps {
-  content: JSX.Element | FC
+  content: ReactNode
   open?: boolean
   onOpenChange?: (value: boolean) => void
   title?: string
@@ -71,8 +71,8 @@ export const PresentSheet: FC<PropsWithChildren<PresentSheetProps>> = (
           {React.isValidElement(content)
             ? content
             : typeof content === 'function'
-            ? React.createElement(content)
-            : null}
+              ? React.createElement(content)
+              : null}
           <div ref={setHolderRef} />
         </Drawer.Content>
         <Drawer.Overlay

@@ -15,12 +15,12 @@ import { Avatar } from '~/components/ui/avatar'
 import { StyledButton } from '~/components/ui/button'
 import { Form, FormInput } from '~/components/ui/form'
 import { Loading } from '~/components/ui/loading'
+import { useModalStack } from '~/components/ui/modal'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { shuffle } from '~/lib/_'
 import { apiClient } from '~/lib/request'
 import { toast } from '~/lib/toast'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
-import { useModalStack } from '~/providers/root/modal-stack-provider'
 
 const renderTitle = (text: string) => {
   return <h1 className="headline !mt-12 !text-xl">{text}</h1>

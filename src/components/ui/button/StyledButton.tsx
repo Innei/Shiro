@@ -7,7 +7,7 @@ import type { FC } from 'react'
 import { MotionButtonBase } from './MotionButton'
 
 const variantStyles = tv({
-  base: 'inline-flex items-center gap-2 justify-center rounded-lg py-2 px-3 text-sm outline-offset-2 transition active:transition-none',
+  base: 'inline-flex select-none cursor-default items-center gap-2 justify-center rounded-lg py-2 px-3 text-sm outline-offset-2 transition active:transition-none',
   variants: {
     variant: {
       primary: clsx(

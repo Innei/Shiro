@@ -2,8 +2,10 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { useMemo, useState } from 'react'
+import dayjs from 'dayjs'
+import { produce } from 'immer'
 import { atom } from 'jotai'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import type { PostDto } from '~/models/writing'
 import type { FC } from 'react'
 
@@ -12,12 +14,22 @@ import {
   PostEditorSidebar,
   PostModelDataAtomProvider,
   SlugInput,
+  usePostModelGetModelData,
+  usePostModelSetModelData,
 } from '~/components/modules/dashboard/post-editing'
 import { BaseWritingProvider } from '~/components/modules/dashboard/writing/BaseWritingProvider'
 import { EditorLayer } from '~/components/modules/dashboard/writing/EditorLayer'
-import { Writing } from '~/components/modules/dashboard/writing/Writing'
+import { ImportMarkdownButton } from '~/components/modules/dashboard/writing/ImportMarkdownButton'
+import {
+  useEditorRef,
+  Writing,
+} from '~/components/modules/dashboard/writing/Writing'
+import { StyledButton } from '~/components/ui/button'
+import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { cloneDeep } from '~/lib/_'
+import { toast } from '~/lib/toast'
 import { adminQueries } from '~/queries/definition'
+import { useCreatePost, useUpdatePost } from '~/queries/definition/post'
 
 export default function Page() {
   const search = useSearchParams()
@@ -40,6 +52,7 @@ const createInitialEditingData = (): PostDto => {
   return {
     title: '',
     allowComment: true,
+
     copyright: true,
 
     categoryId: '',
@@ -85,6 +98,87 @@ const EditPage: FC<{
   )
 }
 
-const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => (
-  <div />
-)
+const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => {
+  const getData = usePostModelGetModelData()
+  const setData = usePostModelSetModelData()
+  const editorRef = useEditorRef()
+  const handleParsed = useEventCallback(
+    (data: {
+      title?: string | undefined
+      text: string
+      meta?: Record<string, any> | undefined
+    }): void => {
+      setData((prev) => {
+        return produce(prev, (draft) => {
+          const nextData = data
+          Reflect.deleteProperty(nextData, 'meta')
+          Object.assign(draft, nextData)
+          const meta = data.meta
+
+          if (data.text) {
+            editorRef?.setMarkdown(data.text)
+          }
+
+          if (meta) {
+            const created = meta.created || meta.date
+            const parsedCreated = created ? dayjs(created) : null
+
+            if (parsedCreated) {
+              draft.created = parsedCreated.toISOString()
+            }
+
+            draft.meta = meta
+          }
+        })
+      })
+    },
+  )
+
+  const { mutateAsync: createPost } = useCreatePost()
+  const { mutateAsync: updatePost } = useUpdatePost()
+
+  const router = useRouter()
+  return (
+    <>
+      <div className="flex-shrink flex-grow" />
+      <div className="flex flex-grow-0 items-center gap-4">
+        <ImportMarkdownButton onParsedValue={handleParsed} />
+
+        <StyledButton
+          onClick={() => {
+            const currentData = {
+              ...getData(),
+            }
+
+            const payload: PostDto & {
+              id?: string
+            } = {
+              ...currentData,
+            }
+
+            // if (
+            //   currentData.created === initialData?.created &&
+            //   currentData.created
+            // ) {
+            //   payload.custom_created = new Date(currentData.created)
+            // }
+
+            Reflect.deleteProperty(currentData, 'category')
+
+            const isCreate = !currentData.id
+            const promise = isCreate
+              ? createPost(payload).then((res) => {
+                  router.replace(`/dashboard/posts/edit?id=${res.id}`)
+                })
+              : updatePost(payload)
+            promise.catch((err) => {
+              toast.error(err.message)
+            })
+          }}
+        >
+          {initialData ? '保存' : '发布'}
+        </StyledButton>
+      </div>
+    </>
+  )
+}

@@ -3,9 +3,9 @@ import Link from 'next/link'
 import type { PropsWithChildren } from 'react'
 
 import { ImpressionView } from '~/components/common/ImpressionTracker'
+import { useModalStack } from '~/components/ui/modal'
 import { microReboundPreset } from '~/constants/spring'
 import { TrackerAction } from '~/constants/tracker'
-import { useModalStack } from '~/providers/root/modal-stack-provider'
 
 export const PeekModal = (
   props: PropsWithChildren<{

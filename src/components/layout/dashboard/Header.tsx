@@ -158,9 +158,9 @@ const SecondaryNavLine = () => {
     <nav className="flex h-12 items-center justify-between overflow-auto lg:overflow-visible">
       <SecondaryLevelMenu />
 
-      <div className="hidden flex-shrink-0 text-xs lg:flex">
+      {/* <div className="hidden flex-shrink-0 text-xs lg:flex">
         <Breadcrumb />
-      </div>
+      </div> */}
     </nav>
   )
 }
@@ -204,28 +204,28 @@ const SecondaryLevelMenu = () => {
   )
 }
 
-const Breadcrumb = () => {
-  const routeObject = useParentRouteObject(usePathname())
-  if (!routeObject) return null
-  const routes = [routeObject]
-  let parent = routeObject?.parent
-  while (parent) {
-    routes.unshift(parent)
-    parent = parent.parent
-  }
+// const Breadcrumb = () => {
+//   const routeObject = useParentRouteObject(usePathname())
+//   if (!routeObject) return null
+//   const routes = [routeObject]
+//   let parent = routeObject?.parent
+//   while (parent) {
+//     routes.unshift(parent)
+//     parent = parent.parent
+//   }
 
-  return (
-    <>
-      {routes.map((route, index) => {
-        const isLast = index === routes.length - 1
+//   return (
+//     <>
+//       {routes.map((route, index) => {
+//         const isLast = index === routes.length - 1
 
-        return (
-          <span key={route.path} className={clsx('flex items-center py-1')}>
-            <span>{route.title}</span>
-            {!isLast && <BreadcrumbDivider className="opacity-20" />}
-          </span>
-        )
-      })}
-    </>
-  )
-}
+//         return (
+//           <span key={route.path} className={clsx('flex items-center py-1')}>
+//             <span>{route.title}</span>
+//             {!isLast && <BreadcrumbDivider className="opacity-20" />}
+//           </span>
+//         )
+//       })}
+//     </>
+//   )
+// }

@@ -1,8 +1,11 @@
+import { useMutation } from '@tanstack/react-query'
 import type { PaginateResult, PostModel, TagModel } from '@mx-space/api-client'
 import type { PostDto } from '~/models/writing'
 
+import { cloneDeep } from '~/lib/_'
 import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
+import { toast } from '~/lib/toast'
 
 import { defineQuery } from '../helper'
 
@@ -98,3 +101,52 @@ export const postAdmin = {
       },
     }),
 }
+
+export const useCreatePost = () =>
+  useMutation({
+    mutationFn: (data: PostDto) => {
+      const readonlyKeys = [
+        'id',
+        'related',
+        'modified',
+        'category',
+      ] as (keyof PostModel)[]
+      const nextData = cloneDeep(data) as any
+      for (const key of readonlyKeys) {
+        delete nextData[key]
+      }
+      return apiClient.post.proxy.post<{
+        id: string
+      }>({
+        data: nextData,
+      })
+    },
+    onSuccess: () => {
+      toast.success('创建成功')
+    },
+  })
+
+export const useUpdatePost = () =>
+  useMutation({
+    mutationFn: (data: PostDto) => {
+      const { id } = data
+      const readonlyKeys = [
+        'id',
+        'related',
+        'modified',
+        'category',
+      ] as (keyof PostModel)[]
+      const nextData = cloneDeep(data) as any
+      for (const key of readonlyKeys) {
+        delete nextData[key]
+      }
+      return apiClient.post.proxy(id).patch<{
+        id: string
+      }>({
+        data: nextData,
+      })
+    },
+    onSuccess: () => {
+      toast.success('更新成功')
+    },
+  })

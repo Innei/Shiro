@@ -9,11 +9,11 @@ import { FeHash } from '~/components/icons/fa-hash'
 import { ThumbsupIcon } from '~/components/icons/thumbs-up'
 import { MotionButtonBase } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
+import { useModalStack } from '~/components/ui/modal'
 import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
 import { RelativeTime } from '~/components/ui/relative-time'
 import { clsxm } from '~/lib/helper'
 import { routeBuilder, Routes } from '~/lib/route-builder'
-import { useModalStack } from '~/providers/root/modal-stack-provider'
 
 import { TagDetailModal } from './fab/PostTagsFAB'
 

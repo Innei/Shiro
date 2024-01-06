@@ -15,7 +15,7 @@ export const EditorLayer: FC<{
           <p className="flex items-center text-lg font-medium">{TitleEl}</p>
         </div>
 
-        <div className="flex-shrink-0 flex-grow space-x-2 text-right lg:space-x-4">
+        <div className="flex flex-shrink-0 flex-grow gap-2 text-right lg:gap-4">
           {HeaderEl}
         </div>
       </div>

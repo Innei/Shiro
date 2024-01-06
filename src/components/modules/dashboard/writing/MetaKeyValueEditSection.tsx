@@ -5,9 +5,9 @@ import type { FC } from 'react'
 import { StyledButton } from '~/components/ui/button'
 import { HighLighter } from '~/components/ui/code-highlighter'
 import { TextArea } from '~/components/ui/input'
+import { useModalStack } from '~/components/ui/modal'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { toast } from '~/lib/toast'
-import { useModalStack } from '~/providers/root/modal-stack-provider'
 
 type KeyValueString = string
 interface MetaKeyValueEditSectionProps {

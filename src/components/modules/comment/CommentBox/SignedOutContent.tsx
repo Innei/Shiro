@@ -6,8 +6,8 @@ import { SignInButton } from '@clerk/nextjs'
 
 import { UserArrowLeftIcon } from '~/components/icons/user-arrow-left'
 import { StyledButton } from '~/components/ui/button'
+import { useModalStack } from '~/components/ui/modal'
 import { urlBuilder } from '~/lib/url-builder'
-import { useModalStack } from '~/providers/root/modal-stack-provider'
 
 import { CommentBoxMode, setCommentMode } from './hooks'
 

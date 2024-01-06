@@ -1,9 +1,4 @@
-import type {
-  CategoryModel,
-  Pager,
-  PaginateResult,
-  PostModel,
-} from '@mx-space/api-client'
+import type { Pager, PaginateResult, PostModel } from '@mx-space/api-client'
 
 export { Pager, PaginateResult }
 export interface Count {
@@ -51,6 +46,5 @@ export type PostDto = WriteBaseType & {
   pin: string | null
   relatedId: string[]
 
-  category: CategoryModel
   related?: PostRelated[]
 }

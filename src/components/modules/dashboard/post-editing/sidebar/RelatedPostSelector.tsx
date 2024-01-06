@@ -5,12 +5,9 @@ import type { PostRelated } from '~/models/writing'
 import type { FC } from 'react'
 
 import { MotionButtonBase, StyledButton } from '~/components/ui/button'
+import { InjectContext, useModalStack } from '~/components/ui/modal'
 import { EllipsisHorizontalTextWithTooltip } from '~/components/ui/typography'
 import { routeBuilder, Routes } from '~/lib/route-builder'
-import {
-  InjectContext,
-  useModalStack,
-} from '~/providers/root/modal-stack-provider'
 import { adminQueries } from '~/queries/definition'
 
 import { SidebarSection } from '../../writing/SidebarBase'
@@ -27,7 +24,6 @@ export const RelatedPostSelector = () => {
   const { present } = useModalStack({
     wrapper: InjectContext(ModelDataAtomContext),
   })
-  const relatedIds = usePostModelDataSelector((state) => state?.relatedId)
 
   return (
     <SidebarSection

@@ -4,8 +4,8 @@ import { useCallback, useMemo } from 'react'
 import { useParams, usePathname } from 'next/navigation'
 
 import { FABPortable } from '~/components/ui/fab'
+import { useModalStack } from '~/components/ui/modal'
 import { MAIN_MARKDOWN_ID } from '~/constants/dom-id'
-import { useModalStack } from '~/providers/root/modal-stack-provider'
 
 import { TocTree } from './TocTree'
 

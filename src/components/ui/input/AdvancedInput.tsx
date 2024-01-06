@@ -69,7 +69,8 @@ export const AdvancedInput = React.forwardRef<
 
   const ctxProps = useAdvancedInputPropsContext()
 
-  const { value, onChange, onBlur, onFocus, ...rest } = inputProps
+  const { value, onChange, onBlur, onFocus, labelClassName, ...rest } =
+    inputProps
 
   const [isFocused, setIsFocused] = React.useState(false)
   const handleFocus = React.useCallback(() => {
@@ -90,8 +91,8 @@ export const AdvancedInput = React.forwardRef<
   const mergedProps = merge({}, ctxProps, props)
   const { labelPlacement = 'top' } = mergedProps
 
-  const labelClassName = clsxm(ctxProps.inputClassName, props.inputClassName)
-  const inputClassName = clsxm(ctxProps.inputClassName, props.inputClassName)
+  const labelClassNames = clsxm(ctxProps.inputClassName, props.labelClassName)
+  const inputClassNames = clsxm(ctxProps.inputClassName, props.inputClassName)
 
   return (
     <div className="flex w-full flex-col">
@@ -118,7 +119,7 @@ export const AdvancedInput = React.forwardRef<
                 'bottom-2 top-2 flex items-center text-lg':
                   !value && !isFocused,
               },
-              labelClassName,
+              labelClassNames,
             )}
             htmlFor={id}
           >
@@ -157,7 +158,7 @@ export const AdvancedInput = React.forwardRef<
               isLoading && 'pr-6',
               isInvalid && '!border-red-400 !bg-red-600/50',
 
-              inputClassName,
+              inputClassNames,
             )}
             ref={ref}
             {...rest}
