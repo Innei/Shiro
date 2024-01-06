@@ -17,15 +17,13 @@ import { RelativeTime } from '~/components/ui/relative-time'
 import { AbsoluteCenterSpinner } from '~/components/ui/spinner'
 import { Tag } from '~/components/ui/tag/Tag'
 import { useQueryPager, withQueryPager } from '~/hooks/biz/use-query-pager'
-import { queries } from '~/queries/definition'
+import { adminQueries } from '~/queries/definition'
 
 export default withQueryPager(function Page() {
   const [page] = useQueryPager()
 
   // getQueryClientForDashboard()
-  const { data: result, isLoading } = useQuery(
-    queries.admin.post.paginate(page),
-  )
+  const { data: result, isLoading } = useQuery(adminQueries.post.paginate(page))
   if (isLoading) return <AbsoluteCenterSpinner />
   const { data, pagination } = result || {}
 

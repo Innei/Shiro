@@ -1,4 +1,5 @@
-import type { TagModel } from '@mx-space/api-client'
+import type { PaginateResult, PostModel, TagModel } from '@mx-space/api-client'
+import type { PostDto } from '~/models/writing'
 
 import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
@@ -52,7 +53,12 @@ export const postAdmin = {
       queryFn: async () => {
         const data = await apiClient.post.getPost(id)
 
-        return data.$serialized
+        const dto = {
+          ...data.$serialized,
+          relatedId: data.related?.map((i) => i.id) || [],
+        } as PostDto
+
+        return dto
       },
     }),
 
@@ -70,6 +76,25 @@ export const postAdmin = {
           value: i.name,
           key: i.name,
         }))
+      },
+    }),
+
+  getRelatedList: () =>
+    defineQuery({
+      queryKey: ['postAdmin', 'getRelatedList'],
+
+      queryFn: async ({ pageParam }: any) => {
+        return apiClient.proxy.posts.get({
+          params: {
+            page: pageParam || 1,
+            size: 50,
+            select: 'id title _id slug category categoryId',
+          },
+        }) as Promise<
+          PaginateResult<
+            Pick<PostModel, 'id' | 'title' | 'slug' | 'category' | 'categoryId'>
+          >
+        >
       },
     }),
 }

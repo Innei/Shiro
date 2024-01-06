@@ -108,7 +108,6 @@ export const AdvancedInput = React.forwardRef<
         {label && (
           <Label
             className={clsx(
-              'text-xs',
               {
                 'mr-4': labelPlacement === 'left',
                 'mb-2 flex': labelPlacement === 'top',

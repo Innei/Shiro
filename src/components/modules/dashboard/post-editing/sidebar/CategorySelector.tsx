@@ -5,7 +5,7 @@ import type { SelectValue } from '~/components/ui/select'
 
 import { Select } from '~/components/ui/select'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
-import { queries } from '~/queries/definition'
+import { adminQueries } from '~/queries/definition'
 
 import { SidebarSection } from '../../writing/SidebarBase'
 import {
@@ -14,7 +14,7 @@ import {
 } from '../data-provider'
 
 export const CategorySelector = () => {
-  const { data, isLoading } = useQuery(queries.admin.post.allCategories())
+  const { data, isLoading } = useQuery(adminQueries.post.allCategories())
   const categoryId = usePostModelDataSelector((data) => data?.categoryId)
   const setter = usePostModelSetModelData()
   const handleSelectionChange = useEventCallback((newCategoryId: string) => {

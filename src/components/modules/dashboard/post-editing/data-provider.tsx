@@ -2,7 +2,6 @@ import { createModelDataProvider } from 'jojoo/react'
 import { useContext, useMemo } from 'react'
 import { produce } from 'immer'
 import { atom, useAtom } from 'jotai'
-import type { PostModel } from '@mx-space/api-client'
 import type { PostDto } from '~/models/writing'
 
 export const {
@@ -13,11 +12,9 @@ export const {
   ModelDataAtomProvider: PostModelDataAtomProvider,
 
   ModelDataAtomContext,
-} = createModelDataProvider<PostModel | PostDto>()
+} = createModelDataProvider<PostDto>()
 
-export const usePostModelSingleFieldAtom = (
-  key: keyof PostModel & keyof PostDto,
-) => {
+export const usePostModelSingleFieldAtom = (key: keyof PostDto) => {
   const ctxAtom = useContext(ModelDataAtomContext)
   return useAtom(
     useMemo(() => {

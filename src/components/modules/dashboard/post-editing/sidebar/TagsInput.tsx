@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 
-import { queries } from '~/queries/definition'
+import { adminQueries } from '~/queries/definition'
 
 import { SidebarSection } from '../../writing/SidebarBase'
 import {
@@ -40,7 +40,7 @@ export const TagsInput = () => {
 }
 
 const TagCompletion = () => {
-  const { data } = useQuery(queries.admin.post.getAllTags())
+  const { data } = useQuery(adminQueries.post.getAllTags())
 
   const setter = usePostModelSetModelData()
 

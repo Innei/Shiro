@@ -1,45 +1,52 @@
+import { ImageDetailSection } from '../../writing/ImageDetailSection'
+import { MetaKeyValueEditSection } from '../../writing/MetaKeyValueEditSection'
 import { PresentComponentFab } from '../../writing/PresentComponentFab'
 import { SidebarWrapper } from '../../writing/SidebarBase'
+import { usePostModelSingleFieldAtom } from '../data-provider'
 import { CategorySelector } from './CategorySelector'
 import { PostCombinedSwitch } from './PostCombinedSwitch'
+import { RelatedPostSelector } from './RelatedPostSelector'
+import { SummaryInput } from './SummaryInput'
 import { TagsInput } from './TagsInput'
 
 const Sidebar = () => {
   return (
     <SidebarWrapper>
       <CategorySelector />
-      <TagsInput />
-      <PostCombinedSwitch />
-      {/* 
-      <TagsInput />
       <RelatedPostSelector />
-      <SummaryInput />
+      <TagsInput />
       <PostCombinedSwitch />
+      <SummaryInput />
+      <PostImageSection />
+      <PostMetaSection />
+      {/* 
+
+    
       <CustomCreatedInput />
 
-      <PostImageSection />
-      <PostMetaSection /> */}
+    
+   */}
     </SidebarWrapper>
   )
 }
 
-// const PostImageSection = () => {
-//   const [images, setImages] = usePostModelSingleFieldAtom('images')
-//   const text = usePostModelSingleFieldAtom('text')[0]
-//   return (
-//     <ImageDetailSection
-//       images={images}
-//       onChange={setImages}
-//       text={text}
-//       withDivider="both"
-//     />
-//   )
-// }
+const PostImageSection = () => {
+  const [images, setImages] = usePostModelSingleFieldAtom('images')
+  const text = usePostModelSingleFieldAtom('text')[0]
+  return (
+    <ImageDetailSection
+      images={images}
+      onChange={setImages}
+      text={text}
+      withDivider="both"
+    />
+  )
+}
 
-// const PostMetaSection = () => {
-//   const [meta, setMeta] = usePostModelSingleFieldAtom('meta')
-//   return <MetaKeyValueEditSection keyValue={meta} onChange={setMeta} />
-// }
+const PostMetaSection = () => {
+  const [meta, setMeta] = usePostModelSingleFieldAtom('meta')
+  return <MetaKeyValueEditSection keyValue={meta} onChange={setMeta} />
+}
 
 export const PostEditorSidebar = () => {
   return (

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useRef } from 'react'
 
-import { queries } from '~/queries/definition'
+import { adminQueries } from '~/queries/definition'
 
 import { useBaseWritingAtom } from '../writing/BaseWritingProvider'
 
@@ -11,7 +11,7 @@ export const SlugInput = () => {
   const [categoryId, setCategoryId] = useBaseWritingAtom('categoryId')
 
   const [slug, setSlug] = useBaseWritingAtom('slug')
-  const { data: categories } = useQuery(queries.admin.post.allCategories())
+  const { data: categories } = useQuery(adminQueries.post.allCategories())
   const category = categories?.data?.[0]
 
   const triggerOnceRef = useRef(false)

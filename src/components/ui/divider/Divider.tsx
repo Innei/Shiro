@@ -10,7 +10,7 @@ export const Divider: FC<
   return (
     <hr
       className={clsxm(
-        'my-4 h-[0.5px] border-0 bg-always-black !bg-opacity-30 dark:bg-always-white',
+        'my-4 h-[0.5px] flex-shrink-0 border-0 bg-always-black !bg-opacity-30 dark:bg-always-white',
         className,
       )}
       {...rest}

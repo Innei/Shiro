@@ -5,7 +5,7 @@ import { clsx } from 'clsx'
 import type { FC, SVGProps } from 'react'
 import type { XLogMeta } from './types'
 
-import { Collapse } from '~/components/ui/collapse'
+import { CollapseContent } from '~/components/ui/collapse'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
@@ -114,11 +114,11 @@ const XLogInfoBase: FC<{
           />
         </div>
       </div>
-      <Collapse isOpened={collapse}>
+      <CollapseContent isOpened={collapse}>
         <div className="text-gray-2 w-full overflow-hidden py-2 text-sm [&_a]:break-all">
           {sections}
         </div>
-      </Collapse>
+      </CollapseContent>
     </div>
   )
 }

@@ -3,7 +3,7 @@ import { domMax, LazyMotion } from 'framer-motion'
 import type { DocumentComponent } from 'storybook/typings'
 
 import { StyledButton } from '../button'
-import { Collapse } from './Collapse'
+import { CollapseContent } from './Collapse'
 
 export const CollapseDemo1: DocumentComponent = () => {
   const [opened, setOpened] = React.useState(false)
@@ -12,7 +12,7 @@ export const CollapseDemo1: DocumentComponent = () => {
       <StyledButton onClick={() => setOpened((opened) => !opened)}>
         Toggle Collapse
       </StyledButton>
-      <Collapse isOpened={opened}>
+      <CollapseContent isOpened={opened}>
         <p>
           Maiores occaecati quis animi nihil debitis. Iure suscipit animi.
           Repellat quia quas harum possimus dolorum dolore ullam eius. Tenetur
@@ -23,7 +23,7 @@ export const CollapseDemo1: DocumentComponent = () => {
           sed eos accusantium. Quis eligendi aliquid. Cumque possimus sed
           suscipit vero. Repellendus inventore quo porro necessitatibus totam.
         </p>
-      </Collapse>
+      </CollapseContent>
     </LazyMotion>
   )
 }
@@ -39,7 +39,7 @@ export const CollapseDemo2: DocumentComponent = () => {
       <StyledButton onClick={() => setOpened((opened) => !opened)}>
         Toggle Collapse
       </StyledButton>
-      <Collapse isOpened={opened} withBackground>
+      <CollapseContent isOpened={opened} withBackground>
         <p>
           Maiores occaecati quis animi nihil debitis. Iure suscipit animi.
           Repellat quia quas harum possimus dolorum dolore ullam eius. Tenetur
@@ -50,7 +50,7 @@ export const CollapseDemo2: DocumentComponent = () => {
           sed eos accusantium. Quis eligendi aliquid. Cumque possimus sed
           suscipit vero. Repellendus inventore quo porro necessitatibus totam.
         </p>
-      </Collapse>
+      </CollapseContent>
     </LazyMotion>
   )
 }

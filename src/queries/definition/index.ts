@@ -8,9 +8,6 @@ export const queries = {
   note,
   post,
   page,
-
-  /////
-  admin: {
-    post: postAdmin,
-  },
 }
+
+export const adminQueries = { post: postAdmin }

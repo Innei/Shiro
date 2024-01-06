@@ -5,7 +5,7 @@ import type { FC, ReactNode } from 'react'
 import { useIsPrintMode } from '~/atoms'
 import { IcRoundKeyboardDoubleArrowRight } from '~/components/icons/arrow'
 
-import { Collapse } from '../../collapse'
+import { CollapseContent } from '../../collapse'
 
 export const MDetails: FC<{ children: ReactNode[] }> = (props) => {
   const [open, setOpen] = useState(false)
@@ -36,7 +36,7 @@ export const MDetails: FC<{ children: ReactNode[] }> = (props) => {
         </i>
         {$head}
       </button>
-      <Collapse withBackground isOpened={open} className="my-2">
+      <CollapseContent withBackground isOpened={open} className="my-2">
         <div
           className={clsx(
             open ? 'opacity-100' : 'opacity-0',
@@ -45,7 +45,7 @@ export const MDetails: FC<{ children: ReactNode[] }> = (props) => {
         >
           {props.children.slice(1)}
         </div>
-      </Collapse>
+      </CollapseContent>
     </div>
   )
 }
