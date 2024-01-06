@@ -8,3 +8,18 @@
     box-shadow: none;
   }
 }
+[data-theme='dark'] {
+  *,
+  *::before,
+  *::after {
+    --bc: rgb(92, 92, 92);
+  }
+}
+
+*,
+*::before,
+*::after {
+  --bc: rgb(211, 211, 211);
+
+  border-color: var(--bc);
+}

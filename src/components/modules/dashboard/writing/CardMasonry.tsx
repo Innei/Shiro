@@ -5,6 +5,7 @@ import { clsx } from 'clsx'
 import type { ReactNode } from 'react'
 
 import { useMaskScrollArea } from '~/hooks/shared/use-mask-scrollarea'
+import { clsxm } from '~/lib/helper'
 
 const columnsCountBreakPoints = {
   0: 1,
@@ -25,6 +26,8 @@ export interface CardProps<T> {
   }>
 
   children?: ReactNode
+
+  className?: string
 }
 export interface CardMasonryProps<T> {
   data: T[]
@@ -47,17 +50,22 @@ export function Card<T>(props: CardProps<T>) {
   const [scrollContainerRef, scrollClassname] =
     useMaskScrollArea<HTMLDivElement>()
 
-  const { slots } = props
+  const { slots, className, title, description, children, data } = props
 
   return (
-    <div className="relative flex h-[176px] flex-col rounded-md bg-white px-4 py-5 duration-200 card-shadow dark:bg-neutral-950 dark:hover:ring-1 dark:hover:ring-zinc-300">
+    <div
+      className={clsxm(
+        'relative flex h-[176px] flex-col rounded-md bg-white px-4 py-5 duration-200 card-shadow dark:bg-neutral-950 dark:hover:ring-1 dark:hover:ring-zinc-300',
+        className,
+      )}
+    >
       <div className="flex flex-grow flex-col">
         <div className="line-clamp-2 text-xl font-semibold text-neutral-900 dark:text-neutral-100">
-          {props.title}
+          {title}
         </div>
         {slots?.middle && (
           <div className="mt-2 text-sm text-neutral-800 dark:text-neutral-300">
-            {slots.middle?.(props.data)}
+            {slots.middle?.(data)}
           </div>
         )}
         <div
@@ -67,16 +75,16 @@ export function Card<T>(props: CardProps<T>) {
           )}
           ref={scrollContainerRef}
         >
-          {props.description}
+          {description}
         </div>
 
         {slots?.footer && (
           <div className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
-            {slots.footer?.(props.data)}
+            {slots.footer?.(data)}
           </div>
         )}
       </div>
-      {slots?.right?.(props.data)}
+      {slots?.right?.(data)}
     </div>
   )
 }

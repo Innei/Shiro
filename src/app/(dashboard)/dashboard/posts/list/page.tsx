@@ -1,6 +1,6 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import RemoveMarkdown from 'remove-markdown'
 import type { PostModel } from '@mx-space/api-client'
@@ -8,32 +8,48 @@ import type { CardProps } from '~/components/modules/dashboard/writing/CardMason
 
 import { MdiClockOutline } from '~/components/icons/clock'
 import { FeHash } from '~/components/icons/fa-hash'
+import { PageLoading } from '~/components/layout/dashboard/PageLoading'
 import {
   Card,
   CardMasonry,
 } from '~/components/modules/dashboard/writing/CardMasonry'
+import { LoadMoreIndicator } from '~/components/modules/shared/LoadMoreIndicator'
+import { PhPushPinFill } from '~/components/modules/shared/PinIconToggle'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { RelativeTime } from '~/components/ui/relative-time'
-import { AbsoluteCenterSpinner } from '~/components/ui/spinner'
 import { Tag } from '~/components/ui/tag/Tag'
-import { useQueryPager, withQueryPager } from '~/hooks/biz/use-query-pager'
+import { withQueryPager } from '~/hooks/biz/use-query-pager'
 import { adminQueries } from '~/queries/definition'
 
 export default withQueryPager(function Page() {
-  const [page] = useQueryPager()
+  const {
+    data: result,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    // @ts-expect-error
+  } = useInfiniteQuery({
+    ...adminQueries.post.paginate(),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) =>
+      lastPage.pagination.hasNextPage
+        ? lastPage.pagination.currentPage + 1
+        : undefined,
+  })
 
-  // getQueryClientForDashboard()
-  const { data: result, isLoading } = useQuery(adminQueries.post.paginate(page))
-  if (isLoading) return <AbsoluteCenterSpinner />
-  const { data, pagination } = result || {}
+  if (isLoading) return <PageLoading />
 
-  if (!data) return 'error'
+  const data = result?.pages.flatMap((page) => page.data) ?? []
   return (
-    <div className="relative">
+    <div className="relative mt-8">
       <CardMasonry data={data}>
         {(data) => {
+          const isPin = !!data?.pin
           return (
             <Card
+              className={
+                isPin ? '!ring-1 !ring-yellow-400 dark:!ring-orange-600' : ''
+              }
               data={data}
               key={data.id}
               title={data.title}
@@ -43,6 +59,14 @@ export default withQueryPager(function Page() {
           )
         }}
       </CardMasonry>
+
+      {hasNextPage && (
+        <LoadMoreIndicator
+          onLoading={() => {
+            fetchNextPage()
+          }}
+        />
+      )}
     </div>
   )
 })
@@ -94,6 +118,11 @@ const cardSlot: CardProps<PostModel>['slots'] = {
     if (!data) return null
     return (
       <>
+        {!!data.pin && (
+          <div className="absolute -right-3 -top-3 rounded-full border border-current bg-red-200/80 p-1 text-red-500 dark:bg-red-500/30 dark:text-red-400">
+            <PhPushPinFill />
+          </div>
+        )}
         <Link
           className="absolute inset-0 bottom-8 z-[1]"
           href={`/dashboard/posts/edit?id=${data.id}`}

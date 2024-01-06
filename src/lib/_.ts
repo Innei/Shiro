@@ -80,7 +80,8 @@ export const throttle = <F extends (...args: any[]) => any>(
 export const isUndefined = (val: any): val is undefined =>
   typeof val === 'undefined'
 
-export const cloneDeep = structuredClone
+export const cloneDeep =
+  globalThis.structuredClone || ((o) => JSON.parse(JSON.stringify(o)))
 
 export const range = (start: number, end: number): number[] => {
   const result: number[] = []

@@ -30,11 +30,11 @@ export const post = {
 }
 
 export const postAdmin = {
-  paginate: (page: number) =>
+  paginate: (page?: number) =>
     defineQuery({
       queryKey: ['postAdmin', 'paginate', page],
-      queryFn: async () => {
-        const data = await apiClient.post.getList(page)
+      queryFn: async ({ pageParam }: any) => {
+        const data = await apiClient.post.getList(pageParam ?? page)
 
         return data.$serialized
       },

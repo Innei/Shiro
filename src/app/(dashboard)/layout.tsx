@@ -30,6 +30,19 @@ export default async function RootLayout({ children }: PropsWithChildren) {
         <title>Shiro · Light Dashboard | Powered by Mix Space</title>
         <HydrationEndDetector />
         <AccentColorStyleInjector />
+
+        <link
+          rel="shortcut icon"
+          href={themeConfig.config.site.faviconDark}
+          type="image/x-icon"
+          media="(prefers-color-scheme: dark)"
+        />
+        <link
+          rel="shortcut icon"
+          href={themeConfig.config.site.favicon}
+          type="image/x-icon"
+          media="(prefers-color-scheme: light)"
+        />
       </head>
       <body
         id="dashboard"

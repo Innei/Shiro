@@ -51,14 +51,12 @@ export const RelatedPostSelector = () => {
             slug: item.slug,
           })
           return (
-            <a
-              href="javascript:;"
-              onClick={(e) => {
-                e.preventDefault()
+            <MotionButtonBase
+              onClick={() => {
                 window.open(href, '_blank')
               }}
               key={index}
-              className="flex items-center justify-between rounded-md p-2 duration-200 hover:bg-gray-200 dark:bg-neutral"
+              className="flex items-center justify-between rounded-md p-2 duration-200 hover:bg-gray-200 dark:bg-neutral-900 dark:hover:bg-zinc-800"
             >
               <EllipsisHorizontalTextWithTooltip className="mr-2 flex-1 font-normal">
                 {item.title}
@@ -83,7 +81,7 @@ export const RelatedPostSelector = () => {
                 <i className="icon-[mingcute--delete-2-line] text-base" />
                 <span className="sr-only">删除</span>
               </MotionButtonBase>
-            </a>
+            </MotionButtonBase>
           )
         })}
       </div>

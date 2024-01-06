@@ -41,7 +41,8 @@ export const PinIconToggle: Component<{
     </MotionButtonBase>
   )
 }
-function PhPushPinFill(props: SVGProps<SVGSVGElement>) {
+
+export function PhPushPinFill(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +59,7 @@ function PhPushPinFill(props: SVGProps<SVGSVGElement>) {
   )
 }
 
-function PhPushPin(props: SVGProps<SVGSVGElement>) {
+export function PhPushPin(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
