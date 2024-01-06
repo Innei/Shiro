@@ -65,6 +65,7 @@ export const ImportMarkdownButton: FC<{
         导入
       </StyledButton>
       <DeclarativeModal
+        clickOutsideToDismiss={false}
         open={isOpen}
         onOpenChange={onOpenChange}
         title="Import Markdown"

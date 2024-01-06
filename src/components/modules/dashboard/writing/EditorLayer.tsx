@@ -1,5 +1,7 @@
 import type { FC, ReactNode } from 'react'
 
+import { useIsMobile } from '~/atoms'
+import { RootPortal } from '~/components/ui/portal'
 import { clsxm } from '~/lib/helper'
 
 export const EditorLayer: FC<{
@@ -8,16 +10,26 @@ export const EditorLayer: FC<{
 }> = (props) => {
   const { children, mainClassName } = props
   const [TitleEl, HeaderEl, ContentEl, FooterEl, ...rest] = children
+
+  const isMobile = useIsMobile()
   return (
     <>
-      <div className="mb-5 flex flex-wrap items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between lg:mb-5">
         <div className="flex items-center justify-between">
           <p className="flex items-center text-lg font-medium">{TitleEl}</p>
         </div>
 
-        <div className="flex flex-shrink-0 flex-grow gap-2 text-right lg:gap-4">
-          {HeaderEl}
-        </div>
+        {isMobile ? (
+          <RootPortal>
+            <div className="fixed right-4 top-16 z-[20] flex flex-shrink-0 flex-grow gap-2 text-right lg:gap-4">
+              {HeaderEl}
+            </div>
+          </RootPortal>
+        ) : (
+          <div className="flex flex-shrink-0 flex-grow gap-2 text-right lg:gap-4">
+            {HeaderEl}
+          </div>
+        )}
       </div>
 
       <main

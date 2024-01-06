@@ -9,6 +9,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import type { PostDto } from '~/models/writing'
 import type { FC } from 'react'
 
+import { useIsMobile } from '~/atoms'
 import { PageLoading } from '~/components/layout/dashboard/PageLoading'
 import {
   PostEditorSidebar,
@@ -82,13 +83,18 @@ const EditPage: FC<{
 
   const editingAtom = useMemo(() => atom(editingData), [editingData])
 
+  const isMobile = useIsMobile()
   return (
     <PostModelDataAtomProvider overrideAtom={editingAtom}>
       <BaseWritingProvider atom={editingAtom}>
         <EditorLayer>
-          <span>
-            {props.initialData ? <>编辑「{editingData.title}」</> : '撰写'}
-          </span>
+          {isMobile ? (
+            <div />
+          ) : (
+            <span>
+              {props.initialData ? <>编辑「{editingData.title}」</> : '撰写'}
+            </span>
+          )}
           <ActionButtonGroup initialData={props.initialData} />
           <Writing middleSlot={SlugInput} />
           <PostEditorSidebar />

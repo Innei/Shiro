@@ -132,9 +132,16 @@ export const Modal: Component<{
     return (
       <Wrapper>
         <PresentSheet
-          open
+          title={title}
+          defaultOpen
           zIndex={1000 + drawerLength}
-          onOpenChange={onClose}
+          onOpenChange={(open) => {
+            if (!open) {
+              setTimeout(() => {
+                close()
+              }, 1000)
+            }
+          }}
           content={finalChildren}
         />
       </Wrapper>

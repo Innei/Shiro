@@ -224,8 +224,15 @@ const Modal: Component<{
       <Wrapper>
         <PresentSheet
           open
+          title={title}
           zIndex={1000 + drawerLength}
-          onOpenChange={onClose}
+          // onOpenChange={(open) => {
+          //   if (!open) {
+          //     setTimeout(() => {
+          //       close()
+          //     }, 1000)
+          //   }
+          // }}
           content={createElement(content, ModalProps)}
         />
       </Wrapper>
