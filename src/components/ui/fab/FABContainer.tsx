@@ -6,7 +6,7 @@ import { typescriptHappyForwardRef } from 'foxact/typescript-happy-forward-ref'
 import { AnimatePresence, m } from 'framer-motion'
 import { atom, useAtomValue } from 'jotai'
 import type { HTMLMotionProps } from 'framer-motion'
-import type { PropsWithChildren } from 'react'
+import type { PropsWithChildren, ReactNode } from 'react'
 
 import { useIsMobile } from '~/atoms'
 import { clsxm } from '~/lib/helper'
@@ -93,9 +93,7 @@ export const FABPortable = typescriptHappyForwardRef(
   },
 )
 
-export const FABContainer = (props: {
-  children: JSX.Element | JSX.Element[]
-}) => {
+export const FABContainer = (props: { children?: ReactNode }) => {
   const isMobile = useIsMobile()
 
   const shouldHide = usePageScrollDirectionSelector(

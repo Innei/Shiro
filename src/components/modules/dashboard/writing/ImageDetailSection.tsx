@@ -1,5 +1,4 @@
 import { memo, useEffect, useMemo, useState } from 'react'
-import { toast } from 'react-toastify'
 import { marked } from 'marked'
 import type { WriteBaseType } from '~/models/writing'
 import type { FC } from 'react'
@@ -12,6 +11,7 @@ import { Label, LabelProvider } from '~/components/ui/label'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { uniqBy } from '~/lib/_'
 import { getDominantColor } from '~/lib/image'
+import { toast } from '~/lib/toast'
 
 const pickImagesFromMarkdown = (text: string) => {
   const ast = marked.lexer(text)

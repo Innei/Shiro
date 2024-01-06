@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { toast } from 'react-toastify'
 import clsx from 'clsx'
 import { AnimatePresence, m } from 'framer-motion'
 
@@ -10,6 +9,7 @@ import { useModalStack } from '~/components/ui/modal'
 import { DOMCustomEvents } from '~/constants/event'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { stopPropagation } from '~/lib/dom'
+import { toast } from '~/lib/toast'
 
 import { useIsInBanCopyContext } from './BanCopyWrapper'
 import { CommentModal } from './CommentModal'

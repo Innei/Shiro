@@ -13,6 +13,7 @@ import { queries } from '~/queries/definition'
 
 import './dashboard.css'
 
+import { MainLayout } from '~/components/modules/dashboard/layouts'
 import { AccentColorStyleInjector } from '~/components/modules/shared/AccentColorStyleInjector'
 import { FABContainer } from '~/components/ui/fab'
 
@@ -58,15 +59,9 @@ export default async function RootLayout({ children }: PropsWithChildren) {
           <ClientOnly>
             <LayoutHeader />
             <ComposedKBarProvider>
-              <div className="flex min-h-screen flex-col [&>div]:flex [&>div]:flex-grow [&>div]:flex-col">
-                <main className="relative z-[1] mt-28 flex min-h-0 flex-grow flex-col p-4">
-                  {children}
-                </main>
-              </div>
+              <MainLayout>{children}</MainLayout>
             </ComposedKBarProvider>
-            <FABContainer>
-              <></>
-            </FABContainer>
+            <FABContainer />
           </ClientOnly>
         </DashboardAppProviders>
         <ToastContainer />

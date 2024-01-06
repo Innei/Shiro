@@ -4,7 +4,7 @@ import { Drawer } from 'vaul'
 import type { FC, PropsWithChildren, ReactNode } from 'react'
 
 export interface PresentSheetProps {
-  content: ReactNode
+  content: ReactNode | FC
   open?: boolean
   onOpenChange?: (value: boolean) => void
   title?: string

@@ -153,10 +153,10 @@ const SecondaryNavLine = () => {
   const pathname = usePathname()
   const parent = useParentRouteObject(pathname)
 
-  if (!parent) return null
+  if (!parent?.children?.length) return null
   return (
     <nav className="flex h-12 items-center justify-between overflow-auto lg:overflow-visible">
-      <SecondaryLevelMenu />
+      <SecondaryLevelMenu menus={parent.children} />
 
       {/* <div className="hidden flex-shrink-0 text-xs lg:flex">
         <Breadcrumb />
@@ -165,16 +165,13 @@ const SecondaryNavLine = () => {
   )
 }
 
-const SecondaryLevelMenu = () => {
+const SecondaryLevelMenu = ({ menus }: { menus: DashboardRoute[] }) => {
   const pathname = usePathname()
-
   const parent = useParentRouteObject(pathname)
-
   if (!parent?.children?.length) return null
-
   return (
     <ul className="flex w-full space-x-4">
-      {(parent.children as DashboardRoute[]).map((route) => {
+      {menus.map((route) => {
         const fullPath = `/dashboard${parent.path}${route.path!}`
 
         const isActive = pathname.startsWith(fullPath)

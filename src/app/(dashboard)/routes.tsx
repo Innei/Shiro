@@ -72,6 +72,11 @@ export const dashboardRoutes = {
         },
       ],
     },
+    {
+      title: '评论',
+      icon: <i className="icon-[mingcute--comment-line]" />,
+      path: '/comments',
+    },
   ],
 } as DashboardRoute
 
