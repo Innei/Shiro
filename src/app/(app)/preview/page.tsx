@@ -59,7 +59,52 @@ import {
   PostMetaBarInternal,
 } from '../posts/(post-detail)/[category]/[slug]/pageExtra'
 
+const safeParse = (value: string) => {
+  try {
+    return JSON.parse(value)
+  } catch (e) {
+    return null
+  }
+}
+
 export default function PreviewPage() {
+  useIsomorphicLayoutEffect(() => {
+    const search = location.search
+    const searchParams = new URLSearchParams(search)
+
+    const sameSite = searchParams.get('same-site')
+    if (sameSite !== '1') {
+      return
+    }
+    const storageKey = searchParams.get('storageKey')
+    if (!storageKey) return
+
+    const handler = (event: StorageEvent) => {
+      if (event.storageArea === localStorage) {
+        if (event.key !== storageKey) return
+
+        const data = event.newValue
+        if (!data) return
+        const parsedData = safeParse(data)
+        if (!parsedData) return
+        jotaiStore.set(previewDataAtom, simpleCamelcaseKeys(parsedData))
+      }
+    }
+    window.addEventListener('storage', handler)
+
+    const exist = localStorage.getItem(storageKey)
+
+    if (exist) {
+      const parsedData = safeParse(exist)
+      if (!parsedData) return
+      jotaiStore.set(previewDataAtom, simpleCamelcaseKeys(parsedData))
+    }
+
+    return () => {
+      window.removeEventListener('storage', handler)
+    }
+  }, [])
+
   useIsomorphicLayoutEffect(() => {
     const search = location.search
     const searchParams = new URLSearchParams(search)
@@ -72,24 +117,15 @@ export default function PreviewPage() {
     targetOrigin = decodeURIComponent(targetOrigin)
 
     const handler = (e: MessageEvent) => {
-      const parsedData = (() => {
-        try {
-          const parsedData = JSON.parse(e.data)
-          return parsedData
-        } catch {
-          console.debug('preview page receive data', e?.data)
-          return null
-        }
-      })()
+      const parsedData = safeParse(e.data)
 
       if (!parsedData) return
       const PREVIEW_HASH = new URLSearchParams(location.search).get('key')
       if (!PREVIEW_HASH) return
-      console.debug('preview page receive data', parsedData)
       if (parsedData.key !== PREVIEW_HASH) {
         return
       }
-
+      console.debug('preview page receive data', parsedData)
       if (parsedData.type === 'preview') {
         if (
           JSON.stringify(jotaiStore.get(previewDataAtom)) ===

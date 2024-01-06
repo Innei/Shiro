@@ -11,7 +11,7 @@ export const SummaryInput = () => {
       <TextArea
         className="rounded-md border p-2 focus-visible:border-primary"
         placeholder="摘要"
-        value={summary}
+        value={summary || ''}
         onChange={(e) => {
           setSummary(e.target.value)
         }}

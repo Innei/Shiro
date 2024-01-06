@@ -10,6 +10,7 @@ import { Divider } from '~/components/ui/divider'
 import { AdvancedInput, AdvancedInputProvider } from '~/components/ui/input'
 import { Label, LabelProvider } from '~/components/ui/label'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
+import { uniqBy } from '~/lib/_'
 import { getDominantColor } from '~/lib/image'
 
 const pickImagesFromMarkdown = (text: string) => {
@@ -60,20 +61,23 @@ export const ImageDetailSection: FC<ImageDetailSectionProps> = (props) => {
 
   const nextImages = useMemo<ArticleImage[]>(() => {
     const basedImages: ArticleImage[] = text
-      ? fromText
-          .map((src) => {
-            const existImageInfo = originImageMap.get(src)
+      ? uniqBy(
+          fromText
+            .map((src) => {
+              const existImageInfo = originImageMap.get(src)
 
-            return {
-              src,
-              height: existImageInfo?.height,
-              width: existImageInfo?.width,
-              type: existImageInfo?.type,
-              accent: existImageInfo?.accent,
-            } as any
-          })
-          .concat(images)
-          .filter(Boolean)
+              return {
+                src,
+                height: existImageInfo?.height,
+                width: existImageInfo?.width,
+                type: existImageInfo?.type,
+                accent: existImageInfo?.accent,
+              } as any
+            })
+            .concat(images)
+            .filter(Boolean),
+          (s) => s.src,
+        )
       : images
     const srcSet = new Set<string>()
 

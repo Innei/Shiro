@@ -1,10 +1,10 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import dayjs from 'dayjs'
 import { produce } from 'immer'
-import { atom } from 'jotai'
+import { atom, useStore } from 'jotai'
 import { useRouter, useSearchParams } from 'next/navigation'
 import type { PostDto } from '~/models/writing'
 import type { FC } from 'react'
@@ -21,11 +21,13 @@ import {
 import { BaseWritingProvider } from '~/components/modules/dashboard/writing/BaseWritingProvider'
 import { EditorLayer } from '~/components/modules/dashboard/writing/EditorLayer'
 import { ImportMarkdownButton } from '~/components/modules/dashboard/writing/ImportMarkdownButton'
+import { PreviewButton } from '~/components/modules/dashboard/writing/PreviewButton'
 import {
   useEditorRef,
   Writing,
 } from '~/components/modules/dashboard/writing/Writing'
 import { StyledButton } from '~/components/ui/button'
+import { EmitKeyMap } from '~/constants/keys'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { cloneDeep } from '~/lib/_'
 import { toast } from '~/lib/toast'
@@ -67,6 +69,7 @@ const createInitialEditingData = (): PostDto => {
     tags: [],
     text: '',
     meta: {},
+    related: [],
 
     summary: '',
   }
@@ -82,6 +85,12 @@ const EditPage: FC<{
   )
 
   const editingAtom = useMemo(() => atom(editingData), [editingData])
+  const store = useStore()
+  useEffect(() => {
+    return store.sub(editingAtom, () => {
+      window.dispatchEvent(new CustomEvent(EmitKeyMap.EditDataUpdate))
+    })
+  }, [editingAtom, store])
 
   const isMobile = useIsMobile()
   return (
@@ -148,7 +157,17 @@ const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => {
     <>
       <div className="flex-shrink flex-grow" />
       <div className="flex flex-grow-0 items-center gap-4">
-        <ImportMarkdownButton onParsedValue={handleParsed} />
+        <div className="flex gap-2">
+          <ImportMarkdownButton onParsedValue={handleParsed} />
+          <PreviewButton
+            getData={() => {
+              return {
+                id: 'preview',
+                ...getData(),
+              }
+            }}
+          />
+        </div>
 
         <StyledButton
           onClick={() => {

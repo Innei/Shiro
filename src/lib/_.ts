@@ -80,8 +80,19 @@ export const throttle = <F extends (...args: any[]) => any>(
 export const isUndefined = (val: any): val is undefined =>
   typeof val === 'undefined'
 
-export const cloneDeep =
-  globalThis.structuredClone || ((o) => JSON.parse(JSON.stringify(o)))
+export const cloneDeep = <T>(val: T): T => {
+  if (Array.isArray(val)) {
+    return val.map(cloneDeep) as any
+  } else if (typeof val === 'object' && val !== null) {
+    const result: any = {}
+    for (const key in val) {
+      result[key] = cloneDeep(val[key])
+    }
+    return result
+  } else {
+    return val
+  }
+}
 
 export const range = (start: number, end: number): number[] => {
   const result: number[] = []
@@ -132,4 +143,16 @@ export const merge = <T extends object, U extends object>(
   }
 
   return result
+}
+
+export function uniqBy<T, K>(array: T[], iteratee: (item: T) => K): T[] {
+  const seen = new Set<K>()
+  return array.filter((item) => {
+    const key = iteratee(item)
+    if (!seen.has(key)) {
+      seen.add(key)
+      return true
+    }
+    return false
+  })
 }
