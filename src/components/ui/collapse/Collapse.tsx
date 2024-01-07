@@ -33,9 +33,9 @@ export const Collapse: Component<{
 
     if (withBackground) {
       // @ts-expect-error
-      v.open.background = `hsl(var(--a) / 10%)`
+      v.open.background = `oklch(var(--a) / 10%)`
       // @ts-expect-error
-      v.collapsed.background = `hsl(var(--a) / 0%)`
+      v.collapsed.background = `oklch(var(--a) / 0%)`
     }
 
     return v

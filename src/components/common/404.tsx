@@ -296,7 +296,7 @@ const $404SVG: Component = ({ className }) => {
           d="M273.813 410.969s-54.527 39.501-115.34 38.218c-2.28-.048-4.926-.241-7.841-.548-68.038-7.178-134.288-43.963-167.33-103.87-.908-1.646-1.793-3.3-2.654-4.964-18.395-35.511-37.259-83.385-32.075-118.817"
         />
         <path
-          fill="hsl(var(--b1)/var(--tw-bg-opacity,1))"
+          fill="oklch(var(--b1)/var(--tw-bg-opacity,1))"
           stroke="currentColor"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -305,7 +305,7 @@ const $404SVG: Component = ({ className }) => {
           d="m338.164 454.689-64.726-17.353c-11.086-2.972-17.664-14.369-14.692-25.455l15.694-58.537c3.889-14.504 18.799-23.11 33.303-19.221l52.349 14.035c14.504 3.889 23.11 18.799 19.221 33.303l-15.694 58.537c-2.972 11.085-14.368 17.663-25.455 14.691z"
         />
         <g
-          fill="hsl(var(--b1)/var(--tw-bg-opacity,1))"
+          fill="oklch(var(--b1)/var(--tw-bg-opacity,1))"
           stroke="currentColor"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -316,7 +316,7 @@ const $404SVG: Component = ({ className }) => {
           <circle cx={323.666} cy={235.617} r={6.375} />
         </g>
         <g
-          fill="hsl(var(--b1)/var(--tw-bg-opacity,1))"
+          fill="oklch(var(--b1)/var(--tw-bg-opacity,1))"
           stroke="currentColor"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -327,7 +327,7 @@ const $404SVG: Component = ({ className }) => {
           <path d="M388.762 434.677c5.234-3.039 7.731-8.966 6.678-14.594a15.804 15.804 0 0 1 5.837 5.793c4.411 7.596 1.829 17.33-5.767 21.741-7.596 4.411-17.33 1.829-21.741-5.767-1.754-3.021-2.817-5.818-2.484-9.046 4.34 4.551 11.802 5.169 17.477 1.873z" />
         </g>
         <g
-          fill="hsl(var(--b1)/var(--tw-bg-opacity,1))"
+          fill="oklch(var(--b1)/var(--tw-bg-opacity,1))"
           stroke="currentColor"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -345,7 +345,7 @@ const $404SVG: Component = ({ className }) => {
           strokeWidth={3}
         >
           <path
-            fill="hsl(var(--b1)/var(--tw-bg-opacity,1))"
+            fill="oklch(var(--b1)/var(--tw-bg-opacity,1))"
             d="M353.351 365.387a58.685 58.685 0 0 1-24.48-1.278 58.678 58.678 0 0 1-21.836-11.14c-17.004 4.207-31.269 17.289-36.128 35.411l-1.374 5.123c-7.112 26.525 8.617 53.791 35.13 60.899h0c26.513 7.108 53.771-8.632 60.883-35.158l1.374-5.123c4.858-18.122-.949-36.585-13.569-48.734z"
           />
           <path
@@ -361,12 +361,12 @@ const $404SVG: Component = ({ className }) => {
           strokeWidth={3}
         >
           <path
-            fill="hsl(var(--b1)/var(--tw-bg-opacity,1))"
+            fill="oklch(var(--b1)/var(--tw-bg-opacity,1))"
             d="m312.957 456.734-14.315 53.395c-1.896 7.07 2.299 14.338 9.37 16.234h0c7.07 1.896 14.338-2.299 16.234-9.37l17.838-66.534c-8.633 5.427-18.558 6.928-29.127 6.275z"
           />
           <path fill="none" d="m304.883 486.849 25.604 6.864" />
           <path
-            fill="hsl(var(--b1)/var(--tw-bg-opacity,1))"
+            fill="oklch(var(--b1)/var(--tw-bg-opacity,1))"
             d="M296.315 452.273 282 505.667c-1.896 7.07-9.164 11.265-16.234 9.37h0c-7.07-1.896-11.265-9.164-9.37-16.234l17.838-66.534c4.759 9.017 12.602 15.281 22.081 20.004z"
           />
           <path fill="none" d="m262.638 475.522 25.603 6.865" />
@@ -374,7 +374,7 @@ const $404SVG: Component = ({ className }) => {
         <ellipse
           cx={341.295}
           cy={315.211}
-          fill="hsl(var(--b1)/var(--tw-bg-opacity,1))"
+          fill="oklch(var(--b1)/var(--tw-bg-opacity,1))"
           stroke="currentColor"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -398,7 +398,7 @@ const $404SVG: Component = ({ className }) => {
           transform="rotate(.997 279.669 262.457)"
         />
         <path
-          fill="hsl(var(--b1)/var(--tw-bg-opacity,1))"
+          fill="oklch(var(--b1)/var(--tw-bg-opacity,1))"
           stroke="currentColor"
           strokeLinecap="round"
           strokeLinejoin="round"

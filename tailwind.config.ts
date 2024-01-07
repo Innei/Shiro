@@ -1,6 +1,5 @@
 import daisyui from 'daisyui'
 import { withTV } from 'tailwind-variants/transformer'
-import twColors from 'tailwindcss/colors'
 import type { Config } from 'tailwindcss'
 import type { PluginAPI } from 'tailwindcss/types/config'
 
@@ -223,7 +222,6 @@ const twConfig: Config = {
 
       colors: {
         uk: UIKitColors,
-        always: { ...twColors },
 
         themed: {
           bg_opacity: 'var(--bg-opacity)',

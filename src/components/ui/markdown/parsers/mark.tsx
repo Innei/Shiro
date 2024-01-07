@@ -15,7 +15,7 @@ export const MarkRule: MarkdownToJSX.Rule = {
     return (
       <mark
         key={state?.key}
-        className="rounded-md bg-always-yellow-400 bg-opacity-80 px-1 text-black"
+        className="rounded-md bg-yellow-400 bg-opacity-80 px-1 text-black"
       >
         <span>{output(node.content, state!)}</span>
       </mark>

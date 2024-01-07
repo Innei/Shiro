@@ -12,7 +12,7 @@
       text-decoration: none;
       border-radius: 3px;
 
-      @apply bg-current text-stone-700 dark:text-neutral-500 print:!bg-transparent print:line-through;
+      @apply bg-current text-stone-700 print:!bg-transparent print:line-through dark:text-neutral-500;
 
       &:hover {
         background: transparent;
@@ -110,9 +110,9 @@
   }
 
   mark {
-    --lightness: 80%;
+    --lightness: 0.3;
     --highlighted: 1;
-    --highlight: hsl(var(--inc) / var(--lightness));
+    --highlight: oklch(var(--a) / var(--lightness));
     background: transparent;
   }
 
@@ -126,7 +126,7 @@
   }
 
   [data-theme='dark'] mark {
-    --lightness: 35%;
+    --lightness: 0.35;
   }
 
   mark span {
