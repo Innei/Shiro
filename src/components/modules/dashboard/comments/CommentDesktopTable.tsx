@@ -1,5 +1,6 @@
 import { memo } from 'react'
 import type { CommentModel } from '@mx-space/api-client'
+import type { FC } from 'react'
 
 import { PageLoading } from '~/components/layout/dashboard/PageLoading'
 
@@ -31,29 +32,36 @@ export const CommentDesktopTable = () => {
   )
 }
 
-const CommentItem = ({ comment }: { comment: CommentModel }) => {
+const CommentCheckBox: FC<{
+  id: string
+}> = ({ id }) => {
   const selectionKeys = useCommentSelectionKeys()
   const setSelectionKeys = useSetCommentSelectionKeys()
 
   return (
+    <input
+      checked={selectionKeys.has(id)}
+      onChange={(e) => {
+        if (e.target.checked) {
+          setSelectionKeys((prev) => new Set([...prev, id]))
+          return
+        }
+        setSelectionKeys((prev) => {
+          const next = new Set(prev)
+          next.delete(id)
+          return next
+        })
+      }}
+      type="checkbox"
+      className="checkbox-accent checkbox checkbox-md"
+    />
+  )
+}
+const CommentItem = ({ comment }: { comment: CommentModel }) => {
+  return (
     <div className="grid grid-cols-[40px_300px_auto] gap-8">
       <div className="ml-2 mt-[18px]">
-        <input
-          checked={selectionKeys.has(comment.id)}
-          onChange={(e) => {
-            if (e.target.checked) {
-              setSelectionKeys((prev) => new Set([...prev, comment.id]))
-              return
-            }
-            setSelectionKeys((prev) => {
-              const next = new Set(prev)
-              next.delete(comment.id)
-              return next
-            })
-          }}
-          type="checkbox"
-          className="checkbox-accent checkbox checkbox-md"
-        />
+        <CommentCheckBox id={comment.id} />
       </div>
 
       <CommentAuthorCell className="mt-0" comment={comment} />

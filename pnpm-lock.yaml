@@ -209,6 +209,9 @@ dependencies:
   uniqolor:
     specifier: 1.1.1
     version: 1.1.1
+  use-context-selector:
+    specifier: 1.4.1
+    version: 1.4.1(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)
   vaul:
     specifier: 0.8.0
     version: 0.8.0(@types/react-dom@18.2.18)(@types/react@18.2.46)(react-dom@18.2.0)(react@18.2.0)
@@ -8545,6 +8548,24 @@ packages:
       '@types/react': 18.2.46
       react: 18.2.0
       tslib: 2.6.2
+    dev: false
+
+  /use-context-selector@1.4.1(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0):
+    resolution: {integrity: sha512-Io2ArvcRO+6MWIhkdfMFt+WKQX+Vb++W8DS2l03z/Vw/rz3BclKpM0ynr4LYGyU85Eke+Yx5oIhTY++QR0ZDoA==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '*'
+      react-native: '*'
+      scheduler: '>=0.19.0'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      scheduler: 0.23.0
     dev: false
 
   /use-sidecar@1.1.2(@types/react@18.2.46)(react@18.2.0):

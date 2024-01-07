@@ -57,6 +57,10 @@ export default function Page() {
       <CommentSelectionKeysProvider>
         <Tabs.Root
           value={currentTab}
+          className={clsx(
+            'sticky top-16 z-[1] -ml-4 -mt-8 w-[calc(100%+2rem)] px-4 pt-2 lg:pt-4',
+            'bg-white/80 backdrop-blur dark:bg-zinc-900/80',
+          )}
           onValueChange={(tab) => {
             setTab(tab as any)
           }}
