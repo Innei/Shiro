@@ -82,3 +82,6 @@ export const secondOfDay = () => {
 }
 
 export const secondOfDays = 86400
+export function isValidDate(d: any) {
+  return d instanceof Date && !Number.isNaN(+d)
+}

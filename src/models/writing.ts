@@ -45,6 +45,29 @@ export type PostDto = WriteBaseType & {
   pinOrder: number
   pin: string | null
   relatedId: string[]
-
   related?: PostRelated[]
 }
+
+export interface NoteMusicRecord {
+  type: string
+  id: string
+}
+
+export interface Coordinate {
+  latitude: number
+  longitude: number
+}
+
+export type NoteDto = {
+  hide?: boolean
+  mood: string | null
+  weather: string | null
+  password: string | null
+  secret?: Date | null
+  hasMemory?: boolean
+  music?: NoteMusicRecord[]
+  location?: null | string
+  nid?: null | string
+  coordinates?: null | Coordinate
+  topicId: string | null | undefined
+} & WriteBaseType
