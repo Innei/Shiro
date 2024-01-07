@@ -133,7 +133,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     const ListElement = (
       <div
         className={clsx(
-          'pointer-events-auto z-[101] mt-1 rounded-md border border-zinc-200 bg-zinc-50/80 backdrop-blur dark:border-neutral-800 dark:bg-neutral-800 dark:bg-neutral-900/60',
+          'pointer-events-auto z-[101] mt-1',
           portal ? 'absolute  flex flex-col' : 'absolute w-full',
         )}
         ref={ref}
@@ -150,7 +150,10 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       >
         {/* FIXME: https://github.com/radix-ui/primitives/issues/2125 */}
         <ul
-          className="pointer-events-auto max-h-48 flex-grow overflow-auto"
+          className={clsx(
+            'pointer-events-auto max-h-48 flex-grow overflow-auto',
+            'overflow-hidden rounded-md border border-zinc-200 bg-zinc-50/90 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/90',
+          )}
           onWheel={stopPropagation}
           onScroll={handleScroll}
         >

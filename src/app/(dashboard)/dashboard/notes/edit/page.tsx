@@ -15,7 +15,7 @@ import {
   NoteEditorSidebar,
   NoteModelDataAtomProvider,
 } from '~/components/modules/dashboard/note-editing'
-import { SlugInput } from '~/components/modules/dashboard/note-editing/SlugInput'
+import { NoteNid } from '~/components/modules/dashboard/note-editing/NoteNid'
 import {
   usePostModelGetModelData,
   usePostModelSetModelData,
@@ -105,7 +105,7 @@ const EditPage: FC<{
           )}
           <ActionButtonGroup initialData={props.initialData} />
           <Writing
-            middleSlot={SlugInput}
+            middleSlot={NoteNid}
             titleLabel={
               created
                 ? `记录 ${created.getFullYear()} 年第 ${dayOfYear()} 天`

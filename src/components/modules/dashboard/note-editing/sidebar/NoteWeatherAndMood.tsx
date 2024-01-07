@@ -1,5 +1,6 @@
 import { Autocomplete } from '~/components/ui/auto-completion'
 
+import { SidebarSection } from '../../writing/SidebarBase'
 import { MOOD_SET, WEATHER_SET } from '../constants'
 import { useNoteModelSingleFieldAtom } from '../data-provider'
 
@@ -9,10 +10,12 @@ export const NoteWeatherAndMood = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between">
-        <p>天气</p>
+      <SidebarSection
+        label="天气"
+        className="flex items-center justify-between"
+      >
         <Autocomplete
-          wrapperClassName="flex-1 ml-3"
+          wrapperClassName="flex-1"
           className="w-full"
           defaultValue={weather}
           suggestions={WEATHER_SET.map((w) => ({ name: w, value: w }))}
@@ -24,13 +27,15 @@ export const NoteWeatherAndMood = () => {
             setWeather(value)
           }}
         />
-      </div>
+      </SidebarSection>
 
-      <div className="flex items-center justify-between">
-        <p>心情</p>
+      <SidebarSection
+        label="心情"
+        className="flex items-center justify-between"
+      >
         <Autocomplete
           placeholder=" "
-          wrapperClassName="flex-1 ml-3"
+          wrapperClassName="flex-1"
           className="w-full"
           label=""
           defaultValue={mood}
@@ -42,7 +47,7 @@ export const NoteWeatherAndMood = () => {
             setMood(value)
           }}
         />
-      </div>
+      </SidebarSection>
     </>
   )
 }

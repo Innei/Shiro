@@ -88,9 +88,9 @@ export const useDeleteCommentMutation = (options?: MutationOptions<any>) => {
         }),
       )
     },
-    onSuccess: () => {
+    onSuccess: (...rest) => {
       toast.success('删除成功')
-      options?.onSuccess?.()
+      options?.onSuccess?.apply(null, rest as any)
     },
     onError: () => {
       toast.error('删除失败')
