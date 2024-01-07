@@ -6,7 +6,7 @@ export const CommentUrlRender = ({
   author: string
 }) => {
   return url ? (
-    <a className="text-sm text-primary" href={url}>
+    <a className="truncate text-sm text-accent" href={url}>
       {author}
     </a>
   ) : (

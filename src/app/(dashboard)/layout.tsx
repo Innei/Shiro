@@ -47,9 +47,8 @@ export default async function RootLayout({ children }: PropsWithChildren) {
       </head>
       <body
         id="dashboard"
-        className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
+        className={`${sansFont.variable} ${serifFont.variable} m-0 h-full bg-gray-50 p-0 font-sans dark:bg-black`}
       >
-        <div className="fixed inset-0 bg-gray-50 dark:bg-black" />
         <DashboardAppProviders>
           <AggregationProvider
             aggregationData={data}

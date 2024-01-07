@@ -31,7 +31,7 @@ export const CommentContentCell: Component<{ comment: CommentModel }> = (
     if (!ref) return <span className="text-foreground/60">已删除</span>
     if (refType === CollectionRefTypes.Recently)
       return `${ref.text.slice(0, 20)}...`
-    return <TitleExtra className="text-primary" data={ref} />
+    return <TitleExtra className="text-accent" data={ref} />
   }, [ref, refType])
   return (
     <div className={clsxm('flex flex-col gap-2 py-2 text-sm', className)}>
@@ -43,7 +43,7 @@ export const CommentContentCell: Component<{ comment: CommentModel }> = (
 
       {parentComment && typeof parentComment !== 'string' && (
         <div className="relative mt-2 break-words">
-          <blockquote className="ml-3 pl-3 before:absolute before:bottom-0 before:left-[3px] before:top-0 before:h-full before:w-[3px] before:rounded-lg before:bg-primary before:content-['']">
+          <blockquote className="ml-3 pl-3 before:absolute before:bottom-0 before:left-[3px] before:top-0 before:h-full before:w-[3px] before:rounded-lg before:bg-accent before:content-['']">
             <div>
               <CommentUrlRender
                 author={parentComment.author}

@@ -153,7 +153,7 @@ const RealtedPostList: FC = () => {
               <input
                 id={labelFor}
                 type="checkbox"
-                className="checkbox-secondary checkbox"
+                className="checkbox-accent checkbox"
                 checked={selection.has(post.id)}
                 onChange={(e) => {
                   const checked = e.target.checked

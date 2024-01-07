@@ -67,7 +67,7 @@ export const Trigger = React.forwardRef<
         className={clsxm(
           'relative flex px-2 py-1 text-sm font-bold focus:outline-none',
           'text-gray-600 transition-colors duration-300 dark:text-gray-300',
-          selected && 'text-primary',
+          selected && 'text-accent',
           className,
         )}
         ref={forwardedRef}
@@ -82,7 +82,7 @@ export const Trigger = React.forwardRef<
         {selected && (
           <m.span
             layoutId="tab-selected-underline"
-            className="absolute -bottom-1 h-0.5 w-[calc(100%-16px)] rounded bg-primary"
+            className="absolute -bottom-1 h-0.5 w-[calc(100%-16px)] rounded bg-accent"
           />
         )}
 

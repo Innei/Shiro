@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback } from 'react'
-import clsx from 'clsx'
 import { m } from 'framer-motion'
 import { atom, useAtom, useSetAtom } from 'jotai'
 import Link from 'next/link'
@@ -133,12 +132,12 @@ const HeaderMenu: Component = ({ className }) => {
             <Link
               href={menu.redirect ?? dashboardPath}
               onClick={isActive ? preventDefault : onNav}
-              className="relative flex items-center gap-1 rounded-xl p-2 duration-200 hover:bg-slate-300 dark:hover:bg-gray-800"
+              className="relative flex items-center gap-1 rounded-xl p-2 duration-200 hover:bg-accent/40"
             >
               {isActive && (
                 <m.span
                   layoutId="header"
-                  className="absolute inset-0 z-[-1] rounded-xl bg-zinc-200 dark:bg-neutral-500/30"
+                  className="absolute inset-0 z-[-1] rounded-xl bg-accent/20"
                 />
               )}
               {menu.icon}
@@ -183,14 +182,12 @@ const SecondaryLevelMenu = ({ menus }: { menus: DashboardRoute[] }) => {
             <Link
               onClick={isActive ? preventDefault : undefined}
               href={`${fullPath}`}
-              className={clsx(
-                'relative flex items-center gap-1 rounded-lg px-2 py-1 duration-200 hover:bg-slate-300 dark:hover:bg-gray-800',
-              )}
+              className="relative flex items-center gap-1 rounded-lg px-2 py-1 duration-200 hover:bg-accent/40"
             >
               {isActive && (
                 <m.span
                   layoutId="sub"
-                  className="absolute inset-0 z-[-1] rounded-xl bg-zinc-200 dark:bg-neutral-500/30"
+                  className="absolute inset-0 z-[-1] rounded-xl bg-accent/20"
                 />
               )}
               {route.icon}

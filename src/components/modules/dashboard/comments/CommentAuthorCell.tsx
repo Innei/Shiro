@@ -13,7 +13,7 @@ export const CommentAuthorCell: Component<{
   const { comment, className } = props
   const { author, avatar, url, mail, ip, isWhispers } = comment
   return (
-    <div className={clsxm('mt-6 flex space-x-8', className)}>
+    <div className={clsxm('mt-6 flex gap-8', className)}>
       <div className="self-center lg:self-start">
         <Avatar
           radius="full"
@@ -23,19 +23,19 @@ export const CommentAuthorCell: Component<{
           text={author[0]}
         />
       </div>
-      <div className="flex flex-col gap-1 text-sm">
+      <div className="flex w-0 flex-grow flex-col gap-1 text-sm">
         <div className="flex items-center space-x-1">
           <CommentUrlRender url={url} author={author} />
           {isWhispers && <OcticonGistSecret />}
         </div>
 
-        <a className="text-sm text-primary" href={`mailto:${mail}`}>
+        <a className="truncate text-sm text-accent" href={`mailto:${mail}`}>
           {mail}
         </a>
 
         {ip && (
           <IpInfoPopover
-            className="text-sm text-base-content opacity-60"
+            className="truncate text-sm text-base-content opacity-60"
             ip={ip}
           />
         )}

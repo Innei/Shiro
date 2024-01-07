@@ -44,6 +44,7 @@ export const IpInfoPopover: Component<IpInfoPopoverProps> = (props) => {
   return (
     <FloatPopover
       type="tooltip"
+      wrapperClassName="truncate"
       onOpen={() => {
         refetch()
       }}

@@ -36,15 +36,15 @@
 }
 
 .editor a {
-  @apply text-primary underline;
+  @apply text-accent underline;
 }
 
 .editor blockquote {
-  @apply border-l-4  border-primary pl-4 font-serif not-italic;
+  @apply border-l-4  border-accent pl-4 font-serif not-italic;
 }
 
 .editor code:not(pre > code) {
-  @apply inline-block rounded-sm bg-slate-200/50 p-1 font-mono font-normal text-primary;
+  @apply inline-block rounded-sm bg-slate-200/50 p-1 font-mono font-normal text-accent;
 }
 
 .editor p {
@@ -52,15 +52,15 @@
 }
 
 [data-theme='dark'] .editor a {
-  @apply text-primary;
+  @apply text-accent;
 }
 
 [data-theme='dark'] .editor blockquote {
-  @apply border-primary;
+  @apply border-accent;
 }
 
 [data-theme='dark'] .editor code:not(pre > code) {
-  @apply bg-slate-800/50 text-primary;
+  @apply bg-slate-800/50 text-accent;
 }
 
 .editor pre code {
@@ -105,7 +105,7 @@
 }
 
 .editor.ProseMirror .selectedCell:after {
-  @apply bg-primary/30;
+  @apply bg-accent/30;
 }
 
 /* A little workaround to turn the element into a space */
