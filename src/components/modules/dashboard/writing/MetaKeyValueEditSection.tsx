@@ -37,6 +37,7 @@ export const MetaKeyValueEditSection: FC<MetaKeyValueEditSectionProps> = (
   const handlePresentModal = useEventCallback(() => {
     present({
       title: `编辑元信息`,
+      clickOutsideToDismiss: false,
       content: ({ dismiss }) => (
         <EditorModal
           value={JSON.stringify(objectValue, null, TAB_SIZE)}
@@ -95,6 +96,7 @@ const EditorModal: FC<{
       <div className="h-[400px] w-full">
         <TextArea
           className="h-full w-full p-0 font-mono"
+          defaultValue={value}
           onChange={(e) => {
             currentEditValueRef.current = e.target.value
           }}

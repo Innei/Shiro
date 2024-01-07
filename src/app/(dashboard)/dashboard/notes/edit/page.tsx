@@ -6,7 +6,7 @@ import dayjs from 'dayjs'
 import { produce } from 'immer'
 import { atom, useStore } from 'jotai'
 import { useRouter, useSearchParams } from 'next/navigation'
-import type { NoteDto, PostDto } from '~/models/writing'
+import type { NoteDto } from '~/models/writing'
 import type { FC } from 'react'
 
 import { useIsMobile } from '~/atoms'
@@ -14,12 +14,10 @@ import { PageLoading } from '~/components/layout/dashboard/PageLoading'
 import {
   NoteEditorSidebar,
   NoteModelDataAtomProvider,
+  useNoteModelGetModelData,
+  useNoteModelSetModelData,
 } from '~/components/modules/dashboard/note-editing'
 import { NoteNid } from '~/components/modules/dashboard/note-editing/NoteNid'
-import {
-  usePostModelGetModelData,
-  usePostModelSetModelData,
-} from '~/components/modules/dashboard/post-editing'
 import { BaseWritingProvider } from '~/components/modules/dashboard/writing/BaseWritingProvider'
 import { EditorLayer } from '~/components/modules/dashboard/writing/EditorLayer'
 import { ImportMarkdownButton } from '~/components/modules/dashboard/writing/ImportMarkdownButton'
@@ -35,7 +33,7 @@ import { cloneDeep } from '~/lib/_'
 import { dayOfYear } from '~/lib/datetime'
 import { toast } from '~/lib/toast'
 import { adminQueries } from '~/queries/definition'
-import { useCreatePost, useUpdatePost } from '~/queries/definition/post'
+import { useCreateNote, useUpdateNote } from '~/queries/definition/note'
 
 export default function Page() {
   const search = useSearchParams()
@@ -120,8 +118,8 @@ const EditPage: FC<{
 }
 
 const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
-  const getData = usePostModelGetModelData()
-  const setData = usePostModelSetModelData()
+  const getData = useNoteModelGetModelData()
+  const setData = useNoteModelSetModelData()
   const editorRef = useEditorRef()
   const handleParsed = useEventCallback(
     (data: {
@@ -155,8 +153,8 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
     },
   )
 
-  const { mutateAsync: createPost } = useCreatePost()
-  const { mutateAsync: updatePost } = useUpdatePost()
+  const { mutateAsync: createNote } = useCreateNote()
+  const { mutateAsync: updateNote } = useUpdateNote()
 
   const router = useRouter()
   return (
@@ -181,7 +179,7 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
               ...getData(),
             }
 
-            const payload: PostDto & {
+            const payload: NoteDto & {
               id?: string
             } = {
               ...currentData,
@@ -198,10 +196,10 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
 
             const isCreate = !currentData.id
             const promise = isCreate
-              ? createPost(payload).then((res) => {
-                  router.replace(`/dashboard/posts/edit?id=${res.id}`)
+              ? createNote(payload).then((res) => {
+                  router.replace(`/dashboard/notes/edit?id=${res.id}`)
                 })
-              : updatePost(payload)
+              : updateNote(payload)
             promise.catch((err) => {
               toast.error(err.message)
             })

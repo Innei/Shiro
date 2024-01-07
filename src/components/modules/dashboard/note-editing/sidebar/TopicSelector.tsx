@@ -13,7 +13,7 @@ import {
   useNoteModelSetModelData,
 } from '../data-provider'
 
-export const CategorySelector = () => {
+export const TopicSelector = () => {
   const { data, isLoading } = useQuery(adminQueries.note.allTopic())
   const categoryId = useNoteModelDataSelector((data) => data?.topicId)
   const setter = useNoteModelSetModelData()

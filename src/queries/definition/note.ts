@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import type {
   NoteModel,
@@ -7,8 +8,10 @@ import type {
 } from '@mx-space/api-client'
 import type { NoteDto } from '~/models/writing'
 
+import { cloneDeep } from '~/lib/_'
 import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
+import { toast } from '~/lib/toast'
 
 import { defineQuery } from '../helper'
 
@@ -105,3 +108,52 @@ export const noteAdmin = {
       },
     }),
 }
+
+export const useCreateNote = () =>
+  useMutation({
+    mutationFn: (data: NoteDto) => {
+      const readonlyKeys = [
+        'id',
+        'nid',
+        'modified',
+        'topic',
+      ] as (keyof NoteModel)[]
+      const nextData = cloneDeep(data) as any
+      for (const key of readonlyKeys) {
+        delete nextData[key]
+      }
+      return apiClient.note.proxy.post<{
+        id: string
+      }>({
+        data: nextData,
+      })
+    },
+    onSuccess: () => {
+      toast.success('创建成功')
+    },
+  })
+
+export const useUpdateNote = () =>
+  useMutation({
+    mutationFn: (data: NoteDto) => {
+      const { id } = data
+      const readonlyKeys = [
+        'id',
+        'nid',
+        'modified',
+        'topic',
+      ] as (keyof NoteModel)[]
+      const nextData = cloneDeep(data) as any
+      for (const key of readonlyKeys) {
+        delete nextData[key]
+      }
+      return apiClient.note.proxy(id).patch<{
+        id: string
+      }>({
+        data: nextData,
+      })
+    },
+    onSuccess: () => {
+      toast.success('更新成功')
+    },
+  })

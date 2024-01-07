@@ -11,7 +11,7 @@ export const NoteNid = () => {
 
   return (
     <label className="text-base-content">{`${webUrl}/notes/${
-      nid || (latestNid?.nid || 0) + 1
+      nid || (latestNid?.nid ? latestNid.nid + 1 : '')
     }`}</label>
   )
 }

@@ -17,6 +17,7 @@ import { previewDataAtom } from '~/atoms/preview'
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { Paper } from '~/components/layout/container/Paper'
 import { NoteMetaBar, NoteRootBanner } from '~/components/modules/note'
+import { NoteHeadCover } from '~/components/modules/note/NoteHeadCover'
 import { ArticleRightAside } from '~/components/modules/shared/ArticleRightAside'
 import { ReadIndicatorForMobile } from '~/components/modules/shared/ReadIndicator'
 import { jotaiStore } from '~/lib/store'
@@ -230,6 +231,7 @@ const NotePreview = () => {
           }, [data])}
         />
         <Paper>
+          <NoteHeadCover image={data.meta?.cover} />
           <IndentArticleContainer>
             <header>
               <NoteTitle />

@@ -23,9 +23,11 @@ export const PreviewButton = <T extends { id: string }>(props: {
       localStorage.setItem(storageKey, JSON.stringify(props.getData()))
     }, 100)
     window.addEventListener(EmitKeyMap.EditDataUpdate, handler)
+    handler()
 
     return () => {
       window.removeEventListener(EmitKeyMap.EditDataUpdate, handler)
+      localStorage.removeItem(storageKey)
     }
   })
 

@@ -134,7 +134,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       <div
         className={clsx(
           'pointer-events-auto z-[101] mt-1',
-          portal ? 'absolute  flex flex-col' : 'absolute w-full',
+          portal ? 'absolute flex flex-col' : 'absolute w-full',
         )}
         ref={ref}
         style={merge(
