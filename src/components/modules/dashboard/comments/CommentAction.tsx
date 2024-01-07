@@ -23,14 +23,14 @@ export const CommentAction = (props: CommentModel) => {
   const { present } = useModalStack()
 
   return (
-    <div className="flex items-center justify-end space-x-4 lg:justify-start">
+    <div className="mt-2 flex items-center justify-end gap-4 lg:justify-start">
       {currentState === CommentState.Unread && (
-        <MotionButtonBase color="primary" onClick={() => {}}>
+        <MotionButtonBase className="text-primary" onClick={() => {}}>
           已读
         </MotionButtonBase>
       )}
       <MotionButtonBase
-        color="secondary"
+        className="text-orange-400 dark:text-orange-500"
         onClick={() => {
           present({
             title: `回复 ${props.author}`,

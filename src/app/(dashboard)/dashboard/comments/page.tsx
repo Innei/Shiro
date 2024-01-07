@@ -2,15 +2,18 @@
 
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { createElement, useEffect, useMemo } from 'react'
+import clsx from 'clsx'
 import type { NoteModel, PostModel } from '@mx-space/api-client'
 import type { FC } from 'react'
 
 import { CommentState } from '@mx-space/api-client'
 
+import { useIsMobile } from '~/atoms'
 import {
   CommentBatchActionGroup,
   CommentDataContext,
   CommentDataSourceContext,
+  CommentDesktopTable,
   CommentMobileList,
   CommentSelectionKeysProvider,
   CommentStateContext,
@@ -52,25 +55,6 @@ export default function Page() {
   return (
     <div className="relative -mt-12 flex w-full flex-grow flex-col">
       <CommentSelectionKeysProvider>
-        {/* <Tabs
-          selectedKey={tab}
-          onSelectionChange={setTab as any}
-          variant="underlined"
-        >
-          {TABS.map(({ key, title, component: Component, titleComponent }) => (
-            <Tab
-              value={key}
-              title={titleComponent ? createElement(titleComponent) : title}
-              key={key}
-              className="flex flex-grow flex-col"
-            >
-              <div className="flex h-0 flex-grow flex-col overflow-auto">
-                <Component state={key} />
-              </div>
-            </Tab>
-          ))}
-        </Tabs> */}
-
         <Tabs.Root
           value={currentTab}
           onValueChange={(tab) => {
@@ -161,6 +145,8 @@ const CommentTable = (props: { state: CommentState }) => {
     return map
   }, [data])
 
+  const isMobile = useIsMobile()
+
   return (
     <CommentStateContext.Provider value={props.state}>
       <CommentDataContext.Provider
@@ -180,9 +166,13 @@ const CommentTable = (props: { state: CommentState }) => {
             [data, isLoading],
           )}
         >
-          <div className="mx-auto flex w-full max-w-[600px] flex-col">
-            {/* {isMobile ? <CommentMobileList /> : <CommentDesktopTable />} */}
-            <CommentMobileList />
+          <div
+            className={clsx(
+              'flex flex-col',
+              isMobile ? 'mx-auto w-full max-w-[600px]' : '',
+            )}
+          >
+            {isMobile ? <CommentMobileList /> : <CommentDesktopTable />}
 
             {hasNextPage && <LoadMoreIndicator onLoading={fetchNextPage} />}
           </div>

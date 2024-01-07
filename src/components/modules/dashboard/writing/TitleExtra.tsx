@@ -30,11 +30,11 @@ export const TitleExtra = <T extends RequiredField & OptionalField>(props: {
             <MotionButtonBase
               className="inline-flex items-center"
               onClick={async () => {
-                const url = await apiClient.proxy.helper('url-builder').get<{
-                  data: string
-                }>({
-                  params: { id },
-                })
+                const url = await apiClient.proxy
+                  .helper('url-builder')(id)
+                  .get<{
+                    data: string
+                  }>()
 
                 window.open(url?.data, '_blank')
               }}

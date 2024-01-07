@@ -35,6 +35,7 @@ export const NoteTopic: FC = () => {
       <Divider />
       <div className="flex items-center gap-4">
         <Avatar
+          radius="full"
           size={60}
           imageUrl={icon}
           text={textToBigCharOrWord(name)}

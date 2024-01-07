@@ -1,3 +1,4 @@
+import { Divider } from '~/components/ui/divider'
 import { AbsoluteCenterSpinner, Spinner } from '~/components/ui/spinner'
 import { isUndefined } from '~/lib/_'
 import { clsxm } from '~/lib/helper'
@@ -41,12 +42,10 @@ export const CommentMobileList = () => {
             const idx = i * page.data.length + j
             return (
               <li key={item.id} className="flex flex-col gap-2">
-                <CommentAuthorCell {...item} />
-                <CommentContentCell {...item} />
+                <CommentAuthorCell comment={item} />
+                <CommentContentCell comment={item} />
 
-                {idx !== totalLength - 1 && (
-                  <div className="mb-8 mt-4 divide-x" />
-                )}
+                {idx !== totalLength - 1 && <Divider />}
               </li>
             )
           })

@@ -30,7 +30,11 @@ export const DeleteConfirmButton: FC<
   return (
     <FloatPopover
       trigger="click"
-      triggerElement={<MotionButtonBase>删除</MotionButtonBase>}
+      triggerElement={
+        <MotionButtonBase className="duration-200 hover:text-red-500">
+          删除
+        </MotionButtonBase>
+      }
     >
       <div className="flex p-4">
         <p className="text-center text-base font-bold text-error">

@@ -1,19 +1,24 @@
 import type { CommentModel } from '@mx-space/api-client'
 
 import { Avatar } from '~/components/ui/avatar'
+import { clsxm } from '~/lib/helper'
 
 import { OcticonGistSecret } from '../../comment/CommentPinButton'
 import { IpInfoPopover } from '../ip'
 import { CommentUrlRender } from './UrlRender'
 
-export const CommentAuthorCell = (props: CommentModel) => {
-  const { author, avatar, url, mail, ip, isWhispers } = props
+export const CommentAuthorCell: Component<{
+  comment: CommentModel
+}> = (props) => {
+  const { comment, className } = props
+  const { author, avatar, url, mail, ip, isWhispers } = comment
   return (
-    <div className="mt-6 flex space-x-8">
+    <div className={clsxm('mt-6 flex space-x-8', className)}>
       <div className="self-center lg:self-start">
         <Avatar
-          height={50}
-          width={50}
+          radius="full"
+          size={50}
+          randomColor
           imageUrl={avatar || ''}
           text={author[0]}
         />

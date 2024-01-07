@@ -1,5 +1,29 @@
+import { memo } from 'react'
+import type { CommentModel } from '@mx-space/api-client'
+
+import { CommentAuthorCell } from './CommentAuthorCell'
+import { CommentContentCell } from './CommentContentCell'
+import {
+  useCommentDataSource,
+  useCommentSelectionKeys,
+  useSetCommentSelectionKeys,
+} from './CommentContext'
+
 export const CommentDesktopTable = () => {
-  return null
+  const { data, isLoading } = useCommentDataSource()
+
+  const selectionKeys = useCommentSelectionKeys()
+  const setSelectionKeys = useSetCommentSelectionKeys()
+
+  const flatData = data?.pages.flatMap((page) => page.data)
+  return (
+    <div className="mt-16 flex flex-col gap-3">
+      {flatData?.map((item) => {
+        return <MemoCommentItem key={item.id} comment={item} />
+      })}
+    </div>
+  )
+
   // const t = useI18n()
   // const { data, isLoading } = useCommentDataSource()
 
@@ -54,3 +78,14 @@ export const CommentDesktopTable = () => {
   //   // </ScrollArea.ScrollArea>
   // )
 }
+
+const CommentItem = ({ comment }: { comment: CommentModel }) => {
+  return (
+    <div className="grid grid-cols-[80px_300px_auto] gap-3">
+      <div />
+      <CommentAuthorCell className="mt-0" comment={comment} />
+      <CommentContentCell className="mt-0" comment={comment} />
+    </div>
+  )
+}
+const MemoCommentItem = memo(CommentItem)

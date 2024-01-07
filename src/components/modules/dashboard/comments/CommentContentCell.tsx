@@ -4,13 +4,17 @@ import type { CommentModel } from '@mx-space/api-client'
 import { CollectionRefTypes } from '@mx-space/api-client'
 
 import { RelativeTime } from '~/components/ui/relative-time'
+import { clsxm } from '~/lib/helper'
 
 import { TitleExtra } from '../writing/TitleExtra'
 import { CommentAction } from './CommentAction'
 import { CommentDataContext } from './CommentContext'
 import { CommentUrlRender } from './UrlRender'
 
-export const CommentContentCell = (props: CommentModel) => {
+export const CommentContentCell: Component<{ comment: CommentModel }> = (
+  props,
+) => {
+  const { comment, className } = props
   const {
     created,
     refType,
@@ -19,7 +23,7 @@ export const CommentContentCell = (props: CommentModel) => {
     parent: parentComment,
 
     isWhispers,
-  } = props
+  } = comment
   const ctx = useContext(CommentDataContext)
   const ref = ctx.refModelMap.get(id)
 
@@ -30,15 +34,15 @@ export const CommentContentCell = (props: CommentModel) => {
     return <TitleExtra className="text-primary" data={ref} />
   }, [ref, refType])
   return (
-    <div className="flex flex-col gap-2 py-2 text-sm">
+    <div className={clsxm('flex flex-col gap-2 py-2 text-sm', className)}>
       <div className="flex gap-2 whitespace-nowrap text-sm">
         <RelativeTime date={created} /> 于 {TitleEl} {isWhispers && '悄悄说'}
       </div>
 
       <p className="break-words">{text}</p>
 
-      <div className="relative mt-2 break-words">
-        {parentComment && typeof parentComment !== 'string' && (
+      {parentComment && typeof parentComment !== 'string' && (
+        <div className="relative mt-2 break-words">
           <blockquote className="ml-3 pl-3 before:absolute before:bottom-0 before:left-[3px] before:top-0 before:h-full before:w-[3px] before:rounded-lg before:bg-primary before:content-['']">
             <div>
               <CommentUrlRender
@@ -49,10 +53,10 @@ export const CommentContentCell = (props: CommentModel) => {
             </div>
             <p className="mt-2">{parentComment.text}</p>
           </blockquote>
-        )}
-      </div>
+        </div>
+      )}
 
-      <CommentAction {...props} />
+      <CommentAction {...props.comment} />
     </div>
   )
 }

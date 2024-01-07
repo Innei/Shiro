@@ -19,7 +19,7 @@ interface AvatarProps {
   shadow?: boolean
   text?: string
   randomColor?: boolean
-  radius?: number
+  radius?: number | 'full'
 
   lazy?: boolean
 }
@@ -69,7 +69,9 @@ export const Avatar: FC<
           ? { height: `${size || 80}px`, width: `${size || 80}px` }
           : undefined),
         ...(bgColor ? { backgroundColor: bgColor } : undefined),
-        ...(radius ? { borderRadius: `${radius}px` } : undefined),
+        ...(radius
+          ? { borderRadius: radius === 'full' ? '100%' : `${radius}px` }
+          : undefined),
       }}
       {...restProps}
     >
@@ -97,7 +99,9 @@ export const Avatar: FC<
               src={imageUrl}
               style={{
                 ...{ opacity: loaded ? 1 : 0 },
-                ...(radius ? { borderRadius: `${radius}px` } : undefined),
+                ...(radius
+                  ? { borderRadius: radius === 'full' ? '100%' : `${radius}px` }
+                  : undefined),
               }}
               height={size}
               width={size}
@@ -106,7 +110,7 @@ export const Avatar: FC<
               loading={lazy ? 'lazy' : 'eager'}
               {...imageProps}
               className={clsxm(
-                'aspect-square rounded-full duration-200',
+                'aspect-square duration-200',
                 imageProps.className,
               )}
             />
