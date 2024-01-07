@@ -4,6 +4,9 @@ import { atom, useAtomValue, useSetAtom, useStore } from 'jotai'
 import type { FC } from 'react'
 import type { MilkdownRef } from '../editor'
 
+import { redoCommand, undoCommand } from '@milkdown/plugin-history'
+import { callCommand } from '@milkdown/utils'
+
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
@@ -31,8 +34,42 @@ export const Writing: FC<{
         </div>
       )}
 
+      <MenuBar />
       <Editor />
     </>
+  )
+}
+
+const MenuBar = () => {
+  const editorRef = useEditorRef()
+
+  const menuList = [
+    {
+      icon: 'icon-[material-symbols--undo]',
+      action: callCommand(undoCommand.key),
+    },
+    {
+      icon: 'icon-[material-symbols--redo]',
+      action: callCommand(redoCommand.key),
+    },
+    {
+      icon: 'icon-[material-symbols--redo]',
+      action: callCommand(redoCommand.key),
+    },
+  ]
+
+  return (
+    <div className="my-2 flex w-full space-x-2">
+      {menuList.map((menu, key) => (
+        <button
+          key={key}
+          className="flex items-center justify-center rounded p-2 text-xl text-gray-500 hover:bg-gray-300 hover:text-black"
+          onClick={() => editorRef?.getAction(menu.action)}
+        >
+          <i className={menu.icon} />
+        </button>
+      ))}
+    </div>
   )
 }
 
