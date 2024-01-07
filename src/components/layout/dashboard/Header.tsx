@@ -29,7 +29,9 @@ export const LayoutHeader = () => {
         <div className="flex items-center space-x-1 lg:space-x-3">
           <button className="p-2 text-2xl">𝕄</button>
           <BreadcrumbDivider className="opacity-20" />
-          <span className="font-bold opacity-90 md:text-base">{title}</span>
+          <Link href="/" className="font-bold opacity-90 md:text-base">
+            {title}
+          </Link>
           <BreadcrumbDivider className="opacity-0 lg:opacity-20" />
         </div>
 
