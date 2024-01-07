@@ -3,6 +3,7 @@ import type { CommentModel } from '@mx-space/api-client'
 
 import { PageLoading } from '~/components/layout/dashboard/PageLoading'
 
+import { Empty } from '../../shared/Empty'
 import { CommentAuthorCell } from './CommentAuthorCell'
 import { CommentContentCell } from './CommentContentCell'
 import {
@@ -19,6 +20,8 @@ export const CommentDesktopTable = () => {
   }
 
   const flatData = data?.pages.flatMap((page) => page.data)
+
+  if (!flatData?.length) return <Empty className="flex-grow" />
   return (
     <div className="mt-16 flex flex-col gap-3">
       {flatData?.map((item) => {
