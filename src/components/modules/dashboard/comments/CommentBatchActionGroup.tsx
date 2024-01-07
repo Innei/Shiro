@@ -22,23 +22,7 @@ export const CommentBatchActionGroup = () => {
 
   const { mutateAsync: updateCommentState } = useUpdateCommentStateMutation()
   const { mutateAsync: deleteCommentState } = useDeleteCommentMutation()
-  // const { mutateAsync: batchChangeState } =
-  //   trpc.comment.batchChangeState.useMutation({
-  //     onMutate() {
-  //       setSelectionKeys(new Set())
-  //     },
-  //     onSuccess() {
-  //       utils.comment.list.invalidate()
-  //     },
-  //   })
-  // const { mutateAsync: batchDelete } = trpc.comment.batchDelete.useMutation({
-  //   onMutate() {
-  //     setSelectionKeys(new Set())
-  //   },
-  //   onSuccess() {
-  //     utils.comment.list.invalidate()
-  //   },
-  // })
+
   const batchChangeState = async (newState: CommentState) => {
     const ids = Array.from(selectionKeys)
 
