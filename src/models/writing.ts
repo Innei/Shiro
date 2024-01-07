@@ -67,7 +67,7 @@ export type NoteDto = {
   hasMemory?: boolean
   music?: NoteMusicRecord[]
   location?: null | string
-  nid?: null | string
+  nid?: null | number
   coordinates?: null | Coordinate
   topicId: string | null | undefined
 } & WriteBaseType

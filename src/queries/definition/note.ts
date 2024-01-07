@@ -5,6 +5,7 @@ import type {
   PaginateResult,
   TagModel,
 } from '@mx-space/api-client'
+import type { NoteDto } from '~/models/writing'
 
 import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
@@ -66,7 +67,7 @@ export const noteAdmin = {
       queryFn: async () => {
         const data = await apiClient.note.getNoteById(id)
 
-        const dto = data.$serialized as NoteModel
+        const dto = data.$serialized as NoteDto
 
         return dto
       },
