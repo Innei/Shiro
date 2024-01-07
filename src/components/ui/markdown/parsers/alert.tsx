@@ -11,13 +11,13 @@ import {
 import { Markdown } from '../Markdown'
 
 const textColorMap = {
-  NOTE: 'text-always-blue-500 dark:text-always-blue-400',
+  NOTE: 'text-blue-500 dark:text-blue-400',
   IMPORTANT: 'text-accent',
   WARNING: 'text-amber-500 dark:text-amber-400',
 } as any
 
 const borderColorMap = {
-  NOTE: 'border-always-blue-500 dark:border-always-blue-400',
+  NOTE: 'border-blue-500 dark:border-blue-400',
   IMPORTANT: 'border-accent',
   WARNING: 'border-amber-500 dark:border-amber-400',
 } as any

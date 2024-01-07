@@ -34,7 +34,7 @@ export const TextArea = forwardRef<
   const inputProps = useInputComposition(props)
   return (
     <div
-      className="group relative h-full [--spotlight-color:hsl(var(--a)_/_0.05)]"
+      className="group relative h-full [--spotlight-color:oklch(var(--a)_/_0.12)]"
       onMouseMove={handleMouseMove}
     >
       {!isMobile && (
