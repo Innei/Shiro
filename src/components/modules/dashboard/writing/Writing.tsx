@@ -5,6 +5,13 @@ import type { FC } from 'react'
 import type { MilkdownRef } from '../editor'
 
 import { redoCommand, undoCommand } from '@milkdown/plugin-history'
+import {
+  toggleEmphasisCommand,
+  toggleStrongCommand,
+  wrapInBulletListCommand,
+  wrapInHeadingCommand,
+  wrapInOrderedListCommand,
+} from '@milkdown/preset-commonmark'
 import { callCommand } from '@milkdown/utils'
 
 import { useEventCallback } from '~/hooks/common/use-event-callback'
@@ -46,15 +53,45 @@ const MenuBar = () => {
   const menuList = [
     {
       icon: 'icon-[material-symbols--undo]',
-      action: callCommand(undoCommand.key),
+      action: () => editorRef?.getAction(callCommand(undoCommand.key)),
     },
     {
       icon: 'icon-[material-symbols--redo]',
-      action: callCommand(redoCommand.key),
+      action: () => editorRef?.getAction(callCommand(redoCommand.key)),
     },
     {
-      icon: 'icon-[material-symbols--redo]',
-      action: callCommand(redoCommand.key),
+      icon: 'icon-[mingcute--bold-fill]',
+      action: () => editorRef?.getAction(callCommand(toggleStrongCommand.key)),
+    },
+    {
+      icon: 'icon-[mingcute--italic-fill]',
+      action: () =>
+        editorRef?.getAction(callCommand(toggleEmphasisCommand.key)),
+    },
+    {
+      icon: 'icon-[mingcute--list-check-fill]',
+      action: () =>
+        editorRef?.getAction(callCommand(wrapInBulletListCommand.key)),
+    },
+    {
+      icon: 'icon-[material-symbols--format-list-numbered-rounded]',
+      action: () =>
+        editorRef?.getAction(callCommand(wrapInOrderedListCommand.key)),
+    },
+    {
+      icon: 'icon-[material-symbols--format-h1]',
+      action: () =>
+        editorRef?.getAction(callCommand(wrapInHeadingCommand.key, 1)),
+    },
+    {
+      icon: 'icon-[material-symbols--format-h2]',
+      action: () =>
+        editorRef?.getAction(callCommand(wrapInHeadingCommand.key, 2)),
+    },
+    {
+      icon: 'icon-[material-symbols--format-h3]',
+      action: () =>
+        editorRef?.getAction(callCommand(wrapInHeadingCommand.key, 3)),
     },
   ]
 
@@ -64,7 +101,7 @@ const MenuBar = () => {
         <button
           key={key}
           className="flex items-center justify-center rounded p-2 text-xl text-gray-500 hover:bg-gray-300 hover:text-black"
-          onClick={() => editorRef?.getAction(menu.action)}
+          onClick={menu.action}
         >
           <i className={menu.icon} />
         </button>
