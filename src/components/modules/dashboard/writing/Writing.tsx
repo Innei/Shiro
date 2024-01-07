@@ -96,7 +96,7 @@ const MenuBar = () => {
   ]
 
   return (
-    <div className="my-2 flex w-full space-x-2">
+    <div className="my-2 flex w-full flex-wrap space-x-2">
       {menuList.map((menu, key) => (
         <button
           key={key}
