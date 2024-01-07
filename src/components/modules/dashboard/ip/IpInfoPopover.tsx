@@ -35,6 +35,8 @@ export const IpInfoPopover: Component<IpInfoPopoverProps> = (props) => {
       })
       return data
     },
+    enabled: false,
+    retry: false,
   })
 
   useLayoutEffect(() => {

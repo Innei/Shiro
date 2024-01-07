@@ -30,13 +30,14 @@ export const DeleteConfirmButton: FC<
   return (
     <FloatPopover
       trigger="click"
+      type="tooltip"
       triggerElement={
         <MotionButtonBase className="duration-200 hover:text-red-500">
           删除
         </MotionButtonBase>
       }
     >
-      <div className="flex p-4">
+      <div className="flex p-2">
         <p className="text-center text-base font-bold text-error">
           {confirmText ??
             (deleteItemText

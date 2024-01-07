@@ -5,6 +5,7 @@ import { CommentState } from '@mx-space/api-client'
 
 import { MotionButtonBase } from '~/components/ui/button'
 import { useModalStack } from '~/components/ui/modal'
+import { useUpdateCommentStateMutation } from '~/queries/definition/comment'
 
 import { DeleteConfirmButton } from '../../shared/DeleteConfirmButton'
 import {
@@ -22,10 +23,17 @@ export const CommentAction = (props: CommentModel) => {
 
   const { present } = useModalStack()
 
+  const { mutateAsync: updateCommentState } = useUpdateCommentStateMutation()
+
   return (
     <div className="mt-2 flex items-center justify-end gap-4 lg:justify-start">
       {currentState === CommentState.Unread && (
-        <MotionButtonBase className="text-accent" onClick={() => {}}>
+        <MotionButtonBase
+          className="text-accent"
+          onClick={() => {
+            updateCommentState({ id, state: CommentState.Read })
+          }}
+        >
           已读
         </MotionButtonBase>
       )}
@@ -41,7 +49,19 @@ export const CommentAction = (props: CommentModel) => {
       >
         回复
       </MotionButtonBase>
-      <DeleteConfirmButton onDelete={async () => {}} />
+      {currentState === CommentState.Unread && (
+        <MotionButtonBase
+          className="hover:text-orange-500"
+          onClick={() => {
+            updateCommentState({ id, state: CommentState.Junk })
+          }}
+        >
+          标记垃圾
+        </MotionButtonBase>
+      )}
+      {currentState !== CommentState.Unread && (
+        <DeleteConfirmButton onDelete={async () => {}} />
+      )}
     </div>
   )
 }
