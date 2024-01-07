@@ -3,10 +3,12 @@ import type { CommentModel } from '@mx-space/api-client'
 
 import { CollectionRefTypes } from '@mx-space/api-client'
 
+import { MotionButtonBase } from '~/components/ui/button'
 import { RelativeTime } from '~/components/ui/relative-time'
+import { EllipsisHorizontalTextWithTooltip } from '~/components/ui/typography'
 import { clsxm } from '~/lib/helper'
+import { apiClient } from '~/lib/request'
 
-import { TitleExtra } from '../writing/TitleExtra'
 import { CommentAction } from './CommentAction'
 import { CommentDataContext } from './CommentContext'
 import { CommentUrlRender } from './UrlRender'
@@ -31,7 +33,20 @@ export const CommentContentCell: Component<{ comment: CommentModel }> = (
     if (!ref) return <span className="text-foreground/60">已删除</span>
     if (refType === CollectionRefTypes.Recently)
       return `${ref.text.slice(0, 20)}...`
-    return <TitleExtra className="overflow-hidden text-accent" data={ref} />
+    return (
+      <MotionButtonBase
+        onClick={async () => {
+          const url = await apiClient.proxy.helper('url-builder')(ref.id).get<{
+            data: string
+          }>()
+          window.open(url?.data, '_blank')
+        }}
+      >
+        <EllipsisHorizontalTextWithTooltip wrapperClassName="text-accent inline-block !w-auto max-w-full">
+          {ref.title}
+        </EllipsisHorizontalTextWithTooltip>
+      </MotionButtonBase>
+    )
   }, [ref, refType])
   return (
     <div className={clsxm('flex flex-col gap-2 py-2 text-sm', className)}>

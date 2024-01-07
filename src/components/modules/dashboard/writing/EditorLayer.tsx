@@ -21,7 +21,7 @@ export const EditorLayer: FC<{
 
         {isMobile ? (
           <RootPortal>
-            <div className="fixed right-4 top-16 z-[20] flex flex-shrink-0 flex-grow gap-2 text-right lg:gap-4">
+            <div className="fixed right-4 top-28 z-[20] flex flex-shrink-0 flex-grow gap-2 text-right lg:gap-4">
               {HeaderEl}
             </div>
           </RootPortal>

@@ -26,7 +26,7 @@ export const TitleExtra = <T extends RequiredField & OptionalField>(props: {
             {title}
           </EllipsisHorizontalTextWithTooltip>
           <div className="absolute bottom-0 right-[-8px] top-0 flex translate-x-full items-center space-x-2">
-            {!hide && <PhEyeSlash />}
+            {hide && <PhEyeSlash />}
             <MotionButtonBase
               className="inline-flex items-center"
               onClick={async () => {
