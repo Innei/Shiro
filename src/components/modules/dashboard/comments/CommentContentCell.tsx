@@ -31,7 +31,7 @@ export const CommentContentCell: Component<{ comment: CommentModel }> = (
     if (!ref) return <span className="text-foreground/60">已删除</span>
     if (refType === CollectionRefTypes.Recently)
       return `${ref.text.slice(0, 20)}...`
-    return <TitleExtra className="text-accent" data={ref} />
+    return <TitleExtra className="overflow-hidden text-accent" data={ref} />
   }, [ref, refType])
   return (
     <div className={clsxm('flex flex-col gap-2 py-2 text-sm', className)}>
@@ -56,7 +56,7 @@ export const CommentContentCell: Component<{ comment: CommentModel }> = (
         </div>
       )}
 
-      <CommentAction {...props.comment} />
+      <CommentAction comment={props.comment} />
     </div>
   )
 }

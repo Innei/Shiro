@@ -13,9 +13,25 @@ import { queries } from '~/queries/definition'
 
 import './dashboard.css'
 
+import type { Viewport } from 'next'
+
 import { MainLayout } from '~/components/modules/dashboard/layouts'
 import { AccentColorStyleInjector } from '~/components/modules/shared/AccentColorStyleInjector'
 import { FABContainer } from '~/components/ui/fab'
+
+export function generateViewport(): Viewport {
+  return {
+    themeColor: [
+      { media: '(prefers-color-scheme: dark)', color: '#000212' },
+      { media: '(prefers-color-scheme: light)', color: '#fafafa' },
+    ],
+    width: 'device-width',
+    initialScale: 1,
+    userScalable: false,
+    minimumScale: 1,
+    maximumScale: 1,
+  }
+}
 
 export default async function RootLayout({ children }: PropsWithChildren) {
   const queryClient = getQueryClient()

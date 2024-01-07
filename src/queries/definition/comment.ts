@@ -6,7 +6,7 @@ import type {
   CommentState,
   PaginateResult,
 } from '@mx-space/api-client'
-import type { InfiniteData } from '@tanstack/react-query'
+import type { InfiniteData, MutationOptions } from '@tanstack/react-query'
 
 import { apiClient } from '~/lib/request'
 import { toast } from '~/lib/toast'
@@ -38,7 +38,9 @@ const useGetCurrentCommentStateFromQuery = () => {
   const state = search.get('tab') as any as CommentState
   return state
 }
-export const useUpdateCommentStateMutation = () => {
+export const useUpdateCommentStateMutation = (
+  options?: MutationOptions<any>,
+) => {
   const queryClient = useQueryClient()
 
   const state = useGetCurrentCommentStateFromQuery()
@@ -57,7 +59,8 @@ export const useUpdateCommentStateMutation = () => {
         }),
       )
     },
-    onSuccess: () => {
+    onSuccess: (...rest) => {
+      options?.onSuccess?.apply(null, rest as any)
       toast.success('操作成功')
     },
     onError: () => {

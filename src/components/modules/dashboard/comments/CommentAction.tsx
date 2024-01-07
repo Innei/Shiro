@@ -14,16 +14,28 @@ import {
 } from './CommentContext'
 import { ReplyModal } from './ReplyModal'
 
-export const CommentAction = (props: CommentModel) => {
+export const CommentAction = (props: { comment: CommentModel }) => {
   const currentState = useContext(CommentStateContext)
 
-  const { id } = props
+  const { id, author } = props.comment
 
   const setSelectionKeys = useSetCommentSelectionKeys()
 
+  const omitCurrentId = () => {
+    setSelectionKeys((keys) => {
+      const set = new Set(keys)
+      set.delete(id)
+      return set
+    })
+  }
+
   const { present } = useModalStack()
 
-  const { mutateAsync: updateCommentState } = useUpdateCommentStateMutation()
+  const { mutateAsync: updateCommentState } = useUpdateCommentStateMutation({
+    onSuccess: () => {
+      omitCurrentId()
+    },
+  })
 
   return (
     <div className="mt-2 flex items-center justify-end gap-4 lg:justify-start">
@@ -41,7 +53,7 @@ export const CommentAction = (props: CommentModel) => {
         className="text-primary"
         onClick={() => {
           present({
-            title: `回复 ${props.author}`,
+            title: `回复 ${author}`,
             content: () => <ReplyModal {...props} />,
             clickOutsideToDismiss: false,
           })

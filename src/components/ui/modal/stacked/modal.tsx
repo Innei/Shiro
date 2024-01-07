@@ -66,10 +66,7 @@ export const Modal: Component<{
     },
     [close],
   )
-  const animateController = useAnimationControls()
-  useEffect(() => {
-    animateController.start(enterStyle)
-  }, [])
+
   const {
     CustomModalComponent,
     modalClassName,
@@ -87,8 +84,13 @@ export const Modal: Component<{
     },
     [close],
   )
-
+  const isMobile = useIsMobile()
   const isUnmounted = useIsUnMounted()
+  const animateController = useAnimationControls()
+  useEffect(() => {
+    if (isMobile) return
+    animateController.start(enterStyle)
+  }, [animateController, isMobile])
   const noticeModal = useCallback(() => {
     animateController
       .start({
@@ -112,7 +114,7 @@ export const Modal: Component<{
     }),
     [close],
   )
-  const isMobile = useIsMobile()
+
   const ModalContextProps = useMemo<CurrentModalContentProps>(
     () => ({
       ...ModalProps,

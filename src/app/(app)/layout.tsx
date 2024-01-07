@@ -31,6 +31,11 @@ export function generateViewport(): Viewport {
       { media: '(prefers-color-scheme: dark)', color: '#000212' },
       { media: '(prefers-color-scheme: light)', color: '#fafafa' },
     ],
+    width: 'device-width',
+    initialScale: 1,
+    userScalable: false,
+    minimumScale: 1,
+    maximumScale: 1,
   }
 }
 

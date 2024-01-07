@@ -78,7 +78,8 @@ export default function Page() {
           </Tabs.List>
         </Tabs.Root>
         {TABS.map(({ key, component: Component }) => {
-          if (key.toString() === currentTab) return <Component state={key} />
+          if (key.toString() === currentTab)
+            return <Component key={key} state={key} />
           return null
         })}
 
@@ -111,8 +112,6 @@ const CommentTable = (props: { state: CommentState }) => {
     return () => setSelectionKeys(new Set())
   }, [])
 
-  const [page, setPage] = useRouterQueryState('page', 1)
-
   // const { data, isLoading } = trpc.comment.list.useQuery(
   //   {
   //     state: props.state,
@@ -123,7 +122,7 @@ const CommentTable = (props: { state: CommentState }) => {
   //   },
   // )
 
-  const { data, isLoading, isFetching, fetchNextPage, hasNextPage } =
+  const { data, isLoading, fetchNextPage, hasNextPage } =
     // @ts-expect-error
     useInfiniteQuery({
       ...adminQueries.comment.byState(props.state),

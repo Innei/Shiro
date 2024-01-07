@@ -2,8 +2,10 @@
 
 import { flip, offset, shift, useFloating } from '@floating-ui/react-dom'
 import React, {
+  createContext,
   createElement,
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -48,10 +50,18 @@ type FloatPopoverProps<T> = PropsWithChildren<{
   type?: 'tooltip' | 'popover'
   isDisabled?: boolean
 
+  to?: HTMLElement
+
   onOpen?: () => void
   onClose?: () => void
 }> &
   UseFloatingOptions
+
+const PopoverActionContext = createContext<{
+  close: () => void
+}>(null!)
+
+export const usePopoverAction = () => useContext(PopoverActionContext)
 
 export const FloatPopover = function FloatPopover<T extends {}>(
   props: FloatPopoverProps<T>,
@@ -74,6 +84,7 @@ export const FloatPopover = function FloatPopover<T extends {}>(
     isDisabled,
     onOpen,
     onClose,
+    to,
     ...floatingProps
   } = props
 
@@ -173,6 +184,9 @@ export const FloatPopover = function FloatPopover<T extends {}>(
       onClose?.()
     }
   }, [open])
+  const actionCtxValue = useMemo(() => {
+    return { close: doPopoverDisappear }
+  }, [doPopoverDisappear])
 
   if (!props.children) {
     return TriggerWrapper
@@ -184,7 +198,7 @@ export const FloatPopover = function FloatPopover<T extends {}>(
 
       <AnimatePresence>
         {open && (
-          <RootPortal>
+          <RootPortal to={to}>
             <m.div
               className={clsxm(
                 'float-popover',
@@ -223,7 +237,9 @@ export const FloatPopover = function FloatPopover<T extends {}>(
                   visibility: isPositioned && x !== null ? 'visible' : 'hidden',
                 }}
               >
-                {props.children}
+                <PopoverActionContext.Provider value={actionCtxValue}>
+                  {props.children}
+                </PopoverActionContext.Provider>
               </m.div>
             </m.div>
           </RootPortal>
