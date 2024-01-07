@@ -19,13 +19,6 @@ const Sidebar = () => {
       <SummaryInput />
       <PostImageSection />
       <PostMetaSection />
-      {/* 
-
-    
-      <CustomCreatedInput />
-
-    
-   */}
     </SidebarWrapper>
   )
 }

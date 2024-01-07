@@ -5,7 +5,10 @@ import { CommentState } from '@mx-space/api-client'
 
 import { MotionButtonBase } from '~/components/ui/button'
 import { useModalStack } from '~/components/ui/modal'
-import { useUpdateCommentStateMutation } from '~/queries/definition/comment'
+import {
+  useDeleteCommentMutation,
+  useUpdateCommentStateMutation,
+} from '~/queries/definition/comment'
 
 import { DeleteConfirmButton } from '../../shared/DeleteConfirmButton'
 import {
@@ -32,6 +35,12 @@ export const CommentAction = (props: { comment: CommentModel }) => {
   const { present } = useModalStack()
 
   const { mutateAsync: updateCommentState } = useUpdateCommentStateMutation({
+    onSuccess: () => {
+      omitCurrentId()
+    },
+  })
+
+  const { mutateAsync: deleteComment } = useDeleteCommentMutation({
     onSuccess: () => {
       omitCurrentId()
     },
@@ -72,7 +81,13 @@ export const CommentAction = (props: { comment: CommentModel }) => {
         </MotionButtonBase>
       )}
       {currentState !== CommentState.Unread && (
-        <DeleteConfirmButton onDelete={async () => {}} />
+        <DeleteConfirmButton
+          onDelete={async () => {
+            deleteComment({
+              id,
+            })
+          }}
+        />
       )}
     </div>
   )

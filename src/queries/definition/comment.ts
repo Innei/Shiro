@@ -69,7 +69,7 @@ export const useUpdateCommentStateMutation = (
   })
 }
 
-export const useDeleteCommentMutation = () => {
+export const useDeleteCommentMutation = (options?: MutationOptions<any>) => {
   const queryClient = useQueryClient()
   const state = useGetCurrentCommentStateFromQuery()
 
@@ -90,6 +90,7 @@ export const useDeleteCommentMutation = () => {
     },
     onSuccess: () => {
       toast.success('删除成功')
+      options?.onSuccess?.()
     },
     onError: () => {
       toast.error('删除失败')
