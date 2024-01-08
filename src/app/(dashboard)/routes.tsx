@@ -77,6 +77,16 @@ export const dashboardRoutes = {
       icon: <i className="icon-[mingcute--comment-line]" />,
       path: '/comments',
     },
+    {
+      title: '页面',
+      icon: <i className="icon-[mingcute--file-line]" />,
+      path: '/pages',
+    },
+    {
+      title: '完整功能与其他设置',
+      icon: <i className="icon-[mingcute--settings-1-line]" />,
+      path: '/vue',
+    },
   ],
 } as DashboardRoute
 
