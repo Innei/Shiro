@@ -51,7 +51,7 @@ export default function Page() {
 
   const [tab, setTab] = useRouterQueryState('tab', TABS[0].key)
 
-  const currentTab = tab.toString()
+  const currentTab = tab.toString() || TABS[0].key.toString()
   return (
     <div className="relative -mt-12 flex w-full flex-grow flex-col">
       <CommentSelectionKeysProvider>

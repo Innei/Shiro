@@ -35,6 +35,7 @@ export const CommentContentCell: Component<{ comment: CommentModel }> = (
       return `${ref.text.slice(0, 20)}...`
     return (
       <MotionButtonBase
+        className="inline-flex grow"
         onClick={async () => {
           const url = await apiClient.proxy.helper('url-builder')(ref.id).get<{
             data: string
@@ -42,7 +43,7 @@ export const CommentContentCell: Component<{ comment: CommentModel }> = (
           window.open(url?.data, '_blank')
         }}
       >
-        <EllipsisHorizontalTextWithTooltip wrapperClassName="text-accent inline-block !w-auto max-w-full">
+        <EllipsisHorizontalTextWithTooltip wrapperClassName="text-left text-accent inline-block !w-0 flex-grow">
           {ref.title}
         </EllipsisHorizontalTextWithTooltip>
       </MotionButtonBase>

@@ -4,7 +4,7 @@ import { useCallback } from 'react'
 import { m } from 'framer-motion'
 import { atom, useAtom, useSetAtom } from 'jotai'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import type { DashboardRoute } from '~/app/(dashboard)/routes'
 import type { MouseEventHandler, ReactNode } from 'react'
 
@@ -22,11 +22,19 @@ import { ThemeToggle } from './ThemeToggle'
 
 export const LayoutHeader = () => {
   const title = useAggregationSelector((s) => s.seo.title)
+  const router = useRouter()
   return (
     <header className="fixed left-0 right-0 top-0 z-[19] border-b-[0.5px] border-zinc-200 bg-white/80 pl-6 backdrop-blur dark:border-neutral-900 dark:bg-zinc-900/80">
       <nav className="flex h-16 items-center">
         <div className="flex items-center space-x-1 lg:space-x-3">
-          <button className="p-2 text-2xl">𝕄</button>
+          <MotionButtonBase
+            onClick={() => {
+              router.push('/dashboard')
+            }}
+            className="p-2 text-2xl"
+          >
+            𝕄
+          </MotionButtonBase>
           <BreadcrumbDivider className="opacity-20" />
           <Link href="/" className="font-bold opacity-90 md:text-base">
             {title}

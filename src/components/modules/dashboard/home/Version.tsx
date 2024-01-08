@@ -7,7 +7,7 @@ export const Version = () => {
   const { data: version, isLoading } = useQuery({
     queryKey: ['version'],
     queryFn: () => {
-      return apiClient.proxy.get<AppInfo>()
+      return apiClient.proxy.info.get<AppInfo>()
     },
     refetchInterval: 1000 * 60 * 60 * 24,
   })
@@ -18,6 +18,7 @@ export const Version = () => {
       </div>
     )
 
+  console.log(version, 'a')
   return (
     <div className="opacity-60">
       <p className="text-center">

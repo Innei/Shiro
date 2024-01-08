@@ -19,14 +19,15 @@ export const CommentMobileList = () => {
       </div>
     )
   }
-  if (!isUndefined(data) && !data.pages.length) {
-    return <Empty className="flex-grow" />
-  }
 
   const totalLength =
     data?.pages.reduce((acc, page) => {
       return acc + page.data.length
     }, 0) || 0
+
+  if (totalLength === 0) {
+    return <Empty className="flex-grow" />
+  }
 
   return (
     <OffsetMainLayout className="relative mt-4">
