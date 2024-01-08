@@ -17,7 +17,12 @@ export const PostCombinedSwitch = () => {
         onCheckedChange={setCopyright}
       />
 
-      <LabelSwitch checked={pin} onCheckedChange={setPin}>
+      <LabelSwitch
+        checked={!!pin}
+        onCheckedChange={(pin) => {
+          setPin(pin ? new Date().toISOString() : null)
+        }}
+      >
         <span>置顶</span>
       </LabelSwitch>
 
