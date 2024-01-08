@@ -24,6 +24,7 @@
 4. :bell: **接入 WebSocket，实时获取最新的文章通知**：通过 WebSocket，访客能够实时获取最新的文章通知。
 5. :computer: **实时活动状态展示**：配合 [ProcessReporter](https://github.com/mx-space/ProcessReporterMac)，可以在主页上显示实时活动状态。
 6. :pencil: **Markdown 的扩展语法**：支持更多的 Markdown 扩展语法，等待你的发掘和使用。
+7. :zap: **轻量级管理面板**：可以在管理面板中管理文章、评论等。
 
 ## :wrench: 技术栈
 
@@ -43,6 +44,11 @@
 ## :camera: 截图
 
 <img width="1471" alt="Live Demo" src="https://github.com/Innei/Shiro/assets/41265413/bf8af4ec-0f0c-441a-8c06-4b44e1649597">
+
+轻管理面板：
+
+![](https://github.com/Innei/Shiro/assets/41265413/4bb5b34a-3ce2-45da-bec7-4596ac87f849)
+![](https://github.com/Innei/Shiro/assets/41265413/592941d0-2ebe-4d64-bd77-3171829bd896)
 
 <details>
 <summary>
