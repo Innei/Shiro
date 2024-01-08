@@ -140,7 +140,7 @@ export const DataStat = () => {
 
       {
         label: '未读评论',
-        value: stat.allComments,
+        value: stat.unreadComments,
         icon: <i className="icon-[mingcute--comment-line]" />,
         actions: [
           {
