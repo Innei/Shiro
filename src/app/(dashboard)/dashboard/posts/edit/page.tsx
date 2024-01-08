@@ -26,8 +26,9 @@ import {
   useEditorRef,
   Writing,
 } from '~/components/modules/dashboard/writing/Writing'
-import { StyledButton } from '~/components/ui/button'
+import { LoadingButtonWrapper, StyledButton } from '~/components/ui/button'
 import { EmitKeyMap } from '~/constants/keys'
+import { PublishEvent } from '~/events'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { cloneDeep } from '~/lib/_'
 import { toast } from '~/lib/toast'
@@ -149,8 +150,9 @@ const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => {
     },
   )
 
-  const { mutateAsync: createPost } = useCreatePost()
-  const { mutateAsync: updatePost } = useUpdatePost()
+  const { mutateAsync: createPost, isPending: p1 } = useCreatePost()
+  const { mutateAsync: updatePost, isPending: p2 } = useUpdatePost()
+  const isPending = p1 || p2
 
   const router = useRouter()
   return (
@@ -168,41 +170,52 @@ const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => {
             }}
           />
         </div>
+        <LoadingButtonWrapper isLoading={isPending}>
+          <StyledButton
+            onClick={() => {
+              const currentData = {
+                ...getData(),
+              }
 
-        <StyledButton
-          onClick={() => {
-            const currentData = {
-              ...getData(),
-            }
+              const payload: PostDto & {
+                id?: string
+              } = {
+                ...currentData,
+              }
 
-            const payload: PostDto & {
-              id?: string
-            } = {
-              ...currentData,
-            }
+              // if (
+              //   currentData.created === initialData?.created &&
+              //   currentData.created
+              // ) {
+              //   payload.custom_created = new Date(currentData.created)
+              // }
 
-            // if (
-            //   currentData.created === initialData?.created &&
-            //   currentData.created
-            // ) {
-            //   payload.custom_created = new Date(currentData.created)
-            // }
+              Reflect.deleteProperty(currentData, 'category')
 
-            Reflect.deleteProperty(currentData, 'category')
+              const isCreate = !currentData.id
+              const promise = isCreate
+                ? createPost(payload).then((res) => {
+                    router.replace(`/dashboard/posts/edit?id=${res.id}`)
+                    return res
+                  })
+                : updatePost(payload)
 
-            const isCreate = !currentData.id
-            const promise = isCreate
-              ? createPost(payload).then((res) => {
-                  router.replace(`/dashboard/posts/edit?id=${res.id}`)
-                })
-              : updatePost(payload)
-            promise.catch((err) => {
-              toast.error(err.message)
-            })
-          }}
-        >
-          {initialData ? '保存' : '发布'}
-        </StyledButton>
+              promise.then((res) => {
+                window.dispatchEvent(
+                  new PublishEvent({
+                    ...payload,
+                    id: res.id,
+                  }),
+                )
+              })
+              promise.catch((err) => {
+                toast.error(err.message)
+              })
+            }}
+          >
+            {initialData ? '保存' : '发布'}
+          </StyledButton>
+        </LoadingButtonWrapper>
       </div>
     </>
   )

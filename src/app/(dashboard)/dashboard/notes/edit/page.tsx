@@ -26,8 +26,9 @@ import {
   useEditorRef,
   Writing,
 } from '~/components/modules/dashboard/writing/Writing'
-import { StyledButton } from '~/components/ui/button'
+import { LoadingButtonWrapper, StyledButton } from '~/components/ui/button'
 import { EmitKeyMap } from '~/constants/keys'
+import { PublishEvent } from '~/events'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { cloneDeep } from '~/lib/_'
 import { dayOfYear } from '~/lib/datetime'
@@ -153,10 +154,12 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
     },
   )
 
-  const { mutateAsync: createNote } = useCreateNote()
-  const { mutateAsync: updateNote } = useUpdateNote()
+  const { mutateAsync: createNote, isPending: p1 } = useCreateNote()
+  const { mutateAsync: updateNote, isPending: p2 } = useUpdateNote()
 
+  const isPending = p1 || p2
   const router = useRouter()
+
   return (
     <>
       <div className="flex-shrink flex-grow" />
@@ -172,41 +175,53 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
             }}
           />
         </div>
+        <LoadingButtonWrapper isLoading={isPending}>
+          <StyledButton
+            onClick={() => {
+              const currentData = {
+                ...getData(),
+              }
 
-        <StyledButton
-          onClick={() => {
-            const currentData = {
-              ...getData(),
-            }
+              const payload: NoteDto & {
+                id?: string
+              } = {
+                ...currentData,
+              }
 
-            const payload: NoteDto & {
-              id?: string
-            } = {
-              ...currentData,
-            }
+              // if (
+              //   currentData.created === initialData?.created &&
+              //   currentData.created
+              // ) {
+              //   payload.custom_created = new Date(currentData.created)
+              // }
 
-            // if (
-            //   currentData.created === initialData?.created &&
-            //   currentData.created
-            // ) {
-            //   payload.custom_created = new Date(currentData.created)
-            // }
+              Reflect.deleteProperty(currentData, 'category')
 
-            Reflect.deleteProperty(currentData, 'category')
+              const isCreate = !currentData.id
+              const promise = isCreate
+                ? createNote(payload).then((res) => {
+                    router.replace(`/dashboard/notes/edit?id=${res.id}`)
 
-            const isCreate = !currentData.id
-            const promise = isCreate
-              ? createNote(payload).then((res) => {
-                  router.replace(`/dashboard/notes/edit?id=${res.id}`)
+                    return res
+                  })
+                : updateNote(payload)
+              promise
+                .then((res) => {
+                  window.dispatchEvent(
+                    new PublishEvent({
+                      ...payload,
+                      id: res.id,
+                    }),
+                  )
                 })
-              : updateNote(payload)
-            promise.catch((err) => {
-              toast.error(err.message)
-            })
-          }}
-        >
-          {initialData ? '保存' : '发布'}
-        </StyledButton>
+                .catch((err) => {
+                  toast.error(err.message)
+                })
+            }}
+          >
+            {initialData ? '保存' : '发布'}
+          </StyledButton>
+        </LoadingButtonWrapper>
       </div>
     </>
   )

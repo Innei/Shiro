@@ -3,6 +3,8 @@ import { ToastContainer } from 'react-toastify'
 import type { AggregateRoot } from '@mx-space/api-client'
 import type { Viewport } from 'next'
 
+import { ClerkProvider } from '@clerk/nextjs'
+
 import PKG from '~/../package.json'
 import { HydrationEndDetector } from '~/components/common/HydrationEndDetector'
 import { ScrollTop } from '~/components/common/ScrollTop'
@@ -138,7 +140,7 @@ export default async function RootLayout(props: Props) {
 
   return (
     // <ClerkProvider localization={ClerkZhCN}>
-    <>
+    <ClerkProvider>
       <html lang="zh-CN" className="noise" suppressHydrationWarning>
         <head>
           <SayHi />
@@ -179,7 +181,7 @@ export default async function RootLayout(props: Props) {
         </body>
       </html>
       <Analytics />
-    </>
+    </ClerkProvider>
   )
 }
 

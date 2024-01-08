@@ -27,10 +27,12 @@ const Switch = React.forwardRef<
 Switch.displayName = SwitchPrimitives.Root.displayName
 
 export const LabelSwitch: Component<{
-  label?: string
+  label?: React.ReactNode
 
   checked?: boolean
   onCheckedChange?: (checked: boolean) => void
+
+  disabled?: boolean
   /**
    * Label placement
    */
@@ -43,6 +45,7 @@ export const LabelSwitch: Component<{
     placement = 'left',
     className,
     children,
+    disabled,
   } = props
   const id = React.useId()
   const labelEl = <Label htmlFor={id}>{children ?? label}</Label>
@@ -50,11 +53,17 @@ export const LabelSwitch: Component<{
     <div
       className={clsxm(
         'flex items-center justify-between space-x-2 text-[1em]',
+        disabled && 'cursor-not-allowed opacity-80',
         className,
       )}
     >
       {placement === 'left' ? labelEl : null}
-      <Switch id={id} checked={checked} onCheckedChange={onCheckedChange} />
+      <Switch
+        disabled={disabled}
+        id={id}
+        checked={checked}
+        onCheckedChange={onCheckedChange}
+      />
       {placement === 'right' ? labelEl : null}
     </div>
   )

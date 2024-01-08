@@ -2,7 +2,7 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import { tv } from 'tailwind-variants'
-import type { FC } from 'react'
+import type { FC, PropsWithChildren } from 'react'
 
 import { MotionButtonBase } from './MotionButton'
 
@@ -38,6 +38,7 @@ export const StyledButton: FC<ButtonProps> = ({
   variant = 'primary',
   className,
   href,
+
   ...props
 }) => {
   return href ? (
@@ -57,5 +58,20 @@ export const StyledButton: FC<ButtonProps> = ({
       })}
       {...(props as any)}
     />
+  )
+}
+
+export const LoadingButtonWrapper: FC<
+  { isLoading: boolean } & PropsWithChildren
+> = ({ isLoading, children }) => {
+  return (
+    <div className="relative">
+      {children}
+      {isLoading && (
+        <div className="absolute inset-0 z-[1] flex items-center justify-center">
+          <div className="loading loading-spinner h-5 w-5" />
+        </div>
+      )}
+    </div>
   )
 }

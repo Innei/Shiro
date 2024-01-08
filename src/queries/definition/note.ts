@@ -110,7 +110,7 @@ export const useUpdateNote = () =>
       for (const key of readonlyKeys) {
         delete nextData[key]
       }
-      return apiClient.note.proxy(id).patch<{
+      return apiClient.note.proxy(id).put<{
         id: string
       }>({
         data: nextData,
