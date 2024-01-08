@@ -1,11 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import dayjs from 'dayjs'
-import type {
-  NoteModel,
-  NoteWrappedPayload,
-  PaginateResult,
-  TagModel,
-} from '@mx-space/api-client'
+import type { NoteModel, NoteWrappedPayload } from '@mx-space/api-client'
 import type { NoteDto } from '~/models/writing'
 
 import { cloneDeep } from '~/lib/_'
@@ -60,7 +55,7 @@ export const noteAdmin = {
       queryFn: async () => {
         const data = await apiClient.topic.getAll()
 
-        return data.$serialized
+        return data.$serialized.data
       },
     }),
 
@@ -73,38 +68,6 @@ export const noteAdmin = {
         const dto = data.$serialized as NoteDto
 
         return dto
-      },
-    }),
-
-  getAllTags: () =>
-    defineQuery({
-      queryKey: ['noteAdmin', 'getAllTags'],
-      queryFn: async () => {
-        const { data } = await apiClient.proxy.categories.get<{
-          data: TagModel[]
-        }>({
-          params: { type: 'Tag' },
-        })
-        return data.map((i) => ({
-          label: `${i.name} (${i.count})`,
-          value: i.name,
-          key: i.name,
-        }))
-      },
-    }),
-
-  getRelatedList: () =>
-    defineQuery({
-      queryKey: ['noteAdmin', 'getRelatedList'],
-
-      queryFn: async ({ pageParam }: any) => {
-        return apiClient.proxy.posts.get({
-          params: {
-            page: pageParam || 1,
-            size: 50,
-            select: 'id title _id slug category categoryId',
-          },
-        }) as Promise<PaginateResult<NoteModel>>
       },
     }),
 }

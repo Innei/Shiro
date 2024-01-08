@@ -9,7 +9,7 @@ export default function Page() {
   const toAdminUrl = useResolveAdminUrl()
   const router = useRouter()
   useLayoutEffect(() => {
-    window.open(toAdminUrl('#/notes/topic'), '_blank')
+    window.open(toAdminUrl('#/posts/category'), '_blank')
     router.back()
   }, [router, toAdminUrl])
   return null

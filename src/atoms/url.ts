@@ -1,4 +1,5 @@
 import { queryClient } from '~/providers/root/react-query-provider'
+import { useCallback } from 'react'
 import { atom, useAtomValue } from 'jotai'
 
 import { getToken } from '~/lib/cookie'
@@ -42,15 +43,22 @@ export const useAppUrl = () => {
 
 export const useResolveAdminUrl = () => {
   const { adminUrl } = useAppUrl()
-  return (path?: string) => {
-    if (!adminUrl) {
-      return ''
-    }
-    const parsedUrl = new URL(adminUrl.replace(/\/$/, '').concat(path || ''))
-    const token = getToken()
-    if (token) {
-      parsedUrl.searchParams.set('token', token)
-    }
-    return parsedUrl.toString()
-  }
+  return useCallback(
+    (path?: string) => {
+      if (!adminUrl) {
+        return ''
+      }
+      const parsedUrl = new URL(adminUrl.replace(/\/$/, ''))
+      const token = getToken()
+      if (token) {
+        parsedUrl.searchParams.set('token', token)
+      }
+
+      console.log('parsedUrl', parsedUrl)
+      return `${parsedUrl.protocol}//${parsedUrl.host}${parsedUrl.pathname}${
+        path || ''
+      }${parsedUrl.search}`
+    },
+    [adminUrl],
+  )
 }
