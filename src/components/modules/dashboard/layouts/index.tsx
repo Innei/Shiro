@@ -24,7 +24,12 @@ export const OffsetMainLayout: Component<PropsWithChildren> = (props) => {
 export const OffsetHeaderLayout: Component<PropsWithChildren> = (props) => {
   return (
     <RootPortal>
-      <div className={clsxm('fixed right-4 top-[4rem] z-[19] flex')}>
+      <div
+        className={clsxm(
+          'fixed right-4 top-[4rem] z-[19] flex',
+          props.className,
+        )}
+      >
         {props.children}
       </div>
     </RootPortal>

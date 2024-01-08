@@ -43,11 +43,10 @@ export const CommentBatchActionGroup = () => {
     })
   }
   const search = useSearchParams()
-  const tab = parseInt(search.get('tab')!) as any as CommentState
+  const tab =
+    (parseInt(search.get('tab')!) as any as CommentState) || CommentState.Unread
 
   const { present } = useModalStack()
-
-  if (!tab) return null
 
   if (!selectionKeys.size) return null
   return (
