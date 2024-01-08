@@ -16,6 +16,11 @@ html {
   font-family: var(--font-sans);
 }
 
+a,
+details summary {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 :root {
   --bg-opacity: rgba(255, 255, 255, 0.72);
 }

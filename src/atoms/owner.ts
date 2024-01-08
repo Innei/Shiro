@@ -61,6 +61,8 @@ export const login = async (username?: string, password?: string) => {
 
 export const useIsLogged = () => useAtomValue(isLoggedAtom)
 
+export const useOwner = () => useAtomValue(ownerAtom)
+
 export const isLogged = () => jotaiStore.get(isLoggedAtom)
 
 export const refreshToken = async () => {

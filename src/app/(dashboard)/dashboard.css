@@ -1,0 +1,25 @@
+#dashboard {
+  *:focus {
+    outline: none;
+  }
+
+  *:focus-visible {
+    outline: 0 !important;
+    box-shadow: none;
+  }
+}
+[data-theme='dark'] {
+  *,
+  *::before,
+  *::after {
+    --bc: rgb(92, 92, 92);
+  }
+}
+
+*,
+*::before,
+*::after {
+  --bc: rgb(228, 227, 227);
+
+  border-color: var(--bc);
+}

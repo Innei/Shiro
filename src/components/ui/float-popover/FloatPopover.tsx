@@ -1,7 +1,16 @@
 'use client'
 
 import { flip, offset, shift, useFloating } from '@floating-ui/react-dom'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, {
+  createContext,
+  createElement,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 import type { UseFloatingOptions } from '@floating-ui/react-dom'
 import type { FC, PropsWithChildren } from 'react'
@@ -14,7 +23,9 @@ import { clsxm } from '~/lib/helper'
 import { RootPortal } from '../portal'
 
 type FloatPopoverProps<T> = PropsWithChildren<{
-  TriggerComponent: FC<T>
+  triggerElement?: React.ReactElement
+  TriggerComponent?: FC<T>
+
   headless?: boolean
   wrapperClassName?: string
   trigger?: 'click' | 'hover' | 'both'
@@ -37,8 +48,20 @@ type FloatPopoverProps<T> = PropsWithChildren<{
    * @default popover
    */
   type?: 'tooltip' | 'popover'
+  isDisabled?: boolean
+
+  to?: HTMLElement
+
+  onOpen?: () => void
+  onClose?: () => void
 }> &
   UseFloatingOptions
+
+const PopoverActionContext = createContext<{
+  close: () => void
+}>(null!)
+
+export const usePopoverAction = () => useContext(PopoverActionContext)
 
 export const FloatPopover = function FloatPopover<T extends {}>(
   props: FloatPopoverProps<T>,
@@ -47,6 +70,7 @@ export const FloatPopover = function FloatPopover<T extends {}>(
     headless = false,
     wrapperClassName: wrapperClassNames,
     TriggerComponent,
+    triggerElement,
     trigger = 'hover',
     padding,
     offset: offsetValue,
@@ -57,6 +81,10 @@ export const FloatPopover = function FloatPopover<T extends {}>(
     as: As = 'div',
     type = 'popover',
     triggerComponentProps,
+    isDisabled,
+    onOpen,
+    onClose,
+    to,
     ...floatingProps
   } = props
 
@@ -88,6 +116,7 @@ export const FloatPopover = function FloatPopover<T extends {}>(
   }, [debug])
 
   const doPopoverShow = useEventCallback(() => {
+    if (isDisabled) return
     setOpen(true)
   })
 
@@ -130,10 +159,15 @@ export const FloatPopover = function FloatPopover<T extends {}>(
       ref={refs.setReference}
       {...listener}
     >
-      {/* @ts-expect-error */}
-      {React.cloneElement(<TriggerComponent {...triggerComponentProps} />, {
-        tabIndex: 0,
-      })}
+      {triggerElement}
+      {!!TriggerComponent &&
+        React.cloneElement(
+          createElement(TriggerComponent as any, triggerComponentProps),
+
+          {
+            tabIndex: 0,
+          },
+        )}
     </As>
   )
 
@@ -142,6 +176,17 @@ export const FloatPopover = function FloatPopover<T extends {}>(
       refs.floating.current.focus()
     }
   }, [open])
+
+  useEffect(() => {
+    if (open) {
+      onOpen?.()
+    } else {
+      onClose?.()
+    }
+  }, [open])
+  const actionCtxValue = useMemo(() => {
+    return { close: doPopoverDisappear }
+  }, [doPopoverDisappear])
 
   if (!props.children) {
     return TriggerWrapper
@@ -153,7 +198,7 @@ export const FloatPopover = function FloatPopover<T extends {}>(
 
       <AnimatePresence>
         {open && (
-          <RootPortal>
+          <RootPortal to={to}>
             <m.div
               className={clsxm(
                 'float-popover',
@@ -192,7 +237,9 @@ export const FloatPopover = function FloatPopover<T extends {}>(
                   visibility: isPositioned && x !== null ? 'visible' : 'hidden',
                 }}
               >
-                {props.children}
+                <PopoverActionContext.Provider value={actionCtxValue}>
+                  {props.children}
+                </PopoverActionContext.Provider>
               </m.div>
             </m.div>
           </RootPortal>

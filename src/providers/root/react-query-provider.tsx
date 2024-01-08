@@ -1,11 +1,13 @@
 'use client'
 
-import { QueryClient } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
+import { useState } from 'react'
 import { createStore, del, get, set } from 'idb-keyval'
 import type { PersistQueryClientOptions } from '@tanstack/react-query-persist-client'
 import type { PropsWithChildren } from 'react'
 
+import { RequestError } from '@mx-space/api-client'
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister'
 
 import { isServerSide } from '~/lib/env'
@@ -65,5 +67,32 @@ export const ReactQueryProvider = ({ children }: PropsWithChildren) => {
     >
       {children}
     </PersistQueryClientProvider>
+  )
+}
+
+export const getQueryClientForDashboard = () =>
+  new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: true,
+        refetchIntervalInBackground: false,
+        refetchOnMount: true,
+        retry(failureCount, error) {
+          if (error instanceof RequestError) {
+            if (error.status === 401) return false
+          }
+          return failureCount < 3
+        },
+      },
+    },
+  })
+
+export const ReactQueryProviderForDashboard = ({
+  children,
+}: PropsWithChildren) => {
+  return (
+    <QueryClientProvider client={useState(getQueryClientForDashboard)[0]}>
+      {children}
+    </QueryClientProvider>
   )
 }

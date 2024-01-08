@@ -5,7 +5,7 @@ import { selectAtom } from 'jotai/utils'
 import type { DetailedHTMLProps, FC, InputHTMLAttributes } from 'react'
 import type { FormFieldBaseProps } from './types'
 
-import { AutoResizeHeight } from '~/components/widgets/shared/AutoResizeHeight'
+import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
 import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
 

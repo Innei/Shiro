@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import type { FooterConfig } from './config'
 
-import { SubscribeTextButton } from '~/components/widgets/subscribe/SubscribeTextButton'
+import { SubscribeTextButton } from '~/components/modules/subscribe/SubscribeTextButton'
 import { clsxm } from '~/lib/helper'
 import { getQueryClient } from '~/lib/query-client.server'
 import { queries } from '~/queries/definition'

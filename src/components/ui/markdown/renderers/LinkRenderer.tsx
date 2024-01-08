@@ -21,11 +21,11 @@ import {
   parseGithubTypedUrl,
 } from '~/lib/link-parser'
 
-import { EmbedGithubFile } from '../../../widgets/shared/EmbedGithubFile'
+import { EmbedGithubFile } from '../../../modules/shared/EmbedGithubFile'
 import { LinkCard, LinkCardSource } from '../../link-card'
 import { MLink } from '../../link/MLink'
 
-const Tweet = dynamic(() => import('~/components/widgets/shared/Tweet'), {
+const Tweet = dynamic(() => import('~/components/modules/shared/Tweet'), {
   ssr: false,
 })
 

@@ -1,13 +1,42 @@
 'use client'
 
 import * as React from 'react'
+import clsx from 'clsx'
 import { AnimatePresence, m } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 
+import { IonIosArrowDown } from '~/components/icons/arrow'
 import { microReboundPreset } from '~/constants/spring'
 import { clsxm } from '~/lib/helper'
 
 export const Collapse: Component<{
+  title: React.ReactNode
+}> = (props) => {
+  const [isOpened, setIsOpened] = React.useState(false)
+  return (
+    <div className="flex flex-col">
+      <div
+        className="flex w-full cursor-pointer items-center justify-between"
+        onClick={() => setIsOpened((v) => !v)}
+      >
+        <span className="w-0 flex-shrink flex-grow truncate">
+          {props.title}
+        </span>
+        <div
+          className={clsx(
+            'flex-shrink-0 text-gray-400',
+            isOpened && 'rotate-180 transform',
+          )}
+        >
+          <IonIosArrowDown />
+        </div>
+      </div>
+      <CollapseContent isOpened={isOpened}>{props.children}</CollapseContent>
+    </div>
+  )
+}
+
+export const CollapseContent: Component<{
   isOpened: boolean
   withBackground?: boolean
 }> = ({

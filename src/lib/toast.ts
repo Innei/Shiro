@@ -2,7 +2,7 @@ import { createElement } from 'react'
 import { toast as Toast } from 'react-toastify'
 import type { Id, ToastOptions, TypeOptions } from 'react-toastify'
 
-import { ToastCard } from '~/components/widgets/shared/ToastCard'
+import { ToastCard } from '~/components/modules/shared/ToastCard'
 
 const baseConfig = {
   position: 'bottom-right',

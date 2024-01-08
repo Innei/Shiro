@@ -1,8 +1,12 @@
+import { useMutation } from '@tanstack/react-query'
 import dayjs from 'dayjs'
-import type { NoteWrappedPayload } from '@mx-space/api-client'
+import type { NoteModel, NoteWrappedPayload } from '@mx-space/api-client'
+import type { NoteDto } from '~/models/writing'
 
+import { cloneDeep } from '~/lib/_'
 import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
+import { toast } from '~/lib/toast'
 
 import { defineQuery } from '../helper'
 
@@ -33,3 +37,86 @@ export const note = {
       },
     }),
 }
+
+export const noteAdmin = {
+  paginate: (page?: number) =>
+    defineQuery({
+      queryKey: ['noteAdmin', 'paginate', page],
+      queryFn: async ({ pageParam }: any) => {
+        const data = await apiClient.note.getList(pageParam ?? page)
+
+        return data.$serialized
+      },
+    }),
+
+  allTopic: () =>
+    defineQuery({
+      queryKey: ['noteAdmin', 'allTopic'],
+      queryFn: async () => {
+        const data = await apiClient.topic.getAll()
+
+        return data.$serialized.data
+      },
+    }),
+
+  getNote: (id: string) =>
+    defineQuery({
+      queryKey: ['noteAdmin', 'getNote', id],
+      queryFn: async () => {
+        const data = await apiClient.note.getNoteById(id)
+
+        const dto = data.$serialized as NoteDto
+
+        return dto
+      },
+    }),
+}
+
+export const useCreateNote = () =>
+  useMutation({
+    mutationFn: (data: NoteDto) => {
+      const readonlyKeys = [
+        'id',
+        'nid',
+        'modified',
+        'topic',
+      ] as (keyof NoteModel)[]
+      const nextData = cloneDeep(data) as any
+      for (const key of readonlyKeys) {
+        delete nextData[key]
+      }
+      return apiClient.note.proxy.post<{
+        id: string
+      }>({
+        data: nextData,
+      })
+    },
+    onSuccess: () => {
+      toast.success('创建成功')
+    },
+  })
+
+export const useUpdateNote = () =>
+  useMutation({
+    mutationFn: (data: NoteDto) => {
+      const { id } = data
+      const readonlyKeys = [
+        'id',
+        'nid',
+        'modified',
+        'topic',
+      ] as (keyof NoteModel)[]
+      const nextData = cloneDeep(data) as any
+      for (const key of readonlyKeys) {
+        delete nextData[key]
+      }
+      return apiClient.note.proxy(id).put<{
+        id: string
+      }>({
+        data: nextData,
+      })
+    },
+    onSuccess: () => {
+      toast.success('更新成功')
+    },
+  })

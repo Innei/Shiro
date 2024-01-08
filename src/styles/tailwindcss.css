@@ -33,7 +33,7 @@ html {
 
 *:not(input):not(textarea):not([contenteditable='true']):focus-visible {
   outline: 0 !important;
-  box-shadow: theme(colors.accent) 0px 0px 0px 2px;
+  box-shadow: theme(colors.accent) 0px 0px 0px 1px;
 }
 
 .prose {
@@ -80,10 +80,10 @@ html.noise body::before {
   }
 }
 
-input,
+/* input,
 textarea {
   font-size: max(16px, 1rem);
-}
+} */
 
 a {
   @apply break-all;

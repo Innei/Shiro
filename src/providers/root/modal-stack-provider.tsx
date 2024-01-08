@@ -3,8 +3,10 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import {
   createElement,
+  Fragment,
   memo,
   useCallback,
+  useContext,
   useEffect,
   useId,
   useMemo,
@@ -14,7 +16,7 @@ import { AnimatePresence, m, useAnimationControls } from 'framer-motion'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 import { usePathname } from 'next/navigation'
 import type { Target, Transition } from 'framer-motion'
-import type { FC, PropsWithChildren, SyntheticEvent } from 'react'
+import type { Context, FC, PropsWithChildren, SyntheticEvent } from 'react'
 
 import { useIsMobile } from '~/atoms'
 import { CloseIcon } from '~/components/icons/close'
@@ -42,6 +44,8 @@ interface ModalProps {
   clickOutsideToDismiss?: boolean
   modalClassName?: string
   modalContainerClassName?: string
+
+  wrapper?: FC
 }
 
 const modalStackAtom = atom([] as (ModalProps & { id: string })[])
@@ -53,9 +57,21 @@ const useDismissAllWhenRouterChange = () => {
   }, [pathname])
 }
 
-export const useModalStack = () => {
+interface ModalStackOptions {
+  wrapper?: FC
+}
+
+export const InjectContext = (context: Context<any>) => {
+  const ctxValue = useContext(context)
+  return memo(({ children }: PropsWithChildren) => (
+    <context.Provider value={ctxValue}>{children}</context.Provider>
+  ))
+}
+
+export const useModalStack = (options?: ModalStackOptions) => {
   const id = useId()
   const currentCount = useRef(0)
+  const { wrapper } = options || {}
   return {
     present: useCallback(
       (props: ModalProps & { id?: string }) => {
@@ -64,6 +80,7 @@ export const useModalStack = () => {
           const modalProps = {
             ...props,
             id: props.id ?? modalId,
+            wrapper,
           }
           modalIdToPropsMap[modalProps.id] = modalProps
           return p.concat(modalProps)
@@ -166,6 +183,7 @@ const Modal: Component<{
     title,
     clickOutsideToDismiss,
     modalContainerClassName,
+    wrapper: Wrapper = Fragment,
   } = item
   const modalStyle = useMemo(() => ({ zIndex: 99 + index }), [index])
   const dismiss = useCallback(
@@ -203,86 +221,99 @@ const Modal: Component<{
     const drawerLength = jotaiStore.get(sheetStackAtom).length
 
     return (
-      <PresentSheet
-        open
-        zIndex={1000 + drawerLength}
-        onOpenChange={onClose}
-        content={createElement(content, ModalProps)}
-      />
+      <Wrapper>
+        <PresentSheet
+          open
+          title={title}
+          zIndex={1000 + drawerLength}
+          // onOpenChange={(open) => {
+          //   if (!open) {
+          //     setTimeout(() => {
+          //       close()
+          //     }, 1000)
+          //   }
+          // }}
+          content={createElement(content, ModalProps)}
+        />
+      </Wrapper>
     )
   }
 
   if (CustomModalComponent) {
     return (
+      <Wrapper>
+        <Dialog.Root open onOpenChange={onClose}>
+          <Dialog.Portal>
+            <DialogOverlay zIndex={20} />
+            <Dialog.Content asChild>
+              <div
+                className={clsxm(
+                  'fixed inset-0 z-[20] overflow-auto',
+                  modalContainerClassName,
+                )}
+                onClick={clickOutsideToDismiss ? dismiss : undefined}
+              >
+                <div className="contents" onClick={stopPropagation}>
+                  <CustomModalComponent>
+                    {createElement(content, ModalProps)}
+                  </CustomModalComponent>
+                </div>
+              </div>
+            </Dialog.Content>
+          </Dialog.Portal>
+        </Dialog.Root>
+      </Wrapper>
+    )
+  }
+  return (
+    <Wrapper>
       <Dialog.Root open onOpenChange={onClose}>
         <Dialog.Portal>
           <DialogOverlay zIndex={20} />
           <Dialog.Content asChild>
             <div
               className={clsxm(
-                'fixed inset-0 z-[20] overflow-auto',
+                'fixed inset-0 z-[20] flex center',
                 modalContainerClassName,
               )}
-              onClick={clickOutsideToDismiss ? dismiss : undefined}
+              onClick={clickOutsideToDismiss ? dismiss : noticeModal}
             >
-              <div className="contents" onClick={stopPropagation}>
-                <CustomModalComponent>
+              <m.div
+                style={modalStyle}
+                exit={initialStyle}
+                initial={initialStyle}
+                animate={animateController}
+                transition={modalTransition}
+                className={clsxm(
+                  'relative flex flex-col overflow-hidden rounded-lg',
+                  'bg-slate-50/80 dark:bg-neutral-900/80',
+                  'p-2 shadow-2xl shadow-stone-300 backdrop-blur-sm dark:shadow-stone-800',
+                  'max-h-[70vh] min-w-[300px] max-w-[90vw] lg:max-h-[calc(100vh-20rem)] lg:max-w-[70vw]',
+                  'border border-slate-200 dark:border-neutral-800',
+                  modalClassName,
+                )}
+                onClick={stopPropagation}
+              >
+                <Dialog.Title className="flex-shrink-0 px-4 py-2 text-lg font-medium">
+                  {title}
+                </Dialog.Title>
+                <Divider className="my-2 flex-shrink-0 border-slate-200 opacity-80 dark:border-neutral-800" />
+
+                <div className="min-h-0 flex-shrink flex-grow overflow-auto px-4 py-2">
                   {createElement(content, ModalProps)}
-                </CustomModalComponent>
-              </div>
+                </div>
+
+                <Dialog.DialogClose
+                  onClick={close}
+                  className="absolute right-0 top-0 z-[9] p-5"
+                >
+                  <CloseIcon />
+                </Dialog.DialogClose>
+              </m.div>
             </div>
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
-    )
-  }
-  return (
-    <Dialog.Root open onOpenChange={onClose}>
-      <Dialog.Portal>
-        <DialogOverlay zIndex={20} />
-        <Dialog.Content asChild>
-          <div
-            className={clsxm(
-              'fixed inset-0 z-[20] flex center',
-              modalContainerClassName,
-            )}
-            onClick={clickOutsideToDismiss ? dismiss : noticeModal}
-          >
-            <m.div
-              style={modalStyle}
-              exit={initialStyle}
-              initial={initialStyle}
-              animate={animateController}
-              transition={modalTransition}
-              className={clsxm(
-                'relative flex flex-col overflow-hidden rounded-lg',
-                'bg-slate-50/80 dark:bg-neutral-900/80',
-                'p-2 shadow-2xl shadow-stone-300 backdrop-blur-sm dark:shadow-stone-800',
-                'max-h-[70vh] min-w-[300px] max-w-[90vw] lg:max-h-[calc(100vh-20rem)] lg:max-w-[70vw]',
-                'border border-slate-200 dark:border-neutral-800',
-                modalClassName,
-              )}
-              onClick={stopPropagation}
-            >
-              <Dialog.Title className="flex-shrink-0 px-4 py-2 text-lg font-medium">
-                {title}
-              </Dialog.Title>
-              <Divider className="my-2 flex-shrink-0 border-slate-200 opacity-80 dark:border-neutral-800" />
-
-              <div className="min-h-0 flex-shrink flex-grow overflow-auto px-4 py-2">
-                {createElement(content, ModalProps)}
-              </div>
-
-              <Dialog.DialogClose
-                onClick={close}
-                className="absolute right-0 top-0 z-[9] p-5"
-              >
-                <CloseIcon />
-              </Dialog.DialogClose>
-            </m.div>
-          </div>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+    </Wrapper>
   )
 })

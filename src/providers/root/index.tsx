@@ -1,36 +1,46 @@
 'use client'
 
-import { ReactQueryProvider } from './react-query-provider'
+import {
+  ReactQueryProvider,
+  ReactQueryProviderForDashboard,
+} from './react-query-provider'
 import { Provider as BalancerProvider } from 'react-wrap-balancer'
 import { LazyMotion } from 'framer-motion'
 import { ThemeProvider } from 'next-themes'
 import type { PropsWithChildren } from 'react'
 
-import { PeekPortal } from '~/components/widgets/peek/PeekPortal'
+import { PeekPortal } from '~/components/modules/peek/PeekPortal'
+import { ModalStackProvider } from '~/components/ui/modal'
 
 import { ProviderComposer } from '../../components/common/ProviderComposer'
+import { AuthProvider } from './auth-provider'
 import { DebugProvider } from './debug-provider'
 import { EventProvider } from './event-provider'
 import { JotaiStoreProvider } from './jotai-provider'
-import { ModalStackProvider } from './modal-stack-provider'
 import { PageScrollInfoProvider } from './page-scroll-info-provider'
 import { ScriptInjectProvider } from './script-inject-provider'
 import { SocketContainer } from './socket-provider'
 
 const loadFeatures = () =>
   import('./framer-lazy-feature').then((res) => res.default)
-const contexts: JSX.Element[] = [
+
+const baseContexts: JSX.Element[] = [
   <ThemeProvider key="themeProvider" />,
-  <ReactQueryProvider key="reactQueryProvider" />,
+
   <JotaiStoreProvider key="jotaiStoreProvider" />,
 
   <BalancerProvider key="balancerProvider" />,
   <LazyMotion features={loadFeatures} strict key="framer" />,
 ]
-export function Providers({ children }: PropsWithChildren) {
+
+const webappContexts: JSX.Element[] = baseContexts.concat(
+  <ReactQueryProvider key="reactQueryProvider" />,
+)
+
+export function WebAppProviders({ children }: PropsWithChildren) {
   return (
     <>
-      <ProviderComposer contexts={contexts}>
+      <ProviderComposer contexts={webappContexts}>
         {children}
         <PeekPortal />
         <SocketContainer />
@@ -41,6 +51,24 @@ export function Providers({ children }: PropsWithChildren) {
         <DebugProvider key="debugProvider" />
 
         <ScriptInjectProvider />
+      </ProviderComposer>
+    </>
+  )
+}
+const dashboardContexts: JSX.Element[] = baseContexts.concat(
+  <ReactQueryProviderForDashboard key="reactQueryProvider" />,
+  <AuthProvider key="auth" />,
+)
+export function DashboardAppProviders({ children }: PropsWithChildren) {
+  return (
+    <>
+      <ProviderComposer contexts={dashboardContexts}>
+        {children}
+
+        <ModalStackProvider key="modalStackProvider" />
+        <EventProvider key="viewportProvider" />
+
+        <DebugProvider key="debugProvider" />
       </ProviderComposer>
     </>
   )

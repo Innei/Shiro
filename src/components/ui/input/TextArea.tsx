@@ -34,12 +34,12 @@ export const TextArea = forwardRef<
   const inputProps = useInputComposition(props)
   return (
     <div
-      className="group relative h-full [--spotlight-color:oklch(var(--a)_/_0.12)]"
+      className="group relative h-full overflow-hidden [--spotlight-color:oklch(var(--a)_/_0.12)]"
       onMouseMove={handleMouseMove}
     >
       {!isMobile && (
         <m.div
-          className="pointer-events-none absolute left-0 right-0 top-0 z-0 h-[150px] rounded-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          className="pointer-events-none absolute bottom-[-150px] left-0 right-0 top-0 z-0 rounded-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           style={{ background }}
           aria-hidden="true"
         />

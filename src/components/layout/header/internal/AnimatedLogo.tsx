@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query'
 import { useCallback } from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 import { useRouter } from 'next/navigation'
-import type { Bilibili } from '~/app/config'
 
 import { isLogged, useResolveAdminUrl, useViewport } from '~/atoms'
 import { useSingleAndDoubleClick } from '~/hooks/common/use-single-double-click'

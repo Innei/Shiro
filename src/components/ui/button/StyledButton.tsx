@@ -2,12 +2,12 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import { tv } from 'tailwind-variants'
-import type { FC } from 'react'
+import type { FC, PropsWithChildren } from 'react'
 
 import { MotionButtonBase } from './MotionButton'
 
 const variantStyles = tv({
-  base: 'inline-flex items-center gap-2 justify-center rounded-lg py-2 px-3 text-sm outline-offset-2 transition active:transition-none',
+  base: 'inline-flex select-none cursor-default items-center gap-2 justify-center rounded-lg py-2 px-3 text-sm outline-offset-2 transition active:transition-none',
   variants: {
     variant: {
       primary: clsx(
@@ -38,6 +38,7 @@ export const StyledButton: FC<ButtonProps> = ({
   variant = 'primary',
   className,
   href,
+
   ...props
 }) => {
   return href ? (
@@ -57,5 +58,20 @@ export const StyledButton: FC<ButtonProps> = ({
       })}
       {...(props as any)}
     />
+  )
+}
+
+export const LoadingButtonWrapper: FC<
+  { isLoading: boolean } & PropsWithChildren
+> = ({ isLoading, children }) => {
+  return (
+    <div className="relative">
+      {children}
+      {isLoading && (
+        <div className="absolute inset-0 z-[1] flex items-center justify-center">
+          <div className="loading loading-spinner h-5 w-5" />
+        </div>
+      )}
+    </div>
   )
 }

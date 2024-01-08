@@ -11,7 +11,7 @@ import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
 
 import { LazyLoad } from '~/components/common/Lazyload'
 import { MingcuteStarHalfFill } from '~/components/icons/star'
-import { usePeek } from '~/components/widgets/peek/usePeek'
+import { usePeek } from '~/components/modules/peek/usePeek'
 import { LanguageToColorMap } from '~/constants/language'
 import { useIsClientTransition } from '~/hooks/common/use-is-client'
 import { preventDefault } from '~/lib/dom'
