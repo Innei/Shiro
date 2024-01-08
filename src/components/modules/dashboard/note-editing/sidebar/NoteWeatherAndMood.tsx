@@ -23,6 +23,9 @@ export const NoteWeatherAndMood = () => {
             setWeather(suggestion.value)
           }}
           placeholder=" "
+          onChange={(e) => {
+            setWeather(e.target.value)
+          }}
           onConfirm={(value) => {
             setWeather(value)
           }}
@@ -42,6 +45,9 @@ export const NoteWeatherAndMood = () => {
           suggestions={MOOD_SET.map((w) => ({ name: w, value: w }))}
           onSuggestionSelected={(suggestion) => {
             setMood(suggestion.value)
+          }}
+          onChange={(e) => {
+            setMood(e.target.value)
           }}
           onConfirm={(value) => {
             setMood(value)

@@ -27,12 +27,10 @@ export const TopicSelector = () => {
     })
   })
 
-  const selectValues: SelectValue<string>[] = (data?.data || []).map(
-    (item) => ({
-      label: item.name,
-      value: item.id,
-    }),
-  )
+  const selectValues: SelectValue<string>[] = (data || []).map((item) => ({
+    label: item.name,
+    value: item.id,
+  }))
 
   return (
     <SidebarSection label="专栏">

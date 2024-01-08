@@ -94,18 +94,9 @@ export default function Page() {
 }
 
 const UnreadTabTitle: FC = () => {
-  // const { data } = trpc.comment.unreadCount.useQuery()
-  // const t = useI18n()
-
   return (
     <span className="inline-block space-x-1 pb-1">
       <span>未读</span>
-
-      {/* {!!data && (
-        <Chip size="sm" color="primary" className="scale-80">
-          {data}
-        </Chip>
-      )} */}
     </span>
   )
 }
@@ -115,16 +106,6 @@ const CommentTable = (props: { state: CommentState }) => {
   useEffect(() => {
     return () => setSelectionKeys(new Set())
   }, [])
-
-  // const { data, isLoading } = trpc.comment.list.useQuery(
-  //   {
-  //     state: props.state,
-  //     page,
-  //   },
-  //   {
-  //     keepPreviousData: true,
-  //   },
-  // )
 
   const { data, isLoading, fetchNextPage, hasNextPage } =
     // @ts-expect-error

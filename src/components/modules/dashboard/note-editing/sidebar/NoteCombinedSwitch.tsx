@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { AdvancedInput } from '~/components/ui/input'
 import { LabelSwitch } from '~/components/ui/switch'
 
@@ -12,6 +14,8 @@ export const NoteCombinedSwitch = () => {
   const [hasMemory, setHasMemory] = useNoteModelSingleFieldAtom('hasMemory')
   const [password, setPassword] = useNoteModelSingleFieldAtom('password')
 
+  const [passwordEnable, setPasswordEnable] = useState(!!password)
+
   return (
     <>
       <LabelSwitch
@@ -24,12 +28,15 @@ export const NoteCombinedSwitch = () => {
 
       <LabelSwitch
         className="flex-shrink-0"
-        checked={password}
-        onCheckedChange={setPassword}
+        checked={passwordEnable}
+        onCheckedChange={(checked) => {
+          setPasswordEnable(checked)
+          if (!checked) setPassword('')
+        }}
       >
-        <span>设定密码?</span>
+        <span>设定密码？</span>
       </LabelSwitch>
-      {password && (
+      {passwordEnable && (
         <AdvancedInput
           color="primary"
           labelPlacement="left"

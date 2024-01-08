@@ -11,6 +11,7 @@ import {
   useUpdateCommentStateMutation,
 } from '~/queries/definition/comment'
 
+import { OffsetHeaderLayout } from '../layouts'
 import {
   useCommentSelectionKeys,
   useSetCommentSelectionKeys,
@@ -50,7 +51,7 @@ export const CommentBatchActionGroup = () => {
 
   if (!selectionKeys.size) return null
   return (
-    <div className="fixed right-4 top-[4rem] z-[2] hidden gap-4 lg:flex">
+    <OffsetHeaderLayout className="hidden gap-4 lg:flex">
       {tab !== CommentState.Read && (
         <FloatPopover
           type="tooltip"
@@ -119,6 +120,6 @@ export const CommentBatchActionGroup = () => {
       >
         删除
       </FloatPopover>
-    </div>
+    </OffsetHeaderLayout>
   )
 }

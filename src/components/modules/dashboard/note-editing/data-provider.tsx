@@ -14,7 +14,11 @@ export const {
   ModelDataAtomContext,
 } = createModelDataProvider<NoteDto>()
 
-export const useNoteModelSingleFieldAtom = (key: keyof NoteDto) => {
+export const useNoteModelSingleFieldAtom = <
+  T extends keyof NoteDto = keyof NoteDto,
+>(
+  key: T,
+) => {
   const ctxAtom = useContext(ModelDataAtomContext)
   if (!ctxAtom)
     throw new Error(
@@ -37,5 +41,9 @@ export const useNoteModelSingleFieldAtom = (key: keyof NoteDto) => {
         },
       )
     }, [ctxAtom, key]),
-  )
+  ) as any as [
+    NonNullable<NoteDto[T]>,
+
+    (update: NoteDto[T]) => NoteDto[T] | void,
+  ]
 }

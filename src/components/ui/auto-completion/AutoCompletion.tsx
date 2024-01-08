@@ -57,7 +57,9 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
   ) => {
     const [filterableSuggestions, setFilterableSuggestions] =
       useState(suggestions)
-    const [inputValue, setInputValue] = useState(inputProps.value || '')
+    const [inputValue, setInputValue] = useState(
+      inputProps.value || inputProps.defaultValue || '',
+    )
 
     const doFilter = useEventCallback(() => {
       const fuse = new Fuse(suggestions, {

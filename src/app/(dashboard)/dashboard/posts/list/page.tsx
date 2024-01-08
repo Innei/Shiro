@@ -2,6 +2,7 @@
 
 import { useInfiniteQuery } from '@tanstack/react-query'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import RemoveMarkdown from 'remove-markdown'
 import type { PostModel } from '@mx-space/api-client'
 import type { CardProps } from '~/components/modules/dashboard/writing/CardMasonry'
@@ -9,19 +10,20 @@ import type { CardProps } from '~/components/modules/dashboard/writing/CardMason
 import { MdiClockOutline } from '~/components/icons/clock'
 import { FeHash } from '~/components/icons/fa-hash'
 import { PageLoading } from '~/components/layout/dashboard/PageLoading'
+import { OffsetHeaderLayout } from '~/components/modules/dashboard/layouts'
 import {
   Card,
   CardMasonry,
 } from '~/components/modules/dashboard/writing/CardMasonry'
 import { LoadMoreIndicator } from '~/components/modules/shared/LoadMoreIndicator'
 import { PhPushPinFill } from '~/components/modules/shared/PinIconToggle'
+import { RoundedIconButton } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { RelativeTime } from '~/components/ui/relative-time'
 import { Tag } from '~/components/ui/tag/Tag'
-import { withQueryPager } from '~/hooks/biz/use-query-pager'
 import { adminQueries } from '~/queries/definition'
 
-export default withQueryPager(function Page() {
+export default (function Page() {
   const {
     data: result,
     isLoading,
@@ -37,6 +39,7 @@ export default withQueryPager(function Page() {
         : undefined,
   })
 
+  const router = useRouter()
   if (isLoading) return <PageLoading />
 
   const data = result?.pages.flatMap((page) => page.data) ?? []
@@ -67,6 +70,17 @@ export default withQueryPager(function Page() {
           }}
         />
       )}
+
+      <OffsetHeaderLayout>
+        <RoundedIconButton
+          onClick={() => {
+            router.push('/dashboard/posts/edit')
+          }}
+          className="card-shadow"
+        >
+          <i className="icon-[mingcute--add-line] text-white" />
+        </RoundedIconButton>
+      </OffsetHeaderLayout>
     </div>
   )
 })

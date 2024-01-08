@@ -1,5 +1,6 @@
 import type { FC, PropsWithChildren } from 'react'
 
+import { RootPortal } from '~/components/ui/portal'
 import { clsxm } from '~/lib/helper'
 
 export const MainLayout: FC<PropsWithChildren> = (props) => {
@@ -17,5 +18,15 @@ export const OffsetMainLayout: Component<PropsWithChildren> = (props) => {
     <div className={clsxm(props.className, '-ml-4 w-[calc(100%+2rem)] p-4')}>
       {props.children}
     </div>
+  )
+}
+
+export const OffsetHeaderLayout: Component<PropsWithChildren> = (props) => {
+  return (
+    <RootPortal>
+      <div className={clsxm('fixed right-4 top-[4rem] z-[19] flex')}>
+        {props.children}
+      </div>
+    </RootPortal>
   )
 }

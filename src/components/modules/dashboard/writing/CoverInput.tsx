@@ -19,12 +19,13 @@ export const CoverInput: FC<{
 }> = ({ accessor }) => {
   const [meta, setMeta] = accessor
 
-  const value = meta.cover || ''
+  const value = meta?.cover || ''
   const reset = () => {
-    setMeta({
+    const nextValue = {
       ...meta,
-      cover: '',
-    })
+    }
+    delete nextValue.cover
+    setMeta(nextValue)
   }
   return (
     <SidebarSection label="Cover">

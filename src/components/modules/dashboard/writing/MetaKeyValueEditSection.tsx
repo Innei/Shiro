@@ -48,6 +48,7 @@ export const MetaKeyValueEditSection: FC<MetaKeyValueEditSectionProps> = (
     })
   })
 
+  const jsonString = JSON.stringify(objectValue, null, TAB_SIZE)
   return (
     <div className="relative flex flex-col space-y-4">
       <div className="flex items-center justify-between">
@@ -57,10 +58,7 @@ export const MetaKeyValueEditSection: FC<MetaKeyValueEditSectionProps> = (
           编辑
         </StyledButton>
       </div>
-      <HighLighter
-        lang="json"
-        content={JSON.stringify(objectValue, null, TAB_SIZE)}
-      />
+      <HighLighter key={jsonString} lang="json" content={jsonString} />
     </div>
   )
 }

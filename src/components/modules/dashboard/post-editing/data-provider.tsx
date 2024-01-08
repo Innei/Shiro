@@ -14,7 +14,11 @@ export const {
   ModelDataAtomContext,
 } = createModelDataProvider<PostDto>()
 
-export const usePostModelSingleFieldAtom = (key: keyof PostDto) => {
+export const usePostModelSingleFieldAtom = <
+  T extends keyof PostDto = keyof PostDto,
+>(
+  key: T,
+) => {
   const ctxAtom = useContext(ModelDataAtomContext)
   return useAtom(
     useMemo(() => {
@@ -32,5 +36,9 @@ export const usePostModelSingleFieldAtom = (key: keyof PostDto) => {
         },
       )
     }, [ctxAtom, key]),
-  )
+  ) as any as [
+    NonNullable<PostDto[T]>,
+
+    (update: PostDto[T]) => PostDto[T] | void,
+  ]
 }
