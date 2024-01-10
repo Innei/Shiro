@@ -18,7 +18,10 @@ import {
   usePostModelGetModelData,
   usePostModelSetModelData,
 } from '~/components/modules/dashboard/post-editing'
-import { BaseWritingProvider } from '~/components/modules/dashboard/writing/BaseWritingProvider'
+import {
+  BaseWritingProvider,
+  useAutoSaver,
+} from '~/components/modules/dashboard/writing/BaseWritingProvider'
 import { EditorLayer } from '~/components/modules/dashboard/writing/EditorLayer'
 import { ImportMarkdownButton } from '~/components/modules/dashboard/writing/ImportMarkdownButton'
 import { PreviewButton } from '~/components/modules/dashboard/writing/PreviewButton'
@@ -27,8 +30,7 @@ import {
   Writing,
 } from '~/components/modules/dashboard/writing/Writing'
 import { LoadingButtonWrapper, StyledButton } from '~/components/ui/button'
-import { EmitKeyMap } from '~/constants/keys'
-import { PublishEvent } from '~/events'
+import { PublishEvent, WriteEditEvent } from '~/events'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { cloneDeep } from '~/lib/_'
 import { toast } from '~/lib/toast'
@@ -79,23 +81,24 @@ const createInitialEditingData = (): PostDto => {
 const EditPage: FC<{
   initialData?: PostDto
 }> = (props) => {
-  const [editingData] = useState<PostDto>(() =>
+  const [editingData, setEditingData] = useState<PostDto>(() =>
     props.initialData
       ? cloneDeep(props.initialData)
       : createInitialEditingData(),
   )
 
+  const [forceUpdateKey] = useAutoSaver([editingData, setEditingData])
   const editingAtom = useMemo(() => atom(editingData), [editingData])
   const store = useStore()
   useEffect(() => {
     return store.sub(editingAtom, () => {
-      window.dispatchEvent(new CustomEvent(EmitKeyMap.EditDataUpdate))
+      window.dispatchEvent(new WriteEditEvent(store.get(editingAtom)))
     })
   }, [editingAtom, store])
 
   const isMobile = useIsMobile()
   return (
-    <PostModelDataAtomProvider overrideAtom={editingAtom}>
+    <PostModelDataAtomProvider overrideAtom={editingAtom} key={forceUpdateKey}>
       <BaseWritingProvider atom={editingAtom}>
         <EditorLayer>
           {isMobile ? (
@@ -164,8 +167,8 @@ const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => {
           <PreviewButton
             getData={() => {
               return {
-                id: 'preview',
                 ...getData(),
+                id: 'preview',
               }
             }}
           />

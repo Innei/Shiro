@@ -18,7 +18,10 @@ import {
   useNoteModelSetModelData,
 } from '~/components/modules/dashboard/note-editing'
 import { NoteNid } from '~/components/modules/dashboard/note-editing/NoteNid'
-import { BaseWritingProvider } from '~/components/modules/dashboard/writing/BaseWritingProvider'
+import {
+  BaseWritingProvider,
+  useAutoSaver,
+} from '~/components/modules/dashboard/writing/BaseWritingProvider'
 import { EditorLayer } from '~/components/modules/dashboard/writing/EditorLayer'
 import { ImportMarkdownButton } from '~/components/modules/dashboard/writing/ImportMarkdownButton'
 import { PreviewButton } from '~/components/modules/dashboard/writing/PreviewButton'
@@ -27,8 +30,7 @@ import {
   Writing,
 } from '~/components/modules/dashboard/writing/Writing'
 import { LoadingButtonWrapper, StyledButton } from '~/components/ui/button'
-import { EmitKeyMap } from '~/constants/keys'
-import { PublishEvent } from '~/events'
+import { PublishEvent, WriteEditEvent } from '~/events'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { cloneDeep } from '~/lib/_'
 import { dayOfYear } from '~/lib/datetime'
@@ -74,11 +76,12 @@ const createInitialEditingData = (): NoteDto => {
 const EditPage: FC<{
   initialData?: NoteDto
 }> = (props) => {
-  const [editingData] = useState<NoteDto>(() =>
+  const [editingData, setEditingData] = useState<NoteDto>(() =>
     props.initialData
       ? cloneDeep(props.initialData)
       : createInitialEditingData(),
   )
+  const [forceUpdateKey] = useAutoSaver([editingData, setEditingData])
 
   const editingAtom = useMemo(() => atom(editingData), [editingData])
   const created = editingData.created ? new Date(editingData.created) : null
@@ -86,13 +89,13 @@ const EditPage: FC<{
   const store = useStore()
   useEffect(() => {
     return store.sub(editingAtom, () => {
-      window.dispatchEvent(new CustomEvent(EmitKeyMap.EditDataUpdate))
+      window.dispatchEvent(new WriteEditEvent(store.get(editingAtom)))
     })
   }, [editingAtom, store])
 
   const isMobile = useIsMobile()
   return (
-    <NoteModelDataAtomProvider overrideAtom={editingAtom}>
+    <NoteModelDataAtomProvider overrideAtom={editingAtom} key={forceUpdateKey}>
       <BaseWritingProvider atom={editingAtom}>
         <EditorLayer>
           {isMobile ? (
@@ -169,8 +172,8 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
           <PreviewButton
             getData={() => {
               return {
-                id: 'preview',
                 ...getData(),
+                id: 'preview',
               }
             }}
           />

@@ -24,7 +24,7 @@ export type WriteBaseType = {
   text: string
   allowComment: boolean
 
-  id?: string
+  id: string
   images: Image[]
   created?: string
   modified?: string
