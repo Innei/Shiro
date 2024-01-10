@@ -5,7 +5,7 @@ import type { PrimitiveAtom } from 'jotai'
 import type { PropsWithChildren } from 'react'
 
 import { EmitKeyMap } from '~/constants/keys'
-import { useBeforeUnload } from '~/hooks/common/use-unsave-confirm'
+import { useBeforeUnload } from '~/hooks/common/use-before-unload'
 
 const BaseWritingContext = createContext<PrimitiveAtom<BaseModelType>>(null!)
 
@@ -31,7 +31,11 @@ export const BaseWritingProvider = <T extends BaseModelType>(
       window.removeEventListener(EmitKeyMap.EditDataUpdate, handler)
     }
   }, [])
-  useBeforeUnload(isFormDirty, '文章未保存，确定要离开？')
+  useBeforeUnload(isFormDirty)
+
+  useBeforeUnload.forceRoute(() => {
+    console.log('forceRoute')
+  })
   return (
     <BaseWritingContext.Provider value={props.atom as any}>
       {props.children}
