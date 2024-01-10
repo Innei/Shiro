@@ -3,7 +3,6 @@ import type { CommentModel } from '@mx-space/api-client'
 
 import { CollectionRefTypes } from '@mx-space/api-client'
 
-import { MotionButtonBase } from '~/components/ui/button'
 import { RelativeTime } from '~/components/ui/relative-time'
 import { EllipsisHorizontalTextWithTooltip } from '~/components/ui/typography'
 import { clsxm } from '~/lib/helper'
@@ -34,25 +33,28 @@ export const CommentContentCell: Component<{ comment: CommentModel }> = (
     if (refType === CollectionRefTypes.Recently)
       return `${ref.text.slice(0, 20)}...`
     return (
-      <MotionButtonBase
-        className="inline-flex grow"
-        onClick={async () => {
-          const url = await apiClient.proxy.helper('url-builder')(ref.id).get<{
-            data: string
-          }>()
-          window.open(url?.data, '_blank')
-        }}
-      >
-        <EllipsisHorizontalTextWithTooltip wrapperClassName="text-left text-accent inline-block !w-0 flex-grow">
-          {ref.title}
-        </EllipsisHorizontalTextWithTooltip>
-      </MotionButtonBase>
+      <div className="flex w-0 grow items-center">
+        <a
+          href={`${apiClient.proxy
+            .helper('url-builder')(ref.id)
+            .toString(true)}?redirect=true`}
+          className="inline-flex overflow-hidden"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <EllipsisHorizontalTextWithTooltip wrapperClassName="text-left text-accent inline-block flex-shrink">
+            {ref.title}
+          </EllipsisHorizontalTextWithTooltip>
+        </a>
+        <div className="ml-2">{isWhispers && '悄悄说'}</div>
+        <div className="grow" />
+      </div>
     )
-  }, [ref, refType])
+  }, [isWhispers, ref, refType])
   return (
     <div className={clsxm('flex flex-col gap-2 py-2 text-sm', className)}>
       <div className="flex gap-2 whitespace-nowrap text-sm">
-        <RelativeTime date={created} /> 于 {TitleEl} {isWhispers && '悄悄说'}
+        <RelativeTime date={created} /> 于 {TitleEl}
       </div>
 
       <p className="break-words">{text}</p>
