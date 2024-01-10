@@ -18,7 +18,6 @@ export const Version = () => {
       </div>
     )
 
-  console.log(version, 'a')
   return (
     <div className="opacity-60">
       <p className="text-center">
