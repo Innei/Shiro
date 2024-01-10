@@ -4,6 +4,7 @@ import { revalidateTag } from 'next/cache'
 import type { NoteModel, NoteWrappedPayload } from '@mx-space/api-client'
 import type { NoteDto } from '~/models/writing'
 
+import { useResetAutoSaverData } from '~/components/modules/dashboard/writing/BaseWritingProvider'
 import { cloneDeep } from '~/lib/_'
 import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
@@ -73,8 +74,9 @@ export const noteAdmin = {
     }),
 }
 
-export const useCreateNote = () =>
-  useMutation({
+export const useCreateNote = () => {
+  const resetAutoSaver = useResetAutoSaverData()
+  return useMutation({
     mutationFn: (data: NoteDto) => {
       const readonlyKeys = [
         'id',
@@ -95,11 +97,14 @@ export const useCreateNote = () =>
     onSuccess: () => {
       revalidateTag('note')
       toast.success('创建成功')
+      resetAutoSaver('note')
     },
   })
+}
 
-export const useUpdateNote = () =>
-  useMutation({
+export const useUpdateNote = () => {
+  const resetAutoSaver = useResetAutoSaverData()
+  return useMutation({
     mutationFn: (data: NoteDto) => {
       const { id } = data
       const readonlyKeys = [
@@ -118,7 +123,9 @@ export const useUpdateNote = () =>
         data: nextData,
       })
     },
-    onSuccess: () => {
+    onSuccess: ({ id }) => {
       toast.success('更新成功')
+      resetAutoSaver('note', id)
     },
   })
+}

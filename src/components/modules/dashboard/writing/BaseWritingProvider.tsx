@@ -1,3 +1,5 @@
+'use client'
+
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { useForceUpdate } from 'framer-motion'
 import { produce } from 'immer'

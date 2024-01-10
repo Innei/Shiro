@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import type { PaginateResult, PostModel, TagModel } from '@mx-space/api-client'
 import type { PostDto } from '~/models/writing'
 
+import { useResetAutoSaverData } from '~/components/modules/dashboard/writing/BaseWritingProvider'
 import { cloneDeep } from '~/lib/_'
 import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
@@ -102,8 +103,9 @@ export const postAdmin = {
     }),
 }
 
-export const useCreatePost = () =>
-  useMutation({
+export const useCreatePost = () => {
+  const resetAutoSaver = useResetAutoSaverData()
+  return useMutation({
     mutationFn: (data: PostDto) => {
       const readonlyKeys = [
         'id',
@@ -123,11 +125,14 @@ export const useCreatePost = () =>
     },
     onSuccess: () => {
       toast.success('创建成功')
+      resetAutoSaver('post')
     },
   })
+}
 
-export const useUpdatePost = () =>
-  useMutation({
+export const useUpdatePost = () => {
+  const resetAutoSaver = useResetAutoSaverData()
+  return useMutation({
     mutationFn: (data: PostDto) => {
       const { id } = data
       const readonlyKeys = [
@@ -146,7 +151,9 @@ export const useUpdatePost = () =>
         data: nextData,
       })
     },
-    onSuccess: () => {
+    onSuccess: ({ id }) => {
       toast.success('更新成功')
+      resetAutoSaver('post', id)
     },
   })
+}
