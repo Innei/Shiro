@@ -1,10 +1,5 @@
 import React, { useState } from 'react'
-import {
-  blockRegex,
-  parseCaptureInline,
-  Priority,
-  simpleInlineRegex,
-} from 'markdown-to-jsx'
+import { blockRegex, Priority, simpleInlineRegex } from 'markdown-to-jsx'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { FC } from 'react'
 
@@ -17,16 +12,15 @@ export const KateXRule: MarkdownToJSX.Rule = {
   match: simpleInlineRegex(
     /^\$\s{0,}((?:\[.*?\]|<.*?>(?:.*?<.*?>)?|`.*?`|.)*?)\s{0,}\$/,
   ),
-  order: Priority.LOW,
-  parse: parseCaptureInline,
-  react(node, _, state?) {
-    try {
-      const str = node.content.map((item: any) => item.content).join('')
-
-      return <LateX key={state?.key}>{str}</LateX>
-    } catch {
-      return null as any
+  order: Priority.MED,
+  parse(capture) {
+    return {
+      type: 'kateX',
+      katex: capture[1],
     }
+  },
+  react(node, output, state) {
+    return <LateX key={state?.key}>{node.katex}</LateX>
   },
 }
 
@@ -52,7 +46,10 @@ const LateX: FC<LateXProps> = (props) => {
       'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js',
     ).then(() => {
       // @ts-ignore
-      const html = window.katex.renderToString(children, { displayMode, throwOnError })
+      const html = window.katex.renderToString(children, {
+        displayMode,
+        throwOnError,
+      })
       setHtml(html)
     })
   }, [])
