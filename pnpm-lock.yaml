@@ -21,8 +21,8 @@ overrides:
 
 dependencies:
   '@clerk/nextjs':
-    specifier: 4.29.2
-    version: 4.29.2(next@14.0.4)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 4.29.3
+    version: 4.29.3(next@14.0.4)(react-dom@18.2.0)(react@18.2.0)
   '@floating-ui/react-dom':
     specifier: 2.0.5
     version: 2.0.5(react-dom@18.2.0)(react@18.2.0)
@@ -673,8 +673,8 @@ packages:
     resolution: {integrity: sha512-s3jaWicZd0pkP0jf5ysyHUI/RE7MHos6qlToFcGWXVp+ykHOy77OUMrfbgJ9it2C5bow7OIQwYYaHjk9XlBQ2A==}
     dev: false
 
-  /@clerk/backend@0.37.1(react@18.2.0):
-    resolution: {integrity: sha512-+KNdl2QtAHGRe5DQSGNJ8FCPFWhG8+HnVw5gHtojCxvTgxvOVUaxDqzytYl2qDd2zjzBDiNqwTd7J+5sEXRdkg==}
+  /@clerk/backend@0.37.2(react@18.2.0):
+    resolution: {integrity: sha512-Ymnf8LfcZTP/P15uMrY7myUtoOKgKiUR1G2c8429cIPdMTDC/fX+P+HUF1TlcKjwERuT+pGySufSjmPrDwqeMw==}
     engines: {node: '>=14'}
     dependencies:
       '@clerk/shared': 1.3.1(react@18.2.0)
@@ -702,11 +702,11 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /@clerk/clerk-sdk-node@4.13.5(react@18.2.0):
-    resolution: {integrity: sha512-Qwf8Q8MXbLM25/kQQqK5TC06DrFsSHFGed61tRr2sLIC/7DedC4+VC7XE+qLIQvFNvjJp8USl3EUZXLn1cAjiA==}
+  /@clerk/clerk-sdk-node@4.13.6(react@18.2.0):
+    resolution: {integrity: sha512-p/bGFvageJ6gTxuyG/VMdl0UiT0HzfT7ymrrcpZjN/lDheCoL5lin5JBBgdV4189tw9xb6wAl2XjsiOvYqo64w==}
     engines: {node: '>=14'}
     dependencies:
-      '@clerk/backend': 0.37.1(react@18.2.0)
+      '@clerk/backend': 0.37.2(react@18.2.0)
       '@clerk/shared': 1.3.1(react@18.2.0)
       '@clerk/types': 3.60.0
       '@types/cookies': 0.7.7
@@ -719,17 +719,17 @@ packages:
       - react
     dev: false
 
-  /@clerk/nextjs@4.29.2(next@14.0.4)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-iFDTpB2EuWsbRHOgkq8HAc7jHNbYbC/KfNRdLhqboR0RlJHx0+ryoBPTrBnZr5O3WKns2RjbWgQuMH6lh4IpXA==}
+  /@clerk/nextjs@4.29.3(next@14.0.4)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-qPBHjOAEAwKPnBx7eat6oB5SUlqWWTALeize+pY4TRYURliUk/iZtNFFr/smF87bYCNwslZ+vDRQznEQsSpSkA==}
     engines: {node: '>=14'}
     peerDependencies:
       next: '>=10'
       react: ^17.0.2 || ^18.0.0-0
       react-dom: ^17.0.2 || ^18.0.0-0
     dependencies:
-      '@clerk/backend': 0.37.1(react@18.2.0)
+      '@clerk/backend': 0.37.2(react@18.2.0)
       '@clerk/clerk-react': 4.30.3(react@18.2.0)
-      '@clerk/clerk-sdk-node': 4.13.5(react@18.2.0)
+      '@clerk/clerk-sdk-node': 4.13.6(react@18.2.0)
       '@clerk/shared': 1.3.1(react@18.2.0)
       '@clerk/types': 3.60.0
       next: 14.0.4(@babel/core@7.23.5)(react-dom@18.2.0)(react@18.2.0)
