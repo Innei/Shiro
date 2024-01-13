@@ -50,7 +50,6 @@ export const ContainerRule: MarkdownToJSX.Rule = {
   react(node, _, state) {
     const { type, params, content } = node.node
 
-    console.log('container', type, params, content)
     switch (type) {
       case 'carousel':
       case 'gallery': {
@@ -102,7 +101,7 @@ export const ContainerRule: MarkdownToJSX.Rule = {
       }
 
       case 'grid': {
-        // cols=2,gap=4,rows=2
+        // cols=2,gap=4,rows=2,type=images
 
         const { cols, gap = 8, rows, type = 'normal' } = parseParams(params)
 
