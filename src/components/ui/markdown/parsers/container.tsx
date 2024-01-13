@@ -2,9 +2,12 @@ import React, { Fragment } from 'react'
 import { Priority } from 'markdown-to-jsx'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 
+import { clsxm } from '~/lib/helper'
+
 import { Banner } from '../../banner/Banner'
 import { Gallery } from '../../gallery/Gallery'
 import { Markdown } from '../Markdown'
+import { GridMarkdownImage, GridMarkdownImages } from '../renderers/image'
 import { pickImagesFromMarkdown } from '../utils/image'
 
 const shouldCatchContainerName = [
@@ -99,27 +102,58 @@ export const ContainerRule: MarkdownToJSX.Rule = {
       }
 
       case 'grid': {
-        // cols=2,gap=4
+        // cols=2,gap=4,rows=2
 
-        const cols = params?.match(/cols=(?<cols>\d+)/)?.groups?.cols || 2
-        const gap = params?.match(/gap=(?<gap>\d+)/)?.groups?.gap || 4
-        return (
-          <div
-            className="grid w-full"
-            style={{
-              gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
-              gap: `${gap}px`,
-            }}
-            key={state?.key}
-          >
-            <Markdown
-              value={content}
-              allowsScript
-              removeWrapper
-              className="w-full [&>p:first-child]:mt-0"
-            />
-          </div>
-        )
+        const { cols, gap = 8, rows, type = 'normal' } = parseParams(params)
+
+        const Grid: Component = ({ children, className }) => {
+          return (
+            <div
+              className={clsxm('relative grid w-full', className)}
+              style={{
+                gridTemplateColumns: cols
+                  ? `repeat(${cols}, minmax(0, 1fr))`
+                  : undefined,
+                gap: `${gap}px`,
+                gridTemplateRows: rows
+                  ? `repeat(${rows}, minmax(0, 1fr))`
+                  : undefined,
+              }}
+            >
+              {children}
+            </div>
+          )
+        }
+        switch (type) {
+          case 'normal': {
+            return (
+              <Grid key={state?.key}>
+                <Markdown
+                  overrides={{
+                    img: GridMarkdownImage,
+                  }}
+                  value={content}
+                  allowsScript
+                  removeWrapper
+                  className="w-full [&>p:first-child]:mt-0"
+                />
+              </Grid>
+            )
+          }
+          case 'images': {
+            const imagesSrc = content.split('\n').filter(Boolean) as string[]
+
+            return (
+              <GridMarkdownImages
+                key={state.key}
+                imagesSrc={imagesSrc}
+                Wrapper={Grid}
+              />
+            )
+          }
+          default:
+            return null
+        }
       }
     }
 
@@ -140,3 +174,21 @@ export const ContainerRule: MarkdownToJSX.Rule = {
  * ![name](url)
  * :::
  */
+
+type ParsedResult = {
+  [key: string]: string
+}
+
+function parseParams(input: string): ParsedResult {
+  const regex = /(\w+)=(\w+)/g
+  let match: RegExpExecArray | null
+  const result: ParsedResult = {}
+
+  while ((match = regex.exec(input)) !== null) {
+    const key = match[1]
+    const value = match[2]
+    result[key] = value
+  }
+
+  return result
+}

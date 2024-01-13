@@ -113,11 +113,9 @@ https://loremflickr.com/640/480/city?3
 ![](https://loremflickr.com/640/480/city?4 'Image')
 :::
 
-
 ### Grid
 
 ```md
-
 ::: grid {cols=3,gap=4}
 
 Grid 1
@@ -127,7 +125,6 @@ Grid 2
 Grid 3
 
 https://loremflickr.com/640/480/city?1
-
 
 https://loremflickr.com/640/480/city?2
 
@@ -152,18 +149,41 @@ Grid 3
 
 https://loremflickr.com/640/480/city?1
 
-
 https://loremflickr.com/640/480/city?2
 
 https://loremflickr.com/640/480/city?3
 
-![](https://loremflickr.com/640/480/city?4 'Image')
+![](https://loremflickr.com/640/480/city?4)
 
-![](https://loremflickr.com/640/480/city?4 'Image')
+![](https://loremflickr.com/640/480/city?6)
 
-![](https://loremflickr.com/640/480/city?4 'Image')
+![](https://loremflickr.com/640/480/city?40)
 
 :::
+
+### Images Grid
+
+```md
+::: grid {cols=2,rows=2,gap=4,type=images}
+https://loremflickr.com/640/480/city?4
+https://loremflickr.com/640/480/city?4
+https://loremflickr.com/640/480/city?4
+https://loremflickr.com/640/480/city?4
+:::
+```
+
+::: grid {cols=3,rows=3,gap=12,type=images}
+https://loremflickr.com/640/480/city?4
+https://loremflickr.com/640/480/city?4
+https://loremflickr.com/640/480/city?4
+https://loremflickr.com/640/480/city?4
+https://loremflickr.com/640/480/city?4
+https://loremflickr.com/640/480/city?4
+https://loremflickr.com/640/480/city?4
+https://loremflickr.com/640/480/city?4
+https://loremflickr.com/640/480/city?4
+:::
+
 
 ## Rich Link
 
@@ -214,7 +234,6 @@ https://github.com/Innei/Shiro/pull/129
 ```
 
 https://github.com/Innei/Shiro/pull/129
-
 
 ```
 https://github.com/Innei/Shiro/commit/6957e011439eb2d3cbf42bfb67ed81b07d4bcc2a
@@ -315,6 +334,7 @@ $ c = \pm\sqrt{a^2 + b^2} $
 ```
 $c = \pm\sqrt{a^2 + b^2}$
 ```
+
 $c = \pm\sqrt{a^2 + b^2}$
 
 $P(x) = a_nx^n+a_{n-1}x^{n-1} + \dots + a_1x + a_0$
@@ -334,6 +354,7 @@ $$
 $$
 
 P\left(U,T\right)=100\left.\left(0.6\min\left(1,\frac{U-0.70}{0.90-0.70}\right)+0.4\min\left(1,\frac{T-4000}{14000-4000}\right)\right)\right.
+
 
 $$
 

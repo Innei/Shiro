@@ -1,14 +1,7 @@
 'use client'
 
-import { isServer } from '@tanstack/react-query'
-import {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
+import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import mediumZoom from 'medium-zoom'
 import Image from 'next/image'
 import { tv } from 'tailwind-variants'
@@ -17,7 +10,7 @@ import type { FC, ReactNode } from 'react'
 
 import { LazyLoad } from '~/components/common/Lazyload'
 import { useIsUnMounted } from '~/hooks/common/use-is-unmounted'
-import { isDev } from '~/lib/env'
+import { isDev, isServerSide } from '~/lib/env'
 import { clsxm } from '~/lib/helper'
 import { calculateDimensions } from '~/lib/image'
 import { useMarkdownImageRecord } from '~/providers/article/MarkdownImageRecordProvider'
@@ -69,14 +62,13 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
   height,
   width,
 }) => {
-  // @ts-ignore
   const [zoomer_] = useState(() => {
-    if (isServer) return null
+    if (isServerSide) return null!
     if (zoomer) return zoomer
     const zoom = mediumZoom(undefined)
     zoomer = zoom
     return zoom
-  }) as [Zoom]
+  })
 
   const figcaption = title || alt
   const [imageLoadStatus, setImageLoadStatus] = useState(
@@ -92,7 +84,7 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
     [isUnmount],
   )
   const imageRef = useRef<HTMLImageElement>(null)
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (imageLoadStatus !== ImageLoadStatus.Loaded) {
       return
     }
