@@ -1,5 +1,5 @@
-import React from 'react'
-import { blockRegex, Priority } from 'markdown-to-jsx'
+import React, { Fragment } from 'react'
+import { Priority } from 'markdown-to-jsx'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 
 import { Banner } from '../../banner/Banner'
@@ -19,26 +19,36 @@ const shouldCatchContainerName = [
   'success',
   'warning',
   'note',
+
+  'grid',
 ].join('|')
 
 export const ContainerRule: MarkdownToJSX.Rule = {
-  match: blockRegex(
-    new RegExp(
-      `^\\s*::: *(?<name>(${shouldCatchContainerName})) *({(?<params>(.*?))})? *\n(?<content>[\\s\\S]+?)\\s*::: *(?:\n *)+\n?`,
-    ),
-  ),
+  match: (source: string) => {
+    const result =
+      /^\s*::: *(?<type>.*?) *(?:{(?<params>.*?)})? *\n(?<content>[\s\S]+?)\s*::: *(?:\n *)+\n?/.exec(
+        source,
+      )
+
+    if (!result) return null
+
+    const type = result.groups!.type
+    if (!type || !type.match(shouldCatchContainerName)) return null
+    return result
+  },
   order: Priority.MED,
   parse(capture) {
     const { groups } = capture
     return {
-      ...groups,
+      node: { ...groups },
     }
   },
-  // @ts-ignore
-  react(node, _, state) {
-    const { name, content, params } = node
 
-    switch (name) {
+  react(node, _, state) {
+    const { type, params, content } = node.node
+
+    console.log('container', type, params, content)
+    switch (type) {
       case 'carousel':
       case 'gallery': {
         return (
@@ -55,15 +65,17 @@ export const ContainerRule: MarkdownToJSX.Rule = {
         const transformMap = {
           warning: 'warn',
           danger: 'error',
+          note: 'info',
         }
         return (
           <Banner
-            type={name || (transformMap as any)[name] || 'info'}
+            type={(transformMap as any)[type] || type}
             className="my-4"
             key={state?.key}
           >
             <Markdown
               value={content}
+              as={Fragment}
               allowsScript
               className="w-full [&>p:first-child]:mt-0"
             />
@@ -83,6 +95,30 @@ export const ContainerRule: MarkdownToJSX.Rule = {
               className="w-full [&>p:first-child]:mt-0"
             />
           </Banner>
+        )
+      }
+
+      case 'grid': {
+        // cols=2,gap=4
+
+        const cols = params?.match(/cols=(?<cols>\d+)/)?.groups?.cols || 2
+        const gap = params?.match(/gap=(?<gap>\d+)/)?.groups?.gap || 4
+        return (
+          <div
+            className="grid w-full"
+            style={{
+              gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
+              gap: `${gap}px`,
+            }}
+            key={state?.key}
+          >
+            <Markdown
+              value={content}
+              allowsScript
+              removeWrapper
+              className="w-full [&>p:first-child]:mt-0"
+            />
+          </div>
         )
       }
     }

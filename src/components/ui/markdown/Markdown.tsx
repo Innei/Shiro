@@ -57,6 +57,8 @@ export interface MdProps {
   as?: React.ElementType
 
   allowsScript?: boolean
+
+  removeWrapper?: boolean
 }
 
 export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
@@ -73,6 +75,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
       additionalParserRules,
       as: As = 'div',
       allowsScript = false,
+      removeWrapper = false,
       ...rest
     } = props
 
@@ -276,6 +279,8 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
       additionalParserRules,
       rest,
     ])
+
+    if (removeWrapper) return <Suspense>{node}</Suspense>
 
     return (
       <Suspense>

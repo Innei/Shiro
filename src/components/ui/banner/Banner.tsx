@@ -39,21 +39,22 @@ const iconColorMap = {
 }
 
 export const Banner: FC<{
-  type: 'warning' | 'error' | 'success' | 'info'
+  type: 'warning' | 'error' | 'success' | 'info' | 'warn'
   message?: string | React.ReactNode
   className?: string
   children?: React.ReactNode
   placement?: 'center' | 'left'
   showIcon?: boolean
 }> = (props) => {
-  const Icon = IconMap[props.type] || IconMap.info
+  const nextType = props.type == 'warn' ? 'warning' : props.type
+  const Icon = IconMap[nextType] || IconMap.info
   const { placement = 'center', showIcon = true } = props
   return (
     <div
       className={clsx(
-        'flex flex-col items-center gap-4 rounded-md border p-6 text-neutral-900 md:flex md:flex-row dark:bg-opacity-10 dark:text-[#c4c4c4]',
-        bgColorMap[props.type] || bgColorMap.info,
-        borderColorMap[props.type] || borderColorMap.info,
+        'flex flex-col items-center gap-4 rounded-md border p-6 text-neutral-900 dark:bg-opacity-10 dark:text-[#c4c4c4] md:flex md:flex-row',
+        bgColorMap[nextType] || bgColorMap.info,
+        borderColorMap[nextType] || borderColorMap.info,
         placement == 'center' ? 'justify-center' : 'justify-start',
         props.className,
       )}
@@ -62,7 +63,7 @@ export const Banner: FC<{
         <Icon
           className={clsx(
             `flex-shrink-0 text-3xl md:mr-2 md:self-start md:text-left`,
-            iconColorMap[props.type] || iconColorMap.info,
+            iconColorMap[nextType] || iconColorMap.info,
           )}
         />
       )}

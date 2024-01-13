@@ -74,6 +74,18 @@ $ c = \pm\sqrt{a^2 + b^2} $
 
 ## Container
 
+### banner
+
+```
+::: warning
+_here be dragons_
+:::
+
+::: banner {error}
+_here be dragons_
+:::
+```
+
 ::: warning
 _here be dragons_
 :::
@@ -82,11 +94,75 @@ _here be dragons_
 _here be dragons_
 :::
 
+### Gallery
+
+```
 ::: gallery
 https://loremflickr.com/640/480/city?1
 https://loremflickr.com/640/480/city?2
 https://loremflickr.com/640/480/city?3
 ![](https://loremflickr.com/640/480/city?4 'Image')
+:::
+
+```
+
+::: gallery
+https://loremflickr.com/640/480/city?1
+https://loremflickr.com/640/480/city?2
+https://loremflickr.com/640/480/city?3
+![](https://loremflickr.com/640/480/city?4 'Image')
+:::
+
+
+### Grid
+
+```md
+
+::: grid {cols=3,gap=4}
+
+Grid 1
+
+Grid 2
+
+Grid 3
+
+https://loremflickr.com/640/480/city?1
+
+
+https://loremflickr.com/640/480/city?2
+
+https://loremflickr.com/640/480/city?3
+
+![](https://loremflickr.com/640/480/city?4 'Image')
+
+![](https://loremflickr.com/640/480/city?4 'Image')
+
+![](https://loremflickr.com/640/480/city?4 'Image')
+
+:::
+```
+
+::: grid {cols=3,gap=4}
+
+Grid 1
+
+Grid 2
+
+Grid 3
+
+https://loremflickr.com/640/480/city?1
+
+
+https://loremflickr.com/640/480/city?2
+
+https://loremflickr.com/640/480/city?3
+
+![](https://loremflickr.com/640/480/city?4 'Image')
+
+![](https://loremflickr.com/640/480/city?4 'Image')
+
+![](https://loremflickr.com/640/480/city?4 'Image')
+
 :::
 
 ## Rich Link
