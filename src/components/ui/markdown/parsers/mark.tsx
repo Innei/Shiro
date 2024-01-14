@@ -13,11 +13,8 @@ export const MarkRule: MarkdownToJSX.Rule = {
   parse: parseCaptureInline,
   react(node, output, state?) {
     return (
-      <mark
-        key={state?.key}
-        className="rounded-md bg-yellow-400 bg-opacity-80 px-1 text-black"
-      >
-        <span>{output(node.content, state!)}</span>
+      <mark key={state?.key} className="rounded-md">
+        <span className="px-1">{output(node.content, state!)}</span>
       </mark>
     )
   },

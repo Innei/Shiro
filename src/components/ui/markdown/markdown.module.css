@@ -12,7 +12,7 @@
       text-decoration: none;
       border-radius: 3px;
 
-      @apply bg-current text-stone-700 print:!bg-transparent print:line-through dark:text-neutral-500;
+      @apply bg-current text-stone-700 dark:text-neutral-500 print:!bg-transparent print:line-through;
 
       &:hover {
         background: transparent;
