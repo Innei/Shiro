@@ -13,7 +13,6 @@ import type {
 
 import { simpleCamelcaseKeys } from '@mx-space/api-client'
 
-import { previewDataAtom } from '~/atoms/preview'
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { Paper } from '~/components/layout/container/Paper'
 import { NoteMetaBar, NoteRootBanner } from '~/components/modules/note'
@@ -67,7 +66,7 @@ const safeParse = (value: string) => {
     return null
   }
 }
-
+const previewDataAtom = atom<PostModel | NoteModel | null>(null)
 export default function PreviewPage() {
   useIsomorphicLayoutEffect(() => {
     const search = location.search
@@ -97,6 +96,7 @@ export default function PreviewPage() {
 
     if (exist) {
       const parsedData = safeParse(exist)
+
       if (!parsedData) return
       jotaiStore.set(previewDataAtom, simpleCamelcaseKeys(parsedData))
     }

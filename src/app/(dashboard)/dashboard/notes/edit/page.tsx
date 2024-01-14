@@ -61,6 +61,7 @@ const createInitialEditingData = (): NoteDto => {
     allowComment: true,
 
     id: '',
+    nid: 0,
     location: null,
     coordinates: null,
     images: [],
