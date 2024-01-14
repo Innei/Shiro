@@ -39,3 +39,26 @@ export function getDominantColor(imageObject: HTMLImageElement) {
     .toString(16)
     .slice(1)}`
 }
+
+export const addImageUrlCropSizeQuery = (url: string, size: number) => {
+  const parsedUrl = new URL(url)
+
+  // Tencent Cloud 数据万象
+  // ?imageMogr2/thumbnail/300x/crop/300x300/gravity/center
+  parsedUrl.searchParams.set(
+    `imageMogr2/thumbnail/${size}x/crop/${size}x${size}/gravity/center`,
+    '',
+  )
+
+  return parsedUrl.toString()
+}
+
+export const addImageUrlResizeQuery = (url: string, size: number) => {
+  const parsedUrl = new URL(url)
+
+  // Tencent Cloud 数据万象
+  // ?imageMogr2/thumbnail/300x
+  parsedUrl.searchParams.set(`imageMogr2/thumbnail/${size}x`, '')
+
+  return parsedUrl.toString()
+}

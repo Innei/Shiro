@@ -82,9 +82,12 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
     const ref = useRef<HTMLDivElement>(null)
 
     const node = useMemo(() => {
-      if (!value && typeof props.children != 'string') return null
+      const mdContent = value || props.children
 
-      const mdElement = compiler(`${value || props.children}`, {
+      if (!mdContent) return null
+      if (typeof mdContent != 'string') return null
+
+      const mdElement = compiler(mdContent, {
         wrapper: null,
         // @ts-ignore
         overrides: {

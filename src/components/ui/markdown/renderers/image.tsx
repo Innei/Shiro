@@ -1,12 +1,11 @@
 'use client'
 
-import React, { memo, useRef, useState } from 'react'
-import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
+import React, { memo, useRef } from 'react'
+import clsx from 'clsx'
 import mediumZoom from 'medium-zoom'
-import type { Zoom } from 'medium-zoom'
 import type { FC } from 'react'
 
-import { isServerSide } from '~/lib/env'
+import { addImageUrlResizeQuery } from '~/lib/image'
 import { isVideoExt } from '~/lib/mine-type'
 import { useMarkdownImageRecord } from '~/providers/article/MarkdownImageRecordProvider'
 import {
@@ -69,43 +68,34 @@ export const GridMarkdownImages: FC<{
   )
 }
 
-let zoomer: Zoom
 const GridZoomImage: FC<{ src: string }> = memo(({ src }) => {
-  const { accent } = useMarkdownImageRecord(src) || {}
-
-  const [zoomer_] = useState(() => {
-    if (isServerSide) return null
-    if (zoomer) return zoomer
-    const zoom = mediumZoom(undefined)
-    zoomer = zoom
-    return zoom
-  })
-
+  const { accent, height, width } = useMarkdownImageRecord(src) || {}
+  const cropUrl = addImageUrlResizeQuery(src, 300)
   const imageEl = useRef<HTMLImageElement>(null)
-
-  useIsomorphicLayoutEffect(() => {
-    if (!zoomer_) return
-    const $image = imageEl.current
-    if (!$image) return
-
-    zoomer_.attach($image)
-    return () => {
-      zoomer_.detach($image)
-    }
-  }, [])
+  const wGreaterThanH = width && height ? width > height : true
 
   return (
     <div
-      className="relative h-full w-full rounded-md bg-cover bg-center"
+      className="relative flex h-full w-full overflow-hidden rounded-md bg-cover bg-center center"
       style={{
-        backgroundImage: `url(${src})`,
         backgroundColor: accent,
       }}
     >
       <img
-        src={src}
+        alt=""
+        height={height}
+        width={width}
+        src={cropUrl}
         ref={imageEl}
-        className="absolute inset-0 z-[1] !mx-0 !my-0 h-full w-full cursor-zoom-in opacity-0"
+        className={clsx(
+          '!mx-0 !my-0 max-w-max object-cover',
+          wGreaterThanH ? 'h-full' : 'w-full',
+        )}
+        data-zoom-src={src}
+        onClick={() => {
+          if (!imageEl.current) return
+          mediumZoom(imageEl.current).open()
+        }}
       />
     </div>
   )

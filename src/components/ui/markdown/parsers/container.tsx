@@ -140,7 +140,7 @@ export const ContainerRule: MarkdownToJSX.Rule = {
             )
           }
           case 'images': {
-            const imagesSrc = content.split('\n').filter(Boolean) as string[]
+            const imagesSrc = pickImagesFromMarkdown(content).map((r) => r.url)
 
             return (
               <GridMarkdownImages

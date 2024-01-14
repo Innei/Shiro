@@ -165,23 +165,23 @@ https://loremflickr.com/640/480/city?3
 
 ```md
 ::: grid {cols=2,rows=2,gap=4,type=images}
-https://loremflickr.com/640/480/city?4
-https://loremflickr.com/640/480/city?4
-https://loremflickr.com/640/480/city?4
-https://loremflickr.com/640/480/city?4
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
 :::
 ```
 
 ::: grid {cols=3,rows=3,gap=12,type=images}
-https://loremflickr.com/640/480/city?4
-https://loremflickr.com/640/480/city?4
-https://loremflickr.com/640/480/city?4
-https://loremflickr.com/640/480/city?4
-https://loremflickr.com/640/480/city?4
-https://loremflickr.com/640/480/city?4
-https://loremflickr.com/640/480/city?4
-https://loremflickr.com/640/480/city?4
-https://loremflickr.com/640/480/city?4
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
 :::
 
 

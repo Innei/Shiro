@@ -5,11 +5,8 @@
   @apply !bg-slate-50 dark:!bg-neutral-900;
 }
 
-.medium-zoom-overlay + .medium-zoom-image {
-  z-index: 100;
-  opacity: 1;
-  transition: all 0.5s ease-in-out;
-}
+/* .medium-zoom-overlay + .medium-zoom-image {
+} */
 
 .medium-zoom-image {
   border-radius: 0.5rem;
@@ -17,4 +14,8 @@
 }
 .medium-zoom-image.medium-zoom-image--opened {
   border-radius: 0;
+
+  z-index: 100;
+  opacity: 1;
+  transition: all 0.5s ease-in-out;
 }
