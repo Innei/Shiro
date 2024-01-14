@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Priority } from 'markdown-to-jsx'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 
@@ -77,7 +77,6 @@ export const ContainerRule: MarkdownToJSX.Rule = {
           >
             <Markdown
               value={content}
-              as={Fragment}
               allowsScript
               className="w-full [&>p:first-child]:mt-0"
             />
