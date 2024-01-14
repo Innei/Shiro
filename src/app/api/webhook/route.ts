@@ -1,4 +1,3 @@
-import { revalidateTag } from 'next/cache'
 import type { RequestWithJSONBody } from '@mx-space/webhook'
 import type { NextRequest } from 'next/server'
 
@@ -38,7 +37,6 @@ export const POST = async (nextreq: NextRequest) => {
       case BusinessEvents.NOTE_CREATE:
       case BusinessEvents.NOTE_DELETE:
       case BusinessEvents.NOTE_UPDATE: {
-        revalidateTag('note')
         return res.status(200).send('OK')
       }
     }

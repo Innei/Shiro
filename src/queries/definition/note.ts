@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
 import dayjs from 'dayjs'
-import { revalidateTag } from 'next/cache'
 import type { NoteModel, NoteWrappedPayload } from '@mx-space/api-client'
 import type { NoteDto } from '~/models/writing'
 
@@ -95,7 +94,6 @@ export const useCreateNote = () => {
       })
     },
     onSuccess: () => {
-      revalidateTag('note')
       toast.success('创建成功')
       resetAutoSaver('note')
     },
