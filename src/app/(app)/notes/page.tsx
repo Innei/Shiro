@@ -1,24 +1,33 @@
-import type { NoteWrappedPayload } from '@mx-space/api-client'
+'use client'
 
-import { NotFound404 } from '~/components/common/404'
+import { useQuery } from '@tanstack/react-query'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+
+import { FullPageLoading } from '~/components/ui/loading'
 import { apiClient } from '~/lib/request'
 
-import Redirect from './redirect'
-
-export default async function Page() {
-  const data = await fetch(apiClient.note.proxy.latest.toString(true), {
-    next: {
-      revalidate: 60 * 60,
-      tags: ['note'],
+export default function Page() {
+  const {
+    data: nid,
+    isError,
+    isLoading,
+  } = useQuery({
+    queryFn: async () => {
+      return apiClient.note.getLatest()
+    },
+    queryKey: ['note-latest'],
+    select(data) {
+      return data.data.nid
     },
   })
-    .then((res) => res.json() as Promise<NoteWrappedPayload>)
-    .catch(() => {
-      return null
-    })
 
-  if (!data || !data.data) {
-    return <NotFound404 />
-  }
-  return <Redirect nid={data.data?.nid} />
+  const router = useRouter()
+  useEffect(() => {
+    if (!nid) return
+
+    router.replace(`/notes/${nid}`)
+  }, [nid, router])
+
+  return <FullPageLoading />
 }
