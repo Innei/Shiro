@@ -72,17 +72,17 @@ dependencies:
     specifier: 1.0.4
     version: 1.0.4(@types/react-dom@18.2.18)(@types/react@18.2.47)(react-dom@18.2.0)(react@18.2.0)
   '@tanstack/query-async-storage-persister':
-    specifier: 5.17.9
-    version: 5.17.9
+    specifier: 5.17.11
+    version: 5.17.11
   '@tanstack/react-query':
-    specifier: 5.17.9
-    version: 5.17.9(react@18.2.0)
+    specifier: 5.17.10
+    version: 5.17.10(react@18.2.0)
   '@tanstack/react-query-devtools':
-    specifier: 5.17.9
-    version: 5.17.9(@tanstack/react-query@5.17.9)(react@18.2.0)
+    specifier: 5.17.10
+    version: 5.17.10(@tanstack/react-query@5.17.10)(react@18.2.0)
   '@tanstack/react-query-persist-client':
-    specifier: 5.17.9
-    version: 5.17.9(@tanstack/react-query@5.17.9)(react@18.2.0)
+    specifier: 5.17.11
+    version: 5.17.11(@tanstack/react-query@5.17.10)(react@18.2.0)
   '@vercel/analytics':
     specifier: 1.1.1
     version: 1.1.1
@@ -114,13 +114,13 @@ dependencies:
     specifier: 5.5.2
     version: 5.5.2
   emoji-picker-react:
-    specifier: 4.6.8
-    version: 4.6.8(react@18.2.0)
+    specifier: 4.6.10
+    version: 4.6.10(react@18.2.0)
   foxact:
     specifier: 0.2.30
     version: 0.2.30(react@18.2.0)(rollup@3.29.4)
   framer-motion:
-    specifier: ^10.17.12
+    specifier: ^10.18.0
     version: 10.18.0(react-dom@18.2.0)(react@18.2.0)
   fuse.js:
     specifier: 7.0.0
@@ -168,8 +168,8 @@ dependencies:
     specifier: 0.2.1
     version: 0.2.1(next@14.0.4)(react-dom@18.2.0)(react@18.2.0)
   openai:
-    specifier: 4.24.4
-    version: 4.24.4
+    specifier: 4.24.7
+    version: 4.24.7
   qrcode.react:
     specifier: 3.1.0
     version: 3.1.0(react@18.2.0)
@@ -204,8 +204,8 @@ dependencies:
     specifier: ^0.0.1
     version: 0.0.1
   socket.io-client:
-    specifier: 4.7.3
-    version: 4.7.3
+    specifier: 4.7.4
+    version: 4.7.4
   tailwind-merge:
     specifier: 2.2.0
     version: 2.2.0
@@ -227,8 +227,8 @@ dependencies:
 
 devDependencies:
   '@iconify-json/material-symbols':
-    specifier: 1.1.69
-    version: 1.1.69
+    specifier: 1.1.70
+    version: 1.1.70
   '@iconify-json/mingcute':
     specifier: 1.1.15
     version: 1.1.15
@@ -1464,8 +1464,8 @@ packages:
       - supports-color
     dev: true
 
-  /@iconify-json/material-symbols@1.1.69:
-    resolution: {integrity: sha512-Aj0HSDU2UhJrLncKYGmWSzXdzzDx8ZDIKumduydHEtXURwglOXToe6DTsjvMmF4uSre8Yc9IWYLjlkYva+PZ4Q==}
+  /@iconify-json/material-symbols@1.1.70:
+    resolution: {integrity: sha512-7s71RCnGHyLbkwMjclraVKN32iAWNAitcm+aucpsrkh+aJBF8n8iy+i92jdLjuwoCMD5BQBCOAkBe9Nsysp6vg==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
@@ -2767,54 +2767,54 @@ packages:
       tailwindcss: 3.4.1
     dev: true
 
-  /@tanstack/query-async-storage-persister@5.17.9:
-    resolution: {integrity: sha512-fNk7J6HBBItTmWyzmVbJCqv4Un1dn3qwCdX70Oxn4FvDZzvvZuwPlyM3rORZlVRAEShY+a6DxZFVRSxQuLkqYA==}
+  /@tanstack/query-async-storage-persister@5.17.11:
+    resolution: {integrity: sha512-4nj7m6cWJ+aVE0SchnOiFOV4lwV6PFx9nO+8ADiVSwHWhgxT9ijq3R3403CqeVZ5b/a+7OFH/IKPw32nuyKZgA==}
     dependencies:
-      '@tanstack/query-persist-client-core': 5.17.9
+      '@tanstack/query-persist-client-core': 5.17.11
     dev: false
 
-  /@tanstack/query-core@5.17.9:
-    resolution: {integrity: sha512-8xcvpWIPaRMDNLMvG9ugcUJMgFK316ZsqkPPbsI+TMZsb10N9jk0B6XgPk4/kgWC2ziHyWR7n7wUhxmD0pChQw==}
+  /@tanstack/query-core@5.17.10:
+    resolution: {integrity: sha512-bJ2oQUDBftvHcEkLS3gyzzShSeZpJyzNNRu8oHK13iNdsofyaDXtNO/c1Zy/PZYVX+PhqOXwoT42gMiEMRSSfQ==}
     dev: false
 
   /@tanstack/query-devtools@5.17.7:
     resolution: {integrity: sha512-TfgvOqza5K7Sk6slxqkRIvXlEJoUoPSsGGwpuYSrpqgSwLSSvPPpZhq7hv7hcY5IvRoTNGoq6+MT01C/jILqoQ==}
     dev: false
 
-  /@tanstack/query-persist-client-core@5.17.9:
-    resolution: {integrity: sha512-L/d39zXuXtT6SC+NBF2NcbvL3ZwGnu4FC5UgLDrpiY9ETSMkeTx/zZA7yquaZFdtPnUFk1ZZKfwZw44dZTcS+g==}
+  /@tanstack/query-persist-client-core@5.17.11:
+    resolution: {integrity: sha512-wem1WbkbMc6hMocCrly20puKqdmI+HZ9gXKqKeVAkcryarxvoSf1sXkwUTqmtoY09tASiCYlTj0E/vKCHuaz/w==}
     dependencies:
-      '@tanstack/query-core': 5.17.9
+      '@tanstack/query-core': 5.17.10
     dev: false
 
-  /@tanstack/react-query-devtools@5.17.9(@tanstack/react-query@5.17.9)(react@18.2.0):
-    resolution: {integrity: sha512-1viWP/jlO0LaeCdtTFqtF1k2RfM3KVpvwVffWv+PMNkS2u4s8YGUM17r3p82udbF9BY1mE7aHqQ3MM1errF5lQ==}
+  /@tanstack/react-query-devtools@5.17.10(@tanstack/react-query@5.17.10)(react@18.2.0):
+    resolution: {integrity: sha512-bdH1eOTvXZj3nvdSTYMyAKSoKnoYtyV+YTuP6japifbtWlqEZvHWJ8KbazAt7rLVfyn/5OhtiHPelTU8DYWgrA==}
     peerDependencies:
-      '@tanstack/react-query': ^5.17.9
+      '@tanstack/react-query': ^5.17.10
       react: ^18.0.0
     dependencies:
       '@tanstack/query-devtools': 5.17.7
-      '@tanstack/react-query': 5.17.9(react@18.2.0)
+      '@tanstack/react-query': 5.17.10(react@18.2.0)
       react: 18.2.0
     dev: false
 
-  /@tanstack/react-query-persist-client@5.17.9(@tanstack/react-query@5.17.9)(react@18.2.0):
-    resolution: {integrity: sha512-0Mez7inVJ55V9U6t1ZN9MJ9ZU/slrLeuvoYdnglzjjAGFlk4duSXAf5kRdcWQU3/KeJJ+Qarhnr0AKyD1hnbyQ==}
+  /@tanstack/react-query-persist-client@5.17.11(@tanstack/react-query@5.17.10)(react@18.2.0):
+    resolution: {integrity: sha512-4ggHEsZL20UfELzGPuTzt7xCMGGEVwbOUJQCaMkNwN5BOkkGy8q4CESkyG30rqvC44tOP09w91RPH8cialHmMw==}
     peerDependencies:
-      '@tanstack/react-query': ^5.17.9
+      '@tanstack/react-query': ^5.17.10
       react: ^18.0.0
     dependencies:
-      '@tanstack/query-persist-client-core': 5.17.9
-      '@tanstack/react-query': 5.17.9(react@18.2.0)
+      '@tanstack/query-persist-client-core': 5.17.11
+      '@tanstack/react-query': 5.17.10(react@18.2.0)
       react: 18.2.0
     dev: false
 
-  /@tanstack/react-query@5.17.9(react@18.2.0):
-    resolution: {integrity: sha512-M5E9gwUq1Stby/pdlYjBlL24euIVuGbWKIFCbtnQxSdXI4PgzjTSdXdV3QE6fc+itF+TUvX/JPTKIwq8yuBXcg==}
+  /@tanstack/react-query@5.17.10(react@18.2.0):
+    resolution: {integrity: sha512-TNmJN7LkSLzmv01Jen3JbcvhXZyRhc/ETJNjssmmlyMB8IoNvicfgvDRX2gX3q1FTONq+mfsmWintwI+ejmEUw==}
     peerDependencies:
       react: ^18.0.0
     dependencies:
-      '@tanstack/query-core': 5.17.9
+      '@tanstack/query-core': 5.17.10
       react: 18.2.0
     dev: false
 
@@ -4444,13 +4444,13 @@ packages:
     resolution: {integrity: sha512-Sqc/nso4cjxhOwWJsp9xkVm8OF5c+mJLZJFoFfzRuKO+yWiN7K8c96xmtughYb0d/fZ8UC6cLIQ/p4BR6Pv3/A==}
     dev: false
 
-  /emoji-picker-react@4.6.8(react@18.2.0):
-    resolution: {integrity: sha512-B4ZDLmZIywEVufXht/xQhgGqaMuBcQJMKQuYNvwaDU9QCIBEhNmLw9a0KwlSHcdULMVm6Z11kzB3J+dc0PuR4Q==}
+  /emoji-picker-react@4.6.10(react@18.2.0):
+    resolution: {integrity: sha512-4S3Hyq1lw8ooYGT1LYrdThCB/UN/kIEAurKLsAWEE50EHaMyIGfEk83k/mPEDTwI/Dhw3/ZiFQUCSCbW7dxoNg==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=16'
     dependencies:
-      flairup: 0.0.25
+      flairup: 0.0.31
       react: 18.2.0
     dev: false
 
@@ -4985,8 +4985,8 @@ packages:
       path-exists: 4.0.0
     dev: true
 
-  /flairup@0.0.25:
-    resolution: {integrity: sha512-d7d9g3PlFYkw4E4VfhqMoN2D81JVGaYraJlYnF+UpII3kigrTYSXwAmnZ8LTGxzFsr5TKuDnkIQM9XvqidrlAA==}
+  /flairup@0.0.31:
+    resolution: {integrity: sha512-Kuwql97uWKFQuEnO+gyPK/apLhFUP7HFcm+Sg+v55XDS7816tIrbWcavfilw+QlyuU1ey7QzyLmxcBCealMbrw==}
     dev: false
 
   /flat-cache@3.2.0:
@@ -6865,8 +6865,8 @@ packages:
       mimic-fn: 4.0.0
     dev: true
 
-  /openai@4.24.4:
-    resolution: {integrity: sha512-y58aEgq4HFCkfwiVCAvdxTkjGqHUWYFx4vJP6FWmH5udJn5SooZNXn+0N6uAe0ShmUT6846aZy3boJ0iN/KWvw==}
+  /openai@4.24.7:
+    resolution: {integrity: sha512-JUesECWPtsDHO0TlZGb6q73hnAmXUdzj9NrwgZeL4lqlRt/kR1sWrXoy8LocxN/6uOtitywvcJqe0O1PLkG45g==}
     hasBin: true
     dependencies:
       '@types/node': 18.18.14
@@ -8250,8 +8250,8 @@ packages:
       type-fest: 2.19.0
     dev: false
 
-  /socket.io-client@4.7.3:
-    resolution: {integrity: sha512-nU+ywttCyBitXIl9Xe0RSEfek4LneYkJxCeNnKCuhwoH4jGXO1ipIUw/VA/+Vvv2G1MTym11fzFC0SxkrcfXDw==}
+  /socket.io-client@4.7.4:
+    resolution: {integrity: sha512-wh+OkeF0rAVCrABWQBaEjLfb7DVPotMbu0cgWgyR0v6eA4EoVnAwcIeIbcdTE3GT/H3kbdLl7OoH2+asoDRIIg==}
     engines: {node: '>=10.0.0'}
     dependencies:
       '@socket.io/component-emitter': 3.1.0
