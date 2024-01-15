@@ -46,11 +46,11 @@ export const addImageUrlCropSizeQuery = (url: string, size: number) => {
   // Tencent Cloud 数据万象
   // ?imageMogr2/thumbnail/300x/crop/300x300/gravity/center
   parsedUrl.searchParams.set(
-    `imageMogr2/thumbnail/${size}x/crop/${size}x${size}/gravity/center`,
+    `imageMogr2/thumbnail/${size}x/crop/${size}x${size}/gravity/center/strip`,
     '',
   )
 
-  return parsedUrl.toString()
+  return parsedUrl.toString().replace(/=$/, '')
 }
 
 export const addImageUrlResizeQuery = (url: string, size: number) => {
@@ -58,7 +58,7 @@ export const addImageUrlResizeQuery = (url: string, size: number) => {
 
   // Tencent Cloud 数据万象
   // ?imageMogr2/thumbnail/300x
-  parsedUrl.searchParams.set(`imageMogr2/thumbnail/${size}x`, '')
+  parsedUrl.searchParams.set(`imageMogr2/thumbnail/${size}x/strip`, '')
 
-  return parsedUrl.toString()
+  return parsedUrl.toString().replace(/=$/, '')
 }
