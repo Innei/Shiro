@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
+import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
 import type { ReactNode } from 'react'
 
@@ -31,6 +32,8 @@ interface CardProps {
     primary?: boolean
     showBadage?: boolean
   }[]
+
+  highlight?: boolean
 }
 
 export const DataStat = () => {
@@ -142,6 +145,7 @@ export const DataStat = () => {
         label: '未读评论',
         value: stat.unreadComments,
         icon: <i className="icon-[mingcute--comment-line]" />,
+        highlight: stat.unreadComments > 0,
         actions: [
           {
             primary: true,
@@ -241,7 +245,13 @@ export const DataStat = () => {
       <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {dataStat.map((stat) => {
           return (
-            <div className="relative rounded-md border p-4" key={stat.label}>
+            <div
+              className={clsx(
+                'relative rounded-md border p-4',
+                stat.highlight && 'border-accent bg-accent/20',
+              )}
+              key={stat.label}
+            >
               <div className="font-medium">{stat.label}</div>
 
               <div className="my-2 text-2xl font-medium">

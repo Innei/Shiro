@@ -1,12 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { produce } from 'immer'
 import { useSearchParams } from 'next/navigation'
-import type {
-  CommentModel,
-  CommentState,
-  PaginateResult,
-} from '@mx-space/api-client'
+import type { CommentModel, PaginateResult } from '@mx-space/api-client'
 import type { InfiniteData, MutationOptions } from '@tanstack/react-query'
+
+import { CommentState } from '@mx-space/api-client'
 
 import { apiClient } from '~/lib/request'
 import { toast } from '~/lib/toast'
@@ -36,7 +34,7 @@ export const commentAdmin = {
 const useGetCurrentCommentStateFromQuery = () => {
   const search = useSearchParams()
   const state = search.get('tab') as any as CommentState
-  return state
+  return state || CommentState.Unread
 }
 export const useUpdateCommentStateMutation = (
   options?: MutationOptions<any>,
