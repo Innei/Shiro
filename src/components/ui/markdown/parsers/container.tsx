@@ -143,6 +143,7 @@ export const ContainerRule: MarkdownToJSX.Rule = {
 
             return (
               <GridMarkdownImages
+                height={rows && cols ? +rows / +cols : 1}
                 key={state.key}
                 imagesSrc={imagesSrc}
                 Wrapper={Grid}

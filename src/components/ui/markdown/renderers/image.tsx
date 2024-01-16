@@ -56,9 +56,15 @@ export const GridMarkdownImage = (props: any) => {
 export const GridMarkdownImages: FC<{
   imagesSrc: string[]
   Wrapper: Component
-}> = ({ imagesSrc, Wrapper }) => {
+  height: number
+}> = ({ imagesSrc, Wrapper, height = 1 }) => {
   return (
-    <div className="relative pb-[100%]">
+    <div
+      className="relative"
+      style={{
+        paddingBottom: `${height * 100}%`,
+      }}
+    >
       <Wrapper className="absolute inset-0">
         {imagesSrc.map((src) => {
           return <GridZoomImage key={src} src={src} />

@@ -184,6 +184,28 @@ https://loremflickr.com/640/480/city?3
 ![](https://loremflickr.com/640/480/city?4)
 :::
 
+```
+::: grid {cols=3,rows=2,gap=12,type=images}
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+:::
+
+```
+
+::: grid {cols=3,rows=2,gap=12,type=images}
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+![](https://loremflickr.com/640/480/city?4)
+:::
+
+
 
 ## Rich Link
 
