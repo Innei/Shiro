@@ -113,12 +113,14 @@
     --lightness: 0.3;
     --highlighted: 1;
     --highlight: oklch(var(--a) / var(--lightness));
-    background: transparent;
+    background: theme(colors.accent);
+    color: var(--tw-prose-body);
   }
 
   @supports (animation-timeline: view()) {
     mark {
       --highlighted: 0;
+      background: transparent;
       animation: highlight steps(1) both;
       animation-timeline: view();
       animation-range: entry 100% cover 10%;
