@@ -1,2 +1,2 @@
 export * from './Favicon'
-export * from './RichLink'
+export * from './SocialSourceLink'

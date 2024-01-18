@@ -2,7 +2,7 @@ import React from 'react'
 import { Priority, simpleInlineRegex } from 'markdown-to-jsx'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 
-import { RichLink } from '../../rich-link/RichLink'
+import { SocialSourceLink } from '../../rich-link/SocialSourceLink'
 
 // [Innei]{GH@Innei} {TW@Innei} {TG@Innei}
 export const MentionRule: MarkdownToJSX.Rule = {
@@ -33,7 +33,11 @@ export const MentionRule: MarkdownToJSX.Rule = {
     }
 
     return (
-      <RichLink name={displayName || name} source={prefix} key={state?.key} />
+      <SocialSourceLink
+        name={displayName || name}
+        source={prefix}
+        key={state?.key}
+      />
     )
   },
 }

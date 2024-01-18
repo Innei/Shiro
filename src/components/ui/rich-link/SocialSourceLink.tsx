@@ -7,10 +7,9 @@ const prefixToUrlMap = {
   TW: 'https://twitter.com/',
   TG: 'https://t.me/',
   ZH: 'https://www.zhihu.com/people/',
-  WI: 'https://zh.wikipedia.org/wiki/',
 }
 
-export const RichLink: FC<{
+export const SocialSourceLink: FC<{
   source: string
   name: React.ReactNode
   href?: string

@@ -1,13 +1,13 @@
 import type { DocumentComponent } from 'storybook/typings'
 
 import { Favicon } from './Favicon'
-import { RichLink } from './RichLink'
+import { SocialSourceLink } from './SocialSourceLink'
 
 export const RichLinkDemo: DocumentComponent = () => {
   return (
     <div className="flex flex-col gap-4">
-      <RichLink source="GH" name="Innei" />
-      <RichLink source="TW" name="__oQuery" />
+      <SocialSourceLink source="GH" name="Innei" />
+      <SocialSourceLink source="TW" name="__oQuery" />
     </div>
   )
 }
@@ -23,6 +23,7 @@ export const FaviconsDemo: DocumentComponent = () => {
       <Favicon source="TW" />
       <Favicon source="TG" />
       <Favicon source="BL" />
+      <Favicon source="Npm" />
     </div>
   )
 }
@@ -38,6 +39,7 @@ export const FaviconsDemo2: DocumentComponent = () => {
       <Favicon href="https://x.com" />
       <Favicon href="https://twitter.com" />
       <Favicon href="https://bilibili.com" />
+      <Favicon href="https://www.npmjs.com" />
     </div>
   )
 }

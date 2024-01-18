@@ -103,6 +103,14 @@ export const isTMDBUrl = (url: URL) => {
   return url.hostname.includes('themoviedb.org')
 }
 
+export const isNpmUrl = (url: URL) => {
+  return url.hostname.includes('npmjs.com')
+}
+
+export const isMozillaUrl = (url: URL) => {
+  return url.hostname.includes('mozilla.org')
+}
+
 export const parseSelfArticleUrl = (url: URL) => {
   const [_, type, ...rest] = url.pathname.split('/')
   switch (type) {
