@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/react'
 import { ToastContainer } from 'react-toastify'
 import type { AggregateRoot } from '@mx-space/api-client'
 import type { Viewport } from 'next'
+import type { PropsWithChildren } from 'react'
 
 import { ClerkProvider } from '@clerk/nextjs'
 
@@ -16,6 +17,7 @@ import { attachUAAndRealIp } from '~/lib/attach-ua'
 import { sansFont, serifFont } from '~/lib/fonts'
 import { getQueryClient } from '~/lib/query-client.server'
 import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
+import { AppFeatureProvider } from '~/providers/root/app-feature-provider'
 import { queries } from '~/queries/definition'
 
 import { WebAppProviders } from '../../providers/root'
@@ -120,11 +122,7 @@ export const generateMetadata = async () => {
   }
 }
 
-type Props = {
-  children: React.ReactNode
-}
-
-export default async function RootLayout(props: Props) {
+export default async function RootLayout(props: PropsWithChildren) {
   attachUAAndRealIp()
   const { children } = props
 
@@ -139,48 +137,49 @@ export default async function RootLayout(props: Props) {
   aggregationData = data
 
   return (
-    // <ClerkProvider localization={ClerkZhCN}>
     <ClerkProvider>
-      <html lang="zh-CN" className="noise" suppressHydrationWarning>
-        <head>
-          <SayHi />
-          <HydrationEndDetector />
-          <AccentColorStyleInjector />
-          <link
-            rel="shortcut icon"
-            href={themeConfig.config.site.faviconDark}
-            type="image/x-icon"
-            media="(prefers-color-scheme: dark)"
-          />
-          <link
-            rel="shortcut icon"
-            href={themeConfig.config.site.favicon}
-            type="image/x-icon"
-            media="(prefers-color-scheme: light)"
-          />
-        </head>
-        <body
-          className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
-        >
-          <WebAppProviders>
-            <AggregationProvider
-              aggregationData={data}
-              appConfig={themeConfig.config}
+      <AppFeatureProvider tmdb={!!process.env.TMDB_API_KEY}>
+        <html lang="zh-CN" className="noise" suppressHydrationWarning>
+          <head>
+            <SayHi />
+            <HydrationEndDetector />
+            <AccentColorStyleInjector />
+            <link
+              rel="shortcut icon"
+              href={themeConfig.config.site.faviconDark}
+              type="image/x-icon"
+              media="(prefers-color-scheme: dark)"
             />
+            <link
+              rel="shortcut icon"
+              href={themeConfig.config.site.favicon}
+              type="image/x-icon"
+              media="(prefers-color-scheme: light)"
+            />
+          </head>
+          <body
+            className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
+          >
+            <WebAppProviders>
+              <AggregationProvider
+                aggregationData={data}
+                appConfig={themeConfig.config}
+              />
 
-            <div data-theme>
-              <Root>{children}</Root>
-            </div>
+              <div data-theme>
+                <Root>{children}</Root>
+              </div>
 
-            <TocAutoScroll />
-            <SearchPanelWithHotKey />
-            <Analyze />
-          </WebAppProviders>
-          <ToastContainer stacked />
-          <ScrollTop />
-        </body>
-      </html>
-      <Analytics />
+              <TocAutoScroll />
+              <SearchPanelWithHotKey />
+              <Analyze />
+            </WebAppProviders>
+            <ToastContainer stacked />
+            <ScrollTop />
+          </body>
+        </html>
+        <Analytics />
+      </AppFeatureProvider>
     </ClerkProvider>
   )
 }

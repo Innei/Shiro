@@ -19,6 +19,7 @@ import { fetchGitHubApi } from '~/lib/github'
 import { clsxm } from '~/lib/helper'
 import { getDominantColor } from '~/lib/image'
 import { apiClient } from '~/lib/request'
+import { useFeatureEnabled } from '~/providers/root/app-feature-provider'
 
 import { LinkCardSource } from './enums'
 import styles from './LinkCard.module.css'
@@ -71,6 +72,30 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
       if (success) preventDefault(e)
     },
     [fullUrl],
+  )
+
+  const tmdbEnabled = useFeatureEnabled('tmdb')
+  const validTypeAndFetchFunction = useCallback(
+    (source: LinkCardSource, id: string) => {
+      const fetchDataFunctions = {
+        [LinkCardSource.MixSpace]: fetchMxSpaceData,
+        [LinkCardSource.GHRepo]: fetchGitHubRepoData,
+        [LinkCardSource.GHCommit]: fetchGitHubCommitData,
+        [LinkCardSource.GHPr]: fetchGitHubPRData,
+        [LinkCardSource.Self]: fetchMxSpaceData,
+      } as Record<LinkCardSource, FetchObject>
+      if (tmdbEnabled)
+        fetchDataFunctions[LinkCardSource.TMDB] = fetchTheMovieDBData
+
+      const fetchFunction = fetchDataFunctions[source]
+      if (!fetchFunction) {
+        return { isValid: false, fetchFn: null }
+      }
+
+      const isValid = fetchFunction.isValid(id)
+      return { isValid, fetchFn: isValid ? fetchFunction.fetch : null }
+    },
+    [tmdbEnabled],
   )
 
   const { isValid, fetchFn } = useMemo(
@@ -205,25 +230,6 @@ type FetchFunction = (
 type FetchObject = {
   isValid: (id: string) => boolean
   fetch: FetchFunction
-}
-
-function validTypeAndFetchFunction(source: LinkCardSource, id: string) {
-  const fetchDataFunctions = {
-    [LinkCardSource.MixSpace]: fetchMxSpaceData,
-    [LinkCardSource.GHRepo]: fetchGitHubRepoData,
-    [LinkCardSource.GHCommit]: fetchGitHubCommitData,
-    [LinkCardSource.GHPr]: fetchGitHubPRData,
-    [LinkCardSource.Self]: fetchMxSpaceData,
-    [LinkCardSource.TMDB]: fetchTheMovieDBData,
-  } as Record<LinkCardSource, FetchObject>
-
-  const fetchFunction = fetchDataFunctions[source]
-  if (!fetchFunction) {
-    return { isValid: false, fetchFn: null }
-  }
-
-  const isValid = fetchFunction.isValid(id)
-  return { isValid, fetchFn: isValid ? fetchFunction.fetch : null }
 }
 
 const fetchGitHubRepoData: FetchObject = {

@@ -10,6 +10,7 @@ import xss from 'xss'
 import type { AggregateRoot } from '@mx-space/api-client'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 
+import { CDN_HOST } from '~/app.static.config'
 import { InsertRule } from '~/components/ui/markdown/parsers/ins'
 import { MarkRule } from '~/components/ui/markdown/parsers/mark'
 import { MentionRule } from '~/components/ui/markdown/parsers/mention'
@@ -94,6 +95,15 @@ ${ReactDOM.renderToString(
         Gallery: () => (
           <div style={{ textAlign: 'center' }}>这个内容只能在原文中查看哦~</div>
         ),
+
+        img: ({ src, alt }) => {
+          if (src) {
+            if (new URL(src).hostname === CDN_HOST) {
+              return <span>此图片不支持在 RSS Render 中查看。</span>
+            }
+          }
+          return <img src={src} alt={alt} />
+        },
       },
       additionalParserRules: {
         spoilder: SpoilerRule,

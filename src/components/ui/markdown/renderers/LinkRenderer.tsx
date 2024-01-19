@@ -20,6 +20,7 @@ import {
   parseGithubPrUrl,
   parseGithubTypedUrl,
 } from '~/lib/link-parser'
+import { useFeatureEnabled } from '~/providers/root/app-feature-provider'
 
 import { EmbedGithubFile } from '../../../modules/shared/EmbedGithubFile'
 import { LinkCard, LinkCardSource } from '../../link-card'
@@ -52,6 +53,8 @@ export const BlockLinkRenderer = ({
     ),
     [children, href],
   )
+
+  const tmdbEnabled = useFeatureEnabled('tmdb')
 
   if (!url) {
     return fallbackElement
@@ -113,18 +116,17 @@ export const BlockLinkRenderer = ({
       )
     }
     case isTMDBUrl(url): {
-      return (
-        <LinkCard
-          fallbackUrl={url.toString()}
-          source={LinkCardSource.TMDB}
-          id={url.pathname.slice(1)}
-        />
-      )
+      if (tmdbEnabled)
+        return (
+          <LinkCard
+            fallbackUrl={url.toString()}
+            source={LinkCardSource.TMDB}
+            id={url.pathname.slice(1)}
+          />
+        )
     }
-
-    default:
-      return fallbackElement
   }
+  return fallbackElement
 }
 
 const FixedRatioContainer = ({

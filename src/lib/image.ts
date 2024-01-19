@@ -1,3 +1,5 @@
+import { TENCENT_CDN_DOMAIN } from '~/app.static.config'
+
 export const calculateDimensions = ({
   width,
   height,
@@ -40,7 +42,6 @@ export function getDominantColor(imageObject: HTMLImageElement) {
     .slice(1)}`
 }
 
-const TENCENT_CDN_DOMAIN = 'cdn.innei.ren'
 export const addImageUrlResizeQuery = (url: string, size: number) => {
   const parsedUrl = new URL(url)
 
