@@ -79,7 +79,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
             <FABContainer />
           </ClientOnly>
         </DashboardAppProviders>
-        <ToastContainer />
+        <ToastContainer stacked />
       </body>
     </html>
   )

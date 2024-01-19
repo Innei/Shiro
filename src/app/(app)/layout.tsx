@@ -176,7 +176,7 @@ export default async function RootLayout(props: Props) {
             <SearchPanelWithHotKey />
             <Analyze />
           </WebAppProviders>
-          <ToastContainer />
+          <ToastContainer stacked />
           <ScrollTop />
         </body>
       </html>

@@ -3,12 +3,27 @@ import uniqolor from 'uniqolor'
 import type { AggregateRoot } from '@mx-space/api-client'
 import type { NextRequest } from 'next/server'
 
-import { apiClient } from '~/lib/request'
+import {
+  AggregateController,
+  createClient,
+  NoteController,
+  PageController,
+  PostController,
+} from '@mx-space/api-client'
+import { fetchAdaptor } from '@mx-space/api-client/dist/adaptors/fetch'
 
-// const fontNormal = fetch(
-//   'https://github.com/lxgw/LxgwWenKai/releases/download/v1.300/LXGWWenKai-Regular.ttf',
-// ).then((res) => res.arrayBuffer())
-// export const runtime = 'edge'
+import { API_URL } from '~/constants/env'
+
+const apiClient = createClient(fetchAdaptor)(API_URL, {
+  controllers: [
+    PostController,
+    NoteController,
+    PageController,
+    AggregateController,
+  ],
+})
+
+export const runtime = 'edge'
 
 export const revalidate = 60 * 60 * 24 // 24 hours
 
@@ -95,6 +110,26 @@ export const GET = async (req: NextRequest) => {
       lightness: [95, 96],
     }).color
 
+    let canShownTitle = ''
+    let leftContainerWidth = 1200
+    for (let i = 0; i < title.length; i++) {
+      if (leftContainerWidth < 0) break
+      //  cjk 字符算 67.2 px
+      const char = title[i]
+      // char 不能是 emoji
+      if ((char >= '\u4e00' && char <= '\u9fa5') || char === ' ') {
+        leftContainerWidth -= 67.2
+        canShownTitle += char
+      } else if (char >= '\u0000' && char <= '\u00ff') {
+        // latin 字符算 33.6 px
+        leftContainerWidth -= 33.6
+        canShownTitle += char
+      } else {
+        leftContainerWidth -= 67.2
+        canShownTitle += char
+      }
+    }
+
     return new ImageResponse(
       (
         <div
@@ -106,7 +141,7 @@ export const GET = async (req: NextRequest) => {
             background: `linear-gradient(37deg, ${bgAccent} 27.82%, ${bgAccentLight} 79.68%, ${bgAccentUltraLight} 100%)`,
 
             // fontFamily: 'LXGWWenKai',
-            fontFamily: 'Inter, "Material Icons"',
+            fontFamily: 'Noto Sans, Inter, "Material Icons"',
 
             padding: '5rem',
             alignItems: 'flex-end',
@@ -163,7 +198,7 @@ export const GET = async (req: NextRequest) => {
                 lineClamp: 1,
               }}
             >
-              {title?.slice(0, 20)}
+              {canShownTitle}
             </h1>
             <h2
               style={{

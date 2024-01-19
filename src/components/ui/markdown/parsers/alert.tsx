@@ -55,7 +55,10 @@ export const AlertsRule: MarkdownToJSX.Rule = {
 
     const Icon = typedIconMap[type] || typedIconMap.info
     return (
-      <blockquote className={clsx(borderColorMap[type], 'not-italic')}>
+      <blockquote
+        className={clsx(borderColorMap[type], 'not-italic')}
+        key={state.key}
+      >
         <span
           className={clsx(
             'text-semibold mb-1 inline-flex items-center',
