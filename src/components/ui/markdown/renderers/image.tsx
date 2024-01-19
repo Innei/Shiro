@@ -28,7 +28,7 @@ export const MarkdownImage = (props: any) => {
   if (isVideoExt(ext)) {
     const figcaption = alt?.replace(/^[¡!]/, '')
     return (
-      <div>
+      <div className="flex flex-col items-center">
         <video src={src} controls playsInline autoPlay={false} />
         {figcaption && (
           <p className="mt-1 flex flex-col items-center justify-center text-sm">
