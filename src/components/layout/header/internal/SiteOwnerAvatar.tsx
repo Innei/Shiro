@@ -2,6 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { useCallback } from 'react'
+import Image from 'next/image'
 
 import { clsxm } from '~/lib/helper'
 import {
@@ -46,7 +47,7 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
         className,
       )}
     >
-      <img
+      <Image
         src={avatar}
         alt="Site Owner Avatar"
         width={40}

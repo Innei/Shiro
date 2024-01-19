@@ -102,7 +102,7 @@ docker run --name shiro -d -p 2323:2323 shiro
 
 ## :heart: 鸣谢 & 许可
 
-2023 © Innei，本项目采用 MIT 许可证发布。
+2023 © Innei，本项目采用 AGPL-3.0 许可证发布。
 
 部分代码由 GPT-4 和 [cali.so](https://github.com/CaliCastle/cali.so) 提供。
 
