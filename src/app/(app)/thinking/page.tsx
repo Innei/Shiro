@@ -257,7 +257,7 @@ const List = () => {
                       handleDown(item.id)
                     }}
                   >
-                    <i className="icon-[mingcute--heart-half-line]" />
+                    <i className="icon-[mingcute--heart-crack-line]" />
                     <span className="sr-only">不喜欢</span>
                     <span>{item.down}</span>
                   </button>
@@ -349,7 +349,7 @@ const CommentModal = (props: RecentlyModel) => {
   const { id, allowComment, content } = props
 
   return (
-    <div className="max-w-95vw overflow-y-auto overflow-x-hidden md:w-[500px] lg:w-[600px] xl:w-[700px]">
+    <div className="max-w-[95vw] overflow-y-auto overflow-x-hidden md:w-[500px] lg:w-[600px] xl:w-[700px]">
       <span>{allowComment && '回复：'}</span>
 
       <Markdown className="mt-4" allowsScript>
