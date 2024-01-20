@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import React, { createElement, forwardRef, useCallback, useRef } from 'react'
 import clsx from 'clsx'
 import { m, useInView } from 'framer-motion'
+import Image from 'next/image'
 import Link from 'next/link'
 import type { LinkModel } from '@mx-space/api-client'
 import type { PropsWithChildren } from 'react'
@@ -182,15 +183,20 @@ const Welcome = () => {
           </ul>
         </>
 
-        <img
-          src={avatar}
-          alt="Site Owner Avatar"
-          className={clsxm(
-            'aspect-square rounded-full border border-slate-200 dark:border-neutral-800',
-            'lg:h-[300px] lg:w-[300px]',
-            'h-[200px] w-[200px]',
-          )}
-        />
+        <div
+          className={clsx('lg:h-[300px] lg:w-[300px]', 'h-[200px] w-[200px]')}
+        >
+          <Image
+            height={300}
+            width={300}
+            src={avatar!}
+            alt="Site Owner Avatar"
+            className={clsxm(
+              'aspect-square rounded-full border border-slate-200 dark:border-neutral-800',
+              'w-full',
+            )}
+          />
+        </div>
 
         <m.div
           initial={{ opacity: 0.0001, y: 50 }}

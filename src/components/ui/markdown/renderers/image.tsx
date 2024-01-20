@@ -3,8 +3,10 @@
 import React, { memo, useRef } from 'react'
 import clsx from 'clsx'
 import mediumZoom from 'medium-zoom'
+import Image from 'next/image'
 import type { FC } from 'react'
 
+import { LazyLoad } from '~/components/common/Lazyload'
 import { addImageUrlResizeQuery } from '~/lib/image'
 import { isVideoExt } from '~/lib/mine-type'
 import { useMarkdownImageRecord } from '~/providers/article/MarkdownImageRecordProvider'
@@ -80,6 +82,8 @@ const GridZoomImage: FC<{ src: string }> = memo(({ src }) => {
   const imageEl = useRef<HTMLImageElement>(null)
   const wGreaterThanH = width && height ? width > height : true
 
+  const ImageComponent = height && width ? Image : 'img'
+
   return (
     <div
       className="relative flex h-full w-full overflow-hidden rounded-md bg-cover bg-center center"
@@ -87,22 +91,25 @@ const GridZoomImage: FC<{ src: string }> = memo(({ src }) => {
         backgroundColor: accent,
       }}
     >
-      <img
-        alt=""
-        height={height}
-        width={width}
-        src={cropUrl}
-        ref={imageEl}
-        className={clsx(
-          '!mx-0 !my-0 max-w-max object-cover',
-          wGreaterThanH ? 'h-full' : 'w-full',
-        )}
-        data-zoom-src={src}
-        onClick={() => {
-          if (!imageEl.current) return
-          mediumZoom(imageEl.current).open()
-        }}
-      />
+      <LazyLoad offset={30}>
+        <ImageComponent
+          loading="lazy"
+          alt=""
+          height={height}
+          width={width}
+          src={cropUrl}
+          ref={imageEl}
+          className={clsx(
+            '!mx-0 !my-0 max-w-max object-cover',
+            wGreaterThanH ? 'h-full' : 'w-full',
+          )}
+          data-zoom-src={src}
+          onClick={() => {
+            if (!imageEl.current) return
+            mediumZoom(imageEl.current).open()
+          }}
+        />
+      </LazyLoad>
     </div>
   )
 })
