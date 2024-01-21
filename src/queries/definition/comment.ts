@@ -109,13 +109,24 @@ export const useReplyCommentMutation = () => {
         },
       })
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: commentAdmin.byState(state).queryKey,
-      })
+    onMutate({ id }) {
+      queryClient.setQueryData<InfiniteData<PaginateResult<CommentModel>>>(
+        commentAdmin.byState(state).queryKey,
+        produce((draft) => {
+          draft?.pages.forEach((page) => {
+            page.data = page.data.filter((comment) => comment.id !== id)
+          })
+        }),
+      )
+    },
+    onSuccess: (_) => {
       toast.success('回复成功')
     },
     onError: () => {
+      queryClient.invalidateQueries({
+        queryKey: commentAdmin.byState(state).queryKey,
+      })
+
       toast.error('回复失败')
     },
   })
