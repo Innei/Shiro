@@ -87,8 +87,8 @@ dependencies:
     specifier: 1.1.2
     version: 1.1.2
   '@vercel/postgres':
-    specifier: 0.5.1
-    version: 0.5.1
+    specifier: 0.7.1
+    version: 0.7.1
   axios:
     specifier: 1.6.5
     version: 1.6.5
@@ -114,8 +114,8 @@ dependencies:
     specifier: 5.5.2
     version: 5.5.2
   emoji-picker-react:
-    specifier: 4.6.11
-    version: 4.6.11(react@18.2.0)
+    specifier: 4.7.0
+    version: 4.7.0(react@18.2.0)
   foxact:
     specifier: 0.2.30
     version: 0.2.30(react@18.2.0)(rollup@4.9.5)
@@ -168,8 +168,8 @@ dependencies:
     specifier: 0.2.1
     version: 0.2.1(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)
   openai:
-    specifier: 4.24.7
-    version: 4.24.7
+    specifier: 4.25.0
+    version: 4.25.0
   qrcode.react:
     specifier: 3.1.0
     version: 3.1.0(react@18.2.0)
@@ -281,8 +281,8 @@ devDependencies:
     specifier: 7.0.3
     version: 7.0.3
   dotenv:
-    specifier: 16.3.1
-    version: 16.3.1
+    specifier: 16.4.0
+    version: 16.4.0
   eslint:
     specifier: 8.56.0
     version: 8.56.0
@@ -1796,8 +1796,8 @@ packages:
     resolution: {integrity: sha512-f73DVF38ISm6NzfuAyO9buB4EUHQ3AL8gbEhkBdddQFlCbf4MlVpPLHwo/k7Za87feSQPhEuYow/MOp2BaSmGA==}
     dev: true
 
-  /@neondatabase/serverless@0.6.0:
-    resolution: {integrity: sha512-qXxBRYN0m2v8kVQBfMxbzNGn2xFAhTXFibzQlE++NfJ56Shz3m7+MyBBtXDlEH+3Wfa6lToDXf1MElocY4sJ3w==}
+  /@neondatabase/serverless@0.7.2:
+    resolution: {integrity: sha512-wU3WA2uTyNO7wjPs3Mg0G01jztAxUxzd9/mskMmtPwPTjf7JKWi9AW5/puOGXLxmZ9PVgRFeBVRVYq5nBPhsCg==}
     dependencies:
       '@types/pg': 8.6.6
     dev: false
@@ -3379,11 +3379,11 @@ packages:
       server-only: 0.0.1
     dev: false
 
-  /@vercel/postgres@0.5.1:
-    resolution: {integrity: sha512-JKl8QOBIDnifhkxAhIKtY0A5Tb8oWBf2nzZhm0OH7Ffjsl0hGVnDL2w1/FCfpX8xna3JAWM034NGuhZfTFdmiw==}
+  /@vercel/postgres@0.7.1:
+    resolution: {integrity: sha512-QTOQrzxkB+H37HrQ8n7uxuXQb9Q4/L8sibMuO98dNvkIv79iDmiy/jJ1rAcwn+D/6In3LnXAoH6S+XL6rpi8tQ==}
     engines: {node: '>=14.6'}
     dependencies:
-      '@neondatabase/serverless': 0.6.0
+      '@neondatabase/serverless': 0.7.2
       bufferutil: 4.0.8
       utf-8-validate: 6.0.3
       ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@6.0.3)
@@ -4550,8 +4550,8 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /dotenv@16.3.1:
-    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
+  /dotenv@16.4.0:
+    resolution: {integrity: sha512-WvImr5kpN5NGNn7KaDjJnLTh5rDVLZiDf/YLA8T1ZEZEBZNEDOE+mnkS0PVjPax8ZxBP5zC5SLMB3/9VV5de9g==}
     engines: {node: '>=12'}
     dev: true
 
@@ -4583,13 +4583,13 @@ packages:
     resolution: {integrity: sha512-Sqc/nso4cjxhOwWJsp9xkVm8OF5c+mJLZJFoFfzRuKO+yWiN7K8c96xmtughYb0d/fZ8UC6cLIQ/p4BR6Pv3/A==}
     dev: false
 
-  /emoji-picker-react@4.6.11(react@18.2.0):
-    resolution: {integrity: sha512-MDCaNdRCiNftKVNDNj0jhTmjU8+3/jvG8W9aFUDTOOGf031BsHO5sluF+e6cpJx00OHtFeRG6OQJay7IUPKoMw==}
+  /emoji-picker-react@4.7.0(react@18.2.0):
+    resolution: {integrity: sha512-skjmaO4o4SHrQYVJm2D77mWBG2amudJl/RsKItSpwEQyN8va8xkm+Hij1I6aI9Bqt2KUAy4VMIVUB9mGCpYYGQ==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=16'
     dependencies:
-      flairup: 0.0.31
+      flairup: 0.0.32
       react: 18.2.0
     dev: false
 
@@ -5124,8 +5124,8 @@ packages:
       path-exists: 4.0.0
     dev: true
 
-  /flairup@0.0.31:
-    resolution: {integrity: sha512-Kuwql97uWKFQuEnO+gyPK/apLhFUP7HFcm+Sg+v55XDS7816tIrbWcavfilw+QlyuU1ey7QzyLmxcBCealMbrw==}
+  /flairup@0.0.32:
+    resolution: {integrity: sha512-kqFDVgPXq714gyUtKp/nEkCg4vWpRni8pSWoPMU54pQNGqVEOfT+bBYgCyWFb5MygSh2q0wCWvcX6kyAus9C7g==}
     dev: false
 
   /flat-cache@3.2.0:
@@ -7017,8 +7017,8 @@ packages:
       mimic-fn: 4.0.0
     dev: true
 
-  /openai@4.24.7:
-    resolution: {integrity: sha512-JUesECWPtsDHO0TlZGb6q73hnAmXUdzj9NrwgZeL4lqlRt/kR1sWrXoy8LocxN/6uOtitywvcJqe0O1PLkG45g==}
+  /openai@4.25.0:
+    resolution: {integrity: sha512-qLMFOizjxKuDfQkBrczZPYo6XVL4bdcuz9MR11Q+M91kGcs8dQw+O90nRcC+qWuhaGphQkfXQJMn4cd7Yew3Kg==}
     hasBin: true
     dependencies:
       '@types/node': 18.19.8
