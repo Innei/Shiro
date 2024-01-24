@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import { atom } from 'jotai'
 import type { NoteWrappedPayload } from '@mx-space/api-client'
 import type { FC } from 'react'
@@ -35,21 +35,6 @@ export const NotePreview: FC<NotePreviewProps> = (props) => {
   const { data, isLoading } = useQuery({
     ...queries.note.byNid(props.noteId.toString()),
   })
-
-  useEffect(() => {
-    const currentState = history.state
-    const currentLocation = window.location.href
-    const nextUrl = new URL(currentLocation)
-    nextUrl.pathname = `/notes/${props.noteId}`
-    const nextUrlString = nextUrl.href
-
-    // 虽然但是，这样浏览器的前进后退会有问题
-    // 如果用 NextJS 的 parallel-routes 情况太复杂
-    history.replaceState(null, '', nextUrlString)
-    return () => {
-      history.replaceState(currentState, '', currentLocation)
-    }
-  }, [props.noteId])
 
   const overrideAtom = useMemo(() => atom(null! as NoteWrappedPayload), [])
   if (isLoading) return <Loading className="w-full" useDefaultLoadingText />
