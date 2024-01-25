@@ -8,6 +8,7 @@ import { EllipsisHorizontalTextWithTooltip } from '~/components/ui/typography'
 import { clsxm } from '~/lib/helper'
 import { apiClient } from '~/lib/request'
 
+import { CommentMarkdown } from '../../comment/CommentMarkdown'
 import { CommentAction } from './CommentAction'
 import { CommentDataContext } from './CommentContext'
 import { CommentUrlRender } from './UrlRender'
@@ -57,7 +58,9 @@ export const CommentContentCell: Component<{ comment: CommentModel }> = (
         <RelativeTime date={created} /> 于 {TitleEl}
       </div>
 
-      <p className="break-words">{text}</p>
+      <div className="break-words">
+        <CommentMarkdown>{text}</CommentMarkdown>
+      </div>
 
       {parentComment && typeof parentComment !== 'string' && (
         <div className="relative mt-2 break-words">
@@ -69,7 +72,9 @@ export const CommentContentCell: Component<{ comment: CommentModel }> = (
               />{' '}
               在 <RelativeTime date={parentComment.created} /> 说：
             </div>
-            <p className="mt-2">{parentComment.text}</p>
+            <div className="mt-2">
+              <CommentMarkdown>{parentComment.text}</CommentMarkdown>
+            </div>
           </blockquote>
         </div>
       )}

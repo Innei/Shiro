@@ -59,7 +59,7 @@ const CommentCheckBox: FC<{
 }
 const CommentItem = ({ comment }: { comment: CommentModel }) => {
   return (
-    <div className="grid grid-cols-[40px_300px_auto] gap-8">
+    <div className="mx-auto grid w-[100rem] max-w-full grid-cols-[40px_300px_auto] gap-8">
       <div className="ml-2 mt-[18px]">
         <CommentCheckBox id={comment.id} />
       </div>

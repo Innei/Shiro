@@ -10,9 +10,7 @@ import { createPortal } from 'react-dom'
 import clsx from 'clsx'
 import { m } from 'framer-motion'
 import { atom, useAtomValue } from 'jotai'
-import Markdown from 'markdown-to-jsx'
 import type { CommentModel } from '@mx-space/api-client'
-import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { PropsWithChildren } from 'react'
 
 import { Avatar } from '~/components/ui/avatar'
@@ -25,6 +23,7 @@ import { softSpringPreset } from '~/constants/spring'
 import { jotaiStore } from '~/lib/store'
 
 import styles from './Comment.module.css'
+import { CommentMarkdown } from './CommentMarkdown'
 import { CommentPinButton, OcticonGistSecret } from './CommentPinButton'
 import { CommentReplyButton } from './CommentReplyButton'
 
@@ -150,15 +149,7 @@ export const Comment: Component<{
                   'max-w-[calc(100%-3rem)]',
                 )}
               >
-                <Markdown
-                  options={{
-                    disabledTypes,
-                    disableParsingRawHTML: true,
-                    forceBlock: true,
-                  }}
-                >
-                  {text}
-                </Markdown>
+                <CommentMarkdown>{text}</CommentMarkdown>
                 <CommentReplyButton commentId={comment.id} />
               </div>
             </div>
@@ -200,14 +191,3 @@ export const CommentBoxHolderPortal = (props: PropsWithChildren) => {
 
   return createPortal(props.children, portalElement)
 }
-
-const disabledTypes = [
-  'footnote',
-  'footnoteReference',
-
-  'image',
-
-  'htmlComment',
-  'htmlSelfClosing',
-  'htmlBlock',
-] as MarkdownToJSX.RuleName[]
