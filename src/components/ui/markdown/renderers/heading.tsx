@@ -1,4 +1,4 @@
-import { createElement } from 'react'
+import { createElement, useId } from 'react'
 import type { DOMAttributes } from 'react'
 
 import { springScrollToElement } from '~/lib/scroller'
@@ -13,10 +13,13 @@ interface HeadingProps {
 export const MHeader = (props: HeadingProps) => {
   const { children, id, level } = props
 
+  const rid = useId()
+
+  const nextId = `${rid}${id}`
   return createElement<DOMAttributes<HTMLHeadingElement>, HTMLHeadingElement>(
     `h${level}`,
     {
-      id,
+      id: nextId,
       className: 'group flex items-center',
     } as any,
     null,
@@ -29,8 +32,8 @@ export const MHeader = (props: HeadingProps) => {
         aria-hidden
         onClick={() => {
           const state = history.state
-          history.replaceState(state, '', `#${id}`)
-          springScrollToElement(document.getElementById(id)!, -100)
+          history.replaceState(state, '', `#${nextId}`)
+          springScrollToElement(document.getElementById(nextId)!, -100)
         }}
       >
         <i className="icon-[mingcute--hashtag-line]" />
