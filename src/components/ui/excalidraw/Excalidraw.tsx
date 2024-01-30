@@ -20,6 +20,7 @@ export const Excalidraw: FC<{
   const excalidrawAPIRef = React.useRef<ExcalidrawImperativeAPI>()
   const modal = useModalStack()
   const isMobile = useIsMobile()
+
   return (
     <div className="relative h-[500px] w-full">
       <Board
@@ -77,7 +78,7 @@ const SvgPreview: FC<{
 }> = ({ svgElement }) => {
   return (
     <div
-      className="relative h-[80vh] w-full overflow-auto [&>svg]:max-w-full"
+      className="relative w-full overflow-auto [&>svg]:max-w-full"
       dangerouslySetInnerHTML={{
         __html: svgElement.outerHTML,
       }}

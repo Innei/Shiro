@@ -5,6 +5,7 @@ import { useIsDark } from '~/hooks/common/use-is-dark'
 import { useWrappedElementSize } from '~/providers/shared/WrappedElementProvider'
 
 import { FixedZoomedImage } from '../../ui/image'
+import { BlockLoading } from './BlockLoading'
 
 export const Mermaid: FC<{
   content: string
@@ -80,9 +81,7 @@ export const Mermaid: FC<{
   const imgSrc = `data:image/svg+xml;base64,${base64EncodedString}`
 
   return loading ? (
-    <div className="flex min-h-[50px] items-center justify-center rounded-lg bg-slate-100 text-sm dark:bg-neutral-800">
-      Mermaid Loading...
-    </div>
+    <BlockLoading>Mermaid Loading...</BlockLoading>
   ) : svg ? (
     <div>
       <FixedZoomedImage

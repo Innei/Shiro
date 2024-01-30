@@ -1,3 +1,4 @@
+import { XLogEnable } from '../../crossbell/XLogEnabled'
 import { ImageDetailSection } from '../../writing/ImageDetailSection'
 import { MetaKeyValueEditSection } from '../../writing/MetaKeyValueEditSection'
 import { PresentComponentFab } from '../../writing/PresentComponentFab'
@@ -17,6 +18,7 @@ const Sidebar = () => {
       <TagsInput />
       <PostCombinedSwitch />
       <SummaryInput />
+      <XLogEnable />
       <PostImageSection />
       <PostMetaSection />
     </SidebarWrapper>
