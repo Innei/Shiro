@@ -105,6 +105,22 @@ ${ReactDOM.renderToString(
           return <img src={src} alt={alt} />
         },
       },
+      extendsRules: {
+        codeBlock: {
+          react(node, output, state) {
+            if (node.lang === 'mermaid' || node.lang === 'excalidraw') {
+              return <NotSupportRender />
+            }
+            return (
+              <pre key={state.key}>
+                <code className={node.lang ? `lang-${node.lang}` : ''}>
+                  {node.content}
+                </code>
+              </pre>
+            )
+          },
+        },
+      },
       additionalParserRules: {
         spoilder: SpoilerRule,
         mention: MentionRule,

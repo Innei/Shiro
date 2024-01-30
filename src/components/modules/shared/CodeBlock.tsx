@@ -36,5 +36,3 @@ export const CodeBlock = (props: {
     </Suspense>
   )
 }
-
-export default CodeBlock
