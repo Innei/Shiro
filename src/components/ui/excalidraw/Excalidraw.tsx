@@ -65,7 +65,7 @@ export const Excalidraw: FC<{
             })
           }
         }}
-        className="absolute bottom-2 right-2 z-10 box-content h-5 w-5 rounded-md border border-zinc-200 p-2 dark:border-zinc-700"
+        className="absolute bottom-2 right-2 z-10 box-content flex h-5 w-5 rounded-md border border-zinc-200 p-2 center dark:border-zinc-700"
       >
         <i className="icon-[mingcute--external-link-line]" />
       </MotionButtonBase>
