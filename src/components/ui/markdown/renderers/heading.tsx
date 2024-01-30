@@ -21,6 +21,8 @@ export const MHeader = (props: HeadingProps) => {
     {
       id: nextId,
       className: 'group flex items-center',
+
+      'data-markdown-heading': true,
     } as any,
     null,
     <>

@@ -22,7 +22,10 @@ export const TocFAB = () => {
       ...$mainMarkdownRender.querySelectorAll('h1,h2,h3,h4,h5,h6'),
     ] as HTMLHeadingElement[]
 
-    return $headings
+    return $headings.filter(($heading) => {
+      if ($heading.dataset['markdownHeading'] === 'true') return true
+      return false
+    })
   }, [])
   const presentToc = useCallback(() => {
     const dispose = present({

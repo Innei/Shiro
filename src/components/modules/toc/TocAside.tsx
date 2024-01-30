@@ -65,9 +65,13 @@ export const TocAside = forwardRef<
       if (!$article) {
         return []
       }
-      return [
-        ...$article.querySelectorAll('h1,h2,h3,h4,h5,h6'),
-      ] as HTMLHeadingElement[]
+      return [...$article.querySelectorAll('h1,h2,h3,h4,h5,h6')].filter(
+        ($heading) => {
+          if (($heading as HTMLElement).dataset['markdownHeading'] === 'true')
+            return true
+          return false
+        },
+      ) as HTMLHeadingElement[]
     }, [$article, updated])
 
     useEffect(() => {
