@@ -2,13 +2,13 @@ import React, { useEffect, useRef } from 'react'
 import { produce } from 'immer'
 import { atom, useAtomValue, useSetAtom, useStore } from 'jotai'
 import type { FC } from 'react'
-import type { MilkdownRef } from '../editor'
+import type { MilkdownRef } from '../../../ui/editor'
 
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
 
-import { MilkdownEditor } from '../editor'
+import { MilkdownEditor } from '../../../ui/editor'
 import { useBaseWritingContext } from './BaseWritingProvider'
 import { TitleInput } from './TitleInput'
 
