@@ -98,7 +98,7 @@ const SvgPreview: FC<{
 }> = ({ svgElement }) => {
   return (
     <div
-      className="relative w-full overflow-auto [&>svg]:max-w-full"
+      className="relative w-full overflow-auto [&>svg]:!h-full [&>svg]:!w-full [&>svg]:max-w-full"
       dangerouslySetInnerHTML={{
         __html: svgElement.outerHTML,
       }}
