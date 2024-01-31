@@ -155,7 +155,18 @@ ${ReactDOM.renderToString(
   })
 }
 
-const NotSupportRender = () => <div>这个内容只能在原文中查看哦</div>
+const NotSupportRender = () => (
+  <blockquote
+    style={{
+      textAlign: 'center',
+      margin: '1rem 0',
+      backgroundColor: '#f5f5f5',
+      borderRadius: '0.5rem',
+    }}
+  >
+    <em>这个内容只能在原文中查看哦</em>
+  </blockquote>
+)
 
 const ALERT_BLOCKQUOTE_R =
   /^(> \[!(?<type>NOTE|IMPORTANT|WARNING)\].*?)(?<body>(?:\n *>.*?)*)(?=\n{2,}|$)/
