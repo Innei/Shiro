@@ -1,14 +1,12 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import { AnimatePresence } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
-import { useSignIn, useUser } from '@clerk/nextjs'
-
-import { refreshToken, useIsLogged } from '~/atoms'
+import { useIsLogged } from '~/atoms'
 import { UserArrowLeftIcon } from '~/components/icons/user-arrow-left'
 import { MotionButtonBase } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
@@ -60,15 +58,6 @@ const OwnerAvatar = () => {
 export function UserAuth() {
   const pathname = usePathname()
   const isLogged = useIsLogged()
-
-  const { isLoaded } = useSignIn()
-
-  const user = useUser()
-
-  useEffect(() => {
-    // token 刷新，使用 mx token 替换
-    if (isLoaded && user.user?.publicMetadata.role === 'admin') refreshToken()
-  }, [isLoaded, user.user?.publicMetadata.role])
 
   if (isLogged) {
     return <OwnerAvatar />

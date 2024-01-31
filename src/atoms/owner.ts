@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query'
 import { atom, useAtomValue } from 'jotai'
 
 import { getToken, removeToken, setToken } from '~/lib/cookie'
@@ -65,7 +66,14 @@ export const useOwner = () => useAtomValue(ownerAtom)
 
 export const isLogged = () => jotaiStore.get(isLoggedAtom)
 
-export const refreshToken = async () => {
+export const useRefreshToken = () => {
+  return useMutation({
+    mutationKey: ['refreshToken'],
+    mutationFn: refreshToken,
+  })
+}
+
+const refreshToken = async () => {
   const token = getToken()
   if (!token) return
   await apiClient.user.proxy.login.put<{ token: string }>().then((res) => {
