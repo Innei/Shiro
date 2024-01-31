@@ -145,7 +145,7 @@ export const useUpdatePost = () => {
       for (const key of readonlyKeys) {
         delete nextData[key]
       }
-      return apiClient.post.proxy(id).patch<{
+      return apiClient.post.proxy(id).put<{
         id: string
       }>({
         data: nextData,
