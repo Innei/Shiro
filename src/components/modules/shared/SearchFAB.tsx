@@ -47,7 +47,7 @@ export const SearchFAB = () => {
 export const SearchPanelWithHotKey = () => {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'k' && e.metaKey) {
+      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault()
         jotaiStore.set(searchPanelOpenAtom, true)
       }
@@ -216,8 +216,8 @@ const SearchPanelImpl = () => {
     <m.div
       className={clsx(
         'h-[600px] max-h-[80vh] w-[800px] max-w-[100vw] rounded-none md:h-screen md:max-h-[60vh] md:max-w-[80vw]',
-        'min-h-50 flex flex-col bg-slate-50/80 shadow-2xl backdrop-blur-md md:rounded-xl dark:bg-neutral-900/80',
-        'border-0 border-zinc-200 md:border dark:border-zinc-800',
+        'min-h-50 flex flex-col bg-slate-50/80 shadow-2xl backdrop-blur-md dark:bg-neutral-900/80 md:rounded-xl',
+        'border-0 border-zinc-200 dark:border-zinc-800 md:border',
       )}
       onKeyDown={handleKeyDown}
       role="dialog"
