@@ -15,7 +15,7 @@ export const metadata = {
   title: '时间线',
 }
 
-export default async (props: NextPageParams<{}, PropsWithChildren>) => {
+export default async (props: PropsWithChildren) => {
   attachUAAndRealIp()
   const header = headers()
   const query = header.get(REQUEST_QUERY)

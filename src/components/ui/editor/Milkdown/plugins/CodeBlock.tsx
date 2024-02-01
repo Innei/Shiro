@@ -1,5 +1,5 @@
 import { useNodeViewContext } from '@prosemirror-adapter/react'
-import { useEffect, useMemo, useRef } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef } from 'react'
 import { useForceUpdate } from 'framer-motion'
 import type { MilkdownPlugin } from '@milkdown/ctx'
 import type { NodeViewContext } from '@prosemirror-adapter/react'
@@ -7,15 +7,14 @@ import type { ModalContentPropsInternal } from '~/components/ui/modal'
 import type { FC } from 'react'
 import type { PluginCtx } from './types'
 
-import { serializeAsJSON } from '@excalidraw/excalidraw'
 import { schemaCtx } from '@milkdown/core'
 import { codeBlockSchema } from '@milkdown/preset-commonmark'
 import { $view } from '@milkdown/utils'
 
+import { BlockLoading } from '~/components/modules/shared/BlockLoading'
 import { StyledButton } from '~/components/ui/button'
 import { HighLighter } from '~/components/ui/code-highlighter'
-import { Excalidraw } from '~/components/ui/excalidraw'
-import { TextArea } from '~/components/ui/input'
+import { Input, TextArea } from '~/components/ui/input'
 import { useCurrentModal, useModalStack } from '~/components/ui/modal'
 import { useUncontrolledInput } from '~/hooks/common/use-uncontrolled-input'
 
@@ -52,11 +51,35 @@ const NormalCodeBlock: FC<{
     const Content: FC<ModalContentPropsInternal> = () => {
       const [, getValue, ref] =
         useUncontrolledInput<HTMLTextAreaElement>(content)
+
+      const nextLangRef = useRef(language)
+
       return (
         <div className="flex h-[450px] max-h-[80vh] w-[60ch] max-w-full flex-col">
           <TextArea defaultValue={content} className="flex-grow" ref={ref} />
 
-          <SharedModalAction nodeCtx={nodeCtx} getValue={getValue} />
+          <div className="relative">
+            <div className="absolute left-0 top-0">
+              <Input
+                ref={(el) => {
+                  if (!el) {
+                    nodeCtx.setAttrs({
+                      language: nextLangRef.current,
+                    })
+                  }
+                }}
+                defaultValue={language}
+                onBlur={(e) => {
+                  const v = e.target.value
+                  nodeCtx.setAttrs({
+                    language: v,
+                  })
+                  nextLangRef.current = v
+                }}
+              />
+            </div>
+            <SharedModalAction nodeCtx={nodeCtx} getValue={getValue} />
+          </div>
         </div>
       )
     }
@@ -102,32 +125,47 @@ export const ExcalidrawBoard: FC<{ content: string }> = ({ content }) => {
     forceUpdate()
   }, [content])
 
+  const Excalidraw = useMemo(
+    () =>
+      lazy(() =>
+        import('~/components/ui/excalidraw/Excalidraw').then((m) => ({
+          default: m.Excalidraw,
+        })),
+      ),
+    [],
+  )
+
   const handleEdit = () => {
     const Content: FC<ModalContentPropsInternal> = () => {
       const valueRef = useRef<string | undefined>(content)
       const valueGetterRef = useRef(() => valueRef.current)
       return (
         <div className="flex h-full w-full flex-col">
-          <Excalidraw
-            className="h-full w-full flex-grow"
-            data={JSON.parse(content)}
-            viewModeEnabled={false}
-            zenModeEnabled={false}
-            onChange={(elements, appState, files) => {
-              valueRef.current = JSON.stringify(
-                JSON.parse(
-                  serializeAsJSON(elements, appState, files, 'database'),
-                ),
-                null,
-                0,
-              )
-            }}
-          />
+          <Suspense>
+            <Excalidraw
+              className="h-full w-full flex-grow"
+              data={JSON.parse(content)}
+              viewModeEnabled={false}
+              zenModeEnabled={false}
+              onChange={async (elements, appState, files) => {
+                const serializeAsJSON = await import(
+                  '@excalidraw/excalidraw'
+                ).then((m) => m.serializeAsJSON)
+                valueRef.current = JSON.stringify(
+                  JSON.parse(
+                    serializeAsJSON(elements, appState, files, 'database'),
+                  ),
+                  null,
+                  0,
+                )
+              }}
+            />
 
-          <SharedModalAction
-            getValue={valueGetterRef.current}
-            nodeCtx={nodeCtx}
-          />
+            <SharedModalAction
+              getValue={valueGetterRef.current}
+              nodeCtx={nodeCtx}
+            />
+          </Suspense>
         </div>
       )
     }
@@ -139,12 +177,14 @@ export const ExcalidrawBoard: FC<{ content: string }> = ({ content }) => {
   }
   return (
     <div onClick={handleEdit} className="cursor-pointer">
-      <Excalidraw
-        className="pointer-events-none"
-        showExtendButton={false}
-        key={key}
-        data={useMemo(() => JSON.parse(content || '{}'), [content])}
-      />
+      <Suspense fallback={<BlockLoading />}>
+        <Excalidraw
+          className="pointer-events-none"
+          showExtendButton={false}
+          key={key}
+          data={useMemo(() => JSON.parse(content || '{}'), [content])}
+        />
+      </Suspense>
     </div>
   )
 }
