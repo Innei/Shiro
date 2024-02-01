@@ -148,7 +148,7 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
       </span>
 
       <img
-        className="max-w-1/3 hidden print:block"
+        className="max-w-1/3 !hidden print:!block"
         src={src}
         alt={alt || title}
       />
