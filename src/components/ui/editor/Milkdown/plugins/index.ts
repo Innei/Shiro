@@ -6,7 +6,7 @@ import { diagram } from '@milkdown/plugin-diagram'
 import { $remark } from '@milkdown/utils'
 
 import { BlockquotePlugin } from './Blockquote'
-import { CodeBlockPlugin } from './CodeBLock'
+import { CodeBlockPlugin } from './CodeBlock'
 import { MermaidPlugin } from './Mermaid'
 
 export const createPlugins = (pluginCtx: PluginCtx) =>
