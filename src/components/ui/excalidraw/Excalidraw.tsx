@@ -103,6 +103,7 @@ export const Excalidraw: FC<{
               modal.present({
                 title: 'Preview',
                 content: () => <SvgPreview svgElement={$svg} />,
+                clickOutsideToDismiss: true,
               })
             }
           }}

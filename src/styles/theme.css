@@ -168,3 +168,16 @@
 .cover-mask-b {
   mask-image: linear-gradient(180deg, #fff -17.19%, #00000000 92.43%);
 }
+
+.code-wrap {
+  white-space: break-spaces !important;
+  overflow: auto !important;
+  word-break: break-word !important;
+
+  pre[class*='language-'],
+  code[class*='language-'] {
+    white-space: break-spaces !important;
+    overflow: auto !important;
+    word-break: break-word !important;
+  }
+}

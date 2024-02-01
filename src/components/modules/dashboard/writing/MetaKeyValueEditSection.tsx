@@ -1,10 +1,12 @@
 import { Label } from '@radix-ui/react-label'
-import { useMemo, useRef } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import type { FC } from 'react'
 
 import { StyledButton } from '~/components/ui/button'
-import { HighLighter } from '~/components/ui/code-highlighter'
-import { TextArea } from '~/components/ui/input'
+import {
+  BaseCodeHighlighter,
+  HighLighter,
+} from '~/components/ui/code-highlighter'
 import { useModalStack } from '~/components/ui/modal'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { toast } from '~/lib/toast'
@@ -78,6 +80,7 @@ const EditorModal: FC<{
   onChange: (value: object) => void
 }> = ({ value, onChange, dismiss }) => {
   const currentEditValueRef = useRef(value)
+  const [highlighterValue, setHighlighterValue] = useState(value)
 
   const handleSave = () => {
     if (!isValidJSONString(currentEditValueRef.current)) {
@@ -90,19 +93,27 @@ const EditorModal: FC<{
   }
 
   return (
-    <div className="relative flex w-full flex-grow flex-col lg:w-[600px]">
-      <div className="h-[400px] w-full">
-        <TextArea
-          className="h-full w-full p-0 font-mono"
-          defaultValue={value}
-          onChange={(e) => {
-            currentEditValueRef.current = e.target.value
-          }}
-        />
+    <>
+      <div className="relative flex w-full flex-grow flex-col lg:w-[600px]">
+        <div className="relative w-full overflow-auto pb-[60px]">
+          <textarea
+            className="absolute h-full w-full resize-none bg-transparent p-0 !font-mono text-transparent caret-accent *:leading-4"
+            defaultValue={value}
+            onChange={(e) => {
+              currentEditValueRef.current = e.target.value
+              setHighlighterValue(e.target.value)
+            }}
+          />
+          <BaseCodeHighlighter
+            className="code-wrap pointer-events-none relative z-[1] !m-0 overflow-auto !p-0 *:!font-mono *:!leading-4"
+            lang="json"
+            content={highlighterValue}
+          />
+        </div>
       </div>
-      <div className="flex flex-shrink-0 justify-end">
+      <div className="absolute bottom-4 right-6 flex flex-shrink-0 justify-end">
         <StyledButton onClick={handleSave}>保存</StyledButton>
       </div>
-    </div>
+    </>
   )
 }
