@@ -40,20 +40,18 @@ const webappContexts: JSX.Element[] = baseContexts.concat(
 
 export function WebAppProviders({ children }: PropsWithChildren) {
   return (
-    <>
-      <ProviderComposer contexts={webappContexts}>
-        {children}
-        <PeekPortal />
-        <SocketContainer />
-        <ModalStackProvider key="modalStackProvider" />
-        <EventProvider key="viewportProvider" />
-        {/* <SentryProvider key="SentryProvider" /> */}
-        <PageScrollInfoProvider key="PageScrollInfoProvider" />
-        <DebugProvider key="debugProvider" />
+    <ProviderComposer contexts={webappContexts}>
+      {children}
+      <PeekPortal />
+      <SocketContainer />
+      <ModalStackProvider key="modalStackProvider" />
+      <EventProvider key="viewportProvider" />
+      {/* <SentryProvider key="SentryProvider" /> */}
+      <PageScrollInfoProvider key="PageScrollInfoProvider" />
+      <DebugProvider key="debugProvider" />
 
-        <ScriptInjectProvider />
-      </ProviderComposer>
-    </>
+      <ScriptInjectProvider />
+    </ProviderComposer>
   )
 }
 const dashboardContexts: JSX.Element[] = baseContexts.concat(
@@ -63,15 +61,13 @@ const dashboardContexts: JSX.Element[] = baseContexts.concat(
 )
 export function DashboardAppProviders({ children }: PropsWithChildren) {
   return (
-    <>
-      <ProviderComposer contexts={dashboardContexts}>
-        {children}
+    <ProviderComposer contexts={dashboardContexts}>
+      {children}
 
-        <ModalStackProvider key="modalStackProvider" />
-        <EventProvider key="viewportProvider" />
+      <ModalStackProvider key="modalStackProvider" />
+      <EventProvider key="viewportProvider" />
 
-        <DebugProvider key="debugProvider" />
-      </ProviderComposer>
-    </>
+      <DebugProvider key="debugProvider" />
+    </ProviderComposer>
   )
 }

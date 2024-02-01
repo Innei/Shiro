@@ -75,6 +75,7 @@ export const Modal: Component<{
     clickOutsideToDismiss,
     modalContainerClassName,
     wrapper: Wrapper = Fragment,
+    max,
   } = item
   const modalStyle = useMemo(() => ({ zIndex: 99 + index }), [index])
   const dismiss = useCallback(
@@ -197,7 +198,10 @@ export const Modal: Component<{
                   'relative flex flex-col overflow-hidden rounded-lg',
                   'bg-slate-50/80 dark:bg-neutral-900/80',
                   'p-2 shadow-2xl shadow-stone-300 backdrop-blur-sm dark:shadow-stone-800',
-                  'max-h-[70vh] min-w-[300px] max-w-[90vw] lg:max-h-[calc(100vh-20rem)] lg:max-w-[70vw]',
+                  max
+                    ? 'h-[90vh] w-[90vw]'
+                    : 'max-h-[70vh] min-w-[300px] max-w-[90vw] lg:max-h-[calc(100vh-20rem)] lg:max-w-[70vw]',
+
                   'border border-slate-200 dark:border-neutral-800',
                   modalClassName,
                 )}

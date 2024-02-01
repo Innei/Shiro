@@ -1,7 +1,6 @@
 import { Milkdown, MilkdownProvider, useEditor } from '@milkdown/react'
 import {
   ProsemirrorAdapterProvider,
-  useNodeViewContext,
   useNodeViewFactory,
 } from '@prosemirror-adapter/react'
 import {
@@ -11,9 +10,7 @@ import {
   useImperativeHandle,
   useRef,
 } from 'react'
-import directive from 'remark-directive'
 import type { Config } from '@milkdown/core'
-import type { MilkdownPlugin } from '@milkdown/ctx'
 
 import {
   defaultValueCtx,
@@ -30,177 +27,13 @@ import { indent } from '@milkdown/plugin-indent'
 import { listener, listenerCtx } from '@milkdown/plugin-listener'
 import { commonmark } from '@milkdown/preset-commonmark'
 import { gfm } from '@milkdown/preset-gfm'
-import { InputRule } from '@milkdown/prose/inputrules'
-import { $inputRule, $node, $remark, $view, replaceAll } from '@milkdown/utils'
+import { replaceAll } from '@milkdown/utils'
 
 import { useIsUnMounted } from '~/hooks/common/use-is-unmounted'
 
+import { setEditorCtx } from './ctx'
 import styles from './index.module.css'
-import { attacher } from './plugins/strike'
-
-const Container = (props) => {
-  const { contentRef, node, view, setAttrs } = useNodeViewContext()
-  console.log('aaaaa', useNodeViewContext())
-  return (
-    <button
-      ref={contentRef}
-      onClick={() => {
-        setAttrs({ src: `https://saul-mirone.github.io?${Math.random()}` })
-
-        // const state = view.state
-        // state.doc.descendants((node, pos) => {
-        //   console.log(node, 'node')
-
-        //   if (node.type.name === 'iframe') {
-        //     const { tr } = state
-        //     tr.replaceWith(
-        //       pos,
-        //       pos + node.nodeSize,
-        //       node.type.create({
-        //         src: `https://saul-mirone.github.io?${Math.random()}`,
-        //       }),
-        //     )
-        //     view.dispatch(tr)
-        //     return false
-        //   }
-        // })
-      }}
-    >
-      {node.attrs.src}
-    </button>
-  )
-}
-
-const remarkDirective = $remark(
-  'directive',
-  () => directive,
-) as any as MilkdownPlugin
-
-const line = $remark('line', () => attacher()) as any as MilkdownPlugin
-
-const directiveGird = $node('grid', (ctx) => ({
-  group: 'block',
-  atom: true,
-  isolating: true,
-  marks: '',
-  attrs: {
-    cols: { default: null },
-    rows: { default: null },
-  },
-
-  parseMarkdown: {
-    match: (node) => {
-      console.log(node, 'node')
-      return node.type === 'containerDirective' && node.name === 'grid'
-    },
-    runner: (state, node, type) => {
-      state.addNode(type, { ...node.attributes })
-    },
-  },
-  toMarkdown: {
-    match: (node) => node.type.name === 'grid',
-    runner: (state, node) => {
-      state.addNode('containerDirective', undefined, undefined, {
-        name: 'grid',
-        attributes: { ...node.attrs },
-      })
-    },
-  },
-}))
-
-const directiveNode = $node('iframe', (ctx) => ({
-  group: 'block',
-  atom: true,
-  isolating: true,
-  marks: '',
-  attrs: {
-    src: { default: null },
-  },
-  // parseDOM: [
-  //   {
-  //     tag: 'iframe',
-  //     getAttrs: (dom) => ({
-  //       src: (dom as HTMLElement).getAttribute('src'),
-  //     }),
-  //   },
-  // ],
-
-  // toDOM: (node) => {
-  //   const $button = document.createElement('button')
-  //   $button.innerHTML = node.attrs.src
-  //   $button.onclick = (e) => {
-  //     const edtior = ctx.get(editorViewCtx)
-  //     const state = edtior.state
-  //     state.doc.descendants((node, pos) => {
-  //       console.log(node, 'node')
-
-  //       if (node.type.name === 'iframe') {
-  //         const { tr } = state
-  //         tr.replaceWith(
-  //           pos,
-  //           pos + node.nodeSize,
-  //           node.type.create({
-  //             src: `https://saul-mirone.github.io?${Math.random()}`,
-  //           }),
-  //         )
-  //         edtior.dispatch(tr)
-  //         return false
-  //       }
-  //     })
-  //   }
-  //   return $button as InstanceType<typeof window.Node>
-  //   // return [
-  //   //   $button,
-  //   //   {
-  //   //     ...node.attrs,
-
-  //   //     contenteditable: false,
-  //   //     onclick() {
-  //   //       return console.log(node, 'node')
-  //   //     },
-  //   //   },
-  //   //   'aa',
-  //   // ] as const
-  // },
-
-  parseMarkdown: {
-    match: (node) => {
-      console.log(node, 'node')
-      return node.type === 'leafDirective' && node.name === 'iframe'
-    },
-    runner: (state, node, type) => {
-      state.addNode(type, { src: (node.attributes as { src: string }).src })
-    },
-  },
-  toMarkdown: {
-    match: (node) => node.type.name === 'iframe',
-    runner: (state, node) => {
-      state.addNode('leafDirective', undefined, undefined, {
-        name: 'iframe',
-        attributes: { src: node.attrs.src },
-      })
-    },
-  },
-}))
-const inputRule = $inputRule(
-  (ctx) =>
-    new InputRule(
-      /::iframe\{src="(?<src>[^"]+)?"?\}/,
-      (state, match, start, end) => {
-        const [okay, src = ''] = match
-        const { tr } = state
-        if (okay) {
-          tr.replaceWith(
-            start - 1,
-            end,
-            directiveNode.type(ctx).create({ src }),
-          )
-        }
-
-        return tr
-      },
-    ),
-)
+import { createPlugins } from './plugins'
 
 export interface MilkdownProps {
   initialMarkdown?: string
@@ -248,16 +81,13 @@ const MilkdownEditorImpl = forwardRef<MilkdownRef, MilkdownProps>(
 
     const nodeViewFactory = useNodeViewFactory()
 
-    nodeViewFactory({
-      component: Container,
-    })
-
     const { get } = useEditor((root) => {
       const editor = Editor.make()
       editorRef.current = editor
 
       return editor
         .config((ctx) => {
+          setEditorCtx(ctx)
           editorCtxRef.current = ctx
 
           ctx.set(rootCtx, root)
@@ -272,6 +102,7 @@ const MilkdownEditorImpl = forwardRef<MilkdownRef, MilkdownProps>(
             .markdownUpdated((ctx, markdown) => {
               if (isUnMounted.current) return
 
+              console.log('markdown', markdown)
               props.onMarkdownChange?.(markdown)
               props.onChange?.({ target: { value: markdown } })
             })
@@ -285,21 +116,8 @@ const MilkdownEditorImpl = forwardRef<MilkdownRef, MilkdownProps>(
         .use(history)
         .use(indent)
         .use(gfm)
-        .use([remarkDirective, line, directiveNode, directiveGird, inputRule])
-        .use(
-          $view(directiveNode, () =>
-            nodeViewFactory({
-              component: Container,
-            }),
-          ),
-        )
-        .use(
-          $view(directiveGird, () =>
-            nodeViewFactory({
-              component: Container,
-            }),
-          ),
-        )
+        .use(createPlugins({ nodeViewFactory }))
+
         .onStatusChange((o) => {
           if (o === EditorStatus.Created) {
             props.onCreated?.()
@@ -329,4 +147,5 @@ const MilkdownEditorImpl = forwardRef<MilkdownRef, MilkdownProps>(
     )
   },
 )
+
 MilkdownEditorImpl.displayName = 'MilkdownEditorImpl'
