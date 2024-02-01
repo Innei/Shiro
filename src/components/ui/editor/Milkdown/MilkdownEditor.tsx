@@ -1,5 +1,9 @@
 import { Milkdown, MilkdownProvider, useEditor } from '@milkdown/react'
 import {
+  ProsemirrorAdapterProvider,
+  useNodeViewFactory,
+} from '@prosemirror-adapter/react'
+import {
   forwardRef,
   useCallback,
   useId,
@@ -22,11 +26,14 @@ import { history } from '@milkdown/plugin-history'
 import { indent } from '@milkdown/plugin-indent'
 import { listener, listenerCtx } from '@milkdown/plugin-listener'
 import { commonmark } from '@milkdown/preset-commonmark'
+import { gfm } from '@milkdown/preset-gfm'
 import { replaceAll } from '@milkdown/utils'
 
 import { useIsUnMounted } from '~/hooks/common/use-is-unmounted'
 
+import { setEditorCtx } from './ctx'
 import styles from './index.module.css'
+import { createPlugins } from './plugins'
 
 export interface MilkdownProps {
   initialMarkdown?: string
@@ -46,7 +53,9 @@ export const MilkdownEditor = forwardRef<MilkdownRef, MilkdownProps>(
   (props, ref) => {
     return (
       <MilkdownProvider>
-        <MilkdownEditorImpl ref={ref} {...props} />
+        <ProsemirrorAdapterProvider>
+          <MilkdownEditorImpl ref={ref} {...props} />
+        </ProsemirrorAdapterProvider>
       </MilkdownProvider>
     )
   },
@@ -69,12 +78,16 @@ const MilkdownEditorImpl = forwardRef<MilkdownRef, MilkdownProps>(
         }),
       [],
     )
+
+    const nodeViewFactory = useNodeViewFactory()
+
     const { get } = useEditor((root) => {
       const editor = Editor.make()
       editorRef.current = editor
 
       return editor
         .config((ctx) => {
+          setEditorCtx(ctx)
           editorCtxRef.current = ctx
 
           ctx.set(rootCtx, root)
@@ -89,6 +102,7 @@ const MilkdownEditorImpl = forwardRef<MilkdownRef, MilkdownProps>(
             .markdownUpdated((ctx, markdown) => {
               if (isUnMounted.current) return
 
+              console.log('markdown', markdown)
               props.onMarkdownChange?.(markdown)
               props.onChange?.({ target: { value: markdown } })
             })
@@ -101,6 +115,9 @@ const MilkdownEditorImpl = forwardRef<MilkdownRef, MilkdownProps>(
         .use(clipboard)
         .use(history)
         .use(indent)
+        .use(gfm)
+        .use(createPlugins({ nodeViewFactory }))
+
         .onStatusChange((o) => {
           if (o === EditorStatus.Created) {
             props.onCreated?.()
@@ -130,4 +147,5 @@ const MilkdownEditorImpl = forwardRef<MilkdownRef, MilkdownProps>(
     )
   },
 )
+
 MilkdownEditorImpl.displayName = 'MilkdownEditorImpl'

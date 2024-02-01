@@ -9,6 +9,8 @@ export interface ModalProps {
   modalClassName?: string
   modalContainerClassName?: string
 
+  max?: boolean
+
   ////
   sheetFullScreen?: boolean | 'half'
 
