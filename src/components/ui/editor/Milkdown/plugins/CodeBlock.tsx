@@ -138,8 +138,9 @@ export const ExcalidrawBoard: FC<{ content: string }> = ({ content }) => {
     })
   }
   return (
-    <div onClick={handleEdit}>
+    <div onClick={handleEdit} className="cursor-pointer">
       <Excalidraw
+        className="pointer-events-none"
         showExtendButton={false}
         key={key}
         data={useMemo(() => JSON.parse(content || '{}'), [content])}
