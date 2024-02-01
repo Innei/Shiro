@@ -5,6 +5,7 @@ import { useAtom, useStore } from 'jotai'
 import { XLogIcon } from '~/components/icons/platform/XLogIcon'
 import { LabelSwitch } from '~/components/ui/switch'
 import { PublishEvent } from '~/events'
+import { RefetchEvent } from '~/events/refetch'
 import { apiClient } from '~/lib/request'
 
 import { syncToXlogAtom } from '../writing/atoms'
@@ -57,7 +58,9 @@ const PublishEventSubscriber = () => {
       const enabled = store.get(syncToXlogAtom)
       if (!enabled) return
 
-      CrossBellConnector.createOrUpdate(ev.data)
+      CrossBellConnector.createOrUpdate(ev.data).then(() => {
+        window.dispatchEvent(new RefetchEvent())
+      })
     })
   }, [store])
 

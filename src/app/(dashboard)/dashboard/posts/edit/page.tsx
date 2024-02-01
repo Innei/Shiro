@@ -31,6 +31,7 @@ import {
 } from '~/components/modules/dashboard/writing/Writing'
 import { LoadingButtonWrapper, StyledButton } from '~/components/ui/button'
 import { PublishEvent, WriteEditEvent } from '~/events'
+import { useRefetchData } from '~/hooks/biz/use-refetch-data'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { cloneDeep } from '~/lib/_'
 import { toast } from '~/lib/toast'
@@ -41,15 +42,17 @@ export default function Page() {
   const search = useSearchParams()
   const id = search.get('id')
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     ...adminQueries.post.getPost(id!),
     enabled: !!id,
   })
 
+  const [key] = useRefetchData(refetch)
+
   if (id) {
     if (isLoading) return <PageLoading />
 
-    return <EditPage initialData={data} />
+    return <EditPage initialData={data} key={key} />
   }
   return <EditPage />
 }
