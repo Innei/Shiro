@@ -56,7 +56,7 @@ const TagCompletion = () => {
         setter((prev) => {
           return {
             ...prev,
-            tags: [...prev.tags, suggestion.name],
+            tags: [...prev.tags, suggestion.value],
           }
         })
       }}
