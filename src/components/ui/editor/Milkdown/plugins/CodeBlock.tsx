@@ -13,10 +13,10 @@ import { $view } from '@milkdown/utils'
 
 import { BlockLoading } from '~/components/modules/shared/BlockLoading'
 import { StyledButton } from '~/components/ui/button'
+import { CodeEditor } from '~/components/ui/code-editor'
 import { HighLighter } from '~/components/ui/code-highlighter'
-import { Input, TextArea } from '~/components/ui/input'
+import { Input } from '~/components/ui/input'
 import { useCurrentModal, useModalStack } from '~/components/ui/modal'
-import { useUncontrolledInput } from '~/hooks/common/use-uncontrolled-input'
 
 import { useEditorCtx } from '../ctx'
 
@@ -49,14 +49,20 @@ const NormalCodeBlock: FC<{
 
   const handleEdit = () => {
     const Content: FC<ModalContentPropsInternal> = () => {
-      const [, getValue, ref] =
-        useUncontrolledInput<HTMLTextAreaElement>(content)
-
+      const valueRef = useRef<string | undefined>(content)
       const nextLangRef = useRef(language)
 
       return (
-        <div className="flex h-[450px] max-h-[80vh] w-[60ch] max-w-full flex-col">
-          <TextArea defaultValue={content} className="flex-grow" ref={ref} />
+        <div className="flex w-[60ch] max-w-full flex-col overflow-auto">
+          <div className="max-h-[400px] overflow-auto">
+            <CodeEditor
+              content={content}
+              language={language}
+              onChange={(code) => {
+                valueRef.current = code
+              }}
+            />
+          </div>
 
           <div className="relative">
             <div className="absolute left-0 top-0">
@@ -78,7 +84,10 @@ const NormalCodeBlock: FC<{
                 }}
               />
             </div>
-            <SharedModalAction nodeCtx={nodeCtx} getValue={getValue} />
+            <SharedModalAction
+              nodeCtx={nodeCtx}
+              getValue={() => valueRef.current}
+            />
           </div>
         </div>
       )
@@ -204,7 +213,7 @@ const SharedModalAction: FC<{
     dismiss()
   }
   return (
-    <div className="mt-4 flex justify-end space-x-2">
+    <div className="mt-4 flex justify-end space-x-2 p-2">
       <StyledButton variant="secondary" onClick={deleteNode}>
         删除
       </StyledButton>
