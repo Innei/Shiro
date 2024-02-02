@@ -37,6 +37,7 @@
     "prod:reload": "pm2 reload ecosystem.config.js"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "3.504.0",
     "@clerk/nextjs": "4.29.5",
     "@excalidraw/excalidraw": "0.17.2",
     "@floating-ui/react-dom": "2.0.8",
