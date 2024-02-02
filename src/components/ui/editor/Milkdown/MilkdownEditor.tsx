@@ -11,6 +11,7 @@ import {
   useRef,
 } from 'react'
 import type { Config } from '@milkdown/core'
+import type { Ctx } from '@milkdown/ctx'
 
 import {
   defaultValueCtx,
@@ -47,6 +48,9 @@ export interface MilkdownProps {
 export interface MilkdownRef {
   getMarkdown(): string | undefined
   setMarkdown(markdown: string): void
+  getAction(cb: (ctx: Ctx) => void): void
+
+  editor: Editor
 }
 
 export const MilkdownEditor = forwardRef<MilkdownRef, MilkdownProps>(
@@ -102,7 +106,6 @@ const MilkdownEditorImpl = forwardRef<MilkdownRef, MilkdownProps>(
             .markdownUpdated((ctx, markdown) => {
               if (isUnMounted.current) return
 
-              console.log('markdown', markdown)
               props.onMarkdownChange?.(markdown)
               props.onChange?.({ target: { value: markdown } })
             })
@@ -132,9 +135,20 @@ const MilkdownEditorImpl = forwardRef<MilkdownRef, MilkdownProps>(
       [get],
     )
 
+    const getAction = useCallback(
+      (cb: (ctx: Ctx) => void) => {
+        get()?.action(cb)
+      },
+      [get],
+    )
+
     useImperativeHandle(ref, () => ({
       getMarkdown,
       setMarkdown,
+      getAction,
+      get editor() {
+        return editorRef.current!
+      },
     }))
 
     const isUnMounted = useIsUnMounted()

@@ -34,6 +34,8 @@ export const Excalidraw: FC<{
     files: BinaryFiles,
   ) => void
   className?: string
+
+  onReady?: (api: ExcalidrawImperativeAPI) => void
 }> = ({
   data,
   viewModeEnabled = true,
@@ -41,6 +43,7 @@ export const Excalidraw: FC<{
   onChange,
   className,
   showExtendButton = true,
+  onReady,
 }) => {
   const excalidrawAPIRef = React.useRef<ExcalidrawImperativeAPI>()
   const modal = useModalStack()
@@ -64,6 +67,8 @@ export const Excalidraw: FC<{
               fitToContent: true,
             })
           }, 1000)
+
+          onReady?.(api)
         }}
       />
 

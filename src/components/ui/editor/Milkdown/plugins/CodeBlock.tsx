@@ -24,17 +24,17 @@ const CodeBlock = () => {
   const { node } = useNodeViewContext()
 
   const language = node.attrs.language
-  const content = node.content.firstChild?.text || ''
+  const content = node.content.firstChild?.text
 
   switch (language) {
     case 'excalidraw': {
-      return <ExcalidrawBoard content={content} />
+      return <ExcalidrawBoard content={content || '{}'} />
     }
   }
 
   return (
     <div className="my-4">
-      <NormalCodeBlock content={content} language={language} />
+      <NormalCodeBlock content={content || ''} language={language} />
     </div>
   )
 }
@@ -65,7 +65,7 @@ const NormalCodeBlock: FC<{
           </div>
 
           <div className="relative">
-            <div className="absolute left-0 top-0">
+            <div className="absolute left-0 top-4">
               <Input
                 ref={(el) => {
                   if (!el) {
@@ -205,6 +205,7 @@ const SharedModalAction: FC<{
   const { getPos, view, node } = nodeCtx
   const { dismiss } = useCurrentModal()
   const ctx = useEditorCtx()
+  console.log(node)
 
   const deleteNode = () => {
     const pos = getPos()
