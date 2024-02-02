@@ -58,7 +58,8 @@ const NormalCodeBlock: FC<{
         }}
         content={content}
         minHeight="20px"
-        className="rounded-md border bg-gray-100 p-2 dark:bg-zinc-900"
+        className="rounded-md border bg-gray-100 dark:bg-zinc-900"
+        padding={8}
         language={language}
         onChange={(code) => {
           const view = nodeCtx.view

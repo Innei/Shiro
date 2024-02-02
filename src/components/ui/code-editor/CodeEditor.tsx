@@ -14,8 +14,9 @@ export const CodeEditor = forwardRef<
     onChange?: (value: string) => void
     minHeight?: string
     className?: string
+    padding?: number
   }
->(({ content, language, onChange, minHeight, className }, ref) => {
+>(({ content, language, onChange, minHeight, className, padding = 0 }, ref) => {
   const [highlighterValue, setHighlighterValue] = useState(content)
 
   useEffect(() => {
@@ -31,14 +32,21 @@ export const CodeEditor = forwardRef<
         'relative [&_*]:!font-mono [&_*]:!text-base [&_*]:!leading-[1.5]',
         className,
       )}
+      style={
+        {
+          padding: `${padding}px`,
+          '--padding': `${padding * 2}px`,
+        } as any
+      }
       contentEditable={false}
     >
       <textarea
         onKeyDown={stopPropagation}
         onKeyUp={stopPropagation}
+        onPaste={stopPropagation}
         contentEditable={false}
         ref={ref}
-        className="absolute h-full w-full resize-none overflow-hidden bg-transparent p-0 text-transparent caret-accent"
+        className="absolute size-[calc(100%-var(--padding))] resize-none overflow-hidden bg-transparent p-0 text-transparent caret-accent"
         style={sharedStyles}
         value={highlighterValue}
         onChange={(e) => {
