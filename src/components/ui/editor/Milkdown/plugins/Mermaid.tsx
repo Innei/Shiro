@@ -1,4 +1,5 @@
 import { useNodeViewContext } from '@prosemirror-adapter/react'
+import { useEffect, useRef } from 'react'
 import type { MilkdownPlugin } from '@milkdown/ctx'
 import type { ModalContentPropsInternal } from '~/components/ui/modal'
 import type { FC } from 'react'
@@ -13,10 +14,13 @@ import { TextArea } from '~/components/ui/input'
 import { useModalStack } from '~/components/ui/modal'
 import { useUncontrolledInput } from '~/hooks/common/use-uncontrolled-input'
 
+const autoOpenValue = '<auto_open>'
+
 const MermaidRender = () => {
   const { contentRef, node, setAttrs, view, getPos } = useNodeViewContext()
 
   const value = node.attrs.value
+  const autoOpen = value === autoOpenValue
 
   const modalStack = useModalStack()
 
@@ -28,10 +32,16 @@ const MermaidRender = () => {
         view.dispatch(view.state.tr.delete(pos, pos + node.nodeSize))
         dismiss()
       }
-      const [, getValue, ref] = useUncontrolledInput<HTMLTextAreaElement>(value)
+      const defaultValue = value === autoOpenValue ? '' : value
+      const [, getValue, ref] =
+        useUncontrolledInput<HTMLTextAreaElement>(defaultValue)
       return (
         <div className="flex h-[450px] max-h-[80vh] w-[60ch] max-w-full flex-col">
-          <TextArea defaultValue={value} className="flex-grow" ref={ref} />
+          <TextArea
+            defaultValue={defaultValue}
+            className="flex-grow"
+            ref={ref}
+          />
           <div className="mt-4 flex justify-end space-x-2">
             <StyledButton variant="secondary" onClick={deleteNode}>
               删除
@@ -56,7 +66,24 @@ const MermaidRender = () => {
     })
   }
 
-  if (!value) {
+  const openOnceRef = useRef(false)
+
+  useEffect(() => {
+    if (!autoOpen) return
+
+    if (openOnceRef.current) return
+
+    openOnceRef.current = true
+    setAttrs({
+      value: '',
+    })
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        handleEdit()
+      })
+    })
+  }, [])
+  if (!value || autoOpen) {
     return (
       <div
         ref={contentRef}

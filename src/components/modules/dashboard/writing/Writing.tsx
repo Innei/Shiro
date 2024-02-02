@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { isValidElement, useEffect, useRef } from 'react'
 import { produce } from 'immer'
 import { atom, useAtomValue, useSetAtom, useStore } from 'jotai'
 import type { FC } from 'react'
@@ -15,6 +15,7 @@ import {
 } from '@milkdown/preset-commonmark'
 import { callCommand } from '@milkdown/utils'
 
+import { SimpleIconsMermaid } from '~/components/icons/mermaid'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
@@ -115,6 +116,23 @@ const MenuBar = () => {
         view.dispatch(state.tr.insert(currentCursorPosition, nextNode))
       },
     },
+    {
+      icon: <SimpleIconsMermaid />,
+      action: () => {
+        const ctx = editorRef?.editor.ctx
+        if (!ctx) return
+        const view = ctx.get(editorViewCtx)
+        if (!view) return
+        const state = view.state
+
+        const currentCursorPosition = state.selection.from
+        const nextNode = ctx.get(schemaCtx).node('diagram', {
+          value: '<auto_open>',
+        })
+
+        view.dispatch(state.tr.insert(currentCursorPosition, nextNode))
+      },
+    },
   ]
 
   return (
@@ -131,7 +149,11 @@ const MenuBar = () => {
             })
           }}
         >
-          <i className={menu.icon} />
+          {isValidElement(menu.icon) ? (
+            menu.icon
+          ) : typeof menu.icon === 'string' ? (
+            <i className={menu.icon} />
+          ) : null}
         </button>
       ))}
     </div>
