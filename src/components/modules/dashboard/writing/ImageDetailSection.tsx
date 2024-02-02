@@ -53,7 +53,9 @@ export const ImageDetailSection: FC<ImageDetailSectionProps> = (props) => {
   }, [images])
 
   const fromText = useMemo(() => {
-    return pickImagesFromMarkdown(text)
+    return pickImagesFromMarkdown(text).filter((src) => {
+      return src.startsWith('http')
+    })
   }, [text])
 
   const hasTopDivider = withDivider === 'top' || withDivider === 'both'

@@ -13,7 +13,7 @@ const config = {
 
 const s3 = new S3Client({
   region: 'auto',
-  endpoint: `https://${config.accountId}.cloudflarestorage.com`,
+  endpoint: `https://${config.accountId}.r2.cloudflarestorage.com`,
   credentials: {
     accessKeyId: config.accessKeyId,
     secretAccessKey: config.secretAccessKey,
@@ -49,10 +49,5 @@ export const POST = async (req: NextRequest) => {
   const ext = filename.split('.').pop()
   await uploadToS3(`${path}.${ext}`, buffer, file.type)
 
-  return {
-    status: 200,
-    body: {
-      url: `${config.customDomain}/${path}`,
-    },
-  }
+  return NextResponse.json({ url: `${config.customDomain}/${path}.${ext}` })
 }

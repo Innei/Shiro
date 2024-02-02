@@ -396,8 +396,7 @@ const FormModal = () => {
       {inputs.map((input) => (
         <FormInput
           key={input.name}
-          // @ts-expect-error
-          value={state[input.name]}
+          value={(state as any)[input.name]}
           onChange={handleChange}
           {...input}
         />
