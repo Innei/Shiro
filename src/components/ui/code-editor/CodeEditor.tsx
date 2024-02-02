@@ -1,5 +1,6 @@
 import { forwardRef, useEffect, useState } from 'react'
 
+import { stopPropagation } from '~/lib/dom'
 import { clsxm } from '~/lib/helper'
 
 import { BaseCodeHighlighter } from '../code-highlighter'
@@ -33,6 +34,8 @@ export const CodeEditor = forwardRef<
       contentEditable={false}
     >
       <textarea
+        onKeyDown={stopPropagation}
+        onKeyUp={stopPropagation}
         contentEditable={false}
         ref={ref}
         className="absolute h-full w-full resize-none overflow-hidden bg-transparent p-0 text-transparent caret-accent"

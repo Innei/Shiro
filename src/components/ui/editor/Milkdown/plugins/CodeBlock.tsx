@@ -27,12 +27,16 @@ const CodeBlock = () => {
 
   switch (language) {
     case 'excalidraw': {
-      return <ExcalidrawBoard content={content || '{}'} />
+      return (
+        <div contentEditable={false}>
+          <ExcalidrawBoard content={content || '{}'} />
+        </div>
+      )
     }
   }
 
   return (
-    <div className="my-4">
+    <div className="my-4" contentEditable={false}>
       <NormalCodeBlock content={content || ''} language={language} />
     </div>
   )
@@ -62,9 +66,14 @@ const NormalCodeBlock: FC<{
           const node = nodeCtx.node
 
           const pos = nodeCtx.getPos()
-          if (!pos) return
-
           const tr = view.state.tr
+          if (!pos) return
+          if (!code) {
+            // remove node
+
+            view.dispatch(view.state.tr.delete(pos, pos + node.nodeSize))
+            return
+          }
 
           const nextNode = ctx!.get(schemaCtx).text(code)
 
