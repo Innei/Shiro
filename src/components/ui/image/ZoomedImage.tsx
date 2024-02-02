@@ -1,6 +1,7 @@
 'use client'
 
 import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
+import clsx from 'clsx'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import mediumZoom from 'medium-zoom'
 import Image from 'next/image'
@@ -61,6 +62,7 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
   placeholder,
   height,
   width,
+  className,
 }) => {
   const [zoomer_] = useState(() => {
     if (isServerSide) return null!
@@ -134,7 +136,7 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
             onError={() => setImageLoadStatusSafe(ImageLoadStatus.Error)}
             className={styles({
               status: imageLoadStatus,
-              className: imageStyles[ImageLoadStatus.Loaded],
+              className: clsx(imageStyles[ImageLoadStatus.Loaded], className),
             })}
             onAnimationEnd={(e: Event) => {
               if (ImageLoadStatus.Loaded) {

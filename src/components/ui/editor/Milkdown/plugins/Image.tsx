@@ -61,7 +61,11 @@ const Image = () => {
   return (
     <div className="my-4 flex center">
       <div className="group relative inline-block">
-        <FixedZoomedImage src={src} containerWidth={isMobile ? 450 : 600} />
+        <FixedZoomedImage
+          className="max-h-[80vh]"
+          src={src}
+          containerWidth={isMobile ? 450 : 600}
+        />
 
         <div className="absolute bottom-1 left-1 z-[10] opacity-0 duration-200 group-hover:opacity-100">
           <StyledButton
