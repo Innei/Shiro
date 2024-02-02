@@ -31,6 +31,7 @@ import { gfm } from '@milkdown/preset-gfm'
 import { replaceAll } from '@milkdown/utils'
 
 import { useIsUnMounted } from '~/hooks/common/use-is-unmounted'
+import { isDev } from '~/lib/env'
 
 import { setEditorCtx } from './ctx'
 import styles from './index.module.css'
@@ -106,6 +107,7 @@ const MilkdownEditorImpl = forwardRef<MilkdownRef, MilkdownProps>(
             .markdownUpdated((ctx, markdown) => {
               if (isUnMounted.current) return
 
+              if (isDev) console.log('markdownUpdated', markdown)
               props.onMarkdownChange?.(markdown)
               props.onChange?.({ target: { value: markdown } })
             })

@@ -57,19 +57,23 @@ export const HighLighter: FC<Props> = (props) => {
   )
 }
 
-export const BaseCodeHighlighter: Component<Props> = ({
-  content,
-  lang,
-  className,
-}) => {
+export const BaseCodeHighlighter: Component<
+  Props & {
+    style: React.CSSProperties
+  }
+> = ({ content, lang, className, style }) => {
   const ref = useRef<HTMLElement>(null)
   useLoadHighlighter(ref)
 
   useEffect(() => {
     window.Prism?.highlightElement(ref.current)
-  }, [content])
+  }, [content, lang])
   return (
-    <pre className={clsxm('!bg-transparent', className)} data-start="1">
+    <pre
+      className={clsxm('!bg-transparent', className)}
+      style={style}
+      data-start="1"
+    >
       <code
         className={`language-${lang ?? 'markup'} !bg-transparent`}
         ref={ref}

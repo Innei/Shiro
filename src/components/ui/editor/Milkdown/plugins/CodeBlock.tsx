@@ -14,7 +14,6 @@ import { $view } from '@milkdown/utils'
 import { BlockLoading } from '~/components/modules/shared/BlockLoading'
 import { StyledButton } from '~/components/ui/button'
 import { CodeEditor } from '~/components/ui/code-editor'
-import { HighLighter } from '~/components/ui/code-highlighter'
 import { Input } from '~/components/ui/input'
 import { useCurrentModal, useModalStack } from '~/components/ui/modal'
 
@@ -44,74 +43,46 @@ const NormalCodeBlock: FC<{
   language: string
 }> = ({ content, language }) => {
   const nodeCtx = useNodeViewContext()
+  const ctx = useEditorCtx()
 
-  const modalStack = useModalStack()
-
-  const handleEdit = () => {
-    const Content: FC<ModalContentPropsInternal> = () => {
-      const valueRef = useRef<string | undefined>(content)
-      const nextLangRef = useRef(language)
-
-      return (
-        <div className="flex w-[60ch] max-w-full flex-col overflow-auto">
-          <div className="max-h-[400px] overflow-auto">
-            <CodeEditor
-              content={content}
-              language={language}
-              onChange={(code) => {
-                valueRef.current = code
-              }}
-            />
-          </div>
-
-          <div className="relative">
-            <div className="absolute left-0 top-4">
-              <Input
-                ref={(el) => {
-                  if (!el) {
-                    nodeCtx.setAttrs({
-                      language: nextLangRef.current,
-                    })
-                  }
-                }}
-                defaultValue={language}
-                onBlur={(e) => {
-                  const v = e.target.value
-                  nodeCtx.setAttrs({
-                    language: v,
-                  })
-                  nextLangRef.current = v
-                }}
-              />
-            </div>
-            <SharedModalAction
-              nodeCtx={nodeCtx}
-              getValue={() => valueRef.current}
-            />
-          </div>
-        </div>
-      )
-    }
-    modalStack.present({
-      title: 'Edit Code Block',
-      content: Content,
-    })
-  }
-
-  if (!content) {
-    return (
-      <div
-        className="my-4 flex h-12 w-full max-w-full cursor-pointer rounded bg-slate-100 text-sm center dark:bg-neutral-800"
-        onClick={handleEdit}
-        contentEditable={false}
-      >
-        Empty Code Block, Click to edit
-      </div>
-    )
-  }
   return (
-    <div contentEditable={false} onClick={handleEdit}>
-      <HighLighter content={content} lang={language} key={content} />
+    <div className="group relative">
+      <CodeEditor
+        ref={(el) => {
+          if (!content && el)
+            requestAnimationFrame(() => requestAnimationFrame(() => el.focus()))
+        }}
+        content={content}
+        minHeight="20px"
+        className="rounded-md border bg-gray-100 p-2 dark:bg-zinc-900"
+        language={language}
+        onChange={(code) => {
+          const view = nodeCtx.view
+
+          const node = nodeCtx.node
+
+          const pos = nodeCtx.getPos()
+          if (!pos) return
+
+          const tr = view.state.tr
+
+          const nextNode = ctx!.get(schemaCtx).text(code)
+
+          tr.replaceWith(pos + 1, pos + node.nodeSize, nextNode)
+          view.dispatch(tr)
+        }}
+      />
+      <div className="absolute bottom-1 right-1 opacity-0 duration-200 group-hover:opacity-100">
+        <Input
+          defaultValue={language}
+          onBlur={(e) => {
+            const v = e.target.value
+            nodeCtx.setAttrs({
+              language: v,
+            })
+          }}
+        />
+      </div>
     </div>
   )
 }
@@ -205,7 +176,6 @@ const SharedModalAction: FC<{
   const { getPos, view, node } = nodeCtx
   const { dismiss } = useCurrentModal()
   const ctx = useEditorCtx()
-  console.log(node)
 
   const deleteNode = () => {
     const pos = getPos()

@@ -93,6 +93,7 @@ const EditorModal: FC<{
     <div className="relative flex w-full flex-grow flex-col lg:w-[600px]">
       <div className="relative max-h-[450px] w-full overflow-auto">
         <CodeEditor
+          minHeight="350px"
           content={value}
           language="json"
           onChange={(value) => {
