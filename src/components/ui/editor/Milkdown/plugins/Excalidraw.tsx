@@ -77,6 +77,7 @@ export const excalidrawSchema = $nodeSchema(id, () => {
     defining: true,
     atom: true,
     isolating: true,
+
     attrs: {
       value: {
         default: '',

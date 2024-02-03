@@ -16,6 +16,8 @@ import {
 import { callCommand } from '@milkdown/utils'
 
 import { SimpleIconsMermaid } from '~/components/icons/mermaid'
+import { useEditorCtx } from '~/components/ui/editor/Milkdown/ctx'
+import { excalidrawSchema } from '~/components/ui/editor/Milkdown/plugins/Excalidraw'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
@@ -50,6 +52,8 @@ export const Writing: FC<{
 
 const MenuBar = () => {
   const editorRef = useEditorRef()
+
+  const ctx = useEditorCtx()
 
   const menuList = [
     {
@@ -102,16 +106,14 @@ const MenuBar = () => {
     {
       icon: 'icon-[mingcute--drawing-board-line]',
       action: () => {
-        const ctx = editorRef?.editor.ctx
         if (!ctx) return
         const view = ctx.get(editorViewCtx)
         if (!view) return
         const state = view.state
 
         const currentCursorPosition = state.selection.from
-        const nextNode = ctx.get(schemaCtx).node('code_block', {
-          language: 'excalidraw',
-        })
+        const schema = ctx.get(schemaCtx)
+        const nextNode = schema.node(excalidrawSchema.type(ctx), {})
 
         view.dispatch(state.tr.insert(currentCursorPosition, nextNode))
       },
@@ -119,7 +121,6 @@ const MenuBar = () => {
     {
       icon: <SimpleIconsMermaid />,
       action: () => {
-        const ctx = editorRef?.editor.ctx
         if (!ctx) return
         const view = ctx.get(editorViewCtx)
         if (!view) return
