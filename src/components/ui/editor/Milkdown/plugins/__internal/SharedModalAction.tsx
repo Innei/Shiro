@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import type { NodeViewContext } from '@prosemirror-adapter/react'
-import type { FC } from 'react'
 
 import { schemaCtx } from '@milkdown/core'
 
@@ -9,12 +8,12 @@ import { useCurrentModal } from '~/components/ui/modal'
 
 import { useEditorCtx } from '../../ctx'
 
-export const SharedModalAction: FC<{
+export const SharedModalAction: Component<{
   nodeCtx: NodeViewContext
   getValue(): string | undefined
 
   save?: (value: string) => Promise<void> | void
-}> = ({ nodeCtx, getValue, save }) => {
+}> = ({ nodeCtx, getValue, save, children }) => {
   const { getPos, view, node } = nodeCtx
   const { dismiss } = useCurrentModal()
   const ctx = useEditorCtx()
@@ -29,6 +28,7 @@ export const SharedModalAction: FC<{
   const [waiting, setWaiting] = useState(false)
   return (
     <div className="mt-4 flex justify-end space-x-2 p-2">
+      {children}
       <StyledButton variant="secondary" onClick={deleteNode}>
         删除
       </StyledButton>

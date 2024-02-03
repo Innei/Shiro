@@ -23,6 +23,7 @@ import {
 } from '@milkdown/utils'
 
 import { BlockLoading } from '~/components/modules/shared/BlockLoading'
+import { StyledButton } from '~/components/ui/button'
 import { CheckBoxLabel } from '~/components/ui/checkbox'
 import { useModalStack } from '~/components/ui/modal'
 import { safeJsonParse } from '~/lib/helper'
@@ -80,6 +81,29 @@ export const excalidrawSchema = $nodeSchema(id, () => {
       value: {
         default: '',
       },
+    },
+
+    parseDOM: [
+      {
+        tag: `div[data-type="${id}"]`,
+        preserveWhitespace: 'full',
+        getAttrs: (dom) => {
+          return {
+            value: (dom as any)?.dataset?.value || '',
+          }
+        },
+      },
+    ],
+    toDOM: (node) => {
+      const code = node.attrs.value as string
+
+      const dom = document.createElement('div')
+      dom.dataset.type = id
+
+      dom.dataset.value = code
+      dom.textContent = code
+
+      return dom
     },
 
     parseMarkdown: {
@@ -178,6 +202,61 @@ const ExcalidrawBoard: FC = () => {
 
       const [editorOption, setEditorOption] = useAtom(excalidrawOptionAtom)
       const excalidrawRef = useRef<ExcalidrawRefObject>(null)
+
+      const getFinalSaveValue = async (): Promise<string | undefined> => {
+        if (editorOption.delta) {
+          const currentData = valueRef.current
+          if (!currentData) {
+            toast.error('无法获取当前数据，更新失败')
+            return
+          }
+
+          // 如果是增量存储
+
+          if (!initialContent) {
+            // 没有初始数据的话，直接刷新文件 Link
+            return fullFileUpdateAsLink()
+          }
+
+          // 初始数据是嵌入式数据
+          const isEmbeddedData = safeJsonParse(initialContent)
+          if (isEmbeddedData) {
+            // 如果是嵌入式数据，直接更新为 link
+            return fullFileUpdateAsLink()
+          }
+
+          // 初始数据是文件链接
+          const dataRefData = excalidrawRef.current?.getRefData()
+
+          if (!dataRefData) {
+            toast.error('无法获取原始数据增量更新失败')
+            return
+          }
+
+          const delta = diff(dataRefData, JSON.parse(currentData))
+          const firstLine = initialContent.split('\n')[0]
+          return [firstLine, JSON.stringify(delta, null, 0)].join('\n')
+        } else if (editorOption.embed) {
+          return valueRef.current
+        }
+
+        if (!editorOption.delta && !editorOption.embed) {
+          return fullFileUpdateAsLink()
+        }
+
+        async function fullFileUpdateAsLink() {
+          // 更新为链接类型
+          const currentData = valueRef.current
+          if (!currentData) return
+
+          const file = new File([currentData], 'file.excalidraw', {})
+          toast.info('正在上传文件')
+          const result = await uploadFileToServer(FileTypeEnum.File, file)
+
+          toast.success('上传成功')
+          return `ref:file/${result.name}`
+        }
+      }
       return (
         <div className="flex h-full w-full flex-col">
           <Suspense>
@@ -224,69 +303,28 @@ const ExcalidrawBoard: FC = () => {
                 getValue={valueGetterRef.current}
                 nodeCtx={nodeCtx}
                 save={async () => {
-                  if (editorOption.delta) {
-                    const currentData = valueRef.current
-                    if (!currentData) {
-                      toast.error('无法获取当前数据，更新失败')
-                      return
-                    }
-
-                    // 如果是增量存储
-
-                    if (!initialContent) {
-                      // 没有初始数据的话，直接刷新文件 Link
-                      return fullFileUpdateAsLink()
-                    }
-
-                    // 初始数据是嵌入式数据
-                    const isEmbeddedData = safeJsonParse(initialContent)
-                    if (isEmbeddedData) {
-                      // 如果是嵌入式数据，直接更新为 link
-                      return fullFileUpdateAsLink()
-                    }
-
-                    // 初始数据是文件链接
-                    const dataRefData = excalidrawRef.current?.getRefData()
-
-                    if (!dataRefData) {
-                      toast.error('无法获取原始数据增量更新失败')
-                      return
-                    }
-
-                    const delta = diff(dataRefData, JSON.parse(currentData))
-                    const firstLine = initialContent.split('\n')[0]
-                    nodeCtx.setAttrs({
-                      value: [firstLine, JSON.stringify(delta, null, 0)].join(
-                        '\n',
-                      ),
-                    })
-                  } else if (editorOption.embed) {
-                    nodeCtx.setAttrs({ value: valueRef.current })
-                  }
-
-                  if (!editorOption.delta && !editorOption.embed) {
-                    return fullFileUpdateAsLink()
-                  }
-
-                  async function fullFileUpdateAsLink() {
-                    // 更新为链接类型
-                    const currentData = valueRef.current
-                    if (!currentData) return
-
-                    const file = new File([currentData], 'file.excalidraw', {})
-                    toast.info('正在上传文件')
-                    const result = await uploadFileToServer(
-                      FileTypeEnum.File,
-                      file,
-                    )
-
-                    toast.success('上传成功')
-                    nodeCtx.setAttrs({
-                      value: `ref:file/${result.name}`,
-                    })
-                  }
+                  const value = await getFinalSaveValue()
+                  if (!value) return
+                  nodeCtx.setAttrs({ value })
                 }}
-              />
+              >
+                <StyledButton
+                  variant="secondary"
+                  onClick={async () => {
+                    const value = await getFinalSaveValue()
+                    if (!value) {
+                      toast.error('无法获取当前数据')
+                      return
+                    }
+                    await navigator.clipboard.writeText(
+                      `\`\`\`excalidraw\n${value}\n\`\`\``,
+                    )
+                    toast.success('已复制')
+                  }}
+                >
+                  复制
+                </StyledButton>
+              </SharedModalAction>
             </div>
           </Suspense>
         </div>
