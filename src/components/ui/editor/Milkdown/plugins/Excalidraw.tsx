@@ -179,7 +179,7 @@ const ExcalidrawBoard: FC = () => {
   const nodeCtx = useNodeViewContext()
   const content = nodeCtx.node.attrs.value
 
-  const [initialContent] = useState(content)
+  const [initialContent, resetInitialContent] = useState(content)
 
   const [forceUpdate, key] = useForceUpdate()
   useEffect(() => {
@@ -203,6 +203,10 @@ const ExcalidrawBoard: FC = () => {
 
       const [editorOption, setEditorOption] = useAtom(excalidrawOptionAtom)
       const excalidrawRef = useRef<ExcalidrawRefObject>(null)
+
+      const alreadyUploadValueFileMap = useRef(
+        {} as Record<string, string>,
+      ).current
 
       const getFinalSaveValue = async (): Promise<string | undefined> => {
         if (editorOption.delta) {
@@ -250,12 +254,19 @@ const ExcalidrawBoard: FC = () => {
           const currentData = valueRef.current
           if (!currentData) return
 
+          const hasUploaded = alreadyUploadValueFileMap[currentData]
+          if (hasUploaded) {
+            return hasUploaded
+          }
+
           const file = new File([currentData], 'file.excalidraw', {})
           toast.info('正在上传文件')
           const result = await uploadFileToServer(FileTypeEnum.File, file)
 
           toast.success('上传成功')
-          return `ref:file/${result.name}`
+          const refName = `ref:file/${result.name}`
+          alreadyUploadValueFileMap[currentData] = refName
+          return refName
         }
       }
       return (
@@ -307,6 +318,7 @@ const ExcalidrawBoard: FC = () => {
                   const value = await getFinalSaveValue()
                   if (!value) return
                   nodeCtx.setAttrs({ value })
+                  resetInitialContent(value)
                 }}
               >
                 <StyledButton
