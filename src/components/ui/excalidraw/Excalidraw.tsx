@@ -21,22 +21,21 @@ import { toast } from '~/lib/toast'
 import { MotionButtonBase } from '../button'
 import { useModalStack } from '../modal'
 
-export const Excalidraw: FC<{
+export interface ExcalidrawProps {
   data: object
-
   zenModeEnabled?: boolean
   viewModeEnabled?: boolean
   showExtendButton?: boolean
-
   onChange?: (
     elements: readonly ExcalidrawElement[],
     appState: AppState,
     files: BinaryFiles,
   ) => void
   className?: string
-
   onReady?: (api: ExcalidrawImperativeAPI) => void
-}> = ({
+}
+
+export const Excalidraw: FC<ExcalidrawProps> = ({
   data,
   viewModeEnabled = true,
   zenModeEnabled = true,

@@ -235,14 +235,14 @@ export const DataStat = () => {
   ])
 
   return (
-    <div>
+    <div className="relative @container">
       <h3 className="mb-4 text-xl font-light text-opacity-80">
         数据看板：
         <small className="text-sm">
           数据更新于： <RelativeTime date={new Date(dataUpdatedAt)} />
         </small>
       </h3>
-      <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+      <div className="grid grid-cols-1 gap-6 @[550px]:grid-cols-2 @[900px]:grid-cols-3 @[1124px]:grid-cols-4 @[1200px]:grid-cols-5">
         {dataStat.map((stat) => {
           return (
             <div
@@ -262,7 +262,7 @@ export const DataStat = () => {
                 {stat.icon}
               </div>
 
-              <div className="mt-4 space-x-2">
+              <div className="mt-4 flex flex-wrap gap-2">
                 {stat.actions?.map((action) => {
                   return (
                     <StyledButton

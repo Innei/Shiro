@@ -296,6 +296,7 @@ const twConfig: Config = {
     daisyui,
 
     require('tailwind-scrollbar'),
+    require('@tailwindcss/container-queries'),
   ],
 }
 

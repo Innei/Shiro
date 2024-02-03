@@ -12,7 +12,7 @@ import { apiClient } from '~/lib/request'
 
 export default function Page() {
   return (
-    <div className="p-4">
+    <div className="mx-auto w-full max-w-[1500px] p-4">
       <h1 className="text-3xl font-light">欢迎回来</h1>
 
       <div className="mt-8 flex flex-col gap-4 lg:grid lg:grid-cols-2">
