@@ -12,7 +12,7 @@ export const Draw: DocumentComponent = () => {
       {/* <EventProvider key="viewportProvider" /> */}
       <ModalStackProvider>
         <main className="relative m-auto mt-6 max-w-[800px]">
-          <Excalidraw data={demo} />
+          <Excalidraw data={JSON.stringify(demo)} />
         </main>
       </ModalStackProvider>
 

@@ -1,10 +1,13 @@
-import React from 'react'
+import { useQuery } from '@tanstack/react-query'
+import React, { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
+import { patch } from 'jsondiffpatch'
 import type { ExcalidrawElement } from '@excalidraw/excalidraw/types/element/types'
 import type {
   AppState,
   BinaryFiles,
   ExcalidrawImperativeAPI,
 } from '@excalidraw/excalidraw/types/types'
+import type { Delta } from 'jsondiffpatch'
 import type { FC } from 'react'
 
 import {
@@ -14,15 +17,17 @@ import {
 } from '@excalidraw/excalidraw'
 
 import { useIsMobile } from '~/atoms'
+import { API_URL } from '~/constants/env'
 import { useIsDark } from '~/hooks/common/use-is-dark'
-import { clsxm } from '~/lib/helper'
+import { cloneDeep } from '~/lib/_'
+import { stopPropagation } from '~/lib/dom'
+import { clsxm, safeJsonParse } from '~/lib/helper'
 import { toast } from '~/lib/toast'
 
 import { MotionButtonBase } from '../button'
 import { useModalStack } from '../modal'
 
 export interface ExcalidrawProps {
-  data: object
   zenModeEnabled?: boolean
   viewModeEnabled?: boolean
   showExtendButton?: boolean
@@ -33,97 +38,223 @@ export interface ExcalidrawProps {
   ) => void
   className?: string
   onReady?: (api: ExcalidrawImperativeAPI) => void
+
+  ////
+  data?: object
+  refUrl?: string
+  patchDiffDelta?: Delta
 }
 
-export const Excalidraw: FC<ExcalidrawProps> = ({
-  data,
-  viewModeEnabled = true,
-  zenModeEnabled = true,
-  onChange,
-  className,
-  showExtendButton = true,
-  onReady,
-}) => {
-  const excalidrawAPIRef = React.useRef<ExcalidrawImperativeAPI>()
-  const modal = useModalStack()
-  const isMobile = useIsMobile()
+export interface ExcalidrawRefObject {
+  getRefData(): ExcalidrawElement | null | undefined
+  getDiffDelta(): Delta | null | undefined
+}
+export const Excalidraw = forwardRef<
+  ExcalidrawRefObject,
+  Omit<ExcalidrawProps, 'refUrl' | 'patchDiffDelta' | 'data'> & {
+    data: string
+  }
+>((props, ref) => {
+  const { data, ...rest } = props
+  const transformedProps: {
+    data?: ExcalidrawElement
+    refUrl?: string
+    patchDiffDelta?: Delta
+  } = useMemo(() => {
+    if (!data) return {}
+    const tryParseJson = safeJsonParse(data)
+    if (!tryParseJson) {
+      // 1. data 是 string，取第一行判断
+      const splittedLines = data.split('\n')
+      const firstLine = splittedLines[0]
+      const otherLines = splittedLines.slice(1).join('\n')
 
-  const isDarkMode = useIsDark()
-  return (
-    <div className={clsxm('relative h-[500px] w-full', className)}>
-      <Board
-        theme={isDarkMode ? 'dark' : 'light'}
-        initialData={data}
-        detectScroll={false}
-        zenModeEnabled={zenModeEnabled}
-        onChange={onChange}
-        viewModeEnabled={viewModeEnabled}
-        excalidrawAPI={(api) => {
-          excalidrawAPIRef.current = api
+      const props = {} as any
+      // 第一行是地址
+      if (firstLine.startsWith('http')) {
+        props.refUrl = firstLine
+      }
+      // 第一行是 ref:file/:filename
+      // 命中后端文件
+      else if (firstLine.startsWith('ref:')) {
+        props.refUrl = `${API_URL}/objects/${firstLine.slice(4)}`
+      }
 
-          setTimeout(() => {
-            api.scrollToContent(undefined, {
-              fitToContent: true,
-            })
-          }, 1000)
+      if (otherLines.trim().length > 0) {
+        // 识别为其他行是 delta diff
 
-          onReady?.(api)
-        }}
-      />
+        props.patchDiffDelta = safeJsonParse(otherLines)
+      }
 
-      {viewModeEnabled && showExtendButton && (
-        <MotionButtonBase
-          onClick={async () => {
-            if (!excalidrawAPIRef.current) {
-              toast.error('Excalidraw API not ready')
-              return
-            }
+      return props
+    } else {
+      return {
+        data: tryParseJson as ExcalidrawElement,
+      }
+    }
+  }, [data])
 
-            const elements = excalidrawAPIRef.current.getSceneElements()
-            if (isMobile) {
-              const blob = await exportToBlob({
-                elements,
-                files: null,
+  const internalRef = useRef<InternelExcalidrawRefObject>(null)
+  useImperativeHandle(ref, () => ({
+    getRefData() {
+      return internalRef.current?.getRemoteData()
+    },
+    getDiffDelta() {
+      return transformedProps.patchDiffDelta
+    },
+  }))
+
+  return <ExcalidrawImpl ref={internalRef} {...rest} {...transformedProps} />
+})
+
+Excalidraw.displayName = 'Excalidraw'
+
+interface InternelExcalidrawRefObject {
+  getRemoteData(): ExcalidrawElement | null | undefined
+}
+
+const ExcalidrawImpl = forwardRef<InternelExcalidrawRefObject, ExcalidrawProps>(
+  (
+    {
+      data,
+
+      refUrl,
+      patchDiffDelta,
+      viewModeEnabled = true,
+      zenModeEnabled = true,
+      onChange,
+      className,
+      showExtendButton = true,
+      onReady,
+    },
+    ref,
+  ) => {
+    const excalidrawAPIRef = React.useRef<ExcalidrawImperativeAPI>()
+    const modal = useModalStack()
+    const isMobile = useIsMobile()
+
+    const { data: refData, isLoading } = useQuery({
+      queryKey: ['excalidraw', refUrl as string],
+      queryFn: async ({ queryKey }) => {
+        const [_, refUrl] = queryKey
+        const res = await fetch(refUrl)
+        return await res.json()
+      },
+      enabled: !!refUrl,
+    })
+
+    useImperativeHandle(ref, () => {
+      return {
+        getRemoteData() {
+          return refData
+        },
+      }
+    })
+
+    const finalDataIfRefUrl = useMemo(() => {
+      if (!refData) return null
+
+      return patch(cloneDeep(refData), patchDiffDelta)
+    }, [refData, refUrl])
+
+    const isDarkMode = useIsDark()
+
+    const finalData = useMemo(() => {
+      const finalData = data || finalDataIfRefUrl
+      if (!finalData && !isLoading) {
+        console.error('Excalidraw: data not exist')
+      }
+      return finalData as ExcalidrawElement
+    }, [data, finalDataIfRefUrl, isLoading])
+
+    return (
+      <div
+        onKeyDown={stopPropagation}
+        onKeyUp={stopPropagation}
+        className={clsxm('relative h-[500px] w-full', className)}
+      >
+        {isLoading && (
+          <div className="absolute inset-0 z-[10] flex center">
+            <div className="loading loading-spinner" />
+          </div>
+        )}
+        <Board
+          key={
+            refUrl ? `excalidraw-refData-loading-${isLoading}` : 'excalidraw'
+          }
+          theme={isDarkMode ? 'dark' : 'light'}
+          initialData={finalData}
+          detectScroll={false}
+          zenModeEnabled={zenModeEnabled}
+          onChange={onChange}
+          viewModeEnabled={viewModeEnabled}
+          excalidrawAPI={(api) => {
+            excalidrawAPIRef.current = api
+
+            setTimeout(() => {
+              api.scrollToContent(undefined, {
+                fitToContent: true,
               })
+            }, 1000)
 
-              window.open(window.URL.createObjectURL(blob))
-            } else {
-              const windowRect = {
-                w: window.innerWidth,
-                h: window.innerHeight,
+            onReady?.(api)
+          }}
+        />
+
+        {viewModeEnabled && showExtendButton && (
+          <MotionButtonBase
+            onClick={async () => {
+              if (!excalidrawAPIRef.current) {
+                toast.error('Excalidraw API not ready')
+                return
               }
 
-              const $svg = await exportToSvg({
-                elements,
-                files: null,
-                maxWidthOrHeight: Math.min(
-                  windowRect.h * 0.7,
-                  windowRect.w * 0.9,
-                ),
-                appState: { theme: isDarkMode ? 'dark' : 'light' },
-                exportPadding: 12,
-              })
+              const elements = excalidrawAPIRef.current.getSceneElements()
+              if (isMobile) {
+                const blob = await exportToBlob({
+                  elements,
+                  files: null,
+                })
 
-              modal.present({
-                title: 'Preview',
-                content: () => <SvgPreview svgElement={$svg} />,
-                clickOutsideToDismiss: true,
-              })
-            }
-          }}
-          className={clsxm(
-            'absolute bottom-2 right-2 z-10 box-content flex h-5 w-5 rounded-md border p-2 center',
-            'border-zinc-200 text-zinc-600',
-            'dark:border-neutral-800 dark:text-zinc-500',
-          )}
-        >
-          <i className="icon-[mingcute--external-link-line]" />
-        </MotionButtonBase>
-      )}
-    </div>
-  )
-}
+                window.open(window.URL.createObjectURL(blob))
+              } else {
+                const windowRect = {
+                  w: window.innerWidth,
+                  h: window.innerHeight,
+                }
 
+                const $svg = await exportToSvg({
+                  elements,
+                  files: null,
+                  maxWidthOrHeight: Math.min(
+                    windowRect.h * 0.7,
+                    windowRect.w * 0.9,
+                  ),
+                  appState: { theme: isDarkMode ? 'dark' : 'light' },
+                  exportPadding: 12,
+                })
+
+                modal.present({
+                  title: 'Preview',
+                  content: () => <SvgPreview svgElement={$svg} />,
+                  clickOutsideToDismiss: true,
+                })
+              }
+            }}
+            className={clsxm(
+              'absolute bottom-2 right-2 z-10 box-content flex h-5 w-5 rounded-md border p-2 center',
+              'border-zinc-200 text-zinc-600',
+              'dark:border-neutral-800 dark:text-zinc-500',
+            )}
+          >
+            <i className="icon-[mingcute--external-link-line]" />
+          </MotionButtonBase>
+        )}
+      </div>
+    )
+  },
+)
+ExcalidrawImpl.displayName = 'ExcalidrawImpl'
 const SvgPreview: FC<{
   svgElement: SVGSVGElement
 }> = ({ svgElement }) => {

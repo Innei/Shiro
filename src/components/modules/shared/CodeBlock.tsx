@@ -17,7 +17,7 @@ const ExcalidrawLazy = ({ data }: any) => {
       })),
     )
 
-    setComponent(<Component data={JSON.parse(data)} />)
+    setComponent(<Component key={data} data={data} />)
   }, [data])
 
   return (

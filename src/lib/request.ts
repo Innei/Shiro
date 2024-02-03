@@ -7,6 +7,7 @@ import {
 } from '@mx-space/api-client'
 import { axiosAdaptor } from '@mx-space/api-client/dist/adaptors/axios'
 
+import { isLogged } from '~/atoms'
 import { API_URL } from '~/constants/env'
 
 import PKG from '../../package.json'
@@ -48,6 +49,13 @@ $axios.interceptors.request.use((config) => {
     }
     config.headers['x-session-uuid'] =
       globalThis?.sessionStorage?.getItem(uuidStorageKey) ?? uuid
+  }
+
+  if (isLogged()) {
+    config.params = {
+      ...config.params,
+      ts: Date.now(),
+    }
   }
 
   if (isDev && isServerSide) {

@@ -1,9 +1,13 @@
 import { useNodeViewContext } from '@prosemirror-adapter/react'
-import { lazy, Suspense, useEffect, useMemo, useRef } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { useForceUpdate } from 'framer-motion'
+import { useAtom } from 'jotai'
+import { atomWithStorage } from 'jotai/utils'
+import { diff } from 'jsondiffpatch'
 import { visit } from 'unist-util-visit'
 import type { MilkdownPlugin } from '@milkdown/ctx'
 import type { Node } from '@milkdown/transformer'
+import type { ExcalidrawRefObject } from '~/components/ui/excalidraw'
 import type { ModalContentPropsInternal } from '~/components/ui/modal'
 import type { FC } from 'react'
 import type { PluginCtx } from './types'
@@ -19,7 +23,12 @@ import {
 } from '@milkdown/utils'
 
 import { BlockLoading } from '~/components/modules/shared/BlockLoading'
+import { CheckBoxLabel } from '~/components/ui/checkbox'
 import { useModalStack } from '~/components/ui/modal'
+import { safeJsonParse } from '~/lib/helper'
+import { buildNSKey } from '~/lib/ns'
+import { toast } from '~/lib/toast'
+import { FileTypeEnum, uploadFileToServer } from '~/lib/upload'
 
 import { SharedModalAction } from './__internal/SharedModalAction'
 
@@ -121,6 +130,11 @@ const insertExcalidrawCommand = $command(
   (ctx) => () => setBlockType(excalidrawSchema.type(ctx)),
 )
 
+const excalidrawOptionAtom = atomWithStorage(buildNSKey('excalidraw'), {
+  embed: false,
+  delta: true,
+})
+
 export const ExcalidrawPlugins: (pluginCtx: PluginCtx) => MilkdownPlugin[] = ({
   nodeViewFactory,
 }) => [
@@ -139,6 +153,8 @@ const ExcalidrawBoard: FC = () => {
   const modalStack = useModalStack()
   const nodeCtx = useNodeViewContext()
   const content = nodeCtx.node.attrs.value
+
+  const [initialContent] = useState(content)
 
   const [forceUpdate, key] = useForceUpdate()
   useEffect(() => {
@@ -159,12 +175,16 @@ const ExcalidrawBoard: FC = () => {
     const Content: FC<ModalContentPropsInternal> = () => {
       const valueRef = useRef<string | undefined>(content)
       const valueGetterRef = useRef(() => valueRef.current)
+
+      const [editorOption, setEditorOption] = useAtom(excalidrawOptionAtom)
+      const excalidrawRef = useRef<ExcalidrawRefObject>(null)
       return (
         <div className="flex h-full w-full flex-col">
           <Suspense>
             <Excalidraw
+              ref={excalidrawRef}
               className="h-full w-full flex-grow"
-              data={JSON.parse(content)}
+              data={content}
               viewModeEnabled={false}
               zenModeEnabled={false}
               onChange={async (elements, appState, files) => {
@@ -181,13 +201,93 @@ const ExcalidrawBoard: FC = () => {
               }}
             />
 
-            <SharedModalAction
-              getValue={valueGetterRef.current}
-              nodeCtx={nodeCtx}
-              save={() => {
-                nodeCtx.setAttrs({ value: valueRef.current })
-              }}
-            />
+            <div className="relative">
+              <div className="absolute bottom-1 left-1 space-x-2">
+                <CheckBoxLabel
+                  label="使用内嵌数据"
+                  onCheckChange={(checked) => {
+                    setEditorOption((prev) => ({ ...prev, embed: checked }))
+                  }}
+                  checked={editorOption.embed}
+                />
+                <CheckBoxLabel
+                  label="使用增量存储"
+                  checked={editorOption.embed ? false : editorOption.delta}
+                  disabled={editorOption.embed}
+                  onCheckChange={(checked) => {
+                    setEditorOption((prev) => ({ ...prev, delta: checked }))
+                  }}
+                />
+              </div>
+
+              <SharedModalAction
+                getValue={valueGetterRef.current}
+                nodeCtx={nodeCtx}
+                save={async () => {
+                  if (editorOption.delta) {
+                    const currentData = valueRef.current
+                    if (!currentData) {
+                      toast.error('无法获取当前数据，更新失败')
+                      return
+                    }
+
+                    // 如果是增量存储
+
+                    if (!initialContent) {
+                      // 没有初始数据的话，直接刷新文件 Link
+                      return fullFileUpdateAsLink()
+                    }
+
+                    // 初始数据是嵌入式数据
+                    const isEmbeddedData = safeJsonParse(initialContent)
+                    if (isEmbeddedData) {
+                      // 如果是嵌入式数据，直接更新为 link
+                      return fullFileUpdateAsLink()
+                    }
+
+                    // 初始数据是文件链接
+                    const dataRefData = excalidrawRef.current?.getRefData()
+
+                    if (!dataRefData) {
+                      toast.error('无法获取原始数据增量更新失败')
+                      return
+                    }
+
+                    const delta = diff(dataRefData, JSON.parse(currentData))
+                    const firstLine = initialContent.split('\n')[0]
+                    nodeCtx.setAttrs({
+                      value: [firstLine, JSON.stringify(delta, null, 0)].join(
+                        '\n',
+                      ),
+                    })
+                  } else if (editorOption.embed) {
+                    nodeCtx.setAttrs({ value: valueRef.current })
+                  }
+
+                  if (!editorOption.delta && !editorOption.embed) {
+                    return fullFileUpdateAsLink()
+                  }
+
+                  async function fullFileUpdateAsLink() {
+                    // 更新为链接类型
+                    const currentData = valueRef.current
+                    if (!currentData) return
+
+                    const file = new File([currentData], 'file.excalidraw', {})
+                    toast.info('正在上传文件')
+                    const result = await uploadFileToServer(
+                      FileTypeEnum.File,
+                      file,
+                    )
+
+                    toast.success('上传成功')
+                    nodeCtx.setAttrs({
+                      value: `ref:file/${result.name}`,
+                    })
+                  }
+                }}
+              />
+            </div>
           </Suspense>
         </div>
       )
@@ -205,7 +305,7 @@ const ExcalidrawBoard: FC = () => {
           className="pointer-events-none"
           showExtendButton={false}
           key={key}
-          data={useMemo(() => JSON.parse(content || '{}'), [content])}
+          data={content}
         />
       </Suspense>
     </div>

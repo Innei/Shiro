@@ -17,3 +17,11 @@ export const escapeHTMLTag = (html: string) => {
     .replace(ap, '&#39;')
     .replace(ic, '&#34;')
 }
+
+export const safeJsonParse = (str: string) => {
+  try {
+    return JSON.parse(str)
+  } catch (e) {
+    return null
+  }
+}
