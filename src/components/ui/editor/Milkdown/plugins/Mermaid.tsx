@@ -28,7 +28,7 @@ const MermaidRender = () => {
     const Content: FC<ModalContentPropsInternal> = ({ dismiss }) => {
       const deleteNode = () => {
         const pos = getPos()
-        if (!pos) return
+        if (typeof pos === 'undefined') return
         view.dispatch(view.state.tr.delete(pos, pos + node.nodeSize))
         dismiss()
       }

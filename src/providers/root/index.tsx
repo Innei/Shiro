@@ -67,7 +67,7 @@ export function DashboardAppProviders({ children }: PropsWithChildren) {
       <ModalStackProvider key="modalStackProvider" />
       <EventProvider key="viewportProvider" />
 
-      <DebugProvider key="debugProvider" />
+      {/* <DebugProvider key="debugProvider" /> */}
     </ProviderComposer>
   )
 }

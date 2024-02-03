@@ -51,7 +51,7 @@ const NormalCodeBlock: FC<{
 
           const pos = nodeCtx.getPos()
           const tr = view.state.tr
-          if (!pos) return
+          if (typeof pos === 'undefined') return
           if (!code) {
             // remove node
 

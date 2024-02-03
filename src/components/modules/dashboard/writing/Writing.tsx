@@ -112,10 +112,18 @@ const MenuBar = () => {
         const state = view.state
 
         const currentCursorPosition = state.selection.from
+
         const schema = ctx.get(schemaCtx)
         const nextNode = schema.node(excalidrawSchema.type(ctx), {})
+        const tr = state.tr
+        tr.replaceSelectionWith(nextNode)
+        // 判断是否插入的 node 位于文档的末尾
+        const isNewNodeIsEof =
+          currentCursorPosition === state.doc.content.size ||
+          currentCursorPosition + 1 === state.doc.content.size
+        if (isNewNodeIsEof) tr.insert(tr.doc.content.size, schema.text('\n'))
 
-        view.dispatch(state.tr.insert(currentCursorPosition, nextNode))
+        view.dispatch(tr)
       },
     },
     {
@@ -127,11 +135,20 @@ const MenuBar = () => {
         const state = view.state
 
         const currentCursorPosition = state.selection.from
-        const nextNode = ctx.get(schemaCtx).node('diagram', {
+        const schema = ctx.get(schemaCtx)
+        const nextNode = schema.node('diagram', {
           value: '<auto_open>',
         })
 
-        view.dispatch(state.tr.insert(currentCursorPosition, nextNode))
+        const tr = state.tr
+        tr.replaceSelectionWith(nextNode)
+        // 判断是否插入的 node 位于文档的末尾
+        const isNewNodeIsEof =
+          currentCursorPosition === state.doc.content.size ||
+          currentCursorPosition + 1 === state.doc.content.size
+        if (isNewNodeIsEof) tr.insert(tr.doc.content.size, schema.text('\n'))
+
+        view.dispatch(tr)
       },
     },
   ]

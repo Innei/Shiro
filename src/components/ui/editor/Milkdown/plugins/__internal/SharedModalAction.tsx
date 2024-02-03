@@ -20,7 +20,8 @@ export const SharedModalAction: Component<{
 
   const deleteNode = () => {
     const pos = getPos()
-    if (!pos) return
+
+    if (typeof pos === 'undefined') return
     view.dispatch(view.state.tr.delete(pos, pos + node.nodeSize))
     dismiss()
   }
@@ -45,7 +46,7 @@ export const SharedModalAction: Component<{
             }
             // set first firstChild text
             const pos = getPos()
-            if (!pos) return
+            if (typeof pos === 'undefined') return
             const tr = view.state.tr
 
             const nextValue = getValue()!
