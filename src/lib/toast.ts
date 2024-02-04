@@ -61,7 +61,3 @@ export const toast: ToastCustom = (
 Object.assign(toast, {
   dismiss: Toast.dismiss,
 })
-
-if (typeof window !== 'undefined') {
-  window.toast = toast
-}
