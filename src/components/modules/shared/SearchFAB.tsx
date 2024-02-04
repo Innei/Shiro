@@ -217,6 +217,7 @@ const SearchPanelImpl = () => {
   )
 
   const isLogged = useIsLogged()
+
   return (
     <m.div
       className={clsx(
@@ -266,9 +267,9 @@ const SearchPanelImpl = () => {
               <div className="flex flex-col items-center space-y-2">
                 {!keyword ? (
                   <i className="icon-[mingcute--search-line] text-[60px]" />
-                ) : !isLoading ? (
+                ) : (
                   <EmptyIcon />
-                ) : null}
+                )}
 
                 {!data && isLoading && isFetching && (
                   <div className="loading-dots text-[30px]" />
@@ -280,6 +281,12 @@ const SearchPanelImpl = () => {
             data.map((item, index) => {
               return <SearchItem key={item.id} {...item} index={index} />
             })
+          )}
+
+          {data.length === 0 && isLoading && (
+            <div className="flex h-full flex-grow center">
+              <div className="loading loading-spinner" />
+            </div>
           )}
         </ul>
       </div>
