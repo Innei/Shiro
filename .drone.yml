@@ -38,7 +38,7 @@ steps:
     commands:
       - 'npm i -g pnpm'
       - 'pnpm install --no-frozen-lockfile'
-      - 'npm run build'
+      - 'npm run build:ci'
 
     depends_on:
       - restore-cache

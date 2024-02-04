@@ -5,7 +5,7 @@ CWD=$(pwd)
 cd .next
 pwd
 rm -rf cache
-cp ../next.config.mjs ./standalone/next.config.mjs
+# cp ../next.config.mjs ./standalone/next.config.mjs
 cp -r ../public ./standalone/public
 
 cd ./standalone
