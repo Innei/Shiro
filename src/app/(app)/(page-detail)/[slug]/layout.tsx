@@ -10,6 +10,7 @@ import { attachUAAndRealIp } from '~/lib/attach-ua'
 import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
 import { getQueryClient } from '~/lib/query-client.server'
+import { requestErrorHandler } from '~/lib/request.server'
 import { CurrentPageDataProvider } from '~/providers/page/CurrentPageDataProvider'
 import { LayoutRightSideProvider } from '~/providers/shared/LayoutRightSideProvider'
 import { queries } from '~/queries/definition'
@@ -24,9 +25,9 @@ import {
 
 const getData = async (params: PageParams) => {
   attachUAAndRealIp()
-  const data = await getQueryClient().fetchQuery(
-    queries.page.bySlug(params.slug),
-  )
+  const data = await getQueryClient()
+    .fetchQuery(queries.page.bySlug(params.slug))
+    .catch(requestErrorHandler)
   return data
 }
 

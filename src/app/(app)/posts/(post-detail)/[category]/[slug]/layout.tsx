@@ -10,6 +10,7 @@ import { attachUAAndRealIp } from '~/lib/attach-ua'
 import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
 import { getQueryClient } from '~/lib/query-client.server'
+import { requestErrorHandler } from '~/lib/request.server'
 import { CurrentPostDataProvider } from '~/providers/post/CurrentPostDataProvider'
 import { LayoutRightSideProvider } from '~/providers/shared/LayoutRightSideProvider'
 import { queries } from '~/queries/definition'
@@ -19,9 +20,9 @@ import PostPage from './pageImpl'
 const getData = async (params: PageParams) => {
   const { category, slug } = params
   attachUAAndRealIp()
-  const data = await getQueryClient().fetchQuery(
-    queries.post.bySlug(category, slug),
-  )
+  const data = await getQueryClient()
+    .fetchQuery(queries.post.bySlug(category, slug))
+    .catch(requestErrorHandler)
   return data
 }
 export const generateMetadata = async ({
