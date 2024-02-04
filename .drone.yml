@@ -36,7 +36,6 @@ steps:
   - name: build
     image: node:20-alpine
     environment:
-      NODE_ENV: production
       NODE_OPTIONS: --max_old_space_size=4096
       NEXT_TELEMETRY_DISABLED: 1
     commands:
