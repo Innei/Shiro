@@ -33,6 +33,8 @@ interface ToastCustom {
   info(message: string, options?: ToastOptions & CustomToastOptions): Id
   warn(message: string, options?: ToastOptions & CustomToastOptions): Id
   error(message: string, options?: ToastOptions & CustomToastOptions): Id
+
+  dismiss(id: Id): void
 }
 
 // @ts-ignore
@@ -55,3 +57,11 @@ export const toast: ToastCustom = (
     options?: ToastOptions & CustomToastOptions,
   ) => toast(message, type as TypeOptions, options)
 })
+
+Object.assign(toast, {
+  dismiss: Toast.dismiss,
+})
+
+if (typeof window !== 'undefined') {
+  window.toast = toast
+}

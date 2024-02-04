@@ -260,10 +260,13 @@ const ExcalidrawBoard: FC = () => {
           }
 
           const file = new File([currentData], 'file.excalidraw', {})
-          toast.info('正在上传文件')
+          const infoToast = toast.info('正在上传文件', {
+            position: 'top-right',
+          })
           const result = await uploadFileToServer(FileTypeEnum.File, file)
 
-          toast.success('上传成功')
+          toast.success('上传成功', { position: 'top-right' })
+          toast.dismiss(infoToast)
           const refName = `ref:file/${result.name}`
           alreadyUploadValueFileMap[currentData] = refName
           return refName
@@ -332,7 +335,7 @@ const ExcalidrawBoard: FC = () => {
                     await navigator.clipboard.writeText(
                       `\`\`\`excalidraw\n${value}\n\`\`\``,
                     )
-                    toast.success('已复制')
+                    toast.success('已复制', { position: 'top-right' })
                   }}
                 >
                   复制

@@ -92,6 +92,7 @@ const Image = () => {
         </div>
         {!isOnline && (
           <FloatPopover
+            type="tooltip"
             placement="right"
             triggerElement={
               <MotionButtonBase
