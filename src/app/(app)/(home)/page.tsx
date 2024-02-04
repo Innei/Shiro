@@ -237,9 +237,7 @@ const PostScreen = () => {
           transition={softSpringPreset}
           className="text-3xl font-medium leading-loose"
         >
-          这里或许有那么一些对于生活的感慨
-          <br />
-          也或许有那么一些对于技术的记录。
+          这里记录着对技术的洞察与创新，是追求未来无限可能的见证。
         </m.h2>
         <div>
           <ul className="space-y-4">

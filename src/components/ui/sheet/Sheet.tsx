@@ -46,6 +46,12 @@ export const PresentSheet: FC<PropsWithChildren<PresentSheetProps>> = (
 
     return nextProps
   }, [props, isOpen, setIsOpen])
+
+  useEffect(() => {
+    if (props.open !== undefined) {
+      setIsOpen(props.open)
+    }
+  }, [props.open])
   const [holderRef, setHolderRef] = useState<HTMLDivElement | null>()
   const store = useStore()
 
