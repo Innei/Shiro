@@ -12,7 +12,7 @@ const isProd = process.env.NODE_ENV === 'production'
 // eslint-disable-next-line import/no-mutable-exports
 let nextConfig = {
   reactStrictMode: true,
-  productionBrowserSourceMaps: true,
+  productionBrowserSourceMaps: false,
   output: 'standalone',
   assetPrefix: isProd ? env.ASSETPREFIX || undefined : undefined,
   compiler: {
