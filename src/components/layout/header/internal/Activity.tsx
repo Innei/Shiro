@@ -139,10 +139,10 @@ const appLabels: { [app: string]: string } = {
   卡拉彼丘: 'calatopia',
   Yuanshen: 'genshin',
   chrome: 'chrome',
-  WINWORD: 'word',
-  EXCEL: 'excel',
-  POWERPNT: 'powerpoint',
-  ONENOTE: 'onenote',
+  'WINWORD.EXE': 'word',
+  'EXCEL.EXE': 'excel',
+  'POWERPNT.EXE': 'powerpoint',
+  'ONENOTE.EXE': 'onenote',
 }
 // autocorrect: true
 export const Activity = memo(() => {
