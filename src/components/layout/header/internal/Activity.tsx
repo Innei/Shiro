@@ -133,6 +133,7 @@ const appLabels: { [app: string]: string } = {
   msedge: 'edge',
   firefox: 'firefox',
   idea64: 'idea',
+  'Explorer.EXE': 'windows_explorer',
   explorer: 'windows_explorer',
   WindowsTerminal: 'windows_terminal',
   卡拉彼丘: 'calatopia',
