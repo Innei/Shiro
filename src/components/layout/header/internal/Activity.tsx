@@ -49,7 +49,7 @@ const appDescription = {
   umamusume: '启动！',
   WindowsTerminal: 'del /f /s /q c:/ (不是',
   卡拉彼丘: '启动！',
-  'Yuanshen.exe': '启动！',
+  Yuanshen: '启动！',
 } as any
 const appLabels: { [app: string]: string } = {
   'Activity Monitor': 'activity',
@@ -130,12 +130,19 @@ const appLabels: { [app: string]: string } = {
   cmusic: 'cmusic',
 
   'Microsoft Edge': 'edge',
+  msedge: 'edge',
   firefox: 'firefox',
   idea64: 'idea',
   'Explorer.EXE': 'windows_explorer',
+  explorer: 'windows_explorer',
   WindowsTerminal: 'windows_terminal',
   卡拉彼丘: 'calatopia',
-  'Yuanshen.exe': 'genshin',
+  Yuanshen: 'genshin',
+  chrome: 'chrome',
+  'WINWORD.EXE': 'word',
+  'EXCEL.EXE': 'excel',
+  'POWERPNT.EXE': 'powerpoint',
+  'ONENOTE.EXE': 'onenote',
 }
 // autocorrect: true
 export const Activity = memo(() => {
