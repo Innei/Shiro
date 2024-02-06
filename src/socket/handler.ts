@@ -13,7 +13,7 @@ import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.
 
 import { sayQueryKey } from '~/app/(app)/says/query'
 import { setOnlineCount } from '~/atoms'
-import { setActivityMediaInfo, setActivityProcessName } from '~/atoms/activity'
+import { setActivityMediaInfo, setActivityProcessInfo } from '~/atoms/activity'
 import {
   FaSolidFeatherAlt,
   IcTwotoneSignpost,
@@ -231,7 +231,9 @@ export const eventHandler = (
     }
 
     case 'fn#ps-update': {
-      setActivityProcessName(data.process)
+      const process = data.processInfo as ProcessInfo
+
+      setActivityProcessInfo(process)
       break
     }
 
@@ -250,4 +252,10 @@ export const eventHandler = (
       }
     }
   }
+}
+
+interface ProcessInfo {
+  name: string
+  description: string
+  iconBase64: string
 }

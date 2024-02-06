@@ -1,20 +1,19 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import React, { memo, useEffect, useMemo } from 'react'
+import React, { memo, useDeferredValue, useEffect, useMemo } from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 import Image from 'next/image'
 
 import {
   setActivityMediaInfo,
-  setActivityProcessName,
+  setActivityProcessInfo,
   useActivity,
 } from '~/atoms/activity'
 import { ImpressionView } from '~/components/common/ImpressionTracker'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { softBouncePreset } from '~/constants/spring'
 import { TrackerAction } from '~/constants/tracker'
-import useDebounceValue from '~/hooks/common/use-debounce-value'
 import { usePageIsActive } from '~/hooks/common/use-is-active'
 import { apiClient } from '~/lib/request'
 import {
@@ -51,6 +50,7 @@ const appDescription = {
   卡拉彼丘: '启动！',
   Yuanshen: '启动！',
 } as any
+
 const appLabels: { [app: string]: string } = {
   'Activity Monitor': 'activity',
   'Chrome Canary': 'chrome_canary',
@@ -145,6 +145,10 @@ const appLabels: { [app: string]: string } = {
   'ONENOTE.EXE': 'onenote',
 }
 // autocorrect: true
+
+const getAppName = (processName: string) => {
+  return appLabels[processName] || processName
+}
 export const Activity = memo(() => {
   const activityConfig = useAppConfigSelector(
     (config) => config.module.activity,
@@ -160,6 +164,12 @@ export const Activity = memo(() => {
         .proxy(endpoint)
         .post<{
           processName: string
+          processInfo?: {
+            name: string
+            iconBase64?: string
+            iconUrl?: string
+            description?: string
+          }
           mediaInfo?: {
             title: string
             artist: string
@@ -167,7 +177,11 @@ export const Activity = memo(() => {
         }>()
         .then((res) => res)
         .catch(() => {
-          return { processName: '', mediaInfo: undefined }
+          return {
+            processName: '',
+            processInfo: undefined,
+            mediaInfo: undefined,
+          }
         })
     },
     refetchInterval: 1000 * 5 * 60,
@@ -188,21 +202,28 @@ export const Activity = memo(() => {
     } else {
       setActivityMediaInfo(null)
     }
-    setActivityProcessName(data.processName)
+    setActivityProcessInfo({
+      name: data.processInfo?.name || data.processName,
+      iconBase64: data.processInfo?.iconBase64,
+      description: data.processInfo?.description,
+    })
   }, [data])
 
   const ownerName = useAggregationSelector((data) => data.user.name)
+
+  const { process, media } = activity
+  const deferredProcess = useDeferredValue(process)
+  const processName = deferredProcess?.name || ''
+  const processIcon = deferredProcess?.iconBase64 || deferredProcess?.iconUrl
+
+  const renderDescription =
+    deferredProcess?.description || appDescription[deferredProcess?.name || '']
+  const renderProcessName = getAppName(processName)
+
   const memoProcessName = useMemo(
-    () => ({ processName: activity?.processName || '' }),
-    [activity?.processName],
+    () => ({ processName: processName || '', icon: processIcon }),
+    [processIcon, processName],
   )
-
-  const { processName, media } = activity
-  const debounceProcess = useDebounceValue(processName, 800)
-
-  if (debounceProcess && !appLabels[debounceProcess]) {
-    console.log('Not collected process name: ', debounceProcess)
-  }
 
   return (
     <>
@@ -223,9 +244,9 @@ export const Activity = memo(() => {
       )}
       {isPageActive && (
         <AnimatePresence>
-          {!!appLabels[processName] && (
+          {renderProcessName && (
             <m.div
-              key={processName}
+              key={renderProcessName}
               className="pointer-events-auto absolute bottom-0 right-0 top-0 z-[10] flex items-center overflow-hidden lg:right-[-25px]"
               initial={{
                 opacity: 0.0001,
@@ -252,10 +273,10 @@ export const Activity = memo(() => {
                   action={TrackerAction.Impression}
                   trackerMessage="Activity"
                 >
-                  {ownerName} 正在使用 {processName}
-                  {appDescription[processName]
-                    ? ` ${appDescription[processName]}`
-                    : ''}
+                  <span className="whitespace-pre-line">
+                    {ownerName} 正在使用 {renderProcessName}
+                    {renderDescription ? ` ${renderDescription}` : ''}
+                  </span>
                 </ImpressionView>
               </FloatPopover>
             </m.div>
@@ -269,7 +290,22 @@ Activity.displayName = 'Activity'
 const cMusicProps = { processName: 'cmusic' }
 const TriggerComponent = memo<{
   processName: string
-}>(({ processName }) => {
+  icon?: string
+}>(({ processName, icon }) => {
+  const isBuiltIn = !!appLabels[processName]
+
+  if (!isBuiltIn) {
+    return (
+      <img
+        width={32}
+        height={32}
+        src={icon}
+        alt={processName}
+        className="pointer-events-none select-none overflow-hidden rounded-md"
+      />
+    )
+  }
+
   return (
     <Image
       width={32}
