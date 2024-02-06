@@ -27,6 +27,7 @@ export const fetchAppUrl = async () => {
 
   if (data.adminUrl) jotaiStore.set(adminUrlAtom, data.adminUrl)
   jotaiStore.set(webUrlAtom, data.webUrl)
+  return data
 }
 
 export const getWebUrl = () => jotaiStore.get(webUrlAtom)
@@ -54,7 +55,6 @@ export const useResolveAdminUrl = () => {
         parsedUrl.searchParams.set('token', token)
       }
 
-      console.log('parsedUrl', parsedUrl)
       return `${parsedUrl.protocol}//${parsedUrl.host}${parsedUrl.pathname}${
         path || ''
       }${parsedUrl.search}`
