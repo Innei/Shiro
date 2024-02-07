@@ -78,7 +78,7 @@ export default function Page() {
         <h3>海内存知己，天涯若比邻</h3>
       </header>
 
-      <main className="mt-10">
+      <main className="mt-10 flex w-full flex-col">
         {friends.length > 0 && (
           <>
             {collections.length !== 0 && renderTitle('我的朋友')}
@@ -179,14 +179,21 @@ const Card: FC<{ link: LinkModel }> = ({ link }) => {
 
 const FavoriteSection: FC<FriendSectionProps> = ({ data }) => {
   return (
-    <ul>
+    <ul className="relative flex w-full flex-grow flex-col gap-4">
       {data.map((link) => {
         return (
-          <li key={link.id}>
-            <a href={link.url} target="_blank">
+          <li key={link.id} className="flex w-full items-end">
+            <a
+              href={link.url}
+              target="_blank"
+              className="flex-shrink-0 text-base leading-none"
+            >
               {link.name}
             </a>
-            <span className="meta">{link.description || ''}</span>
+
+            <span className="ml-2 h-[12px] max-w-full truncate break-all text-xs leading-none text-base-content/80">
+              {link.description || ''}
+            </span>
           </li>
         )
       })}
