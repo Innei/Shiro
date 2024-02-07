@@ -29,7 +29,7 @@ import {
   useEditorRef,
   Writing,
 } from '~/components/modules/dashboard/writing/Writing'
-import { LoadingButtonWrapper, StyledButton } from '~/components/ui/button'
+import { StyledButton } from '~/components/ui/button'
 import { PublishEvent, WriteEditEvent } from '~/events'
 import { useRefetchData } from '~/hooks/biz/use-refetch-data'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
@@ -182,53 +182,53 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
             }}
           />
         </div>
-        <LoadingButtonWrapper isLoading={isPending}>
-          <StyledButton
-            onClick={() => {
-              const currentData = {
-                ...getData(),
-              }
 
-              const payload: NoteDto & {
-                id?: string
-              } = {
-                ...currentData,
-              }
+        <StyledButton
+          isLoading={isPending}
+          onClick={() => {
+            const currentData = {
+              ...getData(),
+            }
 
-              // if (
-              //   currentData.created === initialData?.created &&
-              //   currentData.created
-              // ) {
-              //   payload.custom_created = new Date(currentData.created)
-              // }
+            const payload: NoteDto & {
+              id?: string
+            } = {
+              ...currentData,
+            }
 
-              Reflect.deleteProperty(currentData, 'category')
+            // if (
+            //   currentData.created === initialData?.created &&
+            //   currentData.created
+            // ) {
+            //   payload.custom_created = new Date(currentData.created)
+            // }
 
-              const isCreate = !currentData.id
-              const promise = isCreate
-                ? createNote(payload).then((res) => {
-                    router.replace(`/dashboard/notes/edit?id=${res.id}`)
+            Reflect.deleteProperty(currentData, 'category')
 
-                    return res
-                  })
-                : updateNote(payload)
-              promise
-                .then((res) => {
-                  window.dispatchEvent(
-                    new PublishEvent({
-                      ...payload,
-                      id: res.id,
-                    }),
-                  )
+            const isCreate = !currentData.id
+            const promise = isCreate
+              ? createNote(payload).then((res) => {
+                  router.replace(`/dashboard/notes/edit?id=${res.id}`)
+
+                  return res
                 })
-                .catch((err) => {
-                  toast.error(err.message)
-                })
-            }}
-          >
-            {initialData ? '保存' : '发布'}
-          </StyledButton>
-        </LoadingButtonWrapper>
+              : updateNote(payload)
+            promise
+              .then((res) => {
+                window.dispatchEvent(
+                  new PublishEvent({
+                    ...payload,
+                    id: res.id,
+                  }),
+                )
+              })
+              .catch((err) => {
+                toast.error(err.message)
+              })
+          }}
+        >
+          {initialData ? '保存' : '发布'}
+        </StyledButton>
       </div>
     </>
   )

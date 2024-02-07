@@ -29,7 +29,7 @@ import {
   useEditorRef,
   Writing,
 } from '~/components/modules/dashboard/writing/Writing'
-import { LoadingButtonWrapper, StyledButton } from '~/components/ui/button'
+import { StyledButton } from '~/components/ui/button'
 import { PublishEvent, WriteEditEvent } from '~/events'
 import { useRefetchData } from '~/hooks/biz/use-refetch-data'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
@@ -176,52 +176,52 @@ const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => {
             }}
           />
         </div>
-        <LoadingButtonWrapper isLoading={isPending}>
-          <StyledButton
-            onClick={() => {
-              const currentData = {
-                ...getData(),
-              }
 
-              const payload: PostDto & {
-                id?: string
-              } = {
-                ...currentData,
-              }
+        <StyledButton
+          isLoading={isPending}
+          onClick={() => {
+            const currentData = {
+              ...getData(),
+            }
 
-              // if (
-              //   currentData.created === initialData?.created &&
-              //   currentData.created
-              // ) {
-              //   payload.custom_created = new Date(currentData.created)
-              // }
+            const payload: PostDto & {
+              id?: string
+            } = {
+              ...currentData,
+            }
 
-              Reflect.deleteProperty(currentData, 'category')
+            // if (
+            //   currentData.created === initialData?.created &&
+            //   currentData.created
+            // ) {
+            //   payload.custom_created = new Date(currentData.created)
+            // }
 
-              const isCreate = !currentData.id
-              const promise = isCreate
-                ? createPost(payload).then((res) => {
-                    router.replace(`/dashboard/posts/edit?id=${res.id}`)
-                    return res
-                  })
-                : updatePost(payload)
+            Reflect.deleteProperty(currentData, 'category')
 
-              promise.then((res) => {
-                window.dispatchEvent(
-                  new PublishEvent({
-                    ...payload,
-                    id: res.id,
-                  }),
-                )
-              })
-              promise.catch((err) => {
-                toast.error(err.message)
-              })
-            }}
-          >
-            {initialData ? '保存' : '发布'}
-          </StyledButton>
-        </LoadingButtonWrapper>
+            const isCreate = !currentData.id
+            const promise = isCreate
+              ? createPost(payload).then((res) => {
+                  router.replace(`/dashboard/posts/edit?id=${res.id}`)
+                  return res
+                })
+              : updatePost(payload)
+
+            promise.then((res) => {
+              window.dispatchEvent(
+                new PublishEvent({
+                  ...payload,
+                  id: res.id,
+                }),
+              )
+            })
+            promise.catch((err) => {
+              toast.error(err.message)
+            })
+          }}
+        >
+          {initialData ? '保存' : '发布'}
+        </StyledButton>
       </div>
     </>
   )
