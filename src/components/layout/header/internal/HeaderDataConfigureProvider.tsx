@@ -3,7 +3,7 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 
-import { cloneDeep } from '~/lib/_'
+import { cloneDeep } from '~/lib/lodash'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
 import { headerMenuConfig as baseHeaderMenuConfig } from '../config'

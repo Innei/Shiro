@@ -49,6 +49,19 @@ export default defineConfig({
     },
   },
 
+  build: {
+    chunkSizeWarningLimit: 2500,
+    target: 'esnext',
+
+    // sourcemap: true,
+    rollupOptions: {
+      output: {
+        // chunkFileNames: `js/[name]-[hash].js`,
+        // entryFileNames: `js/[name]-[hash].js`,
+      },
+    },
+  },
+
   optimizeDeps: {
     esbuildOptions: {
       plugins: [Macros.esbuild()],

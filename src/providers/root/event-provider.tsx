@@ -5,7 +5,7 @@ import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 
 import { setIsPrintMode } from '~/atoms/css-media'
 import { viewportAtom } from '~/atoms/viewport'
-import { throttle } from '~/lib/_'
+import { throttle } from '~/lib/lodash'
 import { jotaiStore } from '~/lib/store'
 
 export const EventProvider: Component = ({ children }) => {

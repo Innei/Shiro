@@ -3,7 +3,7 @@ import type { PaginateResult, PostModel, TagModel } from '@mx-space/api-client'
 import type { PostDto } from '~/models/writing'
 
 import { useResetAutoSaverData } from '~/components/modules/dashboard/writing/BaseWritingProvider'
-import { cloneDeep } from '~/lib/_'
+import { cloneDeep } from '~/lib/lodash'
 import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'

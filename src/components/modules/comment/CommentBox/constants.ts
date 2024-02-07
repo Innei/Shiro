@@ -1,4 +1,4 @@
-import { sample } from '~/lib/_'
+import { sample } from '~/lib/lodash'
 
 const placeholderCopywrites = [
   '在这里说点什么呢。',

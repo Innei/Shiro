@@ -6,8 +6,8 @@ import { atom, useAtomValue, useSetAtom } from 'jotai'
 import type { FC, PropsWithChildren } from 'react'
 
 import { setIsInteractive } from '~/atoms/is-interactive'
-import { throttle } from '~/lib/_'
 import { createAtomSelector } from '~/lib/atom'
+import { throttle } from '~/lib/lodash'
 
 const pageScrollLocationAtom = atom(0)
 const pageScrollDirectionAtom = atom<'up' | 'down' | null>(null)

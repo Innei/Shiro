@@ -9,8 +9,8 @@ import { Divider } from '~/components/ui/divider'
 import { AdvancedInput, AdvancedInputProvider } from '~/components/ui/input'
 import { Label, LabelProvider } from '~/components/ui/label'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
-import { uniqBy } from '~/lib/_'
 import { getDominantColor } from '~/lib/image'
+import { uniqBy } from '~/lib/lodash'
 import { toast } from '~/lib/toast'
 
 const pickImagesFromMarkdown = (text: string) => {

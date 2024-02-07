@@ -13,9 +13,9 @@ import type { KeyboardEvent } from 'react'
 import type { AdvancedInputProps } from '../input'
 
 import { useEventCallback } from '~/hooks/common/use-event-callback'
-import { merge, throttle } from '~/lib/_'
 import { stopPropagation } from '~/lib/dom'
 import { clsxm } from '~/lib/helper'
+import { merge, throttle } from '~/lib/lodash'
 
 import { Input } from '../input'
 import { RootPortal } from '../portal'

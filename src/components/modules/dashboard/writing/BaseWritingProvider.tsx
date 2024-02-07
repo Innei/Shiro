@@ -12,7 +12,7 @@ import { StyledButton } from '~/components/ui/button'
 import { useModalStack } from '~/components/ui/modal'
 import { EmitKeyMap } from '~/constants/keys'
 import { useBeforeUnload } from '~/hooks/common/use-before-unload'
-import { throttle } from '~/lib/_'
+import { throttle } from '~/lib/lodash'
 import { buildNSKey } from '~/lib/ns'
 
 const BaseWritingContext = createContext<PrimitiveAtom<BaseModelType>>(null!)
