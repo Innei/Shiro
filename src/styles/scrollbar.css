@@ -2,6 +2,16 @@ body::-webkit-scrollbar {
   height: 0;
 }
 
+html {
+  /*  for firefox */
+  scrollbar-color: theme(colors.zinc.100);
+  scrollbar-width: thin;
+}
+
+html.dark {
+  scrollbar-color: theme(colors.zinc.800);
+}
+
 body {
   overflow: overlay;
   /* scrollbar-gutter: stable; */
