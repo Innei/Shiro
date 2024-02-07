@@ -2,6 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 import React, { memo, useDeferredValue, useEffect, useMemo } from 'react'
+import clsx from 'clsx'
 import { AnimatePresence, m } from 'framer-motion'
 import Image from 'next/image'
 
@@ -288,33 +289,31 @@ export const Activity = memo(() => {
 })
 Activity.displayName = 'Activity'
 const cMusicProps = { processName: 'cmusic' }
+
+const ErrorFallback = `data:image/png;base64,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`
 const TriggerComponent = memo<{
   processName: string
   icon?: string
 }>(({ processName, icon }) => {
   const isBuiltIn = !!appLabels[processName]
 
-  if (!isBuiltIn) {
-    return (
-      <img
-        width={32}
-        height={32}
-        src={icon}
-        alt={processName}
-        className="pointer-events-none select-none overflow-hidden rounded-md"
-      />
-    )
-  }
+  const src = !isBuiltIn && icon ? icon : `/apps/${appLabels[processName]}.png`
+
+  const className = clsx('pointer-events-none select-none', {
+    'rounded-md': !isBuiltIn,
+  })
+  const [error, setError] = React.useState(false)
 
   return (
     <Image
       width={32}
       height={32}
-      src={`/apps/${appLabels[processName]}.png`}
+      src={error ? ErrorFallback : src}
       alt={processName}
       priority
       fetchPriority="low"
-      className="pointer-events-none select-none"
+      className={className}
+      onError={() => setError(true)}
     />
   )
 })

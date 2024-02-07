@@ -23,7 +23,7 @@ import { toast } from '~/lib/toast'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
 const renderTitle = (text: string) => {
-  return <h1 className="headline !mt-12 !text-xl">{text}</h1>
+  return <h1 className="headline !my-12 !text-xl">{text}</h1>
 }
 
 export default function Page() {
