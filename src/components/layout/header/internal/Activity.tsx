@@ -147,9 +147,6 @@ const appLabels: { [app: string]: string } = {
 }
 // autocorrect: true
 
-const getAppName = (processName: string) => {
-  return appLabels[processName] || processName
-}
 export const Activity = memo(() => {
   const activityConfig = useAppConfigSelector(
     (config) => config.module.activity,
@@ -219,7 +216,6 @@ export const Activity = memo(() => {
 
   const renderDescription =
     deferredProcess?.description || appDescription[deferredProcess?.name || '']
-  const renderProcessName = getAppName(processName)
 
   const memoProcessName = useMemo(
     () => ({ processName: processName || '', icon: processIcon }),
@@ -245,9 +241,9 @@ export const Activity = memo(() => {
       )}
       {isPageActive && (
         <AnimatePresence>
-          {renderProcessName && (
+          {processName && (
             <m.div
-              key={renderProcessName}
+              key={processName}
               className="pointer-events-auto absolute bottom-0 right-0 top-0 z-[10] flex items-center overflow-hidden lg:right-[-25px]"
               initial={{
                 opacity: 0.0001,
@@ -275,7 +271,7 @@ export const Activity = memo(() => {
                   trackerMessage="Activity"
                 >
                   <span className="whitespace-pre-line">
-                    {ownerName} 正在使用 {renderProcessName}
+                    {ownerName} 正在使用 {processName}
                     {renderDescription ? ` ${renderDescription}` : ''}
                   </span>
                 </ImpressionView>
