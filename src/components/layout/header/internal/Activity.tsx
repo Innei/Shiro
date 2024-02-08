@@ -131,6 +131,7 @@ const appLabels: { [app: string]: string } = {
   cmusic: 'cmusic',
 
   'Microsoft Edge': 'edge',
+  'Genshin Impact Cloud Game': 'cloudgenshin',
   msedge: 'edge',
   firefox: 'firefox',
   idea64: 'idea',
@@ -139,7 +140,6 @@ const appLabels: { [app: string]: string } = {
   WindowsTerminal: 'windows_terminal',
   卡拉彼丘: 'calatopia',
   Yuanshen: 'genshin',
-  'Genshin Impact Cloud Game': 'cloudgenshin',
   chrome: 'chrome',
   'WINWORD.EXE': 'word',
   'EXCEL.EXE': 'excel',
