@@ -149,7 +149,7 @@ const appLabels: { [app: string]: string } = {
   哔哩哔哩: 'bilibili',
   DingTalk: 'dingding',
   steamwebhelper: 'steam',
-  Photoshop:' ps',
+  Photoshop: 'ps',
   AfterFX: 'ae',
   'Adobe Premiere Pro': 'pr',
   'WINWORD.EXE': 'word',
