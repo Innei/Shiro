@@ -31,10 +31,16 @@ export const enum EventTypes {
 
   RECENTLY_CREATE = 'RECENTLY_CREATE',
   RECENTLY_DELETE = 'RECENTLY_DELETE',
+  ACTIVITY_UPDATE_PRESENCE = 'ACTIVITY_UPDATE_PRESENCE',
 }
 
 export interface EventTypesPayload {
   [EventTypes.VISITOR_ONLINE]: { online: number }
   [EventTypes.VISITOR_OFFLINE]: { online: number }
   [EventTypes.NOTE_UPDATE]: NoteModel
+}
+
+export enum SocketEmitEnum {
+  Join = 'join',
+  Leave = 'leave',
 }

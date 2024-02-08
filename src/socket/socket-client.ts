@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client'
-import type { EventTypes } from '~/types/events'
+import type { EventTypes, SocketEmitEnum } from '~/types/events'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import type { Socket } from 'socket.io-client'
 
@@ -18,7 +18,7 @@ class SocketClient {
   private router: AppRouterInstance
 
   constructor() {
-    const gatewayUrlWithoutTrailingSlash = GATEWAY_URL.replace(/\/$/, '');
+    const gatewayUrlWithoutTrailingSlash = GATEWAY_URL.replace(/\/$/, '')
 
     this.socket = io(`${gatewayUrlWithoutTrailingSlash}/web`, {
       timeout: 10000,
@@ -26,7 +26,7 @@ class SocketClient {
       autoConnect: false,
       reconnectionAttempts: 3,
       transports: ['websocket'],
-    });
+    })
   }
 
   setRouter(router: AppRouterInstance) {
@@ -39,6 +39,11 @@ class SocketClient {
 
     this.socket.on('connect', () => {
       setSocketIsConnect(true)
+
+      this.waitingEmitQueue.forEach((cb) => {
+        cb(this.socket)
+      })
+      this.waitingEmitQueue = []
     })
 
     this.socket.on('disconnect', () => {
@@ -73,11 +78,20 @@ class SocketClient {
 
     eventHandler(type, data, this.router)
   }
-  emit(event: EventTypes, payload: any) {
+
+  waitingEmitQueue: Array<(socket: typeof this.socket) => any> = []
+  emit(event: SocketEmitEnum, payload: any) {
+    const handler = (socket: typeof this.socket, cb: (payload: any) => any) => {
+      socket.emit('message', { type: event, payload }, (payload: any) => {
+        cb(payload)
+      })
+    }
     return new Promise((resolve) => {
       if (this.socket && this.socket.connected) {
-        this.socket.emit(event, payload, (payload: any) => {
-          resolve(payload)
+        handler(this.socket, resolve)
+      } else {
+        this.waitingEmitQueue.push((socket) => {
+          handler(socket, resolve)
         })
       }
     })

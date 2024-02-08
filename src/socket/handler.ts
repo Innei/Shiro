@@ -247,6 +247,7 @@ export const eventHandler = (
     }
 
     default: {
+      window.dispatchEvent(new CustomEvent(`event:${type}`, { detail: data }))
       if (isDev) {
         console.log(type, data)
       }
