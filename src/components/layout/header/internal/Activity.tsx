@@ -48,7 +48,7 @@ const appDescription = {
   umamusume: '启动！',
   WindowsTerminal: 'del /f /s /q c:/ (不是',
   卡拉彼丘: '启动！',
-  'Genshin Impact Cloud Game':"启动!', 
+  'Genshin Impact Cloud Game':'启动!', 
   Yuanshen: '启动！',
 } as any
 
