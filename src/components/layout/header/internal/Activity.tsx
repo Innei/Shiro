@@ -29,6 +29,7 @@ const appDescription = {
   iTerm2: '耍杂技',
   NeteaseMusic: '听歌',
   QQ音乐: '听歌',
+  QQMusic: '听歌',
 
   'Google Chrome': '冲浪',
   'Google Chrome Canary': '调试',
@@ -49,7 +50,9 @@ const appDescription = {
   umamusume: '启动！',
   WindowsTerminal: 'del /f /s /q c:/ (不是',
   卡拉彼丘: '启动！',
+  'Genshin Impact Cloud Game':'启动!', 
   Yuanshen: '启动！',
+  哔哩哔哩: '上B站大学',
 } as any
 
 const appLabels: { [app: string]: string } = {
@@ -104,6 +107,7 @@ const appLabels: { [app: string]: string } = {
   Notes: 'notes',
   QQ: 'qq',
   QQ音乐: 'qqmusic',
+  QQMusic: 'qqmusic',
   Safari: 'safari',
   Slack: 'slack',
   Telegram: 'telegram',
@@ -138,8 +142,16 @@ const appLabels: { [app: string]: string } = {
   explorer: 'windows_explorer',
   WindowsTerminal: 'windows_terminal',
   卡拉彼丘: 'calatopia',
+  'Genshin Impact Cloud Game': 'cloudgenshin',
   Yuanshen: 'genshin',
+  StarRail :'star_rail',
   chrome: 'chrome',
+  哔哩哔哩: 'bilibili',
+  DingTalk: 'dingding',
+  steamwebhelper: 'steam',
+  Photoshop: 'ps',
+  AfterFX: 'ae',
+  'Adobe Premiere Pro': 'pr',
   'WINWORD.EXE': 'word',
   'EXCEL.EXE': 'excel',
   'POWERPNT.EXE': 'powerpoint',
