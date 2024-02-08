@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { StyledButton } from '~/components/ui/button'
 import { EmitKeyMap } from '~/constants/keys'
-import { debounce } from '~/lib/_'
+import { debounce } from '~/lib/lodash'
 
 export const PreviewButton = <T extends { id: string }>(props: {
   getData: () => T

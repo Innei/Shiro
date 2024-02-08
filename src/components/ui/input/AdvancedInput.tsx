@@ -3,8 +3,8 @@ import clsx from 'clsx'
 import { tv } from 'tailwind-variants'
 import type { ContextType, FC, PropsWithChildren } from 'react'
 
-import { isUndefined, merge } from '~/lib/_'
 import { clsxm } from '~/lib/helper'
+import { isUndefined, merge } from '~/lib/lodash'
 
 import { MotionButtonBase } from '../button'
 import { ErrorLabelLine } from '../label'

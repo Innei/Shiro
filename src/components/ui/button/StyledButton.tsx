@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Fragment } from 'react'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { tv } from 'tailwind-variants'
@@ -31,47 +32,51 @@ type NativeLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>
 type SharedProps = {
   variant?: 'primary' | 'secondary'
   className?: string
+  isLoading?: boolean
 }
 type ButtonProps = SharedProps & (NativeButtonProps | NativeLinkProps)
 
 export const StyledButton: FC<ButtonProps> = ({
   variant = 'primary',
   className,
+  isLoading,
   href,
 
   ...props
 }) => {
-  return href ? (
-    <Link
-      href={href}
-      className={variantStyles({
-        variant,
-        className,
-      })}
-      {...(props as any)}
-    />
-  ) : (
-    <MotionButtonBase
-      className={variantStyles({
-        variant,
-        className,
-      })}
-      {...(props as any)}
-    />
+  const Wrapper = isLoading ? LoadingButtonWrapper : Fragment
+  return (
+    <Wrapper>
+      {href ? (
+        <Link
+          href={href}
+          className={variantStyles({
+            variant,
+            className,
+          })}
+          {...(props as any)}
+        />
+      ) : (
+        <MotionButtonBase
+          className={variantStyles({
+            variant,
+            className,
+          })}
+          {...(props as any)}
+        />
+      )}
+    </Wrapper>
   )
 }
 
-export const LoadingButtonWrapper: FC<
-  { isLoading: boolean } & PropsWithChildren
-> = ({ isLoading, children }) => {
+const LoadingButtonWrapper: FC<PropsWithChildren> = ({ children }) => {
   return (
     <div className="relative">
       {children}
-      {isLoading && (
-        <div className="absolute inset-0 z-[1] flex items-center justify-center">
-          <div className="loading loading-spinner h-5 w-5" />
-        </div>
-      )}
+
+      <div className="absolute inset-0 z-[1] flex items-center justify-center">
+        <div className="loading loading-spinner h-5 w-5" />
+      </div>
     </div>
   )
 }

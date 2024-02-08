@@ -11,8 +11,8 @@ import React, {
 import { useForceUpdate } from 'framer-motion'
 
 import { DOMCustomEvents } from '~/constants/event'
-import { throttle } from '~/lib/_'
 import { clsxm } from '~/lib/helper'
+import { throttle } from '~/lib/lodash'
 import { useWrappedElement } from '~/providers/shared/WrappedElementProvider'
 
 import { TocTree } from './TocTree'

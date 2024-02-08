@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import type { FC, UIEventHandler } from 'react'
 
 import { useStateToRef } from '~/hooks/common/use-state-ref'
-import { throttle } from '~/lib/_'
+import { throttle } from '~/lib/lodash'
 import { useMarkdownImageRecord } from '~/providers/article/MarkdownImageRecordProvider'
 import { useWrappedElementSize } from '~/providers/shared/WrappedElementProvider'
 
