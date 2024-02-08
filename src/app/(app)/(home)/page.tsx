@@ -90,7 +90,7 @@ const TwoColumnLayout = ({
   rightContainerClassName?: string
 }) => {
   return (
-    <div className="relative flex h-full w-full flex-col flex-wrap items-center lg:flex-row">
+    <div className="relative flex h-full w-full max-w-[1800px] flex-col flex-wrap items-center lg:flex-row">
       {children.slice(0, 2).map((child, i) => {
         return (
           <div
