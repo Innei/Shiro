@@ -139,6 +139,7 @@ const appLabels: { [app: string]: string } = {
   WindowsTerminal: 'windows_terminal',
   卡拉彼丘: 'calatopia',
   Yuanshen: 'genshin',
+  'Genshin Impact Cloud Game': 'cloudgenshin',
   chrome: 'chrome',
   'WINWORD.EXE': 'word',
   'EXCEL.EXE': 'excel',
