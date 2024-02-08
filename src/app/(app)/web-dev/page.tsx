@@ -13,7 +13,7 @@ import { socketClient } from '~/socket'
 import { EventTypes, SocketEmitEnum } from '~/types/events'
 
 export default () => {
-  const roomName = useMemo(() => nanoid(), [])
+  const roomName = useMemo(() => `article-${nanoid()}`, [])
   const identity = useSocketSessionId()
   const update = () => {
     apiClient.activity.proxy.presence.update.post({
@@ -64,6 +64,11 @@ export default () => {
     <div className="flex gap-4 p-5">
       <StyledButton onClick={update}>update</StyledButton>
       <StyledButton onClick={() => refetch()}>get</StyledButton>
+      <ReadPresenceTimeline />
     </div>
   )
+}
+
+const ReadPresenceTimeline = () => {
+  return <div className="fixed bottom-0 left-0 top-0">1</div>
 }
