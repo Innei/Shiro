@@ -1,13 +1,12 @@
 'use client'
 
-import { useOnlineCount } from '~/atoms'
+import { useOnlineCount, useSocketIsConnect } from '~/atoms'
 import { ImpressionView } from '~/components/common/ImpressionTracker'
 import { Divider } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
 import { TrackerAction } from '~/constants/tracker'
 import { usePageIsActive } from '~/hooks/common/use-is-active'
-import { useSocketIsConnect } from '~/socket/hooks'
 
 export const GatewayCount = () => {
   return (

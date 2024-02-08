@@ -5,11 +5,11 @@ import type { Socket } from 'socket.io-client'
 
 import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
 
+import { getSocketWebSessionId, setSocketIsConnect } from '~/atoms/socket'
 import { GATEWAY_URL } from '~/constants/env'
 import { isDev } from '~/lib/env'
 
 import { eventHandler } from './handler'
-import { setSocketIsConnect } from './hooks'
 
 class SocketClient {
   public socket!: Socket
@@ -26,6 +26,10 @@ class SocketClient {
       autoConnect: false,
       reconnectionAttempts: 3,
       transports: ['websocket'],
+
+      query: {
+        socket_session_id: getSocketWebSessionId(),
+      },
     })
   }
 
