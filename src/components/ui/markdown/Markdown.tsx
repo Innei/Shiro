@@ -42,7 +42,9 @@ import { getFootNoteDomId, getFootNoteRefDomId } from './utils/get-id'
 import { redHighlight } from './utils/redHighlight'
 
 const CodeBlock = dynamic(() =>
-  import('~/components/modules/shared/CodeBlock').then((mod) => mod.CodeBlock),
+  import('~/components/modules/shared/CodeBlock').then(
+    (mod) => mod.CodeBlockRender,
+  ),
 )
 
 export interface MdProps {

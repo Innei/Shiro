@@ -1,3 +1,4 @@
+import { ReactComponentRender } from '~/components/ui/react-component-render'
 import { lazy, Suspense, useMemo, useState } from 'react'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import dynamic from 'next/dynamic'
@@ -26,25 +27,32 @@ const ExcalidrawLazy = ({ data }: any) => {
     </Suspense>
   )
 }
-export const CodeBlock = (props: {
+export const CodeBlockRender = (props: {
   lang: string | undefined
   content: string
 }) => {
   const Content = useMemo(() => {
-    if (props.lang === 'mermaid') {
-      const Mermaid = dynamic(() =>
-        import('./Mermaid').then((mod) => mod.Mermaid),
-      )
-      return <Mermaid {...props} />
-    } else if (props.lang === 'excalidraw') {
-      return <ExcalidrawLazy data={props.content} />
-    } else {
-      const HighLighter = dynamic(() =>
-        import('~/components/ui/code-highlighter/CodeHighlighter').then(
-          (mod) => mod.HighLighter,
-        ),
-      )
-      return <HighLighter {...props} />
+    switch (props.lang) {
+      case 'mermaid': {
+        const Mermaid = dynamic(() =>
+          import('./Mermaid').then((mod) => mod.Mermaid),
+        )
+        return <Mermaid {...props} />
+      }
+      case 'excalidraw': {
+        return <ExcalidrawLazy data={props.content} />
+      }
+      case 'component': {
+        return <ReactComponentRender dls={props.content} />
+      }
+      default: {
+        const HighLighter = dynamic(() =>
+          import('~/components/ui/code-highlighter/CodeHighlighter').then(
+            (mod) => mod.HighLighter,
+          ),
+        )
+        return <HighLighter {...props} />
+      }
     }
   }, [props])
 

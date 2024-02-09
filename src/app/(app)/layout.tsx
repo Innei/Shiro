@@ -7,6 +7,7 @@ import type { PropsWithChildren } from 'react'
 import { ClerkProvider } from '@clerk/nextjs'
 
 import PKG from '~/../package.json'
+import { Global } from '~/components/common/Global'
 import { HydrationEndDetector } from '~/components/common/HydrationEndDetector'
 import { ScrollTop } from '~/components/common/ScrollTop'
 import { Root } from '~/components/layout/root/Root'
@@ -145,6 +146,7 @@ export default async function RootLayout(props: PropsWithChildren) {
           suppressHydrationWarning
         >
           <head>
+            <Global />
             <SayHi />
             <HydrationEndDetector />
             <AccentColorStyleInjector color={themeConfig.config.color} />

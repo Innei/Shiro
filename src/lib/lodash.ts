@@ -156,3 +156,15 @@ export function uniqBy<T, K>(array: T[], iteratee: (item: T) => K): T[] {
     return false
   })
 }
+
+export function get(target: object, path: string) {
+  const keys = path.split('.')
+  let result = target as any
+  for (const key of keys) {
+    result = result[key]
+    if (result === undefined) {
+      return result
+    }
+  }
+  return result
+}

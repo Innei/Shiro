@@ -1,6 +1,7 @@
 import type { MarkdownToJSX } from '~/components/ui/markdown'
 import type { FC } from 'react'
 
+import { HighLighter } from '~/components/ui/code-highlighter'
 import { Markdown } from '~/components/ui/markdown'
 
 const disabledTypes = [
@@ -23,6 +24,19 @@ export const CommentMarkdown: FC<{
       disableParsingRawHTML
       forceBlock
       value={children}
+      extendsRules={{
+        codeBlock: {
+          react(node, output, state) {
+            return (
+              <HighLighter
+                key={state?.key}
+                content={node.content}
+                lang={node.lang}
+              />
+            )
+          },
+        },
+      }}
     />
   )
 }

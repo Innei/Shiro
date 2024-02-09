@@ -1,31 +1,90 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactComponentRender } from '~/components/ui/react-component-render/ComponentRender'
+import { lazy, Suspense, useMemo, useState } from 'react'
 import { ToastContainer } from 'react-toastify'
+import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { ThemeProvider } from 'next-themes'
+import type { ReactNode } from 'react'
 import type { DocumentComponent } from 'storybook/typings'
 
+import { BlockLoading } from '~/components/modules/shared/BlockLoading'
+import { Mermaid } from '~/components/modules/shared/Mermaid'
+import { ExcalidrawLoading } from '~/components/ui/excalidraw/ExcalidrawLoading'
+
+import { HighLighter } from '../code-highlighter'
 // @ts-expect-error
 import customize from './customize.md?raw'
 import { Markdown } from './Markdown'
 
 const queryClient = new QueryClient()
+
+const ExcalidrawLazy = ({ data }: any) => {
+  const [Excalidraw, setComponent] = useState(null as ReactNode)
+
+  useIsomorphicLayoutEffect(() => {
+    const Component = lazy(() =>
+      import('~/components/ui/excalidraw').then((mod) => ({
+        default: mod.Excalidraw,
+      })),
+    )
+
+    setComponent(<Component key={data} data={data} />)
+  }, [data])
+
+  return (
+    <Suspense fallback={<ExcalidrawLoading />}>
+      {Excalidraw ?? <ExcalidrawLoading />}
+    </Suspense>
+  )
+}
+const CodeBlockRender = (props: {
+  lang: string | undefined
+  content: string
+}) => {
+  const Content = useMemo(() => {
+    switch (props.lang) {
+      case 'mermaid': {
+        return <Mermaid {...props} />
+      }
+      case 'excalidraw': {
+        return <ExcalidrawLazy data={props.content} />
+      }
+      case 'component': {
+        return <ReactComponentRender dls={props.content} />
+      }
+      default: {
+        return <HighLighter {...props} />
+      }
+    }
+  }, [props])
+
+  return (
+    <Suspense fallback={<BlockLoading>CodeBlock Loading...</BlockLoading>}>
+      {Content}
+    </Suspense>
+  )
+}
+
 export const MarkdownCustomize: DocumentComponent = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <main className="relative m-auto mt-6 max-w-[800px]">
           <Markdown
+            value={customize}
             extendsRules={{
               codeBlock: {
                 react(node, output, state) {
                   return (
-                    <pre>
-                      <code>{node.content}</code>
-                    </pre>
+                    <CodeBlockRender
+                      key={state?.key}
+                      content={node.content}
+                      lang={node.lang}
+                    />
                   )
                 },
               },
             }}
-            value={customize}
             className="prose"
             as="article"
           />
