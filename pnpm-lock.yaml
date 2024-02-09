@@ -195,8 +195,8 @@ dependencies:
     specifier: 0.2.1
     version: 0.2.1(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)
   openai:
-    specifier: 4.26.1
-    version: 4.26.1
+    specifier: 4.27.0
+    version: 4.27.0
   pngjs:
     specifier: 7.0.0
     version: 7.0.0
@@ -213,8 +213,8 @@ dependencies:
     specifier: 4.0.12
     version: 4.0.12(react@18.2.0)
   react-intersection-observer:
-    specifier: 9.7.0
-    version: 9.7.0(react-dom@18.2.0)(react@18.2.0)
+    specifier: 9.8.0
+    version: 9.8.0(react-dom@18.2.0)(react@18.2.0)
   react-responsive-masonry:
     specifier: 2.1.7
     version: 2.1.7
@@ -8328,8 +8328,8 @@ packages:
       mimic-fn: 4.0.0
     dev: true
 
-  /openai@4.26.1:
-    resolution: {integrity: sha512-DvWbjhWbappsFRatOWmu4Dp1/Q4RG9oOz6CfOSjy0/Drb8G+5iAiqWAO4PfpGIkhOOKtvvNfQri2SItl+U7LhQ==}
+  /openai@4.27.0:
+    resolution: {integrity: sha512-j1ZEx9NiBpm31rxWqQTjQt1QvH/8001xHsc/pRoPjkRDYWONCb+qkR6L9C7Wl6ar72Mz1ybtn1bv6fqAoTPlKw==}
     hasBin: true
     dependencies:
       '@types/node': 18.19.8
@@ -9252,8 +9252,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /react-intersection-observer@9.7.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-euleEjBVaMRwSOMNVcMX5WGn74GfZ9I78nx9SUb5a0eXd0IhegjJcUliSO9Jd+xiaZ5rgFvbGoVln66lpMyUUg==}
+  /react-intersection-observer@9.8.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-wXHvMQUsTagh3X0Z6jDtGkIXc3VVCd2tjDRYR9kII3GKrZr0XF0xtpfdamo2n8BSF+zzfeeBVOTjxZWpBp9X0g==}
     peerDependencies:
       react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
       react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
