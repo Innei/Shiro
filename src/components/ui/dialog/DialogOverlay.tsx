@@ -12,7 +12,7 @@ export const DialogOverlay = ({
     <Dialog.Overlay asChild>
       <m.div
         onClick={onClick}
-        className="fixed inset-0 z-[11] bg-slate-50/80 dark:bg-neutral-900/80"
+        className="fixed inset-0 z-[11] bg-zinc-50/80 dark:bg-neutral-900/80"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}

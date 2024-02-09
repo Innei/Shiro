@@ -32,7 +32,7 @@ export const PostItem = memo<{ data: PostModel }>(function PostItem({ data }) {
       </h2>
       <main className="relative mt-8 space-y-2">
         {!!data.summary && (
-          <p className="break-all leading-relaxed text-gray-900 dark:text-slate-50">
+          <p className="break-all leading-relaxed text-gray-900 dark:text-zinc-50">
             摘要： {data.summary}
           </p>
         )}

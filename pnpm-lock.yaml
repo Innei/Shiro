@@ -197,6 +197,9 @@ dependencies:
   openai:
     specifier: 4.26.1
     version: 4.26.1
+  pngjs:
+    specifier: 7.0.0
+    version: 7.0.0
   qrcode.react:
     specifier: 3.1.0
     version: 3.1.0(react@18.2.0)
@@ -304,6 +307,9 @@ devDependencies:
   '@types/node':
     specifier: 20.11.16
     version: 20.11.16
+  '@types/pngjs':
+    specifier: 6.0.4
+    version: 6.0.4
   '@types/react':
     specifier: 18.2.55
     version: 18.2.55
@@ -4234,6 +4240,12 @@ packages:
       pg-protocol: 1.6.0
       pg-types: 2.2.0
     dev: false
+
+  /@types/pngjs@6.0.4:
+    resolution: {integrity: sha512-atAK9xLKOnxiuArxcHovmnOUUGBZOQ3f0vCf43FnoKs6XnqiambT1kkJWmdo71IR+BoXSh+CueeFR0GfH3dTlQ==}
+    dependencies:
+      '@types/node': 20.11.16
+    dev: true
 
   /@types/prop-types@15.7.11:
     resolution: {integrity: sha512-ga8y9v9uyeiLdpKddhxYQkxNDrfvuPrlFb0N1qnZZByvcElJaXthF1UhvCh9TLWJBEHeNtdnbysW7Y6Uq8CVng==}
@@ -8494,6 +8506,11 @@ packages:
     resolution: {integrity: sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==}
     engines: {node: '>= 6'}
     dev: true
+
+  /pngjs@7.0.0:
+    resolution: {integrity: sha512-LKWqWJRhstyYo9pGvgor/ivk2w94eSjE3RGVuzLGlr3NmD8bf7RcYGze1mNdEHRP6TRP6rMuDHk5t44hnTRyow==}
+    engines: {node: '>=14.19.0'}
+    dev: false
 
   /postcss-attribute-case-insensitive@6.0.2(postcss@8.4.35):
     resolution: {integrity: sha512-IRuCwwAAQbgaLhxQdQcIIK0dCVXg3XDUnzgKD8iwdiYdwU4rMWRWyl/W9/0nA4ihVpq5pyALiHB2veBJ0292pw==}

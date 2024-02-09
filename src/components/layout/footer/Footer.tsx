@@ -6,7 +6,7 @@ export const Footer = () => {
   return (
     <footer
       data-hide-print
-      className="relative z-[1] mt-32 border-t border-x-uk-separator-opaque-light bg-slate-50 py-6 text-base-content/80 dark:border-uk-separator-opaque-dark dark:bg-neutral-900"
+      className="relative z-[1] mt-32 border-t border-x-uk-separator-opaque-light bg-accent/5 py-6 text-base-content/80 dark:border-uk-separator-opaque-dark"
     >
       <div className="px-4 sm:px-8">
         <div className="relative mx-auto max-w-7xl lg:px-8">

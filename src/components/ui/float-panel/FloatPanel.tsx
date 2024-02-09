@@ -62,7 +62,7 @@ export const FloatPanel: FC<FloatPanelProps & PropsWithChildren> = (props) => {
               className={clsxm(
                 '!shadow-out-sm focus:!shadow-out-sm focus-visible:!shadow-out-sm',
                 'rounded-xl border border-zinc-400/20 p-4 shadow-lg outline-none backdrop-blur-lg dark:border-zinc-500/30',
-                'bg-slate-50/80 dark:bg-neutral-900/80',
+                'bg-zinc-50/80 dark:bg-neutral-900/80',
 
                 'relative z-[2]',
               )}

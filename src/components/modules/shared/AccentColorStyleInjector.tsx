@@ -1,5 +1,6 @@
 import Color from 'colorjs.io'
-import type { FC } from 'react'
+
+import { createPngNoiseBackground } from '~/lib/noise'
 
 const hexToOklchString = (hex: string) => {
   return new Color(hex).oklch
@@ -24,9 +25,11 @@ const accentColorDark = [
   '#838BC6',
 ]
 const defaultAccentColor = { light: accentColorLight, dark: accentColorDark }
-export const AccentColorStyleInjector: FC<{
+export async function AccentColorStyleInjector({
+  color,
+}: {
   color?: AccentColor
-}> = ({ color }) => {
+}) {
   const { light, dark } = color || defaultAccentColor
 
   const lightColors = light ?? accentColorLight
@@ -49,7 +52,14 @@ export const AccentColorStyleInjector: FC<{
       data-light={currentAccentColorLRef}
       data-dark={currentAccentColorDRef}
       dangerouslySetInnerHTML={{
-        __html: `html[data-theme='light'] {
+        __html: `
+        html[data-theme='light'].noise body::before {
+          background-image: ${await createPngNoiseBackground(currentAccentColorLRef)}
+        }
+        html[data-theme='dark'].noise body::before {
+          background-image: ${await createPngNoiseBackground(currentAccentColorDRef)}
+        }
+        html[data-theme='light'] {
           --a: ${`${hl} ${sl} ${ll}`};
         }
         html[data-theme='dark'] {

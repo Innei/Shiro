@@ -62,7 +62,7 @@ const PostBox = () => {
   return (
     <form onSubmit={preventDefault} className="mb-8">
       <TextArea
-        className="h-[150px] rounded-md border border-slate-200 bg-slate-50 dark:border-zinc-800 dark:bg-neutral-900/50"
+        className="h-[150px] rounded-md border border-slate-200 bg-zinc-50 dark:border-zinc-800 dark:bg-neutral-900/50"
         value={value}
         placeholder="此刻在想什么？"
         onChange={(e) => {

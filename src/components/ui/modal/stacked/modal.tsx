@@ -196,7 +196,7 @@ export const Modal: Component<{
                 transition={modalTransition}
                 className={clsxm(
                   'relative flex flex-col overflow-hidden rounded-lg',
-                  'bg-slate-50/80 dark:bg-neutral-900/80',
+                  'bg-zinc-50/80 dark:bg-neutral-900/80',
                   'p-2 shadow-2xl shadow-stone-300 backdrop-blur-sm dark:shadow-stone-800',
                   max
                     ? 'h-[90vh] w-[90vw]'

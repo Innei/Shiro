@@ -139,11 +139,16 @@ export default async function RootLayout(props: PropsWithChildren) {
   return (
     <ClerkProvider>
       <AppFeatureProvider tmdb={!!process.env.TMDB_API_KEY}>
-        <html lang="zh-CN" className="noise" suppressHydrationWarning>
+        <html
+          lang="zh-CN"
+          className="noise !bg-accent"
+          suppressHydrationWarning
+        >
           <head>
             <SayHi />
             <HydrationEndDetector />
-            <AccentColorStyleInjector />
+            <AccentColorStyleInjector color={themeConfig.config.color} />
+
             <link
               rel="shortcut icon"
               href={themeConfig.config.site.faviconDark}

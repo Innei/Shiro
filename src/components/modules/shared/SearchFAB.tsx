@@ -222,7 +222,7 @@ const SearchPanelImpl = () => {
     <m.div
       className={clsx(
         'h-[600px] max-h-[80vh] w-[800px] max-w-[100vw] rounded-none md:h-screen md:max-h-[60vh] md:max-w-[80vw]',
-        'min-h-50 flex flex-col bg-slate-50/80 shadow-2xl backdrop-blur-md dark:bg-neutral-900/80 md:rounded-xl',
+        'min-h-50 flex flex-col bg-zinc-50/80 shadow-2xl backdrop-blur-md dark:bg-neutral-900/80 md:rounded-xl',
         'border-0 border-zinc-200 dark:border-zinc-800 md:border',
       )}
       onKeyDown={handleKeyDown}
