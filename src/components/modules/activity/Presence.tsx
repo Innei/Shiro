@@ -12,6 +12,7 @@ import {
 } from '~/atoms/hooks'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { EmitKeyMap } from '~/constants/keys'
+import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { useIsDark } from '~/hooks/common/use-is-dark'
 import { useReadPercent } from '~/hooks/shared/use-read-percent'
@@ -41,17 +42,6 @@ const PresenceImpl = () => {
     refetchInterval: 30_000,
   })
 
-  useEffect(() => {
-    const handler = () => {
-      refetch()
-    }
-    window.addEventListener(EmitKeyMap.SocketConnected, handler)
-
-    return () => {
-      window.removeEventListener(EmitKeyMap.SocketConnected, handler)
-    }
-  }, [refetch])
-
   const identity = useSocketSessionId()
 
   const update = useCallback(
@@ -70,6 +60,20 @@ const PresenceImpl = () => {
   )
 
   const percent = useReadPercent()
+
+  const updateWithPercent = useEventCallback(() => update(percent))
+
+  useEffect(() => {
+    const handler = () => {
+      refetch()
+      updateWithPercent()
+    }
+    window.addEventListener(EmitKeyMap.SocketConnected, handler)
+
+    return () => {
+      window.removeEventListener(EmitKeyMap.SocketConnected, handler)
+    }
+  }, [refetch, updateWithPercent])
 
   useEffect(() => {
     update(percent)
