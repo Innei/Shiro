@@ -61,7 +61,7 @@ const NoteTopicRank: FC<{
 
   return (
     <>
-      {filteredNotes?.length && (
+      {!!filteredNotes?.length && (
         <>
           <Divider />
           <p className="mb-1 flex min-w-0 flex-col overflow-hidden text-neutral-content/50">
