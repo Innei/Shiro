@@ -162,6 +162,7 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
       asChild
       placement="right"
       offset={30}
+      strategy="fixed"
       type="tooltip"
       triggerElement={
         <MoitonBar
