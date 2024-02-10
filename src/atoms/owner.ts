@@ -1,5 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
-import { atom, useAtomValue } from 'jotai'
+import { atom } from 'jotai'
 
 import { getToken, removeToken, setToken } from '~/lib/cookie'
 import { apiClient } from '~/lib/request'
@@ -7,12 +6,13 @@ import { jotaiStore } from '~/lib/store'
 import { toast } from '~/lib/toast'
 import { aggregationDataAtom } from '~/providers/root/aggregation-data-provider'
 
+import { refreshToken } from './hooks/owner'
 import { fetchAppUrl } from './url'
 
-const ownerAtom = atom((get) => {
+export const ownerAtom = atom((get) => {
   return get(aggregationDataAtom)?.user
 })
-const isLoggedAtom = atom(false)
+export const isLoggedAtom = atom(false)
 
 export const login = async (username?: string, password?: string) => {
   if (username && password) {
@@ -60,27 +60,4 @@ export const login = async (username?: string, password?: string) => {
   return true
 }
 
-export const useIsLogged = () => useAtomValue(isLoggedAtom)
-
-export const useOwner = () => useAtomValue(ownerAtom)
-
 export const isLogged = () => jotaiStore.get(isLoggedAtom)
-
-export const useRefreshToken = () => {
-  return useMutation({
-    mutationKey: ['refreshToken'],
-    mutationFn: refreshToken,
-  })
-}
-
-const refreshToken = async () => {
-  const token = getToken()
-  if (!token) return
-  await apiClient.user.proxy.login.put<{ token: string }>().then((res) => {
-    jotaiStore.set(isLoggedAtom, true)
-
-    setToken(res.token)
-  })
-
-  await fetchAppUrl()
-}

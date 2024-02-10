@@ -5,6 +5,7 @@ import type { NoteModel } from '@mx-space/api-client'
 
 import { AckRead } from '~/components/common/AckRead'
 import { ClientOnly } from '~/components/common/ClientOnly'
+import { Presence } from '~/components/modules/activity'
 import {
   NoteActionAside,
   NoteBottomBarAction,
@@ -56,6 +57,7 @@ const NotePage = function (props: NoteModel) {
         <NoteHideIfSecret>
           <SummarySwitcher data={props} />
           <WrappedElementProvider>
+            <Presence />
             <ReadIndicatorForMobile />
             <NoteMarkdownImageRecordProvider>
               <BanCopyWrapper>

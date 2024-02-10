@@ -5,8 +5,10 @@ import type { Socket } from 'socket.io-client'
 
 import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
 
-import { getSocketWebSessionId, setSocketIsConnect } from '~/atoms/socket'
+import { getSocketWebSessionId } from '~/atoms/hooks'
+import { setSocketIsConnect } from '~/atoms/socket'
 import { GATEWAY_URL } from '~/constants/env'
+import { SocketConnectedEvent, SocketDisconnectedEvent } from '~/events'
 import { isDev } from '~/lib/env'
 
 import { eventHandler } from './handler'
@@ -42,6 +44,7 @@ class SocketClient {
     }
 
     this.socket.on('connect', () => {
+      window.dispatchEvent(new SocketConnectedEvent())
       setSocketIsConnect(true)
 
       this.waitingEmitQueue.forEach((cb) => {
@@ -51,6 +54,7 @@ class SocketClient {
     })
 
     this.socket.on('disconnect', () => {
+      window.dispatchEvent(new SocketDisconnectedEvent())
       setSocketIsConnect(false)
     })
 

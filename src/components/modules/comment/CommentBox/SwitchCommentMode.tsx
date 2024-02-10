@@ -6,7 +6,7 @@ import type { FC } from 'react'
 
 import { useUser } from '@clerk/nextjs'
 
-import { useIsLogged } from '~/atoms'
+import { useIsLogged } from '~/atoms/hooks'
 import { MotionButtonBase } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
 

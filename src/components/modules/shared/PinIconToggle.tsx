@@ -2,7 +2,7 @@
 
 import type { MouseEventHandler, SVGProps } from 'react'
 
-import { useIsLogged } from '~/atoms'
+import { useIsLogged } from '~/atoms/hooks'
 import { MotionButtonBase } from '~/components/ui/button'
 import { IconTransition } from '~/components/ui/transition/IconTransiton'
 import { clsxm } from '~/lib/helper'

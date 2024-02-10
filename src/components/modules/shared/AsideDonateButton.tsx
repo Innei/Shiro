@@ -4,7 +4,7 @@ import { AnimatePresence, m } from 'framer-motion'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 import type { HTMLMotionProps } from 'framer-motion'
 
-import { useIsMobile } from '~/atoms'
+import { useIsMobile } from '~/atoms/hooks'
 import { ImpressionView } from '~/components/common/ImpressionTracker'
 import { MotionButtonBase } from '~/components/ui/button'
 import { DialogOverlay } from '~/components/ui/dialog/DialogOverlay'

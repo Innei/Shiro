@@ -4,7 +4,7 @@ import React from 'react'
 import clsx from 'clsx'
 import type { FC } from 'react'
 
-import { useIsMobile } from '~/atoms'
+import { useIsMobile } from '~/atoms/hooks'
 
 import { TocAside } from '../toc'
 import { ReadIndicator } from './ReadIndicator'

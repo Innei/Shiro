@@ -8,7 +8,7 @@ import { atom, useAtomValue } from 'jotai'
 import type { HTMLMotionProps } from 'framer-motion'
 import type { PropsWithChildren, ReactNode } from 'react'
 
-import { useIsMobile } from '~/atoms'
+import { useIsMobile } from '~/atoms/hooks'
 import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
 import { usePageScrollDirectionSelector } from '~/providers/root/page-scroll-info-provider'

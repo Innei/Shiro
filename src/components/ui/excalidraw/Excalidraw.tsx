@@ -11,7 +11,7 @@ import type { Delta } from 'jsondiffpatch'
 
 import { Excalidraw as Board, exportToBlob } from '@excalidraw/excalidraw'
 
-import { useIsMobile } from '~/atoms'
+import { useIsMobile } from '~/atoms/hooks'
 import { API_URL } from '~/constants/env'
 import { useIsDark } from '~/hooks/common/use-is-dark'
 import { stopPropagation } from '~/lib/dom'

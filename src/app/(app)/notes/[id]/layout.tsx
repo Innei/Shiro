@@ -1,6 +1,7 @@
 import { headers } from 'next/dist/client/components/headers'
 import type { Metadata } from 'next'
 
+import { buildRoomName, RoomProvider } from '~/components/modules/activity'
 import { CommentAreaRootLazy } from '~/components/modules/comment'
 import { NoteFontSettingFab } from '~/components/modules/note/NoteFontFab'
 import { NoteMainContainer } from '~/components/modules/note/NoteMainContainer'
@@ -91,18 +92,19 @@ export default async (
       <CurrentNoteNidProvider nid={nid} />
       <CurrentNoteDataProvider data={data} />
       <SyncNoteDataAfterLoggedIn />
-
-      <Transition className="min-w-0" lcpOptimization>
-        <Paper key={nid} as={NoteMainContainer}>
-          <NotePage {...data.data} />
-        </Paper>
-        <BottomToUpSoftScaleTransitionView delay={500}>
-          <CommentAreaRootLazy
-            refId={noteObjectId}
-            allowComment={allowComment}
-          />
-        </BottomToUpSoftScaleTransitionView>
-      </Transition>
+      <RoomProvider roomName={buildRoomName(data.data.id)}>
+        <Transition className="min-w-0" lcpOptimization>
+          <Paper key={nid} as={NoteMainContainer}>
+            <NotePage {...data.data} />
+          </Paper>
+          <BottomToUpSoftScaleTransitionView delay={500}>
+            <CommentAreaRootLazy
+              refId={noteObjectId}
+              allowComment={allowComment}
+            />
+          </BottomToUpSoftScaleTransitionView>
+        </Transition>
+      </RoomProvider>
 
       <NoteFontSettingFab />
 

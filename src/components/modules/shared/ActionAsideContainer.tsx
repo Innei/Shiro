@@ -1,6 +1,6 @@
 'use client'
 
-import { useViewport } from '~/atoms'
+import { useViewport } from '~/atoms/hooks'
 import { clsxm } from '~/lib/helper'
 import { usePageScrollLocationSelector } from '~/providers/root/page-scroll-info-provider'
 import { useIsEoFWrappedElement } from '~/providers/shared/WrappedElementProvider'

@@ -54,6 +54,8 @@ type FloatPopoverProps<T> = PropsWithChildren<{
 
   onOpen?: () => void
   onClose?: () => void
+
+  asChild?: boolean
 }> &
   UseFloatingOptions
 
@@ -85,6 +87,7 @@ export const FloatPopover = function FloatPopover<T extends {}>(
     onOpen,
     onClose,
     to,
+    asChild,
     ...floatingProps
   } = props
 
@@ -151,7 +154,25 @@ export const FloatPopover = function FloatPopover<T extends {}>(
     }
   }, [doPopoverDisappear, doPopoverShow, handleMouseOut, trigger])
 
-  const TriggerWrapper = (
+  const Child = triggerElement ? (
+    triggerElement
+  ) : TriggerComponent ? (
+    React.cloneElement(
+      createElement(TriggerComponent as any, triggerComponentProps),
+
+      {
+        tabIndex: 0,
+      },
+    )
+  ) : (
+    <></>
+  )
+  const TriggerWrapper = asChild ? (
+    React.cloneElement(Child, {
+      ...listener,
+      ref: refs.setReference,
+    })
+  ) : (
     <As
       // @ts-ignore
       role={trigger === 'both' || trigger === 'click' ? 'button' : 'note'}
@@ -159,15 +180,7 @@ export const FloatPopover = function FloatPopover<T extends {}>(
       ref={refs.setReference}
       {...listener}
     >
-      {triggerElement}
-      {!!TriggerComponent &&
-        React.cloneElement(
-          createElement(TriggerComponent as any, triggerComponentProps),
-
-          {
-            tabIndex: 0,
-          },
-        )}
+      {Child}
     </As>
   )
 

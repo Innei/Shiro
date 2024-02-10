@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { useAtom } from 'jotai'
 import Image from 'next/image'
 
-import { useIsLogged } from '~/atoms'
+import { useIsLogged } from '~/atoms/hooks'
 import { FormInput as FInput, Form } from '~/components/ui/form'
 import { clsxm } from '~/lib/helper'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'

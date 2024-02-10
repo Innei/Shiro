@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
 import { AnimatePresence, m } from 'framer-motion'
 
-import { useIsMobile } from '~/atoms'
+import { useIsMobile } from '~/atoms/hooks'
 import { MotionButtonBase } from '~/components/ui/button'
 import { DividerVertical } from '~/components/ui/divider'
 import { useModalStack } from '~/components/ui/modal'

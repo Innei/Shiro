@@ -9,7 +9,7 @@ import type { DashboardRoute } from '~/app/(dashboard)/routes'
 import type { MouseEventHandler, ReactNode } from 'react'
 
 import { dashboardRoutes, useParentRouteObject } from '~/app/(dashboard)/routes'
-import { useIsMobile } from '~/atoms'
+import { useIsMobile } from '~/atoms/hooks'
 import { Avatar } from '~/components/ui/avatar'
 import { MotionButtonBase } from '~/components/ui/button'
 import { BreadcrumbDivider } from '~/components/ui/divider'

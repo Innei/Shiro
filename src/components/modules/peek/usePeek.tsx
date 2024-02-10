@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { useIsMobile } from '~/atoms'
+import { useIsMobile } from '~/atoms/hooks'
 import { useModalStack } from '~/components/ui/modal'
 
 import { PeekModal } from './PeekModal'

@@ -5,7 +5,7 @@
 import { useEffect, useMemo } from 'react'
 import dayjs from 'dayjs'
 
-import { useIsLogged } from '~/atoms/owner'
+import { useIsLogged } from '~/atoms/hooks'
 import { toast } from '~/lib/toast'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 

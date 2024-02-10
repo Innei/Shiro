@@ -7,7 +7,7 @@ import type { PluginCtx } from './types'
 import { imageSchema } from '@milkdown/preset-commonmark'
 import { $view } from '@milkdown/utils'
 
-import { useIsMobile } from '~/atoms'
+import { useIsMobile } from '~/atoms/hooks'
 import { MotionButtonBase, StyledButton } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { Form, FormInput } from '~/components/ui/form'

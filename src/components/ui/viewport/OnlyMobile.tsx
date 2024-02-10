@@ -1,6 +1,6 @@
 'use client'
 
-import { useIsMobile } from '~/atoms/viewport'
+import { useIsMobile } from '~/atoms/hooks'
 import { useIsClient } from '~/hooks/common/use-is-client'
 
 export const OnlyMobile: Component = ({ children }) => {

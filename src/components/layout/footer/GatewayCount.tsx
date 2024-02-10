@@ -1,6 +1,7 @@
 'use client'
 
-import { useOnlineCount, useSocketIsConnect } from '~/atoms'
+import { useOnlineCount } from '~/atoms'
+import { useSocketIsConnect } from '~/atoms/hooks'
 import { ImpressionView } from '~/components/common/ImpressionTracker'
 import { Divider } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'

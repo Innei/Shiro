@@ -8,7 +8,7 @@ import type { FC } from 'react'
 
 import { CommentState } from '@mx-space/api-client'
 
-import { useIsMobile } from '~/atoms'
+import { useIsMobile } from '~/atoms/hooks'
 import {
   CommentBatchActionGroup,
   CommentDataContext,
