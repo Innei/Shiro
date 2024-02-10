@@ -1,8 +1,1 @@
-export interface ActivityPresence {
-  operationTime: number
-  updatedAt: number
-  connectedAt: number
-  identity: string
-  roomName: string
-  position: number
-}
+export type { ActivityPresence } from '@mx-space/api-client'

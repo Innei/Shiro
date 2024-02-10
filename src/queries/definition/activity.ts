@@ -1,5 +1,3 @@
-import type { ActivityPresence } from '~/models/activity'
-
 import { resetActivityPresence } from '~/atoms/activity'
 import { apiClient } from '~/lib/request'
 
@@ -10,11 +8,7 @@ export const activity = {
     defineQuery({
       queryKey: ['activity', 'presence', roomName],
       queryFn: async () => {
-        const res = await apiClient.activity.proxy.presence.get<
-          Record<string, ActivityPresence>
-        >({
-          params: { room_name: roomName },
-        })
+        const res = await apiClient.activity.getPresence(roomName)
         resetActivityPresence(res)
         return res
       },

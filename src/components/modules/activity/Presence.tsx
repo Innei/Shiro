@@ -1,7 +1,18 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { memo, useCallback, useDeferredValue, useEffect, useMemo } from 'react'
+import {
+  forwardRef,
+  memo,
+  useCallback,
+  useDeferredValue,
+  useEffect,
+  useImperativeHandle,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import type { FC } from 'react'
 
 import {
@@ -11,14 +22,21 @@ import {
   useSocketSessionId,
 } from '~/atoms/hooks'
 import { FloatPopover } from '~/components/ui/float-popover'
+import { RootPortal } from '~/components/ui/portal'
 import { EmitKeyMap } from '~/constants/keys'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { useIsDark } from '~/hooks/common/use-is-dark'
 import { useReadPercent } from '~/hooks/shared/use-read-percent'
 import { getColorScheme, stringToHue } from '~/lib/color'
+import { formatSeconds } from '~/lib/datetime'
 import { debounce } from '~/lib/lodash'
 import { apiClient } from '~/lib/request'
+import { springScrollTo } from '~/lib/scroller'
+import {
+  useWrappedElementPosition,
+  useWrappedElementSize,
+} from '~/providers/shared/WrappedElementProvider'
 import { queries } from '~/queries/definition'
 import { socketClient } from '~/socket'
 
@@ -46,14 +64,11 @@ const PresenceImpl = () => {
 
   const update = useCallback(
     debounce((position: number) => {
-      apiClient.activity.proxy.presence.update.post({
-        data: {
-          identity,
-          position,
-          ts: Date.now(),
-          roomName,
-          sid: socketClient.socket.id,
-        },
+      apiClient.activity.updatePresence({
+        identity,
+        position,
+        sid: socketClient.socket.id!,
+        roomName,
       })
     }, 1000),
     [identity],
@@ -98,17 +113,19 @@ const ReadPresenceTimeline = () => {
   if (typeof position !== 'number') return null
 
   return (
-    <div className="fixed bottom-0 left-0 top-[4.5rem]">
-      {activityPresenceIdsCurrentRoom.map((identity) => {
-        return (
-          <TimelineItem
-            key={identity}
-            identity={identity}
-            type={identity === sessionId ? 'current' : 'other'}
-          />
-        )
-      })}
-    </div>
+    <RootPortal>
+      <div className="fixed bottom-0 left-0 top-[4.5rem] z-[3]">
+        {activityPresenceIdsCurrentRoom.map((identity) => {
+          return (
+            <TimelineItem
+              key={identity}
+              identity={identity}
+              type={identity === sessionId ? 'current' : 'other'}
+            />
+          )
+        })}
+      </div>
+    </RootPortal>
   )
 }
 
@@ -136,6 +153,9 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
   if (!presence && isCurrent) return null
 
   if (typeof position !== 'number') return null
+  const readingDuration = presence
+    ? formatSeconds((presence.operationTime - presence.connectedAt) / 1000)
+    : ''
 
   return (
     <FloatPopover
@@ -144,14 +164,10 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
       offset={30}
       type="tooltip"
       triggerElement={
-        <div
-          className="absolute h-2 -translate-x-12 rounded-full bg-accent duration-200 hover:-translate-x-8 hover:opacity-50"
-          style={{
-            top: `${position}%`,
-            backgroundColor: bgColor,
-            opacity: isCurrent ? 0.3 : 0.15,
-            width: isCurrent ? '90px' : '80px',
-          }}
+        <MoitonBar
+          bgColor={bgColor}
+          isCurrent={isCurrent}
+          position={position}
         />
       }
     >
@@ -161,8 +177,80 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
         <p>读者 {presence?.identity.slice(0, 2).toUpperCase()} 在这里。</p>
       )}
       <p>阅读进度 {position}%</p>
+
+      {readingDuration && <p>阅读了 {readingDuration}</p>}
     </FloatPopover>
   )
 })
 
 TimelineItem.displayName = 'TimelineItem'
+
+const MoitonBar = forwardRef<
+  HTMLButtonElement,
+  {
+    position: number
+    bgColor: string
+    isCurrent: boolean
+  }
+>(({ bgColor, isCurrent, position, ...rest }, ref) => {
+  const elRef = useRef<HTMLButtonElement>(null)
+
+  const [memoedPosition] = useState(position)
+  useLayoutEffect(() => {
+    const el = elRef.current
+    if (!el) return
+    el.style.top = `${memoedPosition}%`
+  }, [memoedPosition])
+
+  const animateRef = useRef<Animation | null>(null)
+  useEffect(() => {
+    if (isCurrent) {
+      return
+    }
+    const el = elRef.current
+    if (!el) return
+
+    if (animateRef.current) animateRef.current.finish()
+    animateRef.current = el.animate(
+      [
+        {
+          filter: 'blur(5px)',
+        },
+        {
+          top: `${position}%`,
+          filter: 'blur(0px)',
+        },
+      ],
+      {
+        duration: 200,
+        fill: 'forwards',
+        easing: 'ease-in-out',
+      },
+    )
+  }, [isCurrent, position])
+  const { y } = useWrappedElementPosition()
+  const { h } = useWrappedElementSize()
+
+  useImperativeHandle(ref, () => elRef.current!)
+  return (
+    <button
+      onClick={() => {
+        // read percent calc:  Math.floor(Math.min(Math.max(0, ((scrollTop - y) / h) * 100), 100)) || 0
+        // so the reversal is
+        springScrollTo(y + (position / 100) * h)
+      }}
+      aria-label={isCurrent ? '你在这里' : `读者在这里 - ${position}%`}
+      ref={elRef}
+      className="absolute h-2 -translate-x-4 rounded-full bg-accent duration-200 hover:-translate-x-2 hover:opacity-50"
+      style={{
+        top: isCurrent ? `${position}%` : void 0,
+        backgroundColor: bgColor,
+        opacity: isCurrent ? 0.3 : 0.15,
+        width: isCurrent ? '45px' : '30px',
+      }}
+      {...rest}
+    />
+  )
+})
+
+MoitonBar.displayName = 'MoitonBar'

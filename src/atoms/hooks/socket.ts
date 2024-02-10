@@ -18,7 +18,7 @@ const storageKey = buildNSKey('web-session')
 
 export const getSocketWebSessionId = () => {
   if (!isClientSide) {
-    throw new Error('getSocketWebSessionId is client side only')
+    return ''
   }
   const sessionId = localStorage.getItem(storageKey)
   if (sessionId) return sessionId
