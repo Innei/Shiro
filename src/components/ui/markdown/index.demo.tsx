@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactComponentRender } from '~/components/ui/react-component-render/ComponentRender'
-import { lazy, Suspense, useMemo, useState } from 'react'
+import React, { lazy, Suspense, useMemo, useState } from 'react'
+import ReactDOM from 'react-dom'
 import { ToastContainer } from 'react-toastify'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { ThemeProvider } from 'next-themes'
@@ -64,6 +65,9 @@ const CodeBlockRender = (props: {
     </Suspense>
   )
 }
+declare const window: any
+window.React = React
+window.ReactDOM = ReactDOM
 
 export const MarkdownCustomize: DocumentComponent = () => {
   return (
