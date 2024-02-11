@@ -226,7 +226,7 @@ export const FloatPopover = function FloatPopover<T extends {}>(
                 role={type === 'tooltip' ? 'tooltip' : 'dialog'}
                 className={clsxm(
                   !headless && [
-                    '!shadow-out-sm focus:!shadow-out-sm focus-visible:!shadow-out-sm',
+                    'shadow-out-sm focus:!shadow-out-sm focus-visible:!shadow-out-sm',
                     'rounded-xl border border-zinc-400/20 p-4 shadow-lg outline-none backdrop-blur-lg dark:border-zinc-500/30',
                     'bg-zinc-50/80 dark:bg-neutral-900/80',
                   ],
@@ -234,7 +234,7 @@ export const FloatPopover = function FloatPopover<T extends {}>(
                   'relative z-[2]',
 
                   type === 'tooltip'
-                    ? `max-w-[25rem] break-all rounded-xl px-4 py-2`
+                    ? `max-w-[25rem] break-all rounded-[6px] p-1 text-sm shadow-sm backdrop-blur-sm`
                     : '',
                   popoverClassNames,
                 )}
