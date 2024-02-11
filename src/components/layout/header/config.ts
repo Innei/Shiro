@@ -46,7 +46,7 @@ export const headerMenuConfig: IHeaderMenu[] = [
   },
 
   {
-    title: '速览',
+    title: '时光',
     icon: h(FaSolidHistory),
     path: '/timeline',
     subMenu: [

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { FooterConfig } from './config'
 
+import { IonIosArrowDown } from '~/components/icons/arrow'
 import { SubscribeTextButton } from '~/components/modules/subscribe/SubscribeTextButton'
 import { clsxm } from '~/lib/helper'
 import { getQueryClient } from '~/lib/query-client.server'
@@ -27,11 +28,11 @@ export const FooterInfo = () => {
 
       <FooterBottom />
 
-      {isVercelEnv && (
+      {/* {isVercelEnv && (
         <div className="mt-6 flex justify-center lg:hidden">
           <VercelPoweredBy />
         </div>
-      )}
+      )} */}
     </>
   )
 }
@@ -48,8 +49,15 @@ const FooterLinkSection = async () => {
     <div className="space-x-0 space-y-3 md:space-x-6 md:space-y-0">
       {footerConfig.linkSections.map((section) => {
         return (
-          <div className="block space-x-4 md:inline-flex" key={section.name}>
-            <b className="font-medium">{section.name}</b>
+          <div
+            className="flex items-center gap-4 md:inline-flex"
+            key={section.name}
+          >
+            <b className="inline-flex items-center font-medium">
+              {section.name}
+              <IonIosArrowDown className="ml-2 inline -rotate-90 select-none" />
+            </b>
+
             <span className="space-x-4 text-neutral-content/90">
               {section.links.map((link) => {
                 return (
