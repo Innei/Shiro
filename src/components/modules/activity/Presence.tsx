@@ -13,12 +13,17 @@ import {
   useRef,
   useState,
 } from 'react'
+import clsx from 'clsx'
 import type { FC } from 'react'
+
+import { useUser } from '@clerk/nextjs'
 
 import {
   useActivityPresenceByRoomName,
   useActivityPresenceBySessionId,
+  useIsLogged,
   useIsMobile,
+  useOwner,
   useSocketSessionId,
 } from '~/atoms/hooks'
 import { FloatPopover } from '~/components/ui/float-popover'
@@ -62,6 +67,25 @@ const PresenceImpl = () => {
 
   const identity = useSocketSessionId()
 
+  const clerkUser = useUser()
+  const owner = useOwner()
+
+  const isOwnerLogged = useIsLogged()
+  const displayName = useMemo(
+    () =>
+      isOwnerLogged
+        ? owner?.name
+        : clerkUser.isSignedIn
+          ? clerkUser.user.fullName
+          : '',
+    [
+      clerkUser.isSignedIn,
+      clerkUser.user?.fullName,
+      isOwnerLogged,
+      owner?.name,
+    ],
+  )
+
   const update = useCallback(
     debounce((position: number) => {
       apiClient.activity.updatePresence({
@@ -69,9 +93,10 @@ const PresenceImpl = () => {
         position,
         sid: socketClient.socket.id!,
         roomName,
+        displayName: displayName || void 0,
       })
     }, 1000),
-    [identity],
+    [identity, displayName],
   )
 
   const percent = useReadPercent()
@@ -99,9 +124,11 @@ const PresenceImpl = () => {
 
 const ReadPresenceTimeline = () => {
   const sessionId = useSocketSessionId()
-  const activityPresence = useActivityPresenceBySessionId(sessionId)
+
   const { roomName } = useRoomContext()
   const activityPresenceIdsCurrentRoom = useActivityPresenceByRoomName(roomName)
+
+  // console.log(activityPresenceIdsCurrentRoom, 'activityPresenceIdsCurrentRoom')
   // console.log(
 
   //   activityPresence,
@@ -109,12 +136,10 @@ const ReadPresenceTimeline = () => {
   //   sessionId,
   //   useActivityPresence(),
   // )
-  const position = activityPresence?.position
-  if (typeof position !== 'number') return null
 
   return (
     <RootPortal>
-      <div className="fixed bottom-0 left-0 top-[4.5rem] z-[3]">
+      <div className="group fixed bottom-0 left-0 top-[4.5rem] z-[3]">
         {activityPresenceIdsCurrentRoom.map((identity) => {
           return (
             <TimelineItem
@@ -148,7 +173,7 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
     if (!presence) return ''
     return getColorScheme(stringToHue(presence.identity))[
       isDark ? 'dark' : 'light'
-    ].background
+    ].accent
   }, [isDark, presence, type])
   if (!presence && isCurrent) return null
 
@@ -175,7 +200,12 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
       {isCurrent ? (
         <p>你在这里。</p>
       ) : (
-        <p>读者 {presence?.identity.slice(0, 2).toUpperCase()} 在这里。</p>
+        <p>
+          读者{' '}
+          {presence?.displayName ||
+            presence?.identity.slice(0, 2).toUpperCase()}{' '}
+          在这里。
+        </p>
       )}
       <p>阅读进度 {position}%</p>
 
@@ -242,12 +272,13 @@ const MoitonBar = forwardRef<
       }}
       aria-label={isCurrent ? '你在这里' : `读者在这里 - ${position}%`}
       ref={elRef}
-      className="absolute h-2 -translate-x-4 rounded-full bg-accent duration-200 hover:-translate-x-2 hover:opacity-50"
+      className={clsx(
+        'absolute h-2 -translate-x-4 rounded-full bg-accent duration-200 group-hover:opacity-80 hover:-translate-x-2 hover:opacity-100',
+        isCurrent ? 'w-9 opacity-40 group-hover:opacity-100' : 'w-8 opacity-30',
+      )}
       style={{
         top: isCurrent ? `${position}%` : void 0,
         backgroundColor: bgColor,
-        opacity: isCurrent ? 0.3 : 0.15,
-        width: isCurrent ? '45px' : '30px',
       }}
       {...rest}
     />
