@@ -43,7 +43,11 @@ export const CodeBlockRender = (props: {
         return <ExcalidrawLazy data={props.content} />
       }
       case 'component': {
-        return <ReactComponentRender dls={props.content} />
+        return (
+          <div className="not-prose my-4">
+            <ReactComponentRender dls={props.content} />
+          </div>
+        )
       }
       default: {
         const HighLighter = dynamic(() =>
