@@ -15,7 +15,7 @@ import { CommentBoxSlotPortal } from './providers'
 const EmojiPicker = dynamic(() =>
   import('../../shared/EmojiPicker').then((mod) => mod.EmojiPicker),
 )
-export const UniversalTextArea = () => {
+export const UniversalTextArea: Component = ({ className }) => {
   const placeholder = useRefValue(() => getRandomPlaceholder())
   const setter = useSetCommentBoxValues()
   const value = useCommentBoxTextValue()
@@ -63,6 +63,7 @@ export const UniversalTextArea = () => {
 
   return (
     <TextArea
+      wrapperClassName={className}
       ref={taRef}
       defaultValue={value}
       onChange={(e) => setter('text', e.target.value)}
