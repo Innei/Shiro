@@ -234,7 +234,7 @@ export const FloatPopover = function FloatPopover<T extends {}>(
                   'relative z-[2]',
 
                   type === 'tooltip'
-                    ? `max-w-[25rem] break-all rounded-[6px] p-1 text-sm shadow-sm backdrop-blur-sm`
+                    ? `max-w-[25rem] break-all rounded-xl px-4 py-2 shadow-sm`
                     : '',
                   popoverClassNames,
                 )}

@@ -30,3 +30,18 @@ export const useActivityPresenceByRoomName = (roomName: string) =>
       [roomName],
     ),
   )
+
+export const useCurrentRoomCount = (roomName: string) =>
+  useAtomValue(
+    useMemo(
+      () =>
+        selectAtom(
+          activityPresenceAtom,
+          (atomValue) =>
+            Object.values(atomValue).filter(
+              (presence) => presence.roomName === roomName,
+            ).length,
+        ),
+      [roomName],
+    ),
+  )

@@ -88,10 +88,12 @@ const PresenceImpl = () => {
 
   const update = useCallback(
     debounce((position: number) => {
+      const sid = socketClient.socket.id
+      if (!sid) return
       apiClient.activity.updatePresence({
         identity,
         position,
-        sid: socketClient.socket.id!,
+        sid,
         roomName,
         displayName: displayName || void 0,
       })
@@ -139,7 +141,7 @@ const ReadPresenceTimeline = () => {
 
   return (
     <RootPortal>
-      <div className="group fixed bottom-0 left-0 top-[4.5rem] z-[3]">
+      <div className="group fixed bottom-20 left-0 top-20 z-[3]">
         {activityPresenceIdsCurrentRoom.map((identity) => {
           return (
             <TimelineItem

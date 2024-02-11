@@ -21,7 +21,7 @@ export const PostMetaBar: Component<{
   meta: Partial<
     Pick<PostModel, 'created' | 'modified' | 'category' | 'tags' | 'count'>
   >
-}> = ({ className, meta }) => {
+}> = ({ className, meta, children }) => {
   const { present } = useModalStack()
   const router = useRouter()
   return (
@@ -117,6 +117,8 @@ export const PostMetaBar: Component<{
           </span>
         </div>
       )}
+
+      {children}
     </div>
   )
 }

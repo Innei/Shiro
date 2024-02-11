@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 
 import { deleteActivityPresence } from '~/atoms/activity'
 import { useSocketIsConnect, useSocketSessionId } from '~/atoms/hooks'
+import { usePageIsActive } from '~/hooks/common/use-is-active'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { socketClient } from '~/socket'
 import { SocketEmitEnum } from '~/types/events'
@@ -43,6 +44,13 @@ const SocketContainerImpl: Component = () => {
 
     deleteActivityPresence(previousWebSocketSessionId)
   }, [socketIsConnected, webSocketSessionId])
+
+  const pageIsActive = usePageIsActive()
+  useEffect(() => {
+    if (pageIsActive && !socketIsConnected) {
+      socketClient.reconnect()
+    }
+  }, [pageIsActive, socketIsConnected])
 
   return null
 }
