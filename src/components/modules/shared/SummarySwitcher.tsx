@@ -20,7 +20,7 @@ export const SummarySwitcher: FC<
   const cid = getCidForBaseModel(data)
 
   const finalSummary = 'summary' in data ? data.summary : summary
-  if (typeof finalSummary != 'undefined' && finalSummary.trim().length)
+  if (finalSummary && finalSummary.trim().length)
     return <ManualSummary className="my-4" summary={finalSummary} />
 
   if (!enabled) return null
