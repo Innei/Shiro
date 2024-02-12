@@ -1,16 +1,16 @@
 'use client'
 
-import React, { useLayoutEffect } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
-
-import * as Button from '~/components/ui/button'
+import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 
 export const Global = () => {
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     Object.assign(window, {
       React,
       ReactDOM,
-      ShiroComponents: { ...Button },
+      react: React,
+      reactDom: ReactDOM,
     })
   }, [])
   return null
