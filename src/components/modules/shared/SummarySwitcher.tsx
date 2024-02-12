@@ -19,7 +19,8 @@ export const SummarySwitcher: FC<
   const { data, summary } = props
   const cid = getCidForBaseModel(data)
 
-  const finalSummary = 'summary' in data ? data.summary : summary
+  const finalSummary =
+    'summary' in data && data.summary ? data.summary : summary
   if (typeof finalSummary != 'undefined')
     return <ManualSummary className="my-4" summary={finalSummary} />
 
