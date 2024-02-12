@@ -4,15 +4,24 @@ import type { AiSummaryProps } from '../ai/Summary'
 
 import { appStaticConfig } from '~/app.static.config'
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
+import { clsxm } from '~/lib/helper'
 
 import { AISummary } from '../ai/Summary'
 import { XLogSummary } from '../xlog'
 import { getCidForBaseModel } from '../xlog/utils'
 
-export const SummarySwitcher: FC<AiSummaryProps> = memo((props) => {
+export const SummarySwitcher: FC<
+  AiSummaryProps & {
+    summary?: string
+  }
+> = memo((props) => {
   const { enabled, providers } = appStaticConfig.ai.summary
-  const { data } = props
+  const { data, summary } = props
   const cid = getCidForBaseModel(data)
+
+  const finalSummary = 'summary' in data ? data.summary : summary
+  if (typeof finalSummary != 'undefined')
+    return <ManualSummary className="my-4" summary={finalSummary} />
 
   if (!enabled) return null
 
@@ -40,3 +49,24 @@ export const SummarySwitcher: FC<AiSummaryProps> = memo((props) => {
 })
 
 SummarySwitcher.displayName = 'SummarySwitcher'
+
+const ManualSummary: Component<{
+  summary: string
+}> = ({ className, summary }) => {
+  return (
+    <div
+      className={clsxm(
+        `space-y-2 rounded-xl border border-slate-200 p-4 dark:border-neutral-800`,
+        className,
+      )}
+    >
+      <div className="flex items-center">
+        <i className="icon-[mingcute--sparkles-line] mr-2 text-lg" />
+        摘要
+      </div>
+      <div className="!m-0 text-sm leading-loose text-base-content/85">
+        {summary}
+      </div>
+    </div>
+  )
+}
