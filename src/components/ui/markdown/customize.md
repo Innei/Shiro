@@ -396,7 +396,7 @@ $$
 ````
 
 ## React Remote Component Render
-
+<!-- 
 ```component
 import=http://127.0.0.1:2333/snippets/js/components
 name=MyComponents.Card
@@ -407,6 +407,20 @@ name=MyComponents.Card
 import=http://127.0.0.1:2333/snippets/js/components
 name=MyComponents.Card
 ```
+```` -->
+
+
+```component
+import=https://cdn.jsdelivr.net/npm/@innei/react-cdn-components@0.0.7/dist/components/Firework.js
+name=MDX.Firework
+height=25
+```
+
+````markdown
+```component
+import=https://cdn.jsdelivr.net/npm/@innei/react-cdn-components@0.0.7/dist/components/Firework.js
+name=MDX.Firework
+height=25
+```
 ````
 
- 
