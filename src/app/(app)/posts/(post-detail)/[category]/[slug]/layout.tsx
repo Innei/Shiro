@@ -1,6 +1,7 @@
 import React from 'react'
 import type { Metadata } from 'next'
 
+import { buildRoomName, RoomProvider } from '~/components/modules/activity'
 import { CommentAreaRootLazy } from '~/components/modules/comment'
 import { TocFAB } from '~/components/modules/toc/TocFAB'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
@@ -79,7 +80,9 @@ export default async (props: NextPageParams<PageParams>) => {
       <CurrentPostDataProvider data={data} />
       <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
         <BottomToUpTransitionView lcpOptimization className="min-w-0">
-          <PostPage {...data} />
+          <RoomProvider roomName={buildRoomName(data.id)}>
+            <PostPage {...data} />
+          </RoomProvider>
 
           <BottomToUpSoftScaleTransitionView delay={500}>
             <CommentAreaRootLazy

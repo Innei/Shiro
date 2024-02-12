@@ -1,3 +1,4 @@
+import { activity } from './activity'
 import { aggregation } from './aggregation'
 import { commentAdmin } from './comment'
 import { note, noteAdmin } from './note'
@@ -9,6 +10,7 @@ export const queries = {
   note,
   post,
   page,
+  activity,
 }
 
 export const adminQueries = {

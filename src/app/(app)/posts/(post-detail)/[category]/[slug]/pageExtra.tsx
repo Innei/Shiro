@@ -7,6 +7,7 @@ import type { PropsWithChildren } from 'react'
 
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { PostMetaBar } from '~/components/modules/post/PostMetaBar'
+import { CurrentReadingCountingMetaBarItem } from '~/components/modules/shared/MetaBar'
 import { WithArticleSelectionAction } from '~/components/modules/shared/WithArticleSelectionAction'
 import { MainMarkdown } from '~/components/ui/markdown'
 import { noopArr } from '~/lib/noop'
@@ -91,5 +92,9 @@ export const PostMetaBarInternal: Component = ({ className }) => {
     }
   })
   if (!meta) return null
-  return <PostMetaBar meta={meta} className={className} />
+  return (
+    <PostMetaBar meta={meta} className={className}>
+      <CurrentReadingCountingMetaBarItem />
+    </PostMetaBar>
+  )
 }

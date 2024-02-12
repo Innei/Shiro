@@ -54,6 +54,8 @@ type FloatPopoverProps<T> = PropsWithChildren<{
 
   onOpen?: () => void
   onClose?: () => void
+
+  asChild?: boolean
 }> &
   UseFloatingOptions
 
@@ -85,6 +87,7 @@ export const FloatPopover = function FloatPopover<T extends {}>(
     onOpen,
     onClose,
     to,
+    asChild,
     ...floatingProps
   } = props
 
@@ -151,7 +154,25 @@ export const FloatPopover = function FloatPopover<T extends {}>(
     }
   }, [doPopoverDisappear, doPopoverShow, handleMouseOut, trigger])
 
-  const TriggerWrapper = (
+  const Child = triggerElement ? (
+    triggerElement
+  ) : TriggerComponent ? (
+    React.cloneElement(
+      createElement(TriggerComponent as any, triggerComponentProps),
+
+      {
+        tabIndex: 0,
+      },
+    )
+  ) : (
+    <></>
+  )
+  const TriggerWrapper = asChild ? (
+    React.cloneElement(Child, {
+      ...listener,
+      ref: refs.setReference,
+    })
+  ) : (
     <As
       // @ts-ignore
       role={trigger === 'both' || trigger === 'click' ? 'button' : 'note'}
@@ -159,15 +180,7 @@ export const FloatPopover = function FloatPopover<T extends {}>(
       ref={refs.setReference}
       {...listener}
     >
-      {triggerElement}
-      {!!TriggerComponent &&
-        React.cloneElement(
-          createElement(TriggerComponent as any, triggerComponentProps),
-
-          {
-            tabIndex: 0,
-          },
-        )}
+      {Child}
     </As>
   )
 
@@ -213,7 +226,7 @@ export const FloatPopover = function FloatPopover<T extends {}>(
                 role={type === 'tooltip' ? 'tooltip' : 'dialog'}
                 className={clsxm(
                   !headless && [
-                    '!shadow-out-sm focus:!shadow-out-sm focus-visible:!shadow-out-sm',
+                    'shadow-out-sm focus:!shadow-out-sm focus-visible:!shadow-out-sm',
                     'rounded-xl border border-zinc-400/20 p-4 shadow-lg outline-none backdrop-blur-lg dark:border-zinc-500/30',
                     'bg-zinc-50/80 dark:bg-neutral-900/80',
                   ],
@@ -221,7 +234,7 @@ export const FloatPopover = function FloatPopover<T extends {}>(
                   'relative z-[2]',
 
                   type === 'tooltip'
-                    ? `max-w-[25rem] break-all rounded-xl px-4 py-2`
+                    ? `max-w-[25rem] break-all rounded-xl px-4 py-2 shadow-sm`
                     : '',
                   popoverClassNames,
                 )}

@@ -3,4 +3,7 @@ export const enum EmitKeyMap {
 
   Publish = 'Publish',
   Refetch = 'Refetch',
+
+  SocketConnected = 'SocketConnected',
+  SocketDisconnected = 'SocketDisconnected',
 }

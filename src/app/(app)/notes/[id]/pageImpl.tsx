@@ -5,10 +5,13 @@ import type { NoteModel } from '@mx-space/api-client'
 
 import { AckRead } from '~/components/common/AckRead'
 import { ClientOnly } from '~/components/common/ClientOnly'
+import { Presence } from '~/components/modules/activity'
 import {
   NoteActionAside,
   NoteBottomBarAction,
   NoteFooterNavigationBarForMobile,
+  NoteMetaBar,
+  NoteMetaReadingCount,
   NoteTopic,
 } from '~/components/modules/note'
 import { NoteRootBanner } from '~/components/modules/note/NoteBanner'
@@ -22,7 +25,6 @@ import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvide
 
 import { NoteHeadCover } from '../../../../components/modules/note/NoteHeadCover'
 import { NoteHideIfSecret } from '../../../../components/modules/note/NoteHideIfSecret'
-import { NoteMetaBar } from '../../../../components/modules/note/NoteMetaBar'
 import {
   IndentArticleContainer,
   MarkdownSelection,
@@ -48,6 +50,7 @@ const NotePage = function (props: NoteModel) {
 
             <ClientOnly>
               <NoteMetaBar />
+              <NoteMetaReadingCount />
             </ClientOnly>
           </span>
           <NoteRootBanner />
@@ -56,6 +59,7 @@ const NotePage = function (props: NoteModel) {
         <NoteHideIfSecret>
           <SummarySwitcher data={props} />
           <WrappedElementProvider>
+            <Presence />
             <ReadIndicatorForMobile />
             <NoteMarkdownImageRecordProvider>
               <BanCopyWrapper>

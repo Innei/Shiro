@@ -7,7 +7,7 @@ import Markdown from 'markdown-to-jsx'
 import type { SayModel } from '@mx-space/api-client'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 
-import { useIsMobile } from '~/atoms'
+import { useIsMobile } from '~/atoms/hooks'
 import { LoadMoreIndicator } from '~/components/modules/shared/LoadMoreIndicator'
 import { NothingFound } from '~/components/modules/shared/NothingFound'
 import { Loading } from '~/components/ui/loading'
@@ -89,7 +89,7 @@ const SaySkeleton = memo(() => {
     <div className="relative mb-4 border-l-[3px] border-l-slate-500 bg-slate-200/50 px-4 py-3 dark:bg-neutral-800">
       <div className="mb-2 h-6 w-full rounded bg-slate-300/80 dark:bg-neutral-700" />
       <div className="flex text-sm text-base-content/60 md:justify-between">
-        <div className="mb-2 h-4 w-14 rounded bg-slate-300/80 md:mb-0 dark:bg-neutral-700" />
+        <div className="mb-2 h-4 w-14 rounded bg-slate-300/80 dark:bg-neutral-700 md:mb-0" />
         <div className="ml-auto text-right">
           <div className="h-4 w-1/4 rounded bg-slate-300/80 dark:bg-neutral-700" />
         </div>

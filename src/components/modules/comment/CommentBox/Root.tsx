@@ -5,7 +5,7 @@ import type { CommentBaseProps } from '../types'
 
 import { SignedIn, SignedOut } from '@clerk/nextjs'
 
-import { useIsLogged } from '~/atoms'
+import { useIsLogged } from '~/atoms/hooks'
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
 import { clsxm } from '~/lib/helper'

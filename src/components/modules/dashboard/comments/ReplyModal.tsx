@@ -4,7 +4,7 @@ import { atom, useStore } from 'jotai'
 import markdownEscape from 'markdown-escape'
 import type { CommentModel } from '@mx-space/api-client'
 
-import { useIsMobile } from '~/atoms'
+import { useIsMobile } from '~/atoms/hooks'
 import { MotionButtonBase, StyledButton } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { TextArea } from '~/components/ui/input'

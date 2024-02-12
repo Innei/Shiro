@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 
-import { useIsMobile } from '~/atoms'
+import { useIsMobile } from '~/atoms/hooks'
 import { jotaiStore } from '~/lib/store'
 import { usePageScrollLocationSelector } from '~/providers/root/page-scroll-info-provider'
 

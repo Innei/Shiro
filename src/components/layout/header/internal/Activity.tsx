@@ -13,11 +13,8 @@ import clsx from 'clsx'
 import { AnimatePresence, m } from 'framer-motion'
 import Image from 'next/image'
 
-import {
-  setActivityMediaInfo,
-  setActivityProcessInfo,
-  useActivity,
-} from '~/atoms/activity'
+import { setActivityMediaInfo, setActivityProcessInfo } from '~/atoms/activity'
+import { useActivity } from '~/atoms/hooks'
 import { ImpressionView } from '~/components/common/ImpressionTracker'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { softBouncePreset } from '~/constants/spring'

@@ -1,7 +1,7 @@
 import { memo, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-import { useIsLogged } from '~/atoms'
+import { useIsLogged } from '~/atoms/hooks'
 import { TrackerAction } from '~/constants/tracker'
 
 type ImpressionProps = {

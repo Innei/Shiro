@@ -18,7 +18,7 @@ import type {
 } from './context'
 import type { ModalProps } from './types'
 
-import { useIsMobile } from '~/atoms'
+import { useIsMobile } from '~/atoms/hooks'
 import { CloseIcon } from '~/components/icons/close'
 import { DialogOverlay } from '~/components/ui/dialog/DialogOverlay'
 import { Divider } from '~/components/ui/divider'

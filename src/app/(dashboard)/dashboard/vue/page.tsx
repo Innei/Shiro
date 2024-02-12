@@ -3,7 +3,8 @@
 import { useLayoutEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { fetchAppUrl, useResolveAdminUrl } from '~/atoms'
+import { fetchAppUrl } from '~/atoms'
+import { useResolveAdminUrl } from '~/atoms/hooks'
 import { FullPageLoading } from '~/components/ui/loading'
 
 export default function Page() {

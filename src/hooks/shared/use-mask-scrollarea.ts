@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
 
-import { useViewport } from '~/atoms'
+import { useViewport } from '~/atoms/hooks'
 
 import { useEventCallback } from '../common/use-event-callback'
 

@@ -72,8 +72,8 @@ dependencies:
     specifier: 7.3.3
     version: 7.3.3(@milkdown/core@7.3.3)(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3)
   '@mx-space/api-client':
-    specifier: 1.7.2
-    version: 1.7.2
+    specifier: 1.8.0-alpha.4
+    version: 1.8.0-alpha.4
   '@prosemirror-adapter/react':
     specifier: 0.2.6
     version: 0.2.6(react-dom@18.2.0)(react@18.2.0)
@@ -188,6 +188,9 @@ dependencies:
   mermaid:
     specifier: 10.8.0
     version: 10.8.0
+  nanoid:
+    specifier: '*'
+    version: 5.0.4
   next:
     specifier: 14.1.0
     version: 14.1.0(@babel/core@7.23.5)(react-dom@18.2.0)(react@18.2.0)
@@ -2527,8 +2530,8 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@mx-space/api-client@1.7.2:
-    resolution: {integrity: sha512-tTvAYPNeOmb3zJcDVc5RJh66gBOtyVZhz2Z9f72S6PmvDEjFQ5aE3vpF/zVpp2uQ+xiOfuTsNP1FCJsL7n5v5A==}
+  /@mx-space/api-client@1.8.0-alpha.4:
+    resolution: {integrity: sha512-cthItrLMlarCxVIl13b4994Ow3ey/q9IAR4f6r8S09XyeuMrspH7yW4SvKrUEBhnVCBhLuYFPYL1Nf1FaYD2IQ==}
     dev: false
 
   /@mx-space/webhook@0.2.2:

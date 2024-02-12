@@ -4,7 +4,7 @@ import { useDeferredValue } from 'react'
 import { useInView } from 'react-intersection-observer'
 import type { ElementType } from 'react'
 
-import { useIsMobile } from '~/atoms'
+import { useIsMobile } from '~/atoms/hooks'
 import { RootPortal } from '~/components/ui/portal'
 import { useReadPercent } from '~/hooks/shared/use-read-percent'
 import { clsxm } from '~/lib/helper'

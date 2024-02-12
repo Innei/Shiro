@@ -59,6 +59,7 @@ export const NoteTitle = () => {
 
 export const NoteDateMeta = () => {
   const created = useCurrentNoteDataSelector((data) => data?.data.created)
+
   if (!created) return null
   const dateFormat = dayjs(created)
     .locale('zh-cn')

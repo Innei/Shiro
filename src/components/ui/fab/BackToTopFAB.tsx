@@ -1,6 +1,6 @@
 'use client'
 
-import { useViewport } from '~/atoms'
+import { useViewport } from '~/atoms/hooks'
 import { springScrollToTop } from '~/lib/scroller'
 import { usePageScrollLocationSelector } from '~/providers/root/page-scroll-info-provider'
 

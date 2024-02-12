@@ -1,10 +1,14 @@
 'use client'
 
+import { useCurrentRoomCount } from '~/atoms/hooks'
 import { CreativeCommonsIcon } from '~/components/icons/cc'
 import { DividerVertical } from '~/components/ui/divider'
 import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
 import { mood2icon, weather2icon } from '~/lib/meta-icon'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
+
+import { useRoomContext } from '../activity'
+import { CurrentReadingCountingMetaBarItem } from '../shared/MetaBar'
 
 const dividerVertical = <DividerVertical className="!mx-2 scale-y-50" />
 
@@ -99,6 +103,20 @@ export const NoteMetaCC = () => {
           </span>
         </a>
       </span>
+    </>
+  )
+}
+
+export const NoteMetaReadingCount = () => {
+  const { roomName } = useRoomContext()
+  const count = useCurrentRoomCount(roomName || '')
+
+  if (!roomName || !count) return null
+
+  return (
+    <>
+      {dividerVertical}
+      <CurrentReadingCountingMetaBarItem />
     </>
   )
 }

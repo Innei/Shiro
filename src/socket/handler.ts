@@ -9,11 +9,17 @@ import type {
   SayModel,
 } from '@mx-space/api-client'
 import type { InfiniteData } from '@tanstack/react-query'
+import type { ActivityPresence } from '~/models/activity'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { sayQueryKey } from '~/app/(app)/says/query'
 import { setOnlineCount } from '~/atoms'
-import { setActivityMediaInfo, setActivityProcessInfo } from '~/atoms/activity'
+import {
+  deleteActivityPresence,
+  setActivityMediaInfo,
+  setActivityPresence,
+  setActivityProcessInfo,
+} from '~/atoms/activity'
 import {
   FaSolidFeatherAlt,
   IcTwotoneSignpost,
@@ -36,6 +42,7 @@ import {
   getGlobalCurrentPostData,
   setGlobalCurrentPostData,
 } from '~/providers/post/CurrentPostDataProvider'
+import { queries } from '~/queries/definition'
 import { EventTypes } from '~/types/events'
 
 const trackerRealtimeEvent = () => {
@@ -225,6 +232,37 @@ export const eventHandler = (
       break
     }
 
+    case EventTypes.ACTIVITY_UPDATE_PRESENCE: {
+      const payload = data as ActivityPresence
+      const queryKey = queries.activity.presence(payload.roomName).queryKey
+      const queryState = queryClient.getQueryState(queryKey)
+      queryClient.cancelQueries({
+        queryKey,
+      })
+
+      setActivityPresence(data)
+      if (!queryState?.data) {
+        queryClient.invalidateQueries({
+          queryKey,
+        })
+      }
+
+      break
+    }
+
+    case EventTypes.ACTIVITY_LEAVE_PRESENCE: {
+      const payload = data as {
+        identity: string
+        roomName: string
+      }
+
+      queryClient.cancelQueries({
+        queryKey: queries.activity.presence(payload.roomName).queryKey,
+      })
+      deleteActivityPresence(payload.identity)
+      break
+    }
+
     case 'fn#media-update': {
       setActivityMediaInfo(data)
       break
@@ -247,6 +285,7 @@ export const eventHandler = (
     }
 
     default: {
+      window.dispatchEvent(new CustomEvent(`event:${type}`, { detail: data }))
       if (isDev) {
         console.log(type, data)
       }

@@ -2,9 +2,8 @@ import clsx from 'clsx'
 import { useAtom } from 'jotai'
 import Image from 'next/image'
 
-import { useIsLogged } from '~/atoms'
+import { useIsLogged } from '~/atoms/hooks'
 import { FormInput as FInput, Form } from '~/components/ui/form'
-import { clsxm } from '~/lib/helper'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
 import { CommentBoxActionBar } from './ActionBar'
@@ -18,7 +17,7 @@ export const CommentBoxLegacyForm = () => {
 }
 
 const taClassName =
-  'relative h-[150px] w-full rounded-lg bg-gray-200/50 pb-5 dark:bg-zinc-800/50'
+  'relative h-[150px] w-full rounded-lg bg-gray-200/50 dark:bg-zinc-800/50'
 type FormKey = 'author' | 'mail' | 'url'
 const placeholderMap = {
   author: '昵称',
@@ -50,8 +49,8 @@ const FormWithUserInfo = () => {
         <FormInput fieldKey="mail" required />
         <FormInput fieldKey="url" />
       </div>
-      <div className={clsxm(taClassName, 'pb-8')}>
-        <UniversalTextArea />
+      <div className={taClassName}>
+        <UniversalTextArea className="pb-8" />
       </div>
 
       <CommentBoxActionBar className="absolute bottom-4 left-0 right-4 mb-2 ml-4 w-auto px-4" />
@@ -80,7 +79,7 @@ const LoggedForm = () => {
         />
       </div>
       <div className={taClassName}>
-        <UniversalTextArea />
+        <UniversalTextArea className="pb-5" />
       </div>
 
       <CommentBoxActionBar className="absolute bottom-0 left-12 right-0 mb-2 ml-4 w-auto px-4" />

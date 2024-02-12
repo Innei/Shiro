@@ -6,7 +6,7 @@ import type {
   TextareaHTMLAttributes,
 } from 'react'
 
-import { useIsMobile } from '~/atoms'
+import { useIsMobile } from '~/atoms/hooks'
 import { useInputComposition } from '~/hooks/common/use-input-composition'
 import { clsxm } from '~/lib/helper'
 
@@ -20,7 +20,7 @@ export const TextArea = forwardRef<
       wrapperClassName?: string
     }>
 >((props, ref) => {
-  const { className, children, wrapperClassName, ...rest } = props
+  const { className, wrapperClassName, children, ...rest } = props
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
   const handleMouseMove = useCallback(

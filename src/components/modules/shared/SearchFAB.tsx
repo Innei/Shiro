@@ -17,7 +17,7 @@ import { atom, useAtomValue, useSetAtom } from 'jotai'
 import Link from 'next/link'
 import type { KeyboardEventHandler } from 'react'
 
-import { useIsLogged } from '~/atoms'
+import { useIsLogged } from '~/atoms/hooks'
 import { EmptyIcon } from '~/components/icons/empty'
 import { MotionButtonBase } from '~/components/ui/button'
 import { FABPortable } from '~/components/ui/fab'

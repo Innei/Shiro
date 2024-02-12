@@ -9,7 +9,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import type { NoteDto } from '~/models/writing'
 import type { FC } from 'react'
 
-import { useIsMobile } from '~/atoms'
+import { useIsMobile } from '~/atoms/hooks'
 import { PageLoading } from '~/components/layout/dashboard/PageLoading'
 import {
   NoteEditorSidebar,

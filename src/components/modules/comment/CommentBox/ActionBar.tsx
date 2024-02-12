@@ -13,7 +13,7 @@ import type {
 } from '@mx-space/api-client'
 import type { InfiniteData } from '@tanstack/react-query'
 
-import { useIsLogged } from '~/atoms'
+import { useIsLogged } from '~/atoms/hooks'
 import { TiltedSendIcon } from '~/components/icons/TiltedSendIcon'
 import { MLink } from '~/components/ui/link/MLink'
 import { clsxm } from '~/lib/helper'

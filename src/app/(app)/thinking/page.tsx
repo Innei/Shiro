@@ -14,7 +14,7 @@ import {
   RecentlyAttitudeResultEnum,
 } from '@mx-space/api-client'
 
-import { useIsLogged } from '~/atoms'
+import { useIsLogged } from '~/atoms/hooks'
 import { TiltedSendIcon } from '~/components/icons/TiltedSendIcon'
 import { CommentBoxRootLazy, CommentsLazy } from '~/components/modules/comment'
 import { PeekLink } from '~/components/modules/peek/PeekLink'
