@@ -14,6 +14,7 @@ import {
   MdiFlask,
   MdiLightbulbOn20,
   RMixPlanet,
+  FaSolidTrainSubway
 } from '~/components/icons/menu-collection'
 
 export interface IHeaderMenu {
@@ -104,6 +105,11 @@ export const headerMenuConfig: IHeaderMenu[] = [
         title: '跃迁',
         icon: h(RMixPlanet),
         path: 'https://travel.moe/go.html',
+      },
+      {
+        title: '开往',
+        icon: h(FaSolidTrainSubway),
+        path: 'https://www.travellings.cn/go.html',
       },
     ],
   },
