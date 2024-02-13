@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
+import type { CategoryModel } from '@mx-space/api-client'
 
 import { adminQueries } from '~/queries/definition'
 
@@ -22,14 +23,24 @@ export const SlugInput = () => {
       setCategoryId(category.id)
     }
   }, [category, categoryId, setCategoryId])
+  const categoryIdMap: Record<string, CategoryModel> = useMemo(() => {
+    if (!categories) return {}
+    return categories.data.reduce(
+      (acc, category) => ({
+        ...acc,
+        [category.id]: category,
+      }),
+      {},
+    )
+  }, [categories])
 
   const isLoading = !category
   return (
     <>
-      {isLoading ? (
-        <div className="h-2 w-[120px] animate-pulse bg-white " />
+      {isLoading || !categoryId ? (
+        <div className="h-2 w-[120px] animate-pulse bg-white" />
       ) : (
-        <label className="text-base-content">{`${webUrl}/posts/${category?.slug}/`}</label>
+        <label className="text-base-content">{`${webUrl}/posts/${categoryIdMap?.[categoryId]?.slug}/`}</label>
       )}
 
       <div className="relative ml-1 inline-flex min-w-[2rem] items-center overflow-hidden rounded-md bg-white py-1 dark:bg-zinc-900 [&_*]:leading-4">

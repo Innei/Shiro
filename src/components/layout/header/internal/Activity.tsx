@@ -109,6 +109,7 @@ const ActivityIcon = memo(() => {
     }
     setActivityProcessInfo({
       name: data.processInfo?.name || data.processName,
+      iconUrl: data.processInfo?.iconUrl,
       iconBase64: data.processInfo?.iconBase64,
       description: data.processInfo?.description,
     })
@@ -203,7 +204,11 @@ const TriggerComponent = memo<{
   const isBuiltIn = !!appIcon[processName]
 
   const src =
-    !isBuiltIn && icon ? icon : `${CND_DOMAIN}/apps/${appIcon[processName]}.png`
+    !isBuiltIn && icon
+      ? icon
+      : isBuiltIn
+        ? `${CND_DOMAIN}/apps/${appIcon[processName]}.png`
+        : ''
 
   const className = clsx('pointer-events-none select-none', {
     'rounded-md': !isBuiltIn,
@@ -214,7 +219,7 @@ const TriggerComponent = memo<{
     <Image
       width={32}
       height={32}
-      src={error ? ErrorFallback : src}
+      src={error ? ErrorFallback : src || ErrorFallback}
       alt={processName}
       priority
       fetchPriority="low"
