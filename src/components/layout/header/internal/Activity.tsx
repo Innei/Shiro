@@ -215,11 +215,13 @@ const TriggerComponent = memo<{
   })
   const [error, setError] = React.useState(false)
 
+  if (!src) return null
+
   return (
     <Image
       width={32}
       height={32}
-      src={error ? ErrorFallback : src || ErrorFallback}
+      src={error ? ErrorFallback : src}
       alt={processName}
       priority
       fetchPriority="low"
