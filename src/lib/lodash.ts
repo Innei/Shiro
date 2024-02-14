@@ -168,3 +168,7 @@ export function get(target: object, path: string) {
   }
   return result
 }
+
+export const uniq = <T>(arr: T[]): T[] => {
+  return Array.from(new Set(arr))
+}

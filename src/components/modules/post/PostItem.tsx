@@ -30,9 +30,9 @@ export const PostItem = memo<{ data: PostModel }>(function PostItem({ data }) {
 
         <PostPinIcon pin={!!data.pin} id={data.id} />
       </h2>
-      <main className="relative mt-8 space-y-2">
+      <div className="relative mt-8 space-y-2">
         {!!data.summary && (
-          <p className="break-all leading-relaxed text-gray-900 dark:text-zinc-50">
+          <p className="mb-4 break-all rounded-md px-4 py-2 text-sm leading-relaxed text-gray-900 ring-1 ring-accent/10 dark:text-zinc-50">
             摘要： {data.summary}
           </p>
         )}
@@ -50,7 +50,7 @@ export const PostItem = memo<{ data: PostModel }>(function PostItem({ data }) {
             {displayText}
           </p>
         </div>
-      </main>
+      </div>
 
       <div className="post-meta-bar mt-2 flex select-none flex-wrap items-center justify-end gap-4 text-base-content/60">
         <PostMetaBar meta={data} />

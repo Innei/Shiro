@@ -1,5 +1,7 @@
 'use client'
 
+import { useQuery } from '@tanstack/react-query'
+
 import { useOnlineCount } from '~/atoms'
 import { useSocketIsConnect } from '~/atoms/hooks'
 import { ImpressionView } from '~/components/common/ImpressionTracker'
@@ -8,14 +10,18 @@ import { FloatPopover } from '~/components/ui/float-popover'
 import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
 import { TrackerAction } from '~/constants/tracker'
 import { usePageIsActive } from '~/hooks/common/use-is-active'
+import { apiClient } from '~/lib/request'
+import { routeBuilder, Routes } from '~/lib/route-builder'
 
-export const GatewayCount = () => {
+const Help = () => {
   return (
     <FloatPopover
       as="span"
-      TriggerComponent={GatewayCountTrigger}
+      triggerElement={
+        <i className="icon-[mingcute--question-line] cursor-help" />
+      }
       type="tooltip"
-      wrapperClassName="cursor-help"
+      asChild
     >
       <div className="space-y-2 leading-relaxed">
         <p className="flex items-center space-x-1 opacity-80">
@@ -77,18 +83,112 @@ const ConnectedIndicator = () => {
   )
 }
 
-const GatewayCountTrigger = () => {
+export const GatewayCount = () => {
   const isActive = usePageIsActive()
   const count = useOnlineCount()
 
   if (!isActive) return null
   return (
-    <span key={count}>
-      正在被{' '}
-      <span>
-        <NumberSmoothTransition>{count}</NumberSmoothTransition>
-      </span>{' '}
-      人看爆
-    </span>
+    <div className="inline-flex items-center gap-2">
+      <FloatPopover
+        asChild
+        placement="top"
+        offset={10}
+        triggerElement={
+          <span key={count} className="cursor-pointer">
+            正在被{' '}
+            <span>
+              <NumberSmoothTransition>{count}</NumberSmoothTransition>
+            </span>{' '}
+            人看爆
+          </span>
+        }
+      >
+        <RoomsInfo />
+      </FloatPopover>
+      <Help />
+    </div>
+  )
+}
+
+const RoomsInfo = () => {
+  const { data } = useQuery({
+    queryKey: ['rooms'],
+    refetchOnMount: true,
+    queryFn: () => {
+      return apiClient.activity
+        .getRoomsInfo()
+        .then((res) => res.$serialized)
+        .then((data) => {
+          const result = [] as {
+            path: string
+            title: string
+            count: number
+          }[]
+
+          const morphArticleIdToRoomName = (id: string) => `article_${id}`
+          data.objects.notes.forEach((note) => {
+            result.push({
+              path: routeBuilder(Routes.Note, {
+                id: note.nid,
+              }),
+              title: note.title,
+              count: data.roomCount[morphArticleIdToRoomName(note.id)],
+            })
+          })
+
+          data.objects.posts.forEach((post) => {
+            result.push({
+              path: routeBuilder(Routes.Post, {
+                category: post.category.slug,
+                slug: post.slug,
+              }),
+              title: post.title,
+              count: data.roomCount[morphArticleIdToRoomName(post.id)],
+            })
+          })
+
+          data.objects.pages.forEach((page) => {
+            result.push({
+              path: routeBuilder(Routes.Page, {
+                slug: page.slug,
+              }),
+              title: page.title,
+              count: data.roomCount[morphArticleIdToRoomName(page.id)],
+            })
+          })
+
+          return result.sort((a, b) => b.count - a.count)
+        })
+    },
+  })
+
+  if (!data) return <div className="loading loading-spinner" />
+  if (data.length === 0)
+    return <div className="text-gray-500">还没有人在偷偷观察哦~</div>
+  return (
+    <div className="max-w-[80vw] lg:max-w-[400px]">
+      <div className="mb-2 text-sm font-medium">下面的内容正在被看爆：</div>
+      <ul className="flex flex-col justify-between gap-2">
+        {data.map((room) => (
+          <li key={room.path} className="flex items-center justify-between">
+            <a
+              target="_blank"
+              href={room.path}
+              className="hover:underline"
+              rel="noreferrer"
+            >
+              {room.title}
+            </a>
+            {!!room.count && (
+              <span className="ml-5 inline-flex items-center text-sm text-gray-500">
+                <i className="icon-[mingcute--user-visible-line]" />{' '}
+                {room.count}
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }

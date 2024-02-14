@@ -35,7 +35,7 @@ import { useIsDark } from '~/hooks/common/use-is-dark'
 import { useReadPercent } from '~/hooks/shared/use-read-percent'
 import { getColorScheme, stringToHue } from '~/lib/color'
 import { formatSeconds } from '~/lib/datetime'
-import { debounce } from '~/lib/lodash'
+import { debounce, uniq } from '~/lib/lodash'
 import { apiClient } from '~/lib/request'
 import { springScrollTo } from '~/lib/scroller'
 import {
@@ -142,7 +142,7 @@ const ReadPresenceTimeline = () => {
   return (
     <RootPortal>
       <div className="group fixed bottom-20 left-0 top-20 z-[3]">
-        {activityPresenceIdsCurrentRoom.map((identity) => {
+        {uniq(activityPresenceIdsCurrentRoom).map((identity) => {
           return (
             <TimelineItem
               key={identity}
