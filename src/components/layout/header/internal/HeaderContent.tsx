@@ -136,7 +136,8 @@ const ForDesktop: Component<{
               subItemActive={section.subMenu?.[subItemActive]}
               isActive={
                 pathname === section.path ||
-                pathname.startsWith(`${section.path}/`) ||
+                (pathname.startsWith(`${section.path}/`) &&
+                  !section.exclude?.includes(pathname)) ||
                 subItemActive > -1 ||
                 false
               }

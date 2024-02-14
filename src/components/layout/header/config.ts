@@ -21,7 +21,8 @@ export interface IHeaderMenu {
   path: string
   type?: string
   icon?: ReactNode
-  subMenu?: IHeaderMenu[]
+  subMenu?: Omit<IHeaderMenu, 'exclude'>[]
+  exclude?: string[]
 }
 export const headerMenuConfig: IHeaderMenu[] = [
   {
@@ -43,6 +44,7 @@ export const headerMenuConfig: IHeaderMenu[] = [
     type: 'Note',
     path: '/notes',
     icon: h(FaSolidFeatherAlt),
+    exclude: ['/notes/topics'],
   },
 
   {
