@@ -380,7 +380,7 @@ const fetchMxSpaceData: FetchObject = {
         images?: { src: string }[]
         meta?: Record<string, any>
         cover?: string
-        summary?: string
+        summary?: string | null
       } = { title: '', text: '' }
 
       if (type === 'posts') {
