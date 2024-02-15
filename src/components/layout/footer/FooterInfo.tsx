@@ -9,7 +9,7 @@ import { queries } from '~/queries/definition'
 
 import { defaultLinkSections } from './config'
 // import { footerConfig } from './config'
-import { GatewayCount } from './GatewayCount'
+import { GatewayInfo } from './GatewayInfo'
 import { OwnerName } from './OwnerName'
 import { VercelPoweredBy } from './VercelPoweredBy'
 
@@ -114,7 +114,7 @@ const PoweredBy: Component = ({ className }) => {
       <StyledLink href="https://github.com/mx-space" target="_blank">
         Mix Space
       </StyledLink>
-      . <Divider />
+      <span className="mx-1">&</span>
       <StyledLink href="https://github.com/innei/Shiro" target="_blank">
         Shiro
       </StyledLink>
@@ -174,7 +174,7 @@ const FooterBottom = async () => {
           <Divider className="inline" />
 
           <SubscribeTextButton>
-            <Divider className="inline" />
+            <Divider className="hidden md:inline" />
           </SubscribeTextButton>
         </span>
         <span className="mt-3 block md:mt-0 md:inline">
@@ -192,8 +192,8 @@ const FooterBottom = async () => {
           </>
         )}
 
-        <Divider className="hidden md:inline" />
-        <GatewayCount />
+        <Divider className="inline" />
+        <GatewayInfo />
         {/* {!!lastVisitor && (
           <>
             <Divider />

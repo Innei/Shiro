@@ -6,6 +6,7 @@ import { sleep } from 'openai/core'
 import { useOnlineCount } from '~/atoms'
 import { useSocketIsConnect } from '~/atoms/hooks'
 import { ImpressionView } from '~/components/common/ImpressionTracker'
+import { usePeek } from '~/components/modules/peek/usePeek'
 import { Divider } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
@@ -84,7 +85,7 @@ const ConnectedIndicator = () => {
   )
 }
 
-export const GatewayCount = () => {
+export const GatewayInfo = () => {
   const isActive = usePageIsActive()
   const count = useOnlineCount()
 
@@ -159,6 +160,8 @@ const RoomsInfo = () => {
     },
   })
 
+  const peek = usePeek()
+
   if (!data) return <div className="loading loading-spinner" />
   if (data.length === 0)
     return <div className="text-gray-500">还没有人在偷偷观察哦~</div>
@@ -169,10 +172,12 @@ const RoomsInfo = () => {
         {data.map((room) => (
           <li key={room.path} className="flex items-center justify-between">
             <a
-              target="_blank"
               href={room.path}
               className="hover:underline"
-              rel="noreferrer"
+              onClick={(e) => {
+                e.preventDefault()
+                peek(room.path)
+              }}
             >
               {room.title}
             </a>

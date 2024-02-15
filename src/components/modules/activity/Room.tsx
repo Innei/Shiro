@@ -33,8 +33,6 @@ export const RoomProvider: FC<
     }
   }, [roomName, socketIsConnect])
 
-  // if (!socketIsConnect) return null
-
   return (
     <RoomContext.Provider value={ctxValue}>{children}</RoomContext.Provider>
   )
@@ -47,4 +45,8 @@ export const useRoomContext = () => {
     throw new Error('useRoomContext must be used within RoomProvider')
   }
   return ctx
+}
+
+export const useMaybeInRoomContext = () => {
+  return useContext(RoomContext)
 }
