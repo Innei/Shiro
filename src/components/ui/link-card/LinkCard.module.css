@@ -18,7 +18,7 @@
 
   @apply cursor-pointer border font-sans no-underline;
   @apply [&_*]:!not-italic;
-  @apply border border-slate-200/80 bg-gray-100/80 dark:border-neutral-700 dark:bg-zinc-800;
+  @apply border border-slate-200/80 bg-slate-50/80 dark:border-neutral-700 dark:bg-zinc-800;
   @apply transition-colors duration-200;
 }
 

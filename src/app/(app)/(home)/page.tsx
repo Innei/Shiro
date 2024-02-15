@@ -53,7 +53,7 @@ const Screen = forwardRef<
       ref={ref}
       style={isDev ? debugStyle : undefined}
       className={clsxm(
-        'relative flex h-screen min-h-[900px] flex-col center',
+        'relative flex h-screen min-h-[900px] flex-col overflow-hidden center',
         props.className,
       )}
     >
