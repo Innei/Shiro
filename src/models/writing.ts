@@ -63,8 +63,8 @@ export type NoteDto = {
   mood: string | null
   weather: string | null
   password: string | null
-  secret?: Date | null
-  hasMemory?: boolean
+  publicAt?: Date | null
+  bookmark?: boolean
   music?: NoteMusicRecord[]
   location?: null | string
   nid?: null | number

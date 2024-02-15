@@ -135,7 +135,7 @@ export default function TimelinePage() {
   }
 
   notes
-    .filter((n) => (memory ? n.hasMemory : true))
+    .filter((n) => (memory ? n.bookmark : true))
     .forEach((note) => {
       const date = new Date(note.created)
       const year = date.getFullYear()
@@ -151,7 +151,7 @@ export default function TimelinePage() {
 
         type: ArticleType.Note,
         id: note.id,
-        important: note.hasMemory,
+        important: note.bookmark,
       }
 
       sortedMap.set(

@@ -11,7 +11,7 @@ export const NoteCombinedSwitch = () => {
   const [allowComment, setAllowComment] =
     useNoteModelSingleFieldAtom('allowComment')
 
-  const [hasMemory, setHasMemory] = useNoteModelSingleFieldAtom('hasMemory')
+  const [bookmark, setHasMemory] = useNoteModelSingleFieldAtom('bookmark')
   const [password, setPassword] = useNoteModelSingleFieldAtom('password')
 
   const [passwordEnable, setPasswordEnable] = useState(!!password)
@@ -59,7 +59,7 @@ export const NoteCombinedSwitch = () => {
 
       <LabelSwitch
         className="flex-shrink-0"
-        checked={hasMemory}
+        checked={bookmark}
         onCheckedChange={setHasMemory}
       >
         <span>标记为回忆项</span>

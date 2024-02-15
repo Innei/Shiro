@@ -20,8 +20,8 @@ export const note = {
         hydrationRoutePath: routeBuilder(Routes.Note, { id: nid }),
         shouldHydration: (data: NoteWrappedPayload) => {
           const note = data?.data
-          const isSecret = note?.secret
-            ? dayjs(note?.secret).isAfter(new Date())
+          const isSecret = note?.publicAt
+            ? dayjs(note?.publicAt).isAfter(new Date())
             : false
           return !isSecret
         },
