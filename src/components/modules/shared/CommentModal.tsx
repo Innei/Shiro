@@ -1,5 +1,7 @@
 import type { ModalContentComponent } from '~/components/ui/modal'
 
+import { useCurrentModal } from '~/components/ui/modal'
+
 import { CommentBoxRootLazy, CommentsLazy } from '../comment'
 
 export interface CommentModalProps {
@@ -12,7 +14,8 @@ export interface CommentModalProps {
 export const CommentModal: ModalContentComponent<CommentModalProps> = (
   props,
 ) => {
-  const { refId, title, dismiss, initialValue } = props
+  const { refId, title, initialValue } = props
+  const { dismiss } = useCurrentModal()
 
   return (
     <div className="max-w-95vw overflow-y-auto overflow-x-hidden md:w-[500px] lg:w-[600px] xl:w-[700px]">
@@ -24,7 +27,10 @@ export const CommentModal: ModalContentComponent<CommentModalProps> = (
         initialValue={initialValue}
         className="my-12"
         refId={refId}
-        afterSubmit={dismiss}
+        afterSubmit={() => {
+          // FIXME: framer motion bug, if re-render trigger and do dimiss same time, dom will don't remove after exit animation
+          setTimeout(dismiss, 1000)
+        }}
       />
 
       <CommentsLazy refId={refId} />

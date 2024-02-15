@@ -28,7 +28,7 @@ export const useModalStack = (options?: ModalStackOptions) => {
   return {
     present: useCallback(
       (props: ModalProps & { id?: string }) => {
-        const modalId = `${id}-${currentCount.current++}`
+        const modalId = `${id}-${++currentCount.current}`
         jotaiStore.set(modalStackAtom, (p) => {
           const modalProps = {
             ...props,
@@ -82,7 +82,12 @@ const ModalStack = () => {
   useDismissAllWhenRouterChange()
 
   return (
-    <AnimatePresence>
+    <AnimatePresence
+      mode="popLayout"
+      onExitComplete={() => {
+        console.log('onExitComplete')
+      }}
+    >
       {stack.map((item, index) => {
         return <Modal key={item.id} item={item} index={index} />
       })}
