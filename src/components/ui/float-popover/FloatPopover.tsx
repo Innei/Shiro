@@ -1,6 +1,12 @@
 'use client'
 
-import { flip, offset, shift, useFloating } from '@floating-ui/react-dom'
+import {
+  autoUpdate,
+  flip,
+  offset,
+  shift,
+  useFloating,
+} from '@floating-ui/react-dom'
 import React, {
   createContext,
   createElement,
@@ -92,7 +98,7 @@ export const FloatPopover = function FloatPopover<T extends {}>(
   } = props
 
   const [open, setOpen] = useState(false)
-  const { x, y, refs, strategy, isPositioned } = useFloating({
+  const { x, y, refs, strategy, isPositioned, elements, update } = useFloating({
     middleware: floatingProps.middleware ?? [
       flip({ padding: padding ?? 20 }),
       offset(offsetValue ?? 10),
@@ -102,6 +108,13 @@ export const FloatPopover = function FloatPopover<T extends {}>(
     placement: floatingProps.placement ?? 'bottom-start',
     whileElementsMounted: floatingProps.whileElementsMounted,
   })
+
+  useEffect(() => {
+    if (open && elements.reference && elements.floating) {
+      const cleanup = autoUpdate(elements.reference, elements.floating, update)
+      return cleanup
+    }
+  }, [open, elements, update])
 
   const containerRef = useRef<HTMLDivElement>(null)
 

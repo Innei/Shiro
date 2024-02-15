@@ -1,6 +1,7 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
+import { sleep } from 'openai/core'
 
 import { useOnlineCount } from '~/atoms'
 import { useSocketIsConnect } from '~/atoms/hooks'
@@ -115,51 +116,46 @@ const RoomsInfo = () => {
   const { data } = useQuery({
     queryKey: ['rooms'],
     refetchOnMount: true,
-    queryFn: () => {
-      return apiClient.activity
-        .getRoomsInfo()
-        .then((res) => res.$serialized)
-        .then((data) => {
-          const result = [] as {
-            path: string
-            title: string
-            count: number
-          }[]
-
-          const morphArticleIdToRoomName = (id: string) => `article_${id}`
-          data.objects.notes.forEach((note) => {
-            result.push({
-              path: routeBuilder(Routes.Note, {
-                id: note.nid,
-              }),
-              title: note.title,
-              count: data.roomCount[morphArticleIdToRoomName(note.id)],
-            })
-          })
-
-          data.objects.posts.forEach((post) => {
-            result.push({
-              path: routeBuilder(Routes.Post, {
-                category: post.category.slug,
-                slug: post.slug,
-              }),
-              title: post.title,
-              count: data.roomCount[morphArticleIdToRoomName(post.id)],
-            })
-          })
-
-          data.objects.pages.forEach((page) => {
-            result.push({
-              path: routeBuilder(Routes.Page, {
-                slug: page.slug,
-              }),
-              title: page.title,
-              count: data.roomCount[morphArticleIdToRoomName(page.id)],
-            })
-          })
-
-          return result.sort((a, b) => b.count - a.count)
+    staleTime: 1000 * 10,
+    queryFn: async () => {
+      await sleep(1000)
+      const res = await apiClient.activity.getRoomsInfo()
+      const data = res.$serialized
+      const result = [] as {
+        path: string
+        title: string
+        count: number
+      }[]
+      const morphArticleIdToRoomName = (id: string) => `article_${id}`
+      data.objects.notes.forEach((note) => {
+        result.push({
+          path: routeBuilder(Routes.Note, {
+            id: note.nid,
+          }),
+          title: note.title,
+          count: data.roomCount[morphArticleIdToRoomName(note.id)],
         })
+      })
+      data.objects.posts.forEach((post) => {
+        result.push({
+          path: routeBuilder(Routes.Post, {
+            category: post.category.slug,
+            slug: post.slug,
+          }),
+          title: post.title,
+          count: data.roomCount[morphArticleIdToRoomName(post.id)],
+        })
+      })
+      data.objects.pages.forEach((page) => {
+        result.push({
+          path: routeBuilder(Routes.Page, {
+            slug: page.slug,
+          }),
+          title: page.title,
+          count: data.roomCount[morphArticleIdToRoomName(page.id)],
+        })
+      })
+      return result.sort((a, b) => b.count - a.count)
     },
   })
 

@@ -35,7 +35,7 @@ export const NoteBottomBarAction: Component = () => {
   const isMobile = useIsMobile()
   if (!isMobile) return null
   return (
-    <div className="mb-8 flex items-center justify-center space-x-8">
+    <div className="mb-8 mt-4 flex items-center justify-center space-x-8">
       <LikeButton />
       <ShareButton />
       <SubscribeButton />

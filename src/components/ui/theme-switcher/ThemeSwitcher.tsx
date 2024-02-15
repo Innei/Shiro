@@ -121,7 +121,7 @@ const ButtonGroup = () => {
   }
 
   return (
-    <div className="w-fit-content inline-flex rounded-full border border-slate-200 p-[3px] dark:border-neutral-800">
+    <div className="w-fit-content inline-flex rounded-full border border-zinc-200 p-[3px] dark:border-zinc-700">
       <button
         aria-label="Switch to light theme"
         type="button"
