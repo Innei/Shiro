@@ -60,6 +60,7 @@ class SocketClient {
 
     this.socket.close()
     this.socket.open()
+    setSocketIsConnect(this.socket.connected)
     this.socket.on(
       'message',
       (payload: string | Record<'type' | 'data', any>) => {

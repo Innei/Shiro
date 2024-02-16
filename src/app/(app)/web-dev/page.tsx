@@ -18,7 +18,7 @@ import { apiClient } from '~/lib/request'
 import { usePageScrollLocation } from '~/providers/root/page-scroll-info-provider'
 import { queries } from '~/queries/definition'
 import { socketClient } from '~/socket'
-import { EventTypes, SocketEmitEnum } from '~/types/events'
+import { SocketEmitEnum } from '~/types/events'
 
 export default () => {
   const roomName = useMemo(() => `article-${111112222}`, [])
@@ -44,22 +44,10 @@ export default () => {
       roomName,
     })
 
-    const handler = (e: any) => {
-      console.log(e, 'EventTypes.ACTIVITY_UPDATE_PRESENCE')
-    }
-    window.addEventListener(
-      `event:${EventTypes.ACTIVITY_UPDATE_PRESENCE}`,
-      handler,
-    )
-
     return () => {
       socketClient.emit(SocketEmitEnum.Leave, {
         roomName,
       })
-      window.removeEventListener(
-        `event:${EventTypes.ACTIVITY_UPDATE_PRESENCE}`,
-        handler,
-      )
     }
   }, [roomName, identity, socketIsConnected])
 
