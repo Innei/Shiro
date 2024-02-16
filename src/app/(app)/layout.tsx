@@ -13,6 +13,7 @@ import { ScrollTop } from '~/components/common/ScrollTop'
 import { Root } from '~/components/layout/root/Root'
 import { AccentColorStyleInjector } from '~/components/modules/shared/AccentColorStyleInjector'
 import { SearchPanelWithHotKey } from '~/components/modules/shared/SearchFAB'
+import { Theme } from '~/components/modules/shared/Theme'
 import { TocAutoScroll } from '~/components/modules/toc/TocAutoScroll'
 import { attachUAAndRealIp } from '~/lib/attach-ua'
 import { sansFont, serifFont } from '~/lib/fonts'
@@ -146,6 +147,7 @@ export default async function RootLayout(props: PropsWithChildren) {
           suppressHydrationWarning
         >
           <head>
+            <Theme />
             <Global />
             <SayHi />
             <HydrationEndDetector />

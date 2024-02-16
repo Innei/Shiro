@@ -6,7 +6,6 @@ import {
 } from './react-query-provider'
 import { Provider as BalancerProvider } from 'react-wrap-balancer'
 import { LazyMotion } from 'framer-motion'
-import { ThemeProvider } from 'next-themes'
 import type { PropsWithChildren } from 'react'
 
 import { ModalStackProvider } from '~/components/ui/modal'
@@ -25,8 +24,6 @@ const loadFeatures = () =>
   import('./framer-lazy-feature').then((res) => res.default)
 
 const baseContexts: JSX.Element[] = [
-  <ThemeProvider key="themeProvider" />,
-
   <JotaiStoreProvider key="jotaiStoreProvider" />,
 
   <BalancerProvider key="balancerProvider" />,
