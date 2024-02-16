@@ -9,7 +9,6 @@ import { LazyMotion } from 'framer-motion'
 import { ThemeProvider } from 'next-themes'
 import type { PropsWithChildren } from 'react'
 
-import { PeekPortal } from '~/components/modules/peek/PeekPortal'
 import { ModalStackProvider } from '~/components/ui/modal'
 import { useBeforeUnload } from '~/hooks/common/use-before-unload'
 
@@ -42,7 +41,7 @@ export function WebAppProviders({ children }: PropsWithChildren) {
   return (
     <ProviderComposer contexts={webappContexts}>
       {children}
-      <PeekPortal />
+
       <SocketContainer />
       <ModalStackProvider key="modalStackProvider" />
       <EventProvider key="viewportProvider" />
