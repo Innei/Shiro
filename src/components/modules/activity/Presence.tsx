@@ -45,6 +45,7 @@ import {
 import { queries } from '~/queries/definition'
 import { socketClient } from '~/socket'
 
+import { commentStoragePrefix } from '../comment/CommentBox/providers'
 import { useRoomContext } from './Room'
 
 export const Presence = () => {
@@ -77,7 +78,8 @@ const PresenceImpl = () => {
         ? owner?.name
         : clerkUser.isSignedIn
           ? clerkUser.user.fullName
-          : '',
+          : globalThis?.localStorage.getItem(`${commentStoragePrefix}author`) ||
+            '',
     [
       clerkUser.isSignedIn,
       clerkUser.user?.fullName,

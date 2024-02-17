@@ -11,7 +11,7 @@ import { jotaiStore } from '~/lib/store'
 
 import { setCommentActionLeftSlot, useCommentActionLeftSlot } from './hooks'
 
-const commentStoragePrefix = 'comment-'
+export const commentStoragePrefix = 'comment-'
 export const createInitialValue = () => ({
   refId: atom(''),
 
