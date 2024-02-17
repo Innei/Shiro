@@ -63,13 +63,15 @@ export const MLink: FC<{
               {children}
             </a>
 
-            <i className="icon-[mingcute--external-link-line] translate-y-[2px]" />
+            <i className="icon-[mingcute--arrow-right-up-line] translate-y-[2px] opacity-70" />
           </span>
         ),
         [handleRedirect, children, href, title],
       )}
     >
-      <span>{href}</span>
+      <a href={href} target="_blank" rel="noreferrer">
+        <span>{href}</span>
+      </a>
     </FloatPopover>
   )
 })

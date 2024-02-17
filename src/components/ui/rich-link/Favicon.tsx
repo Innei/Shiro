@@ -110,7 +110,12 @@ export const Favicon: Component<FaviconProps> = (props) => {
   if (!type2IconMap[nextSource]) return null
 
   return (
-    <span className={clsxm('mr-1 align-text-bottom [&_svg]:inline', className)}>
+    <span
+      className={clsxm(
+        'mr-1 inline-flex [&_svg]:inline [&_svg]:!h-[0.8rem]',
+        className,
+      )}
+    >
       {type2IconMap[nextSource]}
     </span>
   )

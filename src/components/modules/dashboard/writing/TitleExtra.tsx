@@ -39,7 +39,7 @@ export const TitleExtra = <T extends RequiredField & OptionalField>(props: {
                 window.open(url?.data, '_blank')
               }}
             >
-              <i className="icon-[mingcute--external-link-line]" />
+              <i className="icon-[mingcute--arrow-right-up-line]" />
             </MotionButtonBase>
           </div>
         </div>
