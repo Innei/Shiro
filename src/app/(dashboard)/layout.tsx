@@ -17,7 +17,6 @@ import type { Viewport } from 'next'
 
 import { MainLayout } from '~/components/modules/dashboard/layouts'
 import { AccentColorStyleInjector } from '~/components/modules/shared/AccentColorStyleInjector'
-import { Theme } from '~/components/modules/shared/Theme'
 import { FABContainer } from '~/components/ui/fab'
 
 export function generateViewport(): Viewport {
@@ -45,7 +44,6 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="zh-CN" suppressHydrationWarning>
       <head>
-        <Theme />
         <title>Shiro · Light Dashboard | Powered by Mix Space</title>
         <HydrationEndDetector />
         <AccentColorStyleInjector />
