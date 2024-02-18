@@ -50,7 +50,7 @@ const PostPage = (props: PostModel) => {
 
           <PostRelated />
         </header>
-        <WrappedElementProvider>
+        <WrappedElementProvider eoaDetect>
           <ReadIndicatorForMobile />
           <Presence />
           <PostMarkdownImageRecordProvider>

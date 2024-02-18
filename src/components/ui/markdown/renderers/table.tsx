@@ -2,6 +2,7 @@ import React from 'react'
 import type { FC } from 'react'
 
 import { clsxm } from '~/lib/helper'
+import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
 export const MTable: FC<JSX.IntrinsicElements['table']> = (props) => {
   const { className, ...rest } = props
@@ -30,4 +31,13 @@ export const MTableRow: FC<JSX.IntrinsicElements['tr']> = (props) => {
 export const MTableBody: FC<JSX.IntrinsicElements['tbody']> = (props) => {
   const { children, ...rest } = props
   return <tbody {...rest}>{children}</tbody>
+}
+
+export const MTableTd: FC<JSX.IntrinsicElements['td']> = (props) => {
+  const { children, ...rest } = props
+  return (
+    <WrappedElementProvider as="td" {...rest}>
+      {children}
+    </WrappedElementProvider>
+  )
 }

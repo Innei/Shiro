@@ -12,7 +12,7 @@ import {
 
 const PageDetail = () => {
   return (
-    <WrappedElementProvider>
+    <WrappedElementProvider eoaDetect>
       <ReadIndicatorForMobile />
       <MarkdownImageRecordProviderInternal>
         <MarkdownSelection>

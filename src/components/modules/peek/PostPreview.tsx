@@ -51,7 +51,7 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
             <XLogSummary cid={getCidForBaseModel(data)} />
             <PostOutdate />
           </header>
-          <WrappedElementProvider>
+          <WrappedElementProvider eoaDetect>
             <PostMarkdownImageRecordProvider>
               <PostMarkdown />
             </PostMarkdownImageRecordProvider>

@@ -4,6 +4,7 @@ import type { FC, ReactNode } from 'react'
 
 import { useIsPrintMode } from '~/atoms'
 import { IcRoundKeyboardDoubleArrowRight } from '~/components/icons/arrow'
+import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
 import { CollapseContent } from '../../collapse'
 
@@ -37,14 +38,16 @@ export const MDetails: FC<{ children: ReactNode[] }> = (props) => {
         {$head}
       </button>
       <CollapseContent withBackground isOpened={open} className="my-2">
-        <div
-          className={clsx(
-            open ? 'opacity-100' : 'opacity-0',
-            'transition-opacity duration-500',
-          )}
-        >
-          {props.children.slice(1)}
-        </div>
+        <WrappedElementProvider>
+          <div
+            className={clsx(
+              open ? 'opacity-100' : 'opacity-0',
+              'transition-opacity duration-500',
+            )}
+          >
+            {props.children.slice(1)}
+          </div>
+        </WrappedElementProvider>
       </CollapseContent>
     </div>
   )

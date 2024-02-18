@@ -61,7 +61,7 @@ export const NotePreview: FC<NotePreviewProps> = (props) => {
 
           <NoteHideIfSecret>
             <XLogSummary cid={getCidForBaseModel(data)} />
-            <WrappedElementProvider>
+            <WrappedElementProvider eoaDetect>
               <BanCopyWrapper>
                 <NoteMarkdownImageRecordProvider>
                   <NoteMarkdown />

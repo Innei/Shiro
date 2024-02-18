@@ -89,7 +89,7 @@ export default async (props: NextPageParams<PageParams>) => {
             <HeaderMetaInfoSetting />
 
             <RoomProvider roomName={buildRoomName(data.id)}>
-              <WrappedElementProvider>
+              <WrappedElementProvider eoaDetect>
                 <article className="prose">
                   <header className="mb-8">
                     <BottomToUpSoftScaleTransitionView

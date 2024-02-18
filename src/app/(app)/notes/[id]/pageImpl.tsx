@@ -58,7 +58,7 @@ const NotePage = function (props: NoteModel) {
 
         <NoteHideIfSecret>
           <SummarySwitcher data={props} />
-          <WrappedElementProvider>
+          <WrappedElementProvider eoaDetect>
             <Presence />
             <ReadIndicatorForMobile />
             <NoteMarkdownImageRecordProvider>

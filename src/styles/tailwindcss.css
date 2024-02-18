@@ -41,10 +41,10 @@ html body {
 }
 
 .prose {
-  :where(.image-placeholder):not(:where([class~='not-prose'] *)) {
+  /* :where(.image-placeholder):not(:where([class~='not-prose'] *)) {
     margin-top: 2em;
     margin-bottom: 2em;
-  }
+  } */
 
   figure img {
     @apply mb-0 mt-0;

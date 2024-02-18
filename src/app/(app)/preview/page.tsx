@@ -185,7 +185,7 @@ const PostPreview = () => {
 
               <PostMetaBarInternal className="mb-8 justify-center" />
             </header>
-            <WrappedElementProvider>
+            <WrappedElementProvider eoaDetect>
               <PostMarkdownImageRecordProvider>
                 <ErrorBoundary>
                   <PostMarkdown />
@@ -242,7 +242,7 @@ const NotePreview = () => {
               <NoteRootBanner />
             </header>
 
-            <WrappedElementProvider>
+            <WrappedElementProvider eoaDetect>
               <NoteMarkdownImageRecordProvider>
                 <ErrorBoundary>
                   <NoteMarkdown />
@@ -278,7 +278,7 @@ const PagePreview = () => {
               <PageSubTitle />
             </header>
 
-            <WrappedElementProvider>
+            <WrappedElementProvider eoaDetect>
               <ReadIndicatorForMobile />
               <MarkdownImageRecordProviderInternal>
                 <PageMarkdown />

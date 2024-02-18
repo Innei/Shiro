@@ -32,6 +32,7 @@ import {
   MTableBody,
   MTableHead,
   MTableRow,
+  MTableTd,
 } from './renderers'
 import { MDetails } from './renderers/collapse'
 import { MFootNote } from './renderers/footnotes'
@@ -100,6 +101,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           thead: MTableHead,
           tr: MTableRow,
           tbody: MTableBody,
+          td: MTableTd,
           table: MTable,
           // FIXME: footer tag in raw html will renders not as expected, but footer tag in this markdown lib will wrapper as linkReferer footnotes
           footer: MFootNote,

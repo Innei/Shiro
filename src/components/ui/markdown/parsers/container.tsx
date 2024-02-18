@@ -3,6 +3,7 @@ import { Priority } from 'markdown-to-jsx'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 
 import { clsxm } from '~/lib/helper'
+import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
 import { Banner } from '../../banner/Banner'
 import { Gallery } from '../../gallery/Gallery'
@@ -75,11 +76,13 @@ export const ContainerRule: MarkdownToJSX.Rule = {
             className="my-4"
             key={state?.key}
           >
-            <Markdown
-              value={content}
-              allowsScript
-              className="w-full [&>p:first-child]:mt-0"
-            />
+            <WrappedElementProvider>
+              <Markdown
+                value={content}
+                allowsScript
+                className="w-full [&>p:first-child]:mt-0"
+              />
+            </WrappedElementProvider>
           </Banner>
         )
       }
@@ -90,11 +93,13 @@ export const ContainerRule: MarkdownToJSX.Rule = {
 
         return (
           <Banner type={params} className="my-4" key={state?.key}>
-            <Markdown
-              value={content}
-              allowsScript
-              className="w-full [&>p:first-child]:mt-0"
-            />
+            <WrappedElementProvider>
+              <Markdown
+                value={content}
+                allowsScript
+                className="w-full [&>p:first-child]:mt-0"
+              />
+            </WrappedElementProvider>
           </Banner>
         )
       }
