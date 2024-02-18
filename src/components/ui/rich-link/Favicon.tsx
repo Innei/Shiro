@@ -112,7 +112,7 @@ export const Favicon: Component<FaviconProps> = (props) => {
   return (
     <span
       className={clsxm(
-        'mr-1 inline-flex [&_svg]:inline [&_svg]:!h-[0.8rem]',
+        'mr-1 inline-flex [&_svg]:inline [&_svg]:!h-[0.8em]',
         className,
       )}
     >

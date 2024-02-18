@@ -95,6 +95,7 @@ export const GatewayInfo = () => {
       <FloatPopover
         asChild
         placement="top"
+        trigger="both"
         offset={10}
         triggerElement={
           <span key={count} className="cursor-pointer">
