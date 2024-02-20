@@ -19,6 +19,7 @@ import {
   EditorStatus,
   editorViewCtx,
   editorViewOptionsCtx,
+  remarkStringifyOptionsCtx,
   rootCtx,
   serializerCtx,
 } from '@milkdown/core'
@@ -34,6 +35,7 @@ import { useIsUnMounted } from '~/hooks/common/use-is-unmounted'
 import { isDev } from '~/lib/env'
 
 import { setEditorCtx } from './ctx'
+import { extensionOfRemarkStringify } from './extensions/remark-stringify'
 import styles from './index.module.css'
 import { createPlugins } from './plugins'
 
@@ -101,6 +103,15 @@ const MilkdownEditorImpl = forwardRef<MilkdownRef, MilkdownProps>(
             ...ctx,
             editable: () => !props.readonly,
           }))
+
+          const originalStringifyOptions = ctx.get(remarkStringifyOptionsCtx)
+
+          ctx.set(remarkStringifyOptionsCtx, {
+            handlers: {
+              ...originalStringifyOptions.handlers,
+              ...(extensionOfRemarkStringify as any),
+            },
+          })
 
           ctx
             .get(listenerCtx)

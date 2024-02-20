@@ -233,9 +233,6 @@ dependencies:
   remark-directive:
     specifier: 3.0.0
     version: 3.0.0
-  remark-github-alerts:
-    specifier: ^0.0.4
-    version: 0.0.4(@types/mdast@4.0.3)(unified@11.0.4)
   remove-markdown:
     specifier: 0.5.0
     version: 0.5.0
@@ -9446,17 +9443,6 @@ packages:
       unified: 11.0.4
     transitivePeerDependencies:
       - supports-color
-    dev: false
-
-  /remark-github-alerts@0.0.4(@types/mdast@4.0.3)(unified@11.0.4):
-    resolution: {integrity: sha512-cGO8CrGb4Vvawn71inAv6VNRL8CKkHYwKpI91ZvbuLhW8W5EkLReQOjqsnj18Hw99X5u44hKyYssOzXLlZdGHQ==}
-    peerDependencies:
-      '@types/mdast': ^4.0.0
-      unified: ^11.0.0
-    dependencies:
-      '@types/mdast': 4.0.3
-      unified: 11.0.4
-      unist-util-visit: 5.0.0
     dev: false
 
   /remark-inline-links@7.0.0:

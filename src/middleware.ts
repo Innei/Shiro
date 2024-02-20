@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-import countries from '~/data/countries.json'
+// import countries from '~/data/countries.json'
 
 import {
   REQUEST_GEO,
@@ -56,19 +56,19 @@ export default async function middleware(req: NextRequest) {
     const country = geo.country
     // const city = geo.city
 
-    const countryInfo = countries.find((x) => x.cca2 === country)
-    if (countryInfo) {
-      // try {
-      //   const ipKey = `visitor_ip_${dayjs().format('YYYY-MM-DD')}`
-      //   await redis.sadd(ipKey, ip)
-      //   const countryInfo = countries.find((x) => x.cca2 === country)
-      //   if (countryInfo) {
-      //     const flag = countryInfo.flag
-      //     await redis.set(kvKeys.currentVisitor, { country, city, flag })
-      //   }
-      //   await redis.expire(ipKey, 60 * 60 * 24 * 7)
-      // } catch {}
-    }
+    // const countryInfo = countries.find((x) => x.cca2 === country)
+    // if (countryInfo) {
+    // try {
+    //   const ipKey = `visitor_ip_${dayjs().format('YYYY-MM-DD')}`
+    //   await redis.sadd(ipKey, ip)
+    //   const countryInfo = countries.find((x) => x.cca2 === country)
+    //   if (countryInfo) {
+    //     const flag = countryInfo.flag
+    //     await redis.set(kvKeys.currentVisitor, { country, city, flag })
+    //   }
+    //   await redis.expire(ipKey, 60 * 60 * 24 * 7)
+    // } catch {}
+    // }
   }
 
   return NextResponse.next({
