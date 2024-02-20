@@ -222,6 +222,7 @@ const ExcalidrawImpl = forwardRef<InternelExcalidrawRefObject, ExcalidrawProps>(
                       data={data}
                       className="h-full"
                       showExtendButton={false}
+                      refUrl={refUrl}
                     />
                   ),
                   clickOutsideToDismiss: true,
