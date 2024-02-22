@@ -181,3 +181,7 @@
     word-break: break-word !important;
   }
 }
+
+.excalidraw .Modal__content {
+  @apply pointer-events-auto;
+}
