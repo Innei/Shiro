@@ -116,7 +116,7 @@ type FriendSectionProps = {
 
 const FriendSection: FC<FriendSectionProps> = ({ data }) => {
   return (
-    <section className="grid grid-cols-1 gap-6 md:grid-cols-2 2xl:grid-cols-3">
+    <section className="grid grid-cols-2 gap-6 md:grid-cols-3 2xl:grid-cols-3">
       {data.map((link) => {
         return (
           <BottomToUpTransitionView key={link.id} duration={50}>
@@ -399,7 +399,10 @@ const FormModal = () => {
     [state],
   )
   return (
-    <Form className="w-[300px] space-y-4 text-center" onSubmit={handleSubmit}>
+    <Form
+      className="w-full space-y-4 text-center lg:w-[300px]"
+      onSubmit={handleSubmit}
+    >
       {inputs.map((input) => (
         <FormInput
           key={input.name}
