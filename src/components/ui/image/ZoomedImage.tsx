@@ -1,6 +1,15 @@
 'use client'
 
-import { forwardRef, memo, useCallback, useMemo, useRef, useState } from 'react'
+import {
+  cloneElement,
+  forwardRef,
+  memo,
+  useCallback,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import clsx from 'clsx'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import mediumZoom from 'medium-zoom'
@@ -296,14 +305,31 @@ const OptimizedImage = memo(
     const { height, width } = useMarkdownImageRecord(src!) || rest
     const hasDim = !!(height && width)
 
+    const placeholderImageRef = useRef<HTMLImageElement>(null)
     const ImageEl = (
-      <img data-zoom-src={src} alt={alt} src={src} ref={ref} {...rest} />
+      <img
+        data-zoom-src={src}
+        alt={alt}
+        src={src}
+        ref={placeholderImageRef}
+        {...rest}
+      />
     )
+
+    useImperativeHandle(ref, () => placeholderImageRef.current!)
+
+    const optimizedImageRef = useRef<HTMLImageElement>(null)
+
+    useIsomorphicLayoutEffect(() => {
+      const $renderImage = optimizedImageRef.current
+      if (!$renderImage) return
+      if (!placeholderImageRef.current) return
+      placeholderImageRef.current.src = $renderImage.src
+    }, [src])
     return (
       <>
         {hasDim ? (
           <>
-            {/* @ts-expect-error */}
             <Image
               alt={alt || ''}
               fetchPriority="high"
@@ -312,9 +338,12 @@ const OptimizedImage = memo(
               {...rest}
               height={+height}
               width={+width}
+              ref={optimizedImageRef}
             />
             <div className="absolute inset-0 flex justify-center opacity-0">
-              {ImageEl}
+              {cloneElement(ImageEl, {
+                src: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', // blank src
+              })}
             </div>
           </>
         ) : (
