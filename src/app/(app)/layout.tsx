@@ -1,5 +1,5 @@
+import { cache } from 'react'
 import { ToastContainer } from 'react-toastify'
-import { unstable_cache } from 'next/cache'
 import type { Viewport } from 'next'
 import type { PropsWithChildren } from 'react'
 
@@ -14,7 +14,7 @@ import { AccentColorStyleInjector } from '~/components/modules/shared/AccentColo
 import { SearchPanelWithHotKey } from '~/components/modules/shared/SearchFAB'
 import { TocAutoScroll } from '~/components/modules/toc/TocAutoScroll'
 import { attachUAAndRealIp } from '~/lib/attach-ua'
-import { getOrSetCache } from '~/lib/cache'
+import { onlyGetOrSetCacheInVercelButFallback } from '~/lib/cache'
 import { sansFont, serifFont } from '~/lib/fonts'
 import { getQueryClient } from '~/lib/query-client.server'
 import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
@@ -43,23 +43,19 @@ export function generateViewport(): Viewport {
 }
 
 const key = 'root-data'
-const fetchAggregationData = unstable_cache(
-  async () => {
-    const queryClient = getQueryClient()
+const fetchAggregationData = cache(async () => {
+  const queryClient = getQueryClient()
 
-    return getOrSetCache(
-      key,
-      async () => {
-        attachUAAndRealIp()
+  return onlyGetOrSetCacheInVercelButFallback(
+    key,
+    async () => {
+      attachUAAndRealIp()
 
-        return queryClient.fetchQuery(queries.aggregation.root())
-      },
-      revalidate,
-    )
-  },
-  [key],
-  { revalidate },
-)
+      return queryClient.fetchQuery(queries.aggregation.root())
+    },
+    revalidate,
+  )
+})
 export const generateMetadata = async () => {
   const fetchedData = await fetchAggregationData()
 
