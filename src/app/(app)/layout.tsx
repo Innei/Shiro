@@ -1,6 +1,5 @@
-import { Analytics } from '@vercel/analytics/react'
 import { ToastContainer } from 'react-toastify'
-import type { AggregateRoot } from '@mx-space/api-client'
+import { unstable_cache } from 'next/cache'
 import type { Viewport } from 'next'
 import type { PropsWithChildren } from 'react'
 
@@ -15,6 +14,7 @@ import { AccentColorStyleInjector } from '~/components/modules/shared/AccentColo
 import { SearchPanelWithHotKey } from '~/components/modules/shared/SearchFAB'
 import { TocAutoScroll } from '~/components/modules/toc/TocAutoScroll'
 import { attachUAAndRealIp } from '~/lib/attach-ua'
+import { getOrSetCache } from '~/lib/cache'
 import { sansFont, serifFont } from '~/lib/fonts'
 import { getQueryClient } from '~/lib/query-client.server'
 import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
@@ -26,9 +26,7 @@ import { Analyze } from './analyze'
 
 const { version } = PKG
 
-export const revalidate = 60
-
-let aggregationData: (AggregateRoot & { theme: AppThemeConfig }) | null = null
+export const revalidate = 300 // 300s
 
 export function generateViewport(): Viewport {
   return {
@@ -44,14 +42,27 @@ export function generateViewport(): Viewport {
   }
 }
 
+const key = 'root-data'
+const fetchAggregationData = unstable_cache(
+  async () => {
+    const queryClient = getQueryClient()
+
+    return getOrSetCache(
+      key,
+      async () => {
+        attachUAAndRealIp()
+
+        return queryClient.fetchQuery(queries.aggregation.root())
+      },
+      revalidate,
+    )
+  },
+  [key],
+  { revalidate },
+)
 export const generateMetadata = async () => {
-  const queryClient = getQueryClient()
+  const fetchedData = await fetchAggregationData()
 
-  const fetchedData =
-    aggregationData ??
-    (await queryClient.fetchQuery(queries.aggregation.root()))
-
-  aggregationData = fetchedData
   const {
     seo,
     url,
@@ -124,18 +135,11 @@ export const generateMetadata = async () => {
 }
 
 export default async function RootLayout(props: PropsWithChildren) {
-  attachUAAndRealIp()
   const { children } = props
 
-  const queryClient = getQueryClient()
-
-  const data = await queryClient.fetchQuery({
-    ...queries.aggregation.root(),
-  })
+  const data = await fetchAggregationData()
 
   const themeConfig = data.theme
-
-  aggregationData = data
 
   return (
     <ClerkProvider>
@@ -185,7 +189,6 @@ export default async function RootLayout(props: PropsWithChildren) {
             <ScrollTop />
           </body>
         </html>
-        <Analytics />
       </AppFeatureProvider>
     </ClerkProvider>
   )

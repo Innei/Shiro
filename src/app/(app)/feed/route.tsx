@@ -20,7 +20,7 @@ import { getQueryClient } from '~/lib/query-client.server'
 import { apiClient } from '~/lib/request'
 
 export const dynamic = 'force-dynamic'
-export const revalidate = 60 * 10 // 10 min
+export const revalidate = 60 * 60 * 24 // 1 day
 
 interface RSSProps {
   title: string
@@ -108,7 +108,11 @@ ${ReactDOM.renderToString(
       extendsRules: {
         codeBlock: {
           react(node, output, state) {
-            if (node.lang === 'mermaid' || node.lang === 'excalidraw') {
+            if (
+              node.lang === 'mermaid' ||
+              node.lang === 'excalidraw' ||
+              node.lang === 'component'
+            ) {
               return <NotSupportRender />
             }
             return (
@@ -151,6 +155,9 @@ ${ReactDOM.renderToString(
   return new Response(xml, {
     headers: {
       'Content-Type': 'application/xml',
+      'Cache-Control': 'max-age=60',
+      'CDN-Cache-Control': 'max-age=86400',
+      'Vercel-CDN-Cache-Control': 'max-age=86400',
     },
   })
 }
