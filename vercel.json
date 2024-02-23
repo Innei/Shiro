@@ -1,0 +1,106 @@
+{
+  "headers": [
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "s-maxage=300, stale-while-revalidate=59"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "maxage=300"
+        },
+        {
+          "key": "Vercel-CDN-Cache-Control",
+          "value": "maxage=300"
+        }
+      ]
+    },
+    {
+      "source": "/notes",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "s-maxage=60, stale-while-revalidate=59"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "maxage=60"
+        },
+        {
+          "key": "Vercel-CDN-Cache-Control",
+          "value": "maxage=60"
+        }
+      ]
+    },
+    {
+      "source": "/posts",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "s-maxage=300, stale-while-revalidate=59"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "maxage=300"
+        },
+        {
+          "key": "Vercel-CDN-Cache-Control",
+          "value": "maxage=300"
+        }
+      ]
+    },
+    {
+      "source": "/api/**",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "s-maxage=60, stale-while-revalidate=30"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "maxage=60"
+        },
+        {
+          "key": "Vercel-CDN-Cache-Control",
+          "value": "maxage=60"
+        }
+      ]
+    },
+    {
+      "source": "/posts/**",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "s-maxage=60, stale-while-revalidate=30"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "maxage=60"
+        },
+        {
+          "key": "Vercel-CDN-Cache-Control",
+          "value": "maxage=60"
+        }
+      ]
+    },
+    {
+      "source": "/notes/**",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "s-maxage=60, stale-while-revalidate=30"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "maxage=60"
+        },
+        {
+          "key": "Vercel-CDN-Cache-Control",
+          "value": "maxage=60"
+        }
+      ]
+    }
+  ]
+}
