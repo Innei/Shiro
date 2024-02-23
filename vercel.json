@@ -52,7 +52,7 @@
       ]
     },
     {
-      "source": "/api/**",
+      "source": "/api/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -69,7 +69,7 @@
       ]
     },
     {
-      "source": "/posts/**",
+      "source": "/posts/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -86,7 +86,7 @@
       ]
     },
     {
-      "source": "/notes/**",
+      "source": "/notes/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
