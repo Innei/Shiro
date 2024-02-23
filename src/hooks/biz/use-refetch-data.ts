@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
-import { useForceUpdate } from 'framer-motion'
 
 import { EmitKeyMap } from '~/constants/keys'
+import { useForceUpdate } from '~/hooks/common/use-force-update'
 
 export const useRefetchData = (refetchFn: () => Promise<any>) => {
   const [forceUpdate, key] = useForceUpdate()

@@ -1,7 +1,6 @@
 'use client'
 
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
-import { useForceUpdate } from 'framer-motion'
 import { produce } from 'immer'
 import { atom, useAtom } from 'jotai'
 import type { WriteEditEvent } from '~/events'
@@ -12,6 +11,7 @@ import { StyledButton } from '~/components/ui/button'
 import { useModalStack } from '~/components/ui/modal'
 import { EmitKeyMap } from '~/constants/keys'
 import { useBeforeUnload } from '~/hooks/common/use-before-unload'
+import { useForceUpdate } from '~/hooks/common/use-force-update'
 import { throttle } from '~/lib/lodash'
 import { buildNSKey } from '~/lib/ns'
 
