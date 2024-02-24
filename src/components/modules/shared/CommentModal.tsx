@@ -2,7 +2,8 @@ import type { ModalContentComponent } from '~/components/ui/modal'
 
 import { useCurrentModal } from '~/components/ui/modal'
 
-import { CommentBoxRootLazy, CommentsLazy } from '../comment'
+import { CommentsLazy } from '../comment'
+import { CommentBoxRoot } from '../comment/CommentBox'
 
 export interface CommentModalProps {
   title: string
@@ -23,7 +24,7 @@ export const CommentModal: ModalContentComponent<CommentModalProps> = (
         回复： <h1 className="mt-4 text-lg font-medium">{title}</h1>
       </span>
 
-      <CommentBoxRootLazy
+      <CommentBoxRoot
         initialValue={initialValue}
         className="my-12"
         refId={refId}

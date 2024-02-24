@@ -8,7 +8,7 @@ import Markdown from 'markdown-to-jsx'
 import type { LinkModel } from '@mx-space/api-client'
 import type { FC } from 'react'
 
-import { LinkState, LinkType } from '@mx-space/api-client'
+import { LinkState, LinkType, RequestError } from '@mx-space/api-client'
 
 import { NotSupport } from '~/components/common/NotSupport'
 import { Avatar } from '~/components/ui/avatar'
@@ -18,7 +18,7 @@ import { Loading } from '~/components/ui/loading'
 import { useModalStack } from '~/components/ui/modal'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { shuffle } from '~/lib/lodash'
-import { apiClient } from '~/lib/request'
+import { apiClient, getErrorMessageFromRequestError } from '~/lib/request'
 import { toast } from '~/lib/toast'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
@@ -392,10 +392,19 @@ const FormModal = () => {
     (e: any) => {
       e.preventDefault()
 
-      apiClient.link.applyLink({ ...state }).then(() => {
-        dismissTop()
-        toast.success('好耶！')
-      })
+      apiClient.link
+        .applyLink({ ...state })
+        .then(() => {
+          dismissTop()
+          toast.success('好耶！')
+        })
+        .catch((err) => {
+          if (err instanceof RequestError)
+            toast.error(getErrorMessageFromRequestError(err))
+          else {
+            toast.error(err.message)
+          }
+        })
     },
     [state],
   )

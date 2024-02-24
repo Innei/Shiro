@@ -58,18 +58,20 @@ export const NoteActionAside: Component = ({ className }) => {
 }
 
 const NoteAsideCommentButton = () => {
-  const { title, id } =
+  const { title, id, allowComment } =
     useCurrentNoteDataSelector((_data) => {
       const { data } = _data || {}
       return {
         title: data?.title,
         id: data?.id,
+        allowComment: data?.allowComment,
       }
     }) || {}
 
   const isEoF = useIsEoFWrappedElement()
   if (!id) return null
   if (isEoF) return null
+  if (!allowComment) return null
   return <AsideCommentButton refId={id} title={title!} />
 }
 

@@ -16,13 +16,14 @@ export const PageActionAside: Component = ({ className }) => {
 }
 
 const PageAsideCommentButton = () => {
-  const { title, id } =
+  const { title, id, allowComment } =
     useCurrentPageDataSelector((data) => {
       return {
         title: data?.title,
         id: data?.id,
+        allowComment: data?.allowComment,
       }
     }) || {}
-  if (!id) return null
+  if (!id || !allowComment) return null
   return <AsideCommentButton refId={id} title={title!} />
 }
