@@ -243,6 +243,7 @@ const ApplyLinkInfo: FC = () => {
     queryKey: ['can-apply'],
     queryFn: () => apiClient.link.canApplyLink(),
     initialData: true,
+    refetchOnMount: 'always',
   })
   const { present } = useModalStack()
   if (!canApply) {
