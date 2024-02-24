@@ -26,7 +26,7 @@ export const CommentModal: ModalContentComponent<CommentModalProps> = (
 
       <CommentBoxRoot
         initialValue={initialValue}
-        className="my-12"
+        className="mb-12 mt-6"
         refId={refId}
         afterSubmit={() => {
           // FIXME: framer motion bug, if re-render trigger and do dimiss same time, dom will don't remove after exit animation
