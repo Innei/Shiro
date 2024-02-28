@@ -95,7 +95,7 @@ export const HighLighter: FC<Props> = (props) => {
       </AutoResizeHeight>
 
       <div className={styles['copy-tip']} onClick={handleCopy} aria-hidden>
-        Copy A
+        Copy
       </div>
     </div>
   )
