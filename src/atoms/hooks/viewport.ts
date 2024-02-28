@@ -28,3 +28,5 @@ export const currentIsMobile = () => {
   const v = jotaiStore.get(viewportAtom)
   return isMobile(v)
 }
+
+export const getViewport = () => jotaiStore.get(viewportAtom)

@@ -1,8 +1,11 @@
 import type { FC } from 'react'
 import type { CommentBaseProps } from './types'
 
+import { LazyLoad } from '~/components/common/Lazyload'
+
 import { CommentBoxRoot } from './CommentBox/Root'
 import { Comments } from './Comments'
+import { CommentSkeleton } from './CommentSkeleton'
 
 export const CommentAreaRoot: FC<
   CommentBaseProps & {
@@ -29,7 +32,9 @@ export const CommentAreaRoot: FC<
       <CommentBoxRoot refId={refId} />
 
       <div className="h-12" />
-      <Comments refId={refId} />
+      <LazyLoad placeholder={<CommentSkeleton />} triggerOnce>
+        <Comments refId={refId} />
+      </LazyLoad>
     </div>
   )
 }
