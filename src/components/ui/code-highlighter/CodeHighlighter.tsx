@@ -85,10 +85,10 @@ export const HighLighter: FC<Props> = (props) => {
             <button
               onClick={() => setIsCollapsed(false)}
               aria-hidden
-              className="text-xs"
+              className="flex items-center justify-center text-xs"
             >
               <i className="icon-[mingcute--arrow-to-down-line]" />
-              展开
+              <span className="ml-2">展开</span>
             </button>
           </div>
         )}
