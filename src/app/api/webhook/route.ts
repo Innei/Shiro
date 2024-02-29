@@ -11,6 +11,7 @@ import { CacheKeyMap } from '~/constants/keys'
 import { invalidateCache, invalidateCacheWithPrefix } from '~/lib/cache'
 import { NextServerResponse } from '~/lib/edge-function.server'
 
+export const runtime = 'edge'
 export const POST = async (nextreq: NextRequest) => {
   const secret = process.env.WEBHOOK_SECRET
   const res = new NextServerResponse()
