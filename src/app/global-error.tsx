@@ -8,7 +8,13 @@ import { domAnimation, LazyMotion } from 'framer-motion'
 import { NormalContainer } from '~/components/layout/container/Normal'
 import { StyledButton } from '~/components/ui/button'
 
-export default function Error({ error }: any) {
+export default function GlobalError({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string }
+  reset: () => void
+}) {
   useEffect(() => {
     console.log(error)
     // captureException(error)
@@ -16,14 +22,16 @@ export default function Error({ error }: any) {
   return (
     <html>
       <head>
-        <title>出错啦</title>
+        <title>禁止访问或者 API 服务出现问题</title>
       </head>
       <body>
         <NormalContainer>
-          <p>{error?.message || '未知错误'}</p>
-          <LazyMotion features={domAnimation}>
-            <StyledButton onClick={location.reload}>重试</StyledButton>
-          </LazyMotion>
+          <h1 className="mb-4">禁止访问或者 API 服务出现问题</h1>
+          <div className="flex justify-center">
+            <LazyMotion features={domAnimation}>
+              <StyledButton onClick={location.reload}>重试</StyledButton>
+            </LazyMotion>
+          </div>
         </NormalContainer>
       </body>
     </html>
