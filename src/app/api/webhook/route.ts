@@ -32,7 +32,7 @@ export const POST = async (nextreq: NextRequest) => {
     })
 
     switch (type) {
-      case 'health-check': {
+      case 'health_check': {
         return res.status(200).send('OK')
       }
       case BusinessEvents.NOTE_CREATE:
@@ -55,6 +55,10 @@ export const POST = async (nextreq: NextRequest) => {
       case BusinessEvents.SAY_CREATE: {
         await Promise.all([invalidateCache(CacheKeyMap.AggregateTop)])
         return res.status(200).send('OK')
+      }
+
+      default: {
+        return res.status(200).send('MISS')
       }
     }
   } catch (err) {
