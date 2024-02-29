@@ -27,9 +27,18 @@ export default ({ error, reset }: any) => {
   return (
     <NormalContainer>
       <div className="flex min-h-[calc(100vh-10rem)] flex-col center">
-        <h2 className="mb-5">Something went wrong!</h2>
-        <StyledButton variant="primary" onClick={reset}>
-          Try again
+        <h2 className="mb-5">
+          <p>
+            服务端渲染页面时出现了错误，可能是 Next.js 服务访问 API
+            超时。请刷新重试。
+          </p>
+          <p>
+            多次出现错误请联系开发者 <a href="mailto:i@innei.in">Innei</a>
+            ，谢谢！
+          </p>
+        </h2>
+        <StyledButton variant="primary" onClick={() => location.reload()}>
+          刷新
         </StyledButton>
       </div>
     </NormalContainer>

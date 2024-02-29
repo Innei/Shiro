@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { cache } from 'react'
 import type { Metadata } from 'next'
 
 import { buildRoomName, RoomProvider } from '~/components/modules/activity'
@@ -18,14 +18,14 @@ import { queries } from '~/queries/definition'
 
 import PostPage from './pageImpl'
 
-const getData = async (params: PageParams) => {
+const getData = cache(async (params: PageParams) => {
   const { category, slug } = params
   attachUAAndRealIp()
   const data = await getQueryClient()
     .fetchQuery(queries.post.bySlug(category, slug))
     .catch(requestErrorHandler)
   return data
-}
+})
 export const generateMetadata = async ({
   params,
 }: {

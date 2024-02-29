@@ -4,8 +4,6 @@
 import { useEffect } from 'react'
 import { useParams } from 'next/navigation'
 
-// import { captureException } from '@sentry/nextjs'
-
 import { NotFound404 } from '~/components/common/404'
 import { NotePasswordForm } from '~/components/modules/note/NotePasswordForm'
 import { isRequestError, pickStatusCode } from '~/lib/is-error'

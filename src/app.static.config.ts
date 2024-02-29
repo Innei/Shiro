@@ -6,6 +6,10 @@ export const appStaticConfig = {
       providers: ['xlog'],
     },
   },
+
+  cache: {
+    enabled: true,
+  },
 }
 
 export const CDN_HOST = 'cdn.innei.ren'

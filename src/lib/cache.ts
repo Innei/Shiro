@@ -1,5 +1,7 @@
 import { Redis } from '@upstash/redis'
 
+import { appStaticConfig } from '~/app.static.config'
+
 import { safeJsonParse } from './helper'
 
 const UPSTASH_TOKEN = process.env.UPSTASH_TOKEN
@@ -7,6 +9,9 @@ const UPSTASH_URL = process.env.UPSTASH_URL
 
 let redis: Redis
 const getRedis = () => {
+  if (!appStaticConfig.cache.enabled) {
+    return null
+  }
   if (redis) {
     return redis
   }
@@ -27,6 +32,7 @@ export const setCache = async (key: string, value: string, ttl: number) => {
   if (!_redis) {
     return
   }
+
   await _redis
     .set(key, value, {
       ex: ttl,
@@ -67,6 +73,13 @@ export const getOrSetCache = async <T>(
   }
 
   const fallbackData = await setFn()
+  try {
+    if (typeof fallbackData === 'object' && fallbackData) {
+      Reflect.defineProperty(fallbackData, '__$cachedAt', {
+        value: Date.now(),
+      })
+    }
+  } catch {}
 
   await setCache(key, JSON.stringify(fallbackData), ttl)
   return fallbackData
@@ -79,3 +92,29 @@ export const onlyGetOrSetCacheInVercelButFallback: typeof getOrSetCache =
     }
     return setFn()
   }
+
+export const invalidateCache = (key: string) => {
+  const _redis = getRedis()
+  if (!_redis) {
+    return
+  }
+  return _redis.del(key).catch((err: any) => {
+    console.error(`invalidateCache error, key: ${key}. `, err)
+  })
+}
+
+export const invalidateCacheWithPrefix = async (prefix: string) => {
+  const _redis = getRedis()
+  if (!_redis) {
+    return
+  }
+  const keys = await _redis.keys(`${prefix}*`)
+
+  if (keys.length < 1) {
+    return
+  }
+
+  _redis.del(...keys).catch((err: any) => {
+    console.error(`invalidateCacheWithPrefix error, prefix: ${prefix}. `, err)
+  })
+}

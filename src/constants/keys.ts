@@ -7,3 +7,11 @@ export const enum EmitKeyMap {
   SocketConnected = 'SocketConnected',
   SocketDisconnected = 'SocketDisconnected',
 }
+
+export const CacheKeyMap = {
+  RootData: 'root-data',
+  AggregateTop: 'aggregate-top',
+  PostListWithPage: (current: number) => CacheKeyMap.PostList + current,
+  PostList: 'post-list:',
+  Post: (id: string) => `post-${id}`,
+}

@@ -13,6 +13,7 @@ import { Root } from '~/components/layout/root/Root'
 import { AccentColorStyleInjector } from '~/components/modules/shared/AccentColorStyleInjector'
 import { SearchPanelWithHotKey } from '~/components/modules/shared/SearchFAB'
 import { TocAutoScroll } from '~/components/modules/toc/TocAutoScroll'
+import { CacheKeyMap } from '~/constants/keys'
 import { attachUAAndRealIp } from '~/lib/attach-ua'
 import { onlyGetOrSetCacheInVercelButFallback } from '~/lib/cache'
 import { sansFont, serifFont } from '~/lib/fonts'
@@ -26,7 +27,7 @@ import { Analyze } from './analyze'
 
 const { version } = PKG
 
-export const revalidate = 300 // 300s
+export const revalidate = 3600 // 3600s
 
 export function generateViewport(): Viewport {
   return {
@@ -42,7 +43,7 @@ export function generateViewport(): Viewport {
   }
 }
 
-const key = 'root-data'
+const key = CacheKeyMap.RootData
 const fetchAggregationData = cache(async () => {
   const queryClient = getQueryClient()
 

@@ -57,7 +57,7 @@ export const PostItemHoverOverlay = () => {
             layoutId="post-item-hover-overlay"
             className={clsx(
               'absolute z-[-1] rounded-xl',
-              'bg-slate-300/50 dark:bg-neutral-800',
+              'bg-accent/10 dark:bg-neutral-800',
               'bottom-[1rem] left-[-1rem] right-[-1.5rem] top-[1rem]',
             )}
           />

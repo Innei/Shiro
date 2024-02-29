@@ -6,6 +6,8 @@ import { PostPagination } from '~/components/modules/post/PostPagination'
 import { NothingFound } from '~/components/modules/shared/NothingFound'
 import { SearchFAB } from '~/components/modules/shared/SearchFAB'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
+import { CacheKeyMap } from '~/constants/keys'
+import { onlyGetOrSetCacheInVercelButFallback } from '~/lib/cache'
 import { apiClient } from '~/lib/request'
 
 interface Props {
@@ -23,14 +25,18 @@ export const metadata = {
 
 export default async (props: Props) => {
   const { page, size, orderBy, sortBy } = props?.searchParams || {}
-  const nextPage = page ? parseInt(page) : 1
-  const nextSize = size ? parseInt(size) : 10
+  const currentPage = page ? parseInt(page) : 1
+  const currentSize = size ? parseInt(size) : 10
 
-  const { $serialized } = await apiClient.post.getList(nextPage, nextSize, {
-    sortBy: sortBy as any,
-    sortOrder: orderBy === 'desc' ? -1 : 1,
-  })
-  const { data, pagination } = $serialized
+  const { data, pagination } = await onlyGetOrSetCacheInVercelButFallback(
+    CacheKeyMap.PostListWithPage(currentPage),
+    async () =>
+      await apiClient.post.getList(currentPage, currentSize, {
+        sortBy: sortBy as any,
+        sortOrder: orderBy === 'desc' ? -1 : 1,
+      }),
+    3600,
+  )
 
   if (!data?.length) {
     return <NothingFound />

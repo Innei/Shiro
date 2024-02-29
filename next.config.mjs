@@ -48,7 +48,7 @@ let nextConfig = {
     }
   },
 
-  webpack: (config, options) => {
+  webpack: (config, { webpack }) => {
     const __dirname = new URL('./', import.meta.url).pathname
     config.resolve.alias['jotai'] = path.resolve(
       __dirname,
@@ -59,6 +59,12 @@ let nextConfig = {
       'utf-8-validate': 'commonjs utf-8-validate',
       bufferutil: 'commonjs bufferutil',
     })
+
+    // config.plugins.push(
+    //   new webpack.optimize.MinChunkSizePlugin({
+    //     minChunkSize: 1024 * 100, // Minimum number of characters
+    //   }),
+    // )
 
     // if (
     //   process.env.SENTRY === 'true' &&
