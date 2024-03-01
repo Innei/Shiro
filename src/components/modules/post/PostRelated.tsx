@@ -1,10 +1,14 @@
 'use client'
 
+import type { FC } from 'react'
+
 import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
 
 import { PeekLink } from '../peek/PeekLink'
 
-export const PostRelated = () => {
+export const PostRelated: FC<{
+  infoText: string
+}> = ({ infoText }) => {
   const related = useCurrentPostDataSelector((s) => s?.related)
   if (!related) {
     return null
@@ -16,9 +20,7 @@ export const PostRelated = () => {
   return (
     <div data-hide-print className="mb-5 mt-8">
       <h3 className="text-lg font-medium">
-        <span>
-          阅读此文章之前，你可能需要首先阅读以下的文章才能更好的理解上下文。
-        </span>
+        <span>{infoText}</span>
       </h3>
       <ul className="list-inside list-disc">
         {related.map((post) => {
