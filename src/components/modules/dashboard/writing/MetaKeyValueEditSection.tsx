@@ -4,7 +4,7 @@ import type { FC } from 'react'
 
 import { StyledButton } from '~/components/ui/button'
 import { CodeEditor } from '~/components/ui/code-editor'
-import { HighLighter } from '~/components/ui/code-highlighter'
+import { HighLighterPrismCdn } from '~/components/ui/code-highlighter'
 import { useModalStack } from '~/components/ui/modal'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { toast } from '~/lib/toast'
@@ -58,7 +58,7 @@ export const MetaKeyValueEditSection: FC<MetaKeyValueEditSectionProps> = (
           编辑
         </StyledButton>
       </div>
-      <HighLighter key={jsonString} lang="json" content={jsonString} />
+      <HighLighterPrismCdn key={jsonString} lang="json" content={jsonString} />
     </div>
   )
 }

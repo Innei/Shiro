@@ -223,6 +223,18 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
               )
             },
           },
+          codeFenced: {
+            parse(capture /* , parse, state */) {
+              return {
+                content: capture[4],
+                lang: capture[2] || undefined,
+                type: 'codeBlock',
+
+                attrs: capture[3],
+              }
+            },
+          },
+
           codeBlock: {
             react(node, output, state) {
               return (
@@ -230,6 +242,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
                   key={state?.key}
                   content={node.content}
                   lang={node.lang}
+                  attrs={node?.attrs}
                 />
               )
             },

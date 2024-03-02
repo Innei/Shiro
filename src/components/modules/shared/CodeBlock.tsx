@@ -30,6 +30,8 @@ const ExcalidrawLazy = ({ data }: any) => {
 export const CodeBlockRender = (props: {
   lang: string | undefined
   content: string
+
+  attrs?: string
 }) => {
   const Content = useMemo(() => {
     switch (props.lang) {
@@ -51,11 +53,15 @@ export const CodeBlockRender = (props: {
       }
       default: {
         const HighLighter = dynamic(() =>
-          import('~/components/ui/code-highlighter/CodeHighlighter').then(
-            (mod) => mod.HighLighter,
+          import('~/components/ui/code-highlighter/Shiki').then(
+            (mod) => mod.ShikiHighLighter,
           ),
         )
-        return <HighLighter {...props} />
+        return (
+          <Suspense>
+            <HighLighter {...props} />
+          </Suspense>
+        )
       }
     }
   }, [props])
