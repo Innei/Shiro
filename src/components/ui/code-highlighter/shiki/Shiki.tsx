@@ -63,6 +63,10 @@ export const ShikiHighLighter: FC<Props> = (props) => {
           () => import('shiki/langs/markdown.mjs'),
           () => import('shiki/langs/vue.mjs'),
           () => import('shiki/langs/html.mjs'),
+          () => import('shiki/langs/asm.mjs'),
+          () => import('shiki/langs/bash.mjs'),
+          () => import('shiki/langs/ps.mjs'),
+          () => import('shiki/langs/ps1.mjs'),
         ],
         loadWasm: getWasm,
       })
@@ -169,18 +173,20 @@ export const ShikiHighLighter: FC<Props> = (props) => {
             )}
           </div>
 
-          {isOverflow && isCollapsed && (
-            <div className="absolute bottom-0 left-0 right-0 flex justify-center py-2">
-              <button
-                onClick={() => setIsCollapsed(false)}
-                aria-hidden
-                className="flex items-center justify-center text-xs"
-              >
-                <i className="icon-[mingcute--arrow-to-down-line]" />
-                <span className="ml-2">展开</span>
-              </button>
-            </div>
-          )}
+          {isOverflow &&
+            isCollapsed &&
+            ['mask-both-lg', 'mask-b-lg'].includes(maskClassName) && (
+              <div className="absolute bottom-0 left-0 right-0 flex justify-center py-2">
+                <button
+                  onClick={() => setIsCollapsed(false)}
+                  aria-hidden
+                  className="flex items-center justify-center text-xs"
+                >
+                  <i className="icon-[mingcute--arrow-to-down-line]" />
+                  <span className="ml-2">展开</span>
+                </button>
+              </div>
+            )}
         </AutoResizeHeight>
       </div>
     </div>
