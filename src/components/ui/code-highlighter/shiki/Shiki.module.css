@@ -6,17 +6,25 @@
 
       font-size: min(1em, 16px);
     }
+
+    pre code {
+      @apply flex flex-col;
+    }
+
     .shiki,
     code {
       @apply !bg-transparent;
     }
 
     .line {
-      @apply px-4;
+      @apply block px-4;
     }
 
     .highlighted {
-      @apply relative block bg-accent/20;
+      @apply relative break-all bg-accent/20;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      overflow: auto;
 
       &::before {
         @apply absolute left-0 top-0 h-full w-[2px] bg-accent;

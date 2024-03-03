@@ -136,7 +136,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
           {language.toUpperCase()}
         </div>
       )}
-      <div className="bg-accent/10 px-4 py-2">
+      <div className="bg-accent/10 py-2">
         <AutoResizeHeight className="relative">
           <MotionButtonBase
             onClick={handleCopy}
