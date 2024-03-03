@@ -97,13 +97,9 @@
     @apply cursor-not-allowed;
   }
 
-  :not(pre) code {
-    @apply rounded-md bg-zinc-200 px-2 font-mono dark:bg-neutral-800;
-  }
-
-  pre {
+  /* pre {
     @apply min-w-0 max-w-full flex-shrink flex-grow overflow-x-auto;
-  }
+  } */
 
   p {
     @apply break-words;

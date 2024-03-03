@@ -9,12 +9,15 @@ const THRESHOLD = 0
 export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>({
   ref,
   size = 'base',
+  element,
   selector,
 }: {
   ref?: React.RefObject<HTMLElement>
+  element?: HTMLElement
   size?: 'base' | 'lg'
   selector?: string
 } = {}) => {
+  console.log('useMaskScrollArea', element)
   const containerRef = useRef<T>(null)
   const [isScrollToBottom, setIsScrollToBottom] = useState(false)
   const [isScrollToTop, setIsScrollToTop] = useState(false)
@@ -22,7 +25,7 @@ export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>({
   const h = useViewport((v) => v.h)
 
   const getDomRef = useCallback(() => {
-    let $ = containerRef.current || ref?.current
+    let $ = containerRef.current || ref?.current || element
 
     if (!$) return
 
@@ -30,10 +33,12 @@ export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>({
       $ = $.querySelector(selector) as HTMLElement
     }
     return $
-  }, [ref, selector])
+  }, [ref, selector, element])
   const eventHandler = useEventCallback(() => {
     const $ = getDomRef()
+
     if (!$) return
+
     // if $ can not scroll
     if ($.scrollHeight <= $.clientHeight + 2) {
       setCanScroll(false)
@@ -60,11 +65,11 @@ export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>({
     return () => {
       $.removeEventListener('scroll', eventHandler)
     }
-  }, [eventHandler, getDomRef])
+  }, [eventHandler, getDomRef, element])
 
   useEffect(() => {
     eventHandler()
-  }, [eventHandler, h])
+  }, [eventHandler, h, element])
 
   const postfixSize = {
     base: '',

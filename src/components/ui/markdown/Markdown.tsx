@@ -247,6 +247,18 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
               )
             },
           },
+          codeInline: {
+            react(node, output, state) {
+              return (
+                <code
+                  key={state?.key}
+                  className="rounded-md bg-zinc-200 px-2 font-mono dark:bg-neutral-800"
+                >
+                  {node.content}
+                </code>
+              )
+            },
+          },
 
           list: {
             react(node, output, state) {

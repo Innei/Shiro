@@ -43,3 +43,24 @@ export const parseFilenameFromAttrs = (attrs: string) => {
   }
   return null
 }
+
+export const isSupportedShikiLang = (lang: string) => {
+  return [
+    'javascript',
+    'typescript',
+    'ts',
+    'js',
+    'css',
+    'tsx',
+    'jsx',
+    'json',
+    'sql',
+    'markdown',
+    'vue',
+    'rust',
+    'go',
+    'cpp',
+    'c',
+    'html',
+  ].includes(lang)
+}

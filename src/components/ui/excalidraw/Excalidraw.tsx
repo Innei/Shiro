@@ -190,7 +190,7 @@ const ExcalidrawImpl = forwardRef<InternelExcalidrawRefObject, ExcalidrawProps>(
               api.scrollToContent(undefined, {
                 fitToContent: true,
               })
-            }, 1000)
+            }, 300)
 
             onReady?.(api)
           }}

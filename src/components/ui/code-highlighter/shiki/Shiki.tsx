@@ -3,7 +3,6 @@ import {
   useEffect,
   useLayoutEffect,
   useMemo,
-  useRef,
   useState,
 } from 'react'
 import clsx from 'clsx'
@@ -17,7 +16,7 @@ import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
 import { useMaskScrollArea } from '~/hooks/shared/use-mask-scrollarea'
 import { clsxm } from '~/lib/helper'
 
-import { MotionButtonBase } from '../button'
+import { MotionButtonBase } from '../../button'
 import styles from './Shiki.module.css'
 import { codeHighlighter, parseFilenameFromAttrs } from './utils'
 
@@ -56,6 +55,14 @@ export const ShikiHighLighter: FC<Props> = (props) => {
           () => import('shiki/langs/tsx.mjs'),
           () => import('shiki/langs/jsx.mjs'),
           () => import('shiki/langs/json.mjs'),
+          () => import('shiki/langs/sql.mjs'),
+          () => import('shiki/langs/rust.mjs'),
+          () => import('shiki/langs/go.mjs'),
+          () => import('shiki/langs/cpp.mjs'),
+          () => import('shiki/langs/c.mjs'),
+          () => import('shiki/langs/markdown.mjs'),
+          () => import('shiki/langs/vue.mjs'),
+          () => import('shiki/langs/html.mjs'),
         ],
         loadWasm: getWasm,
       })
@@ -64,12 +71,13 @@ export const ShikiHighLighter: FC<Props> = (props) => {
     })()
   }, [])
 
-  const codeBlockRef = useRef<HTMLDivElement>(null)
+  const [codeBlockRef, setCodeBlockRef] = useState<HTMLDivElement | null>(null)
 
   const [isCollapsed, setIsCollapsed] = useState(true)
   const [isOverflow, setIsOverflow] = useState(false)
   useEffect(() => {
-    const $el = codeBlockRef.current
+    const $el = codeBlockRef
+
     if (!$el) return
 
     const windowHeight = getViewport().h
@@ -84,7 +92,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
     } else {
       setIsOverflow(false)
     }
-  }, [value])
+  }, [value, codeBlockRef])
 
   const renderedHtml = useMemo(() => {
     if (!highlighter) return ''
@@ -99,9 +107,8 @@ export const ShikiHighLighter: FC<Props> = (props) => {
     return parseFilenameFromAttrs(attrs || '')
   }, [attrs])
   const [, maskClassName] = useMaskScrollArea({
-    ref: codeBlockRef,
+    element: codeBlockRef!,
     size: 'lg',
-    selector: 'pre',
   })
 
   return (
@@ -141,40 +148,28 @@ export const ShikiHighLighter: FC<Props> = (props) => {
           >
             <i className="icon-[mingcute--copy-2-fill] h-4 w-4" />
           </MotionButtonBase>
-          {renderedHtml ? (
-            <div
-              ref={codeBlockRef}
-              className={clsxm(
-                'relative flex max-h-[50vh] w-full flex-shrink flex-grow overflow-auto [&_pre]:scrollbar-none',
-                !isCollapsed
-                  ? '!max-h-[100%]'
-                  : isOverflow
-                    ? maskClassName
-                    : '',
-              )}
-              dangerouslySetInnerHTML={{
-                __html: renderedHtml,
-              }}
-            />
-          ) : (
-            <div
-              ref={codeBlockRef}
-              className={clsxm(
-                'relative flex max-h-[50vh] w-full flex-shrink flex-grow overflow-auto [&_pre]:scrollbar-none',
-                !isCollapsed
-                  ? '!max-h-[100%]'
-                  : isOverflow
-                    ? maskClassName
-                    : '',
-              )}
-            >
-              <pre>
+          <div
+            ref={setCodeBlockRef}
+            className={clsxm(
+              'relative max-h-[50vh] w-full overflow-auto scrollbar-none',
+              !isCollapsed ? '!max-h-[100%]' : isOverflow ? maskClassName : '',
+            )}
+            dangerouslySetInnerHTML={
+              renderedHtml
+                ? {
+                    __html: renderedHtml,
+                  }
+                : undefined
+            }
+          >
+            {renderedHtml ? undefined : (
+              <pre className="bg-transparent">
                 <code>{value}</code>
               </pre>
-            </div>
-          )}
+            )}
+          </div>
+
           {isOverflow && isCollapsed && (
-            // <div className="absolute bottom-6 left-0 right-0 flex justify-center bg-[linear-gradient(180deg,transparent_0%,#fff_81%)] py-2 dark:bg-[linear-gradient(180deg,transparent_0%,oklch(var(--b1)/1)_81%)]">
             <div className="absolute bottom-0 left-0 right-0 flex justify-center py-2">
               <button
                 onClick={() => setIsCollapsed(false)}
