@@ -118,7 +118,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
   return (
     <div className={clsx(styles['code-card'], 'group')}>
       {!!filename && (
-        <div className="flex w-full items-center justify-between rounded-t-xl bg-accent/20 px-4 py-2 text-sm">
+        <div className="z-10 flex w-full items-center justify-between rounded-t-xl bg-accent/20 px-4 py-2 text-sm">
           <span className="shrink-0 flex-grow truncate">{filename}</span>
           <span
             className="pointer-events-none flex-shrink-0 flex-grow-0"
@@ -133,25 +133,25 @@ export const ShikiHighLighter: FC<Props> = (props) => {
         <div
           aria-hidden
           className={clsxm(
-            'pointer-events-none absolute bottom-2 right-2 text-sm opacity-60',
+            'pointer-events-none absolute bottom-2 right-2 z-10 text-sm opacity-60',
             isOverflow ? 'right-6' : '',
           )}
         >
           {language.toUpperCase()}
         </div>
       )}
-      <div className="bg-accent/10 py-2">
+      <div className="bg-accent/10 py-4">
+        <MotionButtonBase
+          onClick={handleCopy}
+          className={clsx(
+            'text-xscenter absolute right-2 top-[calc(1rem-3px)] z-[1] flex rounded border border-current p-2',
+            'dark:bg-primary-300/10 rounded-md border border-black/5 bg-accent/5 p-1.5 text-gray-600 duration-200 hover:text-gray-900 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50',
+            'opacity-0 group-hover:opacity-60',
+          )}
+        >
+          <i className="icon-[mingcute--copy-2-fill] h-4 w-4" />
+        </MotionButtonBase>
         <AutoResizeHeight className="relative">
-          <MotionButtonBase
-            onClick={handleCopy}
-            className={clsx(
-              'text-xscenter absolute right-1 top-1 z-[1] flex rounded border border-current p-2',
-              'dark:bg-primary-300/10 rounded-md border border-black/5 bg-accent/5 p-1.5 text-gray-600 duration-200 hover:text-gray-900 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50',
-              'opacity-0 group-hover:opacity-60',
-            )}
-          >
-            <i className="icon-[mingcute--copy-2-fill] h-4 w-4" />
-          </MotionButtonBase>
           <div
             ref={setCodeBlockRef}
             className={clsxm(
