@@ -173,20 +173,24 @@ export const ShikiHighLighter: FC<Props> = (props) => {
             )}
           </div>
 
-          {isOverflow &&
-            isCollapsed &&
-            ['mask-both-lg', 'mask-b-lg'].includes(maskClassName) && (
-              <div className="absolute bottom-0 left-0 right-0 flex justify-center py-2">
-                <button
-                  onClick={() => setIsCollapsed(false)}
-                  aria-hidden
-                  className="flex items-center justify-center text-xs"
-                >
-                  <i className="icon-[mingcute--arrow-to-down-line]" />
-                  <span className="ml-2">展开</span>
-                </button>
-              </div>
-            )}
+          {isOverflow && isCollapsed && (
+            <div
+              className={`absolute bottom-0 left-0 right-0 flex justify-center py-2 ${
+                ['mask-both-lg', 'mask-b-lg'].includes(maskClassName)
+                  ? ''
+                  : 'opacity-0 duration-200'
+              }`}
+            >
+              <button
+                onClick={() => setIsCollapsed(false)}
+                aria-hidden
+                className="flex items-center justify-center text-xs"
+              >
+                <i className="icon-[mingcute--arrow-to-down-line]" />
+                <span className="ml-2">展开</span>
+              </button>
+            </div>
+          )}
         </AutoResizeHeight>
       </div>
     </div>
