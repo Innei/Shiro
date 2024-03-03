@@ -175,10 +175,10 @@ export const ShikiHighLighter: FC<Props> = (props) => {
 
           {isOverflow && isCollapsed && (
             <div
-              className={`absolute bottom-0 left-0 right-0 flex justify-center py-2 ${
+              className={`absolute bottom-0 left-0 right-0 flex justify-center py-2 duration-200 ${
                 ['mask-both-lg', 'mask-b-lg'].includes(maskClassName)
                   ? ''
-                  : 'opacity-0 duration-200'
+                  : 'opacity-0'
               }`}
             >
               <button
