@@ -109,3 +109,20 @@ a {
 .prose p:last-child {
   margin-bottom: 0;
 }
+
+.prose
+  :where(blockquote):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+  @apply relative border-0;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 3px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 1em;
+    background-color: theme(colors.accent);
+  }
+}

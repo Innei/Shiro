@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import React, { memo } from 'react'
 
-import { HighLighter } from '../../ui/code-highlighter'
+import { HighLighterPrismCdn } from '../../ui/code-highlighter'
 import { Loading } from '../../ui/loading'
 
 const ext2FileType = {
@@ -108,7 +108,7 @@ export const EmbedGithubFile = memo(
 
     return (
       <div className="h-[50vh] w-full overflow-auto">
-        <HighLighter content={data} lang={fileType} />
+        <HighLighterPrismCdn content={data} lang={fileType} />
       </div>
     )
   },

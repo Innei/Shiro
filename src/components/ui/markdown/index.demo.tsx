@@ -12,7 +12,7 @@ import { BlockLoading } from '~/components/modules/shared/BlockLoading'
 import { Mermaid } from '~/components/modules/shared/Mermaid'
 import { ExcalidrawLoading } from '~/components/ui/excalidraw/ExcalidrawLoading'
 
-import { HighLighter } from '../code-highlighter'
+import { ShikiHighLighter } from '../code-highlighter/shiki/Shiki'
 // @ts-expect-error
 import customize from './customize.md?raw'
 import { Markdown } from './Markdown'
@@ -41,6 +41,8 @@ const ExcalidrawLazy = ({ data }: any) => {
 const CodeBlockRender = (props: {
   lang: string | undefined
   content: string
+
+  attrs?: string
 }) => {
   const Content = useMemo(() => {
     switch (props.lang) {
@@ -54,7 +56,7 @@ const CodeBlockRender = (props: {
         return <ReactComponentRender dls={props.content} />
       }
       default: {
-        return <HighLighter {...props} />
+        return <ShikiHighLighter {...props} />
       }
     }
   }, [props])

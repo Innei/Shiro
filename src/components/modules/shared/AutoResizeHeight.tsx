@@ -3,18 +3,22 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { m } from 'framer-motion'
 
+import { microDampingPreset } from '~/constants/spring'
 import { clsxm } from '~/lib/helper'
 
 interface AnimateChangeInHeightProps {
   children: React.ReactNode
   className?: string
   duration?: number
+
+  spring?: boolean
 }
 
 export const AutoResizeHeight: React.FC<AnimateChangeInHeightProps> = ({
   children,
   className,
   duration = 0.6,
+  spring = false,
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [height, setHeight] = useState<number | 'auto'>('auto')
@@ -42,7 +46,7 @@ export const AutoResizeHeight: React.FC<AnimateChangeInHeightProps> = ({
       style={{ height }}
       initial={false}
       animate={{ height }}
-      transition={{ duration }}
+      transition={spring ? microDampingPreset : { duration }}
     >
       <div ref={containerRef}>{children}</div>
     </m.div>

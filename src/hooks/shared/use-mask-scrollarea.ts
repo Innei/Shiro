@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
 
 import { useViewport } from '~/atoms/hooks'
@@ -6,15 +6,36 @@ import { useViewport } from '~/atoms/hooks'
 import { useEventCallback } from '../common/use-event-callback'
 
 const THRESHOLD = 0
-export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>() => {
+export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>({
+  ref,
+  size = 'base',
+  element,
+  selector,
+}: {
+  ref?: React.RefObject<HTMLElement>
+  element?: HTMLElement
+  size?: 'base' | 'lg'
+  selector?: string
+} = {}) => {
+  console.log('useMaskScrollArea', element)
   const containerRef = useRef<T>(null)
   const [isScrollToBottom, setIsScrollToBottom] = useState(false)
   const [isScrollToTop, setIsScrollToTop] = useState(false)
   const [canScroll, setCanScroll] = useState(false)
   const h = useViewport((v) => v.h)
 
+  const getDomRef = useCallback(() => {
+    let $ = containerRef.current || ref?.current || element
+
+    if (!$) return
+
+    if (selector) {
+      $ = $.querySelector(selector) as HTMLElement
+    }
+    return $
+  }, [ref, selector, element])
   const eventHandler = useEventCallback(() => {
-    const $ = containerRef.current
+    const $ = getDomRef()
 
     if (!$) return
 
@@ -36,18 +57,24 @@ export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>() => {
     setIsScrollToTop(isScrollToTop)
   })
   useEffect(() => {
-    const $ = containerRef.current
+    const $ = getDomRef()
     if (!$) return
+
     $.addEventListener('scroll', eventHandler)
 
     return () => {
       $.removeEventListener('scroll', eventHandler)
     }
-  }, [eventHandler])
+  }, [eventHandler, getDomRef, element])
 
   useEffect(() => {
     eventHandler()
-  }, [eventHandler, h])
+  }, [eventHandler, h, element])
+
+  const postfixSize = {
+    base: '',
+    lg: '-lg',
+  }[size]
 
   return [
     containerRef,
@@ -56,7 +83,7 @@ export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>() => {
           isScrollToBottom && 'mask-t',
           isScrollToTop && 'mask-b',
           !isScrollToBottom && !isScrollToTop && 'mask-both',
-        )
+        ) + postfixSize
       : '',
   ] as const
 }
