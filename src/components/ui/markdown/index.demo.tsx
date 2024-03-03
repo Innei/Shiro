@@ -12,7 +12,7 @@ import { BlockLoading } from '~/components/modules/shared/BlockLoading'
 import { Mermaid } from '~/components/modules/shared/Mermaid'
 import { ExcalidrawLoading } from '~/components/ui/excalidraw/ExcalidrawLoading'
 
-import { ShikiHighLighter } from '../code-highlighter'
+import { ShikiHighLighter } from '../code-highlighter/shiki/Shiki'
 // @ts-expect-error
 import customize from './customize.md?raw'
 import { Markdown } from './Markdown'
