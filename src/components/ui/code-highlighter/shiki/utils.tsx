@@ -75,5 +75,14 @@ export const isSupportedShikiLang = (lang: string) => {
     'cpp',
     'c',
     'html',
+    'asm',
+    'bash',
+    'ps',
+    'ps1',
+    // plain text
+    'text',
+    'plaintext',
+    'txt',
+    'plain',
   ].includes(lang)
 }
