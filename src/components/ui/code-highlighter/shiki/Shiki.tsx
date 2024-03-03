@@ -23,7 +23,7 @@ import { codeHighlighter, parseFilenameFromAttrs } from './utils'
 interface Props {
   lang: string | undefined
   content: string
-  raw?: string
+
   attrs?: string
 }
 

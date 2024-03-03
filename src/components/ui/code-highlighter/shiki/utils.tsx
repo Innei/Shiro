@@ -5,6 +5,13 @@ import type {
   HighlighterCore,
 } from 'shiki'
 
+import {
+  transformerMetaHighlight,
+  transformerNotationDiff,
+  transformerNotationHighlight,
+  transformerNotationWordHighlight,
+} from '@shikijs/transformers'
+
 export function codeHighlighter(
   highlighter: HighlighterCore,
   {
@@ -30,7 +37,13 @@ export function codeHighlighter(
 
   return highlighter.codeToHtml(code, {
     ...codeOptions,
-    transformers: [...(codeOptions.transformers || [])],
+    transformers: [
+      ...(codeOptions.transformers || []),
+      transformerNotationDiff(),
+      transformerNotationHighlight(),
+      transformerNotationWordHighlight(),
+      transformerMetaHighlight(),
+    ],
   })
 }
 

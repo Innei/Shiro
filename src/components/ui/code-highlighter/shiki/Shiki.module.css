@@ -10,5 +10,18 @@
     code {
       @apply !bg-transparent;
     }
+
+    .line {
+      @apply px-4;
+    }
+
+    .highlighted {
+      @apply relative block bg-accent/20;
+
+      &::before {
+        @apply absolute left-0 top-0 h-full w-[2px] bg-accent;
+        content: '';
+      }
+    }
   }
 }
