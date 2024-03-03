@@ -70,7 +70,6 @@ export const FormInput: FC<
   return (
     <>
       <Input
-        // @ts-expect-error
         ref={inputRef}
         className={clsxm(
           !!errorMessage && 'ring-2 ring-red-400 dark:ring-orange-700',
