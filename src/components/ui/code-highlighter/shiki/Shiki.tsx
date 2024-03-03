@@ -132,10 +132,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
       {!filename && !!language && (
         <div
           aria-hidden
-          className={clsxm(
-            'pointer-events-none absolute bottom-2 right-2 z-10 text-sm opacity-60',
-            isOverflow ? 'right-6' : '',
-          )}
+          className="pointer-events-none absolute bottom-2 right-2 z-10 text-sm opacity-60"
         >
           {language.toUpperCase()}
         </div>
@@ -144,9 +141,9 @@ export const ShikiHighLighter: FC<Props> = (props) => {
         <MotionButtonBase
           onClick={handleCopy}
           className={clsx(
-            'text-xscenter absolute right-2 top-[calc(1rem-3px)] z-[1] flex rounded border border-current p-2',
-            'dark:bg-primary-300/10 rounded-md border border-black/5 bg-accent/5 p-1.5 text-gray-600 duration-200 hover:text-gray-900 dark:border-white/10 dark:text-gray-400 dark:hover:text-gray-50',
-            'opacity-0 group-hover:opacity-60',
+            'absolute right-2 top-[calc(1rem-3px)] z-[1] flex rounded border border-current p-2 text-xs center',
+            'rounded-md border border-black/5 bg-accent/80 p-1.5 text-white backdrop-blur duration-200 dark:border-white/10',
+            'opacity-0 group-hover:opacity-100',
           )}
         >
           <i className="icon-[mingcute--copy-2-fill] h-4 w-4" />
@@ -178,7 +175,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
               className={`absolute bottom-0 left-0 right-0 flex justify-center py-2 duration-200 ${
                 ['mask-both-lg', 'mask-b-lg'].includes(maskClassName)
                   ? ''
-                  : 'opacity-0'
+                  : 'pointer-events-none opacity-0'
               }`}
             >
               <button

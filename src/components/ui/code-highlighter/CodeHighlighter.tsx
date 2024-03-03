@@ -136,9 +136,6 @@ const useLoadHighlighter = (ref: React.RefObject<HTMLElement>) => {
           })
         } else {
           requestAnimationFrame(() => {
-            window.Prism?.highlightAll()
-            // highlightAll twice
-
             requestAnimationFrame(() => {
               window.Prism?.highlightAll()
             })
