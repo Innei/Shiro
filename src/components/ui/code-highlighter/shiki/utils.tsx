@@ -59,5 +59,5 @@ export const parseFilenameFromAttrs = (attrs: string) => {
 }
 
 export const isSupportedShikiLang = (lang: string) => {
-  return Object.keys(bundledLanguages).includes(lang)
+  return Object.keys(bundledLanguages).includes(lang.toLowerCase())
 }

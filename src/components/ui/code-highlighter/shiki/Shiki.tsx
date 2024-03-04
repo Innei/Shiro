@@ -103,7 +103,10 @@ export const ShikiHighLighter: FC<Props> = (props) => {
     return codeHighlighter(highlighter, {
       attrs: attrs || '',
       code: value,
-      lang: language && isSupportedShikiLang(language) ? language : '',
+      lang:
+        language && isSupportedShikiLang(language)
+          ? language.toLowerCase()
+          : '',
     })
   }, [attrs, language, value, highlighter])
 
