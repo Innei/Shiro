@@ -132,7 +132,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
       {!filename && !!language && (
         <div
           aria-hidden
-          className="pointer-events-none absolute bottom-2 right-2 z-10 text-sm opacity-60"
+          className="pointer-events-none absolute bottom-3 right-3 text-sm opacity-60"
         >
           {language.toUpperCase()}
         </div>
@@ -148,7 +148,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
         >
           <i className="icon-[mingcute--copy-2-fill] h-4 w-4" />
         </MotionButtonBase>
-        <AutoResizeHeight className="relative">
+        <AutoResizeHeight spring className="relative">
           <div
             ref={setCodeBlockRef}
             className={clsxm(

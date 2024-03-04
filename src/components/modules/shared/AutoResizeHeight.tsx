@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { m } from 'framer-motion'
 
-import { microDampingPreset } from '~/constants/spring'
+import { softSpringPreset } from '~/constants/spring'
 import { clsxm } from '~/lib/helper'
 
 interface AnimateChangeInHeightProps {
@@ -46,7 +46,7 @@ export const AutoResizeHeight: React.FC<AnimateChangeInHeightProps> = ({
       style={{ height }}
       initial={false}
       animate={{ height }}
-      transition={spring ? microDampingPreset : { duration }}
+      transition={spring ? softSpringPreset : { duration }}
     >
       <div ref={containerRef}>{children}</div>
     </m.div>

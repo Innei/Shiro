@@ -20,15 +20,54 @@
       @apply block px-4;
     }
 
-    .highlighted {
-      @apply relative break-all bg-accent/20;
+    .highlighted,
+    .diff {
+      @apply relative break-all;
       white-space: pre-wrap;
       word-wrap: break-word;
       overflow: auto;
 
       &::before {
-        @apply absolute left-0 top-0 h-full w-[2px] bg-accent;
+        @apply absolute left-0 top-0 h-full w-[2px];
         content: '';
+      }
+    }
+
+    .diff.add {
+      @apply bg-green-100 dark:bg-green-900;
+
+      &::before {
+        @apply bg-green-500;
+      }
+
+      &::after {
+        content: ' +';
+        @apply absolute left-0 text-green-500;
+      }
+    }
+
+    .diff.remove {
+      @apply bg-red-100 dark:bg-red-900;
+
+      &::before {
+        @apply bg-red-500;
+      }
+
+      &::after {
+        content: ' -';
+        @apply absolute left-0 text-red-500;
+      }
+    }
+
+    .highlighted {
+      @apply bg-accent/20;
+
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      overflow: auto;
+
+      &::before {
+        @apply bg-accent;
       }
     }
   }
