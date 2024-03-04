@@ -19,7 +19,7 @@ import React, {
 } from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 import type { UseFloatingOptions } from '@floating-ui/react-dom'
-import type { FC, PropsWithChildren } from 'react'
+import type { FC, PropsWithChildren, ReactElement } from 'react'
 
 import { microReboundPreset } from '~/constants/spring'
 import useClickAway from '~/hooks/common/use-click-away'
@@ -29,7 +29,7 @@ import { clsxm } from '~/lib/helper'
 import { RootPortal } from '../portal'
 
 type FloatPopoverProps<T> = PropsWithChildren<{
-  triggerElement?: React.ReactNode
+  triggerElement?: string | ReactElement
   TriggerComponent?: FC<T>
 
   headless?: boolean
@@ -181,10 +181,13 @@ export const FloatPopover = function FloatPopover<T extends {}>(
     <></>
   )
   const TriggerWrapper = asChild ? (
-    React.cloneElement(Child, {
-      ...listener,
-      ref: refs.setReference,
-    })
+    React.cloneElement(
+      typeof Child === 'string' ? <span>{Child}</span> : Child,
+      {
+        ...listener,
+        ref: refs.setReference,
+      },
+    )
   ) : (
     <As
       // @ts-ignore
