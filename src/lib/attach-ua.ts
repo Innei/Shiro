@@ -1,5 +1,5 @@
 import { isServer } from '@tanstack/react-query'
-import { headers } from 'next/dist/client/components/headers'
+import { headers } from 'next/headers'
 
 import { $axios } from '~/lib/request'
 
@@ -17,7 +17,6 @@ export const attachUAAndRealIp = () => {
     get('cf-connecting-ip')
   $axios.defaults.headers.common['X-Real-IP'] = ip
   $axios.defaults.headers.common['X-Forwarded-For'] = ip
-  $axios.defaults.headers.common[
-    'User-Agent'
-  ] = `${ua} NextJS/v${PKG.dependencies.next} ${PKG.name}/${PKG.version}`
+  $axios.defaults.headers.common['User-Agent'] =
+    `${ua} NextJS/v${PKG.dependencies.next} ${PKG.name}/${PKG.version}`
 }
