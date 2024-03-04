@@ -132,7 +132,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
       {!filename && !!language && (
         <div
           aria-hidden
-          className="pointer-events-none absolute bottom-3 right-3 text-sm opacity-60"
+          className="pointer-events-none absolute bottom-3 right-3 z-10 text-sm opacity-60"
         >
           {language.toUpperCase()}
         </div>
