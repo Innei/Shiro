@@ -1,3 +1,4 @@
+import { bundledLanguages } from 'shiki'
 import type {
   BundledLanguage,
   BundledTheme,
@@ -58,31 +59,5 @@ export const parseFilenameFromAttrs = (attrs: string) => {
 }
 
 export const isSupportedShikiLang = (lang: string) => {
-  return [
-    'javascript',
-    'typescript',
-    'ts',
-    'js',
-    'css',
-    'tsx',
-    'jsx',
-    'json',
-    'sql',
-    'markdown',
-    'vue',
-    'rust',
-    'go',
-    'cpp',
-    'c',
-    'html',
-    'asm',
-    'bash',
-    'ps',
-    'ps1',
-    // plain text
-    'text',
-    'plaintext',
-    'txt',
-    'plain',
-  ].includes(lang)
+  return Object.keys(bundledLanguages).includes(lang)
 }

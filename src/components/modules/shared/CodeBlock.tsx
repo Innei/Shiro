@@ -4,8 +4,6 @@ import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import dynamic from 'next/dynamic'
 import type { ReactNode } from 'react'
 
-import { HighLighterPrismCdn } from '~/components/ui/code-highlighter'
-import { isSupportedShikiLang } from '~/components/ui/code-highlighter/shiki/utils'
 import { ExcalidrawLoading } from '~/components/ui/excalidraw/ExcalidrawLoading'
 
 import { BlockLoading } from './BlockLoading'
@@ -54,17 +52,12 @@ export const CodeBlockRender = (props: {
         )
       }
       default: {
-        const lang = props.lang
-        if (lang && isSupportedShikiLang(lang)) {
-          const ShikiHighLighter = dynamic(() =>
-            import('~/components/ui/code-highlighter/shiki/Shiki').then(
-              (mod) => mod.ShikiHighLighter,
-            ),
-          )
-          return <ShikiHighLighter {...props} />
-        }
-
-        return <HighLighterPrismCdn {...props} />
+        const ShikiHighLighter = dynamic(() =>
+          import('~/components/ui/code-highlighter/shiki/Shiki').then(
+            (mod) => mod.ShikiHighLighter,
+          ),
+        )
+        return <ShikiHighLighter {...props} />
       }
     }
   }, [props])

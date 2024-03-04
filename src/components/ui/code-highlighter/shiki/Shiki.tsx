@@ -13,6 +13,7 @@ import type { HighlighterCore } from 'shiki'
 
 import { getViewport } from '~/atoms/hooks'
 import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
+import { isSupportedShikiLang } from '~/components/ui/code-highlighter/shiki/utils'
 import { useMaskScrollArea } from '~/hooks/shared/use-mask-scrollarea'
 import { clsxm } from '~/lib/helper'
 
@@ -64,9 +65,8 @@ export const ShikiHighLighter: FC<Props> = (props) => {
           () => import('shiki/langs/vue.mjs'),
           () => import('shiki/langs/html.mjs'),
           () => import('shiki/langs/asm.mjs'),
-          () => import('shiki/langs/bash.mjs'),
+          () => import('shiki/langs/shell.mjs'),
           () => import('shiki/langs/ps.mjs'),
-          () => import('shiki/langs/ps1.mjs'),
         ],
         loadWasm: getWasm,
       })
@@ -103,7 +103,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
     return codeHighlighter(highlighter, {
       attrs: attrs || '',
       code: value,
-      lang: language || '',
+      lang: language && isSupportedShikiLang(language) ? language : '',
     })
   }, [attrs, language, value, highlighter])
 
@@ -152,7 +152,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
           <div
             ref={setCodeBlockRef}
             className={clsxm(
-              'relative max-h-[50vh] w-full overflow-auto scrollbar-none',
+              'relative max-h-[50vh] w-full overflow-auto px-4 scrollbar-none',
               !isCollapsed ? '!max-h-[100%]' : isOverflow ? maskClassName : '',
             )}
             dangerouslySetInnerHTML={
