@@ -50,7 +50,7 @@ export const IpInfoPopover: Component<IpInfoPopoverProps> = (props) => {
       onOpen={() => {
         refetch()
       }}
-      TriggerComponent={() => <span className={className}>{ip}</span>}
+      triggerElement={<span className={className}>{ip}</span>}
     >
       {isLoading ? (
         '...'

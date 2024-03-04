@@ -97,18 +97,18 @@ const cardSlot: CardProps<PostModel>['slots'] = {
             wrapperClassName="text-xs"
             as="span"
             type="tooltip"
-            TriggerComponent={() => '(已编辑)'}
+            triggerElement="(已编辑)"
           >
             编辑于 <RelativeTime date={data.modified} />
           </FloatPopover>
         )}
         <FloatPopover
-          TriggerComponent={() => (
+          triggerElement={
             <div className="flex items-center gap-2">
               <FeHash className="translate-y-[0.5px]" />
               <div>{data.category.name}</div>
             </div>
-          )}
+          }
         >
           <div className="flex flex-col gap-1">
             <div>分类：{data.category.name}</div>

@@ -29,7 +29,7 @@ import { clsxm } from '~/lib/helper'
 import { RootPortal } from '../portal'
 
 type FloatPopoverProps<T> = PropsWithChildren<{
-  triggerElement?: React.ReactElement
+  triggerElement?: React.ReactNode
   TriggerComponent?: FC<T>
 
   headless?: boolean

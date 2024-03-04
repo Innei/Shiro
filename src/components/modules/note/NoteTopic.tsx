@@ -47,7 +47,7 @@ export const NoteTopic: FC = () => {
           <span className="text-md mb-2 font-medium">
             <FloatPopover
               strategy="absolute"
-              TriggerComponent={() => (
+              triggerElement={
                 <Link
                   href={routeBuilder(Routes.NoteTopic, {
                     slug: topic.slug,
@@ -55,7 +55,7 @@ export const NoteTopic: FC = () => {
                 >
                   <span>{name}</span>
                 </Link>
-              )}
+              }
             >
               <NoteTopicDetail topic={topic} />
             </FloatPopover>

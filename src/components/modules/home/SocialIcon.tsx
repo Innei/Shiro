@@ -114,7 +114,7 @@ export const SocialIcon = memo((props: SocialIconProps) => {
   return (
     <FloatPopover
       type="tooltip"
-      TriggerComponent={() => (
+      triggerElement={
         <MotionButtonBase
           className="flex aspect-square h-10 w-10 rounded-full text-2xl text-white center"
           style={{
@@ -130,7 +130,7 @@ export const SocialIcon = memo((props: SocialIconProps) => {
             {Icon}
           </a>
         </MotionButtonBase>
-      )}
+      }
     >
       {type2Copy[type] || ''}
     </FloatPopover>

@@ -191,7 +191,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
                   <FloatPopover
                     wrapperClassName="inline"
                     as="span"
-                    TriggerComponent={() => (
+                    triggerElement={
                       <a
                         href={`${getFootNoteDomId(content)}`}
                         onClick={(e) => {
@@ -208,7 +208,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
                           id={`${getFootNoteRefDomId(content)}`}
                         >{`[^${content}]`}</sup>
                       </a>
-                    )}
+                    }
                     type="tooltip"
                   >
                     {footnote?.footnote?.substring(1)}
