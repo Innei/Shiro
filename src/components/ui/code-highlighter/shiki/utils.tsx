@@ -79,6 +79,7 @@ export const isSupportedShikiLang = (lang: string) => {
     'bash',
     'ps',
     'ps1',
+    'powershell',
     // plain text
     'text',
     'plaintext',
