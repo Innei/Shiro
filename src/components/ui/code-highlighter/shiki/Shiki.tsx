@@ -13,7 +13,6 @@ import type { HighlighterCore } from 'shiki'
 
 import { getViewport } from '~/atoms/hooks'
 import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
-import { isSupportedShikiLang } from '~/components/ui/code-highlighter/shiki/utils'
 import { useMaskScrollArea } from '~/hooks/shared/use-mask-scrollarea'
 import { clsxm } from '~/lib/helper'
 
@@ -103,10 +102,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
     return codeHighlighter(highlighter, {
       attrs: attrs || '',
       code: value,
-      lang:
-        language && isSupportedShikiLang(language)
-          ? language.toLowerCase()
-          : '',
+      lang: language ? language.toLowerCase() : '',
     })
   }, [attrs, language, value, highlighter])
 
