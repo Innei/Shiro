@@ -84,5 +84,5 @@ export const isSupportedShikiLang = (lang: string) => {
     'plaintext',
     'txt',
     'plain',
-  ].includes(lang)
+  ].includes(lang.toLowerCase())
 }

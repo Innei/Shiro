@@ -64,9 +64,8 @@ export const ShikiHighLighter: FC<Props> = (props) => {
           () => import('shiki/langs/vue.mjs'),
           () => import('shiki/langs/html.mjs'),
           () => import('shiki/langs/asm.mjs'),
-          () => import('shiki/langs/bash.mjs'),
+          () => import('shiki/langs/shell.mjs'),
           () => import('shiki/langs/ps.mjs'),
-          () => import('shiki/langs/ps1.mjs'),
         ],
         loadWasm: getWasm,
       })
@@ -103,7 +102,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
     return codeHighlighter(highlighter, {
       attrs: attrs || '',
       code: value,
-      lang: language || '',
+      lang: language ? language.toLowerCase() : '',
     })
   }, [attrs, language, value, highlighter])
 
@@ -132,7 +131,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
       {!filename && !!language && (
         <div
           aria-hidden
-          className="pointer-events-none absolute bottom-3 right-3 text-sm opacity-60"
+          className="pointer-events-none absolute bottom-3 right-3 z-10 text-sm opacity-60"
         >
           {language.toUpperCase()}
         </div>
@@ -152,7 +151,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
           <div
             ref={setCodeBlockRef}
             className={clsxm(
-              'relative max-h-[50vh] w-full overflow-auto scrollbar-none',
+              'relative max-h-[50vh] w-full overflow-auto px-4 scrollbar-none',
               !isCollapsed ? '!max-h-[100%]' : isOverflow ? maskClassName : '',
             )}
             dangerouslySetInnerHTML={
