@@ -17,7 +17,6 @@ export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>({
   size?: 'base' | 'lg'
   selector?: string
 } = {}) => {
-  console.log('useMaskScrollArea', element)
   const containerRef = useRef<T>(null)
   const [isScrollToBottom, setIsScrollToBottom] = useState(false)
   const [isScrollToTop, setIsScrollToTop] = useState(false)

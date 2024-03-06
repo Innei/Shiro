@@ -22,7 +22,7 @@ Root.displayName = 'Tabs.Root'
 export const List = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List> & {
-    id: string
+    id?: string
   }
 >(({ id, className, children, ...rest }, forwardedRef) => (
   <TabsPrimitive.List

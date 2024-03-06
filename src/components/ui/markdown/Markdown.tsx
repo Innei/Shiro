@@ -38,6 +38,7 @@ import { MDetails } from './renderers/collapse'
 import { MFootNote } from './renderers/footnotes'
 import { MHeader } from './renderers/heading'
 import { MarkdownImage } from './renderers/image'
+import { Tab, Tabs } from './renderers/Tabs'
 import { MTag } from './renderers/tag'
 import { getFootNoteDomId, getFootNoteRefDomId } from './utils/get-id'
 import { redHighlight } from './utils/redHighlight'
@@ -81,6 +82,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
       as: As = 'div',
       allowsScript = false,
       removeWrapper = false,
+
       ...rest
     } = props
 
@@ -108,6 +110,9 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           details: MDetails,
           img: MarkdownImage,
           tag: MTag,
+
+          Tabs,
+          Tab,
 
           // for custom react component
           // Tag: MTag,
