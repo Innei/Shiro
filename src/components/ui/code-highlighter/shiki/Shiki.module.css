@@ -17,7 +17,7 @@
     }
 
     .line {
-      @apply block min-h-[1em];
+      @apply block min-h-[1em] px-4;
     }
 
     .highlighted,
@@ -70,5 +70,9 @@
         @apply bg-accent;
       }
     }
+  }
+
+  .scroll-container::-webkit-scrollbar-track {
+    margin: 10px; /* 滚动条顶部间距 */
   }
 }

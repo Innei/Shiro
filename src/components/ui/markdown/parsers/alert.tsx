@@ -18,9 +18,9 @@ const textColorMap = {
 } as any
 
 const borderColorMap = {
-  NOTE: 'border-blue-500 dark:border-blue-400',
-  IMPORTANT: 'border-accent',
-  WARNING: 'border-amber-500 dark:border-amber-400',
+  NOTE: 'before:bg-blue-500 before:bg-blue-400',
+  IMPORTANT: 'before:bg-accent',
+  WARNING: 'before:bg-amber-500 dark:before:bg-amber-400',
 } as any
 
 const typedIconMap = {
