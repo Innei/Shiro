@@ -15,10 +15,11 @@ export const PostCopyright: FC = () => {
   const data = useCurrentPostDataSelector(
     (data) => {
       if (!webUrl) return null
+      if (!data) return null
       return {
-        title: data?.title,
-        link: new URL(location.pathname, webUrl).toString(),
-        date: data?.modified,
+        title: data.title,
+        link: `${webUrl}/posts/${data.category.slug}/${data.slug}`,
+        date: data.modified,
       }
     },
     [webUrl],
