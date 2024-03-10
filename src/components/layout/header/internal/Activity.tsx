@@ -11,7 +11,6 @@ import React, {
 } from 'react'
 import clsx from 'clsx'
 import { AnimatePresence, m } from 'framer-motion'
-import Image from 'next/image'
 
 import { setActivityMediaInfo, setActivityProcessInfo } from '~/atoms/activity'
 import { useActivity } from '~/atoms/hooks'
@@ -218,12 +217,11 @@ const TriggerComponent = memo<{
   if (!src) return null
 
   return (
-    <Image
+    <img
       width={32}
       height={32}
       src={error ? ErrorFallback : src}
       alt={processName}
-      priority
       fetchPriority="low"
       className={className}
       onError={() => setError(true)}
