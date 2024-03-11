@@ -3,6 +3,8 @@ import type { NextRequest } from 'next/server'
 
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 
+import { apiClient } from '~/lib/request'
+
 const config = {
   accountId: 'de7ecb0eaa0a328071255d557a6adb66',
   accessKeyId: process.env.S3_ACCESS_KEY as string,
@@ -34,6 +36,17 @@ async function uploadToS3(path: string, body: Buffer, contentType: string) {
 export const POST = async (req: NextRequest) => {
   const formData = await req.formData()
   const file = formData.get('file')
+  const token = formData.get('token') as string
+
+  if (!token) {
+    return NextResponse.json({ error: 'No token received.' }, { status: 400 })
+  }
+  const { isGuest } = await apiClient.user.checkTokenValid(token)
+
+  if (isGuest) {
+    return NextResponse.json({ error: 'Invalid token.' }, { status: 401 })
+  }
+
   if (!file) {
     return NextResponse.json({ error: 'No files received.' }, { status: 400 })
   }
