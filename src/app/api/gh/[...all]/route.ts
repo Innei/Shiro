@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export const runtime = 'edge'
-export const revalidate = 60 * 60 * 24 // 24 hours
+export const revalidate = 86400 // 24 hours
 export const GET = async (req: NextRequest) => {
   const pathname = req.nextUrl.pathname.split('/').slice(3)
   const query = req.nextUrl.searchParams

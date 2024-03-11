@@ -10,7 +10,7 @@ const headers = {
 
 export const runtime = 'edge'
 
-export const revalidate = 60 * 60 // 1 hour
+export const revalidate = 3600 // 1 hour
 
 export const GET = async (req: NextRequest) => {
   const query = req.nextUrl.searchParams

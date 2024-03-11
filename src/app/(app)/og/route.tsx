@@ -26,7 +26,7 @@ const apiClient = createClient(fetchAdaptor)(API_URL, {
 
 export const runtime = 'edge'
 
-export const revalidate = 60 * 60 * 24 // 24 hours
+export const revalidate = 86400 // 24 hours
 
 const resOptions = {
   width: 1200,

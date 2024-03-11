@@ -20,7 +20,7 @@ import { getQueryClient } from '~/lib/query-client.server'
 import { apiClient } from '~/lib/request'
 
 // export const dynamic = 'force-dynamic'
-export const revalidate = 60 * 60 * 24 // 1 day
+export const revalidate = 86400 // 1 day
 
 interface RSSProps {
   title: string
