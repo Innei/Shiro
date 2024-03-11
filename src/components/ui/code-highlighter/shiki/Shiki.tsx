@@ -140,7 +140,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
         <MotionButtonBase
           onClick={handleCopy}
           className={clsx(
-            'absolute right-2 top-2 z-[1] flex rounded border border-current p-2 text-xs center',
+            'absolute right-2 top-2 z-[1] flex rounded p-2 text-xs center',
             'rounded-md border border-accent/5 bg-accent/80 p-1.5 text-white backdrop-blur duration-200',
             'opacity-0 group-hover:opacity-100',
             filename && 'top-12',
