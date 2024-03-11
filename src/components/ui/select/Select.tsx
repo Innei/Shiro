@@ -53,7 +53,7 @@ export const Select = function Select<T>(
         <SelectImpl.Value placeholder={placeholder} />
         <SelectImpl.Icon>
           {isLoading ? (
-            <i className="mingcute--loading-line animate-spin" />
+            <i className="icon-[mingcute--loading-line] animate-spin" />
           ) : (
             <i className="icon-[mingcute--down-line]" />
           )}
