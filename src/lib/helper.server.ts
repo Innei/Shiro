@@ -30,7 +30,7 @@ export const getHost = () => {
 }
 
 export const getOgUrl = (type: 'post' | 'note' | 'page', data: any) => {
-  const ogUrl = new URL(`${isDev ? 'http' : 'https'}://${getHost()}/api/og`)
+  const ogUrl = new URL(`${isDev ? 'http' : 'https'}://${getHost()}/og`)
   ogUrl.searchParams.set(
     'data',
     encodeURIComponent(

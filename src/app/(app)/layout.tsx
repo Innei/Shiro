@@ -119,7 +119,7 @@ export const generateMetadata = async () => {
       type: 'website',
       url: url.webUrl,
       images: {
-        url: `${url.webUrl}/api/og`,
+        url: `${url.webUrl}/og`,
         username: user.name,
       },
     },
