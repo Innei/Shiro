@@ -6,7 +6,6 @@ import { useCallback, useEffect, useMemo } from 'react'
 import { m } from 'framer-motion'
 
 import {
-  useActivityPresence,
   useActivityPresenceBySessionId,
   useSocketIsConnect,
   useSocketSessionId,
@@ -77,12 +76,6 @@ export default () => {
 const ReadPresenceTimeline = () => {
   const sessionId = useSocketSessionId()
   const activityPresence = useActivityPresenceBySessionId(sessionId)
-  console.log(
-    activityPresence,
-    'activityPresence',
-    sessionId,
-    useActivityPresence(),
-  )
 
   return (
     <div className="fixed bottom-0 left-0 top-0">

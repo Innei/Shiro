@@ -287,6 +287,7 @@ export const eventHandler = (
     default: {
       window.dispatchEvent(new CustomEvent(`event:${type}`, { detail: data }))
       if (isDev) {
+        // eslint-disable-next-line no-console
         console.log(type, data)
       }
     }

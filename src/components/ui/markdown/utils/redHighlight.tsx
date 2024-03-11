@@ -6,6 +6,6 @@ export function redHighlight(id: string) {
       fnRefElement.style.color = ''
     }, 5000)
   } else {
-    console.log(`Element with id fnref:${id} not found.`)
+    console.error(`Element with id fnref:${id} not found.`)
   }
 }

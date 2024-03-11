@@ -10,7 +10,6 @@ const factory = (method: string) => async (req: NextRequest) => {
   const res = new NextServerResponse()
 
   const url = `${endpoint}/${pathname.join('/')}`
-  console.log(pathname, 'pathname', url)
 
   const headers = new Headers()
   headers.set(

@@ -55,7 +55,7 @@ const ReactComponentRenderImpl: FC<DlsProps> = (dlsProps) => {
       .then(() => loadScript(dlsProps.import))
       .then(() => {
         const Component = get(window, dlsProps.name)
-        console.log('Component', Component)
+
         setComponent({ component: Component })
       })
   }, [dlsProps])

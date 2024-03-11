@@ -53,6 +53,7 @@ $axios.interceptors.request.use((config) => {
   }
 
   if (isDev && isServerSide) {
+    // eslint-disable-next-line no-console
     console.log(`[Request]: ${config.url}`)
   }
 

@@ -80,6 +80,7 @@ class SocketClient {
   }
   handleEvent(type: EventTypes, data: any) {
     if (isDev) {
+      // eslint-disable-next-line no-console
       console.log(data)
     }
 

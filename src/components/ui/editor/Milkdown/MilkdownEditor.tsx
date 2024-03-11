@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Milkdown, MilkdownProvider, useEditor } from '@milkdown/react'
 import {
   ProsemirrorAdapterProvider,

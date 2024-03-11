@@ -12,7 +12,7 @@ import { isRequestError, pickStatusCode } from '~/lib/is-error'
 // eslint-disable-next-line react/display-name
 export default ({ error, reset }: any) => {
   useEffect(() => {
-    console.log('error', error)
+    console.error('error', error)
     // captureException(error)
   }, [error])
 

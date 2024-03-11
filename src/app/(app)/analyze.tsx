@@ -39,7 +39,7 @@ export const Analyze = () => {
                 }
 
                 if (event) {
-                  console.log('dom track click event', event)
+                  console.info('dom track click event', event)
                   window.umami?.track(event, {
                     type: 'click',
                   })
@@ -54,7 +54,7 @@ export const Analyze = () => {
                 label: string
               }
 
-              console.log(detail, 'detail')
+              console.info(detail, 'detail')
               window.umami?.track(detail.label, {
                 type: 'impression',
               })

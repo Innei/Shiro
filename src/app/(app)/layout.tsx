@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { cache } from 'react'
 import { ToastContainer } from 'react-toastify'
 import type { Viewport } from 'next'

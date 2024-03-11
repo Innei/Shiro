@@ -126,7 +126,7 @@ export default function PreviewPage() {
       if (parsedData.key !== PREVIEW_HASH) {
         return
       }
-      console.debug('preview page receive data', parsedData)
+
       if (parsedData.type === 'preview') {
         if (
           JSON.stringify(jotaiStore.get(previewDataAtom)) ===
@@ -138,7 +138,7 @@ export default function PreviewPage() {
     }
     window.addEventListener('message', handler)
 
-    console.debug('preview page ready')
+    console.info('preview page ready')
     window.opener.postMessage('ok', targetOrigin)
 
     const timer = setInterval(() => {

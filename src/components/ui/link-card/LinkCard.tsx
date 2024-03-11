@@ -110,7 +110,7 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
     setLoading(true)
 
     await fetchFn(id, setCardInfo, setFullUrl).catch((err) => {
-      console.log('fetch card info error: ', err)
+      console.error('fetch card info error: ', err)
       setIsError(true)
     })
     setLoading(false)

@@ -82,12 +82,7 @@ const ModalStack = () => {
   useDismissAllWhenRouterChange()
 
   return (
-    <AnimatePresence
-      mode="popLayout"
-      onExitComplete={() => {
-        console.log('onExitComplete')
-      }}
-    >
+    <AnimatePresence mode="popLayout">
       {stack.map((item, index) => {
         return <Modal key={item.id} item={item} index={index} />
       })}
