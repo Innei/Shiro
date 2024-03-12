@@ -8,7 +8,7 @@ import {
   laziedComponents,
   // mdxName2PromiseMapping,
 } from './glob'
-import Debug from './routes/debug'
+// import Debug from './routes/debug'
 import { Root } from './routes/root'
 
 const renderFromComponents = componentsKeys.map((key, index) => {
@@ -29,11 +29,11 @@ const children = [...renderFromComponents].sort((a, b) => {
   return a.name.localeCompare(b.name)
 })
 
-children.push({
-  path: 'debug',
-  Component: Debug,
-  name: 'debug',
-})
+// children.push({
+//   path: 'debug',
+//   Component: Debug,
+//   name: 'debug',
+// })
 export const routes = createHashRouter([
   {
     path: '/',
