@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { cache } from 'react'
 import { ToastContainer } from 'react-toastify'
-import type { Viewport } from 'next'
+import type { Metadata, Viewport } from 'next'
 import type { PropsWithChildren } from 'react'
 
 import { ClerkProvider } from '@clerk/nextjs'
@@ -58,7 +58,7 @@ const fetchAggregationData = cache(async () => {
     revalidate,
   )
 })
-export const generateMetadata = async () => {
+export const generateMetadata = async (): Promise<Metadata> => {
   const fetchedData = await fetchAggregationData()
 
   const {
@@ -129,7 +129,14 @@ export const generateMetadata = async () => {
       title: seo.title,
       description: seo.description,
     },
-  }
+
+    alternates: {
+      canonical: url.webUrl,
+      types: {
+        'application/rss+xml': [{ url: 'feed', title: 'RSS 订阅' }],
+      },
+    },
+  } satisfies Metadata
 }
 
 export default async function RootLayout(props: PropsWithChildren) {
