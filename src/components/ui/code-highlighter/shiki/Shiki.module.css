@@ -11,6 +11,23 @@
       @apply flex flex-col;
     }
 
+    code {
+      counter-reset: step;
+      counter-increment: step 0;
+    }
+
+    code .line::before {
+      content: counter(step);
+      counter-increment: step;
+      width: 1.5rem;
+      margin: 0 6px;
+      display: inline-block;
+      text-align: right;
+      opacity: 0.3;
+      padding-right: 6px;
+      /* border-right: 1px solid currentColor; */
+    }
+
     .shiki,
     code {
       @apply !bg-transparent;

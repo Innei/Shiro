@@ -11,8 +11,5 @@ export interface ModalProps {
 
   max?: boolean
 
-  ////
-  sheetFullScreen?: boolean | 'half'
-
   wrapper?: FC
 }
