@@ -152,7 +152,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
           <div
             ref={setCodeBlockRef}
             className={clsxm(
-              'relative max-h-[50vh] w-full overflow-auto scrollbar-none',
+              'relative max-h-[50vh] w-full overflow-auto',
               !isCollapsed ? '!max-h-[100%]' : isOverflow ? maskClassName : '',
               styles['scroll-container'],
             )}

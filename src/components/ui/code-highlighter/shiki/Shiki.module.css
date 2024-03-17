@@ -89,7 +89,12 @@
     }
   }
 
-  .scroll-container::-webkit-scrollbar-track {
-    margin: 10px; /* 滚动条顶部间距 */
+  .scroll-container pre::-webkit-scrollbar-track {
+    margin-left: 3rem;
+    margin-right: 8rem;
+  }
+
+  .scroll-container pre::-webkit-scrollbar {
+    background-color: transparent !important;
   }
 }
