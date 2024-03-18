@@ -44,7 +44,7 @@ export const defaultLinkSections: LinkSection[] = [
       },
       {
         name: '发邮件',
-        href: 'mailto:i@innei.ren',
+        href: 'mailto:i@innei.in',
         external: true,
       },
       {
