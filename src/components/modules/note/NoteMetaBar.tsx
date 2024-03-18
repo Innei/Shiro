@@ -60,7 +60,10 @@ export const NoteMetaReadCount = () => {
       {dividerVertical}
       <span className={sectionBlockClassName} key="readcount">
         <i className="icon-[mingcute--book-6-line]" />
-        <span className="font-medium">{read}</span>
+
+        <span className="font-medium">
+          <NumberSmoothTransition>{read}</NumberSmoothTransition>
+        </span>
       </span>
     </>
   )

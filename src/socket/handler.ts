@@ -262,6 +262,34 @@ export const eventHandler = (
       deleteActivityPresence(payload.identity)
       break
     }
+    case EventTypes.ARTICLE_READ_COUNT_UPDATE: {
+      const { id, count, type } = data
+      if (!count) {
+        break
+      }
+
+      switch (type) {
+        case 'post': {
+          const currentData = getGlobalCurrentPostData()
+          if (currentData?.id === id) {
+            setGlobalCurrentPostData((draft) => {
+              draft.count.read = count
+            })
+          }
+          break
+        }
+        case 'note': {
+          const currentData = getCurrentNoteData()?.data
+          if (currentData?.id === id) {
+            setCurrentNoteData((draft) => {
+              draft.data.count.read = count
+            })
+          }
+          break
+        }
+      }
+      break
+    }
 
     case 'fn#media-update': {
       setActivityMediaInfo(data)
