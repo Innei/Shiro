@@ -69,7 +69,7 @@ const HomeOGImage: FC<AggregateRoot> = ({ seo, user: { avatar } }) => {
 
         fontFamily: 'Noto Sans, Inter, "Material Icons"',
 
-        padding: '50px 15rem',
+        padding: '80px 15rem',
         alignItems: 'center',
         justifyContent: 'space-between',
       }}
@@ -198,7 +198,7 @@ export const GET = async (req: NextRequest) => {
 
     let canShownTitle = ''
 
-    let leftContainerWidth = 1100
+    let leftContainerWidth = 1200 - 80 * 2
     for (let i = 0; i < title.length; i++) {
       if (leftContainerWidth < 0) break
       //  cjk 字符算 64 px
@@ -230,7 +230,7 @@ export const GET = async (req: NextRequest) => {
             // fontFamily: 'LXGWWenKai',
             fontFamily: 'Inter, Noto Sans, Inter, "Material Icons"',
 
-            padding: '50px',
+            padding: '80px',
             alignItems: 'flex-end',
             justifyContent: 'flex-end',
           }}
