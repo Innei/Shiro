@@ -134,7 +134,7 @@ const ReadPresenceTimeline = () => {
 
   return (
     <RootPortal>
-      <div className="group fixed bottom-20 left-0 top-20 z-[3]">
+      <div className="group fixed bottom-20 left-0 top-20 z-[3] w-8">
         {uniq(activityPresenceIdsCurrentRoom).map((identity) => {
           return (
             <TimelineItem
@@ -268,8 +268,8 @@ const MoitonBar = forwardRef<
       aria-label={isCurrent ? '你在这里' : `读者在这里 - ${position}%`}
       ref={elRef}
       className={clsx(
-        'absolute h-2 -translate-x-4 rounded-full bg-accent duration-200 group-hover:opacity-80 hover:-translate-x-2 hover:opacity-100',
-        isCurrent ? 'w-9 opacity-40 group-hover:opacity-100' : 'w-8 opacity-30',
+        'absolute h-2 -translate-x-4 rounded-full bg-accent duration-200 group-hover:w-10 group-hover:opacity-80 hover:-translate-x-2 hover:opacity-100',
+        isCurrent ? 'w-9 opacity-40 group-hover:opacity-100' : 'w-8 opacity-20',
       )}
       style={{
         top: isCurrent ? `${position}%` : void 0,
