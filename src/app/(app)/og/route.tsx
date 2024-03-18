@@ -69,7 +69,7 @@ const HomeOGImage: FC<AggregateRoot> = ({ seo, user: { avatar } }) => {
 
         fontFamily: 'Noto Sans, Inter, "Material Icons"',
 
-        padding: '5rem 15rem',
+        padding: '50px 15rem',
         alignItems: 'center',
         justifyContent: 'space-between',
       }}
