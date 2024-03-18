@@ -2,8 +2,6 @@ import { dehydrate } from '@tanstack/react-query'
 import type { PropsWithChildren } from 'react'
 
 import { QueryHydrate } from '~/components/common/QueryHydrate'
-import { CacheKeyMap } from '~/constants/keys'
-import { onlyGetOrSetCacheInVercelButFallback } from '~/lib/cache'
 import { isShallowEqualArray } from '~/lib/lodash'
 import { getQueryClient } from '~/lib/query-client.server'
 import { apiClient } from '~/lib/request'
@@ -19,13 +17,7 @@ export default async function HomeLayout(props: PropsWithChildren) {
     .fetchQuery({
       queryKey,
       queryFn: async () => {
-        return onlyGetOrSetCacheInVercelButFallback(
-          CacheKeyMap.AggregateTop,
-          async () => {
-            return (await apiClient.aggregate.getTop(5)).$serialized
-          },
-          revalidate,
-        )
+        return (await apiClient.aggregate.getTop(5)).$serialized
       },
     })
     .catch(requestErrorHandler)

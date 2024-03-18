@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import { NormalContainer } from '~/components/layout/container/Normal'
 import { PostsSortingFab } from '~/components/modules/post/fab/PostsSortingFab'
 import { PostTagsFAB } from '~/components/modules/post/fab/PostTagsFAB'
@@ -6,8 +7,6 @@ import { PostPagination } from '~/components/modules/post/PostPagination'
 import { NothingFound } from '~/components/modules/shared/NothingFound'
 import { SearchFAB } from '~/components/modules/shared/SearchFAB'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
-import { CacheKeyMap } from '~/constants/keys'
-import { onlyGetOrSetCacheInVercelButFallback } from '~/lib/cache'
 import { apiClient } from '~/lib/request'
 
 interface Props {
@@ -28,14 +27,13 @@ export default async (props: Props) => {
   const currentPage = page ? parseInt(page) : 1
   const currentSize = size ? parseInt(size) : 10
 
-  const { data, pagination } = await onlyGetOrSetCacheInVercelButFallback(
-    CacheKeyMap.PostListWithPage(currentPage),
-    async () =>
-      await apiClient.post.getList(currentPage, currentSize, {
-        sortBy: sortBy as any,
-        sortOrder: orderBy === 'desc' ? -1 : 1,
-      }),
-    3600,
+  const { data, pagination } = await apiClient.post.getList(
+    currentPage,
+    currentSize,
+    {
+      sortBy: sortBy as any,
+      sortOrder: orderBy === 'desc' ? -1 : 1,
+    },
   )
 
   if (!data?.length) {
