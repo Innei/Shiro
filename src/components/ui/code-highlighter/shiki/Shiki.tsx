@@ -165,8 +165,8 @@ export const ShikiHighLighter: FC<Props> = (props) => {
             }
           >
             {renderedHtml ? undefined : (
-              <pre className="bg-transparent">
-                <code className="px-4">{value}</code>
+              <pre className="bg-transparent px-4">
+                <code className="!px-4">{value}</code>
               </pre>
             )}
           </div>

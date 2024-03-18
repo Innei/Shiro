@@ -7,6 +7,7 @@ import type { ReactNode } from 'react'
 import { HighLighterPrismCdn } from '~/components/ui/code-highlighter'
 import { isSupportedShikiLang } from '~/components/ui/code-highlighter/shiki/utils'
 import { ExcalidrawLoading } from '~/components/ui/excalidraw/ExcalidrawLoading'
+import { isClientSide } from '~/lib/env'
 
 import { BlockLoading } from './BlockLoading'
 
@@ -29,6 +30,8 @@ const ExcalidrawLazy = ({ data }: any) => {
     </Suspense>
   )
 }
+
+let shikiImport: ComponentType<any>
 export const CodeBlockRender = (props: {
   lang: string | undefined
   content: string
@@ -56,11 +59,16 @@ export const CodeBlockRender = (props: {
       default: {
         const lang = props.lang
         if (lang && isSupportedShikiLang(lang)) {
-          const ShikiHighLighter = dynamic(() =>
-            import('~/components/ui/code-highlighter/shiki/Shiki').then(
-              (mod) => mod.ShikiHighLighter,
-            ),
-          )
+          const ShikiHighLighter =
+            shikiImport ??
+            dynamic(() =>
+              import('~/components/ui/code-highlighter/shiki/Shiki').then(
+                (mod) => mod.ShikiHighLighter,
+              ),
+            )
+          if (isClientSide) {
+            shikiImport = ShikiHighLighter
+          }
           return <ShikiHighLighter {...props} />
         }
 

@@ -7,6 +7,7 @@ import {
   useId,
   useState,
 } from 'react'
+import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { m } from 'framer-motion'
 import type { FC, PropsWithChildren } from 'react'
 
@@ -19,20 +20,23 @@ export const Tabs: FC<PropsWithChildren> = ({ children }) => {
   const [tabs, setTabs] = useState<string[]>([])
   const [activeTab, setActiveTab] = useState<string | null>(null)
   const id = useId()
+
+  useEffect(() => {
+    if (!tabs.length) return
+    if (!activeTab) {
+      setActiveTab(tabs[0])
+    }
+  }, [tabs.length])
   return (
     <TabActionContext.Provider
       value={{
-        addTab: useCallback(
-          (label) => {
-            setTabs((tabs) => [...tabs, label])
+        addTab: useCallback((label) => {
+          setTabs((tabs) => [...tabs, label])
 
-            if (!activeTab) setActiveTab(label)
-            return () => {
-              setTabs((tabs) => tabs.filter((tab) => tab !== label))
-            }
-          },
-          [activeTab],
-        ),
+          return () => {
+            setTabs((tabs) => tabs.filter((tab) => tab !== label))
+          }
+        }, []),
       }}
     >
       <RadixTabs.Root value={activeTab || ''} onValueChange={setActiveTab}>
@@ -72,7 +76,7 @@ export const Tab: FC<{
   children: React.ReactNode
 }> = ({ label, children }) => {
   const { addTab } = useContext(TabActionContext)
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     return addTab(label)
   }, [])
 
