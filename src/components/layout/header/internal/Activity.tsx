@@ -25,6 +25,8 @@ import {
   useAppConfigSelector,
 } from '~/providers/root/aggregation-data-provider'
 
+import { useHeaderMetaShouldShow } from './hooks'
+
 const ActivityIconContext = createContext<{
   appIcon: any
   appDescription: any
@@ -38,11 +40,14 @@ const fetchJsonData = () => {
   ])
 }
 export const Activity = () => {
+  const shouldShowMeta = useHeaderMetaShouldShow()
+
   const { data } = useQuery({
     queryKey: ['app-icon', 'app-desc'],
     queryFn: fetchJsonData,
   })
   if (!data) return null
+  if (shouldShowMeta) return null
   const [appLabels, appDescription] = data
   return (
     <ActivityIconContext.Provider
