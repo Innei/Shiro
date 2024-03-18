@@ -174,6 +174,9 @@ export const GET = async (req: NextRequest) => {
       seo,
     } = aggregation
 
+    // HARD CODE MY AVATAR URL
+    aggregation.user.avatar =
+      'https://cdn.jsdelivr.net/gh/Innei/static@master/avatar128x128.png'
     if (!title)
       return new Response(
         'Failed to generate the OG image. Error: The title is required.',
