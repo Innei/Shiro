@@ -5,19 +5,19 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "s-maxage=30, stale-while-revalidate=59"
+          "value": "s-maxage=30, stale-while-revalidate=30"
         },
         {
           "key": "CDN-Cache-Control",
-          "value": "max-age=30"
+          "value": "max-age=30, stale-while-revalidate=86400"
         },
         {
           "key": "Vercel-CDN-Cache-Control",
-          "value": "max-age=30"
+          "value": "max-age=30, stale-while-revalidate=86400"
         },
         {
           "key": "Cloudflare-CDN-Cache-Control",
-          "value": "max-age=30"
+          "value": "max-age=30, stale-while-revalidate=86400"
         }
       ]
     },
@@ -30,15 +30,15 @@
         },
         {
           "key": "CDN-Cache-Control",
-          "value": "max-age=60"
+          "value": "max-age=60, stale-while-revalidate=86400"
         },
         {
           "key": "Vercel-CDN-Cache-Control",
-          "value": "max-age=60"
+          "value": "max-age=60, stale-while-revalidate=86400"
         },
         {
-          "key": "Vercel-CDN-Cache-Control",
-          "value": "max-age=60"
+          "key": "Cloudflare-CDN-Cache-Control",
+          "value": "max-age=60, stale-while-revalidate=86400"
         }
       ]
     },
@@ -55,11 +55,11 @@
         },
         {
           "key": "Vercel-CDN-Cache-Control",
-          "value": "max-age=30"
+          "value": "max-age=30, stale-while-revalidate=86400"
         },
         {
-          "key": "Vercel-CDN-Cache-Control",
-          "value": "max-age=30"
+          "key": "Cloudflare-CDN-Cache-Control",
+          "value": "max-age=30, stale-while-revalidate=86400"
         }
       ]
     },
@@ -76,11 +76,11 @@
         },
         {
           "key": "Vercel-CDN-Cache-Control",
-          "value": "max-age=3600"
+          "value": "max-age=3600, stale-while-revalidate=86400"
         },
         {
-          "key": "Vercel-CDN-Cache-Control",
-          "value": "max-age=3600"
+          "key": "Cloudflare-CDN-Cache-Control",
+          "value": "max-age=3600, stale-while-revalidate=86400"
         }
       ]
     },
@@ -97,11 +97,11 @@
         },
         {
           "key": "Vercel-CDN-Cache-Control",
-          "value": "max-age=10"
+          "value": "max-age=10, stale-while-revalidate=60"
         },
         {
-          "key": "Vercel-CDN-Cache-Control",
-          "value": "max-age=10"
+          "key": "Cloudflare-CDN-Cache-Control",
+          "value": "max-age=10, stale-while-revalidate=60"
         }
       ]
     },
@@ -118,11 +118,11 @@
         },
         {
           "key": "Vercel-CDN-Cache-Control",
-          "value": "max-age=30"
+          "value": "max-age=30, stale-while-revalidate=86400"
         },
         {
-          "key": "Vercel-CDN-Cache-Control",
-          "value": "max-age=30"
+          "key": "Cloudflare-CDN-Cache-Control",
+          "value": "max-age=30, stale-while-revalidate=86400"
         }
       ]
     },
@@ -139,11 +139,11 @@
         },
         {
           "key": "Vercel-CDN-Cache-Control",
-          "value": "max-age=30"
+          "value": "max-age=30, stale-while-revalidate=86400"
         },
         {
-          "key": "Vercel-CDN-Cache-Control",
-          "value": "max-age=30"
+          "key": "Cloudflare-CDN-Cache-Control",
+          "value": "max-age=30, stale-while-revalidate=86400"
         }
       ]
     },
@@ -163,7 +163,7 @@
           "value": "max-age=86400"
         },
         {
-          "key": "Vercel-CDN-Cache-Control",
+          "key": "Cloudflare-CDN-Cache-Control",
           "value": "max-age=86400"
         }
       ]
