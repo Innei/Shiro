@@ -11,8 +11,8 @@ const FallbackComponent = () => {
   return (
     <div className="flex w-full flex-col py-6 center">
       Something went wrong. Please contract to{' '}
-      <a href="mailto:i@innei.ren" className="shiro-link--underline">
-        i@innei.ren
+      <a href="mailto:i@innei.in" className="shiro-link--underline">
+        i@innei.in
       </a>
       .
       <StyledButton
