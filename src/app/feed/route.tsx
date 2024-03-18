@@ -5,7 +5,7 @@ import {
   Priority,
   simpleInlineRegex,
 } from 'markdown-to-jsx'
-import RemoveMarkdown from 'remove-markdown'
+import RSS from 'rss'
 import xss from 'xss'
 import type { AggregateRoot } from '@mx-space/api-client'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
@@ -16,7 +16,6 @@ import { MarkRule } from '~/components/ui/markdown/parsers/mark'
 import { MentionRule } from '~/components/ui/markdown/parsers/mention'
 import { SpoilerRule } from '~/components/ui/markdown/parsers/spoiler'
 import { escapeXml } from '~/lib/helper.server'
-import { getQueryClient } from '~/lib/query-client.server'
 import { apiClient } from '~/lib/request'
 
 // export const dynamic = 'force-dynamic'
@@ -39,52 +38,41 @@ interface RSSProps {
 
 export async function GET() {
   const ReactDOM = (await import('react-dom/server')).default
-  const queryClient = getQueryClient()
 
-  const { author, data, url } = await queryClient.fetchQuery({
-    queryKey: ['rss'],
-    queryFn: async () => {
-      const path = apiClient.aggregate.proxy.feed.toString(true)
-      return fetch(path).then((res) => res.json() as Promise<RSSProps>)
-    },
-  })
-
-  const agg = await fetch(apiClient.aggregate.proxy.toString(true)).then(
-    (res) => res.json() as Promise<AggregateRoot>,
-  )
+  const [{ author, data, url }, agg] = await Promise.all([
+    fetch(apiClient.aggregate.proxy.feed.toString(true), {
+      next: {
+        revalidate: 86400,
+      },
+    }).then((res) => res.json() as Promise<RSSProps>),
+    fetch(apiClient.aggregate.proxy.toString(true), {
+      next: {
+        revalidate: 86400,
+      },
+    }).then((res) => res.json() as Promise<AggregateRoot>),
+  ])
 
   const { title, description } = agg.seo
-  const { avatar } = agg.user
+
   const now = new Date()
-  const xml = `<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
-<channel>
-<atom:link href="${xss(
-    escapeXml(url),
-  )}/feed" rel="self" type="application/rss+xml"/>
-<title>${title}</title>
-<link>${xss(escapeXml(url))}</link>
-<description>${escapeXml(description)}</description>
-<language>zh-CN</language>
-<copyright>© ${escapeXml(author)} </copyright>
-<pubDate>${now.toUTCString()}</pubDate>
-<generator>Mix Space CMS (https://github.com/mx-space)</generator>
-<docs>https://mx-space.js.org</docs>
-<image>
-    <url>${xss(escapeXml(avatar) || '')}</url>
-    <title>${escapeXml(title)}</title>
-    <link>${xss(escapeXml(url))}</link>
-</image>
-${await Promise.all(
-  data.map(async (item) => {
-    return `<item>
-    <title>${escapeXml(item.title)}</title>
-    <link>${escapeXml(xss(item.link))}</link>
-    <pubDate>${new Date(item.created!).toUTCString()}</pubDate>
-    <description>${escapeXml(
-      xss(RemoveMarkdown(item.text).slice(0, 50)),
-    )}</description>
-    <content:encoded><![CDATA[
-      ${`<blockquote>该渲染由 Shiro API 生成，可能存在排版问题，最佳体验请前往：<a href='${xss(
+  const feed = new RSS({
+    title,
+    description,
+    site_url: url,
+    feed_url: `${url}/feed`,
+    language: 'zh-CN',
+    image_url: `${url}/og`,
+    generator: 'Shiro (https://github.com/Innei/Shiro)',
+    pubDate: now.toUTCString(),
+  })
+
+  data.forEach((item) => {
+    feed.item({
+      author,
+      title: item.title,
+      url: item.link,
+      date: item.created!,
+      description: `<blockquote>该渲染由 Shiro API 生成，可能存在排版问题，最佳体验请前往：<a href='${xss(
         item.link,
       )}'>${escapeXml(xss(item.link))}</a></blockquote>
 ${ReactDOM.renderToString(
@@ -95,6 +83,8 @@ ${ReactDOM.renderToString(
         Gallery: () => (
           <div style={{ textAlign: 'center' }}>这个内容只能在原文中查看哦~</div>
         ),
+        Tabs: NotSupportRender,
+        Tab: NotSupportRender,
 
         img: ({ src, alt }) => {
           if (src) {
@@ -142,21 +132,16 @@ ${ReactDOM.renderToString(
 )}
       <p style='text-align: right'>
       <a href='${`${xss(item.link)}#comments`}'>看完了？说点什么呢</a>
-      </p>`}
-    ]]>
-    </content:encoded>
-  <guid isPermaLink="false">${item.id}</guid>
- </item>
-  `
-  }),
-).then((res) => res.join(''))}
-</channel></rss>`
+      </p>`,
+    })
+  })
 
-  return new Response(xml, {
+  return new Response(feed.xml(), {
     headers: {
       'Content-Type': 'application/xml',
       'Cache-Control': 'max-age=60, s-maxage=86400',
       'CDN-Cache-Control': 'max-age=86400',
+      'Cloudflare-CDN-Cache-Control': 'max-age=86400',
       'Vercel-CDN-Cache-Control': 'max-age=86400',
     },
   })
