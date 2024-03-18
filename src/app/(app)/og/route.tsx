@@ -110,6 +110,7 @@ const HomeOGImage: FC<AggregateRoot> = ({ seo, user: { avatar } }) => {
     </div>
   )
 }
+
 export const GET = async (req: NextRequest) => {
   try {
     const { searchParams } = req.nextUrl
@@ -167,7 +168,7 @@ export const GET = async (req: NextRequest) => {
         break
       }
     }
-    const { title, subtitle } = document
+    const { subtitle, title } = document
 
     const {
       user: { avatar },
@@ -196,21 +197,22 @@ export const GET = async (req: NextRequest) => {
     }).color
 
     let canShownTitle = ''
-    let leftContainerWidth = 1200
+
+    let leftContainerWidth = 1100
     for (let i = 0; i < title.length; i++) {
       if (leftContainerWidth < 0) break
-      //  cjk 字符算 67.2 px
+      //  cjk 字符算 64 px
       const char = title[i]
       // char 不能是 emoji
       if ((char >= '\u4e00' && char <= '\u9fa5') || char === ' ') {
-        leftContainerWidth -= 67.2
+        leftContainerWidth -= 64
         canShownTitle += char
       } else if (char >= '\u0000' && char <= '\u00ff') {
-        // latin 字符算 33.6 px
-        leftContainerWidth -= 33.6
+        // latin 字符算 40px
+        leftContainerWidth -= 40
         canShownTitle += char
       } else {
-        leftContainerWidth -= 67.2
+        leftContainerWidth -= 64
         canShownTitle += char
       }
     }
@@ -226,9 +228,9 @@ export const GET = async (req: NextRequest) => {
             background: `linear-gradient(37deg, ${bgAccent} 27.82%, ${bgAccentLight} 79.68%, ${bgAccentUltraLight} 100%)`,
 
             // fontFamily: 'LXGWWenKai',
-            fontFamily: 'Noto Sans, Inter, "Material Icons"',
+            fontFamily: 'Inter, Noto Sans, Inter, "Material Icons"',
 
-            padding: '5rem',
+            padding: '50px',
             alignItems: 'flex-end',
             justifyContent: 'flex-end',
           }}
@@ -276,19 +278,20 @@ export const GET = async (req: NextRequest) => {
               style={{
                 color: 'rgba(255, 255, 255, 0.92)',
 
-                fontSize: '4.2rem',
+                fontSize: `${(canShownTitle.length / title.length) * 64}px`,
                 whiteSpace: 'nowrap',
                 textOverflow: 'ellipsis',
                 WebkitLineClamp: 1,
                 lineClamp: 1,
               }}
             >
-              {canShownTitle}
+              {title}
             </h1>
             <h2
               style={{
-                color: 'rgba(230, 230, 230, 0.85)',
-                fontSize: '3rem',
+                color: 'rgba(255, 255, 255, 0.85)',
+                fontSize: '38px',
+                fontWeight: 300,
               }}
             >
               {subtitle}
