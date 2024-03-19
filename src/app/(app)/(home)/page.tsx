@@ -129,7 +129,7 @@ const Hero = () => {
       <TwoColumnLayout leftContainerClassName="mt-[120px] lg:mt-0 h-[15rem] lg:h-1/2">
         <>
           <m.div
-            className="group relative leading-[4] [&_*]:inline-block"
+            className="group relative text-center leading-[4] lg:text-left [&_*]:inline-block"
             initial={{ opacity: 0.0001, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={softBouncePreset}
@@ -159,7 +159,7 @@ const Hero = () => {
           <BottomToUpTransitionView
             delay={titleAnimateD + 500}
             transition={softBouncePreset}
-            className="my-3"
+            className="my-3 text-center lg:text-left"
           >
             <span className="opacity-80">{description}</span>
           </BottomToUpTransitionView>
