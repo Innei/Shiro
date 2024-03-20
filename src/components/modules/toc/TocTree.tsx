@@ -76,7 +76,12 @@ export const TocTree: Component<
   const toc: ITocItem[] = useMemo(() => {
     return Array.from($headings).map((el, idx) => {
       const depth = +el.tagName.slice(1)
-      const title = el.textContent || ''
+      const elClone = el.cloneNode(true) as HTMLElement
+      elClone.querySelectorAll('del').forEach((del) => {
+        del.remove()
+      })
+
+      const title = elClone.textContent || ''
 
       const index = idx
 

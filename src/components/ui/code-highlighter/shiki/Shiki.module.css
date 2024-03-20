@@ -11,26 +11,22 @@
       @apply flex flex-col;
     }
 
-    code {
-      counter-reset: step;
-      counter-increment: step 0;
-    }
-
     .shiki,
     code {
       @apply !bg-transparent;
     }
 
     .line {
-      @apply block min-h-[1em] px-4;
+      @apply block min-h-[1em] px-5;
+
+      & > span:last-child {
+        @apply mr-5;
+      }
     }
 
     .highlighted,
     .diff {
       @apply relative break-all;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      overflow: auto;
 
       &::before {
         @apply absolute left-0 top-0 h-full w-[2px];
@@ -67,10 +63,6 @@
     .highlighted {
       @apply bg-accent/20;
 
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      overflow: auto;
-
       &::before {
         @apply bg-accent;
       }
@@ -78,8 +70,8 @@
   }
 
   .scroll-container pre::-webkit-scrollbar-track {
-    margin-left: 3rem;
-    margin-right: 8rem;
+    margin-left: 1rem;
+    margin-right: var(--sr-margin, 0);
   }
 
   .scroll-container pre::-webkit-scrollbar {

@@ -50,7 +50,7 @@ export const MLink: FC<{
       type="tooltip"
       TriggerComponent={useCallback(
         () => (
-          <span className="inline items-center">
+          <span className="inline items-center font-sans">
             <Favicon href={href} />
             <a
               className="shiro-link--underline"
