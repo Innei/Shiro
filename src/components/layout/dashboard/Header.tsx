@@ -27,7 +27,7 @@ export const LayoutHeader = () => {
 
   const ownerAvatar = useAggregationSelector((s) => s.user?.avatar)
   return (
-    <header className="fixed left-0 right-0 top-0 z-[19] border-b-[0.5px] border-zinc-200 bg-white/80 pl-6 backdrop-blur dark:border-neutral-900 dark:bg-zinc-900/80">
+    <header className="fixed inset-x-0 top-0 z-[19] border-b-[0.5px] border-zinc-200 bg-white/80 pl-6 backdrop-blur dark:border-neutral-900 dark:bg-zinc-900/80">
       <nav className="flex h-16 items-center">
         <div className="flex items-center space-x-1 lg:space-x-3">
           <MotionButtonBase
@@ -55,7 +55,7 @@ export const LayoutHeader = () => {
           <BreadcrumbDivider className="opacity-0 lg:opacity-20" />
         </div>
 
-        <div className="relative flex min-w-0 flex-grow items-center justify-between">
+        <div className="relative flex min-w-0 grow items-center justify-between">
           <HeaderMenu className="hidden lg:flex" />
 
           <RightBar />
@@ -69,11 +69,11 @@ export const LayoutHeader = () => {
 const RightBar = () => {
   const user = useAggregationSelector((s) => s.user)
   return (
-    <div className="relative mr-2 flex flex-grow items-center justify-end space-x-2 lg:mr-4 lg:flex-grow-0">
+    <div className="relative mr-2 flex grow items-center justify-end space-x-2 lg:mr-4 lg:grow-0">
       <ThemeToggle />
       <MobileMenuDrawerButton />
       <Avatar
-        className="h-9 w-9 select-none rounded-full bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800 dark:ring-zinc-800"
+        className="size-9 select-none rounded-full bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800 dark:ring-zinc-800"
         width={24}
         height={24}
         imageUrl={user?.avatar || ''}

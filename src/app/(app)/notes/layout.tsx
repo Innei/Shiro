@@ -11,7 +11,7 @@ export default async (props: PropsWithChildren) => {
         'relative mx-auto grid min-h-[calc(100vh-6.5rem-10rem)] max-w-[60rem]',
         'gap-4 md:grid-cols-1 xl:max-w-[calc(60rem+400px)] xl:grid-cols-[1fr_minmax(auto,60rem)_1fr]',
         'mt-12',
-        'print:!block print:!max-w-full md:mt-24',
+        'md:mt-24 print:!block print:!max-w-full',
       )}
     >
       <div className="relative hidden min-w-0 xl:block" data-hide-print>
@@ -20,7 +20,7 @@ export default async (props: PropsWithChildren) => {
 
       {props.children}
 
-      <LayoutRightSideProvider className="relative hidden print:!hidden xl:block" />
+      <LayoutRightSideProvider className="relative hidden xl:block print:!hidden" />
     </div>
   )
 }

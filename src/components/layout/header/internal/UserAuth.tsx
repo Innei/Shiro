@@ -99,7 +99,7 @@ const TriggerComponent = () => {
   return (
     <SignInButton mode="modal" redirectUrl={urlBuilder(pathname).href}>
       <HeaderActionButton aria-label="Guest Login">
-        <UserArrowLeftIcon className="h-4 w-4" />
+        <UserArrowLeftIcon className="size-4" />
       </HeaderActionButton>
     </SignInButton>
   )

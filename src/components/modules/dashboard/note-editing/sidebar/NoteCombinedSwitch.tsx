@@ -19,7 +19,7 @@ export const NoteCombinedSwitch = () => {
   return (
     <>
       <LabelSwitch
-        className="flex-shrink-0"
+        className="shrink-0"
         checked={isHide}
         onCheckedChange={setIsHide}
       >
@@ -27,7 +27,7 @@ export const NoteCombinedSwitch = () => {
       </LabelSwitch>
 
       <LabelSwitch
-        className="flex-shrink-0"
+        className="shrink-0"
         checked={passwordEnable}
         onCheckedChange={(checked) => {
           setPasswordEnable(checked)
@@ -50,7 +50,7 @@ export const NoteCombinedSwitch = () => {
       )}
 
       <LabelSwitch
-        className="flex-shrink-0"
+        className="shrink-0"
         checked={allowComment}
         onCheckedChange={setAllowComment}
       >
@@ -58,7 +58,7 @@ export const NoteCombinedSwitch = () => {
       </LabelSwitch>
 
       <LabelSwitch
-        className="flex-shrink-0"
+        className="shrink-0"
         checked={bookmark}
         onCheckedChange={setHasMemory}
       >

@@ -337,7 +337,7 @@ const SubmitButton = () => {
       disabled={isPending}
       onClick={onClickSend}
     >
-      <TiltedSendIcon className="h-5 w-5 text-zinc-800 dark:text-zinc-200" />
+      <TiltedSendIcon className="size-5 text-zinc-800 dark:text-zinc-200" />
       <m.span className="text-sm" layout="size">
         {isPending ? '送信...' : '送信'}
       </m.span>

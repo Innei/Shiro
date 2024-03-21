@@ -102,7 +102,7 @@ const cardSlot: CardProps<NoteModel>['slots'] = {
                 <img
                   src={data.topic?.icon}
                   alt=""
-                  className="h-5 w-5 rounded-full"
+                  className="size-5 rounded-full"
                 />
                 <div>{data.topic && data.topic.name}</div>
               </div>

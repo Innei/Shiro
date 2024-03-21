@@ -19,13 +19,13 @@ export const TitleExtra = <T extends RequiredField & OptionalField>(props: {
 
   return (
     <div className={clsxm('relative flex w-[300px] items-center', className)}>
-      <div className="relative flex w-0 min-w-0 flex-grow flex-row items-center space-x-2 [&_i]:opacity-60 [&_svg]:opacity-60">
+      <div className="relative flex w-0 min-w-0 grow flex-row items-center space-x-2 [&_i]:opacity-60 [&_svg]:opacity-60">
         {pin && <i className="icon-[mingcute--pin-line] !text-warning" />}
-        <div className="relative flex min-w-0 flex-shrink items-center">
+        <div className="relative flex min-w-0 shrink items-center">
           <EllipsisHorizontalTextWithTooltip wrapperClassName="inline-block !w-auto max-w-full">
             {title}
           </EllipsisHorizontalTextWithTooltip>
-          <div className="absolute bottom-0 right-[-8px] top-0 flex translate-x-full items-center space-x-2">
+          <div className="absolute inset-y-0 right-[-8px] flex translate-x-full items-center space-x-2">
             {hide && <PhEyeSlash />}
             <MotionButtonBase
               className="inline-flex items-center"

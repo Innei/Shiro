@@ -62,7 +62,7 @@ export const RelatedPostSelector = () => {
                 {item.title}
               </EllipsisHorizontalTextWithTooltip>
               <MotionButtonBase
-                className="-mr-2 flex-shrink-0 select-none items-center p-2 text-xs text-gray-500 duration-200 hover:text-red-400"
+                className="-mr-2 shrink-0 select-none items-center p-2 text-xs text-gray-500 duration-200 hover:text-red-400"
                 onClick={(e) => {
                   e.stopPropagation()
                   setter(
@@ -186,7 +186,7 @@ const RealtedPostList: FC = () => {
               />
               <label
                 htmlFor={labelFor}
-                className="flex w-[60ch] max-w-full flex-grow items-center"
+                className="flex w-[60ch] max-w-full grow items-center"
               >
                 <EllipsisHorizontalTextWithTooltip wrapperClassName="flex w-0 flex-grow">
                   {post.title}

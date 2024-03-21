@@ -49,7 +49,7 @@ export const EllipsisTextWithTooltip = (props: EllipsisProps) => {
   return (
     <FloatPopover
       type="tooltip"
-      wrapperClassName={clsxm('truncate min-w-0 w-full', wrapperClassName)}
+      wrapperClassName={clsxm('w-full min-w-0 truncate', wrapperClassName)}
       isDisabled={!isOverflowed || disabled}
       TriggerComponent={useCallback(
         () => (

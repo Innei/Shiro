@@ -14,7 +14,7 @@ export const CommentMobileList = () => {
 
   if (isLoading && isUndefined(data)) {
     return (
-      <div className="flex flex-grow items-center justify-center">
+      <div className="flex grow items-center justify-center">
         <Spinner />
       </div>
     )
@@ -26,7 +26,7 @@ export const CommentMobileList = () => {
     }, 0) || 0
 
   if (totalLength === 0) {
-    return <Empty className="flex-grow" />
+    return <Empty className="grow" />
   }
 
   return (

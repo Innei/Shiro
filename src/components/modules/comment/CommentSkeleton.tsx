@@ -3,12 +3,12 @@ const CommentSkeletonSingle = () => {
     <li className="relative animate-pulse list-none">
       <div className="group flex w-full items-stretch gap-2">
         <div className="flex w-9 shrink-0 items-end">
-          <div className="h-9 w-9 rounded-full bg-gray-300 dark:bg-neutral-600" />
+          <div className="size-9 rounded-full bg-gray-300 dark:bg-neutral-600" />
         </div>
 
         <div className="flex w-full min-w-0 flex-1 flex-col items-start">
           <span className="relative mb-2 flex w-full min-w-0 items-center justify-center gap-2">
-            <span className="flex flex-grow items-center gap-2">
+            <span className="flex grow items-center gap-2">
               <span className="ml-2 h-4 w-20 bg-gray-300 dark:bg-neutral-600" />
               <span className="flex select-none items-center space-x-2">
                 <span className="inline-flex h-4 w-20 bg-gray-300 text-[0.71rem] font-medium opacity-40 dark:bg-neutral-600" />

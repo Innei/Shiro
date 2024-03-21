@@ -58,7 +58,7 @@ export const PostItemHoverOverlay = () => {
             className={clsx(
               'absolute z-[-1] rounded-xl',
               'bg-accent/10 dark:bg-neutral-800',
-              'bottom-[1rem] left-[-1rem] right-[-1.5rem] top-[1rem]',
+              'inset-y-4 -left-4 -right-6',
             )}
           />
         )}

@@ -25,8 +25,8 @@ export const MenuPopover: Component<{
       popoverWrapperClassNames="z-[19] relative"
       popoverClassNames={clsxm([
         'select-none rounded-xl bg-white/60 outline-none dark:bg-neutral-900/60',
-        'shadow-lg shadow-zinc-800/5 border border-zinc-900/5 backdrop-blur-md',
-        'dark:from-zinc-900/70 dark:to-zinc-800/90 dark:border-zinc-100/10',
+        'border border-zinc-900/5 shadow-lg shadow-zinc-800/5 backdrop-blur-md',
+        'dark:border-zinc-100/10 dark:from-zinc-900/70 dark:to-zinc-800/90',
         'relative flex w-[130px] flex-col py-1',
         'focus-visible:!ring-0',
       ])}
@@ -70,7 +70,7 @@ const Item = memo(function Item(
           layoutId={currentId}
           transition={softSpringPreset}
           className={clsxm(
-            'absolute bottom-0 left-0 right-2 top-0 z-[-1] rounded-md',
+            'absolute inset-y-0 left-0 right-2 z-[-1] rounded-md',
             'bg-zinc-50 dark:bg-neutral-900',
             'border border-zinc-200 dark:border-zinc-800',
           )}

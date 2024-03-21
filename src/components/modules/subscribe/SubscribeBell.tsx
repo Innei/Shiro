@@ -32,7 +32,7 @@ export const SubscribeBell: FC<SubscribeBellProps> = (props) => {
       </p>
       <MotionButtonBase onClick={present}>
         <span className="sr-only">订阅</span>
-        <i className="icon-[material-symbols--notifications-active-outline] mt-4 scale-150 transform text-3xl text-accent opacity-50 transition-opacity hover:opacity-100" />
+        <i className="icon-[material-symbols--notifications-active-outline] mt-4 scale-150 text-3xl text-accent opacity-50 transition-opacity hover:opacity-100" />
       </MotionButtonBase>
     </div>
   )

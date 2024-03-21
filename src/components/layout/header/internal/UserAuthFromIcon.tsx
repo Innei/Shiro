@@ -24,11 +24,11 @@ export const UserAuthFromIcon: Component = ({ className }) => {
   return (
     <span
       className={clsxm(
-        'pointer-events-none flex h-4 w-4 select-none items-center justify-center rounded-full bg-white dark:bg-zinc-900',
+        'pointer-events-none flex size-4 select-none items-center justify-center rounded-full bg-white dark:bg-zinc-900',
         className,
       )}
     >
-      <StrategyIcon className="h-3 w-3" />
+      <StrategyIcon className="size-3" />
     </span>
   )
 }

@@ -160,7 +160,7 @@ export const Modal: Component<{
             <Dialog.Content asChild>
               <div
                 className={clsxm(
-                  'fixed inset-0 z-[20] overflow-auto',
+                  'fixed inset-0 z-20 overflow-auto',
                   modalContainerClassName,
                 )}
                 onClick={clickOutsideToDismiss ? dismiss : undefined}
@@ -183,7 +183,7 @@ export const Modal: Component<{
           <Dialog.Content asChild>
             <div
               className={clsxm(
-                'fixed inset-0 z-[20] flex center',
+                'fixed inset-0 z-20 flex center',
                 modalContainerClassName,
               )}
               onClick={clickOutsideToDismiss ? dismiss : noticeModal}
@@ -207,12 +207,12 @@ export const Modal: Component<{
                 )}
                 onClick={stopPropagation}
               >
-                <Dialog.Title className="flex-shrink-0 px-4 py-2 text-lg font-medium">
+                <Dialog.Title className="shrink-0 px-4 py-2 text-lg font-medium">
                   {title}
                 </Dialog.Title>
-                <Divider className="my-2 flex-shrink-0 border-slate-200 opacity-80 dark:border-neutral-800" />
+                <Divider className="my-2 shrink-0 border-slate-200 opacity-80 dark:border-neutral-800" />
 
-                <div className="min-h-0 flex-shrink flex-grow overflow-auto px-4 py-2">
+                <div className="min-h-0 shrink grow overflow-auto px-4 py-2">
                   {finalChildren}
                 </div>
 

@@ -32,7 +32,7 @@ export const NoteFooterNavigation = () => {
       {(!!prevNid || !!nextNid) && (
         <>
           <section className="relative mt-4 py-2 text-center" data-hide-print>
-            <div className="flex items-center justify-between [&>*]:inline-flex [&>*]:items-center [&>*]:space-x-2 [&>*]:px-2 [&>*]:py-2">
+            <div className="flex items-center justify-between [&>*]:inline-flex [&>*]:items-center [&>*]:space-x-2 [&>*]:p-2">
               {!!nextNid && (
                 <Link
                   href={routeBuilder(Routes.Note, {
@@ -64,7 +64,7 @@ export const NoteFooterNavigation = () => {
             <div
               tabIndex={1}
               role="button"
-              className="absolute bottom-0 left-1/2 top-0 flex -translate-x-1/2 transform items-center space-x-2 text-accent opacity-80 hover:text-accent"
+              className="absolute inset-y-0 left-1/2 flex -translate-x-1/2 items-center space-x-2 text-accent opacity-80 hover:text-accent"
               onClick={() => {
                 springScrollToTop()
                 router.push(

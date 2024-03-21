@@ -46,14 +46,14 @@ export const TimelineProgress = () => {
   return (
     <>
       <p>
-        <span className="flex-shrink-0">今天是 {currentYear} 年的第</span>
+        <span className="shrink-0">今天是 {currentYear} 年的第</span>
         <CountUp
           to={currentDay}
           className="mx-1"
           decimals={0}
           duration={PROGRESS_DURATION}
         />
-        <span className="flex-shrink-0">天</span>
+        <span className="shrink-0">天</span>
       </p>
       <p>
         今年已过{' '}

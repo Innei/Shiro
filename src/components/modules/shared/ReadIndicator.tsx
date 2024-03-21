@@ -24,7 +24,7 @@ export const ReadIndicator: Component<{
       ref={ref}
     >
       {readPercent}%
-      {!inView && <ReadIndicatorVertical className="right-[1px]" />}
+      {!inView && <ReadIndicatorVertical className="right-px" />}
     </As>
   )
 }
@@ -36,7 +36,7 @@ const ReadIndicatorVertical: Component = ({ className }) => {
     <RootPortal>
       <div
         className={clsxm(
-          'fixed bottom-0 right-0 top-0 z-[99] w-[1px] transition-opacity duration-200 ease-in-out',
+          'fixed inset-y-0 right-0 z-[99] w-px transition-opacity duration-200 ease-in-out',
           isEOA ? 'opacity-0' : 'opacity-100',
           className,
         )}

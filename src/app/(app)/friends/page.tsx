@@ -179,14 +179,14 @@ const Card: FC<{ link: LinkModel }> = ({ link }) => {
 
 const FavoriteSection: FC<FriendSectionProps> = ({ data }) => {
   return (
-    <ul className="relative flex w-full flex-grow flex-col gap-4">
+    <ul className="relative flex w-full grow flex-col gap-4">
       {data.map((link) => {
         return (
           <li key={link.id} className="flex w-full items-end">
             <a
               href={link.url}
               target="_blank"
-              className="flex-shrink-0 text-base leading-none"
+              className="shrink-0 text-base leading-none"
             >
               {link.name}
             </a>

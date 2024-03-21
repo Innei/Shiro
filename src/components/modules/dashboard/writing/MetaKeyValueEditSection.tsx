@@ -90,7 +90,7 @@ const EditorModal: FC<{
   }
 
   return (
-    <div className="relative flex w-full flex-grow flex-col lg:w-[600px]">
+    <div className="relative flex w-full grow flex-col lg:w-[600px]">
       <div className="relative max-h-[450px] w-full overflow-auto">
         <CodeEditor
           minHeight="350px"
@@ -101,7 +101,7 @@ const EditorModal: FC<{
           }}
         />
       </div>
-      <div className="flex flex-shrink-0 justify-end p-2">
+      <div className="flex shrink-0 justify-end p-2">
         <StyledButton onClick={handleSave}>保存</StyledButton>
       </div>
     </div>

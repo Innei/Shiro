@@ -116,7 +116,7 @@ export const SocialIcon = memo((props: SocialIconProps) => {
       type="tooltip"
       triggerElement={
         <MotionButtonBase
-          className="flex aspect-square h-10 w-10 rounded-full text-2xl text-white center"
+          className="flex aspect-square size-10 rounded-full text-2xl text-white center"
           style={{
             background: iconBg,
           }}

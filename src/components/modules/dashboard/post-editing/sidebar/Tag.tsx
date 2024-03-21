@@ -28,11 +28,11 @@ export const PostTag: Component<TagProps> = ({
         className,
       )}
     >
-      <span className="relative bottom-[1px]">{children}</span>
+      <span className="relative bottom-px">{children}</span>
       {canClose && (
         <MotionButtonBase
           type="button"
-          className="inline-flex h-4 w-4 items-center justify-center"
+          className="inline-flex size-4 items-center justify-center"
           onClick={onClose}
         >
           <CloseIcon />
@@ -55,14 +55,14 @@ export const AddTag: Component<TagCompletionProp> = ({ ...props }) => {
     <TagEditingContext.Provider value={ctxValue}>
       <div
         className={clsxm(
-          'border-foreground-400/80 flex h-6 w-6 items-center justify-center rounded-full border border-dashed',
+          'border-foreground-400/80 flex size-6 items-center justify-center rounded-full border border-dashed',
           isEditing && 'hidden',
         )}
         onClick={() => {
           setIsEditing(true)
         }}
       >
-        <i className="icon-[mingcute--add-line] h-3 w-3" />
+        <i className="icon-[mingcute--add-line] size-3" />
       </div>
       {isEditing && <TagCompletion {...props} />}
     </TagEditingContext.Provider>

@@ -51,7 +51,7 @@ export const TextArea = forwardRef<
     >
       {!isMobile && (
         <m.div
-          className="pointer-events-none absolute bottom-0 left-0 right-0 top-0 z-0 rounded-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          className="pointer-events-none absolute inset-0 z-0 rounded-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           style={{ background }}
           aria-hidden="true"
         />
@@ -60,7 +60,7 @@ export const TextArea = forwardRef<
       <textarea
         ref={ref}
         className={clsxm(
-          'h-full w-full resize-none bg-transparent',
+          'size-full resize-none bg-transparent',
           'overflow-auto px-3 py-4',
           '!outline-none',
           'text-neutral-900/80 dark:text-slate-100/80',

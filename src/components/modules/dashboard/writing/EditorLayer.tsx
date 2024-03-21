@@ -21,12 +21,12 @@ export const EditorLayer: FC<{
 
         {isMobile ? (
           <RootPortal>
-            <div className="fixed right-4 top-28 z-[20] flex flex-shrink-0 flex-grow gap-2 text-right lg:gap-4">
+            <div className="fixed right-4 top-28 z-20 flex shrink-0 grow gap-2 text-right lg:gap-4">
               {HeaderEl}
             </div>
           </RootPortal>
         ) : (
-          <div className="flex flex-shrink-0 flex-grow gap-2 text-right lg:gap-4">
+          <div className="flex shrink-0 grow gap-2 text-right lg:gap-4">
             {HeaderEl}
           </div>
         )}
@@ -34,11 +34,11 @@ export const EditorLayer: FC<{
 
       <main
         className={clsxm(
-          'flex flex-grow lg:grid lg:grid-cols-[auto_400px] lg:gap-4',
+          'flex grow lg:grid lg:grid-cols-[auto_400px] lg:gap-4',
           mainClassName,
         )}
       >
-        <div className="flex flex-grow flex-col overflow-auto">{ContentEl}</div>
+        <div className="flex grow flex-col overflow-auto">{ContentEl}</div>
 
         {FooterEl}
       </main>

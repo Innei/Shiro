@@ -29,7 +29,7 @@ export const CodeEditor = forwardRef<
   return (
     <div
       className={clsxm(
-        'relative [&_*]:!font-mono [&_*]:!text-base [&_*]:!leading-[1.5]',
+        'relative [&_*]:!font-mono [&_*]:!text-base [&_*]:!leading-normal',
         className,
       )}
       style={

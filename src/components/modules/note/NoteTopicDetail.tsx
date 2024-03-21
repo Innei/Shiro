@@ -69,16 +69,16 @@ export const NoteTopicDetail: FC<{ topic: TopicModel }> = (props) => {
           <p className="flex items-center">
             <MdiClockOutline />
             <DividerVertical />
-            <span className="flex-shrink-0">最近更新</span>
+            <span className="shrink-0">最近更新</span>
             <DividerVertical />
-            <span className="inline-flex min-w-0 flex-shrink">
+            <span className="inline-flex min-w-0 shrink">
               <Link
                 href={`/data?.data/${data?.data[0].nid}`}
                 className="truncate"
               >
                 {data?.data[0]?.title}
               </Link>
-              <span className="flex-shrink-0">
+              <span className="shrink-0">
                 （
                 <RelativeTime
                   date={data?.data[0].modified || data?.data[0].created}
@@ -115,7 +115,7 @@ export const ToTopicLink: FC = () => {
         slug: topic.slug,
       })}
     >
-      <span className="flex-grow truncate opacity-80 hover:opacity-100">
+      <span className="grow truncate opacity-80 hover:opacity-100">
         {topic.name}
       </span>
     </Link>

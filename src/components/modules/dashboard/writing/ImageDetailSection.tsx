@@ -185,7 +185,7 @@ export const ImageDetailSection: FC<ImageDetailSectionProps> = (props) => {
       {hasTopDivider && <Divider />}
       <div className="relative flex w-full flex-col">
         <div className="flex items-center justify-between space-x-2">
-          <div className="inline-block flex-shrink flex-grow">图片信息</div>
+          <div className="inline-block shrink grow">图片信息</div>
           <StyledButton
             className="flex items-center gap-1 self-end"
             onClick={handleCorrectImageDimensions}
@@ -304,7 +304,7 @@ const ColorPicker: FC<{
   return (
     <MotionButtonBase
       id="color-picker"
-      className="ring-default-200 h-6 w-6 rounded-full bg-current ring"
+      className="ring-default-200 size-6 rounded-full bg-current ring"
       style={{
         backgroundColor: currentColor || '',
       }}

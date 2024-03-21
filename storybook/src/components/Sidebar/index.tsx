@@ -9,13 +9,13 @@ export const Sidebar: FC = () => {
   const { pathname } = useLocation()
 
   return (
-    <ScrollArea.Root className="z-1 !absolute bottom-0 left-0 top-0 w-[250px] border-r border-slate-200 dark:border-neutral-800">
+    <ScrollArea.Root className="z-1 !absolute inset-y-0 left-0 w-[250px] border-r border-slate-200 dark:border-neutral-800">
       <ScrollArea.Viewport className="!inline-block !w-[250px] !min-w-[auto]">
         <div className="flex h-screen flex-col">
           <h1 className="mt-4 text-center text-xl font-medium">
             Component Playground
           </h1>
-          <ul className="mt-6 flex-shrink flex-grow space-y-2 pl-2 pr-[3px]">
+          <ul className="mt-6 shrink grow space-y-2 pl-2 pr-[3px]">
             {routeKeys.map((componentName) => {
               return (
                 <li
@@ -29,7 +29,7 @@ export const Sidebar: FC = () => {
                 >
                   <Link
                     to={`/${componentName}`}
-                    className="block h-full w-full px-4 py-2"
+                    className="block size-full px-4 py-2"
                   >
                     {componentName.at(0)?.toUpperCase() +
                       componentName
@@ -43,7 +43,7 @@ export const Sidebar: FC = () => {
             })}
           </ul>
 
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <DarkModeToggle />
           </div>
         </div>

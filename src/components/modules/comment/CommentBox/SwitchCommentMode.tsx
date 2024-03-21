@@ -47,9 +47,9 @@ export const SwitchCommentMode = () => {
     <MotionButtonBase
       className={clsx(
         'absolute left-0 top-0 z-10 rounded-full text-sm',
-        'h-6 w-6 border border-slate-200 dark:border-neutral-800',
+        'size-6 border border-slate-200 dark:border-neutral-800',
         'bg-slate-100 dark:bg-neutral-900',
-        'flex cursor-pointer text-base-100/50 center',
+        'flex cursor-pointer center',
         'text-base-content/50',
         'opacity-0 transition-opacity duration-200 group-[:hover]:opacity-100',
         mode === CommentBoxMode['legacy'] && 'bottom-0 top-auto',

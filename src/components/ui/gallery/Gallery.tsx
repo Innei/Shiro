@@ -169,7 +169,7 @@ export const Gallery: FC<GalleryProps> = (props) => {
           return (
             <div
               className={clsx(
-                'h-[6px] w-[6px] cursor-pointer rounded-full bg-stone-600 opacity-50 transition-opacity duration-200 ease-in-out',
+                'size-[6px] cursor-pointer rounded-full bg-stone-600 opacity-50 transition-opacity duration-200 ease-in-out',
                 currentIndex == i && '!opacity-100',
               )}
               key={i}

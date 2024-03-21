@@ -40,7 +40,7 @@ export const PostItem = memo<{ data: PostModel }>(function PostItem({ data }) {
           {hasImage && (
             <div
               className={clsx(
-                'float-right mb-2 ml-3 h-[5.5rem] w-[5.5rem] overflow-hidden rounded-md',
+                'float-right mb-2 ml-3 size-[5.5rem] overflow-hidden rounded-md',
                 'bg-cover bg-center bg-no-repeat',
               )}
               style={{ backgroundImage: `url(${hasImage})` }}
@@ -54,7 +54,7 @@ export const PostItem = memo<{ data: PostModel }>(function PostItem({ data }) {
 
       <div className="post-meta-bar mt-2 flex select-none flex-wrap items-center justify-end gap-4 text-base-content/60">
         <PostMetaBar meta={data} />
-        <span className="flex flex-shrink-0 select-none items-center space-x-1 text-right text-accent hover:text-accent [&>svg]:hover:ml-2">
+        <span className="flex shrink-0 select-none items-center space-x-1 text-right text-accent hover:text-accent [&>svg]:hover:ml-2">
           <span>阅读全文</span>
           <i className="icon-[mingcute--arrow-right-line] text-lg transition-[margin]" />
         </span>

@@ -147,7 +147,7 @@ const LikeButton = () => {
         }}
       />
       {!!likeCount && (
-        <span className="absolute bottom-0 right-0 translate-x-[10px] transform text-[10px]">
+        <span className="absolute bottom-0 right-0 translate-x-[10px] text-[10px]">
           <NumberSmoothTransition>{likeCount}</NumberSmoothTransition>
         </span>
       )}

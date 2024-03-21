@@ -43,9 +43,9 @@ export const SlugInput = () => {
         <label className="text-base-content">{`${webUrl}/posts/${categoryIdMap?.[categoryId]?.slug}/`}</label>
       )}
 
-      <div className="relative ml-1 inline-flex min-w-[2rem] items-center overflow-hidden rounded-md bg-white py-1 dark:bg-zinc-900 [&_*]:leading-4">
+      <div className="relative ml-1 inline-flex min-w-8 items-center overflow-hidden rounded-md bg-white py-1 dark:bg-zinc-900 [&_*]:leading-4">
         <input
-          className="input input-sm absolute w-full translate-y-[1px] !border-0 bg-transparent !outline-none"
+          className="input input-sm absolute w-full translate-y-px !border-0 bg-transparent !outline-none"
           value={slug}
           onChange={(e) => {
             setSlug(e.target.value)

@@ -91,7 +91,7 @@ export const Avatar: FC<
         imageUrl && !loadError ? (
           <div
             className={clsxm(
-              'h-full w-full bg-cover bg-center bg-no-repeat transition-opacity duration-300',
+              'size-full bg-cover bg-center bg-no-repeat transition-opacity duration-300',
               className,
             )}
           >
@@ -116,7 +116,7 @@ export const Avatar: FC<
             />
           </div>
         ) : text ? (
-          <div className="relative flex h-full w-full flex-grow select-none items-center justify-center">
+          <div className="relative flex size-full grow select-none items-center justify-center">
             <FlexText scale={0.5} text={text} />
           </div>
         ) : null,

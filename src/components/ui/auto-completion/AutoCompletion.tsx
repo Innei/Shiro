@@ -153,7 +153,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
         {/* FIXME: https://github.com/radix-ui/primitives/issues/2125 */}
         <ul
           className={clsx(
-            'pointer-events-auto max-h-48 flex-grow overflow-auto',
+            'pointer-events-auto max-h-48 grow',
             'overflow-hidden rounded-md border border-zinc-200 bg-zinc-50/90 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/90',
           )}
           onWheel={stopPropagation}

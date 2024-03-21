@@ -39,11 +39,11 @@ export const NoteTopic: FC = () => {
           size={60}
           imageUrl={icon}
           text={textToBigCharOrWord(name)}
-          className="flex-shrink-0"
+          className="shrink-0"
           shadow={false}
           alt={`专栏 ${name} 的头像`}
         />
-        <div className="flex flex-grow flex-col self-start">
+        <div className="flex grow flex-col self-start">
           <span className="text-md mb-2 font-medium">
             <FloatPopover
               strategy="absolute"

@@ -291,7 +291,7 @@ const PagePreview = () => {
           </article>
         </div>
 
-        <LayoutRightSideProvider className="absolute bottom-0 right-0 top-0 hidden translate-x-full lg:block" />
+        <LayoutRightSideProvider className="absolute inset-y-0 right-0 hidden translate-x-full lg:block" />
       </CurrentPageDataAtomProvider>
     </div>
   )

@@ -23,7 +23,7 @@ export const CommentAuthorCell: Component<{
           text={author[0]}
         />
       </div>
-      <div className="flex w-0 flex-grow flex-col gap-1 text-sm">
+      <div className="flex w-0 grow flex-col gap-1 text-sm">
         <div className="flex items-center space-x-1">
           <CommentUrlRender url={url} author={author} />
           {isWhispers && <OcticonGistSecret />}

@@ -61,7 +61,7 @@ export const CommentBatchActionGroup = () => {
                 batchChangeState(CommentState.Read)
               }}
             >
-              <i className="icon-[mingcute--check-fill] h-5 w-5" />
+              <i className="icon-[mingcute--check-fill] size-5" />
             </RoundedIconButton>
           }
         >
@@ -80,7 +80,7 @@ export const CommentBatchActionGroup = () => {
                 batchChangeState(CommentState.Junk)
               }}
             >
-              <i className="icon-[mingcute--delete-2-line] h-5 w-5" />
+              <i className="icon-[mingcute--delete-2-line] size-5" />
             </RoundedIconButton>
           }
         >
@@ -113,7 +113,7 @@ export const CommentBatchActionGroup = () => {
               })
             }}
           >
-            <i className="icon-[mingcute--close-line] h-5 w-5" />
+            <i className="icon-[mingcute--close-line] size-5" />
           </RoundedIconButton>
         }
       >

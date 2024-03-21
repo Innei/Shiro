@@ -101,7 +101,7 @@ export const TagDetailModal = (props: { name: string }) => {
               className="flex items-center justify-between"
               data-id={item.id}
             >
-              <span className="flex min-w-0 flex-shrink items-center">
+              <span className="flex min-w-0 shrink items-center">
                 <span className="mr-2 inline-block tabular-nums">
                   {Intl.DateTimeFormat('en-us', {
                     month: '2-digit',

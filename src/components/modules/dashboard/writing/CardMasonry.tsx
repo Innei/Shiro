@@ -59,7 +59,7 @@ export function Card<T>(props: CardProps<T>) {
         className,
       )}
     >
-      <div className="flex flex-grow flex-col">
+      <div className="flex grow flex-col">
         <div className="line-clamp-2 text-xl font-semibold text-neutral-900 dark:text-neutral-100">
           {title}
         </div>
@@ -70,7 +70,7 @@ export function Card<T>(props: CardProps<T>) {
         )}
         <div
           className={clsx(
-            'mt-2 h-0 flex-grow overflow-hidden text-sm text-neutral-500 scrollbar-none dark:text-neutral-400',
+            'mt-2 h-0 grow overflow-hidden text-sm text-neutral-500 scrollbar-none dark:text-neutral-400',
             scrollClassname,
           )}
           ref={scrollContainerRef}

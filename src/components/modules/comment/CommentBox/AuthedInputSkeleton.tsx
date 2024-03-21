@@ -8,7 +8,7 @@ export const CommentBoxAuthedInputSkeleton = () => {
     <div className="flex animate-pulse gap-4">
       <div
         className={clsx(
-          'h-12 w-12 self-end overflow-hidden rounded-full',
+          'size-12 self-end overflow-hidden rounded-full',
           color,
         )}
       />

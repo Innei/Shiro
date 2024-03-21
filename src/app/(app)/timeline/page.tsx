@@ -195,7 +195,7 @@ export default function TimelinePage() {
               <m.h4
                 className={clsx(
                   'relative mb-4 ml-3 text-lg font-medium',
-                  'rounded-md before:absolute before:-left-3 before:bottom-[4px] before:top-[4px] before:w-[2px] before:bg-accent before:content-auto',
+                  'rounded-md before:absolute before:inset-y-[4px] before:-left-3 before:w-[2px] before:bg-accent before:content-auto',
                 )}
               >
                 {year}
@@ -225,7 +225,7 @@ const Item = memo<{
       className="flex items-center justify-between"
       data-id={item.id}
     >
-      <span className="flex min-w-0 flex-shrink items-center">
+      <span className="flex min-w-0 shrink items-center">
         <span className="mr-2 inline-block w-12 tabular-nums">
           {Intl.DateTimeFormat('en-us', {
             month: '2-digit',

@@ -8,8 +8,8 @@ import { clsxm } from '~/lib/helper'
 
 const styles = tv({
   base: clsxm(
-    'leading-normal mb-[1.5px] text-neutral-content inline-block relative max-w-full min-w-0',
-    'truncate text-left opacity-50 transition-all tabular-nums hover:opacity-80 duration-500',
+    'relative mb-[1.5px] inline-block min-w-0 max-w-full leading-normal text-neutral-content',
+    'truncate text-left tabular-nums opacity-50 transition-all duration-500 hover:opacity-80',
   ),
   variants: {
     status: {

@@ -52,7 +52,7 @@ interface ShareData {
 export const ShareModal: FC<ShareData> = ({ url, text, title }) => {
   return (
     <div className="relative grid grid-cols-[200px_auto] gap-5">
-      <div className="qrcode inline-block h-[200px] w-[200px] bg-gray-200/80 dark:bg-zinc-800/90">
+      <div className="qrcode inline-block size-[200px] bg-gray-200/80 dark:bg-zinc-800/90">
         <QRCodeSVG
           value={url}
           className="aspect-square w-[200px]"

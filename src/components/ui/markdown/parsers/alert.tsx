@@ -45,7 +45,7 @@ export const AlertIcon: FC<{
     >
       <Icon
         className={clsx(
-          `flex-shrink-0 text-3xl md:mr-2 md:self-start md:text-left`,
+          `shrink-0 text-3xl md:mr-2 md:self-start md:text-left`,
           typedIconMap[finalType] || typedIconMap.NOTE,
         )}
       />

@@ -138,9 +138,9 @@ const ActivityIcon = memo(() => {
   return (
     <>
       {!!media && (
-        <m.div className="absolute bottom-0 left-0 top-0 z-[10] flex items-center lg:left-[-30px]">
+        <m.div className="absolute inset-y-0 left-0 z-10 flex items-center lg:left-[-30px]">
           <div className="absolute inset-0 z-[-1] flex center">
-            <div className="h-6 w-6 rounded-md ring-2 ring-red-500 dark:ring-red-400" />
+            <div className="size-6 rounded-md ring-2 ring-red-500 dark:ring-red-400" />
           </div>
           <FloatPopover
             TriggerComponent={TriggerComponent}
@@ -157,7 +157,7 @@ const ActivityIcon = memo(() => {
           {processName && (
             <m.div
               key={processName}
-              className="pointer-events-auto absolute bottom-0 right-0 top-0 z-[10] flex items-center overflow-hidden lg:right-[-25px]"
+              className="pointer-events-auto absolute inset-y-0 right-0 z-10 flex items-center overflow-hidden lg:right-[-25px]"
               initial={{
                 opacity: 0.0001,
                 y: 15,

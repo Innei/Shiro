@@ -50,14 +50,14 @@ export const Comment: Component<{
   const authorElement = url ? (
     <a
       href={url}
-      className="ml-2 max-w-full flex-shrink-0 break-all"
+      className="ml-2 max-w-full shrink-0 break-all"
       target="_blank"
       rel="noreferrer"
     >
       {author}
     </a>
   ) : (
-    <span className="ml-2 max-w-full flex-shrink-0 break-all">{author}</span>
+    <span className="ml-2 max-w-full shrink-0 break-all">{author}</span>
   )
 
   return (
@@ -93,13 +93,13 @@ export const Comment: Component<{
                 shadow={false}
                 imageUrl={avatar}
                 alt={`${author}'s avatar`}
-                className="h-9 w-9 select-none rounded-full bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800 dark:ring-zinc-800"
+                className="size-9 select-none rounded-full bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800 dark:ring-zinc-800"
                 width={24}
                 height={24}
               />
               {source && !!getStrategyIconComponent(source) && (
-                <div className="absolute -right-1.5 bottom-1 flex h-3.5 w-3.5 rounded-full bg-white ring-[1.5px] ring-zinc-200 center dark:bg-zinc-800 dark:ring-black">
-                  <UserAuthStrategyIcon strategy={source} className="h-3 w-3" />
+                <div className="absolute -right-1.5 bottom-1 flex size-3.5 rounded-full bg-white ring-[1.5px] ring-zinc-200 center dark:bg-zinc-800 dark:ring-black">
+                  <UserAuthStrategyIcon strategy={source} className="size-3" />
                 </div>
               )}
             </div>
@@ -117,17 +117,17 @@ export const Comment: Component<{
                   'relative mb-2 w-full min-w-0 justify-center',
                 )}
               >
-                <span className="flex flex-grow flex-wrap items-center gap-2">
+                <span className="flex grow flex-wrap items-center gap-2">
                   {authorElement}
-                  <span className="flex min-w-0 flex-shrink select-none flex-wrap items-center space-x-2 self-end">
-                    <span className="inline-flex flex-shrink-0 text-[0.71rem] font-medium opacity-40">
+                  <span className="flex min-w-0 shrink select-none flex-wrap items-center space-x-2 self-end">
+                    <span className="inline-flex shrink-0 text-[0.71rem] font-medium opacity-40">
                       <RelativeTime date={comment.created} />
                     </span>
                     <span className="break-all text-[0.71rem] opacity-30">
                       {key}
                     </span>
                     {!!location && (
-                      <span className="min-w-0 max-w-full truncate break-all text-[0.71rem] opacity-[0.35]">
+                      <span className="min-w-0 max-w-full truncate break-all text-[0.71rem] opacity-35">
                         来自：{location}
                       </span>
                     )}
@@ -135,7 +135,7 @@ export const Comment: Component<{
                   </span>
                 </span>
 
-                <span className="flex-shrink-0">
+                <span className="shrink-0">
                   <CommentPinButton comment={comment} />
                 </span>
               </span>

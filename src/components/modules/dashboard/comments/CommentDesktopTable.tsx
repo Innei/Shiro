@@ -22,7 +22,7 @@ export const CommentDesktopTable = () => {
 
   const flatData = data?.pages.flatMap((page) => page.data)
 
-  if (!flatData?.length) return <Empty className="flex-grow" />
+  if (!flatData?.length) return <Empty className="grow" />
   return (
     <div className="mt-16 flex flex-col gap-3">
       {flatData?.map((item) => {

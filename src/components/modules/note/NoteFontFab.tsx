@@ -133,7 +133,7 @@ export const YouZaiFontSvg = () => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 16 17"
-      className="h-[1em] w-[1em] text-[30px]"
+      className="size-[1em] text-[30px]"
     >
       <path
         fill="currentColor"
@@ -147,7 +147,7 @@ export const LXGWFontSvg = () => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 16 17"
-      className="h-[1em] w-[1em] text-[30px]"
+      className="size-[1em] text-[30px]"
     >
       <path
         fill="currentColor"
@@ -162,7 +162,7 @@ export const SerifFontSvg = () => {
     <svg
       viewBox="0 0 90.7 91"
       xmlns="http://www.w3.org/2000/svg"
-      className="h-[1em] w-[1em] text-[30px]"
+      className="size-[1em] text-[30px]"
     >
       <g
         id="svgGroup"

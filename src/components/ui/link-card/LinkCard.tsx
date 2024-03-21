@@ -250,9 +250,9 @@ const fetchGitHubRepoData: FetchObject = {
         title: (
           <span className="flex items-center gap-2">
             <span className="flex-1">{data.name}</span>
-            <span className="flex-shrink-0 self-end justify-self-end">
+            <span className="shrink-0 self-end justify-self-end">
               {data.stargazersCount > 0 && (
-                <span className="inline-flex flex-shrink-0 items-center gap-1 self-center text-sm text-orange-400 dark:text-yellow-500">
+                <span className="inline-flex shrink-0 items-center gap-1 self-center text-sm text-orange-400 dark:text-yellow-500">
                   <i className="icon-[mingcute--star-line]" />
                   <span className="font-sans font-medium">
                     {data.stargazersCount}
@@ -457,7 +457,7 @@ const fetchTheMovieDBData: FetchObject = {
           {title !== originalTitle && (
             <span className="text-sm opacity-70">({originalTitle})</span>
           )}
-          <span className="inline-flex flex-shrink-0 items-center gap-1 self-center text-xs text-orange-400 dark:text-yellow-500">
+          <span className="inline-flex shrink-0 items-center gap-1 self-center text-xs text-orange-400 dark:text-yellow-500">
             <MingcuteStarHalfFill />
             <span className="font-sans font-medium">
               {json.vote_average > 0 && json.vote_average.toFixed(1)}

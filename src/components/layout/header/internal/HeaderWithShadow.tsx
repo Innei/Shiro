@@ -15,9 +15,9 @@ export const HeaderWithShadow: Component = ({ children }) => {
     <header
       data-hide-print
       className={clsx(
-        'fixed left-0 right-0 top-0 z-[9] h-[4.5rem] overflow-hidden transition-shadow duration-200 lg:ml-[calc(100vw-100%)]',
+        'fixed inset-x-0 top-0 z-[9] h-[4.5rem] overflow-hidden transition-shadow duration-200 lg:ml-[calc(100vw-100%)]',
         showShadow &&
-          'shadow-none shadow-neutral-100 lg:shadow-sm dark:shadow-neutral-800/50',
+          'shadow-none shadow-neutral-100 dark:shadow-neutral-800/50 lg:shadow-sm',
       )}
     >
       {children}

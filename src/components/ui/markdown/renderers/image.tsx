@@ -48,7 +48,7 @@ export const MarkdownImage = (props: any) => {
 export const GridMarkdownImage = (props: any) => {
   return (
     <WrappedElementProvider>
-      <div className="relative flex min-w-0 flex-grow">
+      <div className="relative flex min-w-0 grow">
         <MarkdownImage {...props} />
       </div>
     </WrappedElementProvider>
@@ -86,7 +86,7 @@ const GridZoomImage: FC<{ src: string }> = memo(({ src }) => {
 
   return (
     <div
-      className="relative flex h-full w-full overflow-hidden rounded-md bg-cover bg-center center"
+      className="relative flex size-full overflow-hidden rounded-md bg-cover bg-center center"
       style={{
         backgroundColor: accent,
       }}
@@ -100,7 +100,7 @@ const GridZoomImage: FC<{ src: string }> = memo(({ src }) => {
           src={cropUrl}
           ref={imageEl}
           className={clsx(
-            '!mx-0 !my-0 max-w-max object-cover',
+            '!m-0 max-w-max object-cover',
             wGreaterThanH ? 'h-full' : 'w-full',
           )}
           data-zoom-src={src}

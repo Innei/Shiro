@@ -82,10 +82,10 @@ export const PresentSheet: FC<PropsWithChildren<PresentSheetProps>> = (
           style={{
             zIndex: contentZIndex,
           }}
-          className="fixed bottom-0 left-0 right-0 mt-24 flex max-h-[95vh] flex-col rounded-t-[10px] bg-base-100 p-4"
+          className="fixed inset-x-0 bottom-0 mt-24 flex max-h-[95vh] flex-col rounded-t-[10px] bg-base-100 p-4"
         >
           {dismissible && (
-            <div className="mx-auto mb-8 h-1.5 w-12 flex-shrink-0 rounded-full bg-zinc-300 dark:bg-neutral-800" />
+            <div className="mx-auto mb-8 h-1.5 w-12 shrink-0 rounded-full bg-zinc-300 dark:bg-neutral-800" />
           )}
 
           {title && (

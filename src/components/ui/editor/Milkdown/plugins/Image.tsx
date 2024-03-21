@@ -69,7 +69,7 @@ const Image = () => {
           containerWidth={isMobile ? 450 : 600}
         />
 
-        <div className="absolute bottom-1 left-1 z-[10] opacity-0 duration-200 group-hover:opacity-100">
+        <div className="absolute bottom-1 left-1 z-10 opacity-0 duration-200 group-hover:opacity-100">
           <StyledButton
             onClick={() => {
               modal.present({
@@ -87,7 +87,7 @@ const Image = () => {
               })
             }}
             variant="secondary"
-            className="box-content flex h-6 w-6 rounded-full p-2 center"
+            className="box-content flex size-6 rounded-full p-2 center"
           >
             <i className="icon-[mingcute--edit-line] text-[16px]" />
           </StyledButton>

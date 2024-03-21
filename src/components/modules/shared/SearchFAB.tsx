@@ -83,7 +83,7 @@ const SearchPanel = () => {
         {panelOpen && (
           <Dialog.Portal>
             <Dialog.Content>
-              <div className="fixed inset-0 z-[20] flex center">
+              <div className="fixed inset-0 z-20 flex center">
                 <div
                   className="fixed inset-0 z-[-1]"
                   onClick={() => {
@@ -221,7 +221,7 @@ const SearchPanelImpl = () => {
   return (
     <m.div
       className={clsx(
-        'h-[600px] max-h-[80vh] w-[800px] max-w-[100vw] rounded-none md:h-screen md:max-h-[60vh] md:max-w-[80vw]',
+        'h-[600px] max-h-[80vh] w-[800px] max-w-screen rounded-none md:h-screen md:max-h-[60vh] md:max-w-[80vw]',
         'min-h-50 flex flex-col bg-zinc-50/80 shadow-2xl backdrop-blur-md dark:bg-neutral-900/80 md:rounded-xl',
         'border-0 border-zinc-200 dark:border-zinc-800 md:border',
       )}
@@ -239,7 +239,7 @@ const SearchPanelImpl = () => {
     >
       <input
         autoFocus
-        className="w-full flex-shrink-0 border-b border-zinc-200 bg-transparent p-4 px-5 text-lg leading-4 dark:border-neutral-700"
+        className="w-full shrink-0 border-b border-zinc-200 bg-transparent p-4 px-5 text-lg leading-4 dark:border-neutral-700"
         placeholder="Search..."
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
@@ -260,7 +260,7 @@ const SearchPanelImpl = () => {
         }}
       />
       <div />
-      <div className="relative h-0 flex-shrink flex-grow overflow-auto">
+      <div className="relative h-0 shrink grow overflow-auto">
         <ul className="h-full px-2 py-4" ref={listRef}>
           {data.length === 0 && !isLoading ? (
             <div className="flex h-full items-center justify-center">
@@ -284,14 +284,14 @@ const SearchPanelImpl = () => {
           )}
 
           {data.length === 0 && isLoading && (
-            <div className="flex h-full flex-grow center">
+            <div className="flex h-full grow center">
               <div className="loading loading-spinner" />
             </div>
           )}
         </ul>
       </div>
 
-      <div className="flex flex-shrink-0 items-center justify-between px-4 py-2">
+      <div className="flex shrink-0 items-center justify-between px-4 py-2">
         {isLogged ? (
           <MotionButtonBase
             onClick={() => {
@@ -359,10 +359,10 @@ const SearchItem = memo(function Item({
         href={item.url}
         className="relative z-10 flex w-full justify-between p-3"
       >
-        <span className="block min-w-0 flex-1 flex-shrink-0 truncate">
+        <span className="block min-w-0 flex-1 shrink-0 truncate">
           {item.title}
         </span>
-        <span className="block min-w-0 flex-shrink-0 flex-grow-0 text-zinc-800 dark:text-slate-200/80">
+        <span className="block min-w-0 shrink-0 grow-0 text-zinc-800 dark:text-slate-200/80">
           {item.subtitle}
         </span>
       </Link>

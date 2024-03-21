@@ -90,7 +90,7 @@ const TwoColumnLayout = ({
   rightContainerClassName?: string
 }) => {
   return (
-    <div className="relative flex h-full w-full max-w-[1800px] flex-col flex-wrap items-center lg:flex-row">
+    <div className="relative flex size-full max-w-[1800px] flex-col flex-wrap items-center lg:flex-row">
       {children.slice(0, 2).map((child, i) => {
         return (
           <div
@@ -164,7 +164,7 @@ const Hero = () => {
             <span className="opacity-80">{description}</span>
           </BottomToUpTransitionView>
 
-          <ul className="mt-8 flex flex-wrap gap-4 center lg:mt-[7rem] lg:justify-start">
+          <ul className="mt-8 flex flex-wrap gap-4 center lg:mt-28 lg:justify-start">
             {Object.entries(socialIds || noopObj).map(
               ([type, id]: any, index) => {
                 if (!isSupportIcon(type)) return null
@@ -184,7 +184,7 @@ const Hero = () => {
         </>
 
         <div
-          className={clsx('lg:h-[300px] lg:w-[300px]', 'h-[200px] w-[200px]')}
+          className={clsx('lg:size-[300px]', 'size-[200px]')}
         >
           <Image
             height={300}
@@ -203,7 +203,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={softBouncePreset}
           className={clsx(
-            'absolute bottom-0 left-0 right-0 flex flex-col center',
+            'absolute inset-x-0 bottom-0 flex flex-col center',
 
             'text-neutral-800/80 center dark:text-neutral-200/80',
           )}
@@ -264,7 +264,7 @@ const PostScreen = () => {
                   )}
                 >
                   <Link
-                    className="flex h-full w-full flex-col"
+                    className="flex size-full flex-col"
                     href={routeBuilder(Routes.Post, {
                       category: post.category.slug,
                       slug: post.slug,
@@ -283,10 +283,10 @@ const PostScreen = () => {
                     {!!imageSrc && (
                       <div
                         aria-hidden
-                        className="mask-cover absolute inset-0 top-0 z-[-1]"
+                        className="mask-cover absolute inset-0 z-[-1]"
                       >
                         <div
-                          className="absolute inset-0 h-full w-full bg-cover bg-center"
+                          className="absolute inset-0 size-full bg-cover bg-center"
                           style={{
                             backgroundImage: `url(${imageSrc})`,
                           }}
@@ -414,13 +414,13 @@ const NoteScreen = () => {
                       className="flex min-w-0 justify-between"
                     >
                       <PeekLink
-                        className="min-w-0 flex-shrink truncate"
+                        className="min-w-0 shrink truncate"
                         href={routeBuilder(Routes.Note, { id: note.nid })}
                       >
                         {note.title}
                       </PeekLink>
 
-                      <span className="ml-2 flex-shrink-0 self-end text-xs opacity-70">
+                      <span className="ml-2 shrink-0 self-end text-xs opacity-70">
                         <RelativeTime
                           date={note.created}
                           displayAbsoluteTimeAfterDay={180}
@@ -491,7 +491,7 @@ const FriendScreen = () => {
     staleTime: 1000 * 60 * 10,
   })
   return (
-    <Screen className="flex h-auto min-h-[100vh] center">
+    <Screen className="flex h-auto min-h-screen center">
       <div className="flex min-w-0 flex-col">
         <BottomToUpTransitionView className="text-center text-3xl font-medium">
           这些是我珍视的人，他们陪伴我走过人生的每一段旅程。
@@ -522,7 +522,7 @@ const FriendScreen = () => {
                     rel="noreferrer"
                   >
                     <div
-                      className="aspect-square h-[80px] w-[80px] rounded-full bg-contain bg-center ring-1 ring-slate-200/80 dark:bg-neutral-800/80"
+                      className="aspect-square size-[80px] rounded-full bg-contain bg-center ring-1 ring-slate-200/80 dark:bg-neutral-800/80"
                       style={{
                         backgroundImage: `url(${friend.avatar})`,
                       }}

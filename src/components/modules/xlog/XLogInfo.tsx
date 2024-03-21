@@ -100,7 +100,7 @@ const XLogInfoBase: FC<{
         }}
       >
         <div className="flex w-full items-center justify-between">
-          <span className="flex flex-grow items-center space-x-2">
+          <span className="flex grow items-center space-x-2">
             <SafeIcon />
             <span>
               此数据所有权由区块链加密技术和智能合约保障仅归创作者所有。
@@ -109,7 +109,7 @@ const XLogInfoBase: FC<{
           <IcRoundKeyboardArrowDown
             className={clsx(
               !collapse ? '' : 'rotate-180',
-              'transform text-lg transition-transform duration-200 ease-linear',
+              'text-lg transition-transform duration-200 ease-linear',
             )}
           />
         </div>

@@ -96,7 +96,7 @@ export const Trigger = React.forwardRef<
             }}
             layoutId="tab-focused-highlight"
             className={clsxm(
-              'absolute inset-0 z-0 h-full w-full rounded-md',
+              'absolute inset-0 z-0 size-full rounded-md',
               'bg-gray-100 dark:bg-gray-600',
             )}
           />
@@ -120,7 +120,7 @@ export const Pager: Component<PagerProps & MotionProps> = ({
 }) => {
   return (
     <m.div
-      className={clsxm('flex h-full w-full', className)}
+      className={clsxm('flex size-full', className)}
       initial={false}
       animate={{
         x: `${-100 * index}%`,
@@ -142,7 +142,7 @@ export const Content = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
 >(({ className, children, ...rest }, forwardedRef) => (
   <TabsPrimitive.Content
-    className={clsxm('h-full w-full shrink-0', className)}
+    className={clsxm('size-full shrink-0', className)}
     ref={forwardedRef}
     {...rest}
   >

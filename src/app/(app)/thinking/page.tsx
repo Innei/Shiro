@@ -95,7 +95,7 @@ const PostBox = () => {
             disabled={value.length === 0}
             className="duration-200 disabled:cursor-not-allowed disabled:opacity-10"
           >
-            <TiltedSendIcon className="h-5 w-5 text-zinc-800 dark:text-zinc-200" />
+            <TiltedSendIcon className="size-5 text-zinc-800 dark:text-zinc-200" />
             <span className="sr-only">发送</span>
           </MotionButtonBase>
         </div>
@@ -223,7 +223,7 @@ const List = () => {
                   className={clsx(
                     'mt-4 space-x-8 opacity-50 duration-200 hover:opacity-100',
                     '[&_button:hover]:text-accent [&_button]:inline-flex [&_button]:space-x-1 [&_button]:text-sm [&_button]:center',
-                    '[&_button]:-mb-5 [&_button]:-ml-5 [&_button]:-mt-5 [&_button]:p-5',
+                    '[&_button]:-my-5 [&_button]:-ml-5 [&_button]:p-5',
                   )}
                 >
                   <button

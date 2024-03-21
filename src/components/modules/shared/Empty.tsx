@@ -8,7 +8,7 @@ export const Empty: Component = ({ className }) => {
         className,
       )}
     >
-      <$404SVG className="h-[400px] w-[400px]" />
+      <$404SVG className="size-[400px]" />
       <p className="pointer-events-auto">
         在这个星球上还没有知识，去其他地方探索吧。
       </p>

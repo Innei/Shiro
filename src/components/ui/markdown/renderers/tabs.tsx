@@ -57,7 +57,7 @@ export const Tabs: FC<PropsWithChildren> = ({ children }) => {
                   <m.div
                     layoutId={`tab${id}`}
                     layout
-                    className="absolute -bottom-1 left-2 right-2 h-[2px] rounded-md bg-accent"
+                    className="absolute inset-x-2 -bottom-1 h-[2px] rounded-md bg-accent"
                   />
                 )}
               </RadixTabs.Trigger>

@@ -78,7 +78,7 @@ const ReadPresenceTimeline = () => {
   const activityPresence = useActivityPresenceBySessionId(sessionId)
 
   return (
-    <div className="fixed bottom-0 left-0 top-0">
+    <div className="fixed inset-y-0 left-0">
       <FloatPopover
         asChild
         placement="right"

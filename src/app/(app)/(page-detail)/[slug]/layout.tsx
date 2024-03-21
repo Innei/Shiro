@@ -121,7 +121,7 @@ export default async (props: NextPageParams<PageParams>) => {
           </div>
         </PageLoading>
 
-        <LayoutRightSideProvider className="absolute bottom-0 right-0 top-0 hidden translate-x-full lg:block" />
+        <LayoutRightSideProvider className="absolute inset-y-0 right-0 hidden translate-x-full lg:block" />
       </div>
       <BottomToUpSoftScaleTransitionView delay={1000}>
         <CommentAreaRootLazy refId={data.id} allowComment={data.allowComment} />

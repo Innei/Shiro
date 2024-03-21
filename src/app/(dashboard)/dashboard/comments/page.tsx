@@ -53,7 +53,7 @@ export default function Page() {
 
   const currentTab = tab.toString() || TABS[0].key.toString()
   return (
-    <div className="relative -mt-12 flex w-full flex-grow flex-col">
+    <div className="relative -mt-12 flex w-full grow flex-col">
       <CommentSelectionKeysProvider>
         <Tabs.Root
           value={currentTab}

@@ -82,7 +82,7 @@ export const BlockLinkRenderer = ({
         <FixedRatioContainer>
           <iframe
             src={`https://www.youtube.com/embed/${id}`}
-            className="absolute inset-0 h-full w-full border-0"
+            className="absolute inset-0 size-full border-0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             title="YouTube video player"
@@ -98,7 +98,7 @@ export const BlockLinkRenderer = ({
       return (
         <FixedRatioContainer>
           <iframe
-            className="absolute inset-0 h-full w-full rounded-md border-0"
+            className="absolute inset-0 size-full rounded-md border-0"
             src={`https://codesandbox.io/embed/${url.pathname.slice(
               2,
             )}?fontsize=14&hidenavigation=1&theme=dark${url.search}`}

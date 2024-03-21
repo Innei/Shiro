@@ -64,7 +64,7 @@ export const CommentContentCell: Component<{ comment: CommentModel }> = (
 
       {parentComment && typeof parentComment !== 'string' && (
         <div className="relative mt-2 break-words">
-          <blockquote className="ml-3 pl-3 before:absolute before:bottom-0 before:left-[3px] before:top-0 before:h-full before:w-[3px] before:rounded-lg before:bg-accent before:content-['']">
+          <blockquote className="ml-3 pl-3 before:absolute before:inset-y-0 before:left-[3px] before:h-full before:w-[3px] before:rounded-lg before:bg-accent before:content-['']">
             <div>
               <CommentUrlRender
                 author={parentComment.author}

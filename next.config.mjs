@@ -22,9 +22,10 @@ let nextConfig = {
     serverMinification: true,
 
     // @see https://vercel.com/blog/version-skew-protection
-    useDeploymentId: true,
+    // useDeploymentId: true,
+    // useDeploymentIdServerActions: true,
+
     webpackBuildWorker: true,
-    useDeploymentIdServerActions: true,
   },
 
   images: {

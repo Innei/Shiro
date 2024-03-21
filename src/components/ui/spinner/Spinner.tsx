@@ -27,7 +27,7 @@ export const AbsoluteCenterSpinner: Component = ({ children, className }) => {
   return (
     <div
       className={clsx(
-        'inset-0 z-[10] flex flex-col items-center justify-center gap-6',
+        'inset-0 z-10 flex flex-col items-center justify-center gap-6',
         className,
       )}
     >

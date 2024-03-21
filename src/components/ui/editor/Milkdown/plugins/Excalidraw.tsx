@@ -273,11 +273,11 @@ const ExcalidrawBoard: FC = () => {
         }
       }
       return (
-        <div className="flex h-full w-full flex-col">
+        <div className="flex size-full flex-col">
           <Suspense>
             <Excalidraw
               ref={excalidrawRef}
-              className="h-full w-full flex-grow"
+              className="size-full grow"
               data={content}
               viewModeEnabled={false}
               zenModeEnabled={false}

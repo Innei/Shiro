@@ -163,8 +163,8 @@ const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => {
   const router = useRouter()
   return (
     <>
-      <div className="flex-shrink flex-grow" />
-      <div className="flex flex-grow-0 items-center gap-4">
+      <div className="shrink grow" />
+      <div className="flex grow-0 items-center gap-4">
         <div className="flex gap-2">
           <ImportMarkdownButton onParsedValue={handleParsed} />
           <PreviewButton

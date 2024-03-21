@@ -60,7 +60,7 @@ export const Select = function Select<T>(
         </SelectImpl.Icon>
       </SelectImpl.Trigger>
       <SelectImpl.Portal>
-        <SelectImpl.Content className="z-[990] rounded-lg border border-zinc-200 bg-zinc-50/80 backdrop-blur dark:border-neutral-800 dark:bg-neutral-800 dark:bg-neutral-900/60">
+        <SelectImpl.Content className="z-[990] rounded-lg border border-zinc-200 bg-zinc-50/80 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/60">
           <SelectImpl.ScrollUpButton className="flex h-3 items-center justify-center">
             <i className="icon-[mingcute--up-line]" />
           </SelectImpl.ScrollUpButton>
@@ -101,7 +101,7 @@ const SelectItem = React.forwardRef<
         </span>
       </SelectImpl.ItemText>
 
-      <SelectImpl.ItemIndicator className="flex-shrink-0">
+      <SelectImpl.ItemIndicator className="shrink-0">
         <i className="icon-[mingcute--check-line]" />
       </SelectImpl.ItemIndicator>
     </SelectImpl.Item>

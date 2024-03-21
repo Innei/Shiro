@@ -38,7 +38,7 @@ export const PeekModal = (
         className="fixed right-2 top-2 flex items-center gap-4"
       >
         <Link
-          className="flex h-8 w-8 rounded-full p-1 shadow-sm ring-1 ring-zinc-200 center dark:ring-neutral-800"
+          className="flex size-8 rounded-full p-1 shadow-sm ring-1 ring-zinc-200 center dark:ring-neutral-800"
           href={props.to}
           onClick={dismissAll}
         >
@@ -47,7 +47,7 @@ export const PeekModal = (
         </Link>
 
         <button
-          className="flex h-8 w-8 rounded-full p-1 shadow-sm ring-1 ring-zinc-200 center dark:ring-neutral-800"
+          className="flex size-8 rounded-full p-1 shadow-sm ring-1 ring-zinc-200 center dark:ring-neutral-800"
           onClick={dismissTop}
         >
           <i className="icon-[mingcute--close-line] text-lg" />

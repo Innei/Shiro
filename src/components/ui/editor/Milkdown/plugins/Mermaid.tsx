@@ -39,7 +39,7 @@ const MermaidRender = () => {
         <div className="flex h-[450px] max-h-[80vh] w-[60ch] max-w-full flex-col">
           <TextArea
             defaultValue={defaultValue}
-            className="flex-grow"
+            className="grow"
             ref={ref}
           />
           <div className="mt-4 flex justify-end space-x-2">

@@ -57,7 +57,7 @@ export const MarkdownImageRecordProviderInternal = (
 export const PageSubTitle = () => {
   const subtitle = useCurrentPageDataSelector((data) => data?.subtitle)
   return (
-    <p className="text-center text-lg text-gray-600/70 lg:text-left dark:text-neutral-400">
+    <p className="text-center text-lg text-gray-600/70 dark:text-neutral-400 lg:text-left">
       {subtitle}
     </p>
   )

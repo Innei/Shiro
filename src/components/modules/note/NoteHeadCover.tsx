@@ -80,7 +80,7 @@ const NoteHeadCoverImpl = ({ image }: { image: string }) => {
         <div
           data-hide-print
           className={clsx(
-            'z-1 absolute left-0 right-0 top-0',
+            'z-1 absolute inset-x-0',
             imageBlob ? 'h-[224px]' : '0',
             'top-[-6.5rem] md:top-0',
           )}
@@ -89,7 +89,7 @@ const NoteHeadCoverImpl = ({ image }: { image: string }) => {
             style={{
               backgroundImage: `url(${imageBlob})`,
             }}
-            className="cover-mask-b h-full w-full bg-cover bg-center bg-no-repeat"
+            className="cover-mask-b size-full bg-cover bg-center bg-no-repeat"
           />
         </div>
       )}

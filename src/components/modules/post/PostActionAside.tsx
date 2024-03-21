@@ -148,7 +148,7 @@ const LikeButton = () => {
       >
         <ThumbsupIcon />
         {!!likeCount && (
-          <span className="absolute bottom-0 right-0 translate-x-[8px] transform text-[10px]">
+          <span className="absolute bottom-0 right-0 translate-x-[8px] text-[10px]">
             <NumberSmoothTransition>{likeCount}</NumberSmoothTransition>
           </span>
         )}

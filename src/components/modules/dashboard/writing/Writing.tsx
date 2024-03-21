@@ -204,7 +204,7 @@ const Editor = () => {
       <MenuBar />
       <div
         className={clsxm(
-          'relative h-0 flex-grow overflow-auto rounded-xl border p-3 duration-200 focus-within:border-accent',
+          'relative h-0 grow overflow-auto rounded-xl border p-3 duration-200 focus-within:border-accent',
           'border-zinc-200 bg-white placeholder:text-slate-500 focus-visible:border-accent dark:border-neutral-800 dark:bg-zinc-900',
         )}
       >

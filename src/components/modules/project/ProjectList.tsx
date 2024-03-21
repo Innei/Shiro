@@ -27,7 +27,7 @@ export const ProjectList: FC<{ projects: Project[] }> = (props) => {
                 avatar={project.avatar}
                 name={project.name}
               />
-              <span className="flex flex-shrink-0 flex-grow flex-col gap-2 text-left">
+              <span className="flex shrink-0 grow flex-col gap-2 text-left">
                 <h4 className="font-2xl m-0 p-0 font-medium">{project.name}</h4>
                 <span className="line-clamp-5 text-sm md:line-clamp-4 lg:line-clamp-2">
                   {project.description}

@@ -19,13 +19,13 @@ export const Collapse: Component<{
         className="flex w-full cursor-pointer items-center justify-between"
         onClick={() => setIsOpened((v) => !v)}
       >
-        <span className="w-0 flex-shrink flex-grow truncate">
+        <span className="w-0 shrink grow truncate">
           {props.title}
         </span>
         <div
           className={clsx(
-            'flex-shrink-0 text-gray-400',
-            isOpened && 'rotate-180 transform',
+            'shrink-0 text-gray-400',
+            isOpened && 'rotate-180',
           )}
         >
           <IonIosArrowDown />
