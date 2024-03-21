@@ -1,6 +1,6 @@
 'use client'
 
-import { forwardRef, memo, useMemo } from 'react'
+import { forwardRef, memo, useState } from 'react'
 import { m } from 'framer-motion'
 import type {
   HTMLMotionProps,
@@ -49,17 +49,14 @@ export const createTransitionView = (params: TransitionViewParams) => {
       HTMLMotionProps<any> & RefAttributes<HTMLElement>
     >
 
+    const [stableIsHydrationEnded] = useState(isHydrationEnded)
+    if (lcpOptimization && !stableIsHydrationEnded) {
+      return <div>{props.children}</div>
+    }
+
     return (
       <MotionComponent
-        initial={useMemo(
-          () =>
-            lcpOptimization
-              ? isHydrationEnded()
-                ? initial || from
-                : true
-              : initial || from,
-          [],
-        )}
+        initial={initial || from}
         ref={ref}
         animate={{
           ...to,
