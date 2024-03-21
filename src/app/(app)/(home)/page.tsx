@@ -183,9 +183,7 @@ const Hero = () => {
           </ul>
         </>
 
-        <div
-          className={clsx('lg:size-[300px]', 'size-[200px]')}
-        >
+        <div className={clsx('lg:size-[300px]', 'size-[200px]')}>
           <Image
             height={300}
             width={300}

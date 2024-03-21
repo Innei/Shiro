@@ -54,12 +54,17 @@ export const createTransitionView = (params: TransitionViewParams) => {
 
     const motionProps: MotionProps = {
       initial: initial || from,
-      animate: to,
+      animate: {
+        ...to,
+        transition: {
+          duration,
+          ...(preset || microReboundPreset),
+          ...animation.enter,
+          delay: enter / 1000,
+        },
+      },
       transition: {
         duration,
-        ...(preset || microReboundPreset),
-        ...animation.enter,
-        delay: enter / 1000,
       },
       exit: {
         ...from,
