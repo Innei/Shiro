@@ -4,6 +4,7 @@ import { forwardRef, memo, useState } from 'react'
 import { m } from 'framer-motion'
 import type {
   HTMLMotionProps,
+  MotionProps,
   Spring,
   Target,
   TargetAndTransition,
@@ -50,36 +51,32 @@ export const createTransitionView = (params: TransitionViewParams) => {
     >
 
     const [stableIsHydrationEnded] = useState(isHydrationEnded)
+
+    const motionProps: MotionProps = {
+      initial: initial || from,
+      animate: to,
+      transition: {
+        duration,
+        ...(preset || microReboundPreset),
+        ...animation.enter,
+        delay: enter / 1000,
+      },
+      exit: {
+        ...from,
+        transition: {
+          duration,
+          ...animation.exit,
+          delay: exit / 1000,
+        } as TargetAndTransition['transition'],
+      },
+    }
     if (lcpOptimization && !stableIsHydrationEnded) {
-      return <div>{props.children}</div>
+      motionProps.initial = to
+      delete motionProps.animate
     }
 
     return (
-      <MotionComponent
-        initial={initial || from}
-        ref={ref}
-        animate={{
-          ...to,
-          transition: {
-            duration,
-            ...(preset || microReboundPreset),
-            ...animation.enter,
-            delay: enter / 1000,
-          },
-        }}
-        exit={{
-          ...from,
-          transition: {
-            duration,
-            ...animation.exit,
-            delay: exit / 1000,
-          } as TargetAndTransition['transition'],
-        }}
-        transition={{
-          duration,
-        }}
-        {...rest}
-      >
+      <MotionComponent ref={ref} {...motionProps} {...rest}>
         {props.children}
       </MotionComponent>
     )
