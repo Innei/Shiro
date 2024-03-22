@@ -4,7 +4,7 @@ import type { PostDto } from '~/models/writing'
 
 import { useResetAutoSaverData } from '~/components/modules/dashboard/writing/BaseWritingProvider'
 import { cloneDeep } from '~/lib/lodash'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
 

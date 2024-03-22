@@ -2,7 +2,7 @@ import axios from 'axios'
 import type { NoteDto, PostDto } from '~/models/writing'
 import type { CrossBell } from './types'
 
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 
 const endpoint = 'https://indexer.crossbell.io/v1'
 // characterId 52055

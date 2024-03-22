@@ -8,7 +8,7 @@ import { NothingFound } from '~/components/modules/shared/NothingFound'
 import { Loading } from '~/components/ui/loading'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { noopArr } from '~/lib/noop'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
 export default function Page() {

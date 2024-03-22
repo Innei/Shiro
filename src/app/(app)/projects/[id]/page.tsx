@@ -6,7 +6,7 @@ import { useParams, useRouter } from 'next/navigation'
 
 import { NotFound404 } from '~/components/common/404'
 import { Loading } from '~/components/ui/loading'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 
 export default function Page() {
   const { id } = useParams()

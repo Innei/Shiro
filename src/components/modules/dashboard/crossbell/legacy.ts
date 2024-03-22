@@ -3,7 +3,7 @@ import Unidata from 'unidata.js'
 import type { NoteDto, PostDto } from '~/models/writing'
 import type { Contract } from 'crossbell'
 
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 import { toast } from '~/lib/toast'
 
 const unidata = new Unidata()

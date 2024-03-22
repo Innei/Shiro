@@ -8,7 +8,7 @@ import { ShiJu } from '~/components/modules/dashboard/home/Shiju'
 import { Version } from '~/components/modules/dashboard/home/Version'
 import { IpInfoPopover } from '~/components/modules/dashboard/ip'
 import { parseDate } from '~/lib/datetime'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 
 export default function Page() {
   return (

@@ -6,7 +6,7 @@ import type { FC } from 'react'
 
 import { Divider } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 
 import { NoteTimelineItem } from './NoteTimelineItem'

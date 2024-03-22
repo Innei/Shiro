@@ -36,7 +36,7 @@ import { useReadPercent } from '~/hooks/shared/use-read-percent'
 import { getColorScheme, stringToHue } from '~/lib/color'
 import { formatSeconds } from '~/lib/datetime'
 import { debounce, uniq } from '~/lib/lodash'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 import { springScrollTo } from '~/lib/scroller'
 import {
   useWrappedElementPosition,

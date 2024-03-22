@@ -27,7 +27,7 @@ import { isDev } from '~/lib/env'
 import { clsxm } from '~/lib/helper'
 import { shuffle } from '~/lib/lodash'
 import { noopObj } from '~/lib/noop'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import {
   useAggregationSelector,

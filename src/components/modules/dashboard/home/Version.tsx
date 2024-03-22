@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
 import PKG from '~/../package.json'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 
 export const Version = () => {
   const { data: version, isLoading } = useQuery({

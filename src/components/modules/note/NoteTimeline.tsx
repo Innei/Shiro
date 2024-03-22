@@ -5,7 +5,7 @@ import { memo } from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 import type { TargetAndTransition } from 'framer-motion'
 
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 import { useCurrentNoteNid } from '~/providers/note/CurrentNoteIdProvider'
 

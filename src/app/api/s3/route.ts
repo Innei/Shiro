@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server'
 
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 
 const config = {
   accountId: 'de7ecb0eaa0a328071255d557a6adb66',

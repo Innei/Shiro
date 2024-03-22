@@ -8,7 +8,7 @@ import { StyledButton } from '~/components/ui/button'
 import { Input } from '~/components/ui/input/Input'
 import { useStateToRef } from '~/hooks/common/use-state-ref'
 import { preventDefault } from '~/lib/dom'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 import { toast } from '~/lib/toast'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 

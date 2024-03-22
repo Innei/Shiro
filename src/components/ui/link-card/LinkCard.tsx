@@ -18,7 +18,7 @@ import { preventDefault } from '~/lib/dom'
 import { fetchGitHubApi } from '~/lib/github'
 import { clsxm } from '~/lib/helper'
 import { getDominantColor } from '~/lib/image'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 import { useFeatureEnabled } from '~/providers/root/app-feature-provider'
 
 import { LinkCardSource } from './enums'

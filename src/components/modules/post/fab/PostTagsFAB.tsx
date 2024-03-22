@@ -11,7 +11,7 @@ import { TimelineList } from '~/components/ui/list/TimelineList'
 import { Loading } from '~/components/ui/loading'
 import { useModalStack } from '~/components/ui/modal'
 import { Tag } from '~/components/ui/tag/Tag'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 
 export const PostTagsFAB = () => {

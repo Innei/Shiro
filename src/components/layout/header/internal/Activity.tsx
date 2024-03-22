@@ -19,7 +19,7 @@ import { FloatPopover } from '~/components/ui/float-popover'
 import { softBouncePreset } from '~/constants/spring'
 import { TrackerAction } from '~/constants/tracker'
 import { usePageIsActive } from '~/hooks/common/use-is-active'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 import {
   useAggregationSelector,
   useAppConfigSelector,

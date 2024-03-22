@@ -18,7 +18,7 @@ import { Loading } from '~/components/ui/loading'
 import { useModalStack } from '~/components/ui/modal'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { shuffle } from '~/lib/lodash'
-import { apiClient, getErrorMessageFromRequestError } from '~/lib/request'
+import { apiClient, getErrorMessageFromRequestError } from '~/lib/request.new'
 import { toast } from '~/lib/toast'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
