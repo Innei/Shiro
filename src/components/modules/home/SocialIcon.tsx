@@ -13,25 +13,6 @@ interface SocialIconProps {
   id: string
 }
 
-const type2Copy = {
-  github: 'GitHub',
-  twitter: 'Twitter',
-  telegram: 'Telegram',
-  mail: 'Email',
-  rss: 'RSS',
-  email: 'Email',
-  feed: 'RSS',
-  bilibili: '哔哩哔哩',
-  netease: '网易云音乐',
-
-  qq: 'QQ',
-  wechat: '微信',
-  weibo: '微博',
-
-  x: 'X',
-} as any
-const icons = new Set(Object.keys(type2Copy))
-
 const iconSet: Record<
   string,
   [string, ReactNode, string, (id: string) => string]
@@ -61,6 +42,12 @@ const iconSet: Record<
     '#D44638',
     (id) => `mailto:${id}`,
   ],
+  get email() {
+    return this.mail
+  },
+  get feed() {
+    return this.rss
+  },
   rss: [
     'RSS',
     <i className="icon-[mingcute--rss-line]" />,
@@ -97,14 +84,21 @@ const iconSet: Record<
     '#E6162D',
     (id) => `https://weibo.com/${id}`,
   ],
+  discord: [
+    'Discord',
+    <i className="icon-[mingcute--discord-fill]" />,
+    '#7289DA',
+    (id) => `https://discord.gg/${id}`,
+  ],
 }
+const icons = Object.keys(iconSet)
 
-export const isSupportIcon = (icon: string) => icons.has(icon)
+export const isSupportIcon = (icon: string) => icons.includes(icon)
 export const SocialIcon = memo((props: SocialIconProps) => {
   const { id, type } = props
 
   const [name, Icon, iconBg, hrefFn] = useMemo(() => {
-    const [name, Icon, iconBg, hrefFn] = iconSet[type] || []
+    const [name, Icon, iconBg, hrefFn] = (iconSet as any)[type as any] || []
     return [name, Icon, iconBg, hrefFn]
   }, [type])
 
@@ -132,7 +126,7 @@ export const SocialIcon = memo((props: SocialIconProps) => {
         </MotionButtonBase>
       }
     >
-      {type2Copy[type] || ''}
+      {name}
     </FloatPopover>
   )
 })
