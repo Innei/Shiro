@@ -169,7 +169,7 @@ const Card: FC<{ link: LinkModel }> = ({ link }) => {
       />
       <span className="flex h-full flex-col items-center justify-center space-y-2 py-3">
         <span className="text-lg font-medium">{link.name}</span>
-        <span className="line-clamp-2 break-all text-sm text-base-content/80">
+        <span className="line-clamp-2 text-balance break-all text-center text-sm text-base-content/80">
           {link.description}
         </span>
       </span>
