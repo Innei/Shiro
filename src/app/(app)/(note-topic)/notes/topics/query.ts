@@ -1,4 +1,4 @@
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 import { defineQuery } from '~/queries/helper'
 
 export const topicsQuery = defineQuery({

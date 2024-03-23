@@ -17,7 +17,7 @@ import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/Bo
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { useIsDark } from '~/hooks/common/use-is-dark'
 import { addAlphaToHSL, getColorScheme, stringToHue } from '~/lib/color'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 
 import { sayQueryKey } from './query'
 

@@ -12,7 +12,7 @@ import { FloatPopover } from '~/components/ui/float-popover'
 import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
 import { TrackerAction } from '~/constants/tracker'
 import { usePageIsActive } from '~/hooks/common/use-is-active'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 
 const Help = () => {

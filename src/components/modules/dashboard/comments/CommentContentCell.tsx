@@ -6,7 +6,7 @@ import { CollectionRefTypes } from '@mx-space/api-client'
 import { RelativeTime } from '~/components/ui/relative-time'
 import { EllipsisHorizontalTextWithTooltip } from '~/components/ui/typography'
 import { clsxm } from '~/lib/helper'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 
 import { CommentMarkdown } from '../../comment/CommentMarkdown'
 import { CommentAction } from './CommentAction'

@@ -16,7 +16,7 @@ import { MarkRule } from '~/components/ui/markdown/parsers/mark'
 import { MentionRule } from '~/components/ui/markdown/parsers/mention'
 import { SpoilerRule } from '~/components/ui/markdown/parsers/spoiler'
 import { escapeXml } from '~/lib/helper.server'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 
 // export const dynamic = 'force-dynamic'
 export const revalidate = 86400 // 1 day

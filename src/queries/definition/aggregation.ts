@@ -1,7 +1,7 @@
 import { isServer } from '@tanstack/react-query'
 import type { AggregateRoot } from '@mx-space/api-client'
 
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 
 import { defineQuery } from '../helper'
 

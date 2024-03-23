@@ -27,7 +27,7 @@ import useDebounceValue from '~/hooks/common/use-debounce-value'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { getToken } from '~/lib/cookie'
 import { noopArr } from '~/lib/noop'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 import { jotaiStore } from '~/lib/store'
 
 const searchPanelOpenAtom = atom(false)

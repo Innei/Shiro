@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { FullPageLoading } from '~/components/ui/loading'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 
 export default function Page() {
   const {

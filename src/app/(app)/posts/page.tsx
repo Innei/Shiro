@@ -7,7 +7,7 @@ import { PostPagination } from '~/components/modules/post/PostPagination'
 import { NothingFound } from '~/components/modules/shared/NothingFound'
 import { SearchFAB } from '~/components/modules/shared/SearchFAB'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 
 interface Props {
   searchParams: {

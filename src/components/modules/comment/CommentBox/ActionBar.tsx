@@ -17,7 +17,7 @@ import { useIsLogged } from '~/atoms/hooks'
 import { TiltedSendIcon } from '~/components/icons/TiltedSendIcon'
 import { MLink } from '~/components/ui/link/MLink'
 import { clsxm } from '~/lib/helper'
-import { apiClient, getErrorMessageFromRequestError } from '~/lib/request'
+import { apiClient, getErrorMessageFromRequestError } from '~/lib/request.new'
 import { jotaiStore } from '~/lib/store'
 import { toast } from '~/lib/toast'
 

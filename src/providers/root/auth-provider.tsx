@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import type { FC, PropsWithChildren } from 'react'
 
 import { PageLoading } from '~/components/layout/dashboard/PageLoading'
-import { apiClient } from '~/lib/request'
+import { apiClient } from '~/lib/request.new'
 import { toast } from '~/lib/toast'
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
