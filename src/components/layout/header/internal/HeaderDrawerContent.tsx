@@ -4,11 +4,10 @@ import { memo } from 'react'
 import { m } from 'framer-motion'
 import Link from 'next/link'
 
+import { useSheetContext } from '~/components/ui/sheet/context'
 import { reboundPreset } from '~/constants/spring'
-import { jotaiStore } from '~/lib/store'
 
 import { useHeaderConfig } from './HeaderDataConfigureProvider'
-import { drawerOpenAtom } from './HeaderDrawerButton'
 
 export const HeaderDrawerContent = () => {
   const { config } = useHeaderConfig()
@@ -55,19 +54,14 @@ export const HeaderDrawerContent = () => {
     </div>
   )
 }
-// @ts-ignore
+
 const LinkInternal: typeof Link = memo(function LinkInternal({
   children,
   ...rest
 }) {
+  const { dismiss } = useSheetContext()
   return (
-    <Link
-      {...rest}
-      prefetch={false}
-      onClick={() => {
-        jotaiStore.set(drawerOpenAtom, false)
-      }}
-    >
+    <Link {...rest} prefetch={false} onClick={dismiss}>
       {children}
     </Link>
   )

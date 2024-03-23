@@ -3,6 +3,8 @@ import { atom, useStore } from 'jotai'
 import { Drawer } from 'vaul'
 import type { FC, PropsWithChildren, ReactNode } from 'react'
 
+import { SheetContext } from './context'
+
 export interface PresentSheetProps {
   content: ReactNode | FC
   open?: boolean
@@ -94,11 +96,22 @@ export const PresentSheet: FC<PropsWithChildren<PresentSheetProps>> = (
             </Drawer.Title>
           )}
 
-          {React.isValidElement(content)
-            ? content
-            : typeof content === 'function'
-              ? React.createElement(content)
-              : null}
+          <SheetContext.Provider
+            value={useMemo(
+              () => ({
+                dismiss() {
+                  setIsOpen(false)
+                },
+              }),
+              [setIsOpen],
+            )}
+          >
+            {React.isValidElement(content)
+              ? content
+              : typeof content === 'function'
+                ? React.createElement(content)
+                : null}
+          </SheetContext.Provider>
           <div ref={setHolderRef} />
         </Drawer.Content>
         <Drawer.Overlay
