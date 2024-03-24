@@ -4,7 +4,7 @@ import type { PropsWithChildren } from 'react'
 import { QueryHydrate } from '~/components/common/QueryHydrate'
 import { isShallowEqualArray } from '~/lib/lodash'
 import { getQueryClient } from '~/lib/query-client.server'
-import { apiClient } from '~/lib/request.new'
+import { apiClient } from '~/lib/request'
 import { requestErrorHandler } from '~/lib/request.server'
 
 import { queryKey } from './query'

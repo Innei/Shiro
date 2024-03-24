@@ -6,7 +6,7 @@ import type { InfiniteData, MutationOptions } from '@tanstack/react-query'
 
 import { CommentState } from '@mx-space/api-client'
 
-import { apiClient } from '~/lib/request.new'
+import { apiClient } from '~/lib/request'
 import { toast } from '~/lib/toast'
 
 import { defineQuery } from '../helper'

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-import { apiClient } from '~/lib/request.new'
+import { apiClient } from '~/lib/request'
 
 import { PinIconToggle } from '../shared/PinIconToggle'
 

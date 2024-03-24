@@ -1,4 +1,4 @@
-import { apiClient } from '~/lib/request.new'
+import { apiClient } from '~/lib/request'
 import { defineQuery } from '~/queries/helper'
 
 export const getPageBySlugQuery = (slug: string) =>

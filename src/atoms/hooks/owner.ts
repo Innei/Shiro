@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useAtomValue } from 'jotai'
 
 import { getToken, setToken } from '~/lib/cookie'
-import { apiClient } from '~/lib/request.new'
+import { apiClient } from '~/lib/request'
 import { jotaiStore } from '~/lib/store'
 
 import { isLoggedAtom, ownerAtom } from '../owner'

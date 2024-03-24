@@ -1,5 +1,5 @@
 import { resetActivityPresence } from '~/atoms/activity'
-import { apiClient } from '~/lib/request.new'
+import { apiClient } from '~/lib/request'
 
 import { defineQuery } from '../helper'
 

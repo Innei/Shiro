@@ -1,7 +1,7 @@
 import { queryClient } from '~/providers/root/react-query-provider'
 import { atom } from 'jotai'
 
-import { apiClient } from '~/lib/request.new'
+import { apiClient } from '~/lib/request'
 import { jotaiStore } from '~/lib/store'
 
 export interface UrlConfig {

@@ -5,7 +5,7 @@ import type { InfiniteData } from '@tanstack/react-query'
 import type { Draft } from 'immer'
 import type { SVGProps } from 'react'
 
-import { apiClient } from '~/lib/request.new'
+import { apiClient } from '~/lib/request'
 
 import { PinIconToggle } from '../shared/PinIconToggle'
 import { useCommentBoxRefIdValue } from './CommentBox/hooks'

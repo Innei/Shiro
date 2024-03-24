@@ -2,7 +2,7 @@ import { PhEyeSlash } from '~/components/icons/EyeSlashIcon'
 import { MotionButtonBase } from '~/components/ui/button'
 import { EllipsisHorizontalTextWithTooltip } from '~/components/ui/typography'
 import { clsxm } from '~/lib/helper'
-import { apiClient } from '~/lib/request.new'
+import { apiClient } from '~/lib/request'
 
 type RequiredField = { id: string; title: string }
 type OptionalField = Partial<{

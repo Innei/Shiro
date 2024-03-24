@@ -1,7 +1,7 @@
 import { atom } from 'jotai'
 
 import { getToken, removeToken, setToken } from '~/lib/cookie'
-import { apiClient } from '~/lib/request.new'
+import { apiClient } from '~/lib/request'
 import { jotaiStore } from '~/lib/store'
 import { toast } from '~/lib/toast'
 import { aggregationDataAtom } from '~/providers/root/aggregation-data-provider'

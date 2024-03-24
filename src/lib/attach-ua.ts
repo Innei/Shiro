@@ -1,12 +1,9 @@
-import { isServer } from '@tanstack/react-query'
 import { headers } from 'next/headers'
 
-import { $axios } from '~/lib/request'
-
 import PKG from '../../package.json'
+import { attachFetchHeader } from './request'
 
 export const attachUAAndRealIp = () => {
-  if (!isServer) return
   const { get } = headers()
 
   const ua = get('user-agent')
@@ -15,8 +12,13 @@ export const attachUAAndRealIp = () => {
     get('x-forwarded-for') ||
     get('remote-addr') ||
     get('cf-connecting-ip')
-  $axios.defaults.headers.common['X-Real-IP'] = ip
-  $axios.defaults.headers.common['X-Forwarded-For'] = ip
-  $axios.defaults.headers.common['User-Agent'] =
-    `${ua} NextJS/v${PKG.dependencies.next} ${PKG.name}/${PKG.version}`
+
+  if (ip) {
+    attachFetchHeader('x-real-ip', ip)
+    attachFetchHeader('x-forwarded-for', ip)
+  }
+  attachFetchHeader(
+    'User-Agent',
+    `${ua} NextJS/v${PKG.dependencies.next} ${PKG.name}/${PKG.version}`,
+  )
 }

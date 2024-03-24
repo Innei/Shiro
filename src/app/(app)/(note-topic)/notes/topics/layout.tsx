@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 import { QueryHydrate } from '~/components/common/QueryHydrate'
 import { NormalContainer } from '~/components/layout/container/Normal'
-import { attachUAAndRealIp } from '~/lib/attach-ua.new'
+import { attachUAAndRealIp } from '~/lib/attach-ua'
 import { isShallowEqualArray } from '~/lib/lodash'
 import { getQueryClient } from '~/lib/query-client.server'
 

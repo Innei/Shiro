@@ -6,7 +6,7 @@ import { XLogIcon } from '~/components/icons/platform/XLogIcon'
 import { LabelSwitch } from '~/components/ui/switch'
 import { PublishEvent } from '~/events'
 import { RefetchEvent } from '~/events/refetch'
-import { apiClient } from '~/lib/request.new'
+import { apiClient } from '~/lib/request'
 
 import { syncToXlogAtom } from '../writing/atoms'
 import { CrossBellConnector } from './legacy'

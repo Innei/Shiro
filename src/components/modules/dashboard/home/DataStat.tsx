@@ -6,7 +6,7 @@ import type { ReactNode } from 'react'
 
 import { StyledButton } from '~/components/ui/button'
 import { RelativeTime } from '~/components/ui/relative-time'
-import { apiClient } from '~/lib/request.new'
+import { apiClient } from '~/lib/request'
 import { toast } from '~/lib/toast'
 
 import {

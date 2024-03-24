@@ -5,7 +5,7 @@ import type { NextRequest } from 'next/server'
 import { sql } from '@vercel/postgres'
 
 import { API_URL } from '~/constants/env'
-import { apiClient } from '~/lib/request.new'
+import { apiClient } from '~/lib/request'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,

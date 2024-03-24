@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useLayoutEffect, useState } from 'react'
 
 import { FloatPopover } from '~/components/ui/float-popover'
-import { apiClient } from '~/lib/request.new'
+import { apiClient } from '~/lib/request'
 
 interface IpInfoPopoverProps {
   ip: string
