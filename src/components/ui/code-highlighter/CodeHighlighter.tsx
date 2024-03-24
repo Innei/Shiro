@@ -31,7 +31,7 @@ export const HighLighterPrismCdn: FC<Props> = (props) => {
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(value)
-    toast.success('COPIED!')
+    toast.success('已复制到剪贴板')
   }, [value])
 
   const ref = useRef<HTMLElement>(null)
