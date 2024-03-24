@@ -5,7 +5,6 @@ import { useCallback } from 'react'
 import Image from 'next/image'
 
 import { clsxm } from '~/lib/helper'
-import { apiClient } from '~/lib/request.new'
 import {
   useAggregationSelector,
   useAppConfigSelector,
@@ -37,18 +36,18 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
     },
   })
 
-  const { data: status } = useQuery({
-    queryKey: ['shiro-status'],
-    queryFn: () =>
-      apiClient.proxy.fn.shiro.status.get<{
-        desc: string
-        emoji: string
-        icon?: string
-        untilAt: number
-      }>(),
-    refetchInterval: 1000 * 60,
-    refetchOnMount: 'always',
-  })
+  // const { data: status } = useQuery({
+  //   queryKey: ['shiro-status'],
+  //   queryFn: () =>
+  //     apiClient.proxy.fn.shiro.status.get<{
+  //       desc: string
+  //       emoji: string
+  //       icon?: string
+  //       untilAt: number
+  //     }>(),
+  //   refetchInterval: 1000 * 60,
+  //   refetchOnMount: 'always',
+  // })
 
   if (!avatar) return
   return (
@@ -71,17 +70,17 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
           alt="Site Owner Avatar"
           width={40}
           height={40}
-          style={{
-            maskImage: `url(
-            ${require('./mask-image.svg').default.src}
-          )`,
-          }}
+          // style={{
+          //   maskImage: `url(
+          //   ${require('./mask-image.svg').default.src}
+          // )`,
+          // }}
           className={clsxm('ring-2 ring-slate-200 dark:ring-neutral-800')}
         />
       </div>
-      <div className="absolute bottom-0 right-0 flex size-4 items-center justify-center rounded-full">
+      {/* <div className="absolute bottom-0 right-0 flex size-4 items-center justify-center rounded-full">
         {status?.emoji}
-      </div>
+      </div> */}
       {isLiving && (
         <>
           <p className="absolute bottom-0 right-0 z-[1] rounded-md bg-red-400 p-1 font-[system-ui] text-[6px] text-white dark:bg-orange-700">
