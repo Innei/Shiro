@@ -6,6 +6,7 @@ import { memo, useCallback, useRef, useState } from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 import Markdown from 'markdown-to-jsx'
 import type { LinkModel } from '@mx-space/api-client'
+import type { FormContextType } from '~/components/ui/form'
 import type { FC } from 'react'
 
 import { LinkState, LinkType, RequestError } from '@mx-space/api-client'
@@ -295,7 +296,7 @@ const ApplyLinkInfo: FC = () => {
 
 const FormModal = () => {
   const { dismissTop } = useModalStack()
-  const inputs = useRef([
+  const [inputs] = useState(() => [
     {
       name: 'author',
       placeholder: '昵称 *',
@@ -370,30 +371,18 @@ const FormModal = () => {
         },
       ],
     },
-  ]).current
-  const [state, setState] = useState({
-    author: '',
-    name: '',
-    url: '',
-    avatar: '',
-    description: '',
-    email: '',
-  })
+  ])
 
-  const setValue = useCallback((key: keyof typeof state, value: string) => {
-    setState((prevState) => ({ ...prevState, [key]: value }))
-  }, [])
-
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.name as keyof typeof state, e.target.value)
-  }, [])
+  const formRef = useRef<FormContextType>(null)
 
   const handleSubmit = useCallback(
     (e: any) => {
       e.preventDefault()
+      const currentValues = formRef.current?.getCurrentValues()
+      if (!currentValues) return
 
       apiClient.link
-        .applyLink({ ...state })
+        .applyLink({ ...(currentValues as any) })
         .then(() => {
           dismissTop()
           toast.success('好耶！')
@@ -406,20 +395,17 @@ const FormModal = () => {
           }
         })
     },
-    [state],
+    [dismissTop],
   )
+
   return (
     <Form
+      ref={formRef}
       className="w-full space-y-4 text-center lg:w-[300px]"
       onSubmit={handleSubmit}
     >
       {inputs.map((input) => (
-        <FormInput
-          key={input.name}
-          value={(state as any)[input.name]}
-          onChange={handleChange}
-          {...input}
-        />
+        <FormInput key={input.name} {...input} />
       ))}
 
       <StyledButton variant="primary" type="submit">
