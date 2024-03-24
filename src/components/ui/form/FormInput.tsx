@@ -15,7 +15,7 @@ import { useForm, useFormConfig } from './FormContext'
 export const FormInput: FC<
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> &
     FormFieldBaseProps<string>
-> = memo(({ className, rules, onKeyDown, ...rest }) => {
+> = memo(({ className, rules, onKeyDown, transform, ...rest }) => {
   const FormCtx = useForm()
   if (!FormCtx) throw new Error('FormInput must be used inside <FormContext />')
   const { showErrorMessage } = useFormConfig()
@@ -44,12 +44,13 @@ export const FormInput: FC<
     addField(name, {
       rules,
       $ref: inputRef.current,
+      transform,
     })
 
     return () => {
       removeField(name)
     }
-  }, [rest.name, rules])
+  }, [rest.name, rules, transform])
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {

@@ -6,10 +6,15 @@ export interface Rule<T = unknown> {
 type ValidateStatus = 'error' | 'success'
 export interface Field {
   rules: (Rule<any> & { status?: ValidateStatus })[]
+  /**
+   * `getCurrentValues` will return the transformed value
+   * @param value field value
+   */
+  transform?: <X, T = string>(value: T) => X
 
   $ref: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null
 }
 
-export type FormFieldBaseProps<T> = {
+export interface FormFieldBaseProps<T> extends Pick<Field, 'transform'> {
   rules?: Rule<T>[]
 }

@@ -32,10 +32,16 @@ export const Form = forwardRef<
     },
     getCurrentValues: () => {
       return Object.fromEntries(
-        Object.entries(jotaiStore.get(fieldsAtom)).map(([key, value]) => [
-          key,
-          (value as any as Field).$ref?.value,
-        ]),
+        Object.entries(jotaiStore.get(fieldsAtom)).map(([key, value]) => {
+          const nextValue = (value as any as Field).$ref?.value
+
+          return [
+            key,
+            (value as Field).transform
+              ? (value as Field).transform?.(nextValue)
+              : nextValue,
+          ]
+        }),
       )
     },
     addField: (name: string, field: Field) => {
