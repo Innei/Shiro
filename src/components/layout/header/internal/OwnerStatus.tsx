@@ -97,12 +97,14 @@ export const OwnerStatus = () => {
 }
 
 const SettingStatusModalContent = () => {
+  const ownerStatus = useOwnerStatus()
   const [inputs] = useState(
     () =>
       [
         {
           name: 'emoji',
           placeholder: 'Emoji *',
+          defaultValue: ownerStatus?.emoji,
           rules: [
             {
               validator: (value: string) => !!value,
@@ -117,6 +119,7 @@ const SettingStatusModalContent = () => {
         {
           name: 'desc',
           placeholder: '状态描述 *',
+          defaultValue: ownerStatus?.desc,
           rules: [
             {
               validator: (value: string) => !!value,
