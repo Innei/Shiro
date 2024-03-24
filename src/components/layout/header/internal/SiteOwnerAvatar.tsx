@@ -4,11 +4,14 @@ import { useQuery } from '@tanstack/react-query'
 import { useCallback } from 'react'
 import Image from 'next/image'
 
+import { useOwnerStatus } from '~/atoms/hooks/status'
 import { clsxm } from '~/lib/helper'
 import {
   useAggregationSelector,
   useAppConfigSelector,
 } from '~/providers/root/aggregation-data-provider'
+
+import { OwnerStatus } from './OwnerStatus'
 
 export const SiteOwnerAvatar: Component = ({ className }) => {
   const avatar = useAggregationSelector((data) => data.user.avatar)
@@ -36,25 +39,13 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
     },
   })
 
-  // const { data: status } = useQuery({
-  //   queryKey: ['shiro-status'],
-  //   queryFn: () =>
-  //     apiClient.proxy.fn.shiro.status.get<{
-  //       desc: string
-  //       emoji: string
-  //       icon?: string
-  //       untilAt: number
-  //     }>(),
-  //   refetchInterval: 1000 * 60,
-  //   refetchOnMount: 'always',
-  // })
-
+  const ownerStatus = useOwnerStatus()
   if (!avatar) return
   return (
     <div
       role={isLiving ? 'button' : 'img'}
       className={clsxm(
-        'overflow pointer-events-none relative z-[9] select-none',
+        'pointer-events-none relative z-[9] size-[40px] select-none',
         isLiving ? 'cursor-pointer rounded-full' : '',
         className,
       )}
@@ -70,17 +61,19 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
           alt="Site Owner Avatar"
           width={40}
           height={40}
-          // style={{
-          //   maskImage: `url(
-          //   ${require('./mask-image.svg').default.src}
-          // )`,
-          // }}
-          className={clsxm('ring-2 ring-slate-200 dark:ring-neutral-800')}
+          style={
+            ownerStatus
+              ? {
+                  maskImage: `url(
+            ${require('./mask-image.svg').default.src}
+          )`,
+                }
+              : undefined
+          }
+          className="ring-2 ring-slate-200 dark:ring-neutral-800"
         />
       </div>
-      {/* <div className="absolute bottom-0 right-0 flex size-4 items-center justify-center rounded-full">
-        {status?.emoji}
-      </div> */}
+      <OwnerStatus />
       {isLiving && (
         <>
           <p className="absolute bottom-0 right-0 z-[1] rounded-md bg-red-400 p-1 font-[system-ui] text-[6px] text-white dark:bg-orange-700">

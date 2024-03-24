@@ -9,6 +9,7 @@ import type {
   SayModel,
 } from '@mx-space/api-client'
 import type { InfiniteData } from '@tanstack/react-query'
+import type { OwnerStatus } from '~/atoms/status'
 import type { ActivityPresence } from '~/models/activity'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
@@ -20,6 +21,7 @@ import {
   setActivityPresence,
   setActivityProcessInfo,
 } from '~/atoms/activity'
+import { setOwnerStatus } from '~/atoms/hooks/status'
 import {
   FaSolidFeatherAlt,
   IcTwotoneSignpost,
@@ -303,12 +305,21 @@ export const eventHandler = (
       break
     }
 
-    case 'shiro#update': {
+    case 'fn#shiro#update': {
       toast.info('站点版本已更新，请刷新页面', {
         onClick: () => {
           location.reload()
         },
       })
+      break
+    }
+
+    case 'fn#shiro#status': {
+      queryClient.cancelQueries({
+        queryKey: ['shiro-status'],
+      })
+
+      setOwnerStatus(data as OwnerStatus | null)
       break
     }
 
