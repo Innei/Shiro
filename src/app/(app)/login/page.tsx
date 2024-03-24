@@ -15,14 +15,14 @@ export default function LoginPage() {
   const handleLogin = async (e: any) => {
     e.preventDefault()
     const { login } = await import('~/atoms/owner')
-    login(username, password).then(() => {
-      const redirectPath = new URLSearchParams(location.search).get('redirect')
-      if (redirectPath) {
-        router.push(decodeURIComponent(redirectPath))
-      } else {
-        router.push(Routes.Home)
-      }
-    })
+    await login(username, password)
+
+    const redirectPath = new URLSearchParams(location.search).get('redirect')
+    if (redirectPath) {
+      router.push(decodeURIComponent(redirectPath))
+    } else {
+      router.push(Routes.Home)
+    }
   }
   return (
     <div className="flex min-h-[calc(100vh-7rem)] center">
