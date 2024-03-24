@@ -16,16 +16,6 @@
 
 欢迎你来体验 Shiro 的魅力！
 
-> [!IMPORTANT]
-> 最近，开源圈出现了不少的话题。有关于开源和商业化的伪命题，有开源项目被剽窃用于商业化，有对开源项目的深刻思考等。
-> 
-> 我想很多不是以公司名义发布的个人开发者开源项目都是非盈利的项目，大多都是开发者自身需要才编写的，然后顺便开源出来回馈依托的开源社区。我也是一样。
->
-> 但是，开源并不盈利，却要花费大量的时间去支持。甚至不妨被小人剽窃贴上自身的标签，或者被用于商业化盈利，或者还有人很多的伸手党等等。
->
-> 我不想不应该是这样的，也不想花费的精力都是徒劳。因此下一步，我将计划闭源开发此项目，当然此开源项目不会删除，但是不会再迭代任何新功能。
-> 如果可以让我听听你的看法，欢迎在 https://github.com/Innei/Shiro/discussions/318 讨论。
-
 ## :sparkles: 特征
 
 1. :rocket: **SEO 100%，性能优秀**：在 LightHouse 中表现优秀，Performance > 90%，Best practice > 90%。
@@ -112,9 +102,9 @@ docker run --name shiro -d -p 2323:2323 shiro
 
 ## :heart: 鸣谢 & 许可
 
-2023 © Innei，本项目采用 AGPL-3.0 许可证发布。
+2023 © Innei，本软件遵循 AGPLv3 许可证，附加特定的商业使用条件。此外，使用本项目还需要遵循[附加条款和条件](ADDITIONAL_TERMS.md)。
 
-部分代码由 GPT-4 和 [cali.so](https://github.com/CaliCastle/cali.so) 提供。
+部分代码参考自 GPT-4 和 [cali.so](https://github.com/CaliCastle/cali.so)。
 
 感谢 Mix Space Team 和广大社区朋友们的贡献。
 
