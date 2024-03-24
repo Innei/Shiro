@@ -12,7 +12,7 @@ import { FloatPopover } from '~/components/ui/float-popover'
 import { Form, FormInput } from '~/components/ui/form'
 import { useCurrentModal, useModalStack } from '~/components/ui/modal'
 import { usePageIsActive } from '~/hooks/common/use-is-active'
-import { apiClient } from '~/lib/request.new'
+import { apiClient } from '~/lib/request'
 import { toast } from '~/lib/toast'
 
 export const OwnerStatus = () => {
