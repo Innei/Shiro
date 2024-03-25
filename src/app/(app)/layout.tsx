@@ -114,7 +114,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
       },
     },
     twitter: {
-      creator: `@${user.username}`,
+      creator: `@${user.socialIds?.twitter || user.socialIds?.x || '__oQuery'}`,
       card: 'summary_large_image',
       title: seo.title,
       description: seo.description,

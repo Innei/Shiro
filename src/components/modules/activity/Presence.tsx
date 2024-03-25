@@ -132,10 +132,14 @@ const ReadPresenceTimeline = () => {
   const { roomName } = useRoomContext()
   const activityPresenceIdsCurrentRoom = useActivityPresenceByRoomName(roomName)
 
+  const uniqueActivityPresenceIdsCurrentRoom = uniq(
+    activityPresenceIdsCurrentRoom,
+  )
+  if (uniqueActivityPresenceIdsCurrentRoom.length < 2) return null
   return (
     <RootPortal>
       <div className="group fixed inset-y-20 left-0 z-[3] w-8">
-        {uniq(activityPresenceIdsCurrentRoom).map((identity) => {
+        {uniqueActivityPresenceIdsCurrentRoom.map((identity) => {
           return (
             <TimelineItem
               key={identity}
