@@ -1,5 +1,4 @@
 import { memo } from 'react'
-import { Balancer } from 'react-wrap-balancer'
 import clsx from 'clsx'
 import Link from 'next/link'
 import RemoveMarkdown from 'remove-markdown'
@@ -25,8 +24,8 @@ export const PostItem = memo<{ data: PostModel }>(function PostItem({ data }) {
       className="relative flex flex-col py-8 focus-visible:!shadow-none"
     >
       <PostItemHoverOverlay />
-      <h2 className="relative break-words text-2xl font-medium">
-        <Balancer>{data.title}</Balancer>
+      <h2 className="relative text-balance break-words text-2xl font-medium">
+        {data.title}
 
         <PostPinIcon pin={!!data.pin} id={data.id} />
       </h2>

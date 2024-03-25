@@ -108,7 +108,6 @@
     "react-responsive-masonry": "2.2.0",
     "react-toastify": "10.0.5",
     "react-tweet": "3.2.0",
-    "react-wrap-balancer": "1.1.0",
     "remark-directive": "3.0.0",
     "remove-markdown": "0.5.0",
     "rss": "1.2.2",
@@ -168,6 +167,9 @@
     "budgetPercentIncreaseRed": 20,
     "showDetails": true
   },
+  "browserslist": [
+    "defaults and fully supports es6-module"
+  ],
   "pnpm": {
     "overrides": {
       "array-includes": "npm:@nolyfill/array-includes@latest",

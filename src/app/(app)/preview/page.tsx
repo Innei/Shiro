@@ -1,7 +1,6 @@
 'use client'
 
 import { useMemo } from 'react'
-import Balancer from 'react-wrap-balancer'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { atom, useAtomValue } from 'jotai'
 import type {
@@ -179,9 +178,7 @@ const PostPreview = () => {
         <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
           <article className="prose relative w-full min-w-0">
             <header className="mb-8">
-              <h1 className="text-center">
-                <Balancer>{data.title}</Balancer>
-              </h1>
+              <h1 className="text-balance text-center">{data.title}</h1>
 
               <PostMetaBarInternal className="mb-8 justify-center" />
             </header>

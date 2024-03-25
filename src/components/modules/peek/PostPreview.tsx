@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
-import Balancer from 'react-wrap-balancer'
 import { atom } from 'jotai'
 import type { PostModel } from '@mx-space/api-client'
 import type { FC } from 'react'
@@ -44,9 +43,7 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
       <Paper>
         <article className="prose relative w-full min-w-0">
           <header className="mb-8">
-            <h1 className="text-center">
-              <Balancer>{data.title}</Balancer>
-            </h1>
+            <h1 className="text-balance text-center">{data.title}</h1>
             <PostMetaBarInternal className="mb-8 justify-center" />
             <XLogSummary cid={getCidForBaseModel(data)} />
             <PostOutdate />
