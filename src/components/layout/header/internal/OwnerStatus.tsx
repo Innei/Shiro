@@ -11,6 +11,7 @@ import { StyledButton } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { Form, FormInput } from '~/components/ui/form'
 import { useCurrentModal, useModalStack } from '~/components/ui/modal'
+import { Select } from '~/components/ui/select'
 import { usePageIsActive } from '~/hooks/common/use-is-active'
 import { apiClient } from '~/lib/request'
 import { toast } from '~/lib/toast'
@@ -23,6 +24,9 @@ export const OwnerStatus = () => {
     refetchInterval: 1000 * 60,
     refetchOnMount: 'always',
     enabled: pageIsActive,
+    meta: {
+      persist: false,
+    },
   })
 
   useEffect(() => {
@@ -150,13 +154,25 @@ const SettingStatusModalContent = () => {
   const formRef = useRef<FormContextType>(null)
   const { dismiss } = useCurrentModal()
   const [isLoading, setIsLoading] = useState(false)
+  const [timeType, setTimeType] = useState<'m' | 's' | 'h' | 'd'>('m')
+
   const handleSubmit = useCallback(async () => {
     if (!formRef.current) return
     const currentValues = formRef.current.getCurrentValues()
     setIsLoading(true)
     await apiClient.serverless.proxy.shiro.status
       .post({
-        data: currentValues,
+        data: {
+          ...currentValues,
+          ttl:
+            currentValues.ttl *
+            {
+              m: 60,
+              s: 1,
+              h: 60 * 60,
+              d: 60 * 60 * 24,
+            }[timeType],
+        },
       })
       .finally(() => {
         setIsLoading(false)
@@ -164,7 +180,7 @@ const SettingStatusModalContent = () => {
     toast.success('设置成功')
 
     dismiss()
-  }, [dismiss])
+  }, [dismiss, timeType])
   const handleReset = useCallback(async () => {
     setIsLoading(true)
     await apiClient.serverless.proxy.shiro.status.delete().finally(() => {
@@ -177,9 +193,23 @@ const SettingStatusModalContent = () => {
 
   return (
     <Form ref={formRef} className="flex flex-col gap-2" onSubmit={handleSubmit}>
-      {inputs.map((input) => (
+      {inputs.slice(0, -1).map((input) => (
         <FormInput key={input.name} {...input} />
       ))}
+
+      <div className="mb-4 flex gap-2">
+        <FormInput {...inputs.at(-1)} />
+        <Select
+          value={timeType}
+          onChange={setTimeType}
+          values={[
+            { label: '分钟', value: 'm' },
+            { label: '秒', value: 's' },
+            { label: '小时', value: 'h' },
+            { label: '天', value: 'd' },
+          ]}
+        />
+      </div>
 
       <div className="flex w-full gap-2 center">
         <StyledButton
