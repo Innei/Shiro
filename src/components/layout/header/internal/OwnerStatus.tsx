@@ -79,7 +79,12 @@ export const OwnerStatus = () => {
 
   if (!isLogged && !ownerStatus) return null
   return (
-    <FloatPopover asChild triggerElement={triggerElement} type="tooltip">
+    <FloatPopover
+      placement="bottom"
+      asChild
+      triggerElement={triggerElement}
+      type="tooltip"
+    >
       <div className="flex flex-col gap-1 text-lg">
         {ownerStatus && (
           <>
