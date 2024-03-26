@@ -13,6 +13,7 @@ import { Form, FormInput } from '~/components/ui/form'
 import { useCurrentModal, useModalStack } from '~/components/ui/modal'
 import { Select } from '~/components/ui/select'
 import { usePageIsActive } from '~/hooks/common/use-is-active'
+import { stopPropagation } from '~/lib/dom'
 import { apiClient } from '~/lib/request'
 import { toast } from '~/lib/toast'
 
@@ -53,13 +54,14 @@ export const OwnerStatus = () => {
       }}
       onClick={
         isLogged
-          ? () => {
+          ? (e) => {
+              e.stopPropagation()
               present({
                 title: '设置状态',
                 content: SettingStatusModalContent,
               })
             }
-          : undefined
+          : stopPropagation
       }
       className={clsx(
         'pointer-events-auto absolute bottom-0 right-0 z-10 flex size-4 cursor-default items-center justify-center rounded-full text-accent duration-200',
