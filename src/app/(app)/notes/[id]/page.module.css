@@ -25,6 +25,9 @@
     }
 
     blockquote {
+      &::before {
+        display: none !important;
+      }
       & {
         .paragraph > span.indent {
           margin-left: 0 !important;
