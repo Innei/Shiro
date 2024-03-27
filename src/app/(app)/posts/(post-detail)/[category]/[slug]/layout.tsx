@@ -8,7 +8,8 @@ import { TocFAB } from '~/components/modules/toc/TocFAB'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
-import { getOgUrl } from '~/lib/helper.server'
+import { hexToRgbString } from '~/lib/color'
+import { getBackgroundGradient, getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
 import { CurrentPostDataProvider } from '~/providers/post/CurrentPostDataProvider'
 import { LayoutRightSideProvider } from '~/providers/shared/LayoutRightSideProvider'
@@ -60,11 +61,23 @@ export const generateMetadata = async ({
 // eslint-disable-next-line react/display-name
 export default async (props: NextPageParams<PageParams>) => {
   const data = await getData(props.params)
+  const [bgAccent, bgAccentLight] = getBackgroundGradient(
+    data.title + data.category.name,
+  )
 
   return (
     <>
       <CurrentPostDataProvider data={data} />
       <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
+        <div
+          style={
+            {
+              '--gradient-from': hexToRgbString(bgAccent),
+              '--gradient-to': hexToRgbString(bgAccentLight),
+            } as any
+          }
+          className="page-head-gradient"
+        />
         <BottomToUpTransitionView lcpOptimization className="min-w-0">
           <RoomProvider roomName={buildRoomName(data.id)}>
             <Suspense>{props.children}</Suspense>

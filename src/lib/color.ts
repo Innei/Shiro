@@ -168,3 +168,13 @@ export function generateTransitionColors(
 
   return Array.from(new Set(transitionColors))
 }
+
+export const hexToRgbString = (hex: string) => {
+  const match = hex.replace(/^#/, '').match(/.{1,2}/g)
+  if (!match) {
+    throw new Error('Invalid hex color')
+  }
+
+  const [r, g, b] = match.map((x) => parseInt(x, 16))
+  return `${r} ${g} ${b}`
+}

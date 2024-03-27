@@ -1,4 +1,7 @@
+import 'server-only'
+
 import { headers } from 'next/dist/client/components/headers'
+import uniqolor from 'uniqolor'
 
 import { REQUEST_HOST } from '~/constants/system'
 
@@ -41,4 +44,23 @@ export const getOgUrl = (type: 'post' | 'note' | 'page', data: any) => {
     ),
   )
   return ogUrl
+}
+
+export const getBackgroundGradient = (seed: string) => {
+  const bgAccent = uniqolor(seed, {
+    saturation: [30, 35],
+    lightness: [60, 70],
+  }).color
+
+  const bgAccentLight = uniqolor(seed, {
+    saturation: [30, 35],
+    lightness: [80, 90],
+  }).color
+
+  const bgAccentUltraLight = uniqolor(seed, {
+    saturation: [30, 35],
+    lightness: [95, 96],
+  }).color
+
+  return [bgAccent, bgAccentLight, bgAccentUltraLight]
 }

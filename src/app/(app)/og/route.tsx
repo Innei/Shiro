@@ -1,5 +1,4 @@
 import { ImageResponse } from 'next/og'
-import uniqolor from 'uniqolor'
 import type { AggregateRoot } from '@mx-space/api-client'
 import type { ImageResponseOptions, NextRequest } from 'next/server'
 import type { FC } from 'react'
@@ -14,6 +13,7 @@ import {
 import { fetchAdaptor } from '@mx-space/api-client/dist/adaptors/fetch'
 
 import { API_URL } from '~/constants/env'
+import { getBackgroundGradient } from '~/lib/helper.server'
 
 const apiClient = createClient(fetchAdaptor)(API_URL, {
   controllers: [
@@ -43,20 +43,8 @@ const resOptions = {
 
 const HomeOGImage: FC<AggregateRoot> = ({ seo, user: { avatar } }) => {
   const seed = Math.random().toString(36).substring(7)
-  const bgAccent = uniqolor(seed, {
-    saturation: [30, 35],
-    lightness: [60, 70],
-  }).color
-
-  const bgAccentLight = uniqolor(seed, {
-    saturation: [30, 35],
-    lightness: [80, 90],
-  }).color
-
-  const bgAccentUltraLight = uniqolor(seed, {
-    saturation: [30, 35],
-    lightness: [95, 96],
-  }).color
+  const [bgAccent, bgAccentLight, bgAccentUltraLight] =
+    getBackgroundGradient(seed)
 
   return (
     <div
@@ -181,20 +169,9 @@ export const GET = async (req: NextRequest) => {
         { status: 400 },
       )
 
-    const bgAccent = uniqolor(title + subtitle, {
-      saturation: [30, 35],
-      lightness: [60, 70],
-    }).color
-
-    const bgAccentLight = uniqolor(title + subtitle, {
-      saturation: [30, 35],
-      lightness: [80, 90],
-    }).color
-
-    const bgAccentUltraLight = uniqolor(title + subtitle, {
-      saturation: [30, 35],
-      lightness: [95, 96],
-    }).color
+    const [bgAccent, bgAccentLight, bgAccentUltraLight] = getBackgroundGradient(
+      title + subtitle,
+    )
 
     let canShownTitle = ''
 
