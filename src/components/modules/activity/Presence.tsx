@@ -37,11 +37,6 @@ import { getColorScheme, stringToHue } from '~/lib/color'
 import { formatSeconds } from '~/lib/datetime'
 import { debounce, uniq } from '~/lib/lodash'
 import { apiClient } from '~/lib/request'
-import { springScrollTo } from '~/lib/scroller'
-import {
-  useWrappedElementPosition,
-  useWrappedElementSize,
-} from '~/providers/shared/WrappedElementProvider'
 import { queries } from '~/queries/definition'
 import { socketClient } from '~/socket'
 
@@ -49,16 +44,14 @@ import { commentStoragePrefix } from '../comment/CommentBox/providers'
 import { useRoomContext } from './Room'
 
 export const Presence = () => {
-  const isMobile = useIsMobile()
-
   const isClient = useIsClient()
 
-  return isMobile ? null : isClient ? <PresenceImpl /> : null
+  return isClient ? <PresenceImpl /> : null
 }
 
 const PresenceImpl = () => {
   const { roomName } = useRoomContext()
-
+  const isMobile = useIsMobile()
   const { refetch } = useQuery({
     ...queries.activity.presence(roomName),
 
@@ -122,6 +115,8 @@ const PresenceImpl = () => {
   useEffect(() => {
     update(percent)
   }, [percent, update])
+
+  if (isMobile) return null
 
   return <ReadPresenceTimeline />
 }
@@ -216,14 +211,14 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
 TimelineItem.displayName = 'TimelineItem'
 
 const MoitonBar = forwardRef<
-  HTMLButtonElement,
+  HTMLDivElement,
   {
     position: number
     bgColor: string
     isCurrent: boolean
   }
 >(({ bgColor, isCurrent, position, ...rest }, ref) => {
-  const elRef = useRef<HTMLButtonElement>(null)
+  const elRef = useRef<HTMLDivElement>(null)
 
   const [memoedPosition] = useState(position)
   useLayoutEffect(() => {
@@ -258,17 +253,10 @@ const MoitonBar = forwardRef<
       },
     )
   }, [isCurrent, position])
-  const { y } = useWrappedElementPosition()
-  const { h } = useWrappedElementSize()
 
   useImperativeHandle(ref, () => elRef.current!)
   return (
-    <button
-      onClick={() => {
-        // read percent calc:  Math.floor(Math.min(Math.max(0, ((scrollTop - y) / h) * 100), 100)) || 0
-        // so the reversal is
-        springScrollTo(y + (position / 100) * h)
-      }}
+    <div
       aria-label={isCurrent ? '你在这里' : `读者在这里 - ${position}%`}
       ref={elRef}
       className={clsx(

@@ -1,3 +1,6 @@
-import { getGlobalStore } from 'jojoo'
+import { setGlobalStore } from 'jojoo'
+import { createStore } from 'jotai'
 
-export const jotaiStore = getGlobalStore()
+const store = createStore()
+setGlobalStore(store)
+export const jotaiStore = store

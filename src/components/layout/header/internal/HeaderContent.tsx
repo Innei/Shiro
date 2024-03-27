@@ -49,7 +49,7 @@ const AccessibleMenu: Component = () => {
             initial={{ y: -20 }}
             animate={{ y: 0 }}
             exit={{ y: -20, opacity: 0 }}
-            className="fixed inset-x-0 top-12 z-10 flex justify-center duration-100"
+            className="pointer-events-none fixed inset-x-0 top-12 z-10 flex justify-center duration-100"
           >
             <ForDesktop />
           </m.div>
@@ -110,7 +110,7 @@ const ForDesktop: Component<{
         'shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-md',
         'dark:from-zinc-900/70 dark:to-zinc-800/90 dark:ring-zinc-100/10',
         'group [--spotlight-color:oklch(var(--a)_/_0.12)]',
-        'duration-200',
+        'pointer-events-auto duration-200',
         shouldHideNavBg && '!bg-none !shadow-none !ring-transparent',
         className,
       )}
