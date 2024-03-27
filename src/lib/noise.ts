@@ -23,7 +23,7 @@ export const createPngNoiseBackground = (hex: string) => {
     for (let x = 0; x < width; x++) {
       const idx = (width * y + x) << 2
       const rand = Math.random()
-      const color = rand > 0.5 ? 255 : 0
+      const color = rand > 0.7 ? 255 : 0
       png.data[idx] = r
       png.data[idx + 1] = g
       png.data[idx + 2] = b

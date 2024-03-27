@@ -57,7 +57,7 @@ html.noise body::before {
   content: '';
   opacity: 0.04;
   background-repeat: repeat;
-  filter: blur(3px);
+  /* filter: blur(3px); */
 }
 
 @media print {
