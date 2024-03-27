@@ -34,11 +34,11 @@ import {
   NoteTitle,
 } from './pageExtra'
 
-const NotePage = async function (
-  props: NextPageParams<{
+export default async function Page(props: {
+  params: {
     id: string
-  }>,
-) {
+  }
+}) {
   const { data } = await getData(props.params)
   return (
     <>
@@ -93,5 +93,3 @@ const NotePage = async function (
     </>
   )
 }
-
-export default NotePage
