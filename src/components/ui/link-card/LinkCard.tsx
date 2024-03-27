@@ -35,10 +35,11 @@ export interface LinkCardProps {
 export const LinkCard = (props: LinkCardProps) => {
   const isClient = useIsClientTransition()
 
-  if (!isClient) return null
+  const placeholder = <LinkCardSkeleton />
+  if (!isClient) return placeholder
 
   return (
-    <LazyLoad placeholder={<LinkCardSkeleton />}>
+    <LazyLoad placeholder={placeholder}>
       <LinkCardImpl {...props} />
     </LazyLoad>
   )

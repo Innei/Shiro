@@ -1,3 +1,97 @@
-import { Noop } from '~/lib/noop'
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-export default Noop
+import { AckRead } from '~/components/common/AckRead'
+import { ClientOnly } from '~/components/common/ClientOnly'
+import { Presence } from '~/components/modules/activity'
+import {
+  NoteActionAside,
+  NoteBottomBarAction,
+  NoteFooterNavigationBarForMobile,
+  NoteMetaBar,
+  NoteMetaReadingCount,
+  NoteTopic,
+} from '~/components/modules/note'
+import { NoteRootBanner } from '~/components/modules/note/NoteBanner'
+import { ArticleRightAside } from '~/components/modules/shared/ArticleRightAside'
+import { BanCopyWrapper } from '~/components/modules/shared/BanCopyWrapper'
+import { ReadIndicatorForMobile } from '~/components/modules/shared/ReadIndicator'
+import { SummarySwitcher } from '~/components/modules/shared/SummarySwitcher'
+import { XLogInfoForNote } from '~/components/modules/xlog'
+import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
+import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
+
+import { NoteHeadCover } from '../../../../components/modules/note/NoteHeadCover'
+import { NoteHideIfSecret } from '../../../../components/modules/note/NoteHideIfSecret'
+import { getData } from './api'
+import {
+  IndentArticleContainer,
+  MarkdownSelection,
+  NoteHeaderDate,
+  NoteHeaderMetaInfoSetting,
+  NoteMarkdown,
+  NoteMarkdownImageRecordProvider,
+  NoteTitle,
+} from './pageExtra'
+
+const NotePage = async function (
+  props: NextPageParams<{
+    id: string
+  }>,
+) {
+  const { data } = await getData(props.params)
+  return (
+    <>
+      <AckRead id={data.id} type="note" />
+
+      <NoteHeadCover image={data.meta?.cover} />
+      <NoteHeaderMetaInfoSetting />
+      <IndentArticleContainer>
+        <header>
+          <NoteTitle />
+          <span className="flex flex-wrap items-center text-sm text-neutral-content/60">
+            <NoteHeaderDate />
+
+            <ClientOnly>
+              <NoteMetaBar />
+              <NoteMetaReadingCount />
+            </ClientOnly>
+          </span>
+          <NoteRootBanner />
+        </header>
+
+        <NoteHideIfSecret>
+          <SummarySwitcher data={data} />
+          <WrappedElementProvider eoaDetect>
+            <Presence />
+            <ReadIndicatorForMobile />
+            <NoteMarkdownImageRecordProvider>
+              <BanCopyWrapper>
+                <MarkdownSelection>
+                  <NoteMarkdown />
+                </MarkdownSelection>
+              </BanCopyWrapper>
+            </NoteMarkdownImageRecordProvider>
+
+            <LayoutRightSidePortal>
+              <ArticleRightAside>
+                <NoteActionAside />
+              </ArticleRightAside>
+            </LayoutRightSidePortal>
+          </WrappedElementProvider>
+        </NoteHideIfSecret>
+      </IndentArticleContainer>
+
+      {/* <SubscribeBell defaultType="note_c" /> */}
+      <ClientOnly>
+        <div className="mt-8" data-hide-print />
+        <NoteBottomBarAction />
+        <NoteTopic />
+        <XLogInfoForNote />
+        <NoteFooterNavigationBarForMobile />
+      </ClientOnly>
+    </>
+  )
+}
+
+export default NotePage

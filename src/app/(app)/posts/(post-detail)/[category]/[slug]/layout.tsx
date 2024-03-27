@@ -1,5 +1,6 @@
-import React, { cache } from 'react'
+import React, { Suspense } from 'react'
 import type { Metadata } from 'next'
+import type { PageParams } from './api'
 
 import { buildRoomName, RoomProvider } from '~/components/modules/activity'
 import { CommentAreaRootLazy } from '~/components/modules/comment'
@@ -7,25 +8,13 @@ import { TocFAB } from '~/components/modules/toc/TocFAB'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
-import { attachUAAndRealIp } from '~/lib/attach-ua'
 import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
-import { getQueryClient } from '~/lib/query-client.server'
-import { requestErrorHandler } from '~/lib/request.server'
 import { CurrentPostDataProvider } from '~/providers/post/CurrentPostDataProvider'
 import { LayoutRightSideProvider } from '~/providers/shared/LayoutRightSideProvider'
-import { queries } from '~/queries/definition'
 
-import PostPage from './pageImpl'
+import { getData } from './api'
 
-const getData = cache(async (params: PageParams) => {
-  const { category, slug } = params
-  attachUAAndRealIp()
-  const data = await getQueryClient()
-    .fetchQuery(queries.post.bySlug(category, slug))
-    .catch(requestErrorHandler)
-  return data
-})
 export const generateMetadata = async ({
   params,
 }: {
@@ -67,11 +56,6 @@ export const generateMetadata = async ({
   }
 }
 
-interface PageParams {
-  category: string
-  slug: string
-}
-
 // eslint-disable-next-line react/display-name
 export default async (props: NextPageParams<PageParams>) => {
   const data = await getData(props.params)
@@ -82,7 +66,7 @@ export default async (props: NextPageParams<PageParams>) => {
       <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
         <BottomToUpTransitionView lcpOptimization className="min-w-0">
           <RoomProvider roomName={buildRoomName(data.id)}>
-            <PostPage {...data} />
+            <Suspense>{props.children}</Suspense>
           </RoomProvider>
 
           <BottomToUpSoftScaleTransitionView delay={500}>

@@ -1,4 +1,5 @@
-import { headers } from 'next/dist/client/components/headers'
+/* eslint-disable react/display-name */
+import { Suspense } from 'react'
 import type { Metadata } from 'next'
 
 import { buildRoomName, RoomProvider } from '~/components/modules/activity'
@@ -8,37 +9,18 @@ import { NoteMainContainer } from '~/components/modules/note/NoteMainContainer'
 import { TocFAB } from '~/components/modules/toc/TocFAB'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
-import { REQUEST_QUERY } from '~/constants/system'
-import { attachUAAndRealIp } from '~/lib/attach-ua'
 import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
-import { getQueryClient } from '~/lib/query-client.server'
-import { requestErrorHandler } from '~/lib/request.server'
 import {
   CurrentNoteDataProvider,
   SyncNoteDataAfterLoggedIn,
 } from '~/providers/note/CurrentNoteDataProvider'
 import { CurrentNoteNidProvider } from '~/providers/note/CurrentNoteIdProvider'
-import { queries } from '~/queries/definition'
 
 import { Paper } from '../../../../components/layout/container/Paper'
-import NotePage from './pageImpl'
+import { getData } from './api'
 import { Transition } from './Transition'
 
-const getData = async (params: { id: string }) => {
-  attachUAAndRealIp()
-  const header = headers()
-  const searchParams = new URLSearchParams(header.get(REQUEST_QUERY) || '')
-  const id = params.id
-  const query = queries.note.byNid(
-    id,
-    searchParams.get('password') || undefined,
-  )
-  const data = await getQueryClient()
-    .fetchQuery(query)
-    .catch(requestErrorHandler)
-  return data
-}
 export const generateMetadata = async ({
   params,
 }: {
@@ -95,7 +77,7 @@ export default async (
       <RoomProvider roomName={buildRoomName(data.data.id)}>
         <Transition className="min-w-0" lcpOptimization>
           <Paper key={nid} as={NoteMainContainer}>
-            <NotePage {...data.data} />
+            <Suspense>{props.children}</Suspense>
           </Paper>
           <BottomToUpSoftScaleTransitionView delay={500}>
             <CommentAreaRootLazy
