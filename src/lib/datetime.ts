@@ -92,11 +92,12 @@ export function formatSeconds(seconds: number) {
   const hrs = Math.floor(seconds / 3600)
   seconds -= hrs * 3600
   const mins = Math.floor(seconds / 60)
-
+  seconds -= mins * 60
   let formatted = ''
   if (days > 0) formatted += `${days} 天 `
   if (hrs > 0) formatted += `${hrs} 小时 `
-  if (mins > 0) formatted += `${mins} 分钟`
+  if (mins > 0) formatted += `${mins} 分钟 `
+  if (seconds > 0) formatted += `${seconds.toFixed(0)} 秒`
 
   return formatted.trim()
 }
