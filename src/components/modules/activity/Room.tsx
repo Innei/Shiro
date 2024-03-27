@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useMemo } from 'react'
 import type { FC, PropsWithChildren } from 'react'
 
-import { useSocketIsConnect } from '~/atoms/hooks'
+import { useSocketIsConnect, useSocketSessionId } from '~/atoms/hooks'
 import { socketClient } from '~/socket'
 import { SocketEmitEnum } from '~/types/events'
 
@@ -18,7 +18,7 @@ export const RoomProvider: FC<
   } & PropsWithChildren
 > = ({ roomName, children }) => {
   const socketIsConnect = useSocketIsConnect()
-
+  const identity = useSocketSessionId()
   const ctxValue = useMemo(() => ({ roomName }), [roomName])
   useEffect(() => {
     if (!socketIsConnect) return
@@ -31,7 +31,7 @@ export const RoomProvider: FC<
         roomName,
       })
     }
-  }, [roomName, socketIsConnect])
+  }, [roomName, socketIsConnect, identity])
 
   return (
     <RoomContext.Provider value={ctxValue}>{children}</RoomContext.Provider>

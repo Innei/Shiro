@@ -1,6 +1,6 @@
 'use client'
 
-import { startTransition, useMemo, useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 import type { FC, PropsWithChildren } from 'react'
@@ -27,9 +27,6 @@ const ScrollDetector = () => {
   const prevScrollY = useRef(0)
   const setIsInteractiveOnceRef = useRef(false)
 
-  // const lastTime = useRef(0)
-  // const setScrollSpeed = useSetAtom(pageScrollSpeedAtom)
-
   useIsomorphicLayoutEffect(() => {
     const scrollHandler = throttle(
       () => {
@@ -43,9 +40,8 @@ const ScrollDetector = () => {
           prevScrollY.current - currentTop > 0 ? 'up' : 'down',
         )
         prevScrollY.current = currentTop
-        startTransition(() => {
-          setPageScrollLocation(prevScrollY.current)
-        })
+
+        setPageScrollLocation(prevScrollY.current)
       },
       16,
       {

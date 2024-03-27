@@ -72,6 +72,7 @@ interface PageParams {
   slug: string
 }
 
+// eslint-disable-next-line react/display-name
 export default async (props: NextPageParams<PageParams>) => {
   const data = await getData(props.params)
 
