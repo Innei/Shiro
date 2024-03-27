@@ -5,6 +5,7 @@ import type { PageParams } from './api'
 import { buildRoomName, RoomProvider } from '~/components/modules/activity'
 import { CommentAreaRootLazy } from '~/components/modules/comment'
 import { TocFAB } from '~/components/modules/toc/TocFAB'
+import { RootPortal } from '~/components/ui/portal'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
@@ -67,8 +68,7 @@ export default async (props: NextPageParams<PageParams>) => {
 
   return (
     <>
-      <CurrentPostDataProvider data={data} />
-      <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
+      <RootPortal>
         <div
           style={
             {
@@ -78,6 +78,9 @@ export default async (props: NextPageParams<PageParams>) => {
           }
           className="page-head-gradient"
         />
+      </RootPortal>
+      <CurrentPostDataProvider data={data} />
+      <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
         <BottomToUpTransitionView lcpOptimization className="min-w-0">
           <RoomProvider roomName={buildRoomName(data.id)}>
             <Suspense>{props.children}</Suspense>

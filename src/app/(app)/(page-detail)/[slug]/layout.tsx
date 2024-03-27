@@ -9,6 +9,7 @@ import {
 } from '~/components/modules/activity'
 import { CommentAreaRootLazy } from '~/components/modules/comment'
 import { TocFAB } from '~/components/modules/toc/TocFAB'
+import { RootPortal } from '~/components/ui/portal'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
@@ -89,8 +90,7 @@ export default async (props: NextPageParams<PageParams>) => {
 
   return (
     <>
-      <CurrentPageDataProvider data={data} />
-      <div className="relative flex min-h-[120px] w-full">
+      <RootPortal>
         <div
           style={
             {
@@ -100,6 +100,9 @@ export default async (props: NextPageParams<PageParams>) => {
           }
           className="page-head-gradient"
         />
+      </RootPortal>
+      <CurrentPageDataProvider data={data} />
+      <div className="relative flex min-h-[120px] w-full">
         <PageLoading>
           <div className="relative w-full min-w-0">
             <HeaderMetaInfoSetting />

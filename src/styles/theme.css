@@ -230,12 +230,12 @@ html[data-theme='dark'] .shiki span {
 }
 
 .page-head-gradient {
-  @apply pointer-events-none fixed inset-x-0 top-0 h-[375px] w-full;
+  @apply pointer-events-none absolute inset-x-0 top-0 h-[375px] w-full;
 
   background: linear-gradient(
     to right,
-    rgb(var(--gradient-from) / 0.08) 0,
-    rgb(var(--gradient-to) / 0.08) 100%
+    rgb(var(--gradient-from) / 0.3) 0,
+    rgb(var(--gradient-to) / 0.3) 100%
   );
   mask-image: linear-gradient(#000 0, #ffffff00 100%);
 
