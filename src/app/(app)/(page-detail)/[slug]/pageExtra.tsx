@@ -14,13 +14,13 @@ import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRe
 import { useCurrentPageDataSelector } from '~/providers/page/CurrentPageDataProvider'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
-import Loading from './loading'
+import FullPageLoading from '../loading'
 
 export const PageLoading: Component = ({ children }) => {
   const id = useCurrentPageDataSelector((p) => p?.id)
 
   if (!id) {
-    return <Loading />
+    return <FullPageLoading />
   }
 
   return children
