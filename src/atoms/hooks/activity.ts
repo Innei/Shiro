@@ -1,7 +1,9 @@
 import { useMemo } from 'react'
-import { useAtomValue } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 import { selectAtom } from 'jotai/utils'
 import type { ActivityPresence } from '~/models/activity'
+
+import { useEventCallback } from '~/hooks/common/use-event-callback'
 
 import { activityAtom, activityPresenceAtom } from '../activity'
 
@@ -17,7 +19,16 @@ export const useActivityPresenceBySessionId = (
       [sessionId],
     ),
   )
-
+export const useRemoveActivityPresenceBySessionId = () => {
+  const set = useSetAtom(activityPresenceAtom)
+  return useEventCallback((sessionId: string) => {
+    set((prev) => {
+      const next = { ...prev }
+      delete next[sessionId]
+      return next
+    })
+  })
+}
 export const useActivityPresenceByRoomName = (roomName: string) =>
   useAtomValue(
     useMemo(

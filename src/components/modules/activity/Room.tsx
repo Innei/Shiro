@@ -3,7 +3,11 @@
 import { createContext, useContext, useEffect, useMemo } from 'react'
 import type { FC, PropsWithChildren } from 'react'
 
-import { useSocketIsConnect, useSocketSessionId } from '~/atoms/hooks'
+import {
+  useRemoveActivityPresenceBySessionId,
+  useSocketIsConnect,
+  useSocketSessionId,
+} from '~/atoms/hooks'
 import { socketClient } from '~/socket'
 import { SocketEmitEnum } from '~/types/events'
 
@@ -20,6 +24,7 @@ export const RoomProvider: FC<
   const socketIsConnect = useSocketIsConnect()
   const identity = useSocketSessionId()
   const ctxValue = useMemo(() => ({ roomName }), [roomName])
+  const removeSession = useRemoveActivityPresenceBySessionId()
   useEffect(() => {
     if (!socketIsConnect) return
     socketClient.emit(SocketEmitEnum.Join, {
@@ -30,8 +35,9 @@ export const RoomProvider: FC<
       socketClient.emit(SocketEmitEnum.Leave, {
         roomName,
       })
+      removeSession(identity)
     }
-  }, [roomName, socketIsConnect, identity])
+  }, [roomName, socketIsConnect, identity, removeSession])
 
   return (
     <RoomContext.Provider value={ctxValue}>{children}</RoomContext.Provider>

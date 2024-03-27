@@ -14,7 +14,7 @@ import {
   useState,
 } from 'react'
 import clsx from 'clsx'
-import type { FC } from 'react'
+import type { FC, PropsWithChildren } from 'react'
 
 import { useUser } from '@clerk/nextjs'
 
@@ -35,6 +35,7 @@ import { useIsDark } from '~/hooks/common/use-is-dark'
 import { useReadPercent } from '~/hooks/shared/use-read-percent'
 import { getColorScheme, stringToHue } from '~/lib/color'
 import { formatSeconds } from '~/lib/datetime'
+import { safeJsonParse } from '~/lib/helper'
 import { debounce, uniq } from '~/lib/lodash'
 import { apiClient } from '~/lib/request'
 import { queries } from '~/queries/definition'
@@ -65,17 +66,26 @@ const PresenceImpl = () => {
   const owner = useOwner()
 
   const isOwnerLogged = useIsLogged()
+  const commentStoredName = (() => {
+    const value = globalThis?.localStorage.getItem(
+      `${commentStoragePrefix}author`,
+    )
+    if (value) {
+      return safeJsonParse(value) || value
+    }
+    return ''
+  })()
   const displayName = useMemo(
     () =>
       isOwnerLogged
         ? owner?.name
         : clerkUser.isSignedIn
           ? clerkUser.user.fullName
-          : globalThis?.localStorage.getItem(`${commentStoragePrefix}author`) ||
-            '',
+          : commentStoredName || '',
     [
       clerkUser.isSignedIn,
       clerkUser.user?.fullName,
+      commentStoredName,
       isOwnerLogged,
       owner?.name,
     ],
@@ -188,7 +198,12 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
           bgColor={bgColor}
           isCurrent={isCurrent}
           position={position}
-        />
+          data-identity={presence?.identity}
+        >
+          <div className="invisible -translate-y-1 translate-x-12 whitespace-nowrap text-xs opacity-0 duration-200 group-hover:visible group-hover:opacity-80">
+            {presence?.displayName} {readingDuration}
+          </div>
+        </MoitonBar>
       }
     >
       {isCurrent ? (
@@ -216,8 +231,8 @@ const MoitonBar = forwardRef<
     position: number
     bgColor: string
     isCurrent: boolean
-  }
->(({ bgColor, isCurrent, position, ...rest }, ref) => {
+  } & PropsWithChildren
+>(({ bgColor, isCurrent, position, children, ...rest }, ref) => {
   const elRef = useRef<HTMLDivElement>(null)
 
   const [memoedPosition] = useState(position)
@@ -268,7 +283,9 @@ const MoitonBar = forwardRef<
         backgroundColor: bgColor,
       }}
       {...rest}
-    />
+    >
+      {children}
+    </div>
   )
 })
 
