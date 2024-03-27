@@ -210,12 +210,12 @@ const List = () => {
                 </div>
 
                 <div
-                className={clsx(
-                  'relative inline-block rounded-xl px-2 py-1 text-zinc-800 dark:text-zinc-200',
-                  'rounded-bl-sm bg-zinc-600/5 dark:bg-zinc-500/20',
-                  'max-w-[calc(100%-3rem)]',
-                )}
-              >
+                  className={clsx(
+                    'relative inline-block rounded-xl px-2 py-1 text-zinc-800 dark:text-zinc-200',
+                    'rounded-tl-sm bg-zinc-600/5 dark:bg-zinc-500/20',
+                    'max-w-[calc(100%-3rem)]',
+                  )}
+                >
                   <Markdown allowsScript>{item.content}</Markdown>
 
                   {!!item.ref && (
