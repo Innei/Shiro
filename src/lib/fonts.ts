@@ -1,13 +1,9 @@
-import { Manrope, Noto_Serif_SC } from 'next/font/google'
+import { GeistSans } from 'geist/font/sans'
+import { Noto_Serif_SC } from 'next/font/google'
 
-const sansFont = Manrope({
-  subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  variable: '--font-sans',
-  display: 'swap',
-})
+export const sansFont = GeistSans
 
-const serifFont = Noto_Serif_SC({
+export const serifFont = Noto_Serif_SC({
   subsets: ['latin'],
   weight: ['400'],
   variable: '--font-serif',
@@ -15,5 +11,3 @@ const serifFont = Noto_Serif_SC({
   // adjustFontFallback: false,
   fallback: ['Noto Serif SC'],
 })
-
-export { sansFont, serifFont }
