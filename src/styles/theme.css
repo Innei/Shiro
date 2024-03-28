@@ -1,3 +1,23 @@
+html.noise body::before {
+  position: fixed;
+  inset: 0;
+  content: '';
+  opacity: 0.04;
+  background-repeat: repeat;
+  /* filter: blur(3px); */
+}
+
+html[data-theme='dark'].noise body::before {
+  opacity: 0.01;
+}
+
+@media print {
+  /* styles for print */
+  html.noise body::before {
+    display: none;
+  }
+}
+
 @layer components {
   /* Extend Tailwind classnames */
   .border-border {
@@ -230,16 +250,17 @@ html[data-theme='dark'] .shiki span {
 }
 
 .page-head-gradient {
-  @apply pointer-events-none absolute inset-x-0 top-0 h-[375px] w-full;
+  @apply pointer-events-none absolute inset-x-0 top-0 h-[500px] w-full;
 
   background: linear-gradient(
     to right,
     rgb(var(--gradient-from) / 0.3) 0,
     rgb(var(--gradient-to) / 0.3) 100%
   );
-  mask-image: linear-gradient(#000 0, #ffffff00 100%);
 
-  animation: fade-in 0.2s ease-in-out;
+  mask-image: linear-gradient(#000 0, #ffffff00 70%);
+
+  animation: fade-in 0.7s ease;
 }
 
 [data-theme='dark'] .page-head-gradient {
@@ -255,8 +276,10 @@ html[data-theme='dark'] .shiki span {
 @keyframes fade-in {
   0% {
     opacity: 0;
+    transform: translateY(-100%);
   }
   100% {
     opacity: 1;
+    transform: translateY(0);
   }
 }

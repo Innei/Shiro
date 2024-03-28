@@ -50,25 +50,6 @@ html body {
     @apply mb-0 mt-0;
   }
 }
-
-html.noise body::before {
-  position: fixed;
-  inset: 0;
-  content: '';
-  opacity: 0.04;
-  background-repeat: repeat;
-  /* filter: blur(3px); */
-
-  @apply dark:opacity-[0.01];
-}
-
-@media print {
-  /* styles for print */
-  html.noise body::before {
-    display: none;
-  }
-}
-
 * {
   tab-size: 2;
 }
