@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { cache } from 'react'
 import { ToastContainer } from 'react-toastify'
+import { PublicEnvScript } from 'next-runtime-env'
 import type { Metadata, Viewport } from 'next'
 import type { PropsWithChildren } from 'react'
 
@@ -145,6 +146,7 @@ export default async function RootLayout(props: PropsWithChildren) {
           suppressHydrationWarning
         >
           <head>
+            <PublicEnvScript />
             <Global />
             <SayHi />
             <HydrationEndDetector />
