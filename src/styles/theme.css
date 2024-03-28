@@ -1,4 +1,16 @@
 @layer components {
+  /* Extend Tailwind classnames */
+  .border-border {
+    @apply border-zinc-900/10 dark:border-zinc-700;
+  }
+}
+
+@layer components {
+  .scrollbar-none::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+  }
+
   .shiro-link--underline,
   .shiro-timeline a {
     color: currentColor;

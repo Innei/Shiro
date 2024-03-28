@@ -6,6 +6,8 @@ import type { CSSRuleObject, PluginAPI } from 'tailwindcss/types/config'
 import { addDynamicIconSelectors } from '@iconify/tailwind'
 import typography from '@tailwindcss/typography'
 
+require('./cssAsPlugin')
+
 const UIKitColors = {
   red: {
     light: '#FF3B30',
@@ -297,6 +299,8 @@ const twConfig: Config = {
 
     require('tailwind-scrollbar'),
     require('@tailwindcss/container-queries'),
+    require('./src/styles/theme.css'),
+    require('./src/styles/uikit.css'),
   ],
 }
 

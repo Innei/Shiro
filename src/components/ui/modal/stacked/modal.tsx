@@ -207,21 +207,19 @@ export const Modal: Component<{
                 )}
                 onClick={stopPropagation}
               >
-                <Dialog.Title className="shrink-0 px-4 py-2 text-lg font-medium">
-                  {title}
-                </Dialog.Title>
+                <div className="relative flex flex-1 items-center">
+                  <Dialog.Title className="shrink-0 grow items-center px-4 py-1 text-lg font-medium">
+                    {title}
+                  </Dialog.Title>
+                  <Dialog.DialogClose className="p-2" onClick={close}>
+                    <CloseIcon />
+                  </Dialog.DialogClose>
+                </div>
                 <Divider className="my-2 shrink-0 border-slate-200 opacity-80 dark:border-neutral-800" />
 
                 <div className="min-h-0 shrink grow overflow-auto px-4 py-2">
                   {finalChildren}
                 </div>
-
-                <Dialog.DialogClose
-                  onClick={close}
-                  className="absolute right-0 top-0 z-[9] p-5"
-                >
-                  <CloseIcon />
-                </Dialog.DialogClose>
               </m.div>
             </div>
           </Dialog.Content>

@@ -43,7 +43,7 @@ export const Select = function Select<T>(
     >
       <SelectImpl.Trigger
         className={clsxm(
-          'inline-flex w-full items-center justify-between gap-1 rounded-lg border border-neutral-400/50 dark:border-neutral-700',
+          'border-border inline-flex w-full items-center justify-between gap-1 rounded-lg border',
           'p-2',
           'text-[0.9em]',
 
@@ -51,7 +51,7 @@ export const Select = function Select<T>(
         )}
       >
         <SelectImpl.Value placeholder={placeholder} />
-        <SelectImpl.Icon>
+        <SelectImpl.Icon className="flex items-center">
           {isLoading ? (
             <i className="icon-[mingcute--loading-line] animate-spin" />
           ) : (
