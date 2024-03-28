@@ -35,7 +35,7 @@ export const useSocketSessionId = () => {
     const fallbackSid = getSocketWebSessionId()
     if (ownerIsLogin) {
       if (!owner) return fallbackSid
-      return `owner-${owner.id}`
+      return `owner_${owner.id}`
     } else if (user && user.isSignedIn) {
       return user.user.id.toLowerCase()
     }

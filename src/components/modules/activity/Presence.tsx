@@ -169,7 +169,7 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
       isDark ? 'dark' : 'light'
     ].accent
   }, [isDark, presence, type])
-  if (!presence && isCurrent) return null
+  if (!presence) return null
 
   if (typeof position !== 'number') return null
   const readingDuration = presence
