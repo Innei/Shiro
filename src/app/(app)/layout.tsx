@@ -2,6 +2,8 @@
 import { cache } from 'react'
 import { ToastContainer } from 'react-toastify'
 import { env, PublicEnvScript } from 'next-runtime-env'
+import { headers } from 'next/headers'
+import { redirect } from 'next/navigation'
 import type { Metadata, Viewport } from 'next'
 import type { PropsWithChildren } from 'react'
 
@@ -15,7 +17,9 @@ import { Root } from '~/components/layout/root/Root'
 import { AccentColorStyleInjector } from '~/components/modules/shared/AccentColorStyleInjector'
 import { SearchPanelWithHotKey } from '~/components/modules/shared/SearchFAB'
 import { TocAutoScroll } from '~/components/modules/toc/TocAutoScroll'
+import { REQUEST_QUERY } from '~/constants/system'
 import { attachUAAndRealIp } from '~/lib/attach-ua'
+import { isDev } from '~/lib/env'
 import { sansFont, serifFont } from '~/lib/fonts'
 import { getQueryClient } from '~/lib/query-client.server'
 import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
@@ -136,6 +140,17 @@ export default async function RootLayout(props: PropsWithChildren) {
   const data = await fetchAggregationData()
 
   const themeConfig = data.theme
+
+  const query = headers().get(REQUEST_QUERY)
+
+  if (query) {
+    const search = new URLSearchParams(query)
+
+    if (!isDev)
+      if (search.has('peek-to')) {
+        redirect(search.get('peek-to')!)
+      }
+  }
 
   return (
     <ClerkProvider publishableKey={env('NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY')}>

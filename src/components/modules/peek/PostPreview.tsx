@@ -43,7 +43,7 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
       <Paper>
         <article className="prose relative w-full min-w-0">
           <header className="mb-8">
-            <h1 className="text-balance text-center">{data.title}</h1>
+            <h1 className="mt-8 text-balance text-center">{data.title}</h1>
             <PostMetaBarInternal className="mb-8 justify-center" />
             <XLogSummary cid={getCidForBaseModel(data)} />
             <PostOutdate />

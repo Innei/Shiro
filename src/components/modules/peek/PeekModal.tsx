@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect } from 'react'
 import { m } from 'framer-motion'
 import Link from 'next/link'
 import type { PropsWithChildren } from 'react'
@@ -13,9 +16,17 @@ export const PeekModal = (
   }>,
 ) => {
   const { dismissAll, dismissTop } = useModalStack()
+  const { to, children } = props
 
+  useEffect(() => {
+    history.replaceState({}, '', `?peek-to=${to}`)
+
+    return () => {
+      history.replaceState({}, '', location.pathname)
+    }
+  }, [to])
   return (
-    <div className="relative mx-auto mt-[10vh] max-w-full overflow-auto px-2 scrollbar-none lg:max-w-[65rem] lg:p-0">
+    <div className="scrollbar-none relative mx-auto mt-[10vh] max-w-full overflow-auto px-2 lg:max-w-[65rem] lg:p-0">
       <ImpressionView
         action={TrackerAction.Impression}
         trackerMessage="Peek Modal"
@@ -27,7 +38,7 @@ export const PeekModal = (
         transition={microReboundPreset}
         className="scrollbar-none"
       >
-        {props.children}
+        {children}
       </m.div>
 
       <m.div
@@ -39,7 +50,7 @@ export const PeekModal = (
       >
         <Link
           className="flex size-8 rounded-full p-1 shadow-sm ring-1 ring-zinc-200 center dark:ring-neutral-800"
-          href={props.to}
+          href={to}
           onClick={dismissAll}
         >
           <i className="icon-[mingcute--fullscreen-2-line] text-lg" />
