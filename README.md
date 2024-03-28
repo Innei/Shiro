@@ -28,7 +28,7 @@
 
 ## :wrench: 技术栈
 
-- NextJS 13 (App Router)
+- NextJS (App Router)
 - Jotai
 - Framer motion
 - Radix UI
