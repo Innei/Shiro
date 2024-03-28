@@ -4,6 +4,7 @@ import type { FooterConfig } from './config'
 import { fetchAggregationData } from '~/app/(app)/api'
 import { IonIosArrowDown } from '~/components/icons/arrow'
 import { SubscribeTextButton } from '~/components/modules/subscribe/SubscribeTextButton'
+import { FloatPopover } from '~/components/ui/float-popover'
 import { clsxm } from '~/lib/helper'
 import { getQueryClient } from '~/lib/query-client.server'
 import { queries } from '~/queries/definition'
@@ -113,9 +114,32 @@ const PoweredBy: Component = ({ className }) => {
         Mix Space
       </StyledLink>
       <span className="mx-1">&</span>
-      <StyledLink href="https://github.com/innei/Shiro" target="_blank">
-        Shiro
-      </StyledLink>
+      <FloatPopover
+        type="tooltip"
+        triggerElement={
+          <StyledLink
+            className="cursor-help"
+            href="https://github.com/innei/Shiro"
+            target="_blank"
+          >
+            Shiro (Closed source version)
+          </StyledLink>
+        }
+      >
+        这是{' '}
+        <StyledLink
+          className="underline"
+          href="https://github.com/innei/Shiro"
+          target="_blank"
+        >
+          Shiro
+        </StyledLink>{' '}
+        的闭源版本。
+        <br />
+        如果你对这个项目感兴趣，可以通过赞助的方式获取。
+        <br />
+        当然开源版本已经足够满足所有的需求。尽情使用。
+      </FloatPopover>
       .
     </span>
   )
