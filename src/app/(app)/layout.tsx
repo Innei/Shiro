@@ -142,7 +142,7 @@ export default async function RootLayout(props: PropsWithChildren) {
       <AppFeatureProvider tmdb={!!process.env.TMDB_API_KEY}>
         <html
           lang="zh-CN"
-          className="noise !bg-accent"
+          className="noise themed !bg-accent"
           suppressHydrationWarning
         >
           <head>

@@ -2,6 +2,7 @@
 import React from 'react'
 import type { Metadata } from 'next'
 
+import { PageColorGradient } from '~/components/common/PageColorGradient'
 import {
   buildRoomName,
   Presence,
@@ -9,13 +10,11 @@ import {
 } from '~/components/modules/activity'
 import { CommentAreaRootLazy } from '~/components/modules/comment'
 import { TocFAB } from '~/components/modules/toc/TocFAB'
-import { RootPortal } from '~/components/ui/portal'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { attachUAAndRealIp } from '~/lib/attach-ua'
-import { hexToRgbString } from '~/lib/color'
-import { getBackgroundGradient, getOgUrl } from '~/lib/helper.server'
+import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
 import { getQueryClient } from '~/lib/query-client.server'
 import { requestErrorHandler } from '~/lib/request.server'
@@ -84,23 +83,10 @@ interface PageParams {
 
 export default async (props: NextPageParams<PageParams>) => {
   const data = await getData(props.params)
-  const [bgAccent, bgAccentLight] = getBackgroundGradient(
-    data.title + data.subtitle,
-  )
 
   return (
     <>
-      <RootPortal>
-        <div
-          style={
-            {
-              '--gradient-from': hexToRgbString(bgAccent),
-              '--gradient-to': hexToRgbString(bgAccentLight),
-            } as any
-          }
-          className="page-head-gradient"
-        />
-      </RootPortal>
+      <PageColorGradient seed={data.title + data.subtitle} />
       <CurrentPageDataProvider data={data} />
       <div className="relative flex min-h-[120px] w-full">
         <PageLoading>

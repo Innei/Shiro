@@ -2,15 +2,14 @@ import React, { Suspense } from 'react'
 import type { Metadata } from 'next'
 import type { PageParams } from './api'
 
+import { PageColorGradient } from '~/components/common/PageColorGradient'
 import { buildRoomName, RoomProvider } from '~/components/modules/activity'
 import { CommentAreaRootLazy } from '~/components/modules/comment'
 import { TocFAB } from '~/components/modules/toc/TocFAB'
-import { RootPortal } from '~/components/ui/portal'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
-import { hexToRgbString } from '~/lib/color'
-import { getBackgroundGradient, getOgUrl } from '~/lib/helper.server'
+import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
 import { CurrentPostDataProvider } from '~/providers/post/CurrentPostDataProvider'
 import { LayoutRightSideProvider } from '~/providers/shared/LayoutRightSideProvider'
@@ -62,23 +61,10 @@ export const generateMetadata = async ({
 // eslint-disable-next-line react/display-name
 export default async (props: NextPageParams<PageParams>) => {
   const data = await getData(props.params)
-  const [bgAccent, bgAccentLight] = getBackgroundGradient(
-    data.title + data.category.name,
-  )
 
   return (
     <>
-      <RootPortal>
-        <div
-          style={
-            {
-              '--gradient-from': hexToRgbString(bgAccent),
-              '--gradient-to': hexToRgbString(bgAccentLight),
-            } as any
-          }
-          className="page-head-gradient"
-        />
-      </RootPortal>
+      <PageColorGradient seed={data.title + data.category.name} />
       <CurrentPostDataProvider data={data} />
       <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
         <BottomToUpTransitionView lcpOptimization className="min-w-0">
