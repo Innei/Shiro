@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import { cache } from 'react'
 import { ToastContainer } from 'react-toastify'
 import { env, PublicEnvScript } from 'next-runtime-env'
 import type { Metadata, Viewport } from 'next'
@@ -16,15 +15,13 @@ import { Root } from '~/components/layout/root/Root'
 import { AccentColorStyleInjector } from '~/components/modules/shared/AccentColorStyleInjector'
 import { SearchPanelWithHotKey } from '~/components/modules/shared/SearchFAB'
 import { TocAutoScroll } from '~/components/modules/toc/TocAutoScroll'
-import { attachUAAndRealIp } from '~/lib/attach-ua'
 import { sansFont, serifFont } from '~/lib/fonts'
-import { getQueryClient } from '~/lib/query-client.server'
 import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
 import { AppFeatureProvider } from '~/providers/root/app-feature-provider'
-import { queries } from '~/queries/definition'
 
 import { WebAppProviders } from '../../providers/root'
 import { Analyze } from './analyze'
+import { fetchAggregationData } from './api'
 
 const { version } = PKG
 
@@ -44,12 +41,6 @@ export function generateViewport(): Viewport {
   }
 }
 
-const fetchAggregationData = cache(async () => {
-  const queryClient = getQueryClient()
-  attachUAAndRealIp()
-
-  return queryClient.fetchQuery(queries.aggregation.root())
-})
 export const generateMetadata = async (): Promise<Metadata> => {
   const fetchedData = await fetchAggregationData()
 

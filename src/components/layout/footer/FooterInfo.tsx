@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { FooterConfig } from './config'
 
+import { fetchAggregationData } from '~/app/(app)/api'
 import { IonIosArrowDown } from '~/components/icons/arrow'
 import { SubscribeTextButton } from '~/components/modules/subscribe/SubscribeTextButton'
 import { FloatPopover } from '~/components/ui/float-popover'
@@ -39,9 +40,7 @@ export const FooterInfo = () => {
 }
 
 const FooterLinkSection = async () => {
-  const queryClient = getQueryClient()
-  const data = await queryClient.fetchQuery(queries.aggregation.root())
-  const { footer } = data.theme
+  const { footer } = (await fetchAggregationData()).theme
   const footerConfig: FooterConfig = footer || {
     linkSections: defaultLinkSections,
   }
