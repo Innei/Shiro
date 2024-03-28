@@ -42,6 +42,7 @@ import { queries } from '~/queries/definition'
 import { socketClient } from '~/socket'
 
 import { commentStoragePrefix } from '../comment/CommentBox/providers'
+import names from './names.json'
 import { useRoomContext } from './Room'
 
 export const Presence = () => {
@@ -212,7 +213,7 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
         <p>
           读者{' '}
           {presence?.displayName ||
-            presence?.identity.slice(0, 2).toUpperCase()}{' '}
+            (presence?.identity && generateRandomName(presence?.identity))}{' '}
           在这里。
         </p>
       )}
@@ -290,3 +291,27 @@ const MoitonBar = forwardRef<
 })
 
 MoitonBar.displayName = 'MoitonBar'
+
+function generateRandomName(seed: string): string {
+  const feedback = seed.charAt(0).toUpperCase() + seed.charAt(1)
+  // 找到 seed 中的第一个字母字符
+  const firstAlphabetChar = seed.split('').find((char) => /[A-Za-z]/.test(char))
+  if (!firstAlphabetChar) {
+    return feedback
+  }
+
+  // 计算 seed 的简单哈希值
+  const hash = seed.split('').reduce((acc, char) => {
+    return acc + char.charCodeAt(0)
+  }, 0)
+
+  // 确定使用哪个名字数组
+  const nameList = (names as any)[firstAlphabetChar.toUpperCase()]
+  if (!nameList) {
+    return feedback
+  }
+
+  // 使用哈希值来选择名字数组中的一个名字
+  const index = hash % nameList.length
+  return nameList[index]
+}

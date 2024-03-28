@@ -58,6 +58,8 @@ html.noise body::before {
   opacity: 0.04;
   background-repeat: repeat;
   /* filter: blur(3px); */
+
+  @apply dark:opacity-[0.01];
 }
 
 @media print {
