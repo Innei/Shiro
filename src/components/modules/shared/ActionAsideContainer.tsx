@@ -1,5 +1,6 @@
 'use client'
 
+import { cloneElement, isValidElement } from 'react'
 import clsx from 'clsx'
 
 import { useViewport } from '~/atoms/hooks'
@@ -12,6 +13,11 @@ export const asideButtonStyles = {
 }
 
 export const ActionAsideIcon: Component = (props) => {
+  if (props.children && isValidElement(props.children))
+    return cloneElement(props.children, {
+      // @ts-ignore
+      className: clsxm(asideButtonStyles.base, props.className),
+    })
   return <i className={clsxm(asideButtonStyles.base, props.className)} />
 }
 export const ActionAsideContainer: Component = ({ className, children }) => {

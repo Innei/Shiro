@@ -6,6 +6,7 @@ import type { HTMLMotionProps } from 'framer-motion'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { ImpressionView } from '~/components/common/ImpressionTracker'
+import { RiUserHeartLine } from '~/components/icons/user-heart'
 import { MotionButtonBase } from '~/components/ui/button'
 import { DialogOverlay } from '~/components/ui/dialog/DialogOverlay'
 import { PresentSheet } from '~/components/ui/sheet'
@@ -103,7 +104,7 @@ const DonateButtonTop = () => {
       action={TrackerAction.Impression}
     >
       <DonateButtonInternal
-        className="focus-visible:text-uk-brown-light focus-visible:!shadow-none"
+        className="text-red-400 focus-visible:!shadow-none"
         style={{
           position: 'fixed',
           left: buttonPos.x,
@@ -113,6 +114,9 @@ const DonateButtonTop = () => {
         }}
         onMouseLeave={() => {
           setOverlayShow(false)
+        }}
+        exit={{
+          opacity: 0,
         }}
       />
     </ImpressionView>
@@ -135,7 +139,9 @@ const DonateButtonInternal: Component<HTMLMotionProps<'button'>> = ({
       }}
       {...props}
     >
-      <ActionAsideIcon className="icon-[mingcute--teacup-line] hover:text-uk-brown-dark" />
+      <ActionAsideIcon className="hover:text-red-400">
+        <RiUserHeartLine />
+      </ActionAsideIcon>
     </MotionButtonBase>
   )
 }
@@ -145,9 +151,9 @@ const DonateContent = () => {
 
   return (
     <>
-      <h2 className="mb-6 text-lg font-medium">
+      <m.h2 exit={{ opacity: 0 }} className="mb-6 text-lg font-medium">
         感谢您的支持，助力梦想继续前行。
-      </h2>
+      </m.h2>
       <div className="flex flex-wrap gap-4 overflow-auto center">
         {donate?.qrcode.map((src) => (
           <m.img
