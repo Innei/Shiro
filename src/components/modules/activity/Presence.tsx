@@ -26,6 +26,7 @@ import {
   useOwner,
   useSocketSessionId,
 } from '~/atoms/hooks'
+import { getServerTime } from '~/components/common/SyncServerTime'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { RootPortal } from '~/components/ui/portal'
 import { EmitKeyMap } from '~/constants/keys'
@@ -91,6 +92,7 @@ const PresenceImpl = () => {
         sid,
         roomName,
         displayName: displayName || void 0,
+        ts: getServerTime().getTime() || Date.now(),
       })
     }, 1000),
     [identity, displayName],
@@ -172,9 +174,10 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
   if (!presence) return null
 
   if (typeof position !== 'number') return null
-  const readingDuration = presence
-    ? formatSeconds((presence.operationTime - presence.joinedAt) / 1000)
-    : ''
+  const readingDuration =
+    presence && presence.operationTime - presence.joinedAt > 0
+      ? formatSeconds((presence.operationTime - presence.joinedAt) / 1000)
+      : ''
 
   return (
     <FloatPopover

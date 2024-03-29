@@ -11,6 +11,7 @@ import PKG from '~/../package.json'
 import { Global } from '~/components/common/Global'
 import { HydrationEndDetector } from '~/components/common/HydrationEndDetector'
 import { ScrollTop } from '~/components/common/ScrollTop'
+import { SyncServerTime } from '~/components/common/SyncServerTime'
 import { Root } from '~/components/layout/root/Root'
 import { AccentColorStyleInjector } from '~/components/modules/shared/AccentColorStyleInjector'
 import { SearchPanelWithHotKey } from '~/components/modules/shared/SearchFAB'
@@ -181,6 +182,7 @@ export default async function RootLayout(props: PropsWithChildren) {
               <TocAutoScroll />
               <SearchPanelWithHotKey />
               <Analyze />
+              <SyncServerTime />
             </WebAppProviders>
             <ToastContainer />
             <ScrollTop />
