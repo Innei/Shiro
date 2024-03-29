@@ -1,0 +1,42 @@
+on:
+  push:
+    branches: [main]
+
+name: CI Build
+
+jobs:
+  build:
+    name: Upload CI Build artifact
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+      - name: Checkout LFS objects
+        run: git lfs checkout
+
+      - uses: pnpm/action-setup@v2.4.0
+        with:
+          version: 8.x.x
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build project
+
+        run: |
+          sh ./ci-release-build.sh
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: artifact
+          path: assets/release.zip
