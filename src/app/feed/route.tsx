@@ -17,7 +17,7 @@ import { MentionRule } from '~/components/ui/markdown/parsers/mention'
 import { SpoilerRule } from '~/components/ui/markdown/parsers/spoiler'
 import { apiClient } from '~/lib/request'
 
-// export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic'
 export const revalidate = 86400 // 1 day
 
 interface RSSProps {

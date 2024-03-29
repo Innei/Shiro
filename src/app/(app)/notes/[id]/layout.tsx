@@ -21,6 +21,7 @@ import { Paper } from '../../../../components/layout/container/Paper'
 import { getData } from './api'
 import { Transition } from './Transition'
 
+export const dynamic = 'force-dynamic'
 export const generateMetadata = async ({
   params,
 }: {

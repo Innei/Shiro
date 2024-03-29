@@ -28,6 +28,7 @@ import {
   PostTitle,
 } from './pageExtra'
 
+export const dynamic = 'force-dynamic'
 const PostPage = async ({ params }: { params: PageParams }) => {
   const data = await getData(params)
   const { id } = data

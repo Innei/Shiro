@@ -14,6 +14,7 @@ import { routeBuilder, Routes } from '~/lib/route-builder'
 
 import { getTopicQuery } from './query'
 
+export const dynamic = 'force-dynamic'
 export default function Page() {
   const { slug } = useParams()
   const { data } = useQuery({

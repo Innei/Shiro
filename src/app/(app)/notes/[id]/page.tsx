@@ -34,6 +34,7 @@ import {
   NoteTitle,
 } from './pageExtra'
 
+export const dynamic = 'force-dynamic'
 export default async function Page(props: {
   params: {
     id: string

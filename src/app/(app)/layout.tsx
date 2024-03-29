@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { cache } from 'react'
 import { ToastContainer } from 'react-toastify'
-import { PublicEnvScript } from 'next-runtime-env'
+import { env, PublicEnvScript } from 'next-runtime-env'
 import type { Metadata, Viewport } from 'next'
 import type { PropsWithChildren } from 'react'
 
@@ -129,7 +129,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
     },
   } satisfies Metadata
 }
-
+export const dynamic = 'force-dynamic'
 export default async function RootLayout(props: PropsWithChildren) {
   const { children } = props
 
@@ -138,7 +138,7 @@ export default async function RootLayout(props: PropsWithChildren) {
   const themeConfig = data.theme
 
   return (
-    <ClerkProvider>
+    <ClerkProvider publishableKey={env('NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY')}>
       <AppFeatureProvider tmdb={!!process.env.TMDB_API_KEY}>
         <html
           lang="zh-CN"

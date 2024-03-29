@@ -1,14 +1,16 @@
 FROM node:18-alpine AS base
 
+RUN npm install -g --arch=x64 --platform=linux sharp
+
 FROM base AS deps
 
 RUN apk add --no-cache libc6-compat
-
 RUN apk add --no-cache python3 make g++
 
 WORKDIR /app
 
 COPY . .
+
 
 RUN npm install -g pnpm
 RUN pnpm install
@@ -58,5 +60,5 @@ COPY --from=builder /app/.next/server ./.next/server
 EXPOSE 2323
 
 ENV PORT 2323
-
-CMD echo "Mix Space Web [Shiro] Image." &&  node server.js;
+ENV NEXT_SHARP_PATH=/usr/local/lib/node_modules/sharp
+CMD echo "Mix Space Web [Shiro] Image." && node server.js;

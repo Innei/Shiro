@@ -14,7 +14,7 @@ import { apiClient } from '~/lib/request'
 export const metadata = {
   title: '时间线',
 }
-
+export const dynamic = 'force-dynamic'
 export default async (props: PropsWithChildren) => {
   attachUAAndRealIp()
   const header = headers()
