@@ -7,6 +7,7 @@ import type { Metadata, Viewport } from 'next'
 import type { PropsWithChildren } from 'react'
 
 import { ClerkProvider } from '@clerk/nextjs'
+import { OpenpanelProvider } from '@openpanel/nextjs'
 
 import PKG from '~/../package.json'
 import { Global } from '~/components/common/Global'
@@ -143,9 +144,19 @@ export default async function RootLayout(props: PropsWithChildren) {
       }
   }
 
+  const { openpanel } = themeConfig.config?.module || {}
+
   return (
     <ClerkProvider publishableKey={env('NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY')}>
       <AppFeatureProvider tmdb={!!process.env.TMDB_API_KEY}>
+        {openpanel?.enable && (
+          <OpenpanelProvider
+            url={openpanel.url}
+            clientId={openpanel.id}
+            trackScreenViews={true}
+            trackOutgoingLinks={true}
+          />
+        )}
         <html
           lang="zh-CN"
           className="noise themed !bg-accent"

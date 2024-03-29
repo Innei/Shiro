@@ -71,6 +71,11 @@ declare global {
       enable: boolean
       endpoint: string
     }
+    openpanel: {
+      enable: boolean
+      id: string
+      url: string
+    }
   }
   export interface Donate {
     enable: boolean

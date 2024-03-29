@@ -74,6 +74,9 @@ dependencies:
   '@mx-space/api-client':
     specifier: 1.8.1-alpha.0
     version: 1.8.1-alpha.0
+  '@openpanel/nextjs':
+    specifier: 0.0.6-beta
+    version: 0.0.6-beta(next@14.1.4)(react-dom@18.2.0)(react@18.2.0)
   '@prosemirror-adapter/react':
     specifier: 0.2.6
     version: 0.2.6(react-dom@18.2.0)(react@18.2.0)
@@ -2554,6 +2557,29 @@ packages:
     dependencies:
       '@nolyfill/shared': 1.0.28
     dev: true
+
+  /@openpanel/nextjs@0.0.6-beta(next@14.1.4)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-/QH1MBpV3txVX+gHKAWqjAo17ThR4NtlDHnSt9g/A3Px2VVCIwENBAXKiY5zBd/NV5EGz0hHAHaPeHd41Ix64A==}
+    peerDependencies:
+      next: ^12.0.0 || ^13.0.0 || ^14.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@openpanel/web': 0.0.6-beta
+      next: 14.1.4(@babel/core@7.24.3)(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@openpanel/sdk@0.0.6-beta:
+    resolution: {integrity: sha512-siUvMTgaHb7ZT9BVIBPIhEhPz5PaBQLCik9SuibwufsO6QWBz7nYqkMMPtqcuAjGFq6V7LcHWBl+Wq7NGZ8obA==}
+    dev: false
+
+  /@openpanel/web@0.0.6-beta:
+    resolution: {integrity: sha512-7FwtbBWb8XqIUZ4DjdzMFsEWZo85RDhKkfgC/m6bV71QlQ3iMr+c/XuH6dO3bL7O+q0uFodD9IPksyF/u+P+KA==}
+    dependencies:
+      '@openpanel/sdk': 0.0.6-beta
+    dev: false
 
   /@peculiar/asn1-schema@2.3.8:
     resolution: {integrity: sha512-ULB1XqHKx1WBU/tTFIA+uARuRoBVZ4pNdOA878RDrRbBfBGcSzi5HBkdScC6ZbHn8z7L8gmKCgPC1LHRrP46tA==}

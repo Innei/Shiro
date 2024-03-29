@@ -43,6 +43,11 @@ export const Analyze = () => {
                   window.umami?.track(event, {
                     type: 'click',
                   })
+                  loadOpenPanelSdk().then(({ trackEvent }) => {
+                    trackEvent(event, {
+                      type: 'click',
+                    })
+                  })
                 }
               },
               true,
@@ -58,6 +63,12 @@ export const Analyze = () => {
               window.umami?.track(detail.label, {
                 type: 'impression',
               })
+
+              loadOpenPanelSdk().then(({ trackEvent }) => {
+                trackEvent(detail.label, {
+                  type: 'impression',
+                })
+              })
             })
           }.toString()})();`,
         }}
@@ -67,3 +78,8 @@ export const Analyze = () => {
 
   return null
 }
+
+export const loadOpenPanelSdk = () =>
+  import('@openpanel/nextjs').then(({ trackEvent }) => ({
+    trackEvent,
+  }))
