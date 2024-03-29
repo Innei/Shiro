@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [1.0.2](https://github.com/Innei/sprightly/compare/v1.0.1...v1.0.2) (2024-03-29)
+
+
+### Bug Fixes
+
+* docker ci ([b1a64f5](https://github.com/Innei/sprightly/commit/b1a64f5da2b87863032feb50b016a91951e431f6))
+
+
+
 ## [1.0.1](https://github.com/Innei/sprightly/compare/v1.0.0...v1.0.1) (2024-03-29)
 
 
