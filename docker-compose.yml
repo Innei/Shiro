@@ -3,10 +3,9 @@ version: '3'
 services:
   shiro:
     container_name: shiro
-    build:
-      context: .
+    image: innei/shiro:latest
     volumes:
-      - /app/.env:./.docker-env
+      - ./.env:/app/.env
     restart: always
     ports:
       - 2323:2323

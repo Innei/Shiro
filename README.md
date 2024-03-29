@@ -72,28 +72,18 @@
 
 ## :whale: Docker 部署
 
-### :books: docker-compose
+### :books: 推荐使用 Docker Compose
 
-1. change the args inside `docker-compose.yml`
+```sh
+mkdir shiro
+cd shiro
+wget https://raw.githubusercontent.com/Innei/Shiro/main/docker-compose.yml
+wget https://raw.githubusercontent.com/Innei/Shiro/main/.env.template .env
 
-2. run command
+vim .env # 修改你的 ENV 变量
+docker compose up -d
 
-```bash
-    docker-compose up -d
-```
-
-### :package: docker run
-
-```bash
-docker build \
- --build-arg BASE_URL=REPLACE_WITH_YOUR_BASE_URL \
- --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=REPLACE_WITH_YOUR_PUBLISHABLE_KEY \
- --build-arg CLERK_SECRET_KEY=REPLACE_WITH_YOUR_SECRET_KEY \
- -t shiro . --load
-```
-
-```bash
-docker run --name shiro -d -p 2323:2323 shiro
+docker compose pull # 后续更新镜像
 ```
 
 ## Markdown 扩展语法
