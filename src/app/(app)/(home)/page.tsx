@@ -222,102 +222,106 @@ const PostScreen = () => {
   const { posts } = useHomeQueryData()
 
   return (
-    <Screen className="h-fit min-h-[120vh]">
-      <TwoColumnLayout leftContainerClassName="h-[30rem] lg:h-1/2">
-        <m.h2
-          initial={{
-            opacity: 0.0001,
-            y: 50,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={softSpringPreset}
-          className="text-3xl font-medium leading-loose"
-        >
-          这里记录着对技术的洞察与创新，是追求未来无限可能的见证。
-        </m.h2>
-        <div>
-          <ul className="space-y-4">
-            {posts.map((post, i) => {
-              const imageSrc = post.images?.[0]?.src
+    <>
+      {posts.length > 0 ? (
+        <Screen className="h-fit min-h-[120vh]">
+          <TwoColumnLayout leftContainerClassName="h-[30rem] lg:h-1/2">
+            <m.h2
+              initial={{
+                opacity: 0.0001,
+                y: 50,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={softSpringPreset}
+              className="text-3xl font-medium leading-loose"
+            >
+              这里记录着对技术的洞察与创新，是追求未来无限可能的见证。
+            </m.h2>
+            <div>
+              <ul className="space-y-4">
+                {posts.map((post, i) => {
+                  const imageSrc = post.images?.[0]?.src
 
-              return (
-                <m.li
-                  animate={{
-                    opacity: 1,
-                    x: 0,
-                  }}
-                  initial={{ opacity: 0.001, x: 50 }}
-                  transition={{
-                    ...softSpringPreset,
-                    delay: 0.3 + 0.2 * i,
-                  }}
-                  key={post.id}
-                  className={clsx(
-                    'relative h-[100px] w-full overflow-hidden rounded-md',
-                    'border border-slate-200 dark:border-neutral-700/80',
-                    'group p-4 pb-0',
-                  )}
-                >
-                  <Link
-                    className="flex size-full flex-col"
-                    href={routeBuilder(Routes.Post, {
-                      category: post.category.slug,
-                      slug: post.slug,
-                    })}
-                  >
-                    <h4 className="truncate text-xl font-medium">
-                      {post.title}
-                    </h4>
-                    <PostMetaBar meta={post} className="-mb-2" />
-
-                    <MotionButtonBase className="absolute bottom-4 right-4 flex items-center p-2 text-accent/95 opacity-0 duration-200 group-hover:opacity-100">
-                      阅读全文
-                      <i className="icon-[mingcute--arrow-right-line]" />
-                    </MotionButtonBase>
-
-                    {!!imageSrc && (
-                      <div
-                        aria-hidden
-                        className="mask-cover absolute inset-0 z-[-1]"
+                  return (
+                    <m.li
+                      animate={{
+                        opacity: 1,
+                        x: 0,
+                      }}
+                      initial={{ opacity: 0.001, x: 50 }}
+                      transition={{
+                        ...softSpringPreset,
+                        delay: 0.3 + 0.2 * i,
+                      }}
+                      key={post.id}
+                      className={clsx(
+                        'relative h-[100px] w-full overflow-hidden rounded-md',
+                        'border border-slate-200 dark:border-neutral-700/80',
+                        'group p-4 pb-0',
+                      )}
+                    >
+                      <Link
+                        className="flex size-full flex-col"
+                        href={routeBuilder(Routes.Post, {
+                          category: post.category.slug,
+                          slug: post.slug,
+                        })}
                       >
-                        <div
-                          className="absolute inset-0 size-full bg-cover bg-center"
-                          style={{
-                            backgroundImage: `url(${imageSrc})`,
-                          }}
-                        />
-                      </div>
-                    )}
-                  </Link>
-                </m.li>
-              )
-            })}
-          </ul>
+                        <h4 className="truncate text-xl font-medium">
+                          {post.title}
+                        </h4>
+                        <PostMetaBar meta={post} className="-mb-2" />
 
-          <m.div
-            initial={{ opacity: 0.0001, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              ...softBouncePreset,
-              delay: 0.3 + 0.2 * posts.length,
-            }}
-            className="relative mt-12 w-full text-center"
-          >
-            <MotionButtonBase>
-              <Link
-                className="shiro-link--underline"
-                href={routeBuilder(Routes.Posts, {})}
+                        <MotionButtonBase className="absolute bottom-4 right-4 flex items-center p-2 text-accent/95 opacity-0 duration-200 group-hover:opacity-100">
+                          阅读全文
+                          <i className="icon-[mingcute--arrow-right-line]" />
+                        </MotionButtonBase>
+
+                        {!!imageSrc && (
+                          <div
+                            aria-hidden
+                            className="mask-cover absolute inset-0 z-[-1]"
+                          >
+                            <div
+                              className="absolute inset-0 size-full bg-cover bg-center"
+                              style={{
+                                backgroundImage: `url(${imageSrc})`,
+                              }}
+                            />
+                          </div>
+                        )}
+                      </Link>
+                    </m.li>
+                  )
+                })}
+              </ul>
+
+              <m.div
+                initial={{ opacity: 0.0001, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  ...softBouncePreset,
+                  delay: 0.3 + 0.2 * posts.length,
+                }}
+                className="relative mt-12 w-full text-center"
               >
-                还有更多，要不要看看？
-              </Link>
-            </MotionButtonBase>
-          </m.div>
-        </div>
-      </TwoColumnLayout>
-    </Screen>
+                <MotionButtonBase>
+                  <Link
+                    className="shiro-link--underline"
+                    href={routeBuilder(Routes.Posts, {})}
+                  >
+                    还有更多，要不要看看？
+                  </Link>
+                </MotionButtonBase>
+              </m.div>
+            </div>
+          </TwoColumnLayout>
+        </Screen>
+      ) : null}
+    </>
   )
 }
 
@@ -489,68 +493,72 @@ const FriendScreen = () => {
     staleTime: 1000 * 60 * 10,
   })
   return (
-    <Screen className="flex h-auto min-h-screen center">
-      <div className="flex min-w-0 flex-col">
-        <BottomToUpTransitionView className="text-center text-3xl font-medium">
-          这些是我珍视的人，他们陪伴我走过人生的每一段旅程。
-        </BottomToUpTransitionView>
-        <ul
-          className={clsx(
-            'mt-12 grid max-w-5xl grid-cols-3 gap-10 p-4 md:grid-cols-4 lg:grid-cols-5 lg:p-0',
+    <>
+      {data && data?.length > 0 ? (
+        <Screen className="flex h-auto min-h-screen center">
+          <div className="flex min-w-0 flex-col">
+            <BottomToUpTransitionView className="text-center text-3xl font-medium">
+              这些是我珍视的人，他们陪伴我走过人生的每一段旅程。
+            </BottomToUpTransitionView>
+            <ul
+              className={clsx(
+                'mt-12 grid max-w-5xl grid-cols-3 gap-10 p-4 md:grid-cols-4 lg:grid-cols-5 lg:p-0',
 
-            'min-w-0 [&>*]:flex [&>*]:flex-col [&>*]:center',
-          )}
-        >
-          {data?.map((friend, i) => {
-            return (
-              <li key={friend.id} className="min-w-0 max-w-full">
-                <m.div
-                  initial={{ scale: 0.001, opacity: 0.0001 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{
-                    delay: i * 0.1 + 0.3,
-                    ...softBouncePreset,
-                  }}
-                  className="w-full min-w-0"
-                >
-                  <a
-                    href={friend.url}
-                    className="flex w-full min-w-0 flex-col center"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <div
-                      className="aspect-square size-[80px] rounded-full bg-contain bg-center ring-1 ring-slate-200/80 dark:bg-neutral-800/80"
-                      style={{
-                        backgroundImage: `url(${friend.avatar})`,
-                      }}
-                      aria-hidden
-                    />
-                    <span className="mt-5 w-full min-w-0 truncate text-center">
-                      {friend.name}
-                    </span>
-                  </a>
-                </m.div>
-              </li>
-            )
-          })}
-        </ul>
-
-        <BottomToUpTransitionView
-          delay={1500}
-          className="mt-16 w-full text-center"
-        >
-          <MotionButtonBase>
-            <Link
-              className="shiro-link--underline"
-              href={routeBuilder(Routes.Friends, {})}
+                'min-w-0 [&>*]:flex [&>*]:flex-col [&>*]:center',
+              )}
             >
-              还有更多，要不要看看？
-            </Link>
-          </MotionButtonBase>
-        </BottomToUpTransitionView>
-      </div>
-    </Screen>
+              {data?.map((friend, i) => {
+                return (
+                  <li key={friend.id} className="min-w-0 max-w-full">
+                    <m.div
+                      initial={{ scale: 0.001, opacity: 0.0001 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{
+                        delay: i * 0.1 + 0.3,
+                        ...softBouncePreset,
+                      }}
+                      className="w-full min-w-0"
+                    >
+                      <a
+                        href={friend.url}
+                        className="flex w-full min-w-0 flex-col center"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <div
+                          className="aspect-square size-[80px] rounded-full bg-contain bg-center ring-1 ring-slate-200/80 dark:bg-neutral-800/80"
+                          style={{
+                            backgroundImage: `url(${friend.avatar})`,
+                          }}
+                          aria-hidden
+                        />
+                        <span className="mt-5 w-full min-w-0 truncate text-center">
+                          {friend.name}
+                        </span>
+                      </a>
+                    </m.div>
+                  </li>
+                )
+              })}
+            </ul>
+
+            <BottomToUpTransitionView
+              delay={1500}
+              className="mt-16 w-full text-center"
+            >
+              <MotionButtonBase>
+                <Link
+                  className="shiro-link--underline"
+                  href={routeBuilder(Routes.Friends, {})}
+                >
+                  还有更多，要不要看看？
+                </Link>
+              </MotionButtonBase>
+            </BottomToUpTransitionView>
+          </div>
+        </Screen>
+      ) : null}
+    </>
   )
 }
 
