@@ -70,7 +70,18 @@
 
 [看这里](https://mx-space.js.org/themes/shiro).
 
-## :whale: Docker 部署
+## :whale: 运行
+
+### :hammer: 通过预构建运行
+
+首先在 `https://github.com/Innei/Shiro/releases` 中下载预构建好的 `release.zip`。然后解压它。
+
+```sh
+cd standalone
+vim .env # 修改你的 ENV 变量
+export PORT=2323
+node server.js
+```
 
 ### :books: 推荐使用 Docker Compose
 
