@@ -7,11 +7,11 @@ import { sql } from '@vercel/postgres'
 import { API_URL } from '~/constants/env'
 import { apiClient } from '~/lib/request'
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-})
-
+export const dynamic = 'force-dynamic'
 export const GET = async (req: NextRequest) => {
+  const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  })
   const { searchParams } = req.nextUrl
 
   const dataString = searchParams.get('data') as string

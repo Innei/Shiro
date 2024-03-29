@@ -9,6 +9,7 @@ import { getQueryClient } from '~/lib/query-client.server'
 
 import { topicsQuery } from './query'
 
+export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: '专栏',
 }

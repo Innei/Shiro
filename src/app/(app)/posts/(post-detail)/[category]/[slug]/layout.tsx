@@ -15,6 +15,7 @@ import { LayoutRightSideProvider } from '~/providers/shared/LayoutRightSideProvi
 
 import { getData } from './api'
 
+export const dynamic = 'force-dynamic'
 export const generateMetadata = async ({
   params,
 }: {

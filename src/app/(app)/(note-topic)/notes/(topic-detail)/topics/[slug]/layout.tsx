@@ -9,6 +9,7 @@ import { getQueryClient } from '~/lib/query-client.server'
 
 import { getTopicQuery } from './query'
 
+export const dynamic = 'force-dynamic'
 export const generateMetadata = async (
   props: NextPageParams<{
     slug: string

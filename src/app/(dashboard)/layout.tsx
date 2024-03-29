@@ -13,6 +13,7 @@ import { queries } from '~/queries/definition'
 
 import './dashboard.css'
 
+import { PublicEnvScript } from 'next-runtime-env'
 import type { Viewport } from 'next'
 
 import { MainLayout } from '~/components/modules/dashboard/layouts'
@@ -61,6 +62,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
           type="image/x-icon"
           media="(prefers-color-scheme: light)"
         />
+        <PublicEnvScript />
       </head>
       <body
         id="dashboard"

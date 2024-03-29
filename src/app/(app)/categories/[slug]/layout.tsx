@@ -9,6 +9,7 @@ import { getQueryClient } from '~/lib/query-client.server'
 
 import { getPageBySlugQuery } from './query'
 
+export const dynamic = 'force-dynamic'
 const getData = async (params: { slug: string }) => {
   attachUAAndRealIp()
   const data = await getQueryClient().fetchQuery(

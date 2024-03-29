@@ -30,6 +30,7 @@ import {
   PageTitle,
 } from './pageExtra'
 
+export const dynamic = 'force-dynamic'
 const getData = async (params: PageParams) => {
   attachUAAndRealIp()
   const data = await getQueryClient()
