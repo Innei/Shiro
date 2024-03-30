@@ -2,6 +2,15 @@
 
 这是 [Shiro](https://github.com/Innei/Shiro) 闭源迭代仓库。
 
+## 新特征
+
+相比 Shiro 开源版本上，增加了什么？
+
+- 主人的状态设置
+- 文章头部的渐变色和根据文章而改变的高主题色
+- Openpanel 接入
+- Post 列表无限加载
+
 ## :whale: 运行
 
 ### :hammer: 通过预构建运行

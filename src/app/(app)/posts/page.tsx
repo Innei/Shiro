@@ -9,6 +9,8 @@ import { SearchFAB } from '~/components/modules/shared/SearchFAB'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
 import { apiClient } from '~/lib/request'
 
+import { PostLoadMore } from './loader'
+
 interface Props {
   searchParams: {
     page?: string
@@ -56,7 +58,11 @@ export default async (props: Props) => {
         })}
       </ul>
 
-      <PostPagination pagination={pagination} />
+      {currentPage > 1 ? (
+        <PostPagination pagination={pagination} />
+      ) : (
+        pagination.hasNextPage && <PostLoadMore pagination={pagination} />
+      )}
 
       <PostsSortingFab />
       <PostTagsFAB />
