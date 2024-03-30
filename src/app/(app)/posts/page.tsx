@@ -6,7 +6,9 @@ import { PostItem } from '~/components/modules/post/PostItem'
 import { PostPagination } from '~/components/modules/post/PostPagination'
 import { NothingFound } from '~/components/modules/shared/NothingFound'
 import { SearchFAB } from '~/components/modules/shared/SearchFAB'
+import { BackToTopFAB } from '~/components/ui/fab'
 import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
+import { OnlyDesktop } from '~/components/ui/viewport'
 import { apiClient } from '~/lib/request'
 
 import { PostLoadMore } from './loader'
@@ -67,6 +69,9 @@ export default async (props: Props) => {
       <PostsSortingFab />
       <PostTagsFAB />
       <SearchFAB />
+      <OnlyDesktop>
+        <BackToTopFAB />
+      </OnlyDesktop>
     </NormalContainer>
   )
 }

@@ -36,7 +36,7 @@ export const PostBottomBarAction: Component = () => {
   const isMobile = useIsMobile()
   if (!isMobile) return null
   return (
-    <div className="flex items-center justify-center space-x-8">
+    <div className="my-6 flex items-center justify-center space-x-8">
       <LikeButton />
       <ShareButton />
       <SubscribeButton />
