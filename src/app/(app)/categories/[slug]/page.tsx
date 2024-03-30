@@ -54,7 +54,7 @@ export default function Page() {
                 >
                   {child.title}
                 </Link>
-                <span className="meta">
+                <span className="meta ml-2">
                   {(date.getMonth() + 1).toString().padStart(2, '0')}/
                   {date.getDate().toString().padStart(2, '0')}/
                   {date.getFullYear()}
