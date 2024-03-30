@@ -138,11 +138,7 @@ export const NoteHeaderMetaInfoSetting = () => {
 const MarkdownRenderers: { [name: string]: Partial<MarkdownToJSX.Rule> } = {
   text: {
     react(node, _, state) {
-      return (
-        <span className="indent" key={state?.key}>
-          {node.content}
-        </span>
-      )
+      return <span key={state?.key}>{node.content}</span>
     },
   },
 }

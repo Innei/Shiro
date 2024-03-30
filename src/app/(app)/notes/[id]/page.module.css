@@ -12,8 +12,8 @@
       margin-bottom: 4rem;
     }
 
-    ul .indent,
-    .paragraph .indent {
+    ul span,
+    .paragraph span {
       border-bottom: 1px solid;
 
       /* @apply border-accent/20 dark:border-accent/20; */
@@ -29,7 +29,7 @@
         display: none !important;
       }
       & {
-        .paragraph > span.indent {
+        .paragraph > span {
           margin-left: 0 !important;
         }
 
@@ -71,10 +71,8 @@
       }
     }
 
-    .paragraph:not(:nth-child(1)) > span.indent {
-      &:nth-child(1) {
-        margin-left: 2rem;
-      }
+    .paragraph:not(:nth-child(1)) {
+      text-indent: 2rem;
     }
 
     main {

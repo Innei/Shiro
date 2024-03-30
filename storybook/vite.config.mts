@@ -37,6 +37,7 @@ export default defineConfig({
     __ROOT__: `"${__dirname}"`,
     __COMPONENT_ROOT__: `"${resolve(__dirname, '..')}"`,
     'process.env': { ...env },
+    __dirname: `"${__dirname}"`,
   },
   base: '',
   resolve: {

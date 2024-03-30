@@ -18,7 +18,7 @@ import {
 import { Divider } from '../../divider/Divider'
 import { FixedZoomedImage } from '../../image/ZoomedImage'
 
-export const MarkdownImage = (props: any) => {
+export const MarkdownImage = (props: { src: string; alt?: string }) => {
   const { src, alt } = props
   const nextProps = {
     ...props,
@@ -26,7 +26,7 @@ export const MarkdownImage = (props: any) => {
   nextProps.alt = alt?.replace(/^[¡!]/, '')
   const { w } = useWrappedElementSize()
 
-  const ext = src.split('.').pop()
+  const ext = src.split('.').pop()!
   if (isVideoExt(ext)) {
     const figcaption = alt?.replace(/^[¡!]/, '')
     return (
