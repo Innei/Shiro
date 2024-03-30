@@ -14,6 +14,7 @@ import { LinkState, LinkType, RequestError } from '@mx-space/api-client'
 import { NotSupport } from '~/components/common/NotSupport'
 import { Avatar } from '~/components/ui/avatar'
 import { StyledButton } from '~/components/ui/button'
+import { BackToTopFAB } from '~/components/ui/fab'
 import { Form, FormInput } from '~/components/ui/form'
 import { Loading } from '~/components/ui/loading'
 import { useModalStack } from '~/components/ui/modal'
@@ -108,6 +109,7 @@ export default function Page() {
       </main>
 
       <ApplyLinkInfo />
+      <BackToTopFAB />
     </div>
   )
 }

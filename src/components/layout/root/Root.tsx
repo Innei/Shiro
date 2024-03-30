@@ -1,6 +1,5 @@
 import { ClientOnly } from '~/components/common/ClientOnly'
-import { BackToTopFAB, FABContainer } from '~/components/ui/fab'
-import { OnlyDesktop } from '~/components/ui/viewport'
+import { FABContainer } from '~/components/ui/fab'
 
 import { Content } from '../content/Content'
 import { Footer } from '../footer'
@@ -14,11 +13,7 @@ export const Root: Component = ({ children }) => {
 
       <Footer />
       <ClientOnly>
-        <FABContainer>
-          <OnlyDesktop>
-            <BackToTopFAB />
-          </OnlyDesktop>
-        </FABContainer>
+        <FABContainer />
       </ClientOnly>
     </>
   )
