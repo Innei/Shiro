@@ -10,7 +10,9 @@ import { throttle } from '~/lib/lodash'
 import { useMarkdownImageRecord } from '~/providers/article/MarkdownImageRecordProvider'
 import { useWrappedElementSize } from '~/providers/shared/WrappedElementProvider'
 
+import { MotionButtonBase } from '../button'
 import { FixedZoomedImage } from '../image'
+import { MarkdownImage } from '../markdown/renderers/image'
 import styles from './Gallery.module.css'
 
 const IMAGE_CONTAINER_MARGIN_INSET = 60
@@ -139,6 +141,14 @@ export const Gallery: FC<GalleryProps> = (props) => {
     }
   }, [])
 
+  if (!images.length) {
+    return null
+  }
+  if (images.length === 1) {
+    const image = images[0]
+    return <MarkdownImage src={image.url} alt={image.footnote} />
+  }
+
   return (
     <div
       className={clsx('w-full', 'relative', styles['root'])}
@@ -162,6 +172,38 @@ export const Gallery: FC<GalleryProps> = (props) => {
         })}
       </div>
 
+      {currentIndex > 0 && (
+        <div className="pointer-events-none absolute inset-y-0 left-2 flex items-center [&_*]:duration-200">
+          <MotionButtonBase
+            onClick={() => {
+              if (!containerRef) {
+                return
+              }
+              const index = currentIndex - 1
+              handleScrollTo(index)
+            }}
+            className="border-border pointer-events-auto flex size-6 rounded-full border bg-base-100 p-1 opacity-80 center hover:opacity-100"
+          >
+            <i className="icon-[mingcute--left-fill]" />
+          </MotionButtonBase>
+        </div>
+      )}
+      {currentIndex < images.length - 1 && (
+        <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center [&_*]:duration-200">
+          <MotionButtonBase
+            onClick={() => {
+              if (!containerRef) {
+                return
+              }
+              const index = currentIndex + 1
+              handleScrollTo(index)
+            }}
+            className="border-border pointer-events-auto flex size-6 rounded-full border bg-base-100 p-1 opacity-80 center hover:opacity-100"
+          >
+            <i className="icon-[mingcute--right-fill]" />
+          </MotionButtonBase>
+        </div>
+      )}
       <div className={clsx(styles['indicator'], 'space-x-2')}>
         {Array.from({
           length: images.length,
