@@ -1,3 +1,5 @@
+'use client'
+
 import { memo, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import type { FC, ReactNode } from 'react'

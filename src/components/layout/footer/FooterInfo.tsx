@@ -3,6 +3,8 @@ import type { FooterConfig } from './config'
 
 import { IonIosArrowDown } from '~/components/icons/arrow'
 import { SubscribeTextButton } from '~/components/modules/subscribe/SubscribeTextButton'
+import { FloatPopover } from '~/components/ui/float-popover'
+import { MLink } from '~/components/ui/link'
 import { clsxm } from '~/lib/helper'
 import { getQueryClient } from '~/lib/query-client.server'
 import { queries } from '~/queries/definition'
@@ -114,9 +116,23 @@ const PoweredBy: Component = ({ className }) => {
         Mix Space
       </StyledLink>
       <span className="mx-1">&</span>
-      <StyledLink href="https://github.com/innei/Shiro" target="_blank">
-        Shiro
-      </StyledLink>
+      <FloatPopover
+        isDisabled={!process.env.COMMIT_HASH}
+        type="tooltip"
+        triggerElement={
+          <StyledLink href="https://github.com/innei/Shiro" target="_blank">
+            Shiro
+          </StyledLink>
+        }
+      >
+        {process.env.COMMIT_HASH && (
+          <MLink
+            href={`https://github.com/innei/Shiro/commit/${process.env.COMMIT_HASH}`}
+          >
+            开源版本哈希：{process.env.COMMIT_HASH}
+          </MLink>
+        )}
+      </FloatPopover>
       .
     </span>
   )
