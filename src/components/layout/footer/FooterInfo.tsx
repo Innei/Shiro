@@ -1,3 +1,5 @@
+import 'server-only'
+
 import Link from 'next/link'
 import type { FooterConfig } from './config'
 
@@ -5,9 +7,8 @@ import { fetchAggregationData } from '~/app/(app)/api'
 import { IonIosArrowDown } from '~/components/icons/arrow'
 import { SubscribeTextButton } from '~/components/modules/subscribe/SubscribeTextButton'
 import { FloatPopover } from '~/components/ui/float-popover'
+import { MLink } from '~/components/ui/link'
 import { clsxm } from '~/lib/helper'
-import { getQueryClient } from '~/lib/query-client.server'
-import { queries } from '~/queries/definition'
 
 import { defaultLinkSections } from './config'
 // import { footerConfig } from './config'
@@ -139,6 +140,14 @@ const PoweredBy: Component = ({ className }) => {
         如果你对这个项目感兴趣，可以通过赞助的方式获取。
         <br />
         当然开源版本已经足够满足所有的需求。尽情使用。
+        <br />
+        {process.env.COMMIT_HASH && (
+          <MLink
+            href={`https://github.com/innei-dev/Shiroi/commit/${process.env.COMMIT_HASH}`}
+          >
+            版本哈希：{process.env.COMMIT_HASH}
+          </MLink>
+        )}
       </FloatPopover>
       .
     </span>
@@ -168,8 +177,7 @@ const FooterBottom = async () => {
   //   }
   // }
 
-  const queryClient = getQueryClient()
-  const data = await queryClient.fetchQuery(queries.aggregation.root())
+  const data = await fetchAggregationData()
   const { footer } = data.theme
   const footerConfig = footer || {}
   const { otherInfo } = footerConfig
@@ -216,6 +224,7 @@ const FooterBottom = async () => {
 
         <Divider className="inline" />
         <GatewayInfo />
+
         {/* {!!lastVisitor && (
           <>
             <Divider />

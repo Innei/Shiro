@@ -1,16 +1,39 @@
+import { execSync } from 'child_process'
 import path from 'path'
 import { config } from 'dotenv'
 
 import NextBundleAnalyzer from '@next/bundle-analyzer'
+
+// const pkg = require('./package.json')
+import pkg from './package.json' assert {type: 'json'}
 
 process.title = 'Shiro (NextJS)'
 
 const env = config().parsed || {}
 const isProd = process.env.NODE_ENV === 'production'
 
+let commitHash = ''
+
+try {
+  commitHash = execSync('git log --pretty=format:"%h" -n1')
+    .toString()
+    .trim()
+} catch (err) {
+  console.error('Error getting commit hash', err)
+}
+ 
 /** @type {import('next').NextConfig} */
 // eslint-disable-next-line import/no-mutable-exports
 let nextConfig = {
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
+  env: {
+    APP_VERSION: pkg.version,
+    COMMIT_HASH: commitHash,
+  },
   reactStrictMode: true,
   productionBrowserSourceMaps: false,
   output: 'standalone',
@@ -20,10 +43,6 @@ let nextConfig = {
   },
   experimental: {
     serverMinification: true,
-
-    // @see https://vercel.com/blog/version-skew-protection
-    // useDeploymentId: true,
-    // useDeploymentIdServerActions: true,
 
     webpackBuildWorker: true,
   },
