@@ -186,6 +186,7 @@ export default async function RootLayout(props: PropsWithChildren) {
             </WebAppProviders>
             <ToastContainer />
             <ScrollTop />
+            <div className="fixed inset-y-0 right-0 w-[var(--removed-body-scroll-bar-size)] bg-base-100" />
           </body>
         </html>
       </AppFeatureProvider>
