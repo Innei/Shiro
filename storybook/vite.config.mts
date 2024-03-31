@@ -46,6 +46,10 @@ export default defineConfig({
       'next/link': resolve(__dirname, './mock-packages/next_link'),
       'next/dynamic': resolve(__dirname, './mock-packages/next_dynamic'),
       'next/navigation': resolve(__dirname, './mock-packages/next_navigation'),
+      'next-runtime-env': resolve(
+        __dirname,
+        './mock-packages/next-runtime-env',
+      ),
       '~': resolve(__dirname, '../src'),
     },
   },
