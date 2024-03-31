@@ -46,7 +46,7 @@ export const CommentBoxAuthedInput = () => {
           height={48}
         />
       </div>
-      <div className="relative h-[150px] w-full rounded-lg bg-gray-200/50 dark:bg-zinc-800/50">
+      <div className="relative h-[150px] w-full rounded-xl bg-gray-200/50 dark:bg-zinc-800/50">
         <UniversalTextArea className="pb-5" />
       </div>
 
