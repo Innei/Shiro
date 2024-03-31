@@ -135,6 +135,10 @@ export const ReplyModal = (props: { comment: CommentModel }) => {
             className="cursor-not-allowed rounded-md bg-gray-100 dark:bg-neutral-900"
             readOnly
             value={text}
+            onCmdEnter={(e) => {
+              e.preventDefault()
+              handleReply()
+            }}
           />
         </div>
       </div>

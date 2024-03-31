@@ -59,39 +59,41 @@ const PostBox = () => {
   const queryClient = useQueryClient()
   if (!isLogin) return null
 
+  const handleSend = () => {
+    apiClient.shorthand.proxy.post({ data: { content: value } }).then((res) => {
+      setValue('')
+
+      queryClient.setQueryData<
+        InfiniteData<
+          RecentlyModel[] & {
+            comments: number
+          }
+        >
+      >(QUERY_KEY, (old) => {
+        return produce(old, (draft) => {
+          draft?.pages[0].unshift(res.$serialized as any)
+          return draft
+        })
+      })
+    })
+  }
   return (
     <form onSubmit={preventDefault} className="mb-8">
       <TextArea
-        wrapperClassName="h-[150px]"
-        className="rounded-md border border-slate-200 bg-zinc-50 dark:border-zinc-800 dark:bg-neutral-900/50"
+        wrapperClassName="h-[150px] bg-gray-200/50 dark:bg-zinc-800/50"
         value={value}
         placeholder="此刻在想什么？"
         onChange={(e) => {
           setValue(e.target.value)
         }}
+        onCmdEnter={(e) => {
+          e.preventDefault()
+          handleSend()
+        }}
       >
-        <div className="absolute bottom-2 right-2">
+        <div className="absolute bottom-2 right-2 flex size-5 center">
           <MotionButtonBase
-            onClick={() => {
-              apiClient.shorthand.proxy
-                .post({ data: { content: value } })
-                .then((res) => {
-                  setValue('')
-
-                  queryClient.setQueryData<
-                    InfiniteData<
-                      RecentlyModel[] & {
-                        comments: number
-                      }
-                    >
-                  >(QUERY_KEY, (old) => {
-                    return produce(old, (draft) => {
-                      draft?.pages[0].unshift(res.$serialized as any)
-                      return draft
-                    })
-                  })
-                })
-            }}
+            onClick={handleSend}
             disabled={value.length === 0}
             className="duration-200 disabled:cursor-not-allowed disabled:opacity-10"
           >
@@ -197,7 +199,7 @@ const List = () => {
               <div className="translate-y-6">
                 <img
                   src={owner.avatar}
-                  className="rounded-full ring-2 ring-slate-200 dark:ring-zinc-800"
+                  className="size-[40px] rounded-full ring-2 ring-slate-200 dark:ring-zinc-800"
                 />
               </div>
               <div>

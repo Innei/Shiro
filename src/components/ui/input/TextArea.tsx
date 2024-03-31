@@ -20,6 +20,7 @@ export const TextArea = forwardRef<
   > &
     PropsWithChildren<{
       wrapperClassName?: string
+      onCmdEnter?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void
     }>
 >((props, ref) => {
   const { className, wrapperClassName, children, ...rest } = props
@@ -44,7 +45,8 @@ export const TextArea = forwardRef<
 
         'border-transparent',
         isFocus && 'border-accent/80 ring-2',
-        'dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500',
+        // 'bg-gray-200/50 dark:bg-zinc-800/50',
+        'dark:text-zinc-200 dark:placeholder:text-zinc-500',
         wrapperClassName,
       )}
       onMouseMove={handleMouseMove}
@@ -76,6 +78,13 @@ export const TextArea = forwardRef<
           rest.onBlur?.(e)
         }}
         {...inputProps}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+            props.onCmdEnter?.(e)
+          }
+          rest.onKeyDown?.(e)
+          inputProps.onKeyDown?.(e)
+        }}
       />
 
       {children}

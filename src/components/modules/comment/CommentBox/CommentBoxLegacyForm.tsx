@@ -17,7 +17,7 @@ export const CommentBoxLegacyForm = () => {
 }
 
 const taClassName =
-  'relative h-[150px] w-full rounded-lg bg-gray-200/50 dark:bg-zinc-800/50'
+  'relative h-[150px] w-full rounded-xl bg-gray-200/50 dark:bg-zinc-800/50'
 type FormKey = 'author' | 'mail' | 'url'
 const placeholderMap = {
   author: '昵称',

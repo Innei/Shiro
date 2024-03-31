@@ -10,7 +10,11 @@ import { useRefValue } from '~/hooks/common/use-ref-value'
 import { preventDefault } from '~/lib/dom'
 
 import { getRandomPlaceholder } from './constants'
-import { useCommentBoxTextValue, useSetCommentBoxValues } from './hooks'
+import {
+  useCommentBoxTextValue,
+  useSendComment,
+  useSetCommentBoxValues,
+} from './hooks'
 import { CommentBoxSlotPortal } from './providers'
 
 const EmojiPicker = dynamic(() =>
@@ -68,6 +72,7 @@ export const UniversalTextArea: Component = ({ className }) => {
     $ta.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }, [])
 
+  const [sendComment] = useSendComment()
   return (
     <TextArea
       wrapperClassName={className}
@@ -75,6 +80,10 @@ export const UniversalTextArea: Component = ({ className }) => {
       defaultValue={value}
       onChange={(e) => setter('text', e.target.value)}
       placeholder={placeholder}
+      onCmdEnter={(e) => {
+        e.preventDefault()
+        sendComment()
+      }}
     >
       <CommentBoxSlotPortal>
         <FloatPopover trigger="click" TriggerComponent={EmojiButton} headless>
