@@ -185,7 +185,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
             style={
               {
                 '--sr-margin': !hasHeader
-                  ? `${(language?.length || 0) + 1}em`
+                  ? `${(language?.length || 0) * 14 + 4}px`
                   : '1rem',
               } as any
             }

@@ -49,7 +49,7 @@ const AccessibleMenu: Component = () => {
             initial={{ y: -20 }}
             animate={{ y: 0 }}
             exit={{ y: -20, opacity: 0 }}
-            className="pointer-events-none fixed inset-x-0 top-12 z-10 flex justify-center duration-100"
+            className="pointer-events-none fixed inset-x-0 top-12 z-10 mr-[var(--removed-body-scroll-bar-size)] flex justify-center"
           >
             <ForDesktop />
           </m.div>
