@@ -5,6 +5,7 @@ import type { FC, PropsWithChildren, ReactNode } from 'react'
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import {
   getTweetId,
+  isBilibiliVideoUrl,
   isCodesandboxUrl,
   isGistUrl,
   isGithubCommitUrl,
@@ -16,6 +17,7 @@ import {
   isTMDBUrl,
   isTweetUrl,
   isYoutubeUrl,
+  parseBilibiliVideoUrl,
   parseGithubGistUrl,
   parseGithubPrUrl,
   parseGithubTypedUrl,
@@ -124,6 +126,25 @@ export const BlockLinkRenderer = ({
             id={url.pathname.slice(1)}
           />
         )
+
+      return fallbackElement
+    }
+    case isBilibiliVideoUrl(url): {
+      const { id } = parseBilibiliVideoUrl(url)
+
+      return (
+        <div className="w-[640px] max-w-full">
+          <FixedRatioContainer>
+            <iframe
+              src={`//player.bilibili.com/player.html?bvid=${id}`}
+              scrolling="no"
+              frameBorder="no"
+              className="absolute inset-0 size-full rounded-md border-0"
+              allowFullScreen
+            />
+          </FixedRatioContainer>
+        </div>
+      )
     }
   }
   return fallbackElement
@@ -137,10 +158,10 @@ const FixedRatioContainer = ({
   children: React.ReactNode
 }) => {
   return (
-    <div className="mockup-window my-16 bg-base-300">
+    <div className="my-2">
       <div className="flex justify-center px-4">
         <div
-          className="relative my-8 h-0 w-full"
+          className="relative h-0 w-full"
           style={{
             paddingBottom: `${ratio}%`,
           }}
