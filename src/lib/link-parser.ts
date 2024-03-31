@@ -74,6 +74,10 @@ export const isBilibiliUrl = (url: URL) => {
   return url.hostname.includes('bilibili.com')
 }
 
+export const isBilibiliVideoUrl = (url: URL) => {
+  return isBilibiliUrl(url) && url.pathname.startsWith('/video/BV')
+}
+
 export const isSelfArticleUrl = (url: URL) => {
   if (!isClientSide) return false
 
@@ -180,6 +184,15 @@ export const parseGithubPrUrl = (url: URL) => {
 }
 
 export const parseTMDBUrl = (url: URL) => {
+  const [_, type, id] = url.pathname.split('/')
+  return {
+    type,
+    id,
+  }
+}
+
+export const parseBilibiliVideoUrl = (url: URL) => {
+  // https://www.bilibili.com/video/BV1tj42197hU
   const [_, type, id] = url.pathname.split('/')
   return {
     type,
