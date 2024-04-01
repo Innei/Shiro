@@ -17,7 +17,6 @@ import { DebugProvider } from './debug-provider'
 import { EventProvider } from './event-provider'
 import { JotaiStoreProvider } from './jotai-provider'
 import { PageScrollInfoProvider } from './page-scroll-info-provider'
-import { ScriptInjectProvider } from './script-inject-provider'
 import { SocketContainer } from './socket-provider'
 
 const loadFeatures = () =>
@@ -45,8 +44,6 @@ export function WebAppProviders({ children }: PropsWithChildren) {
       {/* <SentryProvider key="SentryProvider" /> */}
       <PageScrollInfoProvider key="PageScrollInfoProvider" />
       <DebugProvider key="debugProvider" />
-
-      <ScriptInjectProvider />
     </ProviderComposer>
   )
 }

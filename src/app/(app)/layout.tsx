@@ -23,6 +23,7 @@ import { isDev } from '~/lib/env'
 import { sansFont, serifFont } from '~/lib/fonts'
 import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
 import { AppFeatureProvider } from '~/providers/root/app-feature-provider'
+import { ScriptInjectProvider } from '~/providers/root/script-inject-provider'
 
 import { WebAppProviders } from '../../providers/root'
 import { Analyze } from './analyze'
@@ -183,6 +184,7 @@ export default async function RootLayout(props: PropsWithChildren) {
               type="image/x-icon"
               media="(prefers-color-scheme: light)"
             />
+            <ScriptInjectProvider />
           </head>
           <body
             className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
@@ -192,7 +194,6 @@ export default async function RootLayout(props: PropsWithChildren) {
                 aggregationData={data}
                 appConfig={themeConfig.config}
               />
-
               <div data-theme>
                 <Root>{children}</Root>
               </div>
@@ -201,10 +202,10 @@ export default async function RootLayout(props: PropsWithChildren) {
               <SearchPanelWithHotKey />
               <Analyze />
               <SyncServerTime />
+              <ToastContainer />
+              <ScrollTop />
+              <div className="fixed inset-y-0 right-0 w-[var(--removed-body-scroll-bar-size)] bg-base-100" />
             </WebAppProviders>
-            <ToastContainer />
-            <ScrollTop />
-            <div className="fixed inset-y-0 right-0 w-[var(--removed-body-scroll-bar-size)] bg-base-100" />
           </body>
         </html>
       </AppFeatureProvider>
