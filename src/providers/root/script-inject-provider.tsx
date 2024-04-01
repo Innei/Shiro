@@ -1,15 +1,33 @@
-'use client'
-
 import Script from 'next/script'
 
-import { useAppConfigSelector } from './aggregation-data-provider'
+import { fetchAggregationData } from '~/app/(app)/api'
 
-export const ScriptInjectProvider = () => {
-  const scripts = useAppConfigSelector((config) => config.custom?.scripts)
-  if (!scripts) return null
+export const ScriptInjectProvider = async () => {
+  const { theme } = await fetchAggregationData()
+  const { scripts, css, js, styles } = theme.config.custom || {}
+
   return (
     <>
-      {scripts.map((props) => {
+      {css && (
+        <style
+          id="shiro-custom-css"
+          dangerouslySetInnerHTML={{
+            __html: css.join('\n'),
+          }}
+        />
+      )}
+      {js && (
+        <script
+          id="shiro-custom-js"
+          dangerouslySetInnerHTML={{
+            __html: js.join('\n'),
+          }}
+        />
+      )}
+      {styles?.map((style) => (
+        <link key={style} rel="stylesheet" href={style} />
+      ))}
+      {scripts?.map((props) => {
         const nextProps = { ...props } as any
         const dataKeys = Object.keys(props).filter((key) =>
           /data[A-Z]/.test(key),

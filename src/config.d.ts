@@ -43,8 +43,8 @@ declare global {
 
   export interface Custom {
     css: string[]
-    styles: any[]
     js: string[]
+    styles: string[]
     scripts: ScriptProps[]
   }
 
