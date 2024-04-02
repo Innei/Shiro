@@ -138,14 +138,11 @@ export const TocTree: Component<
 
   return (
     <ul
-      className={clsxm(
-        'flex grow flex-col px-2 scrollbar-none',
-        className,
-      )}
+      className={clsxm('scrollbar-none flex grow flex-col px-2', className)}
       ref={containerRef}
     >
       <ul
-        className={clsx('overflow-auto scrollbar-none', scrollClassname)}
+        className={clsx('scrollbar-none overflow-auto', scrollClassname)}
         ref={scrollContainerRef}
       >
         {toc?.map((heading) => {
@@ -192,16 +189,18 @@ const MemoedItem = memo<{
     if (!$item) return
     const $container = $item.parentElement
     if (!$container) return
-    const itemInContainerTop = $item.offsetTop
-    const halfOfContainerHeight = $container.clientHeight / 2
-    // 如果当前元素在容器的上半部分，不滚动
-    if (itemInContainerTop < halfOfContainerHeight) {
-      if ($container.scrollTop < halfOfContainerHeight) {
-        $container.scrollTop = 0
-      }
-    } else {
-      // 如果当前元素在容器的下半部分，滚动到容器中间
-      $container.scrollTop = itemInContainerTop + halfOfContainerHeight
+
+    // 把当前 active Item 滚动到容器的中间
+    const containerHeight = $container.clientHeight
+    const itemHeight = $item.clientHeight
+    const itemOffsetTop = $item.offsetTop
+    const scrollTop = $container.scrollTop
+
+    const itemTop = itemOffsetTop - scrollTop
+    const itemBottom = itemTop + itemHeight
+    if (itemTop < 0 || itemBottom > containerHeight) {
+      $container.scrollTop =
+        itemOffsetTop - containerHeight / 2 + itemHeight / 2
     }
   }, [isActive])
 
