@@ -16,7 +16,7 @@ import type { TocSharedProps } from './TocAside'
 import type { ITocItem } from './TocItem'
 
 import { Divider } from '~/components/ui/divider'
-import { RightToLeftTransitionView } from '~/components/ui/transition/RightToLeftTransitionView'
+import { RightToLeftTransitionView } from '~/components/ui/transition'
 import { useStateToRef } from '~/hooks/common/use-state-ref'
 import { useMaskScrollArea } from '~/hooks/shared/use-mask-scrollarea'
 import { clsxm } from '~/lib/helper'

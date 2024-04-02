@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useAnimationControls } from 'framer-motion'
 import type { FC } from 'react'
 
-import { FadeInOutTransitionView } from '~/components/ui/transition/FadeInOutTransitionView'
+import { FadeInOutTransitionView } from '~/components/ui/transition'
 
 interface IconTransitionProps {
   solidIcon: JSX.Element

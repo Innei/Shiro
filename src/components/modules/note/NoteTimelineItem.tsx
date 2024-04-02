@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { tv } from 'tailwind-variants'
 import type { Target, TargetAndTransition } from 'framer-motion'
 
-import { LeftToRightTransitionView } from '~/components/ui/transition/LeftToRightTransitionView'
+import { LeftToRightTransitionView } from '~/components/ui/transition'
 import { clsxm } from '~/lib/helper'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { springScrollToTop } from '~/lib/scroller'

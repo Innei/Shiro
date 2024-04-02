@@ -9,8 +9,10 @@ import {
 } from '~/components/modules/activity'
 import { CommentAreaRootLazy } from '~/components/modules/comment'
 import { TocFAB } from '~/components/modules/toc/TocFAB'
-import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
-import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
+import {
+  BottomToUpSoftScaleTransitionView,
+  BottomToUpTransitionView,
+} from '~/components/ui/transition'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { attachUAAndRealIp } from '~/lib/attach-ua'
 import { getOgUrl } from '~/lib/helper.server'
