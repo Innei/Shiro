@@ -7,7 +7,7 @@ import type { CommentBaseProps } from './types'
 
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { NotSupport } from '~/components/common/NotSupport'
-import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
+import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition'
 import { apiClient } from '~/lib/request'
 
 import { LoadMoreIndicator } from '../shared/LoadMoreIndicator'

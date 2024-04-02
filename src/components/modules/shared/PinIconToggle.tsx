@@ -4,7 +4,7 @@ import type { MouseEventHandler, SVGProps } from 'react'
 
 import { useIsLogged } from '~/atoms/hooks'
 import { MotionButtonBase } from '~/components/ui/button'
-import { IconTransition } from '~/components/ui/transition/IconTransiton'
+import { IconTransition } from '~/components/ui/transition/IconTransition'
 import { clsxm } from '~/lib/helper'
 
 export const PinIconToggle: Component<{

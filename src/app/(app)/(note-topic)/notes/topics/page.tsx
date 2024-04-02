@@ -4,8 +4,10 @@ import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 
 import { TimelineList } from '~/components/ui/list/TimelineList'
-import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition/BottomToUpSoftScaleTransitionView'
-import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
+import {
+  BottomToUpSoftScaleTransitionView,
+  BottomToUpTransitionView,
+} from '~/components/ui/transition'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 
 import { topicsQuery } from './query'

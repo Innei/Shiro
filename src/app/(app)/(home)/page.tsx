@@ -16,8 +16,10 @@ import { PeekLink } from '~/components/modules/peek/PeekLink'
 import { PostMetaBar } from '~/components/modules/post'
 import { MotionButtonBase } from '~/components/ui/button'
 import { RelativeTime } from '~/components/ui/relative-time'
-import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
-import { TextUpTransitionView } from '~/components/ui/transition/TextUpTransitionView'
+import {
+  BottomToUpTransitionView,
+  TextUpTransitionView,
+} from '~/components/ui/transition'
 import {
   microReboundPreset,
   softBouncePreset,

@@ -13,7 +13,6 @@ import type { OwnerStatus } from '~/atoms/status'
 import type { ActivityPresence } from '~/models/activity'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { sayQueryKey } from '~/app/(app)/says/query'
 import { setOnlineCount } from '~/atoms'
 import {
   deleteActivityPresence,
@@ -27,6 +26,7 @@ import {
   IcTwotoneSignpost,
   MdiLightbulbOn20,
 } from '~/components/icons/menu-collection'
+import { sayQueryKey } from '~/components/modules/say/hooks'
 import { DOMCustomEvents } from '~/constants/event'
 import { TrackerAction } from '~/constants/tracker'
 import { isDev } from '~/lib/env'

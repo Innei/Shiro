@@ -8,7 +8,7 @@ import type { FC } from 'react'
 import { PostItem } from '~/components/modules/post'
 import { LoadMoreIndicator } from '~/components/modules/shared/LoadMoreIndicator'
 import { Loading } from '~/components/ui/loading'
-import { BottomToUpTransitionView } from '~/components/ui/transition/BottomToUpTransitionView'
+import { BottomToUpTransitionView } from '~/components/ui/transition'
 import { apiClient } from '~/lib/request'
 
 export const PostLoadMore: FC<{ pagination: Pager }> = ({ pagination }) => {
