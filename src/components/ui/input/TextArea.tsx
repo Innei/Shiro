@@ -1,6 +1,7 @@
 'use client'
 
 import { forwardRef, useCallback, useState } from 'react'
+import clsx from 'clsx'
 import { m, useMotionTemplate, useMotionValue } from 'framer-motion'
 import type {
   DetailedHTMLProps,
@@ -12,6 +13,15 @@ import { useIsMobile } from '~/atoms/hooks'
 import { useInputComposition } from '~/hooks/common/use-input-composition'
 import { clsxm } from '~/lib/helper'
 
+const roundedMap = {
+  sm: 'rounded-sm',
+  md: 'rounded-md',
+  lg: 'rounded-lg',
+  xl: 'rounded-xl',
+  '2xl': 'rounded-2xl',
+  '3xl': 'rounded-3xl',
+  default: 'rounded',
+}
 export const TextArea = forwardRef<
   HTMLTextAreaElement,
   DetailedHTMLProps<
@@ -21,9 +31,18 @@ export const TextArea = forwardRef<
     PropsWithChildren<{
       wrapperClassName?: string
       onCmdEnter?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void
+      rounded?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'default'
+      bordered?: boolean
     }>
 >((props, ref) => {
-  const { className, wrapperClassName, children, ...rest } = props
+  const {
+    className,
+    wrapperClassName,
+    children,
+    rounded = 'xl',
+    bordered = true,
+    ...rest
+  } = props
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
   const handleMouseMove = useCallback(
@@ -41,7 +60,8 @@ export const TextArea = forwardRef<
   return (
     <div
       className={clsxm(
-        'group relative h-full rounded-xl border ring-0 ring-accent/20 duration-200 [--spotlight-color:oklch(var(--a)_/_0.12)]',
+        'group relative h-full border ring-0 ring-accent/20 duration-200 [--spotlight-color:oklch(var(--a)_/_0.12)]',
+        roundedMap[rounded],
 
         'border-transparent',
         isFocus && 'border-accent/80 ring-2',
@@ -53,12 +73,24 @@ export const TextArea = forwardRef<
     >
       {!isMobile && (
         <m.div
-          className="pointer-events-none absolute inset-0 z-0 rounded-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          className={clsx(
+            'pointer-events-none absolute inset-0 z-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100',
+            roundedMap[rounded],
+          )}
           style={{ background }}
           aria-hidden="true"
         />
       )}
 
+      {bordered && (
+        <div
+          className={clsx(
+            'border-border pointer-events-none absolute inset-0 z-0 border',
+            roundedMap[rounded],
+          )}
+          aria-hidden="true"
+        />
+      )}
       <textarea
         ref={ref}
         className={clsxm(

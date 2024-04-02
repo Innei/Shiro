@@ -9,7 +9,8 @@ export const SummaryInput = () => {
   return (
     <SidebarSection label="摘要" className="relative">
       <TextArea
-        className="rounded-md border p-2 focus-visible:border-accent"
+        className="p-2 focus-visible:border-accent"
+        rounded="md"
         placeholder="摘要"
         value={summary || ''}
         onChange={(e) => {

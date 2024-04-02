@@ -2,8 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
 import type { OwnerStatus as TOwnerStatus } from '~/atoms/status'
-import type { FormContextType, FormFieldBaseProps } from '~/components/ui/form'
-import type { DetailedHTMLProps, InputHTMLAttributes } from 'react'
+import type { FormContextType, InputFieldProps } from '~/components/ui/form'
 
 import { useIsLogged } from '~/atoms/hooks'
 import { setOwnerStatus, useOwnerStatus } from '~/atoms/hooks/status'
@@ -152,11 +151,7 @@ const SettingStatusModalContent = () => {
             return +value
           },
         },
-      ] as (DetailedHTMLProps<
-        InputHTMLAttributes<HTMLInputElement>,
-        HTMLInputElement
-      > &
-        FormFieldBaseProps<string>)[],
+      ] as InputFieldProps[],
   )
   const formRef = useRef<FormContextType>(null)
   const { dismiss } = useCurrentModal()
@@ -188,6 +183,7 @@ const SettingStatusModalContent = () => {
 
     dismiss()
   }, [dismiss, timeType])
+
   const handleReset = useCallback(async () => {
     setIsLoading(true)
     await apiClient.serverless.proxy.shiro.status.delete().finally(() => {
@@ -205,7 +201,7 @@ const SettingStatusModalContent = () => {
       ))}
 
       <div className="mb-4 flex gap-2">
-        <FormInput {...inputs.at(-1)} />
+        <FormInput {...(inputs.at(-1) as InputFieldProps)} />
         <Select
           value={timeType}
           onChange={setTimeType}
