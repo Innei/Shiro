@@ -22,7 +22,7 @@ export const OwnerStatus = () => {
   const { data: statusFromRequest, isLoading: statusLoading } = useQuery({
     queryKey: ['shiro-status'],
     queryFn: () => apiClient.proxy.fn.shiro.status.get<TOwnerStatus | null>(),
-    refetchInterval: 1000 * 60,
+    refetchOnWindowFocus: 'always',
     refetchOnMount: 'always',
     enabled: pageIsActive,
     meta: {
