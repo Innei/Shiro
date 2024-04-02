@@ -76,7 +76,8 @@ export const ImportMarkdownButton: FC<{
             ref.current = el
             setTextAreaEl(el)
           }}
-          className="h-[calc(70vh-15rem)] max-h-[600px] w-[600px] max-w-full grow resize-none rounded-md border focus-visible:border-accent"
+          className="h-[calc(70vh-15rem)] max-h-[600px] w-[600px] max-w-full grow resize-none focus-visible:border-accent"
+          rounded="md"
         />
 
         <DeclarativeModal.FooterAction>

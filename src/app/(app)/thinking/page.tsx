@@ -80,6 +80,7 @@ const PostBox = () => {
   return (
     <form onSubmit={preventDefault} className="mb-8">
       <TextArea
+        bordered={false}
         wrapperClassName="h-[150px] bg-gray-200/50 dark:bg-zinc-800/50"
         value={value}
         placeholder="此刻在想什么？"

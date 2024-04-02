@@ -75,6 +75,7 @@ export const UniversalTextArea: Component = ({ className }) => {
   const [sendComment] = useSendComment()
   return (
     <TextArea
+      bordered={false}
       wrapperClassName={className}
       ref={taRef}
       defaultValue={value}
