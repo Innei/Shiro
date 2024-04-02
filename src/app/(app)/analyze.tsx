@@ -11,6 +11,10 @@ declare global {
     }
   }
 }
+const loadOpenPanelSdk = () =>
+  import('@openpanel/nextjs').then(({ trackEvent }) => ({
+    trackEvent,
+  }))
 
 export const Analyze = () => {
   const onceRef = useRef(false)
@@ -78,8 +82,3 @@ export const Analyze = () => {
 
   return null
 }
-
-export const loadOpenPanelSdk = () =>
-  import('@openpanel/nextjs').then(({ trackEvent }) => ({
-    trackEvent,
-  }))
