@@ -16,6 +16,7 @@ import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
 import { useMaskScrollArea } from '~/hooks/shared/use-mask-scrollarea'
 import { stopPropagation } from '~/lib/dom'
 import { clsxm } from '~/lib/helper'
+import { toast } from '~/lib/toast'
 
 import { MotionButtonBase } from '../../button'
 import styles from './Shiki.module.css'
@@ -35,6 +36,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(value)
+    toast.success('已复制到剪贴板')
   }, [value])
 
   const [highlighter, setHighlighter] = useState(highlighterCore)
