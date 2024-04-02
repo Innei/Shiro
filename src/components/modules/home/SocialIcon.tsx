@@ -3,6 +3,7 @@ import { memo, useMemo } from 'react'
 import type { ReactNode } from 'react'
 
 import { BilibiliIcon } from '~/components/icons/platform/BilibiliIcon'
+import { BlueskyIcon } from '~/components/icons/platform/BlueskyIcon'
 import { NeteaseCloudMusicIcon } from '~/components/icons/platform/NeteaseIcon'
 import { XIcon } from '~/components/icons/platform/XIcon'
 import { MotionButtonBase } from '~/components/ui/button'
@@ -89,6 +90,12 @@ const iconSet: Record<
     <i className="icon-[mingcute--discord-fill]" />,
     '#7289DA',
     (id) => `https://discord.gg/${id}`,
+  ],
+  bluesky: [
+    'Bluesky',
+    <BlueskyIcon />,
+    '#0085FF',
+    (id) => `https://bsky.app/profile/${id}`,
   ],
 }
 const icons = Object.keys(iconSet)
