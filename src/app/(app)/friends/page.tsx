@@ -250,7 +250,7 @@ const ApplyLinkInfo: FC = () => {
   })
   const { present } = useModalStack()
   if (!canApply) {
-    return <NotSupport className="mt-20" text="主人禁止了申请友链。" />
+    return <NotSupport className="mt-20" text="主人禁止了申请友链通道，请邮件至 niuboss123@foxmail.com 申请友联" />
   }
   return (
     <>
@@ -259,12 +259,9 @@ const ApplyLinkInfo: FC = () => {
           {[
             `**申请友链前必读**`,
             `- 申请友链时请确保您的站点同时也有我们的站点的友链，若审批通过后移除本站链接，本站也将移除友链，并加入黑名单。`,
-            `- 若站点长时间无法访问，我们会删除您的友链，恢复后可再次申请。`,
             `- 若站点长时间无法访问，我们会暂时归档您的的友链，恢复后可再次申请。`,
             `- 确保您的网站不存在政治敏感问题及违法内容。没有过多的广告、无恶意软件、脚本。且转载文章须注明出处。`,
             `- 确保站点可以以 HTTPS 访问。`,
-            `- 您需要有自己的独立域名，暂且不同意公有子域名或免费域名的友链申请 (如 github.io, vercel.app, eu.org, js.cool, .tk, .ml, .cf 等)`,
-            `- 暂时不同意商业及非个人的网站的友链申请 (py 除外)。`,
             `- 暂时不同意商业及非个人的网站的友链申请 (合作者和朋友除外)。`,
           ].join('\n\n')}
         </Markdown>
