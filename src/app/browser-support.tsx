@@ -7,7 +7,7 @@ import { TrackerAction } from '~/constants/tracker'
 function isSupportedBrowser() {
   const ua = navigator.userAgent
   const browserRegex = /(?:Chrome|Edg|Firefox|Opera|Safari)\/(\d+)/
-  const safariRegex = /Version\/(\d+) Safari/ // Safari 浏览器的版本号不同
+  const safariRegex = /Version\/([\d.]+).*Safari/ // Safari 浏览器的版本号不同
 
   // 检测 Safari
   if (ua.includes('Safari') && !ua.includes('Chrome') && !ua.includes('Edg')) {
