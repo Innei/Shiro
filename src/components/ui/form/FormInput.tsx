@@ -1,76 +1,53 @@
-import { memo, useCallback, useEffect, useRef } from 'react'
-import { produce } from 'immer'
-import { useAtomValue } from 'jotai'
-import { selectAtom } from 'jotai/utils'
+import { memo, useCallback, useRef } from 'react'
 import type { DetailedHTMLProps, FC, InputHTMLAttributes } from 'react'
 import type { FormFieldBaseProps } from './types'
 
 import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
 import { clsxm } from '~/lib/helper'
-import { jotaiStore } from '~/lib/store'
 
 import { Input } from '../input'
-import { useForm, useFormConfig } from './FormContext'
+import { useFormConfig } from './FormContext'
+import {
+  useAddField,
+  useCheckFieldStatus,
+  useFormErrorMessage,
+  useResetFieldStatus,
+} from './hooks'
 
 export const FormInput: FC<
-  DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> &
+  Omit<
+    DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+    'name'
+  > &
     FormFieldBaseProps<string>
-> = memo(({ className, rules, onKeyDown, transform, ...rest }) => {
-  const FormCtx = useForm()
-  if (!FormCtx) throw new Error('FormInput must be used inside <FormContext />')
+> = memo(({ className, rules, onKeyDown, transform, name, ...rest }) => {
   const { showErrorMessage } = useFormConfig()
-  const { addField, removeField, fields } = FormCtx
+
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const errorMessage = useAtomValue(
-    selectAtom(
-      fields,
-      useCallback(
-        (atomValue) => {
-          if (!rest.name) return
-          return atomValue[rest.name]?.rules.find(
-            (rule) => rule.status === 'error',
-          )?.message
-        },
-        [rest.name],
-      ),
-    ),
-  )
-  useEffect(() => {
-    const name = rest.name
-    if (!rules) return
-    if (!name) return
-
-    addField(name, {
-      rules,
-      $ref: inputRef.current,
-      transform,
-    })
-
-    return () => {
-      removeField(name)
-    }
-  }, [rest.name, rules, transform])
+  const errorMessage = useFormErrorMessage(name)
+  useAddField({
+    rules: rules || [],
+    transform,
+    $ref: inputRef.current,
+    name,
+  })
+  const resetFieldStatus = useResetFieldStatus(name)
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (onKeyDown) onKeyDown(e)
-      // const currentField =
-      jotaiStore.set(fields, (p) => {
-        return produce(p, (draft) => {
-          if (!rest.name) return
-          draft[rest.name].rules.forEach((rule) => {
-            if (rule.status === 'error') rule.status = 'success'
-          })
-        })
-      })
+      resetFieldStatus()
     },
-    [fields, onKeyDown, rest.name],
+    [onKeyDown, resetFieldStatus],
   )
+
+  const validateField = useCheckFieldStatus(name)
 
   return (
     <>
       <Input
+        name={name}
         ref={inputRef}
         className={clsxm(
           !!errorMessage && 'ring-2 ring-red-400 dark:ring-orange-700',
@@ -79,6 +56,10 @@ export const FormInput: FC<
         )}
         type="text"
         onKeyDown={handleKeyDown}
+        onBlur={(e) => {
+          validateField()
+          rest.onBlur?.(e)
+        }}
         {...rest}
       />
 

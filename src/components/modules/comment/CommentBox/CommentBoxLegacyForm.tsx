@@ -24,6 +24,23 @@ const placeholderMap = {
   mail: '邮箱',
   url: '网址',
 } as const
+
+const validatorMap = {
+  author: {
+    validator: (v: string) => v.length > 0 && v.length <= 20,
+    message: '昵称长度应在 1-20 之间',
+  },
+  mail: {
+    validator: (v: string) =>
+      /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(v),
+    message: '邮箱格式不正确',
+  },
+  url: {
+    validator: (v: string) =>
+      /^https?:\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/.test(v),
+    message: '网址格式不正确',
+  },
+}
 const FormInput = (props: { fieldKey: FormKey; required?: boolean }) => {
   const { fieldKey: key, required } = props
   const [value, setValue] = useAtom(useGetCommentBoxAtomValues()[key])
@@ -34,7 +51,9 @@ const FormInput = (props: { fieldKey: FormKey; required?: boolean }) => {
       onChange={(e) => setValue(e.target.value)}
       required={required}
       placeholder={placeholderMap[key] + (required ? ' *' : '')}
+      name={key}
       className="border-0 bg-gray-200/50 dark:bg-zinc-800/50"
+      rules={[validatorMap[key]]}
     />
   )
 }
