@@ -38,6 +38,12 @@ export const TextArea = forwardRef<
   const isMobile = useIsMobile()
   const inputProps = useInputComposition(props)
   const [isFocus, setIsFocus] = useState(false)
+    const roundedMap = {
+    rounded: 'rounded-style',
+  }
+
+  const rounded = 'rounded'
+  const roundedStyle = roundedMap[rounded]
   return (
     <div
       className={clsxm(
