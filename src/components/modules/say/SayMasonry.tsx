@@ -1,6 +1,7 @@
 'use client'
 
 import { memo, useMemo } from 'react'
+import Masonry from 'react-responsive-masonry'
 import { m } from 'framer-motion'
 import Markdown from 'markdown-to-jsx'
 import type { SayModel } from '@mx-space/api-client'
@@ -8,7 +9,6 @@ import type { MarkdownToJSX } from 'markdown-to-jsx'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { LoadMoreIndicator } from '~/components/modules/shared/LoadMoreIndicator'
-import { Masonry } from '~/components/ui/masonry'
 import { RelativeTime } from '~/components/ui/relative-time'
 import {
   BottomToUpSoftScaleTransitionView,
@@ -39,15 +39,19 @@ export const SayMasonry = () => {
 
   return (
     <>
-      <Masonry Component={Item} columns={isMobile ? 1 : 2} list={list} />
+      <Masonry gutter="1rem" columnsCount={isMobile ? 1 : 2}>
+        {list.map((item, index) => (
+          <Item key={item.id} item={item.item} index={index} />
+        ))}
+      </Masonry>
       {hasNextPage && (
         <LoadMoreIndicator onLoading={fetchNextPage} className="mt-12">
           <BottomToUpSoftScaleTransitionView>
-            <Masonry
-              Component={SaySkeleton}
-              columns={isMobile ? 1 : 2}
-              list={placeholderData}
-            />
+            <Masonry columnsCount={isMobile ? 1 : 2}>
+              {placeholderData.map((item) => (
+                <SaySkeleton key={item.id} />
+              ))}
+            </Masonry>
           </BottomToUpSoftScaleTransitionView>
         </LoadMoreIndicator>
       )}
@@ -63,7 +67,7 @@ const placeholderData = Array.from({ length: 10 }).map((_, index) => ({
 }))
 const SaySkeleton = memo(() => {
   return (
-    <div className="relative mb-4 border-l-[3px] border-l-slate-500 bg-slate-200/50 px-4 py-3 dark:bg-neutral-800">
+    <div className="relative border-l-[3px] border-l-slate-500 bg-slate-200/50 px-4 py-3 dark:bg-neutral-800">
       <div className="mb-2 h-6 w-full rounded bg-slate-300/80 dark:bg-neutral-700" />
       <div className="flex text-sm text-base-content/60 md:justify-between">
         <div className="mb-2 h-4 w-14 rounded bg-slate-300/80 dark:bg-neutral-700 md:mb-0" />
@@ -99,7 +103,7 @@ const Item = memo<{
       <m.blockquote
         layout
         key={say.id}
-        className="mb-4 border-l-[3px] px-4 py-3"
+        className="border-l-[3px] px-4 py-3"
         style={{
           borderLeftColor: isDark ? darkColors.accent : lightColors.accent,
           backgroundColor: addAlphaToHSL(
