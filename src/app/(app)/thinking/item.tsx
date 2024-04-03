@@ -2,7 +2,6 @@
 
 import { useQueryClient } from '@tanstack/react-query'
 import { memo, useMemo } from 'react'
-import { toast } from 'react-toastify'
 import clsx from 'clsx'
 import { produce } from 'immer'
 import type { RecentlyModel } from '@mx-space/api-client'
@@ -24,6 +23,7 @@ import { useModalStack } from '~/components/ui/modal'
 import { RelativeTime } from '~/components/ui/relative-time'
 import { sample } from '~/lib/lodash'
 import { apiClient } from '~/lib/request'
+import { toast } from '~/lib/toast'
 import { urlBuilder } from '~/lib/url-builder'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
