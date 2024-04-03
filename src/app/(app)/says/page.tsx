@@ -6,9 +6,9 @@ import { NothingFound } from '~/components/modules/shared/NothingFound'
 import { FullPageLoading } from '~/components/ui/loading'
 
 export default function Page() {
-  const { data, isLoading } = useSayListQuery()
+  const { data, isLoading, status } = useSayListQuery()
 
-  if (isLoading) {
+  if (isLoading || status === 'pending') {
     return <FullPageLoading />
   }
 
