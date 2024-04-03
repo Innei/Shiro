@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import markdownEscape from 'markdown-escape'
+import type { Placement } from '@floating-ui/react-dom'
 import type { FC, PropsWithChildren } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
@@ -21,8 +22,9 @@ export const KaomojiPanel: FC<
 
     open?: boolean
     onOpenChange?: (open: boolean) => void
+    placement?: Placement
   } & PropsWithChildren
-> = ({ to, inputRef, onOpenChange, open, children }) => {
+> = ({ to, inputRef, placement, onOpenChange, open, children }) => {
   const KaomojiContentEl = (
     <ScrollArea.ScrollArea rootClassName="pointer-events-auto h-[250px] w-auto lg:h-[200px] lg:w-[400px]">
       <div className="grid grid-cols-4 gap-4">
@@ -98,7 +100,7 @@ export const KaomojiPanel: FC<
           onOpen={() => {
             setKaomojiPanelOpen(true)
           }}
-          placement="left-end"
+          placement={placement || 'left-end'}
           trigger="click"
           to={to}
           triggerElement={KaomojiButton as any}

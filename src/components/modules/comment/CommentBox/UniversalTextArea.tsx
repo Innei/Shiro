@@ -93,7 +93,7 @@ export const UniversalTextArea: Component = ({ className }) => {
         <FloatPopover trigger="click" TriggerComponent={EmojiButton} headless>
           <EmojiPicker onEmojiSelect={handleInsertEmoji} />
         </FloatPopover>
-        <KaomojiPanel inputRef={taRef}>
+        <KaomojiPanel placement="bottom" inputRef={taRef}>
           <button
             className="ml-0 inline-flex shrink-0 text-xs center md:ml-4"
             onClick={preventDefault}
