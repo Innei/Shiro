@@ -123,7 +123,7 @@ const PoweredBy: Component = ({ className }) => {
             href="https://github.com/innei/Shiro"
             target="_blank"
           >
-            Shiro (Closed source version)
+            白い
           </StyledLink>
         }
       >

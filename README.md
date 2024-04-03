@@ -1,4 +1,4 @@
-# Shiroi
+# 白い
 
 这是 [Shiro](https://github.com/Innei/Shiro) 闭源迭代仓库。
 
@@ -10,6 +10,7 @@
 - 文章头部的渐变色和根据文章而改变的高主题色
 - Openpanel 接入
 - Post 列表无限加载
+- 一言和思考的 RSS 订阅
 
 ## :whale: 运行
 
