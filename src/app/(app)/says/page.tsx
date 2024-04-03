@@ -1,5 +1,7 @@
 'use client'
 
+import { useIsLogged } from '~/atoms/hooks'
+import { CreateSayButton } from '~/components/modules/say/Button'
 import { useSayListQuery } from '~/components/modules/say/hooks'
 import { SayMasonry } from '~/components/modules/say/SayMasonry'
 import { NothingFound } from '~/components/modules/shared/NothingFound'
@@ -7,6 +9,7 @@ import { FullPageLoading } from '~/components/ui/loading'
 
 export default function Page() {
   const { data, isLoading, status } = useSayListQuery()
+  const isLogged = useIsLogged()
 
   if (isLoading || status === 'pending') {
     return <FullPageLoading />
@@ -27,6 +30,7 @@ export default function Page() {
         >
           <i className="icon-[mingcute--rss-fill]" />
         </a>
+        {isLogged && <CreateSayButton />}
       </header>
 
       <main className="mt-10">

@@ -48,6 +48,7 @@ export const ReadIndicator: Component<{
 const ReadIndicatorVertical: Component = ({ className }) => {
   const readPercent = useDeferredValue(useReadPercent())
   const isEOA = useIsEoFWrappedElement()
+
   return (
     <RootPortal>
       <div

@@ -7,7 +7,7 @@ import Markdown from 'markdown-to-jsx'
 import type { SayModel } from '@mx-space/api-client'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsLogged, useIsMobile } from '~/atoms/hooks'
 import { LoadMoreIndicator } from '~/components/modules/shared/LoadMoreIndicator'
 import { RelativeTime } from '~/components/ui/relative-time'
 import {
@@ -16,8 +16,9 @@ import {
 } from '~/components/ui/transition'
 import { useIsDark } from '~/hooks/common/use-is-dark'
 import { addAlphaToHSL, getColorScheme, stringToHue } from '~/lib/color'
+import { clsxm } from '~/lib/helper'
 
-import { useSayListQuery } from './hooks'
+import { useSayListQuery, useSayModal } from './hooks'
 
 export const SayMasonry = () => {
   const { fetchNextPage, hasNextPage, data } = useSayListQuery()
@@ -98,12 +99,15 @@ const Item = memo<{
   )
   const isDark = useIsDark()
 
+  const isLogged = useIsLogged()
+  const present = useSayModal()
+
   return (
     <BottomToUpTransitionView delay={i * 50} key={say.id}>
       <m.blockquote
         layout
         key={say.id}
-        className="border-l-[3px] px-4 py-3"
+        className="group relative border-l-[3px] px-4 py-3"
         style={{
           borderLeftColor: isDark ? darkColors.accent : lightColors.accent,
           backgroundColor: addAlphaToHSL(
@@ -127,6 +131,18 @@ const Item = memo<{
             </div>
           </div>
         </div>
+        {isLogged && (
+          <button
+            onClick={() => present(say)}
+            className={clsxm(
+              'absolute right-0 top-0 -translate-y-1/3 translate-x-1/3 bg-base-100',
+              'flex size-6 rounded-full text-accent opacity-0 ring-1 ring-slate-200 duration-200 center group-hover:opacity-100 dark:ring-neutral-800',
+            )}
+          >
+            <i className="icon-[mingcute--quill-pen-line]" />
+            <span className="sr-only">编辑</span>
+          </button>
+        )}
       </m.blockquote>
     </BottomToUpTransitionView>
   )

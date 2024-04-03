@@ -10,6 +10,7 @@ import type { PropsWithChildren } from 'react'
 
 import { ModalStackProvider } from '~/components/ui/modal'
 import { useBeforeUnload } from '~/hooks/common/use-before-unload'
+import { isDev } from '~/lib/env'
 
 import { ProviderComposer } from '../../components/common/ProviderComposer'
 import { AuthProvider } from './auth-provider'
@@ -43,7 +44,7 @@ export function WebAppProviders({ children }: PropsWithChildren) {
       <EventProvider key="viewportProvider" />
       {/* <SentryProvider key="SentryProvider" /> */}
       <PageScrollInfoProvider key="PageScrollInfoProvider" />
-      <DebugProvider key="debugProvider" />
+      {isDev && <DebugProvider key="debugProvider" />}
     </ProviderComposer>
   )
 }

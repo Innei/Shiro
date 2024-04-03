@@ -78,9 +78,9 @@ export const dashboardRoutes = {
       path: '/comments',
     },
     {
-      title: '页面',
-      icon: <i className="icon-[mingcute--file-line]" />,
-      path: '/pages',
+      title: '一言',
+      icon: <i className="icon-[mingcute--comment-2-line]" />,
+      path: '/says',
     },
     {
       title: '完整功能与其他设置',
