@@ -29,7 +29,7 @@ export const FormInput: FC<
   useAddField({
     rules: rules || [],
     transform,
-    $ref: inputRef.current,
+    getEl: () => inputRef.current,
     name,
   })
   const resetFieldStatus = useResetFieldStatus(name)
