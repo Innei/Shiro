@@ -222,7 +222,11 @@ const FooterBottom = async () => {
           </>
         )}
 
-        <Divider className="inline" />
+        {icp ? (
+          <Divider className="inline" />
+        ) : (
+          <Divider className="hidden md:inline" />
+        )}
         <GatewayInfo />
 
         {/* {!!lastVisitor && (
