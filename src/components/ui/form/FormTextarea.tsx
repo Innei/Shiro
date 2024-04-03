@@ -32,7 +32,7 @@ export const FormTextarea: FC<
   useAddField({
     rules: rules || [],
     transform,
-    $ref: inputRef.current,
+    getEl: () => inputRef.current,
     name,
   })
   const resetFieldStatus = useResetFieldStatus(name)
@@ -54,9 +54,10 @@ export const FormTextarea: FC<
         ref={inputRef}
         className={clsxm(
           !!errorMessage && 'ring-2 ring-red-400 dark:ring-orange-700',
-          'w-full',
+          'w-full bg-base-100',
           className,
         )}
+        wrapperClassName="bg-base-100"
         type="text"
         onKeyDown={handleKeyDown}
         onBlur={(e) => {

@@ -33,7 +33,7 @@ export const Form = forwardRef<
     getCurrentValues: () => {
       return Object.fromEntries(
         Object.entries(jotaiStore.get(fieldsAtom)).map(([key, value]) => {
-          const nextValue = (value as any as Field).$ref?.value
+          const nextValue = (value as any as Field).getEl()?.value
 
           return [
             key,
@@ -90,7 +90,7 @@ const FormInternal = (
 
       const fields = jotaiStore.get(fieldsAtom)
       for await (const [key, field] of Object.entries(fields)) {
-        const $ref = field.$ref
+        const $ref = field.getEl()
         if (!$ref) continue
         const value = $ref.value
         const rules = field.rules

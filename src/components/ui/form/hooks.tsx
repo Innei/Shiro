@@ -4,6 +4,8 @@ import { useAtomValue, useStore } from 'jotai'
 import { selectAtom } from 'jotai/utils'
 import type { Field } from './types'
 
+import { useEventCallback } from '~/hooks/common/use-event-callback'
+
 import { useForm } from './FormContext'
 
 const useAssetFormContext = () => {
@@ -34,26 +36,27 @@ export const useFormErrorMessage = (name: string) => {
 export const useAddField = ({
   rules,
   transform,
-  $ref,
+  getEl: getRef,
   name,
 }: Field & { name: string }) => {
   const FormCtx = useAssetFormContext()
 
   const { addField, removeField } = FormCtx
+  const stableGetEl = useEventCallback(getRef)
   useEffect(() => {
     if (!rules) return
     if (!name) return
 
     addField(name, {
       rules,
-      $ref,
+      getEl: stableGetEl,
       transform,
     })
 
     return () => {
       removeField(name)
     }
-  }, [$ref, addField, name, removeField, rules, transform])
+  }, [addField, stableGetEl, name, removeField, rules, transform])
 }
 
 export const useResetFieldStatus = (name: string) => {
@@ -80,7 +83,7 @@ export const useCheckFieldStatus = (name: string) => {
     jotaiStore.set(fields, (p) => {
       return produce(p, (draft) => {
         if (!name) return
-        const value = draft[name].$ref?.value
+        const value = draft[name].getEl()?.value
         if (!value) return
         draft[name].rules.some((rule) => {
           const result = rule.validator(value)
