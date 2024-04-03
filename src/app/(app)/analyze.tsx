@@ -4,6 +4,8 @@ import { useRef } from 'react'
 import { useServerInsertedHTML } from 'next/navigation'
 import type { TrackerAction } from '~/constants/tracker'
 
+import { isClientSide } from '~/lib/env'
+
 declare global {
   interface Window {
     umami?: {
@@ -15,7 +17,9 @@ const loadOpenPanelSdk = () =>
   import('@openpanel/nextjs').then(({ trackEvent }) => ({
     trackEvent,
   }))
-
+if (isClientSide) {
+  ;(window as any).loadOpenPanelSdk = loadOpenPanelSdk
+}
 export const Analyze = () => {
   const onceRef = useRef(false)
   useServerInsertedHTML(() => {

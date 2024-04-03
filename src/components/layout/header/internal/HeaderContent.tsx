@@ -125,7 +125,11 @@ const ForDesktop: Component<{
         {headerMenuConfig.map((section) => {
           const subItemActive =
             section.subMenu?.findIndex((item) => {
-              return item.path === pathname || pathname.slice(1) === item.path
+              return (
+                item.path === pathname ||
+                pathname.slice(1) === item.path ||
+                pathname.startsWith(`${item.path}/`)
+              )
             }) ?? -1
 
           return (

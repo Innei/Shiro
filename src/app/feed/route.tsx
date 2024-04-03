@@ -10,6 +10,8 @@ import xss from 'xss'
 import type { AggregateRoot } from '@mx-space/api-client'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 
+import { simpleCamelcaseKeys } from '@mx-space/api-client'
+
 import { CDN_HOST } from '~/app.static.config'
 import { InsertRule } from '~/components/ui/markdown/parsers/ins'
 import { MarkRule } from '~/components/ui/markdown/parsers/mark'
@@ -48,7 +50,10 @@ export async function GET() {
       next: {
         revalidate: 86400,
       },
-    }).then((res) => res.json() as Promise<AggregateRoot>),
+    }).then(
+      async (res) =>
+        simpleCamelcaseKeys(await res.json()) as Promise<AggregateRoot>,
+    ),
   ])
 
   const { title, description } = agg.seo

@@ -16,8 +16,17 @@ export default function Page() {
 
   return (
     <div>
-      <header className="prose">
-        <h1>一言</h1>
+      <header className="mb-[80px] flex items-center gap-3 text-3xl">
+        <h1 className="text-4xl font-bold">一言</h1>
+
+        <a
+          data-event="Say RSS click"
+          href="/says/feed"
+          target="_blank"
+          className="flex size-8 text-[#EE802F] center"
+        >
+          <i className="icon-[mingcute--rss-fill]" />
+        </a>
       </header>
 
       <main className="mt-10">
