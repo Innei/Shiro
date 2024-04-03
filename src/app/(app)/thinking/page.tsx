@@ -112,11 +112,10 @@ const List = () => {
   const { data, isLoading, fetchNextPage } = useInfiniteQuery({
     queryKey: QUERY_KEY,
     queryFn: async ({ pageParam }) => {
-      const { data } = await apiClient.shorthand.getList(
-        pageParam,
-        undefined,
-        FETCH_SIZE,
-      )
+      const { data } = await apiClient.shorthand.getList({
+        after: pageParam,
+        size: FETCH_SIZE,
+      })
 
       if (data.length < FETCH_SIZE) {
         setHasNext(false)
