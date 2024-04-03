@@ -13,7 +13,7 @@ import type {
 } from '@mx-space/api-client'
 import type { InfiniteData } from '@tanstack/react-query'
 import type { ExtractAtomValue } from 'jotai'
-import type React from 'react'
+import type { PropsWithChildren } from 'react'
 import type { createInitialValue } from './providers'
 
 import { useIsLogged } from '~/atoms/hooks'
@@ -54,11 +54,11 @@ export const useCommentBoxLifeCycle = () =>
   useContext(CommentBoxLifeCycleContext)
 
 // ReactNode 导致 tsx 无法推断，过于复杂
-const commentActionLeftSlotAtom = atom(null as React.JSX.Element | null)
+const commentActionLeftSlotAtom = atom(null as PropsWithChildren['children'])
 export const useCommentActionLeftSlot = () =>
   useAtomValue(commentActionLeftSlotAtom)
 
-export const setCommentActionLeftSlot = (slot: React.JSX.Element | null) =>
+export const setCommentActionLeftSlot = (slot: PropsWithChildren['children']) =>
   jotaiStore.set(commentActionLeftSlotAtom, slot)
 
 export const useCommentBoxHasText = () =>

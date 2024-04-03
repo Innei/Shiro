@@ -1,8 +1,12 @@
 /* eslint-disable tailwindcss/enforces-negative-arbitrary-values */
 /* eslint-disable tailwindcss/no-unnecessary-arbitrary-value */
+'use client'
+
 import * as ScrollAreaBase from '@radix-ui/react-scroll-area'
 import * as React from 'react'
 
+import { useMaskScrollArea } from '~/hooks/shared/use-mask-scrollarea'
+import { stopPropagation } from '~/lib/dom'
 import { clsxm } from '~/lib/helper'
 
 const Corner = React.forwardRef<
@@ -64,13 +68,21 @@ Scrollbar.displayName = 'ScrollArea.Scrollbar'
 export const Viewport = React.forwardRef<
   React.ElementRef<typeof ScrollAreaBase.Viewport>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaBase.Viewport>
->(({ className, ...rest }, forwardedRef) => (
-  <ScrollAreaBase.Viewport
-    {...rest}
-    ref={forwardedRef}
-    className={clsxm('block size-full', className)}
-  />
-))
+>(({ className, ...rest }, forwardedRef) => {
+  const ref = React.useRef<HTMLDivElement>(null)
+  const [, maskClassName] = useMaskScrollArea({
+    ref,
+    size: 'lg',
+  })
+  React.useImperativeHandle(forwardedRef, () => ref.current as HTMLDivElement)
+  return (
+    <ScrollAreaBase.Viewport
+      {...rest}
+      ref={ref}
+      className={clsxm('block size-full', maskClassName, className)}
+    />
+  )
+})
 Viewport.displayName = 'ScrollArea.Viewport'
 
 export const Root = React.forwardRef<
@@ -96,7 +108,9 @@ export const ScrollArea: React.FC<
 > = ({ children, rootClassName, viewportClassName }) => {
   return (
     <Root className={rootClassName}>
-      <Viewport className={viewportClassName}>{children}</Viewport>
+      <Viewport onWheel={stopPropagation} className={viewportClassName}>
+        {children}
+      </Viewport>
       <Scrollbar />
     </Root>
   )

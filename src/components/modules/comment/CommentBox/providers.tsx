@@ -94,18 +94,16 @@ export const CommentIsReplyProvider = (
   )
 }
 
-export const CommentBoxSlotPortal = memo(
-  (props: { children: React.JSX.Element }) => {
-    const { children } = props
-    useEffect(() => {
-      setCommentActionLeftSlot(children)
-      return () => {
-        setCommentActionLeftSlot(null)
-      }
-    }, [children])
-    return null
-  },
-)
+export const CommentBoxSlotPortal = memo((props: PropsWithChildren) => {
+  const { children } = props
+  useEffect(() => {
+    setCommentActionLeftSlot(children)
+    return () => {
+      setCommentActionLeftSlot(null)
+    }
+  }, [children])
+  return null
+})
 
 export const CommentBoxSlotProvider: FC = memo(() => {
   return useCommentActionLeftSlot()

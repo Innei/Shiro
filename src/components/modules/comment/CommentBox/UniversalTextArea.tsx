@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import dynamic from 'next/dynamic'
 
@@ -8,7 +8,10 @@ import { FloatPopover } from '~/components/ui/float-popover'
 import { TextArea } from '~/components/ui/input'
 import { useRefValue } from '~/hooks/common/use-ref-value'
 import { preventDefault } from '~/lib/dom'
+import { sample } from '~/lib/lodash'
 
+import { KAOMOJI_LIST } from '../../dashboard/comments/kaomoji'
+import { KaomojiPanel } from '../../shared/KaomojiPanel'
 import { getRandomPlaceholder } from './constants'
 import {
   useCommentBoxTextValue,
@@ -90,6 +93,15 @@ export const UniversalTextArea: Component = ({ className }) => {
         <FloatPopover trigger="click" TriggerComponent={EmojiButton} headless>
           <EmojiPicker onEmojiSelect={handleInsertEmoji} />
         </FloatPopover>
+        <KaomojiPanel inputRef={taRef}>
+          <button
+            className="ml-0 inline-flex shrink-0 text-xs center md:ml-4"
+            onClick={preventDefault}
+          >
+            {useMemo(() => sample(KAOMOJI_LIST), [])}
+            <span className="sr-only">颜文字</span>
+          </button>
+        </KaomojiPanel>
       </CommentBoxSlotPortal>
     </TextArea>
   )
