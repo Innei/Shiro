@@ -49,6 +49,12 @@ const ReadIndicatorVertical: Component = ({ className }) => {
   const readPercent = useDeferredValue(useReadPercent())
   const isEOA = useIsEoFWrappedElement()
 
+  // TODO new API ScrollTimeline but safari not support
+  // const wrappedElement = useWrappedElement()
+  // const timeline = new ScrollTimeline({
+  //   source: wrappedElement,
+  //   axis: "block",
+  // });
   return (
     <RootPortal>
       <div
