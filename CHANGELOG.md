@@ -1,5 +1,39 @@
 # CHANGELOG
 
+## [1.0.3](https://github.com/Innei/sprightly/compare/v1.0.2...v1.0.3) (2024-04-04)
+
+
+### Bug Fixes
+
+* back top ([70e8437](https://github.com/Innei/sprightly/commit/70e8437ad5b10ed729edcf5d329cc124e383e108))
+* broswer support check ([#327](https://github.com/Innei/sprightly/issues/327)) ([a413e6e](https://github.com/Innei/sprightly/commit/a413e6eb4b64bd8c87e4a56e2d65b25dfd5f0286))
+* cc ([89b136a](https://github.com/Innei/sprightly/commit/89b136a8332d33deb0335c87f9cc51157b130d3d))
+* comment toast ([d9fd460](https://github.com/Innei/sprightly/commit/d9fd460dc6af8c809b1acd800ef7c42365bf6afd))
+* css ([301a5f2](https://github.com/Innei/sprightly/commit/301a5f2ffe576e53cea1908edf68e27d912919e7))
+* donate side button motion ([acbb77d](https://github.com/Innei/sprightly/commit/acbb77d6ac3199daefc4adf22c72df6468d190c5))
+* footer GatewayInfo divider ([#328](https://github.com/Innei/sprightly/issues/328)) ([15c92d9](https://github.com/Innei/sprightly/commit/15c92d9ad874167b1e12d3c483ed0cd900abe5fa))
+* form ref getter ([4257ba1](https://github.com/Innei/sprightly/commit/4257ba13013c8808b7d74e0c352c6f70755b10e3))
+* gallery and text indent style ([53b8b91](https://github.com/Innei/sprightly/commit/53b8b915e52d1ecb281710be56cdcca938afc8c9))
+* katex overflow ([42c4e41](https://github.com/Innei/sprightly/commit/42c4e41bbbdcabd650f0417deec7ce5f583e0b74))
+* lockfile ([cb116f9](https://github.com/Innei/sprightly/commit/cb116f9522b1de448cd42517f92c3df0331cdf1d))
+* prose style ([0c06c2d](https://github.com/Innei/sprightly/commit/0c06c2d0125390dd8ce5fbf32e177def359c52ae))
+* say data fetching and masonry layout ([82dd584](https://github.com/Innei/sprightly/commit/82dd5842c276303d8c3cd2651fc44750ef871dc2))
+* script inject ([50c200b](https://github.com/Innei/sprightly/commit/50c200bac22a56ab068974642721b0571a4e4736))
+* sync server time ([fb167c5](https://github.com/Innei/sprightly/commit/fb167c53e3e0243d72d21350ccc15433a8e4aecc))
+* textarea style ([958df38](https://github.com/Innei/sprightly/commit/958df38580c5faba13e52593fe19e3035b68ac41))
+* thinking query offset ([bb3dbf4](https://github.com/Innei/sprightly/commit/bb3dbf4f08f6f5364e174dfbf80991c37ea2cf20))
+* toc auto scroll ([b59f029](https://github.com/Innei/sprightly/commit/b59f0291b125dfd07225a37a7ee817822ceb8668))
+* vite build ([9bc80c1](https://github.com/Innei/sprightly/commit/9bc80c10ce05128af68adbc30ba36acebd9c0e74))
+
+
+### Features
+
+* add version hash ([143d646](https://github.com/Innei/sprightly/commit/143d646263aa5beb9aef88ebea6a90c79ab2ae54))
+* bilibili video render ([21954c7](https://github.com/Innei/sprightly/commit/21954c7f0973a7b3439e07970ba6984ccbfb73c1))
+* hide module when no data ([#322](https://github.com/Innei/sprightly/issues/322)) ([c878b8f](https://github.com/Innei/sprightly/commit/c878b8f5c262b89517e02791d143d6019646f298))
+
+
+
 ## [1.0.2](https://github.com/Innei/sprightly/compare/v1.0.1...v1.0.2) (2024-03-29)
 
 
