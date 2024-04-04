@@ -136,11 +136,6 @@ const PoweredBy: Component = ({ className }) => {
           Shiro
         </StyledLink>{' '}
         的闭源版本。
-        <br />
-        如果你对这个项目感兴趣，可以通过赞助的方式获取。
-        <br />
-        当然开源版本已经足够满足所有的需求。尽情使用。
-        <br />
         {process.env.COMMIT_HASH && (
           <MLink
             href={`https://github.com/innei-dev/Shiroi/commit/${process.env.COMMIT_HASH}`}
