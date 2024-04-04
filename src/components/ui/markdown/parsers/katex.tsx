@@ -71,7 +71,7 @@ export const KateXBlockRule: MarkdownToJSX.Rule = {
   },
   react(node, _, state?) {
     return (
-      <div key={state?.key}>
+      <div className="scrollbar-none overflow-auto" key={state?.key}>
         <LateX mode="display">{node.groups.content}</LateX>
       </div>
     )
