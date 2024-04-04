@@ -114,7 +114,7 @@ const List = () => {
     queryKey: QUERY_KEY,
     queryFn: async ({ pageParam }) => {
       const { data } = await apiClient.shorthand.getList({
-        after: pageParam,
+        before: pageParam,
         size: FETCH_SIZE,
       })
 
