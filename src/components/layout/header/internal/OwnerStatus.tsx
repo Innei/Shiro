@@ -94,7 +94,7 @@ export const OwnerStatus = () => {
             </p>
             {!!ownerStatus.untilAt && (
               <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                持续到 {new Date(ownerStatus.untilAt).toLocaleTimeString()}
+                持续到 {formatDatetime(ownerStatus.untilAt)}
               </p>
             )}
           </>
@@ -104,6 +104,15 @@ export const OwnerStatus = () => {
       </div>
     </FloatPopover>
   )
+}
+const formatDatetime = (ts: number) => {
+  const date = new Date(ts)
+  // 如果在明天
+  if (new Date().getDate() !== date.getDate()) {
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
+  }
+
+  return date.toLocaleTimeString()
 }
 
 const SettingStatusModalContent = () => {
@@ -162,6 +171,7 @@ const SettingStatusModalContent = () => {
     if (!formRef.current) return
     const currentValues = formRef.current.getCurrentValues()
     setIsLoading(true)
+
     await apiClient.serverless.proxy.shiro.status
       .post({
         data: {

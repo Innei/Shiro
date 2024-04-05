@@ -225,7 +225,7 @@ const SayHi = () => {
         'margin: 1em 0; padding: 5px 0; background: #efefef;',
       )
       console.log(
-        `%c Shiro ${window.version} %c https://innei.in `,
+        `%c 白い ${window.version} %c https://innei.in `,
         'color: #fff; margin: 1em 0; padding: 5px 0; background: #39C5BB;',
         'margin: 1em 0; padding: 5px 0; background: #efefef;',
       )
