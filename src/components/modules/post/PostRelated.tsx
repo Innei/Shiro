@@ -22,7 +22,7 @@ export const PostRelated: FC<{
       <h3 className="text-lg font-medium">
         <span>{infoText}</span>
       </h3>
-      <ul className="list-inside list-disc">
+      <ul className="list-inside list-disc text-base">
         {related.map((post) => {
           const href = `/posts/${post.category.slug}/${post.slug}`
           return (
