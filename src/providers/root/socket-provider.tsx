@@ -7,9 +7,13 @@ import { deleteActivityPresence } from '~/atoms/activity'
 import { useSocketIsConnect, useSocketSessionId } from '~/atoms/hooks'
 import { usePageIsActive } from '~/hooks/common/use-is-active'
 import { useIsClient } from '~/hooks/common/use-is-client'
-import { socketClient } from '~/socket'
 import { SocketEmitEnum } from '~/types/events'
 
+import { socketWorker } from '../../socket/worker-client'
+
+if (typeof window !== 'undefined') {
+  import('../../socket/worker-client')
+}
 export const SocketContainer = () => {
   return useIsClient() ? <SocketContainerImpl /> : null
 }
@@ -18,11 +22,10 @@ const SocketContainerImpl: Component = () => {
   const router = useRouter()
   useEffect(() => {
     if (connectOnce.current) return
-    import('~/socket').then((module) => {
-      const { socketClient } = module
+    import('../../socket/worker-client').then(({ socketWorker }) => {
+      socketWorker.setRouter(router)
+
       connectOnce.current = true
-      socketClient.setRouter(router)
-      socketClient.initIO()
     })
   }, [])
 
@@ -36,7 +39,7 @@ const SocketContainerImpl: Component = () => {
     previousWebSocketSessionIdRef.current = webSocketSessionId
     if (!socketIsConnected) return
 
-    socketClient.emit(SocketEmitEnum.UpdateSid, {
+    socketWorker.emit(SocketEmitEnum.UpdateSid, {
       sessionId: webSocketSessionId,
     })
 
@@ -48,7 +51,7 @@ const SocketContainerImpl: Component = () => {
   const pageIsActive = usePageIsActive()
   useEffect(() => {
     if (pageIsActive && !socketIsConnected) {
-      socketClient.reconnect()
+      socketWorker.reconnect()
     }
   }, [pageIsActive, socketIsConnected])
 
