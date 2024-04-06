@@ -1,11 +1,15 @@
 import { execSync } from 'child_process'
-import path from 'path'
+ 
 import { config } from 'dotenv'
+import path from 'path'
 
+import CopyPlugin from 'copy-webpack-plugin'
 import NextBundleAnalyzer from '@next/bundle-analyzer'
 
 // const pkg = require('./package.json')
 import pkg from './package.json' assert {type: 'json'}
+
+const __dirname = path.resolve()
 
 process.title = 'Shiro (NextJS)'
 
@@ -80,27 +84,41 @@ let nextConfig = {
       'utf-8-validate': 'commonjs utf-8-validate',
       bufferutil: 'commonjs bufferutil',
     })
+    config.module.rules.push({
+      test: /\.worker\.js$/,
+      loader: 'worker-loader',
+      options: {
+        publicPath: '/_next/',
+        worker: {
+          type: "SharedWorker",
+          // https://v4.webpack.js.org/loaders/worker-loader/#worker
+          options: {
+            name: "shiro-ws-worker",
+          },
+        },
 
-    // config.plugins.push(
-    //   new webpack.optimize.MinChunkSizePlugin({
-    //     minChunkSize: 1024 * 100, // Minimum number of characters
-    //   }),
-    // )
+      },
+    })
 
-    // if (
-    //   process.env.SENTRY === 'true' &&
-    //   process.env.NEXT_PUBLIC_SENTRY_DSN &&
-    //   isProd
-    // ) {
-    //   config.plugins.push(
-    //     sentryWebpackPlugin({
-    //       org: 'inneis-site',
-    //
-    //       project: 'springtide',
-    //       authToken: process.env.SENTRY_AUTH_TOKEN,
-    //     }),
-    //   )
-    // }
+    // plugins
+    config.plugins.push(
+      new CopyPlugin({
+        patterns: [
+          {
+            from: path.resolve(
+              __dirname,
+              './node_modules/socket.io-client/dist/socket.io.min.js',
+            ),
+            to: path.resolve(__dirname, './public/static/socket.io.js'),
+          },
+        ],
+      }),
+    )
+
+    config.resolve.alias['socket.io-client'] = path.resolve(
+      __dirname,
+      './public/static/socket.io.js',
+    )
 
     return config
   },

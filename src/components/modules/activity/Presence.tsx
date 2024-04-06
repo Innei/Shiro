@@ -39,7 +39,7 @@ import { formatSeconds } from '~/lib/datetime'
 import { debounce, uniq } from '~/lib/lodash'
 import { apiClient } from '~/lib/request'
 import { queries } from '~/queries/definition'
-import { socketClient } from '~/socket'
+import { socketWorker } from '~/socket/worker-client'
 
 import { commentStoragePrefix } from '../comment/CommentBox/providers'
 import { useRoomContext } from './Room'
@@ -83,8 +83,8 @@ const PresenceImpl = () => {
   )
 
   const update = useCallback(
-    debounce((position: number) => {
-      const sid = socketClient.socket.id
+    debounce(async (position: number) => {
+      const sid = await socketWorker.getSid()
       if (!sid) return
       apiClient.activity.updatePresence({
         identity,

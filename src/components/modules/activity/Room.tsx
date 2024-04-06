@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useMemo } from 'react'
 import type { FC, PropsWithChildren } from 'react'
 
 import { useSocketIsConnect, useSocketSessionId } from '~/atoms/hooks'
-import { socketClient } from '~/socket'
+import { socketWorker } from '~/socket/worker-client'
 import { SocketEmitEnum } from '~/types/events'
 
 interface RoomContextValue {
@@ -22,12 +22,12 @@ export const RoomProvider: FC<
   const ctxValue = useMemo(() => ({ roomName }), [roomName])
   useEffect(() => {
     if (!socketIsConnect) return
-    socketClient.emit(SocketEmitEnum.Join, {
+    socketWorker.emit(SocketEmitEnum.Join, {
       roomName,
     })
 
     return () => {
-      socketClient.emit(SocketEmitEnum.Leave, {
+      socketWorker.emit(SocketEmitEnum.Leave, {
         roomName,
       })
     }
