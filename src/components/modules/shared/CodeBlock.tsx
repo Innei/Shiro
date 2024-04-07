@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import type { ReactNode } from 'react'
 
 import { HighLighterPrismCdn } from '~/components/ui/code-highlighter'
+import { ShikiHighLighterWrapper } from '~/components/ui/code-highlighter/shiki/ShikiWrapper'
 import { isSupportedShikiLang } from '~/components/ui/code-highlighter/shiki/utils'
 import { ExcalidrawLoading } from '~/components/ui/excalidraw/ExcalidrawLoading'
 import { isClientSide } from '~/lib/env'
@@ -32,6 +33,7 @@ const ExcalidrawLazy = ({ data }: any) => {
 }
 
 let shikiImport: ComponentType<any>
+let mermaidImport: ComponentType<any>
 export const CodeBlockRender = (props: {
   lang: string | undefined
   content: string
@@ -41,9 +43,12 @@ export const CodeBlockRender = (props: {
   const Content = useMemo(() => {
     switch (props.lang) {
       case 'mermaid': {
-        const Mermaid = dynamic(() =>
-          import('./Mermaid').then((mod) => mod.Mermaid),
-        )
+        const Mermaid =
+          mermaidImport ??
+          dynamic(() => import('./Mermaid').then((mod) => mod.Mermaid))
+        if (isClientSide) {
+          mermaidImport = Mermaid
+        }
         return <Mermaid {...props} />
       }
       case 'excalidraw': {
@@ -61,15 +66,29 @@ export const CodeBlockRender = (props: {
         if (lang && isSupportedShikiLang(lang)) {
           const ShikiHighLighter =
             shikiImport ??
-            dynamic(() =>
+            lazy(() =>
               import('~/components/ui/code-highlighter/shiki/Shiki').then(
-                (mod) => mod.ShikiHighLighter,
+                (mod) => ({
+                  default: mod.ShikiHighLighter,
+                }),
               ),
             )
           if (isClientSide) {
             shikiImport = ShikiHighLighter
           }
-          return <ShikiHighLighter {...props} />
+          return (
+            <Suspense
+              fallback={
+                <ShikiHighLighterWrapper {...props}>
+                  <pre className="bg-transparent px-5">
+                    <code className="!px-5">{props.content}</code>
+                  </pre>
+                </ShikiHighLighterWrapper>
+              }
+            >
+              <ShikiHighLighter {...props} />
+            </Suspense>
+          )
         }
 
         return <HighLighterPrismCdn {...props} />
