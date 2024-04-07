@@ -76,7 +76,7 @@ export const ContainerRule: MarkdownToJSX.Rule = {
             className="my-4"
             key={state?.key}
           >
-            <WrappedElementProvider>
+            <WrappedElementProvider className="w-full">
               <Markdown
                 value={content}
                 allowsScript
@@ -93,7 +93,7 @@ export const ContainerRule: MarkdownToJSX.Rule = {
 
         return (
           <Banner type={params} className="my-4" key={state?.key}>
-            <WrappedElementProvider>
+            <WrappedElementProvider className="w-full">
               <Markdown
                 value={content}
                 allowsScript
