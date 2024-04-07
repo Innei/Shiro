@@ -1,14 +1,10 @@
 import { execSync } from 'child_process'
- 
-import { config } from 'dotenv'
 import path from 'path'
+import { config } from 'dotenv'
 
 import NextBundleAnalyzer from '@next/bundle-analyzer'
 
-// const pkg = require('./package.json')
-import pkg from './package.json' assert {type: 'json'}
-
-const __dirname = path.resolve()
+import pkg from './package.json' assert { type: 'json' }
 
 process.title = 'Shiro (NextJS)'
 
@@ -16,15 +12,14 @@ const env = config().parsed || {}
 const isProd = process.env.NODE_ENV === 'production'
 
 let commitHash = ''
+let commitUrl = ''
+const repoInfo = getRepoInfo()
 
-try {
-  commitHash = execSync('git log --pretty=format:"%h" -n1')
-    .toString()
-    .trim()
-} catch (err) {
-  console.error('Error getting commit hash', err)
+if (repoInfo) {
+  commitHash = repoInfo.hash
+  commitUrl = repoInfo.url
 }
- 
+
 /** @type {import('next').NextConfig} */
 // eslint-disable-next-line import/no-mutable-exports
 let nextConfig = {
@@ -36,6 +31,7 @@ let nextConfig = {
   env: {
     APP_VERSION: pkg.version,
     COMMIT_HASH: commitHash,
+    COMMIT_URL: commitUrl,
   },
   reactStrictMode: true,
   productionBrowserSourceMaps: false,
@@ -89,13 +85,12 @@ let nextConfig = {
       options: {
         publicPath: '/_next/',
         worker: {
-          type: "SharedWorker",
+          type: 'SharedWorker',
           // https://v4.webpack.js.org/loaders/worker-loader/#worker
           options: {
-            name: "shiro-ws-worker",
+            name: 'shiro-ws-worker',
           },
         },
-
       },
     })
 
@@ -146,3 +141,52 @@ if (process.env.ANALYZE === 'true') {
 }
 
 export default nextConfig
+
+function getRepoInfo() {
+  try {
+    // 获取最新的 commit hash
+    // 获取当前分支名称
+    const currentBranch = execSync('git rev-parse --abbrev-ref HEAD')
+      .toString()
+      .trim()
+    // 获取当前分支跟踪的远程仓库名称
+    const remoteName = execSync(`git config branch.${currentBranch}.remote`)
+      .toString()
+      .trim()
+    // 获取当前分支跟踪的远程仓库的 URL
+    let remoteUrl = execSync(`git remote get-url ${remoteName}`)
+      .toString()
+      .trim()
+
+    // 获取最新的 commit hash
+    const hash = execSync('git rev-parse HEAD').toString().trim()
+    // 转换 git@ 格式的 URL 为 https:// 格式
+    if (remoteUrl.startsWith('git@')) {
+      remoteUrl = remoteUrl
+        .replace(':', '/')
+        .replace('git@', 'https://')
+        .replace('.git', '')
+    } else if (remoteUrl.endsWith('.git')) {
+      // 对于以 .git 结尾的 https URL，移除 .git
+      remoteUrl = remoteUrl.slice(0, -4)
+    }
+
+    // 根据不同的 Git 托管服务自定义 URL 生成规则
+    let webUrl
+    if (remoteUrl.includes('github.com')) {
+      webUrl = `${remoteUrl}/commit/${hash}`
+    } else if (remoteUrl.includes('gitlab.com')) {
+      webUrl = `${remoteUrl}/-/commit/${hash}`
+    } else if (remoteUrl.includes('bitbucket.org')) {
+      webUrl = `${remoteUrl}/commits/${hash}`
+    } else {
+      // 对于未知的托管服务，可以返回 null 或一个默认格式
+      webUrl = `${remoteUrl}/commits/${hash}`
+    }
+
+    return { hash, url: webUrl }
+  } catch (error) {
+    console.error('Error fetching repo info:', error)
+    return null
+  }
+}
