@@ -3,7 +3,6 @@ import { execSync } from 'child_process'
 import { config } from 'dotenv'
 import path from 'path'
 
-import CopyPlugin from 'copy-webpack-plugin'
 import NextBundleAnalyzer from '@next/bundle-analyzer'
 
 // const pkg = require('./package.json')
@@ -84,8 +83,8 @@ let nextConfig = {
       'utf-8-validate': 'commonjs utf-8-validate',
       bufferutil: 'commonjs bufferutil',
     })
-    config.module.rules.push({
-      test: /\.worker\.js$/,
+    config.module.rules.unshift({
+      test: /\.worker\.ts$/,
       loader: 'worker-loader',
       options: {
         publicPath: '/_next/',
@@ -99,26 +98,6 @@ let nextConfig = {
 
       },
     })
-
-    // plugins
-    config.plugins.push(
-      new CopyPlugin({
-        patterns: [
-          {
-            from: path.resolve(
-              __dirname,
-              './node_modules/socket.io-client/dist/socket.io.min.js',
-            ),
-            to: path.resolve(__dirname, './public/static/socket.io.js'),
-          },
-        ],
-      }),
-    )
-
-    config.resolve.alias['socket.io-client'] = path.resolve(
-      __dirname,
-      './public/static/socket.io.js',
-    )
 
     return config
   },

@@ -1,24 +1,17 @@
-// @ts-check
+import { io } from 'socket.io-client'
+import type { Socket } from 'socket.io-client'
+
 /* eslint-disable no-console */
-/* eslint-disable no-undef */
+
 /// <reference lib="webworker" />
 
-importScripts('/static/socket.io.js')
+let ws: Socket | null = null
 
-/** @type {import('socket.io-client').Socket | null} */
-let ws = null
-
-/**
- *
- * @param {{url: string}} config
- * @returns
- */
-function setupIo(config) {
+function setupIo(config: { url: string }) {
   if (ws) return
   // 使用 socket.io
-  console.log('Connecting to ws.io server from', config.url)
+  console.log('Connecting to io, url: ', config.url)
 
-  // @ts-ignore
   ws = io(config.url, {
     timeout: 10000,
     reconnectionDelay: 3000,
@@ -70,13 +63,10 @@ function setupIo(config) {
   })
 }
 
-/** @type {MessagePort[]} */
-const ports = []
+const ports = [] as MessagePort[]
 
-self.addEventListener('connect', (ev) => {
-  /** @type {MessageEvent} */
-  // @ts-expect-error
-  const event = ev
+self.addEventListener('connect', (ev: any) => {
+  const event = ev as MessageEvent
 
   const port = event.ports[0]
 
@@ -115,18 +105,11 @@ self.addEventListener('connect', (ev) => {
   port.start()
 })
 
-/**
- *
- * @param {any} payload
- */
-function boardcast(payload) {
+function boardcast(payload: any) {
   console.log('[ws] boardcast', payload)
   ports.forEach((port) => {
     port.postMessage(payload)
   })
 }
 
-/**
- * @type {any[]}
- */
-const waitingEmitQueue = []
+const waitingEmitQueue: any[] = []
