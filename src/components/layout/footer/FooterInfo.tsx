@@ -136,11 +136,9 @@ const PoweredBy: Component = ({ className }) => {
           Shiro
         </StyledLink>{' '}
         的闭源版本。
-        {process.env.COMMIT_HASH && (
-          <MLink
-            href={`https://github.com/innei-dev/Shiroi/commit/${process.env.COMMIT_HASH}`}
-          >
-            版本哈希：{process.env.COMMIT_HASH}
+        {process.env.COMMIT_HASH && process.env.COMMIT_URL && (
+          <MLink href={process.env.COMMIT_URL}>
+            版本哈希：{process.env.COMMIT_HASH.slice(0, 8)}
           </MLink>
         )}
       </FloatPopover>
