@@ -138,7 +138,10 @@ export const TocTree: Component<
 
   return (
     <ul
-      className={clsxm('scrollbar-none flex grow flex-col px-2', className)}
+      className={clsxm(
+        'scrollbar-none flex grow flex-col scroll-smooth px-2',
+        className,
+      )}
       ref={containerRef}
     >
       <ul
