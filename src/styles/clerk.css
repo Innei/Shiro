@@ -208,6 +208,9 @@
     @apply text-zinc-200;
   }
 }
-.cl-card {
+.cl-card:not(.cl-userButtonPopoverCard) {
   @apply pt-10;
+}
+.cl-userProfile-root .cl-card .cl-scrollBox + div {
+  @apply hidden;
 }
