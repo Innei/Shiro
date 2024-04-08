@@ -8,6 +8,7 @@ import { LazyMotion } from 'framer-motion'
 import { ThemeProvider } from 'next-themes'
 import type { PropsWithChildren } from 'react'
 
+import { PeekPortal } from '~/components/modules/peek/PeekPortal'
 import { ModalStackProvider } from '~/components/ui/modal'
 import { useBeforeUnload } from '~/hooks/common/use-before-unload'
 import { isDev } from '~/lib/env'
@@ -45,6 +46,8 @@ export function WebAppProviders({ children }: PropsWithChildren) {
       {/* <SentryProvider key="SentryProvider" /> */}
       <PageScrollInfoProvider key="PageScrollInfoProvider" />
       {isDev && <DebugProvider key="debugProvider" />}
+
+      <PeekPortal />
     </ProviderComposer>
   )
 }
@@ -60,7 +63,7 @@ export function DashboardAppProviders({ children }: PropsWithChildren) {
 
       <ModalStackProvider key="modalStackProvider" />
       <EventProvider key="viewportProvider" />
-
+      <PeekPortal />
       {/* <DebugProvider key="debugProvider" /> */}
     </ProviderComposer>
   )
