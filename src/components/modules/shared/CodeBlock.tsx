@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import type { ReactNode } from 'react'
 
 import { HighLighterPrismCdn } from '~/components/ui/code-highlighter'
+import { ShikiHighLighterWrapper } from '~/components/ui/code-highlighter/shiki/ShikiWrapper'
 import { isSupportedShikiLang } from '~/components/ui/code-highlighter/shiki/utils'
 import { ExcalidrawLoading } from '~/components/ui/excalidraw/ExcalidrawLoading'
 import { isClientSide } from '~/lib/env'
@@ -32,6 +33,7 @@ const ExcalidrawLazy = ({ data }: any) => {
 }
 
 let shikiImport: ComponentType<any>
+let mermaidImport: ComponentType<any>
 export const CodeBlockRender = (props: {
   lang: string | undefined
   content: string
@@ -41,9 +43,12 @@ export const CodeBlockRender = (props: {
   const Content = useMemo(() => {
     switch (props.lang) {
       case 'mermaid': {
-        const Mermaid = dynamic(() =>
-          import('./Mermaid').then((mod) => mod.Mermaid),
-        )
+        const Mermaid =
+          mermaidImport ??
+          dynamic(() => import('./Mermaid').then((mod) => mod.Mermaid))
+        if (isClientSide) {
+          mermaidImport = Mermaid
+        }
         return <Mermaid {...props} />
       }
       case 'excalidraw': {
@@ -58,18 +63,34 @@ export const CodeBlockRender = (props: {
       }
       default: {
         const lang = props.lang
+        const nextProps = { ...props }
+        nextProps.content = formatCode(props.content)
         if (lang && isSupportedShikiLang(lang)) {
           const ShikiHighLighter =
             shikiImport ??
-            dynamic(() =>
+            lazy(() =>
               import('~/components/ui/code-highlighter/shiki/Shiki').then(
-                (mod) => mod.ShikiHighLighter,
+                (mod) => ({
+                  default: mod.ShikiHighLighter,
+                }),
               ),
             )
           if (isClientSide) {
             shikiImport = ShikiHighLighter
           }
-          return <ShikiHighLighter {...props} />
+          return (
+            <Suspense
+              fallback={
+                <ShikiHighLighterWrapper {...nextProps}>
+                  <pre className="bg-transparent px-5">
+                    <code className="!px-5">{nextProps.content}</code>
+                  </pre>
+                </ShikiHighLighterWrapper>
+              }
+            >
+              <ShikiHighLighter {...nextProps} />
+            </Suspense>
+          )
         }
 
         return <HighLighterPrismCdn {...props} />
@@ -82,4 +103,39 @@ export const CodeBlockRender = (props: {
       {Content}
     </Suspense>
   )
+}
+
+/**
+ *  格式化代码：去除多余的缩进。
+    多余的缩进：如果所有代码行中，开头都包括 n 个空格，那么开头的空格是多余的
+ *
+ */
+function formatCode(code: string): string {
+  const lines = code.split('\n')
+
+  // 计算最小的共同缩进（忽略空行）
+  let minIndent = Number.MAX_SAFE_INTEGER
+  lines.forEach((line) => {
+    if (line.trim().length > 0) {
+      // 忽略纯空格行
+      const leadingSpaces = line.match(/^ */)?.[0].length
+      if (leadingSpaces === undefined) return
+      minIndent = Math.min(minIndent, leadingSpaces)
+    }
+  })
+
+  // 如果所有行都不包含空格或者只有空行，则不做处理
+  if (minIndent === Number.MAX_SAFE_INTEGER) return code
+
+  // 移除每行的共同最小缩进
+  const formattedLines = lines.map((line) => {
+    if (line.trim().length === 0) {
+      // 如果是空行，则直接返回，避免移除空行的非空格字符（例如\t）
+      return line
+    } else {
+      return line.substring(minIndent)
+    }
+  })
+
+  return formattedLines.join('\n')
 }

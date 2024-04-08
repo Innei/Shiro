@@ -17,10 +17,15 @@
     }
 
     .line {
-      @apply block min-h-[1em] px-5;
+      @apply block px-5;
 
       & > span:last-child {
         @apply mr-5;
+      }
+
+      /* 撑开没有内容的行 */
+      &::after {
+        content: ' ';
       }
     }
 
