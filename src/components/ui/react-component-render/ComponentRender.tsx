@@ -49,15 +49,11 @@ const ReactComponentRenderImpl: FC<DlsProps> = (dlsProps) => {
 
   const style = useContext(StyleContext)
   useIsomorphicLayoutEffect(() => {
-    loadScript(
-      'https://unpkg.com/styled-components/dist/styled-components.min.js',
-    )
-      .then(() => loadScript(dlsProps.import))
-      .then(() => {
-        const Component = get(window, dlsProps.name)
+    loadScript(dlsProps.import).then(() => {
+      const Component = get(window, dlsProps.name)
 
-        setComponent({ component: Component })
-      })
+      setComponent({ component: Component })
+    })
   }, [dlsProps])
 
   return (
