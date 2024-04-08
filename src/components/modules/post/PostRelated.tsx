@@ -18,19 +18,17 @@ export const PostRelated: FC<{
     return null
   }
   return (
-    <div data-hide-print className="mb-5 mt-8">
-      <h3 className="text-lg font-medium">
+    <div data-hide-print className="prose mb-5 mt-8">
+      <h3 className="flex items-center gap-2 text-lg font-medium">
+        <i className="icon-[mingcute--question-line]" />
         <span>{infoText}</span>
       </h3>
-      <ul className="list-inside list-disc text-base">
+      <ul className="ml-0 mt-4 list-inside list-disc pl-0 text-base leading-relaxed">
         {related.map((post) => {
           const href = `/posts/${post.category.slug}/${post.slug}`
           return (
             <li key={href}>
-              <PeekLink
-                href={href}
-                className="underline-current underline-dashed leading-10 underline"
-              >
+              <PeekLink href={href} className="shiro-link--underline">
                 {post.title}
               </PeekLink>
             </li>
