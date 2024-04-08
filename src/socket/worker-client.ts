@@ -25,14 +25,12 @@ class SocketWorker {
 
   constructor() {
     if (isServerSide) return
-    // @ts-expect-error
-    import('./io.worker').then(({ default: SharedWorker }) => {
-      if (isServerSide) return
-      const worker = new SharedWorker()
 
-      this.prepare(worker)
-      this.worker = worker
+    const worker = new SharedWorker(new URL('./io.worker', import.meta.url), {
+      name: 'shiro-ws-worker',
     })
+    this.prepare(worker)
+    this.worker = worker
   }
 
   async getSid() {
