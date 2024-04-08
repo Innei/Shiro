@@ -302,7 +302,7 @@ const twConfig: Config = {
     require('tailwindcss-animated'),
 
     require('./src/styles/theme.css'),
-    require('./src/styles/uikit.css'),
+    require('./src/styles/layer.css'),
   ],
 }
 

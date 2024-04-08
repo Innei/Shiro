@@ -16,6 +16,7 @@ import { NoteRootBanner } from '~/components/modules/note/NoteBanner'
 import { ArticleRightAside } from '~/components/modules/shared/ArticleRightAside'
 import { BanCopyWrapper } from '~/components/modules/shared/BanCopyWrapper'
 import { ReadIndicatorForMobile } from '~/components/modules/shared/ReadIndicator'
+import { Signature } from '~/components/modules/shared/Signature'
 import { SummarySwitcher } from '~/components/modules/shared/SummarySwitcher'
 import { XLogInfoForNote } from '~/components/modules/xlog'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
@@ -82,7 +83,7 @@ export default async function Page(props: {
           </WrappedElementProvider>
         </NoteHideIfSecret>
       </IndentArticleContainer>
-
+      <Signature />
       {/* <SubscribeBell defaultType="note_c" /> */}
       <ClientOnly>
         <div className="mt-8" data-hide-print />

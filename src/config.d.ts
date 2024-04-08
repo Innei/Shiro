@@ -76,6 +76,8 @@ declare global {
       id: string
       url: string
     }
+
+    signature: Signature
   }
   export interface Donate {
     enable: boolean
@@ -86,11 +88,8 @@ declare global {
     liveId: number
   }
 
-  declare module '*?worker' {
-    const workerConstructor: {
-      new (): Worker
-    }
-    export default workerConstructor
+  export interface Signature {
+    svg: string
   }
 }
 export {}
