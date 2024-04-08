@@ -89,6 +89,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
       if (typeof mdContent != 'string') return null
 
       const mdElement = compiler(mdContent, {
+        doNotProcessHtmlElements: ['tab', 'style', 'script'] as any[],
         wrapper: null,
         // @ts-ignore
         overrides: {
@@ -106,7 +107,8 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           tag: MTag,
 
           Tabs,
-          Tab,
+
+          tab: Tab,
 
           // for custom react component
           // Tag: MTag,
@@ -233,7 +235,12 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
               }
             },
           },
-
+          // htmlBlock: {
+          //   react(node, output, state) {
+          //     console.log(node, state)
+          //     return null
+          //   },
+          // },
           codeBlock: {
             react(node, output, state) {
               return (
