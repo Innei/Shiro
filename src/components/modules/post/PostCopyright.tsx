@@ -8,6 +8,8 @@ import { toast } from '~/lib/toast'
 import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
+import { Signature } from '../shared/Signature'
+
 export const PostCopyright: FC = () => {
   const name = useAggregationSelector((data) => data.user.name)
 
@@ -52,6 +54,9 @@ export const PostCopyright: FC = () => {
       </p>
       <Divider />
       <div>
+        <div className="float-right ml-4">
+          <Signature />
+        </div>
         <p>
           商业转载请联系站长获得授权，非商业转载请注明本文出处及文章链接，您可以自由地在任何媒体以任何形式复制和分发作品，也可以修改和创作，但是分发衍生作品时必须采用相同的许可协议。
           <br />

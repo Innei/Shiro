@@ -13,7 +13,6 @@ import {
 import { ArticleRightAside } from '~/components/modules/shared/ArticleRightAside'
 import { GoToAdminEditingButton } from '~/components/modules/shared/GoToAdminEditingButton'
 import { ReadIndicatorForMobile } from '~/components/modules/shared/ReadIndicator'
-import { Signature } from '~/components/modules/shared/Signature'
 import { SummarySwitcher } from '~/components/modules/shared/SummarySwitcher'
 import { XLogInfoForPost } from '~/components/modules/xlog'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
@@ -71,10 +70,10 @@ const PostPage = async ({ params }: { params: PageParams }) => {
           </LayoutRightSidePortal>
         </WrappedElementProvider>
       </article>
-      {data.copyright && <Signature />}
       <ClientOnly>
         <PostRelated infoText="关联阅读" />
         <PostCopyright />
+
         {/* <SubscribeBell defaultType="post_c" /> */}
         <XLogInfoForPost />
         <PostBottomBarAction />
