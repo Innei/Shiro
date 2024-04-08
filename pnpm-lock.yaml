@@ -388,6 +388,9 @@ devDependencies:
   tailwindcss:
     specifier: ^3.4.3
     version: 3.4.3
+  tailwindcss-animated:
+    specifier: 1.0.1
+    version: 1.0.1(tailwindcss@3.4.3)
   typescript:
     specifier: 5.4.4
     version: 5.4.4
@@ -10043,6 +10046,14 @@ packages:
       tailwindcss: '*'
     dependencies:
       tailwind-merge: 2.2.2
+      tailwindcss: 3.4.3
+    dev: true
+
+  /tailwindcss-animated@1.0.1(tailwindcss@3.4.3):
+    resolution: {integrity: sha512-u5wusj89ZwP8I+s8WZlaAd7aZTWBN/XEG6QgMKpkIKmAf3xP1A6WYf7oYIKmGaB10UAQaSqWopi/i1ozzZEs8Q==}
+    peerDependencies:
+      tailwindcss: '>=3.1.0'
+    dependencies:
       tailwindcss: 3.4.3
     dev: true
 

@@ -3,7 +3,7 @@
 import { useLayoutEffect, useState } from 'react'
 import clsx from 'clsx'
 
-import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
+import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 
 function cropImageTo16by9(src: string): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -63,6 +63,10 @@ export const NoteHeadCover = ({ image }: { image?: string }) => {
 }
 const NoteHeadCoverImpl = ({ image }: { image: string }) => {
   const [imageBlob, setImageBlob] = useState<string | null>(null)
+  const imageInfo = useCurrentNoteDataSelector((state) =>
+    state?.data.images?.find((i) => i.src === image),
+  )
+  const accentColor = imageInfo?.accent
   useLayoutEffect(() => {
     let isMounted = true
     cropImageTo16by9(image).then((b) => {
@@ -76,30 +80,29 @@ const NoteHeadCoverImpl = ({ image }: { image: string }) => {
 
   return (
     <>
-      {!!imageBlob && (
-        <div
-          data-hide-print
-          className={clsx(
-            'z-1 absolute inset-x-0',
-            imageBlob ? 'h-[224px]' : '0',
-            'top-[-6.5rem] md:top-0',
-          )}
-        >
+      <div
+        data-hide-print
+        className={clsx(
+          'z-1 absolute inset-x-0',
+          imageBlob || accentColor ? 'h-[224px]' : '0',
+          'cover-mask-b top-[-6.5rem] md:top-0',
+        )}
+        style={{
+          backgroundColor: accentColor,
+        }}
+      >
+        {!!imageBlob && (
           <div
             style={{
               backgroundImage: `url(${imageBlob})`,
             }}
-            className="cover-mask-b size-full bg-cover bg-center bg-no-repeat"
+            // eslint-disable-next-line tailwindcss/classnames-order
+            className="size-full animate-fade bg-cover bg-center bg-no-repeat"
           />
-        </div>
-      )}
+        )}
+      </div>
 
-      <AutoResizeHeight>
-        <div
-          data-hide-print
-          className={clsx(imageBlob ? 'h-[120px]' : 'h-0', 'hidden md:block')}
-        />
-      </AutoResizeHeight>
+      <div data-hide-print className={clsx('h-[120px]', 'hidden md:block')} />
     </>
   )
 }
