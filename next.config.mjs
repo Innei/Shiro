@@ -79,20 +79,6 @@ let nextConfig = {
       'utf-8-validate': 'commonjs utf-8-validate',
       bufferutil: 'commonjs bufferutil',
     })
-    config.module.rules.unshift({
-      test: /\.worker\.ts$/,
-      loader: 'worker-loader',
-      options: {
-        publicPath: '/_next/',
-        worker: {
-          type: 'SharedWorker',
-          // https://v4.webpack.js.org/loaders/worker-loader/#worker
-          options: {
-            name: 'shiro-ws-worker',
-          },
-        },
-      },
-    })
 
     return config
   },
