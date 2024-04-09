@@ -1,6 +1,6 @@
 const CommentSkeletonSingle = () => {
   return (
-    <li className="relative animate-pulse list-none">
+    <li className="relative list-none content-auto">
       <div className="group flex w-full items-stretch gap-2">
         <div className="flex w-9 shrink-0 items-end">
           <div className="size-9 rounded-full bg-gray-300 dark:bg-neutral-600" />
