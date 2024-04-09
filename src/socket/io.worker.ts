@@ -7,7 +7,7 @@ import type { Socket } from 'socket.io-client'
 
 let ws: Socket | null = null
 
-function setupIo(config: { url: string }) {
+function setupIo(config: { url: string; socket_session_id: string }) {
   if (ws) return
   // 使用 socket.io
   console.log('Connecting to io, url: ', config.url)
@@ -18,6 +18,10 @@ function setupIo(config: { url: string }) {
     autoConnect: false,
     reconnectionAttempts: 3,
     transports: ['websocket'],
+
+    query: {
+      socket_session_id: config.socket_session_id,
+    },
   })
   if (!ws) return
 
@@ -65,13 +69,7 @@ function setupIo(config: { url: string }) {
 
 const ports = [] as MessagePort[]
 
-self.addEventListener('connect', (ev: any) => {
-  const event = ev as MessageEvent
-
-  const port = event.ports[0]
-
-  ports.push(port)
-
+const preparePort = (port: MessagePort | Window) => {
   port.onmessage = (event) => {
     const { type, payload } = event.data
     console.log('get message from main', event.data)
@@ -101,9 +99,22 @@ self.addEventListener('connect', (ev: any) => {
         console.log('Unknown message type:', type)
     }
   }
+}
 
+self.addEventListener('connect', (ev: any) => {
+  const event = ev as MessageEvent
+
+  const port = event.ports[0]
+
+  ports.push(port)
+  preparePort(port)
   port.start()
 })
+
+if (!('SharedWorkerGlobalScope' in self)) {
+  ports.push(self as any as MessagePort)
+  preparePort(self)
+}
 
 function boardcast(payload: any) {
   console.log('[ws] boardcast', payload)

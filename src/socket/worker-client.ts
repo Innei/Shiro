@@ -4,12 +4,14 @@ import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.
 
 import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
 
+import { getSocketWebSessionId } from '~/atoms/hooks'
 import { setSocketIsConnect } from '~/atoms/socket'
 import { GATEWAY_URL } from '~/constants/env'
 import { SocketConnectedEvent, SocketDisconnectedEvent } from '~/events'
 import { isDev, isServerSide } from '~/lib/env'
 
 import { eventHandler } from './handler'
+import { SharedWorkerPolyfill as SharedWorker } from './worker-polyfill'
 
 interface WorkerSocket {
   sid: string
@@ -48,13 +50,13 @@ class SocketWorker {
     }
   }
   bindMessageHandler = (worker: SharedWorker) => {
-    worker.port.onmessage = (event: MessageEvent) => {
+    worker.onmessage = (event: MessageEvent) => {
       const { data } = event
       const { type, payload } = data
 
       switch (type) {
         case 'ping': {
-          worker?.port.postMessage({
+          worker?.postMessage({
             type: 'pong',
           })
           console.log('[ws worker] pong')
@@ -99,17 +101,18 @@ class SocketWorker {
   prepare(worker: SharedWorker) {
     const gatewayUrlWithoutTrailingSlash = GATEWAY_URL.replace(/\/$/, '')
     this.bindMessageHandler(worker)
-    worker.port.postMessage({
+    worker.postMessage({
       type: 'config',
 
       payload: {
         url: `${gatewayUrlWithoutTrailingSlash}/web`,
+        socket_session_id: getSocketWebSessionId(),
       },
     })
 
-    worker.port.start()
+    worker.start()
 
-    worker.port.postMessage({
+    worker.postMessage({
       type: 'init',
     })
   }
@@ -125,14 +128,14 @@ class SocketWorker {
   }
 
   emit(event: SocketEmitEnum, payload: any) {
-    this.worker?.port.postMessage({
+    this.worker?.postMessage({
       type: 'emit',
       payload: { type: event, payload },
     })
   }
 
   reconnect() {
-    this.worker?.port.postMessage({
+    this.worker?.postMessage({
       type: 'reconnect',
     })
   }
