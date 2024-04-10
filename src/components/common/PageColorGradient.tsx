@@ -1,5 +1,6 @@
 import 'server-only'
 
+import chroma from 'chroma-js'
 import Color from 'colorjs.io'
 import type { FC } from 'react'
 
@@ -12,7 +13,8 @@ import { RootPortal } from '../ui/portal'
 const hexToOklchString = (hex: string) => {
   return new Color(hex).oklch
 }
-
+const lightBg = 'rgb(250, 250, 250)'
+const darkBg = 'rgb(0, 2, 18)'
 export const PageColorGradient: FC<{
   seed: string
 }> = async ({ seed }) => {
@@ -44,7 +46,14 @@ export const PageColorGradient: FC<{
         }
         html.themed[data-theme='light'], html.themed[data-theme='dark'] {
           --a: ${`${hl} ${sl} ${ll}`};
-        }`,
+        }
+        html.themed {
+         --root-bg: ${chroma.mix(lightBg, bgAccent, 0.05, 'rgb').hex()};
+        }
+        html.themed[data-theme='dark'] {
+          --root-bg: ${chroma.mix(darkBg, bgAccent, 0.12, 'rgb').hex()};
+        }
+        `,
         }}
       />
     </>

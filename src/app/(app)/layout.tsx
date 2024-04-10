@@ -160,11 +160,7 @@ export default async function RootLayout(props: PropsWithChildren) {
           />
         )}
 
-        <html
-          lang="zh-CN"
-          className="noise themed !bg-accent"
-          suppressHydrationWarning
-        >
+        <html lang="zh-CN" className="noise themed" suppressHydrationWarning>
           <head>
             <PublicEnvScript />
             <Global />
@@ -204,7 +200,7 @@ export default async function RootLayout(props: PropsWithChildren) {
               <SyncServerTime />
               <ToastContainer />
               <ScrollTop />
-              <div className="fixed inset-y-0 right-0 w-[var(--removed-body-scroll-bar-size)] bg-base-100" />
+              <div className="fixed inset-y-0 right-0 w-[var(--removed-body-scroll-bar-size)]" />
             </WebAppProviders>
           </body>
         </html>
