@@ -122,6 +122,9 @@ dependencies:
   bypass-vue-devtools:
     specifier: 0.0.6
     version: 0.0.6
+  chroma-js:
+    specifier: 2.4.2
+    version: 2.4.2
   clsx:
     specifier: 2.1.0
     version: 2.1.0
@@ -304,6 +307,9 @@ devDependencies:
   '@tailwindcss/typography':
     specifier: 0.5.12
     version: 0.5.12(tailwindcss@3.4.3)
+  '@types/chroma-js':
+    specifier: 2.4.4
+    version: 2.4.4
   '@types/js-cookie':
     specifier: 3.0.6
     version: 3.0.6
@@ -3820,6 +3826,10 @@ packages:
       '@types/node': 20.11.30
     dev: false
 
+  /@types/chroma-js@2.4.4:
+    resolution: {integrity: sha512-/DTccpHTaKomqussrn+ciEvfW4k6NAHzNzs/sts1TCqg333qNxOhy8TNIoQCmbGG3Tl8KdEhkGAssb1n3mTXiQ==}
+    dev: true
+
   /@types/connect@3.4.38:
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
     dependencies:
@@ -4745,6 +4755,10 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
+
+  /chroma-js@2.4.2:
+    resolution: {integrity: sha512-U9eDw6+wt7V8z5NncY2jJfZa+hUH8XEj8FQHgFJTrUFnJfXYf4Ml4adI2vXZOjqRDpFWtYVWypDfZwnJ+HIR4A==}
+    dev: false
 
   /cli-cursor@4.0.0:
     resolution: {integrity: sha512-VGtlMu3x/4DOtIUwEkRezxUZ2lBacNJCHash0N0WeZDBS+7Ux1dm3XWAgWYxLJFMMdOeXMHXorshEFhbMSGelg==}
