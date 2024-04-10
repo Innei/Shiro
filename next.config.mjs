@@ -129,6 +129,30 @@ if (process.env.ANALYZE === 'true') {
 export default nextConfig
 
 function getRepoInfo() {
+  if (process.env.VERCEL) {
+    const { VERCEL_GIT_PROVIDER, VERCEL_GIT_REPO_SLUG, VERCEL_GIT_REPO_OWNER } =
+      process.env
+
+    // eslint-disable-next-line no-console
+    console.log(
+      'VERCEL_GIT_PROVIDER',
+      VERCEL_GIT_PROVIDER,
+      VERCEL_GIT_REPO_SLUG,
+      VERCEL_GIT_REPO_OWNER,
+    )
+    switch (VERCEL_GIT_PROVIDER) {
+      case 'github':
+        return {
+          hash: process.env.VERCEL_GIT_COMMIT_SHA,
+          url: `https://github.com/${VERCEL_GIT_REPO_OWNER}/${VERCEL_GIT_REPO_SLUG}/commit/${process.env.VERCEL_GIT_COMMIT_SHA}`,
+        }
+    }
+  } else {
+    return getRepoInfoFromGit()
+  }
+}
+
+function getRepoInfoFromGit() {
   try {
     // 获取最新的 commit hash
     // 获取当前分支名称
@@ -172,7 +196,7 @@ function getRepoInfo() {
 
     return { hash, url: webUrl }
   } catch (error) {
-    console.error('Error fetching repo info:', error)
+    console.error('Error fetching repo info:', error?.stderr?.toString())
     return null
   }
 }
