@@ -1,9 +1,11 @@
 /* eslint-disable react/no-unknown-property */
 export const NotFound404 = () => {
   return (
-    <div className="absolute inset-0 flex flex-col space-y-6 center">
-      <$404SVG className="size-[400px]" />
-      <p>这颗星球还没有知识哦，去其他地方探索吧</p>
+    <div className="min-h-[500px]">
+      <div className="fixed inset-0 flex flex-col space-y-6 center">
+        <$404SVG className="size-[400px]" />
+        <p>这颗星球还没有知识哦，去其他地方探索吧</p>
+      </div>
     </div>
   )
 }

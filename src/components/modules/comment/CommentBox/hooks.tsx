@@ -17,7 +17,8 @@ import type React from 'react'
 import type { createInitialValue } from './providers'
 
 import { useIsLogged } from '~/atoms/hooks'
-import { apiClient, getErrorMessageFromRequestError } from '~/lib/request'
+import { apiClient } from '~/lib/request'
+import { getErrorMessageFromRequestError } from '~/lib/request.shared'
 import { jotaiStore } from '~/lib/store'
 import { toast } from '~/lib/toast'
 
