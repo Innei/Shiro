@@ -2,8 +2,10 @@
 import { Suspense } from 'react'
 import type { Metadata } from 'next'
 
+import { BizErrorPage } from '~/components/common/BizErrorPage'
 import { buildRoomName, RoomProvider } from '~/components/modules/activity'
 import { CommentAreaRootLazy } from '~/components/modules/comment'
+import { NotePasswordForm } from '~/components/modules/note'
 import { NoteFontSettingFab } from '~/components/modules/note/NoteFontFab'
 import { NoteMainContainer } from '~/components/modules/note/NoteMainContainer'
 import { TocFAB } from '~/components/modules/toc/TocFAB'
@@ -11,6 +13,7 @@ import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
+import { unwrapRequest } from '~/lib/request.server'
 import {
   CurrentNoteDataProvider,
   SyncNoteDataAfterLoggedIn,
@@ -30,7 +33,9 @@ export const generateMetadata = async ({
   }
 }): Promise<Metadata> => {
   try {
-    const data = (await getData(params)).data
+    const res = await getData(params)
+
+    const data = res.data
     const { title, text } = data
     const description = getSummaryFromMd(text ?? '')
 
@@ -66,7 +71,25 @@ export default async (
 ) => {
   const { params } = props
   const { id: nid } = params
-  const data = await getData(params)
+  const { data, error, status, bizMessage } = await unwrapRequest(
+    getData(params),
+  )
+
+  if (status === 403) {
+    return (
+      <Paper>
+        <NotePasswordForm />
+        <CurrentNoteNidProvider nid={nid} />
+      </Paper>
+    )
+  }
+
+  if (error) {
+    if (bizMessage) {
+      return <BizErrorPage status={status} bizMessage={bizMessage} />
+    }
+    throw error
+  }
 
   const { id: noteObjectId, allowComment } = data.data
 
