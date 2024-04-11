@@ -13,12 +13,13 @@ import {
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
+import { definePrerenderPage } from '~/lib/request.server'
 import { CurrentPostDataProvider } from '~/providers/post/CurrentPostDataProvider'
 import { LayoutRightSideProvider } from '~/providers/shared/LayoutRightSideProvider'
 
 import { getData } from './api'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 600
 export const generateMetadata = async ({
   params,
 }: {
@@ -60,34 +61,38 @@ export const generateMetadata = async ({
   }
 }
 
-// eslint-disable-next-line react/display-name
-export default async (props: NextPageParams<PageParams>) => {
-  const data = await getData(props.params)
+export default definePrerenderPage<PageParams>()({
+  fetcher(params) {
+    return getData(params)
+  },
 
-  return (
-    <>
-      <PageColorGradient seed={data.title + data.category.name} />
-      <CurrentPostDataProvider data={data} />
-      <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
-        <BottomToUpTransitionView lcpOptimization className="min-w-0">
-          <RoomProvider roomName={buildRoomName(data.id)}>
-            <Suspense>{props.children}</Suspense>
-          </RoomProvider>
+  Component: async (props) => {
+    const { data } = props
+    return (
+      <>
+        <PageColorGradient seed={data.title + data.category.name} />
+        <CurrentPostDataProvider data={data} />
+        <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
+          <BottomToUpTransitionView lcpOptimization className="min-w-0">
+            <RoomProvider roomName={buildRoomName(data.id)}>
+              <Suspense>{props.children}</Suspense>
+            </RoomProvider>
 
-          <BottomToUpSoftScaleTransitionView delay={500}>
-            <CommentAreaRootLazy
-              refId={data.id}
-              allowComment={data.allowComment}
-            />
-          </BottomToUpSoftScaleTransitionView>
-        </BottomToUpTransitionView>
+            <BottomToUpSoftScaleTransitionView delay={500}>
+              <CommentAreaRootLazy
+                refId={data.id}
+                allowComment={data.allowComment}
+              />
+            </BottomToUpSoftScaleTransitionView>
+          </BottomToUpTransitionView>
 
-        <LayoutRightSideProvider className="relative hidden lg:block" />
-      </div>
+          <LayoutRightSideProvider className="relative hidden lg:block" />
+        </div>
 
-      <OnlyMobile>
-        <TocFAB />
-      </OnlyMobile>
-    </>
-  )
-}
+        <OnlyMobile>
+          <TocFAB />
+        </OnlyMobile>
+      </>
+    )
+  },
+})

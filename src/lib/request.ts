@@ -24,7 +24,7 @@ if (isServerSide) {
 const $fetch = createFetch({
   defaults: {
     timeout: 8000,
-
+    // next: { revalidate: 3 },
     headers: globalConfigureHeader,
     onRequest(context) {
       const token = getToken()

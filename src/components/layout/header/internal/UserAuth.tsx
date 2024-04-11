@@ -9,7 +9,6 @@ import { usePathname } from 'next/navigation'
 import { useIsLogged } from '~/atoms/hooks'
 import { UserArrowLeftIcon } from '~/components/icons/user-arrow-left'
 import { MotionButtonBase } from '~/components/ui/button'
-import { FloatPopover } from '~/components/ui/float-popover'
 import { urlBuilder } from '~/lib/url-builder'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
@@ -82,13 +81,7 @@ export function UserAuth() {
       </SignedIn>
 
       <SignedOut key="sign-in">
-        <FloatPopover
-          TriggerComponent={TriggerComponent}
-          wrapperClassName="h-full w-full flex items-center justify-center"
-          type="tooltip"
-        >
-          登录
-        </FloatPopover>
+        <TriggerComponent />
       </SignedOut>
     </AnimatePresence>
   )

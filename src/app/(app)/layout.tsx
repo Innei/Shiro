@@ -20,6 +20,7 @@ import { SearchPanelWithHotKey } from '~/components/modules/shared/SearchFAB'
 import { TocAutoScroll } from '~/components/modules/toc/TocAutoScroll'
 import { REQUEST_QUERY } from '~/constants/system'
 import { isDev } from '~/lib/env'
+import { PreRenderError } from '~/lib/error-factory'
 import { sansFont, serifFont } from '~/lib/fonts'
 import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
 import { AppFeatureProvider } from '~/providers/root/app-feature-provider'
@@ -30,8 +31,6 @@ import { Analyze } from './analyze'
 import { fetchAggregationData } from './api'
 
 const { version } = PKG
-
-export const revalidate = 3600 // 3600s
 
 export function generateViewport(): Viewport {
   return {
@@ -131,7 +130,31 @@ export const dynamic = 'force-dynamic'
 export default async function RootLayout(props: PropsWithChildren) {
   const { children } = props
 
-  const data = await fetchAggregationData()
+  const data = await fetchAggregationData().catch((err) => {
+    return new PreRenderError(err.message)
+  })
+
+  if (data instanceof PreRenderError) {
+    return (
+      <html lang="zh-CN" className="noise themed" suppressHydrationWarning>
+        <head>
+          <PublicEnvScript />
+
+          <SayHi />
+        </head>
+        <body
+          className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
+        >
+          <div className="flex h-screen center">
+            初始数据的获取失败，请检查 API
+            服务器是否正常运行。接口请求错误信息：
+            <br />
+            {data.message}
+          </div>
+        </body>
+      </html>
+    )
+  }
 
   const themeConfig = data.theme
 
