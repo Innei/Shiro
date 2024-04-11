@@ -25,6 +25,7 @@ const loadFeatures = () =>
   import('./framer-lazy-feature').then((res) => res.default)
 
 const baseContexts: JSX.Element[] = [
+  // @ts-expect-error
   <ThemeProvider key="themeProvider" />,
   <JotaiStoreProvider key="jotaiStoreProvider" />,
 
