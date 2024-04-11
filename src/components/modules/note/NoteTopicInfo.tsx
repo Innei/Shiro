@@ -72,6 +72,7 @@ const NoteTopicRank: FC<{
             {filteredNotes.map((item) => {
               return (
                 <NoteTimelineItem
+                  attachToken={item.hide}
                   active={false}
                   title={item.title}
                   nid={item.nid}
