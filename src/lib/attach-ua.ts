@@ -1,3 +1,5 @@
+import 'server-only'
+
 import { cookies, headers } from 'next/headers'
 
 import PKG from '../../package.json'
@@ -25,11 +27,10 @@ export const attachServerFetch = () => {
 }
 
 export const attachServerFetchAuth = () => {
-  const cookie = cookies()
-  const jwt = cookie.get(AuthKeyNames[0])
+  const jwt = getAuthFromCookie()
 
   if (jwt) {
-    attachFetchHeader('Authorization', `Bearer ${jwt.value}`)
+    attachFetchHeader('Authorization', `Bearer ${jwt}`)
   } else {
     attachFetchHeader('Authorization', '')
   }
@@ -37,4 +38,11 @@ export const attachServerFetchAuth = () => {
 
 export const detachServerFetchAuth = () => {
   attachFetchHeader('Authorization', null)
+}
+
+export const getAuthFromCookie = () => {
+  const cookie = cookies()
+  const jwt = cookie.get(AuthKeyNames[0])
+
+  return jwt?.value || ''
 }

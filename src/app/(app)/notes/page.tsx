@@ -1,16 +1,23 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import type { NoteWrappedWithLikedPayload } from '@mx-space/api-client'
 
-import { attachServerFetchAuth, detachServerFetchAuth } from '~/lib/attach-ua'
+import { getAuthFromCookie } from '~/lib/attach-ua'
 import { AuthKeyNames } from '~/lib/cookie'
 import { apiClient } from '~/lib/request'
 import { definePrerenderPage } from '~/lib/request.server'
 
 export default definePrerenderPage()({
   async fetcher() {
-    attachServerFetchAuth()
-    const { data } = await apiClient.note.getLatest()
-    detachServerFetchAuth()
+    const { data } =
+      await apiClient.note.proxy.latest.get<NoteWrappedWithLikedPayload>({
+        params: {
+          token: getAuthFromCookie()
+            ? `bearer ${getAuthFromCookie()}`
+            : undefined,
+        },
+      })
+
     return data
   },
   Component: ({ data: { nid, hide } }) => {
