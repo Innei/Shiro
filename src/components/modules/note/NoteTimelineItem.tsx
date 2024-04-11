@@ -7,6 +7,7 @@ import { tv } from 'tailwind-variants'
 import type { Target, TargetAndTransition } from 'framer-motion'
 
 import { LeftToRightTransitionView } from '~/components/ui/transition'
+import { getToken } from '~/lib/cookie'
 import { clsxm } from '~/lib/helper'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { springScrollToTop } from '~/lib/scroller'
@@ -30,11 +31,15 @@ export const NoteTimelineItem = memo<{
   active: boolean
   title: string
   nid: number
+  attachToken: boolean
 
   layout?: boolean
 }>((props) => {
-  const { active, nid, title, layout } = props
+  const { active, nid, title, layout, attachToken } = props
 
+  const href = routeBuilder(Routes.Note, {
+    id: nid,
+  })
   return (
     <m.li
       layout={layout}
@@ -54,7 +59,6 @@ export const NoteTimelineItem = memo<{
       )}
       <Link
         onClick={springScrollToTop}
-        prefetch={false}
         className={clsxm(
           active
             ? styles({
@@ -62,9 +66,7 @@ export const NoteTimelineItem = memo<{
               })
             : styles(),
         )}
-        href={routeBuilder(Routes.Note, {
-          id: nid,
-        })}
+        href={attachToken ? `${href}?token=${getToken()}` : href}
         scroll={false}
       >
         {title}
