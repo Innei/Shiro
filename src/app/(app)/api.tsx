@@ -5,7 +5,7 @@ import type { AggregateRoot } from '@mx-space/api-client'
 import { simpleCamelcaseKeys } from '@mx-space/api-client'
 
 import { appStaticConfig } from '~/app.static.config'
-import { attachUAAndRealIp } from '~/lib/attach-ua'
+import { attachServerFetch } from '~/lib/attach-ua'
 import { getQueryClient } from '~/lib/query-client.server'
 import { apiClient } from '~/lib/request'
 
@@ -13,7 +13,7 @@ const cacheTime = appStaticConfig.cache.enabled
   ? appStaticConfig.cache.ttl.aggregation
   : 1
 export const fetchAggregationData = cache(async () => {
-  attachUAAndRealIp()
+  attachServerFetch()
   const queryClient = getQueryClient()
   const fetcher = async () =>
     (await $fetch<

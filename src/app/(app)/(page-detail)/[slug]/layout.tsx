@@ -14,7 +14,7 @@ import {
   BottomToUpTransitionView,
 } from '~/components/ui/transition'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
-import { attachUAAndRealIp } from '~/lib/attach-ua'
+import { attachServerFetch } from '~/lib/attach-ua'
 import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
 import { apiClient } from '~/lib/request'
@@ -33,7 +33,7 @@ import {
 
 export const dynamic = 'force-dynamic'
 const getData = cache(async (params: PageParams) => {
-  attachUAAndRealIp()
+  attachServerFetch()
   const data = await apiClient.page
     .getBySlug(params.slug)
     .catch(requestErrorHandler)

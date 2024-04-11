@@ -17,7 +17,7 @@ const useNoteBanner = () => {
   const meta = useCurrentNoteDataSelector((n) => n?.data.meta)
 
   let banner = meta?.banner as {
-    type: string
+    type: keyof typeof bannerClassNames
     message: string
     className: string
     style?: any
@@ -31,7 +31,7 @@ const useNoteBanner = () => {
       type: 'info',
       message: banner,
       className: bannerClassNames.info,
-    }
+    } as any
   }
   banner = { ...banner }
   banner.type ??= 'info'
@@ -47,7 +47,7 @@ export const NoteRootBanner = () => {
   if (!banner) return null
 
   return (
-    <div className="mx-[var(--padding-h)] mb-4 mt-8 text-sm">
+    <div className="mx-[var(--padding-h)] mb-4 mt-8">
       <NoteBanner {...banner} />
     </div>
   )
@@ -55,12 +55,20 @@ export const NoteRootBanner = () => {
 
 export const NoteBanner: FC<{
   style?: any
-  className: string
+  className?: string
   message: string
+  type?: keyof typeof bannerClassNames
 }> = (banner) => {
   return (
     <div
-      className={clsxm('flex justify-center p-4 leading-8', banner.className)}
+      className={clsxm(
+        'mt-4 flex justify-center p-4 text-base leading-8',
+        'lg:-ml-12 lg:w-[calc(100%+6rem)]',
+        '-ml-4 w-[calc(100%+2rem)]',
+
+        bannerClassNames[banner.type as keyof typeof bannerClassNames],
+        banner.className,
+      )}
       style={banner.style}
     >
       {banner.message}

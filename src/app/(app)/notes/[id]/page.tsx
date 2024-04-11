@@ -12,7 +12,10 @@ import {
   NoteMetaReadingCount,
   NoteTopic,
 } from '~/components/modules/note'
-import { NoteRootBanner } from '~/components/modules/note/NoteBanner'
+import {
+  NoteBanner,
+  NoteRootBanner,
+} from '~/components/modules/note/NoteBanner'
 import { ArticleRightAside } from '~/components/modules/shared/ArticleRightAside'
 import { BanCopyWrapper } from '~/components/modules/shared/BanCopyWrapper'
 import { ReadIndicatorForMobile } from '~/components/modules/shared/ReadIndicator'
@@ -59,6 +62,12 @@ export default async function Page(props: {
             </ClientOnly>
           </span>
           <NoteRootBanner />
+          {data.hide && (
+            <NoteBanner
+              type="warning"
+              message="这篇文章是非公开的，仅登录可见"
+            />
+          )}
         </header>
 
         <NoteHideIfSecret>

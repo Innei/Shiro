@@ -23,11 +23,12 @@ if (repoInfo) {
 /** @type {import('next').NextConfig} */
 // eslint-disable-next-line import/no-mutable-exports
 let nextConfig = {
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
-  },
+  // logging: {
+  //   fetches: {
+
+  //     // fullUrl: true,
+  //   },
+  // },
   env: {
     APP_VERSION: pkg.version,
     COMMIT_HASH: commitHash,
