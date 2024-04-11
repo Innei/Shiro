@@ -1,33 +1,24 @@
-'use client'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
-import { useQuery } from '@tanstack/react-query'
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-
-import { FullPageLoading } from '~/components/ui/loading'
+import { attachServerFetchAuth, detachServerFetchAuth } from '~/lib/attach-ua'
+import { AuthKeyNames } from '~/lib/cookie'
 import { apiClient } from '~/lib/request'
+import { definePrerenderPage } from '~/lib/request.server'
 
-export default function Page() {
-  const {
-    data: nid,
-    isError,
-    isLoading,
-  } = useQuery({
-    queryFn: async () => {
-      return apiClient.note.getLatest()
-    },
-    queryKey: ['note-latest'],
-    select(data) {
-      return data.data.nid
-    },
-  })
-
-  const router = useRouter()
-  useEffect(() => {
-    if (!nid) return
-
-    router.replace(`/notes/${nid}`)
-  }, [nid, router])
-
-  return <FullPageLoading />
-}
+export default definePrerenderPage()({
+  async fetcher() {
+    attachServerFetchAuth()
+    const { data } = await apiClient.note.getLatest()
+    detachServerFetchAuth()
+    return data
+  },
+  Component: ({ data: { nid, hide } }) => {
+    const jwt = cookies().get(AuthKeyNames[0])?.value
+    if (hide) {
+      return redirect(`/notes/${nid}?token=${jwt}`)
+    } else {
+      redirect(`/notes/${nid}`)
+    }
+  },
+})

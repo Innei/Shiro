@@ -32,6 +32,7 @@ const $fetch = createFetch({
       if (token) {
         headers['Authorization'] = `bearer ${token}`
       }
+
       headers['x-session-uuid'] =
         globalThis?.sessionStorage?.getItem(uuidStorageKey) ?? uuid
 
@@ -100,9 +101,13 @@ export const apiClient = createClient(fetchAdapter)(API_URL, {
   },
 })
 
-export const attachFetchHeader = (key: string, value: string) => {
+export const attachFetchHeader = (key: string, value: string | null) => {
   const original = globalConfigureHeader[key]
-  globalConfigureHeader[key] = value
+  if (value === null) {
+    delete globalConfigureHeader[key]
+  } else {
+    globalConfigureHeader[key] = value
+  }
 
   return () => {
     if (typeof original === 'undefined') {

@@ -9,7 +9,7 @@ import { RequestError } from '@mx-space/api-client'
 import { BizErrorPage } from '~/components/common/BizErrorPage'
 import { NormalContainer } from '~/components/layout/container/Normal'
 
-import { attachUAAndRealIp } from './attach-ua'
+import { attachServerFetch } from './attach-ua'
 import { getErrorMessageFromRequestError } from './request.shared'
 
 export const requestErrorHandler = (error: Error | RequestError) => {
@@ -61,7 +61,7 @@ export const definePrerenderPage =
     return async (props: any) => {
       const { params, searchParams } = props as NextPageParams<Params, any>
       try {
-        attachUAAndRealIp()
+        attachServerFetch()
         const data = await fetcher({
           ...params,
           ...searchParams,

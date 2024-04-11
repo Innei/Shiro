@@ -1,6 +1,10 @@
 import { useMutation } from '@tanstack/react-query'
 import dayjs from 'dayjs'
-import type { NoteModel, NoteWrappedPayload } from '@mx-space/api-client'
+import type {
+  NoteModel,
+  NoteWrappedPayload,
+  NoteWrappedWithLikedPayload,
+} from '@mx-space/api-client'
 import type { NoteDto } from '~/models/writing'
 
 import { useResetAutoSaverData } from '~/components/modules/dashboard/writing/BaseWritingProvider'
@@ -13,9 +17,9 @@ import { defineQuery } from '../helper'
 
 const LATEST_KEY = 'latest'
 export const note = {
-  byNid: (nid: string, password?: string | null) =>
+  byNid: (nid: string, password?: string | null, token?: string) =>
     defineQuery({
-      queryKey: ['note', nid],
+      queryKey: ['note', nid, token],
       meta: {
         hydrationRoutePath: routeBuilder(Routes.Note, { id: nid }),
         shouldHydration: (data: NoteWrappedPayload) => {
@@ -23,7 +27,7 @@ export const note = {
           const isSecret = note?.publicAt
             ? dayjs(note?.publicAt).isAfter(new Date())
             : false
-          return !isSecret
+          return !isSecret && !data.data.hide
         },
       },
       queryFn: async ({ queryKey }) => {
@@ -32,7 +36,15 @@ export const note = {
         if (id === LATEST_KEY) {
           return (await apiClient.note.getLatest()).$serialized
         }
-        const data = await apiClient.note.getNoteById(+queryKey[1], password!)
+        // const data = await apiClient.note.getNoteById(+queryKey[1], password!)
+        const data = await apiClient.note.proxy
+          .nid(id)
+          .get<NoteWrappedWithLikedPayload>({
+            params: {
+              password,
+              token,
+            },
+          })
 
         return { ...data } as NoteWrappedPayload
       },
