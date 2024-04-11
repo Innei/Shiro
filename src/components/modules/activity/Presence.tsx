@@ -14,6 +14,9 @@ import {
   useState,
 } from 'react'
 import clsx from 'clsx'
+import { useAtomValue, useSetAtom } from 'jotai'
+import { atomWithStorage } from 'jotai/utils'
+import type { FormContextType } from '~/components/ui/form'
 import type { FC, PropsWithChildren } from 'react'
 
 import { useUser } from '@clerk/nextjs'
@@ -27,7 +30,10 @@ import {
   useSocketSessionId,
 } from '~/atoms/hooks'
 import { getServerTime } from '~/components/common/SyncServerTime'
+import { MotionButtonBase, StyledButton } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
+import { Form, FormInput } from '~/components/ui/form'
+import { useCurrentModal, useModalStack } from '~/components/ui/modal'
 import { RootPortal } from '~/components/ui/portal'
 import { EmitKeyMap } from '~/constants/keys'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
@@ -38,6 +44,7 @@ import { getColorScheme, stringToHue } from '~/lib/color'
 import { formatSeconds } from '~/lib/datetime'
 import { safeJsonParse } from '~/lib/helper'
 import { debounce, uniq } from '~/lib/lodash'
+import { buildNSKey } from '~/lib/ns'
 import { apiClient } from '~/lib/request'
 import { queries } from '~/queries/definition'
 import { socketWorker } from '~/socket/worker-client'
@@ -51,6 +58,8 @@ export const Presence = () => {
 
   return isClient ? <PresenceImpl /> : null
 }
+
+const presenceStoredNameAtom = atomWithStorage(buildNSKey('presence-name'), '')
 
 const PresenceImpl = () => {
   const { roomName } = useRoomContext()
@@ -77,19 +86,22 @@ const PresenceImpl = () => {
     }
     return ''
   })()
+
+  const presenceStoredName = useAtomValue(presenceStoredNameAtom)
   const displayName = useMemo(
     () =>
       isOwnerLogged
         ? owner?.name
         : clerkUser.isSignedIn
           ? clerkUser.user.fullName
-          : commentStoredName || '',
+          : presenceStoredName || commentStoredName || '',
     [
       clerkUser.isSignedIn,
       clerkUser.user?.fullName,
       commentStoredName,
       isOwnerLogged,
       owner?.name,
+      presenceStoredName,
     ],
   )
 
@@ -131,7 +143,13 @@ const PresenceImpl = () => {
 
   if (isMobile) return null
 
-  return <ReadPresenceTimeline />
+  return (
+    <>
+      <ReadPresenceTimeline />
+
+      <DisplayNameHelper displayName={displayName} />
+    </>
+  )
 }
 
 const ReadPresenceTimeline = () => {
@@ -158,6 +176,66 @@ const ReadPresenceTimeline = () => {
         })}
       </div>
     </RootPortal>
+  )
+}
+
+const NameModalContent = () => {
+  const { dismiss } = useCurrentModal()
+  const setDisplayName = useSetAtom(presenceStoredNameAtom)
+  const formRef = useRef<FormContextType>(null)
+
+  return (
+    <div className="flex flex-col gap-2">
+      <p>记录下你的名字，为了更好的记录当前的文章的阅读进度。</p>
+      <small className="text-sm opacity-80">你的名字只会保存在本地。</small>
+      <Form
+        onSubmit={() => {
+          const values = formRef.current?.getCurrentValues()
+          const name = values?.name
+
+          setDisplayName(name)
+          dismiss()
+        }}
+        ref={formRef}
+        className="space-y-3 text-right"
+      >
+        <FormInput
+          rules={[
+            {
+              validator(value) {
+                if (!value) return false
+                if (value.length > 20) return false
+                return true
+              },
+              message: '名字不能为空，且长度不能超过 20 个字符',
+            },
+          ]}
+          name="name"
+        />
+        <StyledButton>保存</StyledButton>
+      </Form>
+    </div>
+  )
+}
+export const DisplayNameHelper = ({ displayName }: { displayName: string }) => {
+  const { present } = useModalStack()
+  if (displayName) return null
+
+  return (
+    <MotionButtonBase
+      onClick={() => {
+        present({
+          title: '告诉我你的名字吧',
+          content: NameModalContent,
+        })
+      }}
+      className={clsx(
+        'border-border fixed bottom-5 left-5 z-10 flex size-5 rounded-full border bg-base-100/80 text-2xl backdrop-blur center',
+        'animation-wave',
+      )}
+    >
+      👋🏻
+    </MotionButtonBase>
   )
 }
 
