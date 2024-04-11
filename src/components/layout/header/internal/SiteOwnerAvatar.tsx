@@ -73,7 +73,7 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
           className="ring-2 ring-slate-200 dark:ring-neutral-800"
         />
       </div>
-      <OwnerStatus />
+      {!isLiving && <OwnerStatus />}
       {isLiving && (
         <>
           <p className="absolute bottom-0 right-0 z-[1] rounded-md bg-red-400 p-1 font-[system-ui] text-[6px] text-white dark:bg-orange-700">
