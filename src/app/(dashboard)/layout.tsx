@@ -9,7 +9,7 @@ import { sansFont, serifFont } from '~/lib/fonts'
 import { getQueryClient } from '~/lib/query-client.server'
 import { DashboardAppProviders } from '~/providers/root'
 import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
-import { queries } from '~/queries/definition'
+import { aggregation } from '~/queries/definition/aggregation'
 
 import './dashboard.css'
 
@@ -38,7 +38,7 @@ export function generateViewport(): Viewport {
 export default async function RootLayout({ children }: PropsWithChildren) {
   const queryClient = getQueryClient()
   const data = await queryClient.fetchQuery({
-    ...queries.aggregation.root(),
+    ...aggregation.root(),
   })
 
   const themeConfig = data.theme

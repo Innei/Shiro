@@ -113,7 +113,6 @@ export const TagDetailModal = (props: { name: string }) => {
                   onClick={() => {
                     dismissAll()
                   }}
-                  prefetch={false}
                   href={routeBuilder(Routes.Post, {
                     category: item.category.slug,
                     slug: item.slug,

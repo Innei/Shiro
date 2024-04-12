@@ -32,7 +32,6 @@ export default definePrerenderPage()({
                   className="flex min-w-0 items-center justify-between leading-loose"
                 >
                   <Link
-                    prefetch={false}
                     href={routeBuilder(Routes.NoteTopic, {
                       slug: item.slug,
                     })}

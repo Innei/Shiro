@@ -68,7 +68,6 @@ export default function Page() {
                   className="flex min-w-0 items-center justify-between leading-loose"
                 >
                   <Link
-                    prefetch={false}
                     href={routeBuilder(Routes.Note, {
                       id: child.nid,
                     })}
