@@ -8,6 +8,7 @@ import { RequestError } from '@mx-space/api-client'
 
 import { BizErrorPage } from '~/components/common/BizErrorPage'
 import { NormalContainer } from '~/components/layout/container/Normal'
+import { API_URL } from '~/constants/env'
 
 import { attachServerFetch } from './attach-ua'
 import { getErrorMessageFromRequestError } from './request.shared'
@@ -29,9 +30,9 @@ const defaultErrorRenderer = (error: any) => {
     createElement(
       'p',
       {
-        className: 'text-center text-red-500',
+        className: 'text-center',
       },
-      error.message,
+      error.message?.replace(API_URL, '<API_URL>'),
     ),
   )
 }
