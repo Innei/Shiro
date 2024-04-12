@@ -9,7 +9,7 @@ import { RequestError } from '@mx-space/api-client'
 import { BizErrorPage } from '~/components/common/BizErrorPage'
 import { NormalContainer } from '~/components/layout/container/Normal'
 
-import { attachServerFetch } from './attach-ua'
+import { attachServerFetch } from './attach-fetch'
 import { getErrorMessageFromRequestError } from './request.shared'
 
 export const requestErrorHandler = (error: Error | RequestError) => {

@@ -14,7 +14,7 @@ import {
   BottomToUpTransitionView,
 } from '~/components/ui/transition'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
-import { attachServerFetch } from '~/lib/attach-ua'
+import { attachServerFetch } from '~/lib/attach-fetch'
 import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
 import { apiClient } from '~/lib/request'

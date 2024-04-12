@@ -2,7 +2,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import type { NoteWrappedWithLikedPayload } from '@mx-space/api-client'
 
-import { getAuthFromCookie } from '~/lib/attach-ua'
+import { getAuthFromCookie } from '~/lib/attach-fetch'
 import { AuthKeyNames } from '~/lib/cookie'
 import { apiClient } from '~/lib/request'
 import { definePrerenderPage } from '~/lib/request.server'
