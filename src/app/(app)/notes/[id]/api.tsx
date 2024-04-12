@@ -2,7 +2,7 @@ import { cache } from 'react'
 import { headers } from 'next/dist/client/components/headers'
 
 import { REQUEST_QUERY } from '~/constants/system'
-import { attachServerFetch } from '~/lib/attach-ua'
+import { attachServerFetch, getAuthFromCookie } from '~/lib/attach-fetch'
 import { getQueryClient } from '~/lib/query-client.server'
 import { requestErrorHandler } from '~/lib/request.server'
 import { queries } from '~/queries/definition'
@@ -19,8 +19,12 @@ export const getData = cache(async (params: { id: string }) => {
     searchParams.get('password') || undefined,
     token ? `${token}` : undefined,
   )
+
   const data = await getQueryClient()
-    .fetchQuery(query)
+    .fetchQuery({
+      ...query,
+      staleTime: getAuthFromCookie() ? 0 : undefined,
+    })
     .catch(requestErrorHandler)
   return data
 })

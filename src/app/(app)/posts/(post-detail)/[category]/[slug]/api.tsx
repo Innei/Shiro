@@ -1,6 +1,6 @@
 import { cache } from 'react'
 
-import { attachServerFetch } from '~/lib/attach-ua'
+import { attachServerFetch } from '~/lib/attach-fetch'
 import { getQueryClient } from '~/lib/query-client.server'
 import { requestErrorHandler } from '~/lib/request.server'
 import { queries } from '~/queries/definition'

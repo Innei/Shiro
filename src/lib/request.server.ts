@@ -10,7 +10,7 @@ import { BizErrorPage } from '~/components/common/BizErrorPage'
 import { NormalContainer } from '~/components/layout/container/Normal'
 import { API_URL } from '~/constants/env'
 
-import { attachServerFetch } from './attach-ua'
+import { attachServerFetch } from './attach-fetch'
 import { getErrorMessageFromRequestError } from './request.shared'
 
 export const requestErrorHandler = (error: Error | RequestError) => {

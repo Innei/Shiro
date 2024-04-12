@@ -7,7 +7,7 @@ import { TimelineType } from '@mx-space/api-client'
 import { QueryHydrate } from '~/components/common/QueryHydrate'
 import { SearchFAB } from '~/components/modules/shared/SearchFAB'
 import { REQUEST_QUERY } from '~/constants/system'
-import { attachServerFetch } from '~/lib/attach-ua'
+import { attachServerFetch } from '~/lib/attach-fetch'
 import { getQueryClient } from '~/lib/query-client.server'
 import { apiClient } from '~/lib/request'
 

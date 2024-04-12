@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 import { QueryHydrate } from '~/components/common/QueryHydrate'
 import { NormalContainer } from '~/components/layout/container/Normal'
-import { attachServerFetch } from '~/lib/attach-ua'
+import { attachServerFetch } from '~/lib/attach-fetch'
 import { isShallowEqualArray } from '~/lib/lodash'
 import { getQueryClient } from '~/lib/query-client.server'
 import { definePrerenderPage } from '~/lib/request.server'

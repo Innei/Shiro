@@ -15,6 +15,7 @@ const uuidStorageKey = 'x-uuid'
 const uuid = nanoid()
 
 const globalConfigureHeader = {} as any
+const globalConfigureSearchParams = {} as any
 
 if (isServerSide) {
   globalConfigureHeader['User-Agent'] =
@@ -43,9 +44,21 @@ const $fetch = createFetch({
         }
       }
 
+      context.options.params ??= {}
+      Object.assign(context.options.params, globalConfigureSearchParams)
+      if (context.options.params.token) {
+        context.options.cache = 'no-store'
+      }
       if (isDev && isServerSide) {
         // eslint-disable-next-line no-console
         console.log(`[Request]: ${context.request}`)
+      }
+    },
+    onResponse(context) {
+      // log response
+      if (isDev && isServerSide) {
+        // eslint-disable-next-line no-console
+        console.log(`[Response]: ${context.request}`, context.response.status)
       }
     },
   },
@@ -116,4 +129,15 @@ export const attachFetchHeader = (key: string, value: string | null) => {
       globalConfigureHeader[key] = original
     }
   }
+}
+
+export const setGlobalSearchParams = (params: Record<string, any>) => {
+  clearGlobalSearchParams()
+  Object.assign(globalConfigureSearchParams, params)
+}
+
+export const clearGlobalSearchParams = () => {
+  Object.keys(globalConfigureSearchParams).forEach((key) => {
+    delete globalConfigureSearchParams[key]
+  })
 }

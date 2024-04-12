@@ -1,3 +1,5 @@
+import 'server-only'
+
 import { QueryClient } from '@tanstack/react-query'
 
 const sharedClient = new QueryClient({

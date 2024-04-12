@@ -5,7 +5,7 @@ import type { AggregateRoot } from '@mx-space/api-client'
 import { simpleCamelcaseKeys } from '@mx-space/api-client'
 
 import { appStaticConfig } from '~/app.static.config'
-import { attachServerFetch } from '~/lib/attach-ua'
+import { attachServerFetch } from '~/lib/attach-fetch'
 import { getQueryClient } from '~/lib/query-client.server'
 import { apiClient } from '~/lib/request'
 

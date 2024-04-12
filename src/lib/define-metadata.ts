@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 import { getQueryClient } from '~/lib/query-client.server'
 import { queries } from '~/queries/definition'
 
-import { attachServerFetch } from './attach-ua'
+import { attachServerFetch } from './attach-fetch'
 
 export const defineMetadata = <T extends Record<string, string>>(
   fn: (
