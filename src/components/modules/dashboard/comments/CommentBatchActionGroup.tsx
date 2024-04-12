@@ -9,7 +9,7 @@ import { toast } from '~/lib/toast'
 import {
   useDeleteCommentMutation,
   useUpdateCommentStateMutation,
-} from '~/queries/definition/comment'
+} from '~/queries/hooks/comment'
 
 import { OffsetHeaderLayout } from '../layouts'
 import {

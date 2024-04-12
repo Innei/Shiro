@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
-import { getHighlighterCore } from 'shiki'
-import getWasm from 'shiki/wasm'
 import type { FC } from 'react'
 
+import { isServerSide } from '~/lib/env'
+
 import { ShikiHighLighterWrapper } from './ShikiWrapper'
-import { codeHighlighter } from './utils'
 
 interface Props {
   lang: string | undefined
@@ -13,7 +12,15 @@ interface Props {
   attrs?: string
 }
 
-const highlighterCore = await (async () => {
+const codeHighlighter = await (async () => {
+  if (isServerSide) return
+  const [{ getHighlighterCore }, getWasm, { codeHighlighter }] =
+    await Promise.all([
+      import('shiki'),
+      import('shiki/wasm').then((m) => m.default),
+      import('./core'),
+    ])
+
   const loaded = await getHighlighterCore({
     themes: [
       import('shiki/themes/github-light.mjs'),
@@ -41,14 +48,15 @@ const highlighterCore = await (async () => {
     loadWasm: getWasm,
   })
 
-  return loaded
+  return (o: { lang: string; attrs: string; code: string }) =>
+    codeHighlighter(loaded, o)
 })()
 
 export const ShikiHighLighter: FC<Props> = (props) => {
   const { lang: language, content: value, attrs } = props
 
   const highlightedHtml = useMemo(() => {
-    return codeHighlighter(highlighterCore, {
+    return codeHighlighter?.({
       attrs: attrs || '',
       // code: `${value.split('\n')[0].repeat(10)} // [!code highlight]\n${value}`,
       code: value,

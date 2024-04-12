@@ -44,7 +44,6 @@ export default definePrerenderPage<{ slug: string }>()({
                   className="flex min-w-0 items-center justify-between leading-loose"
                 >
                   <Link
-                    prefetch={false}
                     href={routeBuilder(Routes.Post, {
                       slug: child.slug,
                       category: slug as string,

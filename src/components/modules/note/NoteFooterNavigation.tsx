@@ -40,7 +40,6 @@ export const NoteFooterNavigation = () => {
                   })}
                   className="hover:text-accent"
                   scroll={false}
-                  prefetch={false}
                 >
                   <i className="icon-[mingcute--arrow-left-line]" />
                   <span>前一篇</span>
@@ -52,7 +51,6 @@ export const NoteFooterNavigation = () => {
                   href={routeBuilder(Routes.Note, {
                     id: prevNid.toString(),
                   })}
-                  prefetch={false}
                   scroll={false}
                   className="hover:text-accent"
                 >
