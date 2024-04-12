@@ -127,20 +127,33 @@ const PoweredBy: Component = ({ className }) => {
           </StyledLink>
         }
       >
-        这是{' '}
-        <StyledLink
-          className="underline"
-          href="https://github.com/innei/Shiro"
-          target="_blank"
-        >
-          Shiro
-        </StyledLink>{' '}
-        的闭源版本。
-        {process.env.COMMIT_HASH && process.env.COMMIT_URL && (
-          <MLink href={process.env.COMMIT_URL}>
-            版本哈希：{process.env.COMMIT_HASH.slice(0, 8)}
-          </MLink>
-        )}
+        <div className="space-y-2">
+          <p>
+            这是{' '}
+            <StyledLink
+              className="underline"
+              href="https://github.com/innei/Shiro"
+              target="_blank"
+            >
+              Shiro
+            </StyledLink>{' '}
+            的闭源版本。
+          </p>
+          <p>
+            可以通过{' '}
+            <MLink popper={false} href="https://github.com/sponsors/Innei">
+              Sponsor
+            </MLink>{' '}
+            获取
+          </p>
+          {process.env.COMMIT_HASH && process.env.COMMIT_URL && (
+            <p>
+              <MLink popper={false} href={process.env.COMMIT_URL}>
+                版本哈希：{process.env.COMMIT_HASH.slice(0, 8)}
+              </MLink>
+            </p>
+          )}
+        </div>
       </FloatPopover>
       .
     </span>

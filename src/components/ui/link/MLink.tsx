@@ -12,7 +12,8 @@ export const MLink: FC<{
   title?: string
   children?: ReactNode
   text?: string
-}> = memo(({ href, children, title, text }) => {
+  popper?: boolean
+}> = memo(({ href, children, title, popper = true }) => {
   const router = useRouter()
   const handleRedirect = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -45,31 +46,30 @@ export const MLink: FC<{
     [href, router],
   )
 
+  const el = (
+    <span className="inline items-center font-sans">
+      <Favicon href={href} />
+      <a
+        className="shiro-link--underline"
+        href={href}
+        target="_blank"
+        onClick={handleRedirect}
+        title={title}
+        rel="noreferrer"
+      >
+        {children}
+      </a>
+
+      <i className="icon-[mingcute--arrow-right-up-line] translate-y-[2px] opacity-70" />
+    </span>
+  )
+  if (!popper) return el
   return (
     <FloatPopover
       as="span"
       wrapperClassName="!inline"
       type="tooltip"
-      TriggerComponent={useCallback(
-        () => (
-          <span className="inline items-center font-sans">
-            <Favicon href={href} />
-            <a
-              className="shiro-link--underline"
-              href={href}
-              target="_blank"
-              onClick={handleRedirect}
-              title={title}
-              rel="noreferrer"
-            >
-              {children}
-            </a>
-
-            <i className="icon-[mingcute--arrow-right-up-line] translate-y-[2px] opacity-70" />
-          </span>
-        ),
-        [handleRedirect, children, href, title],
-      )}
+      triggerElement={el}
     >
       <a href={href} target="_blank" rel="noreferrer">
         <span>{href}</span>
