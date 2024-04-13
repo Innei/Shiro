@@ -138,7 +138,7 @@ steps:
         - ls
         - cd standalone
         - cp -r ~/node_modules/sharp ./node_modules
-        - ~/.n/bin/pm2 restart ecosystem.config.js
+        - ~/.n/bin/pm2 restart ecosystem.config.cjs
       debug: true
     depends_on:
       - transfer file

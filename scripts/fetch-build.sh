@@ -26,7 +26,7 @@ rm -rf ./dist
 unzip "/tmp/$tmpName.zip" -d ./dist
 rm "/tmp/$tmpName.zip"
 
-cd dist/standalone && pm2 reload ecosystem.config.js --update-env
+cd dist/standalone && pm2 reload ecosystem.config.cjs --update-env
 
 # wait 15 seconds
 echo "等待 15 秒"
@@ -34,7 +34,7 @@ sleep 15
 
 # check if server is running
 if ! lsof -i:2323 -P -n | grep LISTEN >/dev/null; then
-  pm2 stop ecosystem.config.js
+  pm2 stop ecosystem.config.cjs
   echo "server is not running"
   exit 1
 fi
