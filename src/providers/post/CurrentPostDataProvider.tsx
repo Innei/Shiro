@@ -10,6 +10,7 @@ const {
   ModelDataAtomProvider,
   getGlobalModelData,
   setGlobalModelData,
+  useSetModelData,
   useModelDataSelector,
 } = createModelDataProvider<PostModel>()
 
@@ -26,4 +27,5 @@ export {
   getGlobalModelData as getGlobalCurrentPostData,
   setGlobalModelData as setGlobalCurrentPostData,
   useModelDataSelector as useCurrentPostDataSelector,
+  useSetModelData as useSetCurrentPostData,
 }

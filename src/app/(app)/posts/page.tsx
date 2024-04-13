@@ -12,6 +12,7 @@ import { OnlyDesktop } from '~/components/ui/viewport'
 import { apiClient } from '~/lib/request'
 import { definePrerenderPage } from '~/lib/request.server'
 
+import { PostListDataRevaildate } from './data-revalidate'
 import { PostLoadMore } from './loader'
 
 interface Props {
@@ -48,6 +49,9 @@ export default definePrerenderPage<Props>()({
     }
     return (
       <NormalContainer>
+        <PostListDataRevaildate
+          fetchedAt={(props.data as any as FetchedResponseMeta).fetchedAt}
+        />
         <ul>
           {data.map((item, index) => {
             return (

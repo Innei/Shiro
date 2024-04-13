@@ -58,6 +58,7 @@ const trackerRealtimeEvent = () => {
   )
 }
 
+const updateMessage = '由于作者更新了此文章/内容，所以页面内容自动刷新了'
 export const eventHandler = (
   type: string,
   data: any,
@@ -85,7 +86,7 @@ export const eventHandler = (
         Reflect.deleteProperty(nextPost, 'category')
         Object.assign(draft, nextPost)
       })
-      toast('文章已更新')
+      toast(updateMessage)
       trackerRealtimeEvent()
 
       if (currentData.text !== post.text) {
@@ -126,7 +127,7 @@ export const eventHandler = (
       setCurrentNoteData((draft) => {
         Object.assign(draft.data, note)
       })
-      toast('手记已更新')
+      toast(updateMessage)
       trackerRealtimeEvent()
 
       if (currentData.text !== note.text) {
@@ -161,7 +162,7 @@ export const eventHandler = (
         setCurrentPageData((draft) => {
           Object.assign(draft, data)
         })
-        toast('页面已更新')
+        toast(updateMessage)
         trackerRealtimeEvent()
       }
       break

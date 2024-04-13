@@ -21,6 +21,7 @@ import { CurrentNoteNidProvider } from '~/providers/note/CurrentNoteIdProvider'
 
 import { Paper } from '../../../../components/layout/container/Paper'
 import { getData } from './api'
+import { NoteDataReValidate } from './pageExtra'
 import { Transition } from './Transition'
 
 export const dynamic = 'force-dynamic'
@@ -84,6 +85,7 @@ export default definePrerenderPage<{
       <>
         <CurrentNoteNidProvider nid={nid} />
         <CurrentNoteDataProvider data={data} />
+        <NoteDataReValidate />
         <SyncNoteDataAfterLoggedIn />
         <RoomProvider roomName={buildRoomName(data.data.id)}>
           <Transition className="min-w-0" lcpOptimization>

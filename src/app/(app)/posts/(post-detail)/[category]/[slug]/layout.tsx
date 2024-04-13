@@ -18,6 +18,7 @@ import { CurrentPostDataProvider } from '~/providers/post/CurrentPostDataProvide
 import { LayoutRightSideProvider } from '~/providers/shared/LayoutRightSideProvider'
 
 import { getData } from './api'
+import { PostDataReValidate } from './pageExtra'
 
 export const revalidate = 600
 export const generateMetadata = async ({
@@ -72,6 +73,7 @@ export default definePrerenderPage<PageParams>()({
       <>
         <PageColorGradient seed={data.title + data.category.name} />
         <CurrentPostDataProvider data={data} />
+        <PostDataReValidate />
         <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
           <BottomToUpTransitionView lcpOptimization className="min-w-0">
             <RoomProvider roomName={buildRoomName(data.id)}>

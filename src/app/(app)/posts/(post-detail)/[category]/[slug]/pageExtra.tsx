@@ -1,9 +1,13 @@
+/* eslint-disable no-console */
 'use client'
 
-import { useEffect } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
+import { useEffect, useRef } from 'react'
 import type { Image } from '@mx-space/api-client'
 import type { PropsWithChildren } from 'react'
 
+import { appStaticConfig } from '~/app.static.config'
+import { withClientOnly } from '~/components/common/ClientOnly'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { PostMetaBar } from '~/components/modules/post/PostMetaBar'
 import { CurrentReadingCountingMetaBarItem } from '~/components/modules/shared/MetaBar'
@@ -11,7 +15,11 @@ import { WithArticleSelectionAction } from '~/components/modules/shared/WithArti
 import { MainMarkdown } from '~/components/ui/markdown'
 import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
-import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
+import {
+  useCurrentPostDataSelector,
+  useSetCurrentPostData,
+} from '~/providers/post/CurrentPostDataProvider'
+import { queries } from '~/queries/definition'
 
 export const PostTitle = () => {
   const title = useCurrentPostDataSelector((data) => data?.title)!
@@ -93,3 +101,42 @@ export const PostMetaBarInternal: Component = ({ className }) => {
     </PostMetaBar>
   )
 }
+
+export const PostDataReValidate = withClientOnly(() => {
+  const isOutdated = useCurrentPostDataSelector((post: any) => {
+    const fetchedAt = (post as FetchedResponseMeta)?.fetchedAt
+    if (!fetchedAt) return false
+
+    return (
+      Date.now() - new Date(fetchedAt).getTime() > appStaticConfig.revalidate
+    )
+  })
+  const dataSetter = useSetCurrentPostData()
+
+  const { category, slug } = useCurrentPostDataSelector((post) => {
+    if (!post) return {}
+    return {
+      category: post.category,
+      slug: post.slug,
+    }
+  })
+  const onceRef = useRef(false)
+  const queryClient = useQueryClient()
+  useEffect(() => {
+    if (onceRef.current) return
+
+    onceRef.current = true
+    if (!isOutdated) return
+
+    if (!category || !slug) return
+
+    queryClient
+      .fetchQuery(queries.post.bySlug(category.slug, slug))
+      .then((data) => {
+        dataSetter(data)
+        // toast.info('此文章访问的内容已过期，所以页面数据自动更新了。')
+        console.log('Post data revalidated', data)
+      })
+  }, [category, dataSetter, isOutdated, queryClient, slug])
+  return null
+})
