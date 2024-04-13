@@ -32,9 +32,9 @@
     "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 next build",
     "build:ci": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 NEXT_TELEMETRY_DISABLED=1 CI=true next build",
     "lint": "eslint --ext .ts,.tsx --ignore-path .gitignore . --fix",
-    "prod:pm2": "cross-env NODE_ENV=production pm2 restart ecosystem.config.js",
-    "prod:stop": "pm2 stop ecosystem.config.js",
-    "prod:reload": "pm2 reload ecosystem.config.js"
+    "prod:pm2": "cross-env NODE_ENV=production pm2 restart ecosystem.config.cjs",
+    "prod:stop": "pm2 stop ecosystem.config.cjs",
+    "prod:reload": "pm2 reload ecosystem.config.cjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.552.0",
