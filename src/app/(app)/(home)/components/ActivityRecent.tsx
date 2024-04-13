@@ -27,6 +27,7 @@ export const ActivityRecent = () => {
   const flatData = useMemo(() => {
     return [...Object.entries(data || {})]
       .map(([type, items]) => {
+        if (!Array.isArray(items)) return []
         return items.map((item: any) => {
           return { ...item, bizType: type }
         })

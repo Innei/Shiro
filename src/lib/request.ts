@@ -65,7 +65,11 @@ const $fetch = createFetch({
         context.response._data &&
         typeof context.response._data === 'object'
       ) {
-        context.response._data.fetchedAt = new Date().toISOString()
+        Object.defineProperty(context.response._data, 'fetchedAt', {
+          value: new Date().toISOString(),
+
+          enumerable: false,
+        })
       }
     },
   },

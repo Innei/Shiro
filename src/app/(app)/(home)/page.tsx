@@ -6,6 +6,7 @@ import clsx from 'clsx'
 import { m } from 'framer-motion'
 import Image from 'next/image'
 
+import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import {
   FaSolidComments,
   FaSolidFeatherAlt,
@@ -203,7 +204,9 @@ const ActivityScreen = () => {
         leftContainerClassName="block lg:flex [&>div]:w-full pr-4"
         rightContainerClassName="[&>div]:w-full"
       >
-        <ActivityRecent />
+        <ErrorBoundary>
+          <ActivityRecent />
+        </ErrorBoundary>
 
         <ActivityPostList />
       </TwoColumnLayout>
