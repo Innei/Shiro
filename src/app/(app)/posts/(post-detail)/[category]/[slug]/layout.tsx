@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react'
+import { redirect } from 'next/navigation'
 import type { Metadata } from 'next'
 import type { PageParams } from './api'
 
@@ -68,7 +69,13 @@ export default definePrerenderPage<PageParams>()({
   },
 
   Component: async (props) => {
-    const { data } = props
+    const { data, params } = props
+
+    const fullPath = `/${data.category.slug}/${data.slug}`
+    const currentPath = `/${params.category}/${params.slug}`
+    if (currentPath !== fullPath) {
+      redirect(fullPath)
+    }
     return (
       <>
         <PageColorGradient seed={data.title + data.category.name} />
