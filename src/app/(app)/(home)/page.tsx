@@ -201,14 +201,13 @@ const ActivityScreen = () => {
   return (
     <InViewScreen className="mt-24">
       <TwoColumnLayout
-        leftContainerClassName="block lg:flex [&>div]:w-full pr-4"
-        rightContainerClassName="[&>div]:w-full"
+        rightContainerClassName="block lg:flex [&>div]:w-full pr-4"
+        leftContainerClassName="[&>div]:w-full"
       >
+        <ActivityPostList />
         <ErrorBoundary>
           <ActivityRecent />
         </ErrorBoundary>
-
-        <ActivityPostList />
       </TwoColumnLayout>
     </InViewScreen>
   )

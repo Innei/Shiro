@@ -45,16 +45,16 @@ export const ActivityRecent = () => {
         initial={{ opacity: 0.0001, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={softBouncePreset}
-        className="mt-8 text-lg lg:mt-0"
+        className="mt-8 w-full text-lg lg:mt-0"
       >
-        <m.h2 className="mb-8 ml-14 text-2xl font-medium leading-loose">
+        <m.h2 className="mb-8 text-2xl font-medium leading-loose lg:ml-14">
           最近发生的事
         </m.h2>
 
         {isLoading ? (
           <div className="relative h-[400px] max-h-[80vh]">
             <ul className="shiro-timeline mt-4 flex animate-pulse flex-col pb-4 pl-2 text-slate-200 dark:!text-neutral-700">
-              {new Array(4).fill(null).map((_, i) => {
+              {new Array(6).fill(null).map((_, i) => {
                 return (
                   <li key={i} className="flex w-full items-center gap-2">
                     <div
