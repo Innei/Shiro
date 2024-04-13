@@ -10,7 +10,7 @@ import { StyledButton } from '../ui/button'
 const FallbackComponent = () => {
   return (
     <div className="flex w-full flex-col py-6 center">
-      Something went wrong. Please contract to{' '}
+      客户端组件渲染时报错，请尝试刷新页面，如果多次出现错误请联系开发者
       <a href="mailto:i@innei.in" className="shiro-link--underline">
         i@innei.in
       </a>
@@ -20,7 +20,7 @@ const FallbackComponent = () => {
           window.location.reload()
         }}
       >
-        Reload Page
+        刷新
       </StyledButton>
     </div>
   )

@@ -10,6 +10,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { OpenpanelProvider } from '@openpanel/nextjs'
 
 import PKG from '~/../package.json'
+import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { Global } from '~/components/common/Global'
 import { HydrationEndDetector } from '~/components/common/HydrationEndDetector'
 import { ScrollTop } from '~/components/common/ScrollTop'
@@ -208,23 +209,25 @@ export default async function RootLayout(props: PropsWithChildren) {
           <body
             className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
           >
-            <WebAppProviders>
-              <AggregationProvider
-                aggregationData={data}
-                appConfig={themeConfig.config}
-              />
-              <div data-theme>
-                <Root>{children}</Root>
-              </div>
+            <ErrorBoundary>
+              <WebAppProviders>
+                <AggregationProvider
+                  aggregationData={data}
+                  appConfig={themeConfig.config}
+                />
+                <div data-theme>
+                  <Root>{children}</Root>
+                </div>
 
-              <TocAutoScroll />
-              <SearchPanelWithHotKey />
-              <Analyze />
-              <SyncServerTime />
-              <ToastContainer />
-              <ScrollTop />
-              <div className="fixed inset-y-0 right-0 w-[var(--removed-body-scroll-bar-size)]" />
-            </WebAppProviders>
+                <TocAutoScroll />
+                <SearchPanelWithHotKey />
+                <Analyze />
+                <SyncServerTime />
+                <ToastContainer />
+                <ScrollTop />
+                <div className="fixed inset-y-0 right-0 w-[var(--removed-body-scroll-bar-size)]" />
+              </WebAppProviders>
+            </ErrorBoundary>
           </body>
         </html>
       </AppFeatureProvider>
