@@ -12,7 +12,7 @@ import type { MarkdownToJSX } from 'markdown-to-jsx'
 
 import { simpleCamelcaseKeys } from '@mx-space/api-client'
 
-import { CDN_HOST } from '~/app.static.config'
+import { appStaticConfig, CDN_HOST } from '~/app.static.config'
 import { InsertRule } from '~/components/ui/markdown/parsers/ins'
 import { MarkRule } from '~/components/ui/markdown/parsers/mark'
 import { MentionRule } from '~/components/ui/markdown/parsers/mention'
@@ -76,9 +76,10 @@ export async function GET() {
       title: item.title,
       url: item.link,
       date: item.created!,
-      description: `<blockquote>该渲染由 Shiro API 生成，可能存在排版问题，最佳体验请前往：<a href='${xss(
-        item.link,
-      )}'>${xss(item.link)}</a></blockquote>
+      description: appStaticConfig.rss.content
+        ? `<blockquote>该渲染由 Shiro API 生成，可能存在排版问题，最佳体验请前往：<a href='${xss(
+            item.link,
+          )}'>${xss(item.link)}</a></blockquote>
 ${ReactDOM.renderToString(
   <div>
     {compiler(item.text, {
@@ -136,7 +137,8 @@ ${ReactDOM.renderToString(
 )}
       <p style='text-align: right'>
       <a href='${`${xss(item.link)}#comments`}'>看完了？说点什么呢</a>
-      </p>`,
+      </p>`
+        : `前往：<a href='${xss(item.link)}'>${xss(item.link)}</a>`,
     })
   })
 
