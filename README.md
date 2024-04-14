@@ -15,6 +15,8 @@
 - 评论区颜文字选择
 - 签名动画
 - Home Page Redesign
+- 通知推送（基于 Service Worker）
+- 文章内嵌 Thinking 解析
 
 ## :whale: 运行
 
