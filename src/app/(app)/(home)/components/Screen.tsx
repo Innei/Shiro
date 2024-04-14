@@ -20,7 +20,7 @@ export const Screen = forwardRef<
     <InViewScreen
       ref={ref}
       className={clsxm(
-        'h-screen min-h-[900px] min-w-0 max-w-screen overflow-hidden',
+        'h-dvh min-h-[800px] min-w-0 max-w-screen overflow-hidden',
         props.className,
       )}
     >

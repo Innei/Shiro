@@ -8,6 +8,7 @@ import { StyledButton } from '~/components/ui/button'
 import { Input } from '~/components/ui/input/Input'
 import { useStateToRef } from '~/hooks/common/use-state-ref'
 import { preventDefault } from '~/lib/dom'
+import { registerPushWorker } from '~/lib/push-worker'
 import { apiClient } from '~/lib/request'
 import { toast } from '~/lib/toast'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
@@ -83,6 +84,10 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
         ),
       },
     })
+  }, [])
+
+  useEffect(() => {
+    registerPushWorker()
   }, [])
 
   const query = useSubscribeStatusQuery()

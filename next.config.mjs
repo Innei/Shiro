@@ -1,6 +1,7 @@
 import { execSync } from 'child_process'
 import path from 'path'
 import { config } from 'dotenv'
+import { InjectManifest } from 'workbox-webpack-plugin'
 
 import NextBundleAnalyzer from '@next/bundle-analyzer'
 
@@ -69,7 +70,7 @@ let nextConfig = {
     }
   },
 
-  webpack: (config, { webpack }) => {
+  webpack: (config, { webpack, isServer }) => {
     const __dirname = new URL('./', import.meta.url).pathname
     config.resolve.alias['jotai'] = path.resolve(
       __dirname,
@@ -80,6 +81,15 @@ let nextConfig = {
       'utf-8-validate': 'commonjs utf-8-validate',
       bufferutil: 'commonjs bufferutil',
     })
+
+    if (!isServer) {
+      config.plugins.push(
+        new InjectManifest({
+          swSrc: './src/workers/push-worker.ts',
+          swDest: '../public/pusher-sw.js',
+        }),
+      )
+    }
 
     return config
   },

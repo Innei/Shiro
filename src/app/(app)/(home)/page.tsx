@@ -1,7 +1,7 @@
 'use client'
 
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import React, { createElement } from 'react'
+import React, { createElement, useEffect } from 'react'
 import clsx from 'clsx'
 import { m } from 'framer-motion'
 import Image from 'next/image'
@@ -18,6 +18,7 @@ import {
   RMixPlanet,
 } from '~/components/icons/menu-collection'
 import { isSupportIcon, SocialIcon } from '~/components/modules/home/SocialIcon'
+import { usePresentSubscribeModal } from '~/components/modules/subscribe'
 import { StyledButton } from '~/components/ui/button'
 import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'
 import {
@@ -27,6 +28,7 @@ import {
 import { microReboundPreset, softBouncePreset } from '~/constants/spring'
 import { clsxm } from '~/lib/helper'
 import { noopObj } from '~/lib/noop'
+import { registerPushWorker } from '~/lib/push-worker'
 import { apiClient } from '~/lib/request'
 import { toast } from '~/lib/toast'
 import {
@@ -39,6 +41,9 @@ import { ActivityRecent } from './components/ActivityRecent'
 import { InViewScreen, Screen } from './components/Screen'
 
 export default function Home() {
+  useEffect(() => {
+    registerPushWorker()
+  }, [])
   return (
     <div>
       <Hero />
@@ -264,10 +269,12 @@ const Windsock = () => {
   const { data: count } = useQuery({
     queryKey: likeQueryKey,
     queryFn: () => apiClient.proxy('like_this').get(),
+    refetchInterval: 1000 * 60 * 5,
   })
 
   const queryClient = useQueryClient()
 
+  const { present: presentSubscribe } = usePresentSubscribeModal()
   return (
     <InViewScreen>
       <div className="mt-28 flex flex-col center">
@@ -314,9 +321,9 @@ const Windsock = () => {
         </ul>
       </div>
 
-      <div className="mt-24 flex justify-center">
+      <div className="mt-24 flex justify-center gap-4">
         <StyledButton
-          className="flex gap-2 center"
+          className="flex gap-2 bg-red-400 center"
           onClick={() => {
             apiClient
               .proxy('like_this')
@@ -352,6 +359,16 @@ const Windsock = () => {
           <NumberSmoothTransition>
             {count as any as string}
           </NumberSmoothTransition>
+        </StyledButton>
+
+        <StyledButton
+          className="flex gap-2 center"
+          onClick={() => {
+            presentSubscribe()
+          }}
+        >
+          订阅
+          <i className="icon-[material-symbols--notifications-active]" />
         </StyledButton>
       </div>
     </InViewScreen>
