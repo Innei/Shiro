@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
-import clsx from 'clsx'
 import { m, useMotionTemplate, useMotionValue } from 'framer-motion'
 import Link from 'next/link'
 import RemoveMarkdown from 'remove-markdown'
@@ -30,17 +29,23 @@ export interface LinkCardProps {
   className?: string
 
   fallbackUrl?: string
+  placeholder: ReactNode
 }
 
-export const LinkCard = (props: LinkCardProps) => {
+export const LinkCard = (props: Omit<LinkCardProps, 'placeholder'>) => {
   const isClient = useIsClientTransition()
 
-  const placeholder = <LinkCardSkeleton />
+  const placeholder = (
+    <LinkCardSkeleton
+      className={props.source === 'tmdb' ? '!w-screen max-w-full' : ''}
+    />
+  )
+
   if (!isClient) return placeholder
 
   return (
     <LazyLoad placeholder={placeholder}>
-      <LinkCardImpl {...props} />
+      <LinkCardImpl {...props} placeholder={placeholder} />
     </LazyLoad>
   )
 }
@@ -150,11 +155,23 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
   const LinkComponent = source === 'self' ? Link : 'a'
 
   const classNames = cardInfo?.classNames || {}
+
+  if (loading) {
+    return (
+      <a
+        ref={ref}
+        href={fullUrl}
+        target={source !== 'self' ? '_blank' : '_self'}
+        rel="noreferrer"
+      >
+        {props.placeholder}
+      </a>
+    )
+  }
   return (
     <LinkComponent
       href={fullUrl}
       target={source !== 'self' ? '_blank' : '_self'}
-      ref={ref}
       className={clsxm(
         styles['card-grid'],
         (loading || isError) && styles['skeleton'],
@@ -210,9 +227,11 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
   )
 }
 
-const LinkCardSkeleton = () => {
+const LinkCardSkeleton: FC<{
+  className?: string
+}> = ({ className }) => {
   return (
-    <span className={clsx(styles['card-grid'], styles['skeleton'])}>
+    <span className={clsxm(styles['card-grid'], styles['skeleton'], className)}>
       <span className={styles['contents']}>
         <span className={styles['title']} />
         <span className={styles['desc']} />
