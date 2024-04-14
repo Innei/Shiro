@@ -80,12 +80,12 @@ export default definePrerenderPage<{
       )
     }
   },
-  Component({ data, params: { id: nid }, children }) {
+  Component({ data, params: { id: nid }, children, fetchedAt }) {
     return (
       <>
         <CurrentNoteNidProvider nid={nid} />
         <CurrentNoteDataProvider data={data} />
-        <NoteDataReValidate />
+        <NoteDataReValidate fetchedAt={fetchedAt} />
         <SyncNoteDataAfterLoggedIn />
         <RoomProvider roomName={buildRoomName(data.data.id)}>
           <Transition className="min-w-0" lcpOptimization>

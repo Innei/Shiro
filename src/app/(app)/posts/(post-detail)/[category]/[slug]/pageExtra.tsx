@@ -2,9 +2,9 @@
 'use client'
 
 import { useQueryClient } from '@tanstack/react-query'
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import type { Image } from '@mx-space/api-client'
-import type { PropsWithChildren } from 'react'
+import type { FC, PropsWithChildren } from 'react'
 
 import { appStaticConfig } from '~/app.static.config'
 import { withClientOnly } from '~/components/common/ClientOnly'
@@ -102,15 +102,14 @@ export const PostMetaBarInternal: Component = ({ className }) => {
   )
 }
 
-export const PostDataReValidate = withClientOnly(() => {
-  const isOutdated = useCurrentPostDataSelector((post: any) => {
-    const fetchedAt = (post as FetchedResponseMeta)?.fetchedAt
-    if (!fetchedAt) return false
-
-    return (
-      Date.now() - new Date(fetchedAt).getTime() > appStaticConfig.revalidate
-    )
-  })
+export const PostDataReValidate: FC<{
+  fetchedAt: string
+}> = withClientOnly(({ fetchedAt }) => {
+  const isOutdated = useMemo(
+    () =>
+      Date.now() - new Date(fetchedAt).getTime() > appStaticConfig.revalidate,
+    [fetchedAt],
+  )
   const dataSetter = useSetCurrentPostData()
 
   const { category, slug } = useCurrentPostDataSelector((post) => {

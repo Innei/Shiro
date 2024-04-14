@@ -38,7 +38,7 @@ export default definePrerenderPage<Props>()({
     })
   },
   Component: async (props) => {
-    const { params } = props
+    const { params, fetchedAt } = props
     const { data, pagination } = props.data
     const { page } = params
 
@@ -49,9 +49,7 @@ export default definePrerenderPage<Props>()({
     }
     return (
       <NormalContainer>
-        <PostListDataRevaildate
-          fetchedAt={(props.data as any as FetchedResponseMeta).fetchedAt}
-        />
+        <PostListDataRevaildate fetchedAt={fetchedAt} />
         <ul>
           {data.map((item, index) => {
             return (

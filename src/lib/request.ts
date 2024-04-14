@@ -60,26 +60,9 @@ const $fetch = createFetch({
         // eslint-disable-next-line no-console
         console.log(`[Response]: ${context.request}`, context.response.status)
       }
-
-      if (
-        context.response._data &&
-        typeof context.response._data === 'object'
-      ) {
-        Object.defineProperty(context.response._data, 'fetchedAt', {
-          value: new Date().toISOString(),
-
-          enumerable: false,
-        })
-      }
     },
   },
 })
-
-declare global {
-  interface FetchedResponseMeta {
-    fetchedAt: string
-  }
-}
 
 const fetchAdapter: IRequestAdapter<typeof $fetch> = {
   default: $fetch,

@@ -69,7 +69,7 @@ export default definePrerenderPage<PageParams>()({
   },
 
   Component: async (props) => {
-    const { data, params } = props
+    const { data, params, fetchedAt } = props
 
     const fullPath = `/${data.category.slug}/${data.slug}`
     const currentPath = `/${params.category}/${params.slug}`
@@ -80,7 +80,7 @@ export default definePrerenderPage<PageParams>()({
       <>
         <PageColorGradient seed={data.title + data.category.name} />
         <CurrentPostDataProvider data={data} />
-        <PostDataReValidate />
+        <PostDataReValidate fetchedAt={fetchedAt} />
         <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
           <BottomToUpTransitionView lcpOptimization className="min-w-0">
             <RoomProvider roomName={buildRoomName(data.id)}>

@@ -50,7 +50,7 @@ export const definePrerenderPage =
       },
       params: Params,
     ) => ReactNode | void
-    Component: FC<NextPageParams<Params> & { data: T }>
+    Component: FC<NextPageParams<Params> & { data: T; fetchedAt: string }>
     handleNotFound?: boolean
   }) => {
     const {
@@ -72,6 +72,7 @@ export const definePrerenderPage =
           Component,
           {
             data,
+            fetchedAt: new Date().toISOString(),
             ...props,
           },
           props.children,

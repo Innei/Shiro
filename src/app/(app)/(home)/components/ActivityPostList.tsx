@@ -26,6 +26,7 @@ export const ActivityPostList = () => {
           return (
             <li key={post.id} className="flex min-w-0 justify-between">
               <Link
+                prefetch
                 className="min-w-0 shrink truncate"
                 href={routeBuilder(Routes.Post, {
                   category: post.category.slug,

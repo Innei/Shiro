@@ -3,12 +3,12 @@
 'use client'
 
 import { useQueryClient } from '@tanstack/react-query'
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 import type { Image } from '@mx-space/api-client'
 import type { MarkdownToJSX } from '~/components/ui/markdown'
-import type { PropsWithChildren } from 'react'
+import type { FC, PropsWithChildren } from 'react'
 
 import { appStaticConfig } from '~/app.static.config'
 import { withClientOnly } from '~/components/common/ClientOnly'
@@ -163,36 +163,38 @@ export const IndentArticleContainer = (props: PropsWithChildren) => {
   )
 }
 
-export const NoteDataReValidate = withClientOnly(() => {
-  const isOutdated = useCurrentNoteDataSelector((note: any) => {
-    const fetchedAt = (note as FetchedResponseMeta)?.fetchedAt
-    if (!fetchedAt) return false
-
-    return (
-      Date.now() - new Date(fetchedAt).getTime() > appStaticConfig.revalidate
+export const NoteDataReValidate: FC<{ fetchedAt: string }> = withClientOnly(
+  ({ fetchedAt }) => {
+    const isOutdated = useMemo(
+      () =>
+        Date.now() - new Date(fetchedAt).getTime() > appStaticConfig.revalidate,
+      [fetchedAt],
     )
-  })
-  const dataSetter = useSetCurrentNoteData()
 
-  const nid = useCurrentNoteDataSelector((note) => {
-    if (!note) return {}
-    return note.data.nid
-  })
-  const onceRef = useRef(false)
-  const queryClient = useQueryClient()
-  useEffect(() => {
-    if (onceRef.current) return
-    onceRef.current = true
-    if (!isOutdated) return
+    const dataSetter = useSetCurrentNoteData()
 
-    if (!nid) return
-
-    queryClient.fetchQuery(queries.note.byNid(nid.toString())).then((data) => {
-      dataSetter(data)
-      // toast.info('此文章访问的内容已过期，所以页面数据自动更新了。')
-      // eslint-disable-next-line no-console
-      console.log('Note data revalidated', data)
+    const nid = useCurrentNoteDataSelector((note) => {
+      if (!note) return {}
+      return note.data.nid
     })
-  }, [dataSetter, isOutdated, nid, queryClient])
-  return null
-})
+    const onceRef = useRef(false)
+    const queryClient = useQueryClient()
+    useEffect(() => {
+      if (onceRef.current) return
+      onceRef.current = true
+      if (!isOutdated) return
+
+      if (!nid) return
+
+      queryClient
+        .fetchQuery(queries.note.byNid(nid.toString()))
+        .then((data) => {
+          dataSetter(data)
+          // toast.info('此文章访问的内容已过期，所以页面数据自动更新了。')
+          // eslint-disable-next-line no-console
+          console.log('Note data revalidated', data)
+        })
+    }, [dataSetter, isOutdated, nid, queryClient])
+    return null
+  },
+)
