@@ -133,13 +133,15 @@ export const ShikiHighLighterWrapper = forwardRef<
                   : '1rem',
               } as any
             }
-            dangerouslySetInnerHTML={
-              props.renderedHTML
-                ? ({
-                    __html: props.renderedHTML,
-                  } as any)
-                : undefined
-            }
+            dangerouslySetInnerHTML={useMemo(
+              () =>
+                props.renderedHTML
+                  ? ({
+                      __html: props.renderedHTML,
+                    } as any)
+                  : undefined,
+              [props.renderedHTML],
+            )}
           >
             {props.children}
           </div>
