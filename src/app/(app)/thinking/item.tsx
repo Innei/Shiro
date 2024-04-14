@@ -62,7 +62,7 @@ export const ThinkingItem: FC<{
   return (
     <li
       key={item.id}
-      className="mb-8 grid translate-y-[50px] grid-cols-[40px_auto] flex-col gap-4 space-y-2"
+      className="mb-8 mt-[50px] grid grid-cols-[40px_auto] flex-col gap-4 space-y-2"
     >
       <div className="translate-y-6">
         <img
@@ -79,7 +79,7 @@ export const ThinkingItem: FC<{
           </span>
         </div>
 
-        <div className="relative min-w-0 grow">
+        <div className="relative w-full min-w-0">
           <div
             className={clsx(
               'relative inline-block rounded-xl p-3 text-zinc-800 dark:text-zinc-200',

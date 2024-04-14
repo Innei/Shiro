@@ -1,7 +1,9 @@
+import { useQuery } from '@tanstack/react-query'
 import React, { useMemo } from 'react'
 import dynamic from 'next/dynamic'
 import type { FC, PropsWithChildren, ReactNode } from 'react'
 
+import { ThinkingItem } from '~/app/(app)/thinking/item'
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import {
   getTweetId,
@@ -14,6 +16,7 @@ import {
   isGithubRepoUrl,
   isGithubUrl,
   isSelfArticleUrl,
+  isSelfThinkingUrl,
   isTMDBUrl,
   isTweetUrl,
   isYoutubeUrl,
@@ -22,6 +25,7 @@ import {
   parseGithubPrUrl,
   parseGithubTypedUrl,
 } from '~/lib/link-parser'
+import { apiClient } from '~/lib/request'
 import { useFeatureEnabled } from '~/providers/root/app-feature-provider'
 
 import { EmbedGithubFile } from '../../../modules/shared/EmbedGithubFile'
@@ -117,6 +121,10 @@ export const BlockLinkRenderer = ({
         />
       )
     }
+    case isSelfThinkingUrl(url): {
+      const id = url.pathname.split('/').pop()!
+      return <ThinkingLinkRenderer id={id} />
+    }
     case isTMDBUrl(url): {
       if (tmdbEnabled)
         return (
@@ -133,10 +141,10 @@ export const BlockLinkRenderer = ({
       const { id } = parseBilibiliVideoUrl(url)
 
       return (
-        <div className="w-[640px] max-w-full">
+        <div className="w-screen max-w-full">
           <FixedRatioContainer>
             <iframe
-              src={`//player.bilibili.com/player.html?bvid=${id}`}
+              src={`//player.bilibili.com/player.html?bvid=${id}&autoplay=0`}
               scrolling="no"
               frameBorder="no"
               className="absolute inset-0 size-full rounded-md border-0"
@@ -148,6 +156,24 @@ export const BlockLinkRenderer = ({
     }
   }
   return fallbackElement
+}
+
+const ThinkingLinkRenderer: FC<{
+  id: string
+}> = ({ id }) => {
+  const { data } = useQuery({
+    queryKey: ['thinking', 'recently', id],
+    queryFn: () => {
+      return apiClient.recently.getById(id)
+    },
+  })
+
+  if (!data) return null
+  return (
+    <div className="not-prose font-sans">
+      <ThinkingItem item={data} />
+    </div>
+  )
 }
 
 const FixedRatioContainer = ({

@@ -84,10 +84,26 @@ export const isSelfArticleUrl = (url: URL) => {
   const webUrl = getWebUrl()
   const webHost = webUrl ? new URL(webUrl).hostname : ''
 
-  if (isDev && url.hostname === 'innei.in') return true
   return (
-    (url.hostname === location.hostname || webHost === url.hostname) &&
+    ((isDev && url.hostname === 'innei.in') ||
+      url.hostname === location.hostname ||
+      webHost === url.hostname) &&
     ['/posts/', '/notes/'].some((path) => url.pathname.startsWith(path))
+  )
+}
+
+export const isSelfThinkingUrl = (url: URL) => {
+  if (!isClientSide) return false
+
+  const webUrl = getWebUrl()
+  const webHost = webUrl ? new URL(webUrl).hostname : ''
+
+  return (
+    ((isDev && url.hostname === 'innei.in') ||
+      url.hostname === location.hostname ||
+      webHost === url.hostname) &&
+    // /thinking/66166aa7f7410b48581cb36f
+    url.pathname.startsWith('/thinking/')
   )
 }
 

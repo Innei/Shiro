@@ -200,6 +200,7 @@ const NameModalContent = () => {
         className="space-y-3 text-right"
       >
         <FormInput
+          autoFocus
           rules={[
             {
               validator(value) {

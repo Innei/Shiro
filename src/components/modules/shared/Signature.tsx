@@ -17,6 +17,7 @@ export const Signature = () => {
         'signature-animated my-2 flex w-full justify-end',
         !inView && 'animate-pause',
       )}
+      data-hide-print
       key={inView ? 'signature' : 'signature-pause'}
       dangerouslySetInnerHTML={{
         __html: signature,

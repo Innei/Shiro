@@ -8,7 +8,9 @@
   }
 
   :global {
-    .paragraph:first-child {
+    .paragraph:not(
+        :where([class~='not-prose'], [class~='not-prose'] *)
+      ):first-child {
       margin-bottom: 4rem;
     }
 
@@ -24,28 +26,33 @@
       }
     }
 
-    blockquote {
+    blockquote:not(:where([class~='not-prose'], [class~='not-prose'] *)) {
       &::before {
         display: none !important;
       }
       & {
-        .paragraph > span {
+        .paragraph:not(:where([class~='not-prose'], [class~='not-prose'] *))
+          > span {
           margin-left: 0 !important;
         }
 
-        .paragraph:first-child::first-letter {
+        .paragraph:not(
+            :where([class~='not-prose'], [class~='not-prose'] *)
+          ):first-child::first-letter {
           float: none !important;
           font-size: inherit !important;
           margin: 0;
         }
 
-        .paragraph,
+        .paragraph:not(:where([class~='not-prose'], [class~='not-prose'] *)),
         blockquote > ph {
           padding: 10px 0;
           margin: 0;
         }
 
-        .paragraph:first-child {
+        .paragraph:not(
+            :where([class~='not-prose'], [class~='not-prose'] *)
+          ):first-child {
           margin-bottom: 0;
         }
       }
@@ -71,16 +78,22 @@
       }
     }
 
-    .paragraph:not(:nth-child(1)) {
+    .paragraph:not(:where([class~='not-prose'], [class~='not-prose'] *)):not(
+        :nth-child(1)
+      ) {
       text-indent: 2rem;
     }
 
     main {
-      > p:first-child {
+      > p:not(
+          :where([class~='not-prose'], [class~='not-prose'] *)
+        ):first-child {
         margin-bottom: 2rem;
       }
 
-      .paragraph:first-child::first-letter {
+      .paragraph:not(
+          :where([class~='not-prose'], [class~='not-prose'] *)
+        ):first-child::first-letter {
         float: left;
         font-size: 2.4em;
         margin: 0 0.2em 0 0;
