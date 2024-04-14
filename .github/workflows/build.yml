@@ -5,9 +5,16 @@ on:
     branches:
       - main
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: innei-dev/shiroi
+
 jobs:
   docker:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,27 +28,18 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      # - name: Docker meta
-      #   id: meta
-      #   uses: docker/metadata-action@v5
-      #   with:
-      #     images: |
-      #       innei/shiroi
-      # tags: |
-      #   type=ref,event=branch
-      #   type=semver,pattern={{version}}
-      #   type=semver,pattern={{major}}.{{minor}}
-      #   type=semver,pattern={{major}}
-      #   type=sha
-      #   type=raw,value=latest
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: Build and export to Docker
         uses: docker/build-push-action@v5
         with:
           context: .
           load: true
           # tags: ${{ steps.meta.outputs.tags }}
-          tags: innei/shiroi:latest
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           # labels: ${{ steps.meta.outputs.labels }}
           push: true
         env:

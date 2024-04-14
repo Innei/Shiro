@@ -18,7 +18,7 @@
 
 ## :whale: 运行
 
-### :hammer: 通过预构建运行
+<!-- ### :hammer: 通过预构建运行
 
 ```sh
 export GH_TOKEN=your_github_token # 你需要提供一个 GitHub Token 可以访问私有的仓库
@@ -28,7 +28,7 @@ cd standalone
 vim .env # 修改你的 ENV 变量
 export PORT=2323
 node server.js
-```
+``` -->
 <!-- 
 ### :books: 推荐使用 Docker Compose
 
