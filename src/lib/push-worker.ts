@@ -8,6 +8,15 @@ import { logger } from './logger'
 
 let isRegistered = false
 export const registerPushWorker = async () => {
+  if (Notification.permission !== 'granted') {
+    await Notification.requestPermission()
+  }
+
+  // 如果拒绝了通知权限，直接返回
+  if (Notification.permission !== 'granted') {
+    return
+  }
+
   if (!('serviceWorker' in navigator)) {
     return
   }
@@ -30,23 +39,20 @@ export const registerPushWorker = async () => {
     })
     .then(
       async function (registration) {
-        // guard notification
-        if (Notification.permission !== 'granted') {
-          await Notification.requestPermission()
+        if (!registration.active) {
+          return
         }
-        if (registration.active) {
-          registration.active.postMessage({
-            type: 'INIT_CONFIG',
-            config: {
-              apiUrl: API_URL,
-              pollInterval: 1000 * 60 * 5,
-              site: getAggregationData(),
-              app: getAppConfig(),
-            },
-          })
-          logger.log('Service Worker registered.')
-          isRegistered = true
-        }
+        registration.active.postMessage({
+          type: 'INIT_CONFIG',
+          config: {
+            apiUrl: API_URL,
+            pollInterval: 1000 * 60 * 5,
+            site: getAggregationData(),
+            app: getAppConfig(),
+          },
+        })
+        logger.log('Service Worker registered.')
+        isRegistered = true
       },
       function (err) {
         console.error('ServiceWorker registration failed: ', err)
