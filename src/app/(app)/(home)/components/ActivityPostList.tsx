@@ -64,7 +64,7 @@ export const ActivityPostList = () => {
               <Link
                 className="min-w-0 shrink truncate"
                 href={routeBuilder(Routes.Note, {
-                  id: note.id,
+                  id: note.nid,
                 })}
               >
                 {note.title}
