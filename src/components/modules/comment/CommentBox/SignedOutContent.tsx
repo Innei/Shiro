@@ -35,7 +35,7 @@ export function CommentBoxSignedOutContent() {
           type="button"
         >
           <UserArrowLeftIcon className="mr-1 size-5" />
-          登录后才可以留言噢
+          登录评论
         </StyledButton>
       </SignInButton>
     </div>
