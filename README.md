@@ -14,7 +14,6 @@
 - 一言的登录态直接发表的模态窗
 - 评论区颜文字选择
 - 签名动画
-- Home Page Redesign
 - 通知推送（基于 Service Worker）
 - 文章内嵌 Thinking 解析
 
