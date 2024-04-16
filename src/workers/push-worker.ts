@@ -24,17 +24,22 @@ const config: {
   app: null,
 }
 
-// 从 IndexedDB 中恢复配置
-for (const key in config) {
-  const value = await get(key, dbStore)
-  if (value) {
-    ;(config as any)[key] = JSON.parse(value)
+let lastPoll = Date.now()
+async function restoreConfig() {
+  // 从 IndexedDB 中恢复配置
+  for (const key in config) {
+    const value = await get(key, dbStore)
+    if (value) {
+      ;(config as any)[key] = JSON.parse(value)
+    }
+
+    console.debug('Restored config:', key, (config as any)[key])
   }
 
-  console.debug('Restored config:', key, (config as any)[key])
+  lastPoll = (await get('lastPoll', dbStore)) || Date.now()
 }
 
-let lastPoll = (await get('lastPoll', dbStore)) || Date.now()
+restoreConfig()
 
 sw.addEventListener('message', (event) => {
   console.debug('Received message:', event.data)

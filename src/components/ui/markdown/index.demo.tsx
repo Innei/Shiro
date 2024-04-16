@@ -56,7 +56,11 @@ const CodeBlockRender = (props: {
         return <ReactComponentRender dls={props.content} />
       }
       default: {
-        return <ShikiHighLighter {...props} />
+        return (
+          <Suspense>
+            <ShikiHighLighter {...props} />
+          </Suspense>
+        )
       }
     }
   }, [props])
