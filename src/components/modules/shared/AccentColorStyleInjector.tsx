@@ -49,6 +49,11 @@ export async function AccentColorStyleInjector({
   const [hl, sl, ll] = lightOklch
   const [hd, sd, ld] = darkOklch
 
+  const [lightBgImage, darkBgImage] = await Promise.all([
+    createPngNoiseBackground(currentAccentColorLRef),
+    createPngNoiseBackground(currentAccentColorDRef),
+  ])
+
   return (
     <style
       id="accent-color-style"
@@ -57,10 +62,10 @@ export async function AccentColorStyleInjector({
       dangerouslySetInnerHTML={{
         __html: `
         html[data-theme='light'].noise body::before {
-          background-image: ${await createPngNoiseBackground(currentAccentColorLRef)}
+          background-image: ${lightBgImage}
         }
         html[data-theme='dark'].noise body::before {
-          background-image: ${await createPngNoiseBackground(currentAccentColorDRef)}
+          background-image: ${darkBgImage}
         }
         html[data-theme='light'] {
           --a: ${`${hl} ${sl} ${ll}`};
