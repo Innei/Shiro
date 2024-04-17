@@ -42,6 +42,7 @@ export const PostMetaBar: Component<{
         )}
         {!!meta.modified && (
           <FloatPopover
+            mobileAsSheet
             wrapperClassName="text-xs"
             as="span"
             type="tooltip"

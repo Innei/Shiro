@@ -83,6 +83,7 @@ export const OwnerStatus = () => {
     <FloatPopover
       placement="bottom"
       asChild
+      mobileAsSheet
       triggerElement={triggerElement}
       type="tooltip"
     >

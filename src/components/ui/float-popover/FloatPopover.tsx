@@ -20,13 +20,41 @@ import React, {
 import { AnimatePresence, m } from 'framer-motion'
 import type { UseFloatingOptions } from '@floating-ui/react-dom'
 import type { FC, PropsWithChildren, ReactElement } from 'react'
+import type { PresentSheetProps } from '../sheet'
 
+import { useIsMobile } from '~/atoms/hooks'
 import { microReboundPreset } from '~/constants/spring'
 import useClickAway from '~/hooks/common/use-click-away'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { clsxm } from '~/lib/helper'
 
 import { RootPortal } from '../portal'
+import { PresentSheet } from '../sheet'
+
+export const FloatPopover = function <T extends {}>(
+  props: FloatPopoverProps<T> & {
+    mobileAsSheet?: boolean
+    sheet?: Partial<Omit<PresentSheetProps, 'content'>>
+  },
+) {
+  const isMobile = useIsMobile()
+  if (isMobile && props.mobileAsSheet) {
+    const { triggerElement, TriggerComponent, triggerComponentProps } = props
+
+    const Child = triggerElement
+      ? triggerElement
+      : TriggerComponent
+        ? createElement(TriggerComponent as any, triggerComponentProps)
+        : null
+
+    return (
+      <PresentSheet content={props.children} {...props.sheet}>
+        {Child}
+      </PresentSheet>
+    )
+  }
+  return <RealFloatPopover {...props} />
+}
 
 type FloatPopoverProps<T> = PropsWithChildren<{
   triggerElement?: string | ReactElement
@@ -71,7 +99,7 @@ const PopoverActionContext = createContext<{
 
 export const usePopoverAction = () => useContext(PopoverActionContext)
 
-export const FloatPopover = function FloatPopover<T extends {}>(
+const RealFloatPopover = function FloatPopover<T extends {}>(
   props: FloatPopoverProps<T>,
 ) {
   const {

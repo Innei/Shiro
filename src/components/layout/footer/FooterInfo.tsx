@@ -116,6 +116,7 @@ const PoweredBy: Component = ({ className }) => {
       </StyledLink>
       <span className="mx-1">&</span>
       <FloatPopover
+        mobileAsSheet
         type="tooltip"
         triggerElement={
           <StyledLink

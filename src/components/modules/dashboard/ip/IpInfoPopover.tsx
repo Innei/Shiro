@@ -45,6 +45,7 @@ export const IpInfoPopover: Component<IpInfoPopoverProps> = (props) => {
 
   return (
     <FloatPopover
+      mobileAsSheet
       type="tooltip"
       wrapperClassName="truncate"
       onOpen={() => {

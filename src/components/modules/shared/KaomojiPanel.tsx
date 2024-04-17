@@ -86,6 +86,7 @@ export const KaomojiPanel: FC<
     <>
       {isMobile ? (
         <PresentSheet
+          triggerAsChild={false}
           onOpenChange={setKaomojiPanelOpen}
           content={KaomojiContentEl}
           zIndex={1002}

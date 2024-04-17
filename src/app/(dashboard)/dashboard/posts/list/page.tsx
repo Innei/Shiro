@@ -94,6 +94,7 @@ const cardSlot: CardProps<PostModel>['slots'] = {
         <RelativeTime date={data.created} />
         {data.modified && (
           <FloatPopover
+            mobileAsSheet
             wrapperClassName="text-xs"
             as="span"
             type="tooltip"
@@ -103,6 +104,7 @@ const cardSlot: CardProps<PostModel>['slots'] = {
           </FloatPopover>
         )}
         <FloatPopover
+          mobileAsSheet
           triggerElement={
             <div className="flex items-center gap-2">
               <FeHash className="translate-y-[0.5px]" />
