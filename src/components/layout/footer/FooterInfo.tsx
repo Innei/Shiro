@@ -117,6 +117,7 @@ const PoweredBy: Component = ({ className }) => {
       <span className="mx-1">&</span>
       <FloatPopover
         isDisabled={!process.env.COMMIT_HASH}
+        mobileAsSheet
         type="tooltip"
         triggerElement={
           <StyledLink href="https://github.com/innei/Shiro" target="_blank">

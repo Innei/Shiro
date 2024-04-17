@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import type { FC } from 'react'
 
+import { useIsMobile } from '~/atoms/hooks'
 import { Avatar } from '~/components/ui/avatar'
 import { Divider } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'
@@ -21,9 +22,9 @@ const textToBigCharOrWord = (name: string | undefined) => {
   return bigChar
 }
 
-export const NoteTopic: FC = () => {
+export const NoteBottomTopic: FC = () => {
   const topic = useCurrentNoteDataSelector((state) => state?.data.topic)
-
+  const isMobile = useIsMobile()
   if (!topic) return null
   const { icon, name, introduce } = topic
 
@@ -47,14 +48,19 @@ export const NoteTopic: FC = () => {
           <span className="text-md mb-2 font-medium">
             <FloatPopover
               strategy="absolute"
+              mobileAsSheet
               triggerElement={
-                <Link
-                  href={routeBuilder(Routes.NoteTopic, {
-                    slug: topic.slug,
-                  })}
-                >
+                isMobile ? (
                   <span>{name}</span>
-                </Link>
+                ) : (
+                  <Link
+                    href={routeBuilder(Routes.NoteTopic, {
+                      slug: topic.slug,
+                    })}
+                  >
+                    <span>{name}</span>
+                  </Link>
+                )
               }
             >
               <NoteTopicDetail topic={topic} />

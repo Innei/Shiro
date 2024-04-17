@@ -13,6 +13,8 @@ export interface PresentSheetProps {
   zIndex?: number
   dismissible?: boolean
   defaultOpen?: boolean
+
+  triggerAsChild?: boolean
 }
 
 export const sheetStackAtom = atom([] as HTMLDivElement[])
@@ -27,6 +29,7 @@ export const PresentSheet: FC<PropsWithChildren<PresentSheetProps>> = (
     title,
     dismissible = true,
     defaultOpen,
+    triggerAsChild,
   } = props
 
   const [isOpen, setIsOpen] = useState(props.open ?? defaultOpen)
@@ -78,7 +81,7 @@ export const PresentSheet: FC<PropsWithChildren<PresentSheetProps>> = (
 
   return (
     <Root dismissible={dismissible} {...nextRootProps}>
-      <Drawer.Trigger asChild>{children}</Drawer.Trigger>
+      <Drawer.Trigger asChild={triggerAsChild}>{children}</Drawer.Trigger>
       <Drawer.Portal>
         <Drawer.Content
           style={{
@@ -106,11 +109,9 @@ export const PresentSheet: FC<PropsWithChildren<PresentSheetProps>> = (
               [setIsOpen],
             )}
           >
-            {React.isValidElement(content)
-              ? content
-              : typeof content === 'function'
-                ? React.createElement(content)
-                : null}
+            {typeof content === 'function'
+              ? React.createElement(content)
+              : content}
           </SheetContext.Provider>
           <div ref={setHolderRef} />
         </Drawer.Content>

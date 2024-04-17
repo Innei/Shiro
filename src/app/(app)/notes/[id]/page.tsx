@@ -7,10 +7,10 @@ import { Presence } from '~/components/modules/activity'
 import {
   NoteActionAside,
   NoteBottomBarAction,
+  NoteBottomTopic,
   NoteFooterNavigationBarForMobile,
   NoteMetaBar,
   NoteMetaReadingCount,
-  NoteTopic,
 } from '~/components/modules/note'
 import {
   NoteBanner,
@@ -96,7 +96,7 @@ export default async function Page(props: {
       <ClientOnly>
         <div className="mt-8" data-hide-print />
         <NoteBottomBarAction />
-        <NoteTopic />
+        <NoteBottomTopic />
         <XLogInfoForNote />
         <NoteFooterNavigationBarForMobile />
       </ClientOnly>

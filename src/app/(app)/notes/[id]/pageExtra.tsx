@@ -88,7 +88,15 @@ export const NoteHeaderDate = () => {
   }`
 
   return (
-    <FloatPopover as="span" type="tooltip" TriggerComponent={NoteDateMeta}>
+    <FloatPopover
+      sheet={{
+        triggerAsChild: false,
+      }}
+      as="span"
+      mobileAsSheet
+      type="tooltip"
+      TriggerComponent={NoteDateMeta}
+    >
       {tips}
     </FloatPopover>
   )
