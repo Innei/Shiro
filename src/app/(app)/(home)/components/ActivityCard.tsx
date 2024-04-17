@@ -6,6 +6,8 @@ import Link from 'next/link'
 import RemoveMarkdown from 'remove-markdown'
 import type { ReactActivityType } from './types'
 
+import { CollectionRefTypes } from '@mx-space/api-client'
+
 import {
   FaSolidFeatherAlt,
   IcTwotoneSignpost,
@@ -22,6 +24,25 @@ export const ActivityCard = ({ activity }: { activity: ReactActivityType }) => {
   const Content = useMemo(() => {
     switch (activity.bizType) {
       case 'comment': {
+        let toLink = ''
+        switch (activity.type) {
+          case CollectionRefTypes.Post: {
+            toLink = `/posts/${activity.slug}`
+            break
+          }
+          case CollectionRefTypes.Note: {
+            toLink = `/notes/${activity.nid}`
+            break
+          }
+          case CollectionRefTypes.Page: {
+            toLink = `/${activity.slug}`
+            break
+          }
+          case CollectionRefTypes.Recently: {
+            toLink = `/thinking/${activity.id}`
+            break
+          }
+        }
         return (
           <div className="relative flex flex-col justify-center gap-2">
             <div
@@ -42,15 +63,13 @@ export const ActivityCard = ({ activity }: { activity: ReactActivityType }) => {
                 )}
                 <span className="font-medium">{activity.author}</span>{' '}
                 <small>在</small>{' '}
-                <Link
-                  className="shiro-link--underline"
-                  href={
-                    activity.slug
-                      ? `/posts/${activity.slug}`
-                      : `/notes/${activity.nid}`
-                  }
-                >
-                  <b>{activity.title}</b>
+                <Link className="shiro-link--underline" href={toLink}>
+                  <b>
+                    {activity.title ||
+                      (activity.type === CollectionRefTypes.Recently
+                        ? '一条想法中'
+                        : null)}
+                  </b>
                 </Link>{' '}
                 <small>说：</small>
               </div>
