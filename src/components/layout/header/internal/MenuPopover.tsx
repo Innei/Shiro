@@ -1,19 +1,15 @@
 'use client'
 
-import React, { memo, useId, useMemo, useState } from 'react'
-import { m } from 'framer-motion'
+import React, { memo } from 'react'
 import Link from 'next/link'
 import type { IHeaderMenu } from '../config'
 
 import { FloatPopover } from '~/components/ui/float-popover'
-import { softSpringPreset } from '~/constants/spring'
 import { clsxm } from '~/lib/helper'
 
 export const MenuPopover: Component<{
   subMenu: IHeaderMenu['subMenu']
 }> = memo(({ children, subMenu }) => {
-  const currentId = useId()
-  const TriggerComponent = useMemo(() => () => children, [children])
   if (!subMenu) return children
 
   return (
@@ -27,55 +23,32 @@ export const MenuPopover: Component<{
         'select-none rounded-xl bg-white/60 outline-none dark:bg-neutral-900/60',
         'border border-zinc-900/5 shadow-lg shadow-zinc-800/5 backdrop-blur-md',
         'dark:border-zinc-100/10 dark:from-zinc-900/70 dark:to-zinc-800/90',
-        'relative flex w-[130px] flex-col py-1',
+        'relative flex w-[130px] flex-col',
         'focus-visible:!ring-0',
       ])}
-      TriggerComponent={TriggerComponent}
+      triggerElement={<>{children}</>}
     >
       {!!subMenu.length &&
         subMenu.map((m) => {
-          return <Item key={m.title} currentId={currentId} {...m} />
+          return <Item key={m.title} {...m} />
         })}
     </FloatPopover>
   )
 })
 MenuPopover.displayName = 'MenuPopover'
 
-const Item = memo(function Item(
-  props: IHeaderMenu & {
-    currentId: string
-  },
-) {
-  const { title, path, icon, currentId } = props
+const Item = memo(function Item(props: IHeaderMenu) {
+  const { title, path, icon } = props
 
-  const [isEnter, setIsEnter] = useState(false)
   return (
     <Link
       key={title}
       href={`${path}`}
-      className="relative flex w-full items-center justify-around space-x-2 px-4 py-3 duration-200 hover:text-accent"
+      className="relative flex w-full items-center justify-around space-x-2 px-4 py-3 duration-200 hover:bg-accent/5 hover:text-accent"
       role="button"
-      onMouseEnter={() => {
-        setIsEnter(true)
-      }}
-      onMouseLeave={() => {
-        setIsEnter(false)
-      }}
     >
       {!!icon && <span>{icon}</span>}
       <span>{title}</span>
-
-      {isEnter && (
-        <m.span
-          layoutId={currentId}
-          transition={softSpringPreset}
-          className={clsxm(
-            'absolute inset-y-0 left-0 right-2 z-[-1] rounded-md',
-            'bg-zinc-50 dark:bg-neutral-900',
-            'border border-zinc-200 dark:border-zinc-800',
-          )}
-        />
-      )}
     </Link>
   )
 })
