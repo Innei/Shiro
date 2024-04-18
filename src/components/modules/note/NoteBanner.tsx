@@ -47,7 +47,7 @@ export const NoteRootBanner = () => {
   if (!banner) return null
 
   return (
-    <div className="mx-[var(--padding-h)] mb-4 mt-8">
+    <div className="mb-4 mt-8">
       <NoteBanner {...banner} />
     </div>
   )
@@ -64,7 +64,8 @@ export const NoteBanner: FC<{
       className={clsxm(
         'mt-4 flex justify-center p-4 text-base leading-8',
         'lg:-ml-12 lg:w-[calc(100%+6rem)]',
-        '-ml-4 w-[calc(100%+2rem)]',
+        // '-ml-4 w-[calc(100%+2rem)]',
+        'mx-[var(--padding-h)]',
 
         bannerClassNames[banner.type as keyof typeof bannerClassNames],
         banner.className,
