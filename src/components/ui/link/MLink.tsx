@@ -14,7 +14,9 @@ export const MLink: FC<{
   href: string
   title?: string
   children?: ReactNode
-}> = memo(({ href, children, title }) => {
+  text?: string
+  popper?: boolean
+}> = memo(({ href, children, title, popper = true }) => {
   const router = useRouter()
   const isSelfUrl = useMemo(() => {
     if (isServerSide) return false
@@ -53,28 +55,30 @@ export const MLink: FC<{
     [href, isSelfUrl, router],
   )
 
+  const el = (
+    <span className="inline items-center font-sans">
+      {isSelfUrl ? <BizSelfFavicon /> : <Favicon href={href} />}
+      <a
+        className="shiro-link--underline"
+        href={href}
+        target="_blank"
+        onClick={handleRedirect}
+        title={title}
+        rel="noreferrer"
+      >
+        {children}
+      </a>
+
+      <i className="icon-[mingcute--arrow-right-up-line] translate-y-[2px] opacity-70" />
+    </span>
+  )
+  if (!popper) return el
   return (
     <FloatPopover
       as="span"
       wrapperClassName="!inline"
       type="tooltip"
-      triggerElement={
-        <span className="inline-flex items-center font-sans">
-          {isSelfUrl ? <BizSelfFavicon /> : <Favicon href={href} />}
-          <a
-            className="shiro-link--underline"
-            href={href}
-            target="_blank"
-            onClick={handleRedirect}
-            title={title}
-            rel="noreferrer"
-          >
-            {children}
-          </a>
-
-          <i className="icon-[mingcute--arrow-right-up-line] translate-y-[2px] opacity-70" />
-        </span>
-      }
+      triggerElement={el}
     >
       <a href={href} target="_blank" rel="noreferrer">
         <span>{href}</span>
