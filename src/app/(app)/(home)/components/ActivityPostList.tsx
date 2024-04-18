@@ -16,9 +16,10 @@ export const ActivityPostList = () => {
   return (
     <m.section
       initial={{ opacity: 0.0001, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
       transition={softBouncePreset}
       className="mt-8 flex flex-col gap-4 lg:mt-0"
+      viewport={{ once: true }}
     >
       <h2 className="text-2xl font-medium leading-loose">最近更新的文稿</h2>
       <ul className="shiro-timeline mt-4">

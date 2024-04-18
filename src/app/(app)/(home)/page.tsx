@@ -37,7 +37,6 @@ import {
 
 import { ActivityPostList } from './components/ActivityPostList'
 import { ActivityRecent } from './components/ActivityRecent'
-import { InViewScreen, Screen } from './components/Screen'
 
 export default function Home() {
   return (
@@ -103,7 +102,7 @@ const Hero = () => {
       return acc + (cur.text?.length || 0)
     }, 0) * 50
   return (
-    <Screen className="mt-20 lg:mt-[-4.5rem]">
+    <div className="mt-20 h-dvh min-h-[800px] min-w-0 max-w-screen overflow-hidden lg:mt-[-4.5rem]">
       <TwoColumnLayout leftContainerClassName="mt-[120px] lg:mt-0 h-[15rem] lg:h-1/2">
         <>
           <m.div
@@ -194,13 +193,13 @@ const Hero = () => {
           </span>
         </m.div>
       </TwoColumnLayout>
-    </Screen>
+    </div>
   )
 }
 
 const ActivityScreen = () => {
   return (
-    <InViewScreen className="mt-24">
+    <div className="mt-24">
       <TwoColumnLayout
         rightContainerClassName="block lg:flex [&>div]:w-full pr-4"
         leftContainerClassName="[&>div]:w-full"
@@ -210,7 +209,7 @@ const ActivityScreen = () => {
           <ActivityRecent />
         </ErrorBoundary>
       </TwoColumnLayout>
-    </InViewScreen>
+    </div>
   )
 }
 
@@ -272,7 +271,7 @@ const Windsock = () => {
 
   const { present: presentSubscribe } = usePresentSubscribeModal()
   return (
-    <InViewScreen>
+    <>
       <div className="mt-28 flex flex-col center">
         <div className="my-5 text-2xl font-medium">风向标</div>
         <div className="mb-24 opacity-90">去到别去看看？</div>
@@ -281,7 +280,8 @@ const Windsock = () => {
             return (
               <m.li
                 initial={{ opacity: 0.0001, y: 10 }}
-                animate={{
+                viewport={{ once: true }}
+                whileInView={{
                   opacity: 1,
                   y: 0,
                   transition: {
@@ -289,12 +289,17 @@ const Windsock = () => {
                     damping: 23,
                     mass: 3.9,
                     type: 'spring',
+                    delay: index * 0.05,
                   },
+                }}
+                transition={{
+                  delay: 0.001,
                 }}
                 whileHover={{
                   y: -10,
                   transition: {
                     ...microReboundPreset,
+                    delay: 0.001,
                   },
                 }}
                 key={index}
@@ -367,6 +372,6 @@ const Windsock = () => {
           <i className="icon-[material-symbols--notifications-active]" />
         </StyledButton>
       </div>
-    </InViewScreen>
+    </>
   )
 }
