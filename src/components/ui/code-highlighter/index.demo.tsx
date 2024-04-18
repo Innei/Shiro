@@ -1,11 +1,13 @@
+import { Suspense } from 'react'
 import type { DocumentComponent } from 'storybook/typings'
 
 import { ShikiHighLighter as Shiki } from './shiki/Shiki'
 
 export const ShikiHighLighter: DocumentComponent = () => {
   return (
-    <Shiki
-      content={`import {
+    <Suspense>
+      <Shiki
+        content={`import {
     useCallback,
     useEffect,
     useLayoutEffect,
@@ -194,8 +196,9 @@ export const ShikiHighLighter: DocumentComponent = () => {
     )
   }
   `}
-      lang="tsx"
-      attrs='filename="ShikiHighLighter.tsx" {3,4}'
-    />
+        lang="tsx"
+        attrs='filename="ShikiHighLighter.tsx" {3,4}'
+      />
+    </Suspense>
   )
 }

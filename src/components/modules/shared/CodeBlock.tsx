@@ -78,22 +78,25 @@ export const CodeBlockRender = (props: {
           if (isClientSide) {
             shikiImport = ShikiHighLighter
           }
+
+          const fallback = (
+            <ShikiHighLighterWrapper {...nextProps}>
+              <pre className="bg-transparent px-5">
+                <code className="!px-5 !text-base-content">
+                  {nextProps.content}
+                </code>
+              </pre>
+            </ShikiHighLighterWrapper>
+          )
+          if (!isClientSide) return fallback
           return (
-            <Suspense
-              fallback={
-                <ShikiHighLighterWrapper {...nextProps}>
-                  <pre className="bg-transparent px-5">
-                    <code className="!px-5">{nextProps.content}</code>
-                  </pre>
-                </ShikiHighLighterWrapper>
-              }
-            >
+            <Suspense fallback={fallback}>
               <ShikiHighLighter {...nextProps} />
             </Suspense>
           )
         }
 
-        return <HighLighterPrismCdn {...props} />
+        return <HighLighterPrismCdn {...nextProps} />
       }
     }
   }, [props])

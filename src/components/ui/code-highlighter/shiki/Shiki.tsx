@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { use, useEffect, useMemo, useState } from 'react'
 import type { FC } from 'react'
 
 import { isServerSide } from '~/lib/env'
@@ -12,7 +12,7 @@ interface Props {
   attrs?: string
 }
 
-const codeHighlighter = await (async () => {
+const codeHighlighterPromise = (async () => {
   if (isServerSide) return
   const [{ getHighlighterCore }, getWasm, { codeHighlighter }] =
     await Promise.all([
@@ -54,7 +54,7 @@ const codeHighlighter = await (async () => {
 
 export const ShikiHighLighter: FC<Props> = (props) => {
   const { lang: language, content: value, attrs } = props
-
+  const codeHighlighter = use(codeHighlighterPromise)
   const highlightedHtml = useMemo(() => {
     return codeHighlighter?.({
       attrs: attrs || '',
@@ -62,7 +62,7 @@ export const ShikiHighLighter: FC<Props> = (props) => {
       code: value,
       lang: language ? language.toLowerCase() : '',
     })
-  }, [attrs, language, value])
+  }, [attrs, codeHighlighter, language, value])
 
   const [renderedHtml, setRenderedHtml] = useState(highlightedHtml)
   const [codeBlockRef, setCodeBlockRef] = useState<HTMLDivElement | null>(null)
