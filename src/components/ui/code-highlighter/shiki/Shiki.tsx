@@ -5,7 +5,7 @@ import { isServerSide } from '~/lib/env'
 
 import { ShikiHighLighterWrapper } from './ShikiWrapper'
 
-interface Props {
+export interface ShikiProps {
   lang: string | undefined
   content: string
 
@@ -21,42 +21,47 @@ const codeHighlighterPromise = (async () => {
       import('./core'),
     ])
 
-  const loaded = await getHighlighterCore({
+  const core = await getHighlighterCore({
     themes: [
       import('shiki/themes/github-light.mjs'),
       import('shiki/themes/github-dark.mjs'),
     ],
-    langs: [
-      () => import('shiki/langs/javascript.mjs'),
-      () => import('shiki/langs/typescript.mjs'),
-      () => import('shiki/langs/css.mjs'),
-      () => import('shiki/langs/tsx.mjs'),
-      () => import('shiki/langs/jsx.mjs'),
-      () => import('shiki/langs/json.mjs'),
-      () => import('shiki/langs/sql.mjs'),
-      () => import('shiki/langs/rust.mjs'),
-      () => import('shiki/langs/go.mjs'),
-      () => import('shiki/langs/cpp.mjs'),
-      () => import('shiki/langs/c.mjs'),
-      () => import('shiki/langs/markdown.mjs'),
-      () => import('shiki/langs/vue.mjs'),
-      () => import('shiki/langs/html.mjs'),
-      () => import('shiki/langs/asm.mjs'),
-      () => import('shiki/langs/shell.mjs'),
-      () => import('shiki/langs/ps.mjs'),
-    ],
+    langs: [],
     loadWasm: getWasm,
   })
 
-  return (o: { lang: string; attrs: string; code: string }) =>
-    codeHighlighter(loaded, o)
+  return {
+    codeHighlighter: core,
+    fn: (o: { lang: string; attrs: string; code: string }) => {
+      return codeHighlighter(core, o)
+    },
+  }
 })()
 
-export const ShikiHighLighter: FC<Props> = (props) => {
+export const ShikiHighLighter: FC<ShikiProps> = (props) => {
   const { lang: language, content: value, attrs } = props
   const codeHighlighter = use(codeHighlighterPromise)
+
+  use(
+    useMemo(async () => {
+      async function loadShikiLanguage(language: string, languageModule: any) {
+        const shiki = codeHighlighter?.codeHighlighter
+        if (!shiki) return
+        if (!shiki.getLoadedLanguages().includes(language)) {
+          await shiki.loadLanguage(await languageModule())
+        }
+      }
+
+      const { bundledLanguages } = await import('shiki/langs')
+
+      if (!language) return
+      const importFn = (bundledLanguages as any)[language]
+      if (!importFn) return
+      return loadShikiLanguage(language || '', importFn)
+    }, [codeHighlighter?.codeHighlighter, language]),
+  )
   const highlightedHtml = useMemo(() => {
-    return codeHighlighter?.({
+    return codeHighlighter?.fn?.({
       attrs: attrs || '',
       // code: `${value.split('\n')[0].repeat(10)} // [!code highlight]\n${value}`,
       code: value,

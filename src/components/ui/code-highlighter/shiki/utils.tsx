@@ -1,3 +1,5 @@
+// import { bundledLanguages } from 'shiki/langs'
+
 export const parseFilenameFromAttrs = (attrs: string) => {
   // filename=""
 
@@ -8,32 +10,10 @@ export const parseFilenameFromAttrs = (attrs: string) => {
   return null
 }
 
+// const shikiSupportLangSet = new Set(Object.keys(bundledLanguages))
 export const isSupportedShikiLang = (lang: string) => {
-  return [
-    'javascript',
-    'typescript',
-    'ts',
-    'js',
-    'css',
-    'tsx',
-    'jsx',
-    'json',
-    'sql',
-    'markdown',
-    'vue',
-    'rust',
-    'go',
-    'cpp',
-    'c',
-    'html',
-    'asm',
-    'bash',
-    'ps',
-    'ps1',
-    // plain text
-    'text',
-    'plaintext',
-    'txt',
-    'plain',
-  ].includes(lang.toLowerCase())
+  // require esm error, fuck nextjs 14.12.x
+  // @see https://github.com/vercel/next.js/issues/64434
+  // return  shikiSupportLangSet.has(lang)
+  return true
 }
