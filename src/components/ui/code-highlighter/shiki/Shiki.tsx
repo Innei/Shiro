@@ -16,7 +16,7 @@ const codeHighlighterPromise = (async () => {
   if (isServerSide) return
   const [{ getHighlighterCore }, getWasm, { codeHighlighter }] =
     await Promise.all([
-      import('shiki'),
+      import('shiki/core'),
       import('shiki/wasm').then((m) => m.default),
       import('./core'),
     ])
