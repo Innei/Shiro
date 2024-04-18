@@ -2,12 +2,12 @@
 
 import { forwardRef } from 'react'
 import { m } from 'framer-motion'
-import type { ForwardRefComponent, HTMLMotionProps } from 'framer-motion'
+import type { HTMLMotionProps } from 'framer-motion'
 
-export const MotionButtonBase: ForwardRefComponent<
+export const MotionButtonBase = forwardRef<
   HTMLButtonElement,
   HTMLMotionProps<'button'>
-> = forwardRef(({ children, ...rest }, ref) => {
+>(({ children, ...rest }, ref) => {
   return (
     <m.button
       initial={true}
