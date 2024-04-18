@@ -42,9 +42,10 @@ export const ActivityRecent = () => {
   return (
     <m.div
       initial={{ opacity: 0.0001, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
       transition={softBouncePreset}
       className="mt-8 w-full text-lg lg:mt-0"
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
     >
       <m.h2 className="mb-8 text-2xl font-medium leading-loose lg:ml-14">
         最近发生的事
