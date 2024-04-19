@@ -19,6 +19,7 @@ import { WithArticleSelectionAction } from '~/components/modules/shared/WithArti
 import { FloatPopover } from '~/components/ui/float-popover'
 import { MainMarkdown } from '~/components/ui/markdown'
 import { parseDate } from '~/lib/datetime'
+import { logger } from '~/lib/logger'
 import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
 import {
@@ -199,8 +200,7 @@ export const NoteDataReValidate: FC<{ fetchedAt: string }> = withClientOnly(
         .then((data) => {
           dataSetter(data)
           // toast.info('此文章访问的内容已过期，所以页面数据自动更新了。')
-          // eslint-disable-next-line no-console
-          console.log('Note data revalidated', data)
+          logger.log('Note data revalidated', data)
         })
     }, [dataSetter, isOutdated, nid, queryClient])
     return null

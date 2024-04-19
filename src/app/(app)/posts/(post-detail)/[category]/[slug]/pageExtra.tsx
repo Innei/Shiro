@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 'use client'
 
 import { useQueryClient } from '@tanstack/react-query'
@@ -13,6 +12,7 @@ import { PostMetaBar } from '~/components/modules/post/PostMetaBar'
 import { CurrentReadingCountingMetaBarItem } from '~/components/modules/shared/MetaBar'
 import { WithArticleSelectionAction } from '~/components/modules/shared/WithArticleSelectionAction'
 import { MainMarkdown } from '~/components/ui/markdown'
+import { logger } from '~/lib/logger'
 import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
 import {
@@ -134,7 +134,7 @@ export const PostDataReValidate: FC<{
       .then((data) => {
         dataSetter(data)
         // toast.info('此文章访问的内容已过期，所以页面数据自动更新了。')
-        console.log('Post data revalidated', data)
+        logger.log('Post data revalidated', data)
       })
   }, [category, dataSetter, isOutdated, queryClient, slug])
   return null

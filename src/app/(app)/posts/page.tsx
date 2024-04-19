@@ -50,7 +50,7 @@ export default definePrerenderPage<Props>()({
     return (
       <NormalContainer>
         <PostListDataRevaildate fetchedAt={fetchedAt} />
-        <ul>
+        <ul data-fetch-at={fetchedAt}>
           {data.map((item, index) => {
             return (
               <BottomToUpTransitionView

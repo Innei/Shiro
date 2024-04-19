@@ -81,7 +81,10 @@ export default definePrerenderPage<PageParams>()({
         <PageColorGradient seed={data.title + data.category.name} />
         <CurrentPostDataProvider data={data} />
         <PostDataReValidate fetchedAt={fetchedAt} />
-        <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
+        <div
+          data-server-fetched-at={fetchedAt}
+          className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid"
+        >
           <BottomToUpTransitionView lcpOptimization className="min-w-0">
             <RoomProvider roomName={buildRoomName(data.id)}>
               <Suspense>{props.children}</Suspense>
