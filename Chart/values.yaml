@@ -1,0 +1,81 @@
+clerk:
+  publishable_key: ''
+  secret_key: ''
+
+server:
+  base_url: ''
+  allowed_origins: []
+  security:
+    # jwt_secret: ''
+    # jwt_expiration: 3600
+  encryption:
+    # enabled: false
+    # key: ''
+  externalMongodb:
+    # enabled: false
+    # host: ''
+    # port: ''
+    # user: ''
+    # password: ''
+    # database: ''
+  externalRedis:
+    # enabled: false
+    # host: ''
+    # port: ''
+    # password: ''
+
+admin:
+  # base_url: ''
+  # username: ''
+  # password: ''
+
+mongodb:
+  enabled: true
+  # host: ''
+  # port: ''
+  # user: ''
+  # password: ''
+  # database: ''
+
+redis:
+  enabled: true
+  # host: ''
+  # port: ''
+  # password: ''
+
+ingress:
+  enabled: false
+  # annotations: {}
+  # ingressClass: ''
+  # hosts:
+  #   - host: chart-example.local
+  #     paths:
+  #       - /
+
+storage:
+  enabled: false
+  # accessKey: ''
+  # secretKey: ''
+  # bucket: ''
+  # region: ''
+  # endpoint: ''
+  # path: ''
+  # expiration: ''
+  # secure: true
+
+persistence:
+  enabled: false
+  # storageClass: ''
+  # accessMode: ReadWriteOnce
+  # size: 1Gi
+
+updateStrategy:
+  type: RollingUpdate
+
+tolerations: []
+
+nodeSelector: {}
+
+affinity: {}
+
+resources: {}
