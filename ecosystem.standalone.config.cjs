@@ -5,7 +5,7 @@ module.exports = {
       script: 'server.js',
       autorestart: true,
       watch: false,
-      max_memory_restart: '180M',
+      max_memory_restart: '500M',
       env: {
         PORT: 2323,
         NODE_ENV: 'production',
