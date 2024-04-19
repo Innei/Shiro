@@ -1,0 +1,113 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}-mxcore
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.mxcore.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      app: {{ template "fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.mxcore.image.repository }}:{{ .Values.mxcore.image.tag }}"
+          imagePullPolicy: {{ .Values.mxcore.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 2333
+          env:
+            - name: REDIS_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-redis-secret
+                  key: host
+            - name: REDIS_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-redis-secret
+                  key: port
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-redis-secret
+                  key: password
+            - name: MONGO_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-mongo-secret
+                  key: host
+            - name: MONGO_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-mongo-secret
+                  key: port
+            - name: MONGO_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-mongo-secret
+                  key: user
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-mongo-secret
+                  key: password
+            - name: MONGO_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-mongo-secret
+                  key: database
+            - name: ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-encryption-secret
+                  key: key
+            - name: BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-mxcore
+                  key: baseUrl
+            - name: ALLOWED_ORIGINS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-mxcore
+                  key: allowedOrigins
+          resources: {{ toYaml .Values.mxcore.resources | indent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /api/v2/ping
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /api/v2/ping
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+      {{ with .Values.mxcore.imagePullSecret }}
+      imagePullSecrets:
+        - name: {{ .Values.mxcore.imagePullSecret }}
+      {{ end }}
+      securityContext:
+        {{ toYaml .Values.securityContext | indent 8 }}
+      serviceAccountName: {{ template "fullname" . }}
+      affinity: {{ toYaml .Values.affinity | indent 6 }}
+      tolerations: {{ toYaml .Values.tolerations | indent 6 }}
+      {{- if .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml .Values.nodeSelector | nindent 8 }}
+      {{- end }}
+      {{- if .Values.podAnnotations }}
+      annotations:
+        {{- toYaml .Values.podAnnotations | nindent 8 }}
+      {{- end }}
+      {{- if .Values.podLabels }}

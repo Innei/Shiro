@@ -1,31 +1,33 @@
-mx-core:
+mxcore:
   # imagePullSecret: ''
   image:
     # repository: ''
     # tag: ''
     pullPolicy: IfNotPresent
-  base_url: ''
-  allowed_origins: []
+  baseUrl: ''
+  allowedOrigins: []
   security:
-    # jwt_secret: ''
-    # jwt_expiration: 3600
+    jwtSecret: 'your_secret_here'
+    # jwtExpiration: 3600
   encryption:
-    # enabled: false
+    enabled: false
     # key: ''
   externalMongodb:
-    # enabled: false
+    enabled: false
     # host: ''
     # port: ''
     # user: ''
     # password: ''
     # database: ''
   externalRedis:
-    # enabled: false
+    enabled: false
     # host: ''
     # port: ''
-    # password: ''
+    auth:
+      enabled: false
+      password: ''
 
-mx-admin:
+admin:
   # imagePullSecret: ''
   image:
     # repository: ''
@@ -50,8 +52,8 @@ shiro:
     # tag: ''
     pullPolicy: IfNotPresent
   clerk:
-    publishable_key: ''
-    secret_key: ''
+    publishableKey: ''
+    secretKey: ''
   ingress:
     enabled: false
     # annotations: {}
@@ -66,20 +68,20 @@ shiro:
 mongodb:
   enabled: true
   # architecture: standalone
-  # auth:
-  #   enabled: true
-  #   usernames: []
-  #   passwords: []
-  #   databases: []
+  auth:
+    enabled: true
+    usernames: ['mx_space']
+    passwords: ['your_password_here']
+    databases: ['mx_space']
 
 # redis subchart
 ## More values can be found at https://artifacthub.io/packages/helm/bitnami/redis
 redis:
   enabled: true
   # architecture: standalone
-  # auth:
-  #   enabled: false
-  #   password: ''
+  auth:
+    enabled: false
+    password: ''
 
 storage:
   enabled: false
@@ -117,3 +119,13 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+
+securityContext:
+  runAsUser: 1000
+  fsGroup: 1000
+  runAsNonRoot: true
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
