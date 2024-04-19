@@ -13,3 +13,13 @@ sources:
 maintainers:
 - name: Innei
   email: i@innei.in
+
+dependencies:
+  - name: mongodb
+    version: 15.1.4
+    repository: https://charts.bitnami.com/bitnami
+    condition: mongodb.enabled
+  - name: redis
+    version: 19.1.2
+    repository: https://charts.bitnami.com/bitnami
+    condition: redis.enabled

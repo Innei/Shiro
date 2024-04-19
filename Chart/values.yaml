@@ -1,8 +1,9 @@
-clerk:
-  publishable_key: ''
-  secret_key: ''
-
-server:
+mx-core:
+  # imagePullSecret: ''
+  image:
+    # repository: ''
+    # tag: ''
+    pullPolicy: IfNotPresent
   base_url: ''
   allowed_origins: []
   security:
@@ -24,33 +25,61 @@ server:
     # port: ''
     # password: ''
 
-admin:
+mx-admin:
+  # imagePullSecret: ''
+  image:
+    # repository: ''
+    # tag: ''
+    pullPolicy: IfNotPresent
   # base_url: ''
   # username: ''
   # password: ''
+  ingress:
+    enabled: false
+    # annotations: {}
+    # ingressClass: ''
+    # hosts:
+    #   - host: chart-example.local
+    #     paths:
+    #       - /
 
+shiro:
+  # imagePullSecret: ''
+  image:
+    # repository: ''
+    # tag: ''
+    pullPolicy: IfNotPresent
+  clerk:
+    publishable_key: ''
+    secret_key: ''
+  ingress:
+    enabled: false
+    # annotations: {}
+    # ingressClass: ''
+    # hosts:
+    #   - host: chart-example.local
+    #     paths:
+    #       - /
+
+## MongoDB subchart
+## More values can be found at https://artifacthub.io/packages/helm/bitnami/mongodb
 mongodb:
   enabled: true
-  # host: ''
-  # port: ''
-  # user: ''
-  # password: ''
-  # database: ''
+  # architecture: standalone
+  # auth:
+  #   enabled: true
+  #   usernames: []
+  #   passwords: []
+  #   databases: []
 
+# redis subchart
+## More values can be found at https://artifacthub.io/packages/helm/bitnami/redis
 redis:
   enabled: true
-  # host: ''
-  # port: ''
-  # password: ''
-
-ingress:
-  enabled: false
-  # annotations: {}
-  # ingressClass: ''
-  # hosts:
-  #   - host: chart-example.local
-  #     paths:
-  #       - /
+  # architecture: standalone
+  # auth:
+  #   enabled: false
+  #   password: ''
 
 storage:
   enabled: false
@@ -71,6 +100,9 @@ persistence:
 
 updateStrategy:
   type: RollingUpdate
+  # rollingUpdate:
+  #   maxUnavailable: 25%
+  #   maxSurge: 25%
 
 tolerations: []
 
@@ -79,3 +111,9 @@ nodeSelector: {}
 affinity: {}
 
 resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
