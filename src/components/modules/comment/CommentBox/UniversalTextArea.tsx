@@ -4,10 +4,10 @@ import { useCallback, useEffect, useRef } from 'react'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import dynamic from 'next/dynamic'
 
+import { useIsMobile } from '~/atoms/hooks'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { TextArea } from '~/components/ui/input'
 import { useRefValue } from '~/hooks/common/use-ref-value'
-import { preventDefault } from '~/lib/dom'
 
 import { getRandomPlaceholder } from './constants'
 import {
@@ -73,6 +73,7 @@ export const UniversalTextArea: Component = ({ className }) => {
   }, [])
 
   const [sendComment] = useSendComment()
+  const isMobile = useIsMobile()
   return (
     <TextArea
       bordered={false}
@@ -87,9 +88,18 @@ export const UniversalTextArea: Component = ({ className }) => {
       }}
     >
       <CommentBoxSlotPortal>
-        <FloatPopover trigger="click" TriggerComponent={EmojiButton} headless>
-          <EmojiPicker onEmojiSelect={handleInsertEmoji} />
-        </FloatPopover>
+        <>
+          {!isMobile && (
+            <FloatPopover
+              mobileAsSheet
+              trigger="click"
+              TriggerComponent={EmojiButton}
+              headless
+            >
+              <EmojiPicker onEmojiSelect={handleInsertEmoji} />
+            </FloatPopover>
+          )}
+        </>
       </CommentBoxSlotPortal>
     </TextArea>
   )
@@ -97,12 +107,13 @@ export const UniversalTextArea: Component = ({ className }) => {
 
 const EmojiButton = () => {
   return (
-    <button
+    <div
       className="ml-0 inline-flex size-5 translate-y-1 text-base center md:ml-4"
-      onClick={preventDefault}
+      role="button"
+      tabIndex={0}
     >
       <i className="icon-[mingcute--emoji-2-line]" />
       <span className="sr-only">表情</span>
-    </button>
+    </div>
   )
 }

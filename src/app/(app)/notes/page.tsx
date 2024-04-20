@@ -1,33 +1,31 @@
-'use client'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+import type { NoteWrappedWithLikedPayload } from '@mx-space/api-client'
 
-import { useQuery } from '@tanstack/react-query'
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-
-import { FullPageLoading } from '~/components/ui/loading'
+import { getAuthFromCookie } from '~/lib/attach-fetch'
+import { AuthKeyNames } from '~/lib/cookie'
 import { apiClient } from '~/lib/request'
+import { definePrerenderPage } from '~/lib/request.server'
 
-export default function Page() {
-  const {
-    data: nid,
-    isError,
-    isLoading,
-  } = useQuery({
-    queryFn: async () => {
-      return apiClient.note.getLatest()
-    },
-    queryKey: ['note-latest'],
-    select(data) {
-      return data.data.nid
-    },
-  })
+export default definePrerenderPage()({
+  async fetcher() {
+    const { data } =
+      await apiClient.note.proxy.latest.get<NoteWrappedWithLikedPayload>({
+        params: {
+          token: getAuthFromCookie()
+            ? `bearer ${getAuthFromCookie()}`
+            : undefined,
+        },
+      })
 
-  const router = useRouter()
-  useEffect(() => {
-    if (!nid) return
-
-    router.replace(`/notes/${nid}`)
-  }, [nid, router])
-
-  return <FullPageLoading />
-}
+    return data
+  },
+  Component: ({ data: { nid, hide } }) => {
+    const jwt = cookies().get(AuthKeyNames[0])?.value
+    if (hide) {
+      return redirect(`/notes/${nid}?token=${jwt}`)
+    } else {
+      redirect(`/notes/${nid}`)
+    }
+  },
+})

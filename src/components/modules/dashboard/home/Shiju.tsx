@@ -20,7 +20,7 @@ export const ShiJu = () => {
 
   if (!origin) return null
   return (
-    <FloatPopover triggerElement={<span>{data?.shiju}</span>}>
+    <FloatPopover mobileAsSheet triggerElement={<span>{data?.shiju}</span>}>
       <div className="max-w-[800px] text-center">
         <h3 className="sticky top-0 py-2 text-2xl font-medium">
           {origin.title}

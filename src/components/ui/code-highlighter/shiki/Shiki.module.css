@@ -1,5 +1,8 @@
 .code-card {
   @apply relative my-6 overflow-hidden rounded-md;
+
+  font-size: 14px;
+
   :global {
     pre {
       @apply !m-0 !p-0;
@@ -17,10 +20,15 @@
     }
 
     .line {
-      @apply block min-h-[1em] px-5;
+      @apply block px-5;
 
       & > span:last-child {
         @apply mr-5;
+      }
+
+      /* 撑开没有内容的行 */
+      &::after {
+        content: ' ';
       }
     }
 

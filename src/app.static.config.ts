@@ -9,6 +9,10 @@ export const appStaticConfig = {
 
   cache: {
     enabled: true,
+
+    ttl: {
+      aggregation: 3600,
+    },
   },
 }
 

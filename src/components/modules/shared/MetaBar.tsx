@@ -19,6 +19,7 @@ export const CurrentReadingCountingMetaBarItem: FC<{
       {leftElement}
       <FloatPopover
         asChild
+        mobileAsSheet
         type="tooltip"
         triggerElement={
           <span>

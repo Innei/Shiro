@@ -79,7 +79,7 @@ export const AnimatedLogo = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          // className="scale-75"
+          className="flex items-center"
         >
           <Activity />
           <TapableLogo />

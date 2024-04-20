@@ -5,6 +5,7 @@ import Link from 'next/link'
 import type { TopicModel } from '@mx-space/api-client'
 import type { FC } from 'react'
 
+import { useIsMobile } from '~/atoms/hooks'
 import { MdiClockOutline } from '~/components/icons/clock'
 import { MdiFountainPenTip } from '~/components/icons/pen'
 import { Divider, DividerVertical } from '~/components/ui/divider'
@@ -30,6 +31,7 @@ export const NoteTopicDetail: FC<{ topic: TopicModel }> = (props) => {
       }),
   })
 
+  const isMobile = useIsMobile()
   const isClient = useIsClient()
   if (!isClient) {
     return null
@@ -45,6 +47,9 @@ export const NoteTopicDetail: FC<{ topic: TopicModel }> = (props) => {
         <h1 className="!m-0 inline-block pb-2 text-lg font-medium">
           {topic.name}
         </h1>
+        {isMobile && (
+          <i className="icon-[mingcute--arrow-right-up-line] ml-2 translate-y-[2px] opacity-70" />
+        )}
       </Link>
 
       <div className="line-clamp-2 break-all text-neutral-content">

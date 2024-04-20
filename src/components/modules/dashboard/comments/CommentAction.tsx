@@ -8,7 +8,7 @@ import { useModalStack } from '~/components/ui/modal'
 import {
   useDeleteCommentMutation,
   useUpdateCommentStateMutation,
-} from '~/queries/definition/comment'
+} from '~/queries/hooks/comment'
 
 import { DeleteConfirmButton } from '../../shared/DeleteConfirmButton'
 import {

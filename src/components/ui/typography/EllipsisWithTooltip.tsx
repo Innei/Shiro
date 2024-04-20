@@ -48,6 +48,7 @@ export const EllipsisTextWithTooltip = (props: EllipsisProps) => {
 
   return (
     <FloatPopover
+      mobileAsSheet
       type="tooltip"
       wrapperClassName={clsxm('w-full min-w-0 truncate', wrapperClassName)}
       isDisabled={!isOverflowed || disabled}

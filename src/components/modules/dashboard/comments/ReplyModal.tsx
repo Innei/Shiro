@@ -15,7 +15,7 @@ import { PresentSheet } from '~/components/ui/sheet'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { useUncontrolledInput } from '~/hooks/common/use-uncontrolled-input'
 import { toast } from '~/lib/toast'
-import { useReplyCommentMutation } from '~/queries/definition/comment'
+import { useReplyCommentMutation } from '~/queries/hooks/comment'
 
 import { KAOMOJI_LIST } from './kaomoji'
 

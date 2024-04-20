@@ -87,6 +87,7 @@ const cardSlot: CardProps<NoteModel>['slots'] = {
         <RelativeTime date={data.created} />
         {data.modified && (
           <FloatPopover
+            mobileAsSheet
             wrapperClassName="text-xs"
             as="span"
             type="tooltip"
@@ -97,7 +98,8 @@ const cardSlot: CardProps<NoteModel>['slots'] = {
         )}
         {data.topic && (
           <FloatPopover
-            TriggerComponent={() => (
+            mobileAsSheet
+            triggerElement={
               <div className="flex items-center gap-1">
                 <img
                   src={data.topic?.icon}
@@ -106,7 +108,7 @@ const cardSlot: CardProps<NoteModel>['slots'] = {
                 />
                 <div>{data.topic && data.topic.name}</div>
               </div>
-            )}
+            }
           >
             <div className="flex flex-col gap-1">
               <div>专栏：{data.topic.name}</div>

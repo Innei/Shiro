@@ -16,7 +16,6 @@ import { routeBuilder, Routes } from '~/lib/route-builder'
 
 import { getTopicQuery } from './query'
 
-export const dynamic = 'force-dynamic'
 export default function Page() {
   const { slug } = useParams()
   const { data } = useQuery({
@@ -69,7 +68,6 @@ export default function Page() {
                   className="flex min-w-0 items-center justify-between leading-loose"
                 >
                   <Link
-                    prefetch={false}
                     href={routeBuilder(Routes.Note, {
                       id: child.nid,
                     })}

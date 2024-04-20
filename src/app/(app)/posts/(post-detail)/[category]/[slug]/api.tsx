@@ -1,6 +1,6 @@
 import { cache } from 'react'
 
-import { attachUAAndRealIp } from '~/lib/attach-ua'
+import { attachServerFetch } from '~/lib/attach-fetch'
 import { getQueryClient } from '~/lib/query-client.server'
 import { requestErrorHandler } from '~/lib/request.server'
 import { queries } from '~/queries/definition'
@@ -11,7 +11,7 @@ export interface PageParams {
 }
 export const getData = cache(async (params: PageParams) => {
   const { category, slug } = params
-  attachUAAndRealIp()
+  attachServerFetch()
   const data = await getQueryClient()
     .fetchQuery(queries.post.bySlug(category, slug))
     .catch(requestErrorHandler)

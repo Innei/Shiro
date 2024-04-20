@@ -15,6 +15,7 @@ import { Root } from '~/components/layout/root/Root'
 import { AccentColorStyleInjector } from '~/components/modules/shared/AccentColorStyleInjector'
 import { SearchPanelWithHotKey } from '~/components/modules/shared/SearchFAB'
 import { TocAutoScroll } from '~/components/modules/toc/TocAutoScroll'
+import { PreRenderError } from '~/lib/error-factory'
 import { sansFont, serifFont } from '~/lib/fonts'
 import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
 import { AppFeatureProvider } from '~/providers/root/app-feature-provider'
@@ -25,8 +26,6 @@ import { Analyze } from './analyze'
 import { fetchAggregationData } from './api'
 
 const { version } = PKG
-
-export const revalidate = 3600 // 3600s
 
 export function generateViewport(): Viewport {
   return {
@@ -126,18 +125,38 @@ export const dynamic = 'force-dynamic'
 export default async function RootLayout(props: PropsWithChildren) {
   const { children } = props
 
-  const data = await fetchAggregationData()
+  const data = await fetchAggregationData().catch((err) => {
+    return new PreRenderError(err.message)
+  })
+
+  if (data instanceof PreRenderError) {
+    return (
+      <html lang="zh-CN" className="noise themed" suppressHydrationWarning>
+        <head>
+          <PublicEnvScript />
+
+          <SayHi />
+        </head>
+        <body
+          className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
+        >
+          <div className="flex h-screen center">
+            初始数据的获取失败，请检查 API
+            服务器是否正常运行。接口请求错误信息：
+            <br />
+            {data.message}
+          </div>
+        </body>
+      </html>
+    )
+  }
 
   const themeConfig = data.theme
 
   return (
     <ClerkProvider publishableKey={env('NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY')}>
       <AppFeatureProvider tmdb={!!process.env.TMDB_API_KEY}>
-        <html
-          lang="zh-CN"
-          className="noise !bg-accent"
-          suppressHydrationWarning
-        >
+        <html lang="zh-CN" className="noise themed" suppressHydrationWarning>
           <head>
             <PublicEnvScript />
             <Global />
@@ -177,7 +196,7 @@ export default async function RootLayout(props: PropsWithChildren) {
               <SyncServerTime />
               <ToastContainer />
               <ScrollTop />
-              <div className="fixed inset-y-0 right-0 w-[var(--removed-body-scroll-bar-size)] bg-base-100" />
+              <div className="fixed inset-y-0 right-0 w-[var(--removed-body-scroll-bar-size)]" />
             </WebAppProviders>
           </body>
         </html>

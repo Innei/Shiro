@@ -1,11 +1,10 @@
 import { forwardRef } from 'react'
 import clsx from 'clsx'
-import type { ForwardRefComponent } from 'framer-motion'
 
-export const HeaderActionButton: ForwardRefComponent<
+export const HeaderActionButton = forwardRef<
   HTMLButtonElement,
   JSX.IntrinsicElements['button']
-> = forwardRef(({ children, ...rest }, ref) => {
+>(({ children, ...rest }, ref) => {
   return (
     <button
       className={clsx(

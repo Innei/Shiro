@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 
 import { buildRoomName, RoomProvider } from '~/components/modules/activity'
 import { CommentAreaRootLazy } from '~/components/modules/comment'
+import { NotePasswordForm } from '~/components/modules/note'
 import { NoteFontSettingFab } from '~/components/modules/note/NoteFontFab'
 import { NoteMainContainer } from '~/components/modules/note/NoteMainContainer'
 import { TocFAB } from '~/components/modules/toc/TocFAB'
@@ -11,6 +12,7 @@ import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
+import { definePrerenderPage } from '~/lib/request.server'
 import {
   CurrentNoteDataProvider,
   SyncNoteDataAfterLoggedIn,
@@ -30,7 +32,9 @@ export const generateMetadata = async ({
   }
 }): Promise<Metadata> => {
   try {
-    const data = (await getData(params)).data
+    const res = await getData(params)
+
+    const data = res.data
     const { title, text } = data
     const description = getSummaryFromMd(text ?? '')
 
@@ -59,41 +63,105 @@ export const generateMetadata = async ({
   }
 }
 
-export default async (
-  props: NextPageParams<{
-    id: string
-  }>,
-) => {
-  const { params } = props
-  const { id: nid } = params
-  const data = await getData(params)
+export default definePrerenderPage<{
+  id: string
+}>()({
+  fetcher: getData,
+  requestErrorRenderer(error, parsed, { id }) {
+    const { status } = parsed
 
-  const { id: noteObjectId, allowComment } = data.data
+    if (status === 403) {
+      return (
+        <Paper>
+          <NotePasswordForm />
+          <CurrentNoteNidProvider nid={id} />
+        </Paper>
+      )
+    }
+  },
+  Component({ data, params: { id: nid }, children }) {
+    return (
+      <>
+        <CurrentNoteNidProvider nid={nid} />
+        <CurrentNoteDataProvider data={data} />
+        <SyncNoteDataAfterLoggedIn />
+        <RoomProvider roomName={buildRoomName(data.data.id)}>
+          <Transition className="min-w-0" lcpOptimization>
+            <Paper key={nid} as={NoteMainContainer}>
+              <Suspense>{children}</Suspense>
+            </Paper>
+            <BottomToUpSoftScaleTransitionView delay={500}>
+              <CommentAreaRootLazy
+                refId={data.data.id}
+                allowComment={data.data.allowComment}
+              />
+            </BottomToUpSoftScaleTransitionView>
+          </Transition>
+        </RoomProvider>
 
-  return (
-    <>
-      <CurrentNoteNidProvider nid={nid} />
-      <CurrentNoteDataProvider data={data} />
-      <SyncNoteDataAfterLoggedIn />
-      <RoomProvider roomName={buildRoomName(data.data.id)}>
-        <Transition className="min-w-0" lcpOptimization>
-          <Paper key={nid} as={NoteMainContainer}>
-            <Suspense>{props.children}</Suspense>
-          </Paper>
-          <BottomToUpSoftScaleTransitionView delay={500}>
-            <CommentAreaRootLazy
-              refId={noteObjectId}
-              allowComment={allowComment}
-            />
-          </BottomToUpSoftScaleTransitionView>
-        </Transition>
-      </RoomProvider>
+        <NoteFontSettingFab />
 
-      <NoteFontSettingFab />
+        <OnlyMobile>
+          <TocFAB />
+        </OnlyMobile>
+      </>
+    )
+  },
+})
 
-      <OnlyMobile>
-        <TocFAB />
-      </OnlyMobile>
-    </>
-  )
-}
+// export default async (
+//   props: NextPageParams<{
+//     id: string
+//   }>,
+// ) => {
+//   const { params } = props
+//   const { id: nid } = params
+//   const { data, error, status, bizMessage } = await unwrapRequest(
+//     getData(params),
+//   )
+
+//   if (status === 403) {
+//     return (
+//       <Paper>
+//         <NotePasswordForm />
+//         <CurrentNoteNidProvider nid={nid} />
+//       </Paper>
+//     )
+//   }
+
+//   if (error) {
+//     if (bizMessage) {
+//       return <BizErrorPage status={status} bizMessage={bizMessage} />
+//     }
+//     throw error
+//   }
+
+//   const { id: noteObjectId, allowComment } = data.data
+
+//   return (
+//     <>
+//       <CurrentNoteNidProvider nid={nid} />
+//       <CurrentNoteDataProvider data={data} />
+//       <SyncNoteDataAfterLoggedIn />
+//       <RoomProvider roomName={buildRoomName(data.data.id)}>
+//         <Transition className="min-w-0" lcpOptimization>
+//           <Paper key={nid} as={NoteMainContainer}>
+//             <Suspense>{props.children}</Suspense>
+//           </Paper>
+//           <BottomToUpSoftScaleTransitionView delay={500}>
+//             <CommentAreaRootLazy
+//               refId={noteObjectId}
+//               allowComment={allowComment}
+//             />
+//           </BottomToUpSoftScaleTransitionView>
+//         </Transition>
+//       </RoomProvider>
+
+//       <NoteFontSettingFab />
+
+//       <OnlyMobile>
+//         <TocFAB />
+//       </OnlyMobile>
+//     </>
+//   )
+// }

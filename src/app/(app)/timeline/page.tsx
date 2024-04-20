@@ -234,11 +234,7 @@ const Item = memo<{
             day: '2-digit',
           }).format(item.date)}
         </span>
-        <PeekLink
-          prefetch={false}
-          href={item.href}
-          className="min-w-0 truncate leading-6"
-        >
+        <PeekLink href={item.href} className="min-w-0 truncate leading-6">
           <span className="min-w-0 truncate">{item.title}</span>
         </PeekLink>
         {item.important && (

@@ -13,7 +13,7 @@ export const HeaderDrawerContent = () => {
   const { config } = useHeaderConfig()
 
   return (
-    <div className="mt-12 max-h-[80dvh] w-[90vw] space-y-4 overflow-auto pb-24 scrollbar-none">
+    <div className="scrollbar-none mt-12 max-h-[80dvh] w-[90vw] space-y-4 overflow-auto pb-24">
       {config.map((section, index) => {
         return (
           <m.section
@@ -61,7 +61,7 @@ const LinkInternal: typeof Link = memo(function LinkInternal({
 }) {
   const { dismiss } = useSheetContext()
   return (
-    <Link {...rest} prefetch={false} onClick={dismiss}>
+    <Link {...rest} onClick={dismiss}>
       {children}
     </Link>
   )

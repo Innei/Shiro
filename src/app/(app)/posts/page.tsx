@@ -10,62 +10,66 @@ import { BackToTopFAB } from '~/components/ui/fab'
 import { BottomToUpTransitionView } from '~/components/ui/transition'
 import { OnlyDesktop } from '~/components/ui/viewport'
 import { apiClient } from '~/lib/request'
+import { definePrerenderPage } from '~/lib/request.server'
 
 interface Props {
-  searchParams: {
-    page?: string
-    size?: string
-    sortBy?: string
-    orderBy?: string
-  }
+  page?: string
+  size?: string
+  sortBy?: string
+  orderBy?: string
 }
 
 export const metadata = {
   title: '文章列表',
 }
 
-export default async (props: Props) => {
-  const { page, size, orderBy, sortBy } = props?.searchParams || {}
-  const currentPage = page ? parseInt(page) : 1
-  const currentSize = size ? parseInt(size) : 10
+export default definePrerenderPage<Props>()({
+  fetcher: async (params) => {
+    const { page, size, orderBy, sortBy } = params || {}
+    const currentPage = page ? parseInt(page) : 1
+    const currentSize = size ? parseInt(size) : 10
 
-  const { data, pagination } = await apiClient.post.getList(
-    currentPage,
-    currentSize,
-    {
+    return await apiClient.post.getList(currentPage, currentSize, {
       sortBy: sortBy as any,
       sortOrder: orderBy === 'desc' ? -1 : 1,
-    },
-  )
+    })
+  },
+  Component: async (props) => {
+    const { params } = props
+    const { data, pagination } = props.data
+    const { page } = params
 
-  if (!data?.length) {
-    return <NothingFound />
-  }
-  return (
-    <NormalContainer>
-      <ul>
-        {data.map((item, index) => {
-          return (
-            <BottomToUpTransitionView
-              lcpOptimization
-              key={item.id}
-              as="li"
-              delay={index * 100}
-            >
-              <PostItem data={item} />
-            </BottomToUpTransitionView>
-          )
-        })}
-      </ul>
+    const currentPage = page ? parseInt(page) : 1
 
-      <PostPagination pagination={pagination} />
+    if (!data?.length) {
+      return <NothingFound />
+    }
+    return (
+      <NormalContainer>
+        <ul>
+          {data.map((item, index) => {
+            return (
+              <BottomToUpTransitionView
+                lcpOptimization
+                key={item.id}
+                as="li"
+                delay={index * 100}
+              >
+                <PostItem data={item} />
+              </BottomToUpTransitionView>
+            )
+          })}
+        </ul>
 
-      <PostsSortingFab />
-      <PostTagsFAB />
-      <SearchFAB />
-      <OnlyDesktop>
-        <BackToTopFAB />
-      </OnlyDesktop>
-    </NormalContainer>
-  )
-}
+        <PostPagination pagination={pagination} />
+
+        <PostsSortingFab />
+        <PostTagsFAB />
+        <SearchFAB />
+        <OnlyDesktop>
+          <BackToTopFAB />
+        </OnlyDesktop>
+      </NormalContainer>
+    )
+  },
+})

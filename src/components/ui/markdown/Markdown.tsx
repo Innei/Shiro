@@ -4,11 +4,11 @@
 import React, { Fragment, memo, Suspense, useMemo, useRef } from 'react'
 import { clsx } from 'clsx'
 import { compiler, sanitizeUrl } from 'markdown-to-jsx'
-import dynamic from 'next/dynamic'
 import Script from 'next/script'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { FC, PropsWithChildren } from 'react'
 
+import { CodeBlockRender } from '~/components/modules/shared/CodeBlock'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { MAIN_MARKDOWN_ID } from '~/constants/dom-id'
 import { isDev } from '~/lib/env'
@@ -42,12 +42,6 @@ import { Tab, Tabs } from './renderers/tabs'
 import { MTag } from './renderers/tag'
 import { getFootNoteDomId, getFootNoteRefDomId } from './utils/get-id'
 import { redHighlight } from './utils/redHighlight'
-
-const CodeBlock = dynamic(() =>
-  import('~/components/modules/shared/CodeBlock').then(
-    (mod) => mod.CodeBlockRender,
-  ),
-)
 
 export interface MdProps {
   value?: string
@@ -95,6 +89,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
       if (typeof mdContent != 'string') return null
 
       const mdElement = compiler(mdContent, {
+        doNotProcessHtmlElements: ['tab', 'style', 'script'] as any[],
         wrapper: null,
         // @ts-ignore
         overrides: {
@@ -112,7 +107,8 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           tag: MTag,
 
           Tabs,
-          Tab,
+
+          tab: Tab,
 
           // for custom react component
           // Tag: MTag,
@@ -239,11 +235,16 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
               }
             },
           },
-
+          // htmlBlock: {
+          //   react(node, output, state) {
+          //     console.log(node, state)
+          //     return null
+          //   },
+          // },
           codeBlock: {
             react(node, output, state) {
               return (
-                <CodeBlock
+                <CodeBlockRender
                   key={state?.key}
                   content={node.content}
                   lang={node.lang}

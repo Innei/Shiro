@@ -295,6 +295,7 @@ const SearchPanelImpl = () => {
             }}
           >
             <FloatPopover
+              mobileAsSheet
               type="tooltip"
               triggerElement={
                 <i className="icon-[mingcute--download-2-line]" />

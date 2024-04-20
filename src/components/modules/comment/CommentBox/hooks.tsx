@@ -17,11 +17,12 @@ import type React from 'react'
 import type { createInitialValue } from './providers'
 
 import { useIsLogged } from '~/atoms/hooks'
-import { apiClient, getErrorMessageFromRequestError } from '~/lib/request'
+import { apiClient } from '~/lib/request'
+import { getErrorMessageFromRequestError } from '~/lib/request.shared'
 import { jotaiStore } from '~/lib/store'
 import { toast } from '~/lib/toast'
+import { buildCommentsQueryKey } from '~/queries/keys'
 
-import { buildQueryKey } from '../Comments'
 import { MAX_COMMENT_TEXT_LENGTH } from './constants'
 import {
   CommentBoxContext,
@@ -220,7 +221,7 @@ export const useSendComment = () => {
           ? '感谢你的回复！'
           : '感谢你的评论！'
 
-      const commentListQueryKey = buildQueryKey(originalRefId)
+      const commentListQueryKey = buildCommentsQueryKey(originalRefId)
 
       toast.success(toastCopy)
       jotaiStore.set(textAtom, '')

@@ -1,13 +1,8 @@
 import { nanoid } from 'nanoid'
 import { createFetch } from 'ofetch'
 import type { IRequestAdapter } from '@mx-space/api-client'
-import type { FetchError } from 'ofetch'
 
-import {
-  allControllers,
-  createClient,
-  RequestError,
-} from '@mx-space/api-client'
+import { allControllers, createClient } from '@mx-space/api-client'
 
 import { isLogged } from '~/atoms'
 import { API_URL } from '~/constants/env'
@@ -20,6 +15,7 @@ const uuidStorageKey = 'x-uuid'
 const uuid = nanoid()
 
 const globalConfigureHeader = {} as any
+const globalConfigureSearchParams = {} as any
 
 if (isServerSide) {
   globalConfigureHeader['User-Agent'] =
@@ -29,7 +25,7 @@ if (isServerSide) {
 const $fetch = createFetch({
   defaults: {
     timeout: 8000,
-
+    // next: { revalidate: 3 },
     headers: globalConfigureHeader,
     onRequest(context) {
       const token = getToken()
@@ -37,6 +33,7 @@ const $fetch = createFetch({
       if (token) {
         headers['Authorization'] = `bearer ${token}`
       }
+
       headers['x-session-uuid'] =
         globalThis?.sessionStorage?.getItem(uuidStorageKey) ?? uuid
 
@@ -47,9 +44,21 @@ const $fetch = createFetch({
         }
       }
 
+      context.options.params ??= {}
+      Object.assign(context.options.params, globalConfigureSearchParams)
+      if (context.options.params.token) {
+        context.options.cache = 'no-store'
+      }
       if (isDev && isServerSide) {
         // eslint-disable-next-line no-console
         console.log(`[Request]: ${context.request}`)
+      }
+    },
+    onResponse(context) {
+      // log response
+      if (isDev && isServerSide) {
+        // eslint-disable-next-line no-console
+        console.log(`[Response]: ${context.request}`, context.response.status)
       }
     },
   },
@@ -105,9 +114,13 @@ export const apiClient = createClient(fetchAdapter)(API_URL, {
   },
 })
 
-export const attachFetchHeader = (key: string, value: string) => {
+export const attachFetchHeader = (key: string, value: string | null) => {
   const original = globalConfigureHeader[key]
-  globalConfigureHeader[key] = value
+  if (value === null) {
+    delete globalConfigureHeader[key]
+  } else {
+    globalConfigureHeader[key] = value
+  }
 
   return () => {
     if (typeof original === 'undefined') {
@@ -118,16 +131,13 @@ export const attachFetchHeader = (key: string, value: string) => {
   }
 }
 
-export const getErrorMessageFromRequestError = (error: RequestError) => {
-  if (!(error instanceof RequestError)) return (error as Error).message
-  const fetchError = error.raw as FetchError
-  const messagesOrMessage = fetchError.response?._data?.message
-  const bizMessage =
-    typeof messagesOrMessage === 'string'
-      ? messagesOrMessage
-      : Array.isArray(messagesOrMessage)
-        ? messagesOrMessage[0]
-        : undefined
+export const setGlobalSearchParams = (params: Record<string, any>) => {
+  clearGlobalSearchParams()
+  Object.assign(globalConfigureSearchParams, params)
+}
 
-  return bizMessage || fetchError.message
+export const clearGlobalSearchParams = () => {
+  Object.keys(globalConfigureSearchParams).forEach((key) => {
+    delete globalConfigureSearchParams[key]
+  })
 }

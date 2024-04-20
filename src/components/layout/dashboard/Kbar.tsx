@@ -140,10 +140,7 @@ const ResultItem = React.forwardRef(
         {action.shortcut?.length ? (
           <div aria-hidden className="grid grid-flow-col gap-1">
             {action.shortcut.map((sc) => (
-              <kbd
-                key={sc}
-                className="rounded bg-base-100 bg-opacity-10 p-1 text-sm"
-              >
+              <kbd key={sc} className="rounded bg-base-100/10 p-1 text-sm">
                 {sc}
               </kbd>
             ))}

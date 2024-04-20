@@ -34,8 +34,17 @@ const ScrollDetector = () => {
           setIsInteractive(true)
           setIsInteractiveOnceRef.current = true
         }
-        const currentTop = document.documentElement.scrollTop
+        let currentTop = document.documentElement.scrollTop
 
+        // 当 radix modal 被唤出，body 会被设置为 fixed，此时需要获取 body 的 top 值。
+        // 只有在 mobile 端会出现这种逻辑
+        if (currentTop === 0) {
+          const bodyStyle = document.body.style
+          if (bodyStyle.position === 'fixed') {
+            const bodyTop = bodyStyle.top
+            currentTop = Math.abs(parseInt(bodyTop, 10))
+          }
+        }
         setPageScrollDirection(
           prevScrollY.current - currentTop > 0 ? 'up' : 'down',
         )
