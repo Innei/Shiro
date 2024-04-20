@@ -1,23 +1,55 @@
 'use client'
 
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { memo, useMemo } from 'react'
+import { memo, useEffect, useMemo } from 'react'
 import type { FC } from 'react'
 import type { CommentBaseProps } from './types'
+
+import { BusinessEvents } from '@mx-space/webhook'
 
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { NotSupport } from '~/components/common/NotSupport'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition'
 import { apiClient } from '~/lib/request'
+import { buildCommentsQueryKey } from '~/queries/keys'
+import { WsEvent } from '~/socket/util'
 
 import { LoadMoreIndicator } from '../shared/LoadMoreIndicator'
 import { Comment } from './Comment'
 import { CommentBoxProvider } from './CommentBox/providers'
 import { CommentSkeleton } from './CommentSkeleton'
 
-export const buildQueryKey = (refId: string) => ['comments', refId]
+const useNewCommentObserver = (refId: string) => {
+  useEffect(() => {
+    const currentTitle = document.title
+
+    // 当标签页回复前台状态时，将标题重置
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        document.title = currentTitle
+      }
+    }
+    document.addEventListener('visibilitychange', onVisibilityChange)
+
+    const cleaner = WsEvent.on(BusinessEvents.COMMENT_CREATE, (data: any) => {
+      if (data.ref === refId) {
+        // 如果标签页在后台
+
+        if (document.visibilityState === 'hidden') {
+          document.title = `新评论！${currentTitle}`
+        }
+      }
+    })
+    return () => {
+      cleaner()
+      document.removeEventListener('visibilitychange', onVisibilityChange)
+    }
+  }, [refId])
+}
 export const Comments: FC<CommentBaseProps> = ({ refId }) => {
-  const key = useMemo(() => buildQueryKey(refId), [refId])
+  useNewCommentObserver(refId)
+
+  const key = useMemo(() => buildCommentsQueryKey(refId), [refId])
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: key,
     queryFn: async ({ queryKey, pageParam }) => {

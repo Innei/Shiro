@@ -6,10 +6,10 @@ import type { Draft } from 'immer'
 import type { SVGProps } from 'react'
 
 import { apiClient } from '~/lib/request'
+import { buildCommentsQueryKey } from '~/queries/keys'
 
 import { PinIconToggle } from '../shared/PinIconToggle'
 import { useCommentBoxRefIdValue } from './CommentBox/hooks'
-import { buildQueryKey } from './Comments'
 
 export const CommentPinButton = ({ comment }: { comment: CommentModel }) => {
   const queryClient = useQueryClient()
@@ -20,7 +20,7 @@ export const CommentPinButton = ({ comment }: { comment: CommentModel }) => {
       pin={!!comment.pin}
       onPinChange={async (nextPin) => {
         queryClient.setQueryData<InfiniteData<PaginateResult<CommentModel>>>(
-          buildQueryKey(refId),
+          buildCommentsQueryKey(refId),
           (old) => {
             return produce(old, (draft) => {
               if (!draft) return draft
