@@ -1,7 +1,6 @@
 import { execSync } from 'child_process'
 import path from 'path'
 import { config } from 'dotenv'
-import { InjectManifest } from 'workbox-webpack-plugin'
 
 import NextBundleAnalyzer from '@next/bundle-analyzer'
 
@@ -82,14 +81,14 @@ let nextConfig = {
       bufferutil: 'commonjs bufferutil',
     })
 
-    if (!isServer) {
-      config.plugins.push(
-        new InjectManifest({
-          swSrc: './src/workers/push-worker.ts',
-          swDest: '../public/pusher-sw.js',
-        }),
-      )
-    }
+    // if (!isServer) {
+    //   config.plugins.push(
+    //     new InjectManifest({
+    //       swSrc: './src/workers/push-worker.ts',
+    //       swDest: '../public/pusher-sw.js',
+    //     }),
+    //   )
+    // }
 
     return config
   },
