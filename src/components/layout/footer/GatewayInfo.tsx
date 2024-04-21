@@ -25,6 +25,9 @@ const Help = () => {
       }
       type="tooltip"
       asChild
+      sheet={{
+        triggerAsChild: true,
+      }}
     >
       <div className="space-y-2 leading-relaxed">
         <p className="flex items-center space-x-1 opacity-80">
