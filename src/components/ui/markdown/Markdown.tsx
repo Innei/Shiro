@@ -8,6 +8,7 @@ import Script from 'next/script'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { FC, PropsWithChildren } from 'react'
 
+import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { CodeBlockRender } from '~/components/modules/shared/CodeBlock'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { MAIN_MARKDOWN_ID } from '~/constants/dom-id'
@@ -323,20 +324,22 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
     if (removeWrapper) return <Suspense>{node}</Suspense>
 
     return (
-      <Suspense>
-        <As
-          style={style}
-          {...wrapperProps}
-          ref={ref}
-          className={clsx(
-            styles['md'],
-            codeBlockFully ? styles['code-fully'] : undefined,
-            className,
-          )}
-        >
-          {node}
-        </As>
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense>
+          <As
+            style={style}
+            {...wrapperProps}
+            ref={ref}
+            className={clsx(
+              styles['md'],
+              codeBlockFully ? styles['code-fully'] : undefined,
+              className,
+            )}
+          >
+            {node}
+          </As>
+        </Suspense>
+      </ErrorBoundary>
     )
   })
 Markdown.displayName = 'Markdown'
