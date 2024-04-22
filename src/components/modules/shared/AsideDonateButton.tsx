@@ -155,7 +155,7 @@ const DonateContent = () => {
         感谢您的支持，助力梦想继续前行。
       </m.h2>
       <div className="flex flex-wrap gap-4 overflow-auto center">
-        {donate?.qrcode.map((src) => (
+        {donate?.qrcode?.map((src) => (
           <m.img
             exit={{ opacity: 0 }}
             src={src}
