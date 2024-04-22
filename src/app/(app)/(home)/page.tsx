@@ -64,7 +64,7 @@ const TwoColumnLayout = ({
   return (
     <div
       className={clsxm(
-        'relative block size-full min-w-0 max-w-[1800px] flex-col flex-wrap items-center lg:flex lg:flex-row',
+        'relative mx-auto block size-full min-w-0 max-w-[1800px] flex-col flex-wrap items-center lg:flex lg:flex-row',
         className,
       )}
     >
