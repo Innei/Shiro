@@ -10,7 +10,7 @@ const useInsertionEffect = React.useInsertionEffect || React.useEffect
 //  $ c = \pm\sqrt{a^2 + b^2} $
 export const KateXRule: MarkdownToJSX.Rule = {
   match: simpleInlineRegex(
-    /^\$\s{0,}((?:\[.*?\]|<.*?>(?:.*?<.*?>)?|`.*?`|.)*?)\s{0,}\$/,
+    /^(?!\\)\$\s{0,}((?:\[(?:[^$]|(?=\\)\$)*?\]|<(?:[^$]|(?=\\)\$)*?>(?:(?:[^$]|(?=\\)\$)*?<(?:[^$]|(?=\\)\$)*?>)?|`(?:[^$]|(?=\\)\$)*?`|(?:[^$]|(?=\\)\$))*?)\s{0,}(?!\\)\$/,
   ),
   order: Priority.MED,
   parse(capture) {
