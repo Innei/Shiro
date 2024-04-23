@@ -24,6 +24,7 @@ export const enum Routes {
   Says = '/says',
   Friends = '/friends',
   Thinking = '/thinking',
+  Tag = '/posts/tag',
 
   PageDeletd = '/common/deleted',
 }
@@ -63,6 +64,8 @@ type OnlySlug = {
 type OnlyId = {
   id: string
 }
+
+type Tag = { name: string }
 export type RouteParams<T extends Routes> = T extends Routes.Home
   ? HomeParams
   : T extends Routes.Note
@@ -85,7 +88,9 @@ export type RouteParams<T extends Routes> = T extends Routes.Home
                     ? OnlySlug
                     : T extends Routes.Project
                       ? OnlyId
-                      : {}
+                      : T extends Routes.Tag
+                        ? Tag
+                        : Noop
 
 export function routeBuilder<T extends Routes>(
   route: T,
@@ -126,6 +131,11 @@ export function routeBuilder<T extends Routes>(
 
     case Routes.Home: {
       href = '/'
+      break
+    }
+    case Routes.Tag: {
+      const p = params as Tag
+      href += `/${p.name}`
       break
     }
     case Routes.Project: {

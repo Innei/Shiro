@@ -41,12 +41,27 @@ const TagsModal = () => {
   })
 
   const { present } = useModalStack()
-  const handleTagClick = useCallback((tag: TagModel) => {
-    present({
-      content: () => <TagDetailModal {...tag} />,
-      title: `Tag: ${tag.name}`,
-    })
-  }, [])
+  const handleTagClick = useCallback(
+    (tag: TagModel) => {
+      present({
+        content: () => <TagDetailModal {...tag} />,
+        title: (
+          <div className="flex items-center gap-2">
+            Tag: {tag.name}
+            <a
+              target="_blank"
+              href={routeBuilder(Routes.Tag, { name: tag.name })}
+              aria-label={`Go to ${tag.name} tag detail`}
+              rel="noreferrer"
+            >
+              <i className="icon-[mingcute--arrow-right-up-line] translate-y-[2px] opacity-70" />
+            </a>
+          </div>
+        ),
+      })
+    },
+    [present],
+  )
   if (isLoading) return <Loading />
   if (!data) return <EmptyIcon />
   return (

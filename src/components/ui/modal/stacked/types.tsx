@@ -1,8 +1,8 @@
-import type { FC, PropsWithChildren } from 'react'
+import type { FC, PropsWithChildren, ReactNode } from 'react'
 import type { ModalContentPropsInternal } from './context'
 
 export interface ModalProps {
-  title: string
+  title: ReactNode
   CustomModalComponent?: FC<PropsWithChildren>
   content: FC<ModalContentPropsInternal>
   clickOutsideToDismiss?: boolean
