@@ -90,7 +90,7 @@ export type RouteParams<T extends Routes> = T extends Routes.Home
                       ? OnlyId
                       : T extends Routes.Tag
                         ? Tag
-                        : Noop
+                        : {}
 
 export function routeBuilder<T extends Routes>(
   route: T,
