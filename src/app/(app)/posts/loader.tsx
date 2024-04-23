@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import type { Pager } from '@mx-space/api-client'
 import type { FC } from 'react'
 
-import { PostItem } from '~/components/modules/post'
+import { PostCompactItem, PostLooseItem } from '~/components/modules/post'
 import { LoadMoreIndicator } from '~/components/modules/shared/LoadMoreIndicator'
 import { Loading } from '~/components/ui/loading'
 import { BottomToUpTransitionView } from '~/components/ui/transition'
@@ -18,6 +18,7 @@ export const PostLoadMore: FC<{ pagination: Pager }> = ({ pagination }) => {
   const sortBy = searchParams.get('sortBy')
   const orderBy = searchParams.get('orderBy')
 
+  const viewMode = searchParams.get('view_mode') || 'loose'
   const { fetchNextPage, hasNextPage, data, isLoading } = useInfiniteQuery({
     queryKey: ['post-list', sortBy, orderBy, initialPageParam.currentPage],
     queryFn: async ({ pageParam }) => {
@@ -53,7 +54,11 @@ export const PostLoadMore: FC<{ pagination: Pager }> = ({ pagination }) => {
                 as="li"
                 delay={index * 100}
               >
-                <PostItem data={item} />
+                {viewMode === 'loose' ? (
+                  <PostLooseItem data={item} />
+                ) : (
+                  <PostCompactItem data={item} />
+                )}
               </BottomToUpTransitionView>
             )
           })

@@ -23,6 +23,7 @@ export interface IHeaderMenu {
   icon?: ReactNode
   subMenu?: Omit<IHeaderMenu, 'exclude'>[]
   exclude?: string[]
+  search?: Record<string, string>
 }
 export const headerMenuConfig: IHeaderMenu[] = [
   {

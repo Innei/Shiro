@@ -1,6 +1,6 @@
 'use client'
 
-import React, { memo } from 'react'
+import React, { memo, useMemo } from 'react'
 import clsx from 'clsx'
 import {
   AnimatePresence,
@@ -159,8 +159,13 @@ const HeaderMenuItem = memo<{
   subItemActive?: IHeaderMenu
   iconLayout?: boolean
 }>(({ section, isActive, subItemActive, iconLayout }) => {
-  const href = section.path
-
+  const href = useMemo(() => {
+    let href = section.path
+    if (section.search) {
+      href += `?${new URLSearchParams(section.search).toString()}`
+    }
+    return href
+  }, [section.path, section.search])
   return (
     <MenuPopover subMenu={section.subMenu} key={href}>
       <AnimatedItem

@@ -9,7 +9,9 @@ import { PostPinIcon } from '~/components/modules/post/PostPinIcon'
 import { PostItemHoverOverlay } from './PostItemHoverOverlay'
 import { PostMetaBar } from './PostMetaBar'
 
-export const PostItem = memo<{ data: PostModel }>(function PostItem({ data }) {
+export const PostLooseItem = memo<{ data: PostModel }>(function PostLooseItem({
+  data,
+}) {
   const displayText =
     data.text.length > 300
       ? `${RemoveMarkdown(data.text.slice(0, 300))}...`
@@ -61,3 +63,37 @@ export const PostItem = memo<{ data: PostModel }>(function PostItem({ data }) {
     </Link>
   )
 })
+
+export const PostCompactItem = memo<{ data: PostModel }>(
+  function PostCompactItem({ data }) {
+    const categorySlug = data.category?.slug
+    const postLink = `/posts/${categorySlug}/${data.slug}`
+
+    return (
+      <Link
+        href={postLink}
+        className="relative flex flex-col py-8 focus-visible:!shadow-none"
+      >
+        <PostItemHoverOverlay />
+        <h2 className="relative text-balance break-words text-2xl font-medium">
+          {data.title}
+
+          <PostPinIcon pin={!!data.pin} id={data.id} />
+        </h2>
+        <div className="relative mt-4 space-y-2">
+          <div className="relative overflow-hidden text-justify">
+            {data.summary && (
+              <p className="mb-2 break-all leading-loose text-gray-800/90 dark:text-gray-200/90">
+                {data.summary}
+              </p>
+            )}
+          </div>
+        </div>
+
+        <div className="post-meta-bar flex select-none flex-wrap items-center justify-end gap-4 text-base-content/60">
+          <PostMetaBar meta={data} />
+        </div>
+      </Link>
+    )
+  },
+)

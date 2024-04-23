@@ -78,6 +78,10 @@ declare global {
     }
 
     signature: Signature
+
+    posts: {
+      mode: 'loose' | 'compact'
+    }
   }
   export interface Donate {
     enable: boolean
@@ -92,4 +96,5 @@ declare global {
     svg: string
   }
 }
+
 export {}

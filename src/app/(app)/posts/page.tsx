@@ -1,8 +1,11 @@
 /* eslint-disable react/display-name */
 import { NormalContainer } from '~/components/layout/container/Normal'
-import { PostsSortingFab } from '~/components/modules/post/fab/PostsSortingFab'
+import { PostsSettingFab } from '~/components/modules/post/fab/PostsSettingsFab'
 import { PostTagsFAB } from '~/components/modules/post/fab/PostTagsFAB'
-import { PostItem } from '~/components/modules/post/PostItem'
+import {
+  PostCompactItem,
+  PostLooseItem,
+} from '~/components/modules/post/PostItem'
 import { PostPagination } from '~/components/modules/post/PostPagination'
 import { NothingFound } from '~/components/modules/shared/NothingFound'
 import { SearchFAB } from '~/components/modules/shared/SearchFAB'
@@ -20,12 +23,14 @@ interface Props {
   size?: string
   sortBy?: string
   orderBy?: string
+  view_mode?: string
 }
 
 export const metadata = {
   title: '文章列表',
 }
 
+export const revalidate = 600
 export default definePrerenderPage<Props>()({
   fetcher: async (params) => {
     const { page, size, orderBy, sortBy } = params || {}
@@ -40,7 +45,7 @@ export default definePrerenderPage<Props>()({
   Component: async (props) => {
     const { params, fetchedAt } = props
     const { data, pagination } = props.data
-    const { page } = params
+    const { page, view_mode = 'loose' } = params
 
     const currentPage = page ? parseInt(page) : 1
 
@@ -59,7 +64,11 @@ export default definePrerenderPage<Props>()({
                 as="li"
                 delay={index * 100}
               >
-                <PostItem data={item} />
+                {view_mode === 'loose' ? (
+                  <PostLooseItem data={item} />
+                ) : (
+                  <PostCompactItem data={item} />
+                )}
               </BottomToUpTransitionView>
             )
           })}
@@ -71,7 +80,7 @@ export default definePrerenderPage<Props>()({
           pagination.hasNextPage && <PostLoadMore pagination={pagination} />
         )}
 
-        <PostsSortingFab />
+        <PostsSettingFab />
         <PostTagsFAB />
         <SearchFAB />
         <OnlyDesktop>

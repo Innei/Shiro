@@ -4,7 +4,10 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 
 import { cloneDeep } from '~/lib/lodash'
-import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
+import {
+  useAggregationSelector,
+  useAppConfigSelector,
+} from '~/providers/root/aggregation-data-provider'
 
 import { headerMenuConfig as baseHeaderMenuConfig } from '../config'
 
@@ -20,6 +23,10 @@ export const HeaderDataConfigureProvider: Component = ({ children }) => {
   const categories = useAggregationSelector(
     (aggregationData) => aggregationData.categories,
   )
+  const postListViewMode = useAppConfigSelector(
+    (appConfig) => appConfig.module?.posts?.mode,
+  )
+
   const [headerMenuConfig, setHeaderMenuConfig] = useState(baseHeaderMenuConfig)
 
   useEffect(() => {
@@ -53,6 +60,24 @@ export const HeaderDataConfigureProvider: Component = ({ children }) => {
 
     setHeaderMenuConfig(nextMenuConfig)
   }, [categories, pageMeta])
+
+  useEffect(() => {
+    setHeaderMenuConfig((config) => {
+      const postIndex = config.findIndex((item) => item.type === 'Post')
+
+      if (postIndex != -1 && postListViewMode) {
+        // post.search
+        config[postIndex] = {
+          ...config[postIndex],
+          search: {
+            ...config[postIndex].search,
+            view_mode: postListViewMode,
+          },
+        }
+      }
+      return [...config]
+    })
+  }, [postListViewMode])
 
   return (
     <HeaderMenuConfigContext.Provider
