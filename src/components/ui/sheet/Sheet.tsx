@@ -9,7 +9,7 @@ export interface PresentSheetProps {
   content: ReactNode | FC
   open?: boolean
   onOpenChange?: (value: boolean) => void
-  title?: string
+  title?: ReactNode
   zIndex?: number
   dismissible?: boolean
   defaultOpen?: boolean
