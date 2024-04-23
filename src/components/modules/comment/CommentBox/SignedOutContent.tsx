@@ -26,7 +26,10 @@ export function CommentBoxSignedOutContent() {
       >
         免登录评论
       </StyledButton>
-      <SignInButton mode="modal" redirectUrl={urlBuilder(pathname).href}>
+      <SignInButton
+        mode="modal"
+        fallbackRedirectUrl={urlBuilder(pathname).href}
+      >
         <StyledButton
           onClick={() => {
             dismissAll()
