@@ -1,9 +1,9 @@
 'use client'
 
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import clsx from 'clsx'
 import { atom, useAtom } from 'jotai'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import type { PostsParams } from '~/lib/route-builder'
 
 import { FABPortable } from '~/components/ui/fab'
@@ -31,7 +31,6 @@ type OrderByValues = {
 type ViewMode = 'loose' | 'compact'
 const sortByAtom = atom<SortBy>('default')
 const orderByAtom = atom<OrderBy>('desc')
-const viewModeAtom = atom<ViewMode>('loose')
 
 const SortingAndOrdering = () => {
   const [sortBy, setSortBy] = useAtom(sortByAtom)
@@ -121,9 +120,11 @@ const SortingAndOrdering = () => {
 }
 
 export const PostsSettingFab = () => {
-  const [viewMode, setViewMode] = useAtom(viewModeAtom)
-
   const setSearch = useSetSearchParams()
+  const searchParams = useSearchParams()
+  const [viewMode, setViewMode] = useState(
+    searchParams.get('view_mode') || ('loose' as ViewMode),
+  )
   useEffect(() => {
     setSearch('view_mode', viewMode)
   }, [viewMode])
