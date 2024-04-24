@@ -21,17 +21,20 @@ export const useMenuOpacity = () => {
 export const useMenuVisibility = () => useMenuOpacity() > 0
 
 export const useHeaderBgOpacity = () => {
-  const threshold = 50
+  const threshold = 84 + 63 + 50
+  const distance = 50
   const isMobile = useIsMobile()
   const headerShouldShowBg = useHeaderShouldShowBg() || isMobile
 
   return usePageScrollLocationSelector(
-    (y) =>
-      headerShouldShowBg
-        ? y >= threshold
+    (y) => {
+      if (y < threshold) return 0
+      return headerShouldShowBg
+        ? y >= distance + threshold
           ? 1
-          : Math.floor((y / threshold) * 100) / 100
-        : 0,
+          : Math.floor(((y - threshold) / distance) * 100) / 100
+        : 0
+    },
     [headerShouldShowBg],
   )
 }
