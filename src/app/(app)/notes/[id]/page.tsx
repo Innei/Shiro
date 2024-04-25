@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 /* eslint-disable react/display-name */
-import { Suspense } from 'react'
 import type { NoteModel } from '@mx-space/api-client'
 import type { Metadata } from 'next'
 
@@ -192,9 +191,7 @@ export default definePrerenderPage<NoteDetailPageParams>()({
         <RoomProvider roomName={buildRoomName(data.data.id)}>
           <Transition className="min-w-0" lcpOptimization>
             <Paper key={nid} as={NoteMainContainer}>
-              <Suspense>
-                <PageInner data={data.data} />
-              </Suspense>
+              <PageInner data={data.data} />
             </Paper>
             <BottomToUpSoftScaleTransitionView delay={500}>
               <CommentAreaRootLazy
