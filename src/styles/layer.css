@@ -105,9 +105,9 @@
     & > li::before {
       content: '';
       position: absolute;
-      left: -1.05rem;
+      left: -17px;
       bottom: 0;
-      border-left: 1px solid theme(colors.accent);
+      border-left: 2px solid theme(colors.accent);
     }
 
     & > li:first-child:last-child::before {
@@ -138,11 +138,11 @@
 
     & > li::after {
       content: '';
-      left: -1.28rem;
+      left: calc(-1rem - 6px);
       top: 50%;
       transform: translateY(-50%);
-      height: 0.5rem;
-      width: 0.5rem;
+      height: 8px;
+      width: 8px;
       border-radius: 50%;
       position: absolute;
       background-color: theme(colors.accent);
