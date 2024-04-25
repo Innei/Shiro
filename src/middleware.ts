@@ -31,17 +31,6 @@ export default async function middleware(req: NextRequest) {
     }
   }
 
-  // console.debug(`${req.method} ${req.nextUrl.pathname}${req.nextUrl.search}`)
-
-  if (
-    pathname.startsWith('/api/') ||
-    pathname.match(/^\/(workbox|worker|fallback)-\w+\.js(\.map)?$/) ||
-    pathname === '/sw.js' ||
-    pathname === '/sw.js.map'
-  ) {
-    return NextResponse.next()
-  }
-
   // https://github.com/vercel/next.js/issues/46618#issuecomment-1450416633
   const requestHeaders = new Headers(req.headers)
   requestHeaders.set(REQUEST_PATHNAME, pathname)
@@ -76,4 +65,19 @@ export default async function middleware(req: NextRequest) {
       headers: requestHeaders,
     },
   })
+}
+
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    // '/((?!api|_next/static|_next/image|favicon.ico|sw.js).*)',
+    // DISABLE
+    '/nothing',
+  ],
 }

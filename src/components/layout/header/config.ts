@@ -53,12 +53,12 @@ export const headerMenuConfig: IHeaderMenu[] = [
     path: '/timeline',
     subMenu: [
       {
-        title: '生活',
+        title: '手记',
         icon: h(FaSolidFeatherAlt),
         path: '/timeline?type=note',
       },
       {
-        title: '博文',
+        title: '文稿',
         icon: h(IonBook),
         path: '/timeline?type=post',
       },

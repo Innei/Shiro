@@ -4,7 +4,7 @@ import { config } from 'dotenv'
 
 import NextBundleAnalyzer from '@next/bundle-analyzer'
 
-import pkg from './package.json' assert { type: 'json' }
+import pkg from './package.json' with { type: 'json' }
 
 process.title = 'Shiro (NextJS)'
 
