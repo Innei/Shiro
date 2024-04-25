@@ -85,7 +85,7 @@ export default definePrerenderPage<PageParams>()({
           data-server-fetched-at={fetchedAt}
           className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid"
         >
-          <BottomToUpTransitionView lcpOptimization className="min-w-0">
+          <BottomToUpTransitionView className="min-w-0">
             <RoomProvider roomName={buildRoomName(data.id)}>
               <Suspense>{props.children}</Suspense>
             </RoomProvider>

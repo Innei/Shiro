@@ -40,6 +40,7 @@ export default definePrerenderPage<Props>()({
     return await apiClient.post.getList(currentPage, currentSize, {
       sortBy: sortBy as any,
       sortOrder: orderBy === 'desc' ? -1 : 1,
+      truncate: 310,
     })
   },
   Component: async (props) => {
