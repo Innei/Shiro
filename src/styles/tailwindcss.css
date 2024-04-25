@@ -44,23 +44,6 @@ html body {
   outline: 0 !important;
   box-shadow: theme(colors.accent) 0px 0px 0px 1px;
 }
-
-html.noise body::before {
-  position: fixed;
-  inset: 0;
-  content: '';
-  opacity: 0.04;
-  background-repeat: repeat;
-  filter: blur(3px);
-}
-
-@media print {
-  /* styles for print */
-  html.noise body::before {
-    display: none;
-  }
-}
-
 * {
   tab-size: 2;
 }
