@@ -15,6 +15,11 @@ export const HeaderDrawerContent = () => {
   return (
     <div className="scrollbar-none mt-12 max-h-[80dvh] w-[90vw] space-y-4 overflow-auto pb-24">
       {config.map((section, index) => {
+        let href = section.path
+        if (section.search) {
+          href += `?${new URLSearchParams(section.search).toString()}`
+        }
+
         return (
           <m.section
             initial={{ y: 30, opacity: 0 }}
@@ -23,9 +28,9 @@ export const HeaderDrawerContent = () => {
               ...reboundPreset,
               delay: index * 0.08,
             }}
-            key={section.path}
+            key={href}
           >
-            <LinkInternal className="block" href={section.path}>
+            <LinkInternal className="block" href={href}>
               <span className="flex items-center space-x-2 py-2 text-lg">
                 <i>{section.icon}</i>
                 <h2>{section.title}</h2>
