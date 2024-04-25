@@ -48,11 +48,16 @@ const useJumpTo = () => {
 
       if (!target) return
 
+      const $a = target.querySelector('a')
+
+      $a?.classList.add('no-shadow')
       springScrollToElement(target, -500).then(() => {
         target.animate(
           [
             {
-              backgroundColor: 'hsl(var(--a) / 50)',
+              backgroundColor: getComputedStyle(
+                document.documentElement,
+              ).getPropertyValue('accent-color'),
             },
             {
               backgroundColor: 'transparent',
@@ -64,7 +69,7 @@ const useJumpTo = () => {
             fill: 'both',
             iterations: 1,
           },
-        )
+        ).onfinish = () => $a?.classList.remove('no-shadow')
       })
 
       // wait for user focus
