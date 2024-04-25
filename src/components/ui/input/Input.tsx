@@ -24,7 +24,7 @@ export const Input = forwardRef<
         'focus:border-accent/80 dark:text-zinc-200 dark:placeholder:text-zinc-500',
         props.type === 'password'
           ? 'font-mono placeholder:font-sans'
-          : 'font-[system-ui]',
+          : 'font-sans',
         className,
       )}
       {...props}

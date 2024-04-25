@@ -63,6 +63,7 @@ export const definePrerenderPage =
     } = options
     return async (props: any) => {
       const { params, searchParams } = props as NextPageParams<Params, any>
+
       try {
         attachServerFetch()
         const data = await fetcher({

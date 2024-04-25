@@ -1,9 +1,7 @@
 import 'server-only'
 
-import { headers } from 'next/dist/client/components/headers'
+import { headers } from 'next/headers'
 import uniqolor from 'uniqolor'
-
-import { REQUEST_HOST } from '~/constants/system'
 
 import { isDev } from './env'
 
@@ -25,15 +23,9 @@ export function escapeXml(unsafe: string) {
   })
 }
 
-export const getHost = () => {
-  const header = headers()
-  const host = header.get(REQUEST_HOST)
-
-  return host
-}
-
 export const getOgUrl = (type: 'post' | 'note' | 'page', data: any) => {
-  const ogUrl = new URL(`${isDev ? 'http' : 'https'}://${getHost()}/og`)
+  const host = headers().get('host')
+  const ogUrl = new URL(`${isDev ? 'http' : 'https'}://${host}/og`)
   ogUrl.searchParams.set(
     'data',
     encodeURIComponent(
