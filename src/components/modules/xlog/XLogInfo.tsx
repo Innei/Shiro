@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { clsx } from 'clsx'
-import type { FC, SVGProps } from 'react'
+import type { FC, JSX, SVGProps } from 'react'
 import type { XLogMeta } from './types'
 
 import { CollapseContent } from '~/components/ui/collapse'

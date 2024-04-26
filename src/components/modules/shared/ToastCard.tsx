@@ -2,7 +2,7 @@
 
 import clsx from 'clsx'
 import { m } from 'framer-motion'
-import type { FC } from 'react'
+import type { FC, JSX } from 'react'
 import type { ToastProps, TypeOptions } from 'react-toastify/dist/types'
 
 import { MotionButtonBase } from '../../ui/button'
