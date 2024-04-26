@@ -6,7 +6,6 @@ import type { NextRequest } from 'next/server'
 
 import { NextServerResponse } from '~/lib/edge-function.server'
 
-export const runtime = 'edge'
 export const revalidate = 86400 // 24 hours
 export const GET = async (req: NextRequest) => {
   const pathname = req.nextUrl.pathname.split('/').slice(3)

@@ -14,7 +14,6 @@ const requestHeader = new Headers()
 for (const [key, value] of Object.entries(headers)) {
   requestHeader.set(key, value)
 }
-export const runtime = 'edge'
 
 export const revalidate = 10
 
