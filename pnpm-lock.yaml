@@ -78,8 +78,8 @@ importers:
         specifier: 7.3.6
         version: 7.3.6(@milkdown/core@7.3.6(@milkdown/ctx@7.3.6)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.6(@milkdown/prose@7.3.6)))(@milkdown/ctx@7.3.6)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.6(@milkdown/prose@7.3.6))
       '@mx-space/api-client':
-        specifier: 1.11.2
-        version: 1.11.2
+        specifier: 1.12.0
+        version: 1.12.0
       '@openpanel/nextjs':
         specifier: 0.0.8-beta
         version: 0.0.8-beta(next@14.2.3(@babel/core@7.24.4)(react-dom@18.3.0(react@18.3.0))(react@18.3.0))(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
@@ -1197,8 +1197,8 @@ packages:
       '@milkdown/prose': ^7.2.0
       '@milkdown/transformer': ^7.2.0
 
-  '@mx-space/api-client@1.11.2':
-    resolution: {integrity: sha512-mLLtPwWjBQuuUSmwfvXgcCY8ooo93ThvyRRH32kY+RcNU0ANCTZs+whxuVrDb/cs6lIDlJKHLzeFzjxE4n04Sg==}
+  '@mx-space/api-client@1.12.0':
+    resolution: {integrity: sha512-hfE0Fci+dIurbQiEVQIq/2PPPuL9y8WvjM9efknL8ekm0KvinwgyskS297vejWUe/GewaVo9/9Ns7eH0uSHjCw==}
 
   '@mx-space/webhook@0.3.0':
     resolution: {integrity: sha512-BWNY6ekY3BoByPHzhQafGMe8w/UGNmZij3EZ6I7a+XR1iqaLb49tnN+BYfEWmDhWZ/f8nPHVcIP5eIHMoluwfg==}
@@ -6809,7 +6809,7 @@ snapshots:
       nanoid: 5.0.7
       tslib: 2.6.2
 
-  '@mx-space/api-client@1.11.2': {}
+  '@mx-space/api-client@1.12.0': {}
 
   '@mx-space/webhook@0.3.0': {}
 

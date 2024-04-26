@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 /* eslint-disable react/display-name */
+import { headers } from 'next/headers'
 import type { NoteModel } from '@mx-space/api-client'
 import type { Metadata } from 'next'
 
@@ -35,10 +36,12 @@ import { Signature } from '~/components/modules/shared/Signature'
 import { SummarySwitcher } from '~/components/modules/shared/SummarySwitcher'
 import { TocFAB } from '~/components/modules/toc/TocFAB'
 import { XLogInfoForNote } from '~/components/modules/xlog'
+import { getCidForBaseModel } from '~/components/modules/xlog/utils'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
+import { apiClient } from '~/lib/request'
 import { definePrerenderPage } from '~/lib/request.server'
 import {
   CurrentNoteDataProvider,
@@ -65,6 +68,24 @@ import {
 import { Transition } from './Transition'
 
 async function PageInner({ data }: { data: NoteModel }) {
+  const acceptLang = headers().get('accept-language')
+  const { summary } = await apiClient.ai
+    .getSummary({
+      articleId: data.id,
+      onlyDb: true,
+      lang: acceptLang || undefined,
+    })
+    .then(() => {
+      return {
+        summary: '',
+      }
+    })
+    .catch(() => {
+      return {
+        summary: false,
+      }
+    })
+
   return (
     <>
       <AckRead id={data.id} type="note" />
@@ -92,7 +113,13 @@ async function PageInner({ data }: { data: NoteModel }) {
         </header>
 
         <NoteHideIfSecret>
-          <SummarySwitcher data={data} />
+          <SummarySwitcher
+            articleId={data.id!}
+            enabledMixSpaceSummary={summary !== false}
+            cid={getCidForBaseModel(data)}
+            hydrateText={summary as string}
+            className="mb-8"
+          />
           <WrappedElementProvider eoaDetect>
             <Presence />
             <ReadIndicatorForMobile />

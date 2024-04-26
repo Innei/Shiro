@@ -8,35 +8,34 @@ import { clsxm } from '~/lib/helper'
 
 import { AISummary } from '../ai/Summary'
 import { XLogSummary } from '../xlog'
-import { getCidForBaseModel } from '../xlog/utils'
 
 export const SummarySwitcher: FC<
   AiSummaryProps & {
     summary?: string
+    /**
+     * xlog cid
+     */
+    cid?: string
+
+    enabledMixSpaceSummary?: boolean
   }
 > = memo((props) => {
-  const { enabled, providers } = appStaticConfig.ai.summary
-  const { data, summary } = props
-  const cid = getCidForBaseModel(data)
-
-  const finalSummary = 'summary' in data ? data.summary : summary
-  if (finalSummary && finalSummary.trim().length)
-    return <ManualSummary className="my-4" summary={finalSummary} />
+  const { enabled } = appStaticConfig.ai.summary
+  const { summary, cid, articleId, hydrateText, enabledMixSpaceSummary } = props
+  if (summary && summary.trim().length)
+    return <ManualSummary className="my-4" summary={summary} />
 
   if (!enabled) return null
 
   let comp: any
 
-  for (const provider of providers) {
-    if (comp) break
-    switch (provider) {
-      case 'xlog':
-        if (cid) comp = <XLogSummary cid={cid} />
-        break
-      case 'openai':
-        if (!process.env.OPENAI_API_KEY) break
-        if (data) comp = <AISummary data={data} />
-    }
+  switch (true) {
+    case enabledMixSpaceSummary:
+      comp = <AISummary articleId={articleId} hydrateText={hydrateText} />
+      break
+    case !!cid:
+      comp = <XLogSummary cid={cid} />
+      break
   }
 
   if (!comp) return null

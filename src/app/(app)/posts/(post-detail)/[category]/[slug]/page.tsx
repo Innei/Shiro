@@ -1,3 +1,4 @@
+import { headers } from 'next/headers'
 import type { PageParams } from './api'
 
 import { AckRead } from '~/components/common/AckRead'
@@ -15,6 +16,8 @@ import { GoToAdminEditingButton } from '~/components/modules/shared/GoToAdminEdi
 import { ReadIndicatorForMobile } from '~/components/modules/shared/ReadIndicator'
 import { SummarySwitcher } from '~/components/modules/shared/SummarySwitcher'
 import { XLogInfoForPost } from '~/components/modules/xlog'
+import { getCidForBaseModel } from '~/components/modules/xlog/utils'
+import { apiClient } from '~/lib/request'
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
@@ -31,8 +34,25 @@ import {
 export const dynamic = 'force-dynamic'
 
 const PostPage = async ({ params }: { params: PageParams }) => {
+  const acceptLang = headers().get('accept-language')
   const data = await getData(params)
   const { id } = data
+  const { summary } = await apiClient.ai
+    .getSummary({
+      articleId: id,
+      onlyDb: true,
+      lang: acceptLang || undefined,
+    })
+    .then(() => {
+      return {
+        summary: '',
+      }
+    })
+    .catch(() => {
+      return {
+        summary: false,
+      }
+    })
 
   return (
     <div className="relative w-full min-w-0">
@@ -49,7 +69,14 @@ const PostPage = async ({ params }: { params: PageParams }) => {
 
           <PostMetaBarInternal className="mb-8 justify-center" />
 
-          <SummarySwitcher data={data} />
+          <SummarySwitcher
+            articleId={id!}
+            enabledMixSpaceSummary={summary !== false}
+            cid={getCidForBaseModel(data)}
+            hydrateText={summary as string}
+            summary={data.summary || ''}
+            className="mb-8"
+          />
           <PostOutdate />
 
           <PostRelated infoText="阅读此文章之前，你可能需要首先阅读以下的文章才能更好的理解上下文。" />
