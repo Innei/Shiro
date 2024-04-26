@@ -27,11 +27,26 @@ export const MarkdownImage = (props: { src: string; alt?: string }) => {
   const { w } = useWrappedElementSize()
 
   const ext = src.split('.').pop()!
+  const mediaInfo = useMarkdownImageRecord(src)
+
   if (isVideoExt(ext)) {
     const figcaption = alt?.replace(/^[¡!]/, '')
     return (
       <div className="flex flex-col items-center">
-        <video src={src} controls playsInline autoPlay={false} />
+        <video
+          src={src}
+          className={mediaInfo && 'fit'}
+          style={
+            {
+              '--video-height': mediaInfo?.height,
+              '--video-width': mediaInfo?.width,
+            } as any
+          }
+          controls
+          playsInline
+          autoPlay={false}
+        />
+
         {figcaption && (
           <p className="mt-1 flex flex-col items-center justify-center text-sm">
             <Divider className="w-[80px] opacity-80" />

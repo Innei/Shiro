@@ -43,3 +43,12 @@ html[data-theme='dark'] .shiki span {
   font-weight: var(--shiki-dark-font-weight) !important;
   text-decoration: var(--shiki-dark-text-decoration) !important;
 }
+/* https://stackoverflow.com/questions/10826784/make-html5-video-poster-be-same-size-as-video-itself */
+video.fit {
+  --video-width: 426;
+  --video-height: 240;
+  aspect-ratio: var(--video-width) / var(--video-height);
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}

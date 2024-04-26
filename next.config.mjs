@@ -34,6 +34,7 @@ let nextConfig = {
     COMMIT_HASH: commitHash,
     COMMIT_URL: commitUrl,
   },
+
   reactStrictMode: true,
   productionBrowserSourceMaps: false,
   output: 'standalone',
@@ -48,6 +49,7 @@ let nextConfig = {
   },
 
   images: {
+    unoptimized: process.env.VERCEL ? false : true,
     remotePatterns: [
       {
         protocol: 'https',
