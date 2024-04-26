@@ -6,7 +6,7 @@ import {
 } from './react-query-provider'
 import { LazyMotion } from 'framer-motion'
 import { ThemeProvider } from 'next-themes'
-import type { PropsWithChildren } from 'react'
+import type { JSX, PropsWithChildren } from 'react'
 
 import { PeekPortal } from '~/components/modules/peek/PeekPortal'
 import { ModalStackProvider } from '~/components/ui/modal'

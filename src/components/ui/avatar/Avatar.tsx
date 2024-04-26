@@ -1,7 +1,7 @@
 'use client'
 
 import React, { createElement, useMemo, useRef, useState } from 'react'
-import type { DetailedHTMLProps, FC, ImgHTMLAttributes } from 'react'
+import type { DetailedHTMLProps, FC, ImgHTMLAttributes, JSX } from 'react'
 
 import { useIsDark } from '~/hooks/common/use-is-dark'
 import { getColorScheme, stringToHue } from '~/lib/color'

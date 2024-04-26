@@ -1,3 +1,5 @@
+import type { JSX } from 'react'
+
 import { clsxm } from '~/lib/helper'
 
 export const Paper: Component<{

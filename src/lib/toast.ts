@@ -1,5 +1,6 @@
 import { createElement } from 'react'
 import { toast as Toast } from 'react-toastify'
+import type { JSX } from 'react'
 import type { Id, ToastOptions, TypeOptions } from 'react-toastify'
 
 import { ToastCard } from '~/components/modules/shared/ToastCard'

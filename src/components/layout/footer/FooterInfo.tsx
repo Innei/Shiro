@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import type { JSX } from 'react'
 import type { FooterConfig } from './config'
 
 import { fetchAggregationData } from '~/app/(app)/api'
