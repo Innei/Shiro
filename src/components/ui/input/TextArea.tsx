@@ -41,6 +41,7 @@ export const TextArea = forwardRef<
     children,
     rounded = 'xl',
     bordered = true,
+    onCmdEnter,
     ...rest
   } = props
   const mouseX = useMotionValue(0)
@@ -113,7 +114,7 @@ export const TextArea = forwardRef<
         {...inputProps}
         onKeyDown={(e) => {
           if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-            props.onCmdEnter?.(e)
+            onCmdEnter?.(e)
           }
           rest.onKeyDown?.(e)
           inputProps.onKeyDown?.(e)
