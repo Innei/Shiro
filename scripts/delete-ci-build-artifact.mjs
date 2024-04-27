@@ -1,8 +1,6 @@
 import { $fetch } from 'ofetch'
 
-const gh_token =
-  process.env.GH_TOKEN ||
-  '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'
+const gh_token = process.env.GH_TOKEN
 
 const namespace = 'innei-dev/Shiroi'
 

@@ -25,7 +25,7 @@ import {
   BottomToUpTransitionView,
   TextUpTransitionView,
 } from '~/components/ui/transition'
-import { microReboundPreset, softBouncePreset } from '~/constants/spring'
+import { softBouncePreset } from '~/constants/spring'
 import { clsxm } from '~/lib/helper'
 import { noopObj } from '~/lib/noop'
 import { registerPushWorker } from '~/lib/push-worker'
@@ -38,6 +38,7 @@ import {
 
 import { ActivityPostList } from './components/ActivityPostList'
 import { ActivityRecent } from './components/ActivityRecent'
+import { HomePageTimeLine } from './components/timeline'
 
 export default function Home() {
   useEffect(() => {
@@ -47,6 +48,7 @@ export default function Home() {
     <div>
       <Hero />
       <ActivityScreen />
+      <HomePageTimeLine />
       <Windsock />
     </div>
   )
@@ -299,15 +301,8 @@ const Windsock = () => {
                 transition={{
                   delay: 0.001,
                 }}
-                whileHover={{
-                  y: -10,
-                  transition: {
-                    ...microReboundPreset,
-                    delay: 0.001,
-                  },
-                }}
                 key={index}
-                className="flex items-center justify-between text-sm"
+                className="flex items-center justify-between text-sm duration-200 hover:!-translate-y-2"
               >
                 <a
                   href={item.path}
