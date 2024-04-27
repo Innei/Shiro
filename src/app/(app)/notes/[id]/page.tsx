@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 /* eslint-disable react/display-name */
+import { Suspense } from 'react'
 import { headers } from 'next/headers'
 import type { NoteModel } from '@mx-space/api-client'
 import type { Metadata } from 'next'
@@ -67,7 +68,7 @@ import {
 } from './pageExtra'
 import { Transition } from './Transition'
 
-async function PageInner({ data }: { data: NoteModel }) {
+const Summary = async ({ data }: { data: NoteModel }) => {
   const acceptLang = headers().get('accept-language')
   const { summary } = await apiClient.ai
     .getSummary({
@@ -85,7 +86,17 @@ async function PageInner({ data }: { data: NoteModel }) {
         summary: false,
       }
     })
-
+  return (
+    <SummarySwitcher
+      articleId={data.id!}
+      enabledMixSpaceSummary={summary !== false}
+      cid={getCidForBaseModel(data)}
+      hydrateText={summary as string}
+      className="mb-8"
+    />
+  )
+}
+async function PageInner({ data }: { data: NoteModel }) {
   return (
     <>
       <AckRead id={data.id} type="note" />
@@ -113,13 +124,9 @@ async function PageInner({ data }: { data: NoteModel }) {
         </header>
 
         <NoteHideIfSecret>
-          <SummarySwitcher
-            articleId={data.id!}
-            enabledMixSpaceSummary={summary !== false}
-            cid={getCidForBaseModel(data)}
-            hydrateText={summary as string}
-            className="mb-8"
-          />
+          <Suspense>
+            <Summary data={data} />
+          </Suspense>
           <WrappedElementProvider eoaDetect>
             <Presence />
             <ReadIndicatorForMobile />

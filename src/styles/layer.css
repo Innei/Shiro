@@ -1,9 +1,4 @@
-@media print {
-  /* styles for print */
-  html.noise body::before {
-    display: none;
-  }
-}
+@tailwind components;
 
 @layer components {
   /* Extend Tailwind classnames */
@@ -77,9 +72,7 @@
     background-size: 0% 1.5px;
     background-repeat: no-repeat;
     /* NOTE: this won't work with background images   */
-    text-shadow:
-      0.05em 0 theme(colors.base-100),
-      -0.05em 0 theme(colors.base-100);
+
     transition: all 500ms ease;
 
     @apply border-0 no-underline;
@@ -88,6 +81,9 @@
 
     &:hover {
       background-size: 100% 1.5px;
+      text-shadow:
+        0.05em 0 theme(colors.base-100),
+        -0.05em 0 theme(colors.base-100);
 
       transition: all 250ms ease;
     }
@@ -297,5 +293,45 @@
     50% {
       transform: rotate(20deg);
     }
+  }
+}
+
+@layer components {
+  .content-auto {
+    content-visibility: auto;
+  }
+
+  .shadow-out-sm {
+    box-shadow:
+      0 0 10px rgba(120, 120, 120, 0.1),
+      0 5px 20px rgba(120, 120, 120, 0.2);
+  }
+
+  .backface-hidden {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+  }
+
+  .center {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .fill-content {
+    min-height: calc(100vh - 17.5rem);
+  }
+
+  .card-shadow {
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.08),
+      0 4px 6px rgba(0, 0, 0, 0.04);
+  }
+
+  .card-shadow:hover {
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.08),
+      0 6px 14px rgba(0, 0, 0, 0.08);
   }
 }

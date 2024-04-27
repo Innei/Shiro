@@ -1,7 +1,6 @@
 import daisyui from 'daisyui'
 import { withTV } from 'tailwind-variants/transformer'
 import type { Config } from 'tailwindcss'
-import type { CSSRuleObject, PluginAPI } from 'tailwindcss/types/config'
 
 import { addDynamicIconSelectors } from '@iconify/tailwind'
 import typography from '@tailwindcss/typography'
@@ -292,7 +291,6 @@ const twConfig: Config = {
 
   plugins: [
     addDynamicIconSelectors(),
-    addShortcutPlugin,
 
     typography,
     daisyui,
@@ -303,39 +301,8 @@ const twConfig: Config = {
 
     require('./src/styles/theme.css'),
     require('./src/styles/layer.css'),
+    require('./src/styles/animation.css'),
   ],
-}
-
-function addShortcutPlugin({ addUtilities }: PluginAPI) {
-  const styles: CSSRuleObject = {
-    '.content-auto': {
-      'content-visibility': 'auto',
-    },
-    '.shadow-out-sm': {
-      'box-shadow':
-        '0 0 10px rgb(120 120 120 / 10%), 0 5px 20px rgb(120 120 120 / 20%)',
-    },
-    '.backface-hidden': {
-      '-webkit-backface-visibility': 'hidden',
-      '-moz-backface-visibility': 'hidden',
-      '-webkit-transform': 'translate3d(0, 0, 0)',
-      '-moz-transform': 'translate3d(0, 0, 0)',
-    },
-    '.center': {
-      'align-items': 'center',
-      'justify-content': 'center',
-    },
-    '.fill-content': {
-      'min-height': `calc(100vh - 17.5rem)`,
-    },
-    '.card-shadow': {
-      'box-shadow': '0 0 0 1px rgba(0,0,0,.08),0 4px 6px rgba(0,0,0,.04)',
-    },
-    '.card-shadow:hover': {
-      'box-shadow': '0 0 0 1px rgba(0,0,0,.08),0 6px 14px rgba(0,0,0,.08)',
-    },
-  }
-  addUtilities(styles)
 }
 
 export default withTV(twConfig)

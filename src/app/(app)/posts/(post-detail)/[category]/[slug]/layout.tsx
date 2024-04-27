@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import { redirect } from 'next/navigation'
 import type { Metadata } from 'next'
 import type { PageParams } from './api'
@@ -87,7 +87,7 @@ export default definePrerenderPage<PageParams>()({
         >
           <BottomToUpTransitionView className="min-w-0">
             <RoomProvider roomName={buildRoomName(data.id)}>
-              <Suspense>{props.children}</Suspense>
+              {props.children}
             </RoomProvider>
 
             <BottomToUpSoftScaleTransitionView delay={500}>

@@ -66,7 +66,10 @@ export const Tab: FC<{
   children: React.ReactNode
 }> = ({ label, children }) => {
   return (
-    <RadixTabs.Content value={label}>
+    <RadixTabs.Content
+      className="animate-fade animate-duration-500"
+      value={label}
+    >
       <Markdown wrapper={null} removeWrapper>
         {children as string}
       </Markdown>

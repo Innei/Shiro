@@ -4,7 +4,9 @@ import dynamic from 'next/dynamic'
 import type { FC, PropsWithChildren, ReactNode } from 'react'
 
 import { ThinkingItem } from '~/app/(app)/thinking/item'
+import { ClientOnly } from '~/components/common/ClientOnly'
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
+import { BlockLoading } from '~/components/modules/shared/BlockLoading'
 import {
   getTweetId,
   isBilibiliVideoUrl,
@@ -143,13 +145,21 @@ export const BlockLinkRenderer = ({
       return (
         <div className="w-screen max-w-full">
           <FixedRatioContainer>
-            <iframe
-              src={`//player.bilibili.com/player.html?bvid=${id}&autoplay=0`}
-              scrolling="no"
-              frameBorder="no"
-              className="absolute inset-0 size-full rounded-md border-0"
-              allowFullScreen
-            />
+            <ClientOnly
+              fallback={
+                <BlockLoading className="absolute inset-0 size-full rounded-md">
+                  哔哩哔哩视频加载中...
+                </BlockLoading>
+              }
+            >
+              <iframe
+                src={`//player.bilibili.com/player.html?bvid=${id}&autoplay=0`}
+                scrolling="no"
+                frameBorder="no"
+                className="absolute inset-0 size-full rounded-md border-0"
+                allowFullScreen
+              />
+            </ClientOnly>
           </FixedRatioContainer>
         </div>
       )
@@ -221,7 +231,7 @@ const GithubUrlRenderL: FC<{
           />
 
           <a
-            className="mt-2 flex space-x-2 center"
+            className="center mt-2 flex space-x-2"
             href={href}
             target="_blank"
             rel="noreferrer"

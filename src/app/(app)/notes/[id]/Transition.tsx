@@ -11,9 +11,10 @@ export const Transition = createTransitionView({
     translateY: 0,
     opacity: 1,
   },
+
   preset: {
     type: 'spring',
-    damping: 20,
-    stiffness: 200,
+    damping: 15,
+    stiffness: 210,
   },
 })
