@@ -8,7 +8,7 @@ import type { ModalProps } from './types'
 import { jotaiStore } from '~/lib/store'
 
 import { modalIdToPropsMap, modalStackAtom } from './context'
-import { Modal } from './modal'
+import { ModalInternal } from './modal'
 
 const useDismissAllWhenRouterChange = () => {
   const pathname = usePathname()
@@ -84,7 +84,14 @@ const ModalStack = () => {
   return (
     <AnimatePresence mode="popLayout">
       {stack.map((item, index) => {
-        return <Modal key={item.id} item={item} index={index} />
+        return (
+          <ModalInternal
+            key={item.id}
+            item={item}
+            index={index}
+            isTop={index === stack.length - 1}
+          />
+        )
       })}
     </AnimatePresence>
   )

@@ -7,7 +7,7 @@ import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
 
 import { modalStackAtom } from './context'
-import { Modal } from './modal'
+import { ModalInternal } from './modal'
 
 export interface DeclarativeModalProps extends Omit<ModalProps, 'content'> {
   open?: boolean
@@ -38,9 +38,9 @@ const DeclarativeModalImpl: FC<DeclarativeModalProps> = ({
   return (
     <AnimatePresence>
       {open && (
-        <Modal onClose={onOpenChange} index={index} item={item}>
+        <ModalInternal isTop onClose={onOpenChange} index={index} item={item}>
           {children}
-        </Modal>
+        </ModalInternal>
       )}
     </AnimatePresence>
   )

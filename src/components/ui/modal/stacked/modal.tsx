@@ -44,12 +44,19 @@ const modalTransition: Transition = {
   ...microReboundPreset,
 }
 
-export const Modal: Component<{
+export const ModalInternal: Component<{
   item: ModalProps & { id: string }
   index: number
 
+  isTop: boolean
   onClose?: (open: boolean) => void
-}> = memo(function Modal({ item, index, onClose: onPropsClose, children }) {
+}> = memo(function Modal({
+  item,
+  index,
+  onClose: onPropsClose,
+  children,
+  isTop,
+}) {
   const setStack = useSetAtom(modalStackAtom)
   const close = useEventCallback(() => {
     setStack((p) => {
@@ -107,6 +114,24 @@ export const Modal: Component<{
         })
       })
   }, [animateController])
+
+  useEffect(() => {
+    if (!isTop) {
+      animateController.start({
+        scale: 0.96,
+        y: 10,
+      })
+      return () => {
+        try {
+          animateController.stop()
+          animateController.start({
+            scale: 1,
+            y: 0,
+          })
+        } catch {}
+      }
+    }
+  }, [isTop])
 
   const modalContentRef = useRef<HTMLDivElement>(null)
   const ModalProps: ModalContentPropsInternal = useMemo(
@@ -183,7 +208,7 @@ export const Modal: Component<{
           <Dialog.Content asChild>
             <div
               className={clsxm(
-                'fixed inset-0 z-20 flex center',
+                'center fixed inset-0 z-20 flex',
                 modalContainerClassName,
               )}
               onClick={clickOutsideToDismiss ? dismiss : noticeModal}
