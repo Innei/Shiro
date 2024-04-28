@@ -2,6 +2,10 @@
 
 这是 [Shiro](https://github.com/Innei/Shiro) 闭源迭代仓库。
 
+## 手动部署方式（私有服务器）
+
+参考：https://github.com/innei-dev/shiroi-deploy-action
+
 ## 新特征
 
 相比 Shiro 开源版本上，增加了什么？
