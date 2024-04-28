@@ -35,7 +35,7 @@ export const CommentBoxAuthedInput = () => {
         className={clsx(
           'mb-2 shrink-0 select-none self-end overflow-hidden rounded-full',
           'dark:ring-zinc-800" bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800',
-          'ml-[2px] backface-hidden',
+          'backface-hidden ml-[2px]',
         )}
       >
         <img
@@ -50,7 +50,7 @@ export const CommentBoxAuthedInput = () => {
         <UniversalTextArea className="pb-5" />
       </div>
 
-      <CommentBoxActionBar className="absolute bottom-0 left-12 right-0 mb-2 ml-4 w-auto px-4" />
+      <CommentBoxActionBar className="absolute bottom-0 left-14 right-0 mb-2 ml-4 w-auto px-4" />
     </div>
   )
 }

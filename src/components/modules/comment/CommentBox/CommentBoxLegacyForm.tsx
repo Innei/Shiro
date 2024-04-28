@@ -72,7 +72,7 @@ const FormWithUserInfo = () => {
         <UniversalTextArea className="pb-8" />
       </div>
 
-      <CommentBoxActionBar className="absolute bottom-4 left-0 right-4 mb-2 ml-4 w-auto px-4" />
+      <CommentBoxActionBar className="absolute bottom-4 left-0 right-4 mb-2 ml-2 w-auto px-4" />
     </Form>
   )
 }
@@ -86,7 +86,7 @@ const LoggedForm = () => {
         className={clsx(
           'mb-2 shrink-0 select-none self-end overflow-hidden rounded-full',
           'dark:ring-zinc-800" bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800',
-          'ml-[2px] backface-hidden',
+          'backface-hidden ml-[2px]',
         )}
       >
         <Image
@@ -101,7 +101,7 @@ const LoggedForm = () => {
         <UniversalTextArea className="pb-5" />
       </div>
 
-      <CommentBoxActionBar className="absolute bottom-0 left-12 right-0 mb-2 ml-4 w-auto px-4" />
+      <CommentBoxActionBar className="absolute bottom-0 left-14 right-0 mb-2 ml-4 w-auto px-4" />
     </div>
   )
 }
