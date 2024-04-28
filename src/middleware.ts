@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-// import countries from '~/data/countries.json'
-
 import {
   REQUEST_GEO,
   REQUEST_HOST,
@@ -39,27 +37,6 @@ export default async function middleware(req: NextRequest) {
   requestHeaders.set(REQUEST_IP, ip || '')
   requestHeaders.set(REQUEST_HOST, headers.get('host') || '')
 
-  const isApi = pathname.startsWith('/api/')
-
-  if (geo && !isApi && process.env.VERCEL_ENV) {
-    const country = geo.country
-    // const city = geo.city
-
-    // const countryInfo = countries.find((x) => x.cca2 === country)
-    // if (countryInfo) {
-    // try {
-    //   const ipKey = `visitor_ip_${dayjs().format('YYYY-MM-DD')}`
-    //   await redis.sadd(ipKey, ip)
-    //   const countryInfo = countries.find((x) => x.cca2 === country)
-    //   if (countryInfo) {
-    //     const flag = countryInfo.flag
-    //     await redis.set(kvKeys.currentVisitor, { country, city, flag })
-    //   }
-    //   await redis.expire(ipKey, 60 * 60 * 24 * 7)
-    // } catch {}
-    // }
-  }
-
   return NextResponse.next({
     request: {
       headers: requestHeaders,
@@ -76,8 +53,6 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    // '/((?!api|_next/static|_next/image|favicon.ico|sw.js).*)',
-    // DISABLE
-    '/nothing',
+    '/((?!api|_next/static|_next/image|favicon.ico|sw.js).*)',
   ],
 }
