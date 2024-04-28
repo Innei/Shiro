@@ -13,7 +13,7 @@ echo ';process.title = "Shiro (NextJS)"' >>server.js
 mv ../static/ ./.next/static
 
 cp $CWD/ecosystem.standalone.config.cjs ./ecosystem.config.js
-cp $CWD/.env.template .env
+cp $CWD/.env.template .env.template
 
 cd ..
 
