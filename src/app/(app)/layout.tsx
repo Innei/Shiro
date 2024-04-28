@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
 import { ToastContainer } from 'react-toastify'
 import { env, PublicEnvScript } from 'next-runtime-env'
-import { headers } from 'next/headers'
-import { redirect } from 'next/navigation'
 import type { Metadata, Viewport } from 'next'
 import type { PropsWithChildren } from 'react'
 
@@ -19,8 +17,6 @@ import { Root } from '~/components/layout/root/Root'
 import { AccentColorStyleInjector } from '~/components/modules/shared/AccentColorStyleInjector'
 import { SearchPanelWithHotKey } from '~/components/modules/shared/SearchFAB'
 import { TocAutoScroll } from '~/components/modules/toc/TocAutoScroll'
-import { REQUEST_QUERY } from '~/constants/system'
-import { isDev } from '~/lib/env'
 import { PreRenderError } from '~/lib/error-factory'
 import { sansFont, serifFont } from '~/lib/fonts'
 import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
@@ -158,17 +154,6 @@ export default async function RootLayout(props: PropsWithChildren) {
   }
 
   const themeConfig = data.theme
-
-  const query = headers().get(REQUEST_QUERY)
-
-  if (query) {
-    const search = new URLSearchParams(query)
-
-    if (!isDev)
-      if (search.has('peek-to')) {
-        redirect(search.get('peek-to')!)
-      }
-  }
 
   const { openpanel } = themeConfig.config?.module || {}
 

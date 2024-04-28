@@ -37,6 +37,17 @@ export default async function middleware(req: NextRequest) {
   requestHeaders.set(REQUEST_IP, ip || '')
   requestHeaders.set(REQUEST_HOST, headers.get('host') || '')
 
+  const searchParams = req.nextUrl.searchParams
+
+  if (searchParams.has('peek-to')) {
+    const peekTo = searchParams.get('peek-to')
+    if (peekTo) {
+      const clonedUrl = req.nextUrl.clone()
+      clonedUrl.pathname = peekTo
+      clonedUrl.searchParams.delete('peek-to')
+      return NextResponse.redirect(clonedUrl)
+    }
+  }
   return NextResponse.next({
     request: {
       headers: requestHeaders,
