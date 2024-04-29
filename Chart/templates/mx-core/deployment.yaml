@@ -93,9 +93,9 @@ spec:
               port: http
             initialDelaySeconds: 30
             periodSeconds: 10
-      {{ with .Values.mxcore.imagePullSecret }}
+      {{ if .Values.mxcore.imagePullSecret }}
       imagePullSecrets:
-        - name: {{ .Values.mxcore.imagePullSecret }}
+        - name: {{ .Values.mxcore.imagePullSecret | quote }}
       {{ end }}
       securityContext:
         {{ toYaml .Values.securityContext | indent 8 }}
@@ -110,4 +110,3 @@ spec:
       annotations:
         {{- toYaml .Values.podAnnotations | nindent 8 }}
       {{- end }}
-      {{- if .Values.podLabels }}

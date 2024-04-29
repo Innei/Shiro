@@ -1,5 +1,11 @@
+imagePullSecrets: []
+  # - name: 'my_registry_secret'
+  #   endpoint: 'https://index.docker.io/v1/'
+  #   username: 'my_username'
+  #   password: 'your_password_here'
+
 mxcore:
-  # imagePullSecret: ''
+  # imagePullSecret: 'my_registry_secret'
   image:
     # repository: ''
     # tag: ''
@@ -12,7 +18,7 @@ mxcore:
   encryption:
     enabled: false
     # key: ''
-  externalMongodb:
+  externalMongo:
     enabled: false
     # host: ''
     # port: ''
@@ -28,7 +34,9 @@ mxcore:
       password: ''
 
 admin:
-  # imagePullSecret: ''
+  imagePullSecret: []
+    # username: ''
+    # password: ''
   image:
     # repository: ''
     # tag: ''
@@ -41,12 +49,14 @@ admin:
     # annotations: {}
     # ingressClass: ''
     # hosts:
-    #   - host: chart-example.local
+    #   - host: admin.myblog.com
     #     paths:
     #       - /
 
 shiro:
-  # imagePullSecret: ''
+  imagePullSecret: []
+    # username: ''
+    # password: ''
   image:
     # repository: ''
     # tag: ''
@@ -59,7 +69,7 @@ shiro:
     # annotations: {}
     # ingressClass: ''
     # hosts:
-    #   - host: chart-example.local
+    #   - host: myblog.com
     #     paths:
     #       - /
 
@@ -119,6 +129,8 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+
+podAnnotations: {}
 
 securityContext:
   runAsUser: 1000
