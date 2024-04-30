@@ -3,7 +3,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { memo, useCallback, useRef, useState } from 'react'
-import { AnimatePresence, m } from 'framer-motion'
+import { m } from 'framer-motion'
 import Markdown from 'markdown-to-jsx'
 import type { LinkModel } from '@mx-space/api-client'
 import type { FormContextType } from '~/components/ui/form'
@@ -159,7 +159,7 @@ const Card: FC<{ link: LinkModel }> = ({ link }) => {
       onMouseEnter={() => setEnter(true)}
       onMouseLeave={() => setEnter(false)}
     >
-      <AnimatePresence mode="wait">{enter && <LayoutBg />}</AnimatePresence>
+      {enter && <LayoutBg />}
 
       <Avatar
         randomColor
