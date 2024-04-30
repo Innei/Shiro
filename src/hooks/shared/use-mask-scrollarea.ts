@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import clsx from 'clsx'
+import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 
 import { useViewport } from '~/atoms/hooks'
 
@@ -55,7 +56,7 @@ export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>({
     setIsScrollToBottom(isScrollToBottom)
     setIsScrollToTop(isScrollToTop)
   })
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const $ = getDomRef()
     if (!$) return
 
@@ -66,7 +67,7 @@ export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>({
     }
   }, [eventHandler, getDomRef, element])
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     eventHandler()
   }, [eventHandler, h, element])
 
