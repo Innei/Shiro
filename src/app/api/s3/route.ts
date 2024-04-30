@@ -3,19 +3,12 @@ import type { NextRequest } from 'next/server'
 
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 
+import { s3Config as config } from '~/app.static.config'
 import { apiClient } from '~/lib/request'
-
-const config = {
-  accountId: 'de7ecb0eaa0a328071255d557a6adb66',
-  accessKeyId: process.env.S3_ACCESS_KEY as string,
-  secretAccessKey: process.env.S3_SECRET_KEY as string,
-  bucket: 'uploads',
-  customDomain: 'https://object.innei.in',
-}
 
 const s3 = new S3Client({
   region: 'auto',
-  endpoint: `https://${config.accountId}.r2.cloudflarestorage.com`,
+  endpoint: config.endpoint,
   credentials: {
     accessKeyId: config.accessKeyId,
     secretAccessKey: config.secretAccessKey,

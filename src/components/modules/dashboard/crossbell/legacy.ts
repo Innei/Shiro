@@ -101,7 +101,7 @@ export class CrossBellConnector {
             'tags' in data
               ? data.tags.toString()
               : this.isNoteModel(data)
-                ? '生活笔记'
+                ? '手记'
                 : '',
           publishedAt: data.created,
         }

@@ -164,7 +164,7 @@ const ALERT_BLOCKQUOTE_R =
 
 const KateXRule: MarkdownToJSX.Rule = {
   match: simpleInlineRegex(
-    /^\$\s{0,}((?:\[.*?\]|<.*?>(?:.*?<.*?>)?|`.*?`|.)*?)\s{0,}\$/,
+    /^(?!\\)\$\s{0,}((?:\[(?:[^$]|(?=\\)\$)*?\]|<(?:[^$]|(?=\\)\$)*?>(?:(?:[^$]|(?=\\)\$)*?<(?:[^$]|(?=\\)\$)*?>)?|`(?:[^$]|(?=\\)\$)*?`|(?:[^$]|(?=\\)\$))*?)\s{0,}(?!\\)\$/,
   ),
   order: Priority.LOW,
   parse: parseCaptureInline,

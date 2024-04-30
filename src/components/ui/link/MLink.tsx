@@ -22,7 +22,16 @@ export const MLink: FC<{
     if (isServerSide) return false
     const locateUrl = new URL(location.href)
 
-    const toUrlParser = new URL(href)
+    let toUrlParser
+    try {
+      toUrlParser = new URL(href)
+    } catch {
+      try {
+        toUrlParser = new URL(href, location.origin)
+      } catch {
+        return false
+      }
+    }
     return (
       toUrlParser.host === locateUrl.host ||
       (process.env.NODE_ENV === 'development' &&

@@ -40,7 +40,8 @@
 
   img,
   video {
-    @apply rounded-md;
+    @apply my-2 rounded-md;
+
     max-height: 350px;
   }
 
@@ -50,11 +51,11 @@
 
   pre,
   code:not([class^='language-']) {
-    @apply rounded bg-zinc-700/10 px-1 py-0.5 text-zinc-900;
+    @apply rounded-md bg-zinc-700/10 px-1.5 py-0.5 text-zinc-900;
   }
 
   pre > code {
-    @apply bg-transparent px-0 py-0 !important;
+    @apply my-1 rounded-xl bg-zinc-100 p-2 !important;
   }
 }
 
@@ -73,6 +74,6 @@
   }
 
   pre > code {
-    @apply bg-transparent !important;
+    @apply bg-zinc-900 !important;
   }
 }

@@ -7,8 +7,6 @@ const disabledTypes = [
   'footnote',
   'footnoteReference',
 
-  'image',
-
   'htmlComment',
   'htmlSelfClosing',
   'htmlBlock',
