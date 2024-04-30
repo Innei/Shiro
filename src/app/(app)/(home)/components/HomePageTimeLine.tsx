@@ -18,7 +18,7 @@ type DataByDate<T> = {
   data: Array<Array<T[] | null>>
 }
 
-export function organizePostsByDate<T extends Post>(posts: T[]): DataByDate<T> {
+function organizePostsByDate<T extends Post>(posts: T[]): DataByDate<T> {
   const postsByDate: Array<Array<T[] | null>> = []
   const monthLabels: string[] = []
 
@@ -116,14 +116,14 @@ export const HomePageTimeLine = () => {
 
   return (
     <div className="mt-24 w-full">
-      <div className="my-5 whitespace-pre-line text-center text-2xl font-medium">
+      <div className="my-5 whitespace-pre-line text-balance text-center text-2xl font-medium">
         热力图的千篇一律，{'\n'}所以我做成了时间线
       </div>
       <div
         className="scrollbar-none m-auto my-12 w-full overflow-auto"
         ref={scrollRef}
       >
-        <div className="relative flex h-[200px] min-w-[900px] max-w-[1800px] items-end px-6 pb-12 lg:px-12 xl:px-16 2xl:px-36">
+        <div className="relative mx-auto flex h-[200px] min-w-[900px] max-w-[1800px] items-end px-6 pb-12 lg:px-12 xl:px-16 2xl:px-36">
           <span className="mr-1 flex translate-y-[6px] select-none items-center -space-x-2 font-medium text-accent">
             <PhDotBold />
             <PhDotBold />
