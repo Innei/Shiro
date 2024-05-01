@@ -199,20 +199,21 @@ export const GET = async (req: NextRequest) => {
     let canShownTitle = ''
 
     let leftContainerWidth = 1200 - 80 * 2
+    const cjkWidth = 64
     for (let i = 0; i < title.length; i++) {
       if (leftContainerWidth < 0) break
       //  cjk 字符算 64 px
       const char = title[i]
       // char 不能是 emoji
       if ((char >= '\u4e00' && char <= '\u9fa5') || char === ' ') {
-        leftContainerWidth -= 64
+        leftContainerWidth -= cjkWidth
         canShownTitle += char
       } else if (char >= '\u0000' && char <= '\u00ff') {
         // latin 字符算 40px
         leftContainerWidth -= 40
         canShownTitle += char
       } else {
-        leftContainerWidth -= 64
+        leftContainerWidth -= cjkWidth
         canShownTitle += char
       }
     }
@@ -278,7 +279,7 @@ export const GET = async (req: NextRequest) => {
               style={{
                 color: 'rgba(255, 255, 255, 0.92)',
 
-                fontSize: `${(canShownTitle.length / title.length) * 64}px`,
+                fontSize: `${(canShownTitle.length / title.length) * (cjkWidth - 2)}px`,
                 whiteSpace: 'nowrap',
                 textOverflow: 'ellipsis',
                 WebkitLineClamp: 1,
