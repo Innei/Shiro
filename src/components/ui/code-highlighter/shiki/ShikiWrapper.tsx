@@ -30,9 +30,18 @@ interface Props {
 
 export const ShikiHighLighterWrapper = forwardRef<
   HTMLDivElement,
-  PropsWithChildren<Props>
+  PropsWithChildren<
+    Props & {
+      shouldCollapsed?: boolean
+    }
+  >
 >((props, ref) => {
-  const { lang: language, content: value, attrs } = props
+  const {
+    shouldCollapsed = true,
+    lang: language,
+    content: value,
+    attrs,
+  } = props
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(value)
@@ -43,9 +52,12 @@ export const ShikiHighLighterWrapper = forwardRef<
 
   useImperativeHandle(ref, () => codeBlockRef!)
 
-  const [isCollapsed, setIsCollapsed] = useState(true)
+  const [isCollapsed, setIsCollapsed] = useState(shouldCollapsed)
   const [isOverflow, setIsOverflow] = useState(false)
   useEffect(() => {
+    if (!shouldCollapsed) {
+      return
+    }
     const $el = codeBlockRef
 
     if (!$el) return
@@ -110,7 +122,7 @@ export const ShikiHighLighterWrapper = forwardRef<
         <MotionButtonBase
           onClick={handleCopy}
           className={clsx(
-            'absolute right-2 top-2 z-[1] flex text-xs center',
+            'center absolute right-2 top-2 z-[1] flex text-xs',
             'rounded-md border border-accent/5 bg-accent/80 p-1.5 text-white backdrop-blur duration-200',
             'opacity-0 group-hover:opacity-100',
             filename && '!top-12',
