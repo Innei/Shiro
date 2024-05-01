@@ -1,10 +1,20 @@
 import { Suspense } from 'react'
 import { headers } from 'next/headers'
+import { redirect } from 'next/navigation'
+import type { ModelWithLiked, PostModel } from '@mx-space/api-client'
+import type { Metadata } from 'next'
+import type { Article, WithContext } from 'schema-dts'
 import type { PageParams } from './api'
 
 import { AckRead } from '~/components/common/AckRead'
 import { ClientOnly } from '~/components/common/ClientOnly'
-import { Presence } from '~/components/modules/activity'
+import { PageColorGradient } from '~/components/common/PageColorGradient'
+import {
+  buildRoomName,
+  Presence,
+  RoomProvider,
+} from '~/components/modules/activity'
+import { CommentAreaRootLazy } from '~/components/modules/comment'
 import {
   PostActionAside,
   PostBottomBarAction,
@@ -16,25 +26,84 @@ import { ArticleRightAside } from '~/components/modules/shared/ArticleRightAside
 import { GoToAdminEditingButton } from '~/components/modules/shared/GoToAdminEditingButton'
 import { ReadIndicatorForMobile } from '~/components/modules/shared/ReadIndicator'
 import { SummarySwitcher } from '~/components/modules/shared/SummarySwitcher'
+import { TocFAB } from '~/components/modules/toc/TocFAB'
 import { XLogInfoForPost } from '~/components/modules/xlog'
 import { getCidForBaseModel } from '~/components/modules/xlog/utils'
+import {
+  BottomToUpSoftScaleTransitionView,
+  BottomToUpTransitionView,
+} from '~/components/ui/transition'
+import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
+import { getOgUrl } from '~/lib/helper.server'
+import { getSummaryFromMd } from '~/lib/markdown'
 import { apiClient } from '~/lib/request'
-import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
+import { definePrerenderPage } from '~/lib/request.server'
+import { CurrentPostDataProvider } from '~/providers/post/CurrentPostDataProvider'
+import {
+  LayoutRightSidePortal,
+  LayoutRightSideProvider,
+} from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
 import { getData } from './api'
 import {
   HeaderMetaInfoSetting,
   MarkdownSelection,
+  PostDataReValidate,
   PostMarkdown,
   PostMarkdownImageRecordProvider,
   PostMetaBarInternal,
   PostTitle,
 } from './pageExtra'
 
-const Summary = async ({ params }: { params: PageParams }) => {
+export const revalidate = 600
+export const generateMetadata = async ({
+  params,
+}: {
+  params: PageParams
+}): Promise<Metadata> => {
+  const { slug } = params
+  try {
+    const data = await getData(params)
+    const {
+      title,
+      category: { slug: categorySlug },
+      text,
+      meta,
+    } = data
+    const description = getSummaryFromMd(text ?? '')
+
+    const ogImage = getOgUrl('post', {
+      category: categorySlug,
+      slug,
+    })
+
+    return {
+      title,
+      description,
+      openGraph: {
+        title,
+        description,
+        images: ogImage,
+        type: 'article',
+      },
+      twitter: {
+        images: ogImage,
+        title,
+        description,
+        card: 'summary_large_image',
+      },
+      keywords: meta?.keywords,
+      category: categorySlug,
+    } satisfies Metadata
+  } catch {
+    return {}
+  }
+}
+
+const Summary = async ({ data }: { data: ModelWithLiked<PostModel> }) => {
   const acceptLang = headers().get('accept-language')
-  const data = await getData(params)
+
   const { id } = data
   const { summary } = await apiClient.ai
     .getSummary({
@@ -63,8 +132,7 @@ const Summary = async ({ params }: { params: PageParams }) => {
     />
   )
 }
-const PostPage = async ({ params }: { params: PageParams }) => {
-  const data = await getData(params)
+const PostPage = ({ data }: { data: ModelWithLiked<PostModel> }) => {
   const { id } = data
   return (
     <div className="relative w-full min-w-0">
@@ -82,7 +150,7 @@ const PostPage = async ({ params }: { params: PageParams }) => {
           <PostMetaBarInternal className="mb-8 justify-center" />
 
           <Suspense>
-            <Summary params={params} />
+            <Summary data={data} />
           </Suspense>
           <PostOutdate />
 
@@ -116,4 +184,65 @@ const PostPage = async ({ params }: { params: PageParams }) => {
   )
 }
 
-export default PostPage
+export default definePrerenderPage<PageParams>()({
+  fetcher(params) {
+    return getData(params)
+  },
+
+  Component: async (props) => {
+    const { data, params, fetchedAt } = props
+
+    const fullPath = `/${data.category.slug}/${data.slug}`
+    const currentPath = `/${params.category}/${params.slug}`
+    if (currentPath !== fullPath) {
+      redirect(fullPath)
+    }
+
+    const jsonLd: WithContext<Article> = {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: data.title,
+      image: data.meta?.cover ? [data.meta.cover] : undefined,
+      description: data.summary || data.text.slice(0, 200),
+      datePublished: data.created,
+      dateModified: data.modified || undefined,
+    }
+
+    return (
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd),
+          }}
+        />
+        <PageColorGradient seed={data.title + data.category.name} />
+        <CurrentPostDataProvider data={data} />
+        <PostDataReValidate fetchedAt={fetchedAt} />
+        <div
+          data-server-fetched-at={fetchedAt}
+          className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid"
+        >
+          <BottomToUpTransitionView className="min-w-0">
+            <RoomProvider roomName={buildRoomName(data.id)}>
+              <PostPage data={data} />
+            </RoomProvider>
+
+            <BottomToUpSoftScaleTransitionView delay={500}>
+              <CommentAreaRootLazy
+                refId={data.id}
+                allowComment={data.allowComment}
+              />
+            </BottomToUpSoftScaleTransitionView>
+          </BottomToUpTransitionView>
+
+          <LayoutRightSideProvider className="relative hidden lg:block" />
+        </div>
+
+        <OnlyMobile>
+          <TocFAB />
+        </OnlyMobile>
+      </>
+    )
+  },
+})

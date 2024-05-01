@@ -9,7 +9,6 @@ import { parseShouldCollapsedFromAttrs } from './utils'
 export interface ShikiProps {
   lang: string | undefined
   content: string
-
   attrs?: string
 }
 

@@ -1,3 +1,5 @@
+'use client'
+
 import { useQuery } from '@tanstack/react-query'
 import React, { useEffect, useMemo, useRef } from 'react'
 import Link from 'next/link'

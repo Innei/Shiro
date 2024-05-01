@@ -6,6 +6,10 @@ import { getQueryClient } from '~/lib/query-client.server'
 import { apiClient } from '~/lib/request'
 import { definePrerenderPage, requestErrorHandler } from '~/lib/request.server'
 
+import { ActivityScreen } from './components/ActivityScreen'
+import { Hero } from './components/Hero'
+import { HomePageTimeLine } from './components/HomePageTimeLine'
+import { Windsock } from './components/Windsock'
 import { queryKey } from './query'
 
 export const dynamic = 'force-dynamic'
@@ -30,6 +34,15 @@ export default definePrerenderPage()({
         return isShallowEqualArray(query.queryKey as any, queryKey)
       },
     })
-    return <QueryHydrate state={dehydrateState}>{props.children}</QueryHydrate>
+
+    return (
+      <QueryHydrate state={dehydrateState}>
+        <Hero />
+        <ActivityScreen />
+        <HomePageTimeLine />
+        <Windsock />
+        {props.children}
+      </QueryHydrate>
+    )
   },
 })
