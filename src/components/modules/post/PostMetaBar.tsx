@@ -42,19 +42,21 @@ export const PostMetaBar: Component<{
             </span>
           </>
         )}
-        {!!meta.modified && isClient ? (
-          <FloatPopover
-            mobileAsSheet
-            wrapperClassName="text-xs"
-            as="span"
-            type="tooltip"
-            triggerElement="(已编辑)"
-          >
-            编辑于 <RelativeTime date={meta.modified} />
-          </FloatPopover>
-        ) : (
-          <span className="text-xs">(已编辑)</span>
-        )}
+        {meta.modified ? (
+          isClient ? (
+            <FloatPopover
+              mobileAsSheet
+              wrapperClassName="text-xs"
+              as="span"
+              type="tooltip"
+              triggerElement="(已编辑)"
+            >
+              编辑于 <RelativeTime date={meta.modified} />
+            </FloatPopover>
+          ) : (
+            <span className="text-xs">(已编辑)</span>
+          )
+        ) : null}
       </div>
 
       {!!meta.category && (
