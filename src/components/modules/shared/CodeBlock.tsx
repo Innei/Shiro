@@ -6,6 +6,7 @@ import type { ReactNode } from 'react'
 
 import { HighLighterPrismCdn } from '~/components/ui/code-highlighter'
 import { ShikiHighLighterWrapper } from '~/components/ui/code-highlighter/shiki/ShikiWrapper'
+import { parseShouldCollapsedFromAttrs } from '~/components/ui/code-highlighter/shiki/utils'
 import { ExcalidrawLoading } from '~/components/ui/excalidraw/ExcalidrawLoading'
 import { isClientSide } from '~/lib/env'
 
@@ -77,7 +78,10 @@ export const CodeBlockRender = (props: {
           }
 
           const fallback = (
-            <ShikiHighLighterWrapper {...nextProps}>
+            <ShikiHighLighterWrapper
+              {...nextProps}
+              shouldCollapsed={parseShouldCollapsedFromAttrs(props.attrs || '')}
+            >
               <pre className="bg-transparent px-5">
                 <code className="!px-5 !text-base-content">
                   {nextProps.content}

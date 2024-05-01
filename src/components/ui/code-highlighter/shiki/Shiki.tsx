@@ -4,6 +4,7 @@ import type { FC } from 'react'
 import { isServerSide } from '~/lib/env'
 
 import { ShikiHighLighterWrapper } from './ShikiWrapper'
+import { parseShouldCollapsedFromAttrs } from './utils'
 
 export interface ShikiProps {
   lang: string | undefined
@@ -94,6 +95,7 @@ export const ShikiHighLighter: FC<ShikiProps> = (props) => {
 
   return (
     <ShikiHighLighterWrapper
+      shouldCollapsed={parseShouldCollapsedFromAttrs(attrs || '')}
       {...props}
       renderedHTML={renderedHtml}
       ref={setCodeBlockRef}
