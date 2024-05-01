@@ -7,5 +7,7 @@ services:
     volumes:
       - ./.env:/app/.env
     restart: always
+    environment:
+      - NEXT_SHARP_PATH=/usr/local/lib/node_modules/sharp
     ports:
       - 2323:2323
