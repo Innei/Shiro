@@ -1,13 +1,19 @@
 'use client'
 
-import type React from 'react'
 import { useEffect, useId, useRef } from 'react'
 import clsx from 'clsx'
 import { typescriptHappyForwardRef } from 'foxact/typescript-happy-forward-ref'
+import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { AnimatePresence, m } from 'framer-motion'
 import { atom, useAtomValue } from 'jotai'
 import type { HTMLMotionProps } from 'framer-motion'
-import type { JSX, PropsWithChildren, ReactNode } from 'react'
+import type React from 'react'
+import type {
+  ButtonHTMLAttributes,
+  JSX,
+  PropsWithChildren,
+  ReactNode,
+} from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { clsxm } from '~/lib/helper'
@@ -31,7 +37,7 @@ export const FABBase = typescriptHappyForwardRef(
         id: string
         show?: boolean
         children: JSX.Element
-      } & HTMLMotionProps<'button'>
+      } & ButtonHTMLAttributes<HTMLButtonElement>
     >,
     ref: React.ForwardedRef<HTMLButtonElement>,
   ) => {
@@ -39,14 +45,11 @@ export const FABBase = typescriptHappyForwardRef(
     const { className, ...rest } = extra
 
     return (
-      <AnimatePresence mode="wait">
+      <>
         {show && (
-          <m.button
+          <button
             ref={ref}
             aria-label="Floating action button"
-            initial={{ opacity: 0.3, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0.3, scale: 0.8 }}
             className={clsxm(
               'mt-2 flex items-center justify-center',
               'size-12 text-lg md:size-10 md:text-base',
@@ -54,15 +57,16 @@ export const FABBase = typescriptHappyForwardRef(
               'rounded-xl border border-zinc-400/20 backdrop-blur-lg dark:border-zinc-500/30 dark:text-zinc-200',
               'bg-zinc-50/80 shadow-lg dark:bg-neutral-900/80',
               'transition-all duration-500 ease-in-out',
+              'animate-scale-in',
 
               className,
             )}
             {...rest}
           >
             {children}
-          </m.button>
+          </button>
         )}
-      </AnimatePresence>
+      </>
     )
   },
 )
@@ -107,7 +111,7 @@ export const FABContainer = (props: { children?: ReactNode }) => {
 
   const fabContainerRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     jotaiStore.set(fabContainerElementAtom, fabContainerRef.current)
   }, [])
 
