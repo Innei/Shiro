@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 
 import { ActivityPostList } from './ActivityPostList'

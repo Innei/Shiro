@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createElement } from 'react'
+import { createElement } from 'react'
 import clsx from 'clsx'
 import { m } from 'framer-motion'
 import Image from 'next/image'

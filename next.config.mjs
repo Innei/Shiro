@@ -52,7 +52,8 @@ let nextConfig = {
   images: {
     unoptimized:
       // Squoosh has memory leak issue, but it will remove in next.js 14.3.0
-      !process.env.VERCEL && isProd && eval('!process.env.NEXT_SHARP_PATH'),
+      // !process.env.VERCEL && isProd && eval('!process.env.NEXT_SHARP_PATH'),
+      false,
     remotePatterns: [
       {
         protocol: 'https',
