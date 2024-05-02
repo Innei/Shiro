@@ -26,7 +26,7 @@ export default function Page() {
           data-event="Say RSS click"
           href="/says/feed"
           target="_blank"
-          className="flex size-8 text-[#EE802F] center"
+          className="flex size-8 text-[#EE802F] center" rel="noreferrer"
         >
           <i className="icon-[mingcute--rss-fill]" />
         </a>

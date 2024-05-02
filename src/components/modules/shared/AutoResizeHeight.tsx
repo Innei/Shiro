@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import type React from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { m } from 'framer-motion'
 
 import { softSpringPreset } from '~/constants/spring'

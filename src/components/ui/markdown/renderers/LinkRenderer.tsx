@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import React, { useMemo } from 'react'
+import type React from 'react'
+import { useMemo } from 'react'
 import dynamic from 'next/dynamic'
 import type { FC, PropsWithChildren, ReactNode } from 'react'
 

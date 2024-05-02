@@ -176,7 +176,7 @@ export const eventHandler = (
     case EventTypes.NOTE_CREATE: {
       const { title, nid } = data as NoteModel
 
-      toast.success('有新的内容发布了：' + `「${title}」`, {
+      toast.success(`有新的内容发布了：「${title}」`, {
         onClick: () => {
           window.peek(`/notes/${nid}`)
         },
@@ -190,7 +190,7 @@ export const eventHandler = (
 
     case EventTypes.POST_CREATE: {
       const { title, category, slug } = data as PostModel
-      toast.success('有新的内容发布了：' + `「${title}」`, {
+      toast.success(`有新的内容发布了：「${title}」`, {
         onClick: () => {
           window.peek(`/posts/${category.slug}/${slug}`)
         },
@@ -362,7 +362,7 @@ export const eventHandler = (
     default: {
       if (isDev) {
         // eslint-disable-next-line no-console
-        console.log(type, data)
+        console.info(type, data)
       }
     }
   }

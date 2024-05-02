@@ -24,7 +24,7 @@ export default async function Page({
             aria-hidden
             href="/thinking/feed"
             target="_blank"
-            className="flex size-8 select-none text-[#EE802F] center"
+            className="flex size-8 select-none text-[#EE802F] center" rel="noreferrer"
           >
             <i className="icon-[mingcute--rss-fill]" />
           </a>

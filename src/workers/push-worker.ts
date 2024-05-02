@@ -1,5 +1,5 @@
-/* eslint-disable no-console */
 /// <reference lib="webworker" />
+
 import { createStore, get, set } from 'idb-keyval'
 import { $fetch } from 'ofetch'
 import type { AggregateRoot } from '@mx-space/api-client'
@@ -47,7 +47,7 @@ sw.addEventListener('message', (event) => {
 
   switch (event.data.type) {
     case 'INIT_CONFIG':
-      console.log('Received configuration:', event.data.config)
+      console.info('Received configuration:', event.data.config)
 
       Object.assign(config, event.data.config)
 

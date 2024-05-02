@@ -1,7 +1,8 @@
 'use client'
 
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { Fragment, memo, Suspense, useMemo, useRef } from 'react'
+import type React from 'react'
+import { Fragment, memo, Suspense, useMemo, useRef } from 'react'
 import { clsx } from 'clsx'
 import { compiler, sanitizeUrl } from 'markdown-to-jsx'
 import Script from 'next/script'

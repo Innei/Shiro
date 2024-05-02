@@ -157,7 +157,7 @@ const Card: FC<{ link: LinkModel }> = ({ link }) => {
       aria-label={`Go to ${link.name}'s website`}
       className="relative flex flex-col items-center justify-center"
       onMouseEnter={() => setEnter(true)}
-      onMouseLeave={() => setEnter(false)}
+      onMouseLeave={() => setEnter(false)} rel="noreferrer"
     >
       {enter && <LayoutBg />}
 
@@ -190,7 +190,7 @@ const FavoriteSection: FC<FriendSectionProps> = ({ data }) => {
             <a
               href={link.url}
               target="_blank"
-              className="shrink-0 text-base leading-none"
+              className="shrink-0 text-base leading-none" rel="noreferrer"
             >
               {link.name}
             </a>

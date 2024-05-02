@@ -31,8 +31,7 @@ export function loadScript(url: string) {
     }
 
     if (isDev) {
-      // eslint-disable-next-line no-console
-      console.log('load script: ', url)
+      console.info('load script: ', url)
     }
 
     script.onerror = function (e) {

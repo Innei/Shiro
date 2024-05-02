@@ -1,5 +1,5 @@
 /* eslint-disable tailwindcss/migration-from-tailwind-2 */
-import React from 'react'
+import type React from 'react'
 import { clsx } from 'clsx'
 import type { FC } from 'react'
 

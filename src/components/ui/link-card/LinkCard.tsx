@@ -1,4 +1,5 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import type React from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { m, useMotionTemplate, useMotionValue } from 'framer-motion'
 import Link from 'next/link'

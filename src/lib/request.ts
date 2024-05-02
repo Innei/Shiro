@@ -51,14 +51,14 @@ const $fetch = createFetch({
       }
       if (isDev && isServerSide) {
         // eslint-disable-next-line no-console
-        console.log(`[Request]: ${context.request}`)
+        console.info(`[Request]: ${context.request}`)
       }
     },
     onResponse(context) {
       // log response
       if (isDev && isServerSide) {
         // eslint-disable-next-line no-console
-        console.log(`[Response]: ${context.request}`, context.response.status)
+        console.info(`[Response]: ${context.request}`, context.response.status)
       }
     },
   },

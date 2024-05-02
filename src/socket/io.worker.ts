@@ -10,7 +10,7 @@ let ws: Socket | null = null
 function setupIo(config: { url: string; socket_session_id: string }) {
   if (ws) return
   // 使用 socket.io
-  console.log('Connecting to io, url: ', config.url)
+  console.info('Connecting to io, url: ', config.url)
 
   ws = io(config.url, {
     timeout: 10000,
@@ -35,7 +35,7 @@ function setupIo(config: { url: string; socket_session_id: string }) {
    * @param {any} payload
    */
   ws.on('message', (payload) => {
-    console.log('ws', payload)
+    console.info('ws', payload)
 
     boardcast({
       type: 'message',
@@ -44,7 +44,7 @@ function setupIo(config: { url: string; socket_session_id: string }) {
   })
 
   ws.on('connect', () => {
-    console.log('Connected to ws.io server from SharedWorker')
+    console.info('Connected to ws.io server from SharedWorker')
 
     if (waitingEmitQueue.length > 0) {
       waitingEmitQueue.forEach((payload) => {
@@ -72,7 +72,7 @@ const ports = [] as MessagePort[]
 const preparePort = (port: MessagePort | Window) => {
   port.onmessage = (event) => {
     const { type, payload } = event.data
-    console.log('get message from main', event.data)
+    console.info('get message from main', event.data)
 
     switch (type) {
       case 'config':
@@ -96,7 +96,7 @@ const preparePort = (port: MessagePort | Window) => {
         }
         break
       default:
-        console.log('Unknown message type:', type)
+        console.info('Unknown message type:', type)
     }
   }
 }
@@ -117,7 +117,7 @@ if (!('SharedWorkerGlobalScope' in self)) {
 }
 
 function boardcast(payload: any) {
-  console.log('[ws] boardcast', payload)
+  console.info('[ws] boardcast', payload)
   ports.forEach((port) => {
     port.postMessage(payload)
   })
