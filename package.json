@@ -20,7 +20,7 @@
     "*.{js,jsx,ts,tsx}": [
       "prettier --ignore-path ./.gitignore --write "
     ],
-    "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
+    "*.{js,ts,cjs,mjs,jsx,tsx,json}": [
       "biome lint --apply --no-errors-on-unmatched"
     ]
   },
@@ -33,7 +33,7 @@
     "analyze": "cross-env NODE_ENV=production ANALYZE=true BUNDLE_ANALYZE=browser next build",
     "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 next build",
     "build:ci": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 NEXT_TELEMETRY_DISABLED=1 CI=true next build",
-    "lint": "biome lint --apply **/*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}",
+    "lint": "biome lint --apply src/**/*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json} --no-errors-on-unmatched",
     "prod:pm2": "cross-env NODE_ENV=production pm2 restart ecosystem.config.cjs",
     "prod:stop": "pm2 stop ecosystem.config.cjs",
     "prod:reload": "pm2 reload ecosystem.config.cjs"

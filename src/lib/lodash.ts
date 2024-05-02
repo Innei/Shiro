@@ -6,13 +6,11 @@ export const debounce = <F extends (...args: any[]) => any>(
   let timeoutId: ReturnType<typeof setTimeout> | undefined
 
   return function (this: any, ...args: Parameters<F>) {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const context = this
 
     const doLater = () => {
       timeoutId = undefined
       if (!immediate) {
-        func.apply(context, args)
+        func.apply(this, args)
       }
     }
 
@@ -25,7 +23,7 @@ export const debounce = <F extends (...args: any[]) => any>(
     timeoutId = setTimeout(doLater, wait)
 
     if (shouldCallNow) {
-      func.apply(context, args)
+      func.apply(this, args)
     }
   }
 }

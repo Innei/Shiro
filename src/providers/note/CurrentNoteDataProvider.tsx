@@ -5,7 +5,7 @@ import { createModelDataProvider } from 'jojoo/react'
 import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 
-import { type NoteWrappedPayload } from '@mx-space/api-client'
+import type { NoteWrappedPayload } from '@mx-space/api-client'
 
 import { queries } from '~/queries/definition'
 

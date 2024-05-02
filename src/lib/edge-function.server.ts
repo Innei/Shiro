@@ -13,7 +13,6 @@ export const getQuery = (req: Request) => {
 export class NextServerResponse {
   #status = 200
   #headers = new Headers()
-  constructor() {}
 
   status(status: number) {
     this.#status = status

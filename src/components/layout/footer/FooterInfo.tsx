@@ -187,11 +187,11 @@ const FooterBottom = async () => {
         <span>.</span>
         <span>
           <Divider />
-          <a href="/feed" target="_blank">
+          <a href="/feed" target="_blank" rel="noreferrer">
             RSS
           </a>
           <Divider />
-          <a href="/sitemap.xml" target="_blank">
+          <a href="/sitemap.xml" target="_blank" rel="noreferrer">
             站点地图
           </a>
           <Divider className="inline" />

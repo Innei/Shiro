@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useEffect, useReducer } from 'react'
+import type React from 'react'
+import { useEffect, useReducer } from 'react'
 import type { SubscribeTypeToBitMap } from '@mx-space/api-client'
 import type { FC } from 'react'
 
@@ -156,7 +157,7 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
 
       <p className="text-gray-1 -mt-2 text-sm">
         或者你也可以通过{' '}
-        <a href="/feed" className="text-green" target="_blank">
+        <a href="/feed" className="text-green" target="_blank" rel="noreferrer">
           /feed
         </a>{' '}
         订阅「{title}」的 RSS 流。

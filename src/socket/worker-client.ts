@@ -59,7 +59,7 @@ class SocketWorker {
           worker?.postMessage({
             type: 'pong',
           })
-          console.log('[ws worker] pong')
+          console.info('[ws worker] pong')
           break
         }
         case 'connect': {
@@ -119,7 +119,7 @@ class SocketWorker {
   handleEvent(type: EventTypes, data: any) {
     if (isDev) {
       // eslint-disable-next-line no-console
-      console.log(data)
+      console.info(data)
     }
 
     window.dispatchEvent(new CustomEvent(type, { detail: data }))
