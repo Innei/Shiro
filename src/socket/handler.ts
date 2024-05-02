@@ -52,12 +52,12 @@ import { EventTypes } from '~/types/events'
 
 import { WsEvent } from './util'
 
-const trackerRealtimeEvent = () => {
+const trackerRealtimeEvent = (label = 'Socket Realtime Event') => {
   document.dispatchEvent(
     new CustomEvent('impression', {
       detail: {
         action: TrackerAction.Impression,
-        label: 'Socket Realtime Event',
+        label,
       },
     }),
   )
@@ -340,11 +340,13 @@ export const eventHandler = (
     }
 
     case 'fn#shiro#update': {
-      toast.info('站点版本已更新，请刷新页面', {
+      toast.info('网站已更新，请刷新页面', {
         onClick: () => {
           location.reload()
         },
+        autoClose: false,
       })
+      trackerRealtimeEvent('Shiro Update')
       break
     }
 
