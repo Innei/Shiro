@@ -48,6 +48,7 @@ import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvide
 import { getData } from './api'
 import {
   HeaderMetaInfoSetting,
+  LdJsonWithAuthor,
   MarkdownSelection,
   PostDataReValidate,
   PostMarkdown,
@@ -210,12 +211,8 @@ export default definePrerenderPage<PageParams>()({
 
     return (
       <>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd),
-          }}
-        />
+        <LdJsonWithAuthor baseLdJson={jsonLd} />
+
         <PageColorGradient seed={data.title + data.category.name} />
         <CurrentPostDataProvider data={data} />
         <PostDataReValidate fetchedAt={fetchedAt} />

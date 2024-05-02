@@ -4,6 +4,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { useEffect, useMemo, useRef } from 'react'
 import type { Image } from '@mx-space/api-client'
 import type { FC, PropsWithChildren } from 'react'
+import type { BlogPosting, WithContext } from 'schema-dts'
 
 import { appStaticConfig } from '~/app.static.config'
 import { withClientOnly } from '~/components/common/ClientOnly'
@@ -19,8 +20,33 @@ import {
   useCurrentPostDataSelector,
   useSetCurrentPostData,
 } from '~/providers/post/CurrentPostDataProvider'
+import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 import { queries } from '~/queries/definition'
 
+export const LdJsonWithAuthor = ({
+  baseLdJson,
+}: {
+  baseLdJson: WithContext<BlogPosting>
+}) => {
+  const jsonLd = useAggregationSelector((state) => {
+    return {
+      ...baseLdJson,
+      author: {
+        '@type': 'Person',
+        name: state.user.name,
+        url: state.url.webUrl,
+      },
+    } as WithContext<BlogPosting>
+  })
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(jsonLd),
+      }}
+    />
+  )
+}
 export const PostTitle = () => {
   const title = useCurrentPostDataSelector((data) => data?.title)!
 

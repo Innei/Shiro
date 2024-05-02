@@ -43,6 +43,7 @@ export default function Home() {
       '@type': 'WebPage',
       '@id': config?.url.webUrl,
     },
+    keywords: config?.seo.keywords,
   }
   const { notes, posts } = useHomeQueryData()
   const listLdJson: WithContext<ItemList> = {
@@ -58,6 +59,13 @@ export default function Home() {
           position: index + 1,
           item: {
             '@type': 'BlogPosting',
+            author: {
+              '@type': 'Person',
+              name: config?.user.name,
+              url: config?.url.webUrl,
+            },
+            headline: article.title,
+            image: article.meta?.cover || [],
             name: article.title,
             url:
               'nid' in article
