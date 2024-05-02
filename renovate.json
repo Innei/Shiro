@@ -1,7 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>Innei/renovate-config"
+    "local>Innei/renovate-config",
+    "regexManagers:biomeVersions"
   ],
   "ignoreDeps": [
     "jojoo",

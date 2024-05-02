@@ -18,8 +18,10 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --cache --fix",
       "prettier --ignore-path ./.gitignore --write "
+    ],
+    "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
+      "biome lint --apply --no-errors-on-unmatched"
     ]
   },
   "scripts": {
@@ -31,7 +33,7 @@
     "analyze": "cross-env NODE_ENV=production ANALYZE=true BUNDLE_ANALYZE=browser next build",
     "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 next build",
     "build:ci": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 NEXT_TELEMETRY_DISABLED=1 CI=true next build",
-    "lint": "eslint --ext .ts,.tsx --ignore-path .gitignore . --fix",
+    "lint": "biome lint --apply **/*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}",
     "prod:pm2": "cross-env NODE_ENV=production pm2 restart ecosystem.config.cjs",
     "prod:stop": "pm2 stop ecosystem.config.cjs",
     "prod:reload": "pm2 reload ecosystem.config.cjs"
@@ -126,10 +128,10 @@
     "xss": "1.0.15"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.7.2",
     "@iconify-json/material-symbols": "1.1.78",
     "@iconify-json/mingcute": "1.1.17",
     "@iconify/tailwind": "1.0.1",
-    "@innei/eslint-config-react-ts": "0.13.1",
     "@innei/prettier": "0.13.1",
     "@mx-space/webhook": "0.3.0",
     "@next/bundle-analyzer": "14.2.3",
@@ -149,7 +151,6 @@
     "autoprefixer": "10.4.19",
     "cross-env": "7.0.3",
     "dotenv": "16.4.5",
-    "eslint": "8.57.0",
     "lint-staged": "15.2.2",
     "postcss": "8.4.38",
     "postcss-import": "16.1.0",
