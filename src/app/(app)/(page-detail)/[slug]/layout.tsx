@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import React, { cache } from 'react'
+import { cache } from 'react'
 import type { Metadata } from 'next'
 
 import { PageColorGradient } from '~/components/common/PageColorGradient'
@@ -33,6 +33,7 @@ import {
 } from './pageExtra'
 
 export const dynamic = 'force-dynamic'
+
 const getData = cache(async (params: PageParams) => {
   attachServerFetch()
   const data = await apiClient.page

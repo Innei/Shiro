@@ -124,6 +124,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
   } satisfies Metadata
 }
 export const dynamic = 'force-dynamic'
+
 export default async function RootLayout(props: PropsWithChildren) {
   const { children } = props
 
@@ -226,12 +227,12 @@ const SayHi = () => {
       dangerouslySetInnerHTML={{
         __html: `var version = "${version}";
     (${function () {
-      console.log(
+      console.info(
         `%c Mix Space %c https://github.com/mx-space `,
         'color: #fff; margin: 1em 0; padding: 5px 0; background: #2980b9;',
         'margin: 1em 0; padding: 5px 0; background: #efefef;',
       )
-      console.log(
+      console.info(
         `%c 白い ${window.version} %c https://innei.in `,
         'color: #fff; margin: 1em 0; padding: 5px 0; background: #39C5BB;',
         'margin: 1em 0; padding: 5px 0; background: #efefef;',

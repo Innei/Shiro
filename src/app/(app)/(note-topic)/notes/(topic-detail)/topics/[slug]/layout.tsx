@@ -11,6 +11,7 @@ import { definePrerenderPage } from '~/lib/request.server'
 import { getTopicQuery } from './query'
 
 export const dynamic = 'force-dynamic'
+
 export const generateMetadata = async (
   props: NextPageParams<{
     slug: string

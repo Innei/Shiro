@@ -30,7 +30,8 @@ export const metadata = {
   title: '文章列表',
 }
 
-export const revalidate = 600
+export const dynamic = 'force-dynamic'
+
 export default definePrerenderPage<Props>()({
   fetcher: async (params) => {
     const { page, size, orderBy, sortBy } = params || {}

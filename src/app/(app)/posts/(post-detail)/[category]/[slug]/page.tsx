@@ -57,7 +57,8 @@ import {
   PostTitle,
 } from './pageExtra'
 
-export const revalidate = 600
+export const dynamic = 'force-dynamic'
+
 export const generateMetadata = async ({
   params,
 }: {

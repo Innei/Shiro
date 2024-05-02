@@ -21,6 +21,7 @@ import { AccentColorStyleInjector } from '~/components/modules/shared/AccentColo
 import { FABContainer } from '~/components/ui/fab'
 
 export const dynamic = 'force-dynamic'
+
 export function generateViewport(): Viewport {
   return {
     themeColor: [

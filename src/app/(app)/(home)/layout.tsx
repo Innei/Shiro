@@ -13,7 +13,7 @@ import { Windsock } from './components/Windsock'
 import { queryKey } from './query'
 
 export const dynamic = 'force-dynamic'
-export const revalidate = 3600
+
 export default definePrerenderPage()({
   fetcher() {
     const queryClient = getQueryClient()

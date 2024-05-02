@@ -23,16 +23,18 @@ if (repoInfo) {
 /** @type {import('next').NextConfig} */
 // eslint-disable-next-line import/no-mutable-exports
 let nextConfig = {
-  // logging: {
-  //   fetches: {
-
-  //     // fullUrl: true,
-  //   },
-  // },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
   env: {
     APP_VERSION: pkg.version,
     COMMIT_HASH: commitHash,
     COMMIT_URL: commitUrl,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 
   reactStrictMode: true,
@@ -47,9 +49,10 @@ let nextConfig = {
     webpackBuildWorker: true,
     // optimizePackageImports: ['dayjs'],
   },
-
   images: {
-    unoptimized: process.env.VERCEL ? false : true,
+    unoptimized:
+      // Squoosh has memory leak issue, but it will remove in next.js 14.3.0
+      !process.env.VERCEL && isProd && eval('!process.env.NEXT_SHARP_PATH'),
     remotePatterns: [
       {
         protocol: 'https',
@@ -146,7 +149,7 @@ function getRepoInfo() {
       process.env
 
     // eslint-disable-next-line no-console
-    console.log(
+    console.info(
       'VERCEL_GIT_PROVIDER',
       VERCEL_GIT_PROVIDER,
       VERCEL_GIT_REPO_SLUG,

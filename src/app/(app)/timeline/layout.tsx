@@ -13,6 +13,7 @@ import { definePrerenderPage } from '~/lib/request.server'
 export const metadata = {
   title: '时间线',
 }
+
 export const dynamic = 'force-dynamic'
 
 export default definePrerenderPage<{

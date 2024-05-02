@@ -171,8 +171,8 @@ importers:
         specifier: ^10.1.1
         version: 10.1.1
       jojoo:
-        specifier: 0.1.4
-        version: 0.1.4(immer@10.1.1)(jotai@2.8.0(@types/react@18.3.1)(react@18.3.1))(react@18.3.1)
+        specifier: 0.2.0
+        version: 0.2.0(immer@10.1.1)(jotai@2.8.0(@types/react@18.3.1)(react@18.3.1))(react@18.3.1)
       jotai:
         specifier: 2.8.0
         version: 2.8.0(@types/react@18.3.1)(react@18.3.1)
@@ -3564,8 +3564,8 @@ packages:
     resolution: {integrity: sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==}
     hasBin: true
 
-  jojoo@0.1.4:
-    resolution: {integrity: sha512-4b0EcKL43kvQYJavLJFBc64A8u2htK130HVv580Q5M/lj0u4Zhl3WmS1j+afHr9eufrLqq5XfZWZPWmbqVD1iA==}
+  jojoo@0.2.0:
+    resolution: {integrity: sha512-6v3Dqg9Pij7IVets9rkazXsI2qIGediRoqYhikITqGHOtMXKUIBqYOSoe362WjpfLUe9bj7PqDmxGR0XDefzag==}
     peerDependencies:
       immer: ^10.0.0
       jotai: ^2.0.0
@@ -9295,7 +9295,7 @@ snapshots:
 
   jiti@1.21.0: {}
 
-  jojoo@0.1.4(immer@10.1.1)(jotai@2.8.0(@types/react@18.3.1)(react@18.3.1))(react@18.3.1):
+  jojoo@0.2.0(immer@10.1.1)(jotai@2.8.0(@types/react@18.3.1)(react@18.3.1))(react@18.3.1):
     dependencies:
       immer: 10.1.1
       jotai: 2.8.0(@types/react@18.3.1)(react@18.3.1)

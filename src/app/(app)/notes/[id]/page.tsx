@@ -68,6 +68,8 @@ import {
 } from './pageExtra'
 import { Transition } from './Transition'
 
+export const dynamic = 'force-dynamic'
+
 const Summary = async ({ data }: { data: NoteModel }) => {
   const acceptLang = headers().get('accept-language')
   const { summary } = await apiClient.ai
@@ -158,8 +160,6 @@ async function PageInner({ data }: { data: NoteModel }) {
     </>
   )
 }
-
-export const dynamic = 'force-dynamic'
 
 type NoteDetailPageParams = {
   id: string

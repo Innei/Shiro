@@ -5,6 +5,7 @@ import { NormalContainer } from '~/components/layout/container/Normal'
 import { getData } from './api'
 
 export const dynamic = 'force-dynamic'
+
 export const generateMetadata = async (
   props: NextPageParams<{
     slug: string
