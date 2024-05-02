@@ -9,6 +9,7 @@ module.exports = {
       env: {
         PORT: 2323,
         NODE_ENV: 'production',
+        NEXT_SHARP_PATH: process.env.NEXT_SHARP_PATH,
       },
       log_date_format: 'YYYY-MM-DD HH:mm:ss',
     },
