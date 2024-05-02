@@ -207,7 +207,7 @@ export const Modal: Component<{
                 )}
                 onClick={stopPropagation}
               >
-                <div className="relative flex flex-1 items-center">
+                <div className="relative flex items-center">
                   <Dialog.Title className="shrink-0 grow items-center px-4 py-1 text-lg font-medium">
                     {title}
                   </Dialog.Title>
