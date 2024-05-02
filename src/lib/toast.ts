@@ -20,6 +20,13 @@ interface CustomToastOptions {
   onClick?: () => void
 }
 interface ToastCustom {
+  (
+    message: string,
+    type?: TypeOptions,
+    options?: ToastOptions & {
+      iconElement?: JSX.Element
+    },
+  ): Id
   success(message: string, options?: ToastOptions & CustomToastOptions): Id
   info(message: string, options?: ToastOptions & CustomToastOptions): Id
   warn(message: string, options?: ToastOptions & CustomToastOptions): Id
