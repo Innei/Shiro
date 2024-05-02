@@ -98,7 +98,7 @@ export const ShikiHighLighterWrapper = forwardRef<
 
   return (
     <div
-      className={clsx(styles['code-card'], 'group')}
+      className={clsx(styles['code-card'], 'shiki-block group')}
       onCopy={stopPropagation}
     >
       {!!filename && (
