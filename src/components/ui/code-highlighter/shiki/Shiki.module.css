@@ -85,4 +85,8 @@
   .scroll-container pre::-webkit-scrollbar {
     background-color: transparent !important;
   }
+
+  pre {
+    @apply rounded-none;
+  }
 }
