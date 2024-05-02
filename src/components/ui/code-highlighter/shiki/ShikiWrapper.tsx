@@ -67,7 +67,7 @@ export const ShikiHighLighterWrapper = forwardRef<
           $hightlighted,
         )
 
-        $el.scrollTop = lineHeight * childIndexInParent - 30
+        $el.scrollTop = lineHeight * childIndexInParent - $el.clientHeight / 2
       }
     } else {
       setIsOverflow(false)
