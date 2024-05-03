@@ -1,7 +1,7 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import clsx from 'clsx'
 import { m } from 'framer-motion'
 import type { ReactActivityType } from './types'
