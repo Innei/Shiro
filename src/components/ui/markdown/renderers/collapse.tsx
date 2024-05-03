@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useState } from 'react'
+import { useCallback, useLayoutEffect, useState } from 'react'
 import clsx from 'clsx'
 import type { FC, ReactNode } from 'react'
 
@@ -24,7 +24,7 @@ export const MDetails: FC<{ children: ReactNode[] }> = (props) => {
   return (
     <div className="my-2">
       <button
-        className="mb-2 flex cursor-pointer items-center pl-2"
+        className="mb-2 flex cursor-pointer items-center md:pl-2 [&_summary]:text-left"
         onClick={handleOpen}
       >
         <i
