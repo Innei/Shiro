@@ -1,9 +1,10 @@
 'use client'
 
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import clsx from 'clsx'
 import Link from 'next/link'
 import RemoveMarkdown from 'remove-markdown'
+import type { ReactNode } from 'react'
 import type { ReactActivityType } from './types'
 
 import { CollectionRefTypes } from '@mx-space/api-client'
@@ -149,22 +150,35 @@ export const ActivityCard = ({ activity }: { activity: ReactActivityType }) => {
         )
       }
       case 'like': {
+        let TitleLink: ReactNode = null
+        switch (activity.type) {
+          case CollectionRefTypes.Post: {
+            TitleLink = (
+              <Link href={`/posts/${activity.slug}`}>
+                <b>{activity.title}</b>
+              </Link>
+            )
+            break
+          }
+          case CollectionRefTypes.Note: {
+            TitleLink = (
+              <Link href={`/notes/${activity.nid}`}>
+                <b>{activity.title}</b>
+              </Link>
+            )
+            break
+          }
+          default: {
+            TitleLink = <b>已删除的内容</b>
+          }
+        }
         return (
           <div className="flex translate-y-1/4 items-start gap-2">
             <span className={clsx(iconClassName)}>
               <i className="icon-[mingcute--heart-line]" />
             </span>
             <div className="space-x-2">
-              <small>有人点赞了</small>{' '}
-              <Link
-                href={
-                  activity.slug
-                    ? `/posts/${activity.slug}`
-                    : `/notes/${activity.nid}`
-                }
-              >
-                <b>{activity.title}</b>
-              </Link>
+              <small>有人点赞了</small> {TitleLink}
             </div>
           </div>
         )
