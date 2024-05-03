@@ -21,6 +21,7 @@
 - 文章内嵌 Thinking 解析
 - Post 列表设置 (WIP)
 - AI 摘要
+- 一些细节和 UI 调整，或者你并不在意
 
 ## :whale: 运行
 

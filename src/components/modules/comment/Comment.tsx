@@ -50,14 +50,14 @@ export const Comment: Component<{
   const authorElement = url ? (
     <a
       href={url}
-      className="ml-2 max-w-full shrink-0 break-all"
+      className="max-w-full shrink-0 break-all"
       target="_blank"
       rel="noreferrer"
     >
       {author}
     </a>
   ) : (
-    <span className="ml-2 max-w-full shrink-0 break-all">{author}</span>
+    <span className="max-w-full shrink-0 break-all">{author}</span>
   )
 
   return (
@@ -88,17 +88,20 @@ export const Comment: Component<{
           className={clsx('relative my-2', className)}
         >
           <div className="group flex w-full items-stretch gap-4">
-            <div className="relative flex w-9 shrink-0 self-end">
+            <div
+              className={clsx(
+                'flex shrink-0 self-end md:relative md:w-9',
+                'absolute top-2',
+              )}
+            >
               <Avatar
                 shadow={false}
                 imageUrl={avatar}
                 alt={`${author}'s avatar`}
-                className="size-9 select-none rounded-full bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800 dark:ring-zinc-800"
-                width={24}
-                height={24}
+                className="size-6 select-none rounded-full bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800 dark:ring-zinc-800 md:size-9"
               />
               {source && !!getStrategyIconComponent(source) && (
-                <div className="absolute -right-1.5 bottom-1 flex size-3.5 rounded-full bg-white ring-[1.5px] ring-zinc-200 center dark:bg-zinc-800 dark:ring-black">
+                <div className="center absolute -right-1.5 bottom-1 flex size-3.5 rounded-full bg-white ring-[1.5px] ring-zinc-200 dark:bg-zinc-800 dark:ring-black">
                   <UserAuthStrategyIcon strategy={source} className="size-3" />
                 </div>
               )}
@@ -114,12 +117,13 @@ export const Comment: Component<{
               <span
                 className={clsx(
                   'flex items-center gap-2 font-semibold text-zinc-800 dark:text-zinc-200',
-                  'relative mb-2 w-full min-w-0 justify-center',
+                  'relative w-full min-w-0 justify-center',
+                  'mb-2 pl-7 md:pl-0',
                 )}
               >
-                <span className="flex grow flex-wrap items-center gap-2">
+                <span className="ml-2 flex grow flex-col flex-wrap items-start gap-0.5 md:flex-row md:items-center md:gap-2">
                   {authorElement}
-                  <span className="flex min-w-0 shrink select-none flex-wrap items-center space-x-2 self-end">
+                  <span className="flex min-w-0 shrink select-none flex-wrap items-center space-x-2 md:self-end">
                     <span className="inline-flex shrink-0 text-[0.71rem] font-medium opacity-40">
                       <RelativeTime date={comment.created} />
                     </span>
@@ -145,8 +149,10 @@ export const Comment: Component<{
                 className={clsx(
                   styles['comment__message'],
                   'relative inline-block rounded-xl px-2 py-1 text-zinc-800 dark:text-zinc-200',
-                  'rounded-bl-sm bg-zinc-600/5 dark:bg-zinc-500/20',
+                  'bg-zinc-600/5 dark:bg-zinc-500/20',
                   'max-w-[calc(100%-3rem)]',
+                  'rounded-tl-sm md:rounded-bl-sm md:rounded-tl-none',
+                  'ml-4 md:ml-0',
                 )}
               >
                 <CommentMarkdown>{text}</CommentMarkdown>
