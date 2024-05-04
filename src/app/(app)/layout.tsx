@@ -201,7 +201,7 @@ export default async function RootLayout(props: PropsWithChildren) {
                   aggregationData={data}
                   appConfig={themeConfig.config}
                 />
-                <div data-theme>
+                <div id="root" data-theme>
                   <Root>{children}</Root>
                 </div>
 

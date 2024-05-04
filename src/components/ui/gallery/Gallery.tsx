@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer'
 import clsx from 'clsx'
 import type { FC, UIEventHandler } from 'react'
 
+import { FluentPanelRightGallery24Filled } from '~/components/icons/GalleryIcon'
 import { useStateToRef } from '~/hooks/common/use-state-ref'
 import { throttle } from '~/lib/lodash'
 import { useMarkdownImageRecord } from '~/providers/article/MarkdownImageRecordProvider'
@@ -13,19 +14,21 @@ import { useWrappedElementSize } from '~/providers/shared/WrappedElementProvider
 import { MotionButtonBase } from '../button'
 import { FixedZoomedImage } from '../image'
 import { MarkdownImage } from '../markdown/renderers/image'
+import { RootPortal } from '../portal'
+import { FullScreenGallery } from './fullscreen/FullScreenGallery'
 import styles from './Gallery.module.css'
 
 const IMAGE_CONTAINER_MARGIN_INSET = 60
 const CHILD_GAP = 15
 const AUTOPLAY_DURATION = 5000
 
-interface ImageType {
+export interface GalleryImageType {
   name?: string
   url: string
   footnote?: string
 }
 interface GalleryProps {
-  images: ImageType[]
+  images: GalleryImageType[]
 }
 
 export const Gallery: FC<GalleryProps> = (props) => {
@@ -141,6 +144,7 @@ export const Gallery: FC<GalleryProps> = (props) => {
     }
   }, [])
 
+  const [fullScreen, setFullScreen] = useState(false)
   if (!images.length) {
     return null
   }
@@ -182,7 +186,7 @@ export const Gallery: FC<GalleryProps> = (props) => {
               const index = currentIndex - 1
               handleScrollTo(index)
             }}
-            className="border-border pointer-events-auto flex size-6 rounded-full border bg-base-100 p-1 opacity-80 center hover:opacity-100"
+            className="border-border center pointer-events-auto flex size-6 rounded-full border bg-base-100 p-1 opacity-80 hover:opacity-100"
           >
             <i className="icon-[mingcute--left-fill]" />
           </MotionButtonBase>
@@ -198,11 +202,34 @@ export const Gallery: FC<GalleryProps> = (props) => {
               const index = currentIndex + 1
               handleScrollTo(index)
             }}
-            className="border-border pointer-events-auto flex size-6 rounded-full border bg-base-100 p-1 opacity-80 center hover:opacity-100"
+            className="border-border center pointer-events-auto flex size-6 rounded-full border bg-base-100 p-1 opacity-80 hover:opacity-100"
           >
             <i className="icon-[mingcute--right-fill]" />
           </MotionButtonBase>
         </div>
+      )}
+
+      <MotionButtonBase
+        onClick={() => {
+          setFullScreen(true)
+        }}
+        className="border-border center absolute right-2 top-2 box-content flex size-6 rounded-md border bg-base-100/80 p-1 text-lg opacity-80 backdrop-blur-xl"
+      >
+        <FluentPanelRightGallery24Filled />
+      </MotionButtonBase>
+      {fullScreen && (
+        <RootPortal>
+          <FullScreenGallery images={images} />
+
+          <MotionButtonBase
+            onClick={() => {
+              setFullScreen(false)
+            }}
+            className="border-border center fixed right-4 top-4 box-content flex size-6 rounded-full border bg-base-100/80 p-1 text-lg opacity-80 backdrop-blur-xl"
+          >
+            <i className="icon-[material-symbols--close-rounded]" />
+          </MotionButtonBase>
+        </RootPortal>
       )}
       <div className={clsx(styles['indicator'], 'space-x-2')}>
         {Array.from({
@@ -229,7 +256,7 @@ const childStyle = {
 }
 
 const GalleryItem: FC<{
-  image: ImageType
+  image: GalleryImageType
 }> = memo(({ image }) => {
   const info = useMarkdownImageRecord(image.url)
 

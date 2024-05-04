@@ -1,0 +1,168 @@
+@property --gallery-active {
+  initial-value: 0;
+  inherits: true;
+  syntax: '<number>';
+}
+.root {
+  --snap-size: 48px;
+  --offset: 1;
+
+  @media (min-width: 768px) {
+    & {
+      --offset: 2;
+    }
+  }
+  :global {
+    main {
+      @apply bg-base-100;
+      :local {
+        animation: img-reel both steps(calc(var(--count) - 1));
+      }
+      padding-left: 1rem;
+      padding-right: calc(var(--snap-size) * 5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: grid;
+      height: calc(100vh * var(--count));
+      grid-template-rows: repeat(var(--count), 1fr);
+      place-items: center;
+
+      animation-timeline: scroll(block nearest);
+      /* animation-timeline: view(); */
+      pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        display: none;
+      }
+    }
+
+    aside {
+      width: var(--snap-size);
+      margin-top: calc(50vh - (var(--snap-size) * 0.25));
+      padding-bottom: calc(50vh - (var(--snap-size) * 0.5));
+      z-index: 2;
+      position: absolute;
+      right: 0;
+    }
+
+    aside ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      list-style-type: none;
+      position: relative;
+      right: 1rem;
+      align-items: flex-end;
+      transform-style: preserve-3d;
+    }
+
+    li {
+      scroll-snap-align: center;
+      scroll-margin-block: calc(50vh - var(--snap-size));
+      container-type: size;
+      flex: 1 1 var(--snap-size);
+      aspect-ratio: 1;
+      :local {
+        animation: scale both linear;
+      }
+      animation-timeline: view();
+      animation-range: cover calc(50% - (var(--snap-size) * var(--offset)))
+        cover calc(50% + (var(--snap-size) * var(--offset)));
+      transform-origin: 100% 50%;
+    }
+
+    @media (min-width: 768px) {
+      li {
+        filter: saturate(0.2);
+        :local {
+          animation: scale-l both linear;
+        }
+        animation-timeline: view();
+        animation-range: cover calc(50% - (var(--snap-size) * var(--offset)))
+          cover calc(50% + (var(--snap-size) * var(--offset)));
+      }
+    }
+
+    li img {
+      height: 100%;
+      width: 100%;
+      border-radius: 6px;
+    }
+
+    li a {
+      min-width: 100cqw;
+      min-height: 100cqh;
+      max-width: 600px;
+      max-height: 600px;
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: 4px solid transparent;
+      border-radius: 12px;
+      position: relative;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform-origin: 100% 50%;
+      &::after {
+        content: counter(var(--gallery-active));
+      }
+      translate: calc((var(--gallery-active) * (var(--snap-size) + 1rem)) * -1) -50%;
+      width: calc(
+        (var(--gallery-active) * (100vw - (var(--snap-size) + 3rem)))
+      );
+      height: calc(
+        (var(--gallery-active) * (100vw - (var(--snap-size) + 3rem)))
+      );
+      aspect-ratio: 1;
+      z-index: calc(1 + (var(--gallery-active) * 999));
+    }
+
+    aside span {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    main img {
+      width: 100%;
+      max-width: 600px;
+      max-height: 90vh;
+      object-fit: cover;
+    }
+
+    @keyframes scale {
+      50% {
+        --gallery-active: 1;
+        z-index: 1000;
+      }
+    }
+
+    @keyframes scale-l {
+      50% {
+        translate: -120% 0;
+        scale: 2;
+        transform: translate3d(0, 0, 1000px);
+        filter: saturate(1);
+        z-index: 1000;
+      }
+    }
+
+    @keyframes img-reel {
+      to {
+        translate: 0 calc(-100% + 100vh);
+      }
+    }
+  }
+}
