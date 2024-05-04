@@ -261,24 +261,22 @@ export const eventHandler = (
         id: string
       }
 
-      const queryData = queryClient.getQueryData<
-        InfiniteData<PaginateResult<CommentModel>>
-      >(buildCommentsQueryKey(payload.ref))
+      setTimeout(() => {
+        const queryData = queryClient.getQueryData<
+          InfiniteData<PaginateResult<CommentModel>>
+        >(buildCommentsQueryKey(payload.ref))
 
-      if (!queryData) return
-      for (const page of queryData.pages) {
-        if (page.data.some((comment) => comment.id === payload.id)) {
-          return
+        if (!queryData) return
+        for (const page of queryData.pages) {
+          if (page.data.some((comment) => comment.id === payload.id)) {
+            return
+          }
         }
-      }
 
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          queryClient.invalidateQueries({
-            queryKey: buildCommentsQueryKey(payload.ref),
-          })
+        queryClient.invalidateQueries({
+          queryKey: buildCommentsQueryKey(payload.ref),
         })
-      })
+      }, 1000)
 
       break
     }

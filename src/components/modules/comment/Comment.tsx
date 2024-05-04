@@ -74,15 +74,11 @@ export const Comment: Component<{
               : true
           }
           transition={softSpringPreset}
-          animate={
-            comment['new']
-              ? {
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                }
-              : void 0
-          }
+          animate={{
+            opacity: 1,
+            y: 0,
+            scale: 1,
+          }}
           data-comment-id={cid}
           data-parent-id={parentId}
           className={clsx('relative my-2', className)}
