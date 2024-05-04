@@ -11,6 +11,7 @@
   // https://biomejs.dev/reference/vscode/#fix-on-save
   "editor.codeActionsOnSave": {
     "quickfix.biome": "explicit",
-    "source.organizeImports.biome": "explicit"
-  }
+    "source.organizeImports.biome": "explicit",
+  },
+  "biome.lspBin": "./node_modules/@biomejs/biome/bin/biome",
 }

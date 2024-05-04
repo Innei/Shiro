@@ -1,4 +1,5 @@
 {
+	"$schema": "https://biomejs.dev/schemas/1.6.4/schema.json",
 	"organizeImports": {
 		"enabled": true
 	},
@@ -45,7 +46,6 @@
 				"useExhaustiveDependencies": "warn",
 				"useHookAtTopLevel": "error",
 				"useIsNan": "error",
-				"useJsxKeyInIterable": "error",
 				"useValidForDirection": "error",
 				"useYield": "error"
 			},
@@ -60,7 +60,8 @@
 				"useBlockStatements": "off",
 				"useConst": "error",
 				"useImportType": "warn",
-				"useTemplate": "error"
+				"useTemplate": "error",
+				"useSelfClosingElements": "error"
 			},
 			"suspicious": {
 				"noAssignInExpressions": "off",
