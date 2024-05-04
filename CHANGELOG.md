@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## [1.1.2](https://github.com/Innei/sprightly/compare/v1.1.1...v1.1.2) (2024-05-04)
+
+
+### Bug Fixes
+
+* activity card like type render ([38655f2](https://github.com/Innei/sprightly/commit/38655f28b1828f5e5c55f174b15e1d706df14f7b))
+* clerk style ([33f0669](https://github.com/Innei/sprightly/commit/33f0669fb24576b11580014816254c103b794fe9))
+* comment markdown style ([03bc7b1](https://github.com/Innei/sprightly/commit/03bc7b11d6183f40b66e74d773e490a4ca79f94e))
+* comment transition ([a2bf130](https://github.com/Innei/sprightly/commit/a2bf1308c470461bba25e2094c586a458d6e09d8))
+* enable middleware to get search in layout ([cd4ee10](https://github.com/Innei/sprightly/commit/cd4ee10746302c7100496e01d46032a9b49d0365))
+* framer motion bg layout ([1643f95](https://github.com/Innei/sprightly/commit/1643f95c2145220ad27fe3db40d40c2476ea395c))
+* hero text pos ([b9608de](https://github.com/Innei/sprightly/commit/b9608de4de31e4e5bc138a103478146d929bd8c6))
+* modal title bar ([17d467c](https://github.com/Innei/sprightly/commit/17d467cdb2b6a2f04bf3bef9f4e988d632a263db))
+* og cjk char width calc ([3f193a4](https://github.com/Innei/sprightly/commit/3f193a41b2a798925f3ee67e2b4c99435cb49329))
+* optimize comment style ([c1a738b](https://github.com/Innei/sprightly/commit/c1a738b187008ce8d0f575a973f2060cdac5c6fd))
+* shiki highlight jumping ([919c4c1](https://github.com/Innei/sprightly/commit/919c4c1258d665667fbaed4d305ab8f92379e454))
+* some styles ([84cea05](https://github.com/Innei/sprightly/commit/84cea0591bff8da5026e8e969629f88a69f0cbf4))
+* type error ([b04194c](https://github.com/Innei/sprightly/commit/b04194c72f483178b2354b23e76053f003aec014))
+
+
+### Features
+
+* shiki block `expand` attr ([f6b0d1d](https://github.com/Innei/sprightly/commit/f6b0d1d2066a4598da5b77b71fb0326a72e3720d))
+
+
+
 ## [1.1.1](https://github.com/Innei/sprightly/compare/v1.1.0...v1.1.1) (2024-04-28)
 
 
