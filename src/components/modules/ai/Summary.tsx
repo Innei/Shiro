@@ -5,6 +5,7 @@ import type { FC } from 'react'
 
 import { LogosOpenaiIcon } from '~/components/icons/platform/OpenAIIcon'
 import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
+import { Markdown } from '~/components/ui/markdown'
 import { clsxm } from '~/lib/helper'
 import { apiClient } from '~/lib/request'
 
@@ -53,7 +54,7 @@ const SummaryContainer: Component<{
         AI 生成的摘要
       </div>
 
-      <AutoResizeHeight duration={0.3}>
+      <AutoResizeHeight spring>
         <div className="!m-0 text-sm leading-loose text-base-content/85">
           {isLoading ? (
             <div className="space-y-2">
@@ -62,7 +63,9 @@ const SummaryContainer: Component<{
               <span className="block h-5 w-full animate-pulse rounded-xl bg-zinc-200 dark:bg-neutral-800" />
             </div>
           ) : (
-            summary
+            <Markdown disableParsingRawHTML removeWrapper>
+              {summary || ''}
+            </Markdown>
           )}
         </div>
       </AutoResizeHeight>

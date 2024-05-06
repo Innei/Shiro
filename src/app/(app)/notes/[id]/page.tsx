@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-
-/* eslint-disable react/display-name */
 import { Suspense } from 'react'
 import { headers } from 'next/headers'
 import type { NoteModel } from '@mx-space/api-client'
@@ -105,49 +101,50 @@ async function PageInner({ data }: { data: NoteModel }) {
 
       <NoteHeadCover image={data.meta?.cover} />
       <NoteHeaderMetaInfoSetting />
-      <IndentArticleContainer>
-        <header>
-          <NoteTitle />
-          <span className="flex flex-wrap items-center text-sm text-neutral-content/60">
-            <NoteHeaderDate />
+      <div>
+        <NoteTitle />
+        <span className="flex flex-wrap items-center text-sm text-neutral-content/60">
+          <NoteHeaderDate />
 
-            <ClientOnly>
-              <NoteMetaBar />
-              <NoteMetaReadingCount />
-            </ClientOnly>
-          </span>
-          <NoteRootBanner />
-          {data.hide && (
-            <NoteBanner
-              type="warning"
-              message="这篇文章是非公开的，仅登录可见"
-            />
-          )}
-        </header>
+          <ClientOnly>
+            <NoteMetaBar />
+            <NoteMetaReadingCount />
+          </ClientOnly>
+        </span>
 
-        <NoteHideIfSecret>
-          <Suspense>
-            <Summary data={data} />
-          </Suspense>
-          <WrappedElementProvider eoaDetect>
-            <Presence />
-            <ReadIndicatorForMobile />
-            <NoteMarkdownImageRecordProvider>
-              <BanCopyWrapper>
-                <MarkdownSelection>
+        <NoteRootBanner />
+        {data.hide && (
+          <NoteBanner type="warning" message="这篇文章是非公开的，仅登录可见" />
+        )}
+      </div>
+
+      <NoteHideIfSecret>
+        <Suspense>
+          <Summary data={data} />
+        </Suspense>
+        <WrappedElementProvider eoaDetect>
+          <Presence />
+          <ReadIndicatorForMobile />
+          <NoteMarkdownImageRecordProvider>
+            <BanCopyWrapper>
+              <MarkdownSelection>
+                <IndentArticleContainer>
+                  <header className="sr-only">
+                    <NoteTitle />
+                  </header>
                   <NoteMarkdown />
-                </MarkdownSelection>
-              </BanCopyWrapper>
-            </NoteMarkdownImageRecordProvider>
+                </IndentArticleContainer>
+              </MarkdownSelection>
+            </BanCopyWrapper>
+          </NoteMarkdownImageRecordProvider>
 
-            <LayoutRightSidePortal>
-              <ArticleRightAside>
-                <NoteActionAside />
-              </ArticleRightAside>
-            </LayoutRightSidePortal>
-          </WrappedElementProvider>
-        </NoteHideIfSecret>
-      </IndentArticleContainer>
+          <LayoutRightSidePortal>
+            <ArticleRightAside>
+              <NoteActionAside />
+            </ArticleRightAside>
+          </LayoutRightSidePortal>
+        </WrappedElementProvider>
+      </NoteHideIfSecret>
       <Signature />
       {/* <SubscribeBell defaultType="note_c" /> */}
       <ClientOnly>

@@ -140,8 +140,8 @@ const PostPage = ({ data }: { data: ModelWithLiked<PostModel> }) => {
     <div className="relative w-full min-w-0">
       <AckRead id={id} type="post" />
       <HeaderMetaInfoSetting />
-      <article className="prose">
-        <header className="mb-8">
+      <div>
+        <div className="mb-8">
           <PostTitle />
           <GoToAdminEditingButton
             id={id!}
@@ -157,13 +157,18 @@ const PostPage = ({ data }: { data: ModelWithLiked<PostModel> }) => {
           <PostOutdate />
 
           <PostRelated infoText="阅读此文章之前，你可能需要首先阅读以下的文章才能更好的理解上下文。" />
-        </header>
+        </div>
         <WrappedElementProvider eoaDetect>
           <ReadIndicatorForMobile />
           <Presence />
           <PostMarkdownImageRecordProvider>
             <MarkdownSelection>
-              <PostMarkdown />
+              <article className="prose">
+                <div className="sr-only">
+                  <PostTitle />
+                </div>
+                <PostMarkdown />
+              </article>
             </MarkdownSelection>
           </PostMarkdownImageRecordProvider>
 
@@ -173,7 +178,7 @@ const PostPage = ({ data }: { data: ModelWithLiked<PostModel> }) => {
             </ArticleRightAside>
           </LayoutRightSidePortal>
         </WrappedElementProvider>
-      </article>
+      </div>
       <ClientOnly>
         <PostRelated infoText="关联阅读" />
         <PostCopyright />
