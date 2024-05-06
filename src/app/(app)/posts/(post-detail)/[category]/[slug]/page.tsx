@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import type { ModelWithLiked, PostModel } from '@mx-space/api-client'
@@ -113,9 +112,9 @@ const Summary = async ({ data }: { data: ModelWithLiked<PostModel> }) => {
       onlyDb: true,
       lang: acceptLang || undefined,
     })
-    .then(() => {
+    .then((res) => {
       return {
-        summary: '',
+        summary: res?.summary,
       }
     })
     .catch(() => {
@@ -151,9 +150,8 @@ const PostPage = ({ data }: { data: ModelWithLiked<PostModel> }) => {
 
           <PostMetaBarInternal className="mb-8 justify-center" />
 
-          <Suspense>
-            <Summary data={data} />
-          </Suspense>
+          <Summary data={data} />
+
           <PostOutdate />
 
           <PostRelated infoText="阅读此文章之前，你可能需要首先阅读以下的文章才能更好的理解上下文。" />

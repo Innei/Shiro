@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import type React from 'react'
-import { useMemo } from 'react'
+import { Suspense, useMemo } from 'react'
 import dynamic from 'next/dynamic'
+import type React from 'react'
 import type { FC, PropsWithChildren, ReactNode } from 'react'
 
 import { ThinkingItem } from '~/app/(app)/thinking/item'
@@ -82,7 +82,11 @@ export const BlockLinkRenderer = ({
     case isTweetUrl(url): {
       const id = getTweetId(url)
 
-      return <Tweet id={id} />
+      return (
+        <Suspense>
+          <Tweet id={id} />
+        </Suspense>
+      )
     }
 
     case isYoutubeUrl(url): {

@@ -1,3 +1,4 @@
+import { use } from 'react'
 import Image from 'next/image'
 import type { TwitterComponents } from 'react-tweet'
 
@@ -14,8 +15,10 @@ const components: TwitterComponents = {
   ),
 }
 
-export default async function Tweet({ id }: { id: string }) {
-  const { Tweet: ReactTweet } = await import('react-tweet')
+const reactTweet = import('react-tweet')
+
+export default function Tweet({ id }: { id: string }) {
+  const { Tweet: ReactTweet } = use(reactTweet)
 
   return (
     <span className="flex justify-center">

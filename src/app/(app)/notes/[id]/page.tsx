@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { headers } from 'next/headers'
 import type { NoteModel } from '@mx-space/api-client'
 import type { Metadata } from 'next'
@@ -74,9 +73,9 @@ const Summary = async ({ data }: { data: NoteModel }) => {
       onlyDb: true,
       lang: acceptLang || undefined,
     })
-    .then(() => {
+    .then((res) => {
       return {
-        summary: '',
+        summary: res?.summary,
       }
     })
     .catch(() => {
@@ -94,7 +93,7 @@ const Summary = async ({ data }: { data: NoteModel }) => {
     />
   )
 }
-async function PageInner({ data }: { data: NoteModel }) {
+function PageInner({ data }: { data: NoteModel }) {
   return (
     <>
       <AckRead id={data.id} type="note" />
@@ -119,9 +118,7 @@ async function PageInner({ data }: { data: NoteModel }) {
       </div>
 
       <NoteHideIfSecret>
-        <Suspense>
-          <Summary data={data} />
-        </Suspense>
+        <Summary data={data} />
         <WrappedElementProvider eoaDetect>
           <Presence />
           <ReadIndicatorForMobile />
