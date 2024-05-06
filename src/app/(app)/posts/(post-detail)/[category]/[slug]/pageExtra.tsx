@@ -16,7 +16,11 @@ import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProv
 export const PostTitle = () => {
   const title = useCurrentPostDataSelector((data) => data?.title)!
 
-  return <h1 className="text-balance text-center">{title}</h1>
+  return (
+    <h1 className="mb-8 text-balance text-center text-4xl font-bold leading-tight">
+      {title}
+    </h1>
+  )
 }
 export const MarkdownSelection: Component = (props) => {
   const id = useCurrentPostDataSelector((data) => data?.id)!

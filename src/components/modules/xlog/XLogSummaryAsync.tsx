@@ -56,7 +56,7 @@ export const XLogSummaryAsync = async (
           <RealDataRender cid={cid} />
         </Suspense>
       </AutoResizeHeight>
-      <p className="border-slate-200 text-right text-sm dark:border-slate-800 ">
+      <p className="mt-3 border-slate-200 text-right text-sm dark:border-slate-800 ">
         (此服务由{' '}
         <a href="https://xlog.app" target="_blank" rel="noreferrer">
           xLog

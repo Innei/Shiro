@@ -46,7 +46,9 @@ export const NoteTitle = () => {
   if (!title) return null
   return (
     <>
-      <h1 className="mt-8 text-left font-bold text-base-content/95">{title}</h1>
+      <h1 className="my-8 text-balance text-left text-4xl font-bold leading-tight text-base-content/95">
+        {title}
+      </h1>
 
       <GoToAdminEditingButton
         type="notes"
