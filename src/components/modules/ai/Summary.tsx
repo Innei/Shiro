@@ -95,7 +95,7 @@ export const SummaryLoadingSkeletonContainer: FC<{ className?: string }> = ({
     </div>
 
     <div className="!m-0 text-sm leading-loose text-base-content/85">
-      SummaryLoadingSkeleton
+      {SummaryLoadingSkeleton}
     </div>
   </div>
 )
