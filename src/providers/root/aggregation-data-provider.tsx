@@ -2,12 +2,13 @@
 
 import { useCallback, useEffect, useRef } from 'react'
 import { atom, useAtomValue } from 'jotai'
-import { selectAtom, useHydrateAtoms } from 'jotai/utils'
+import { selectAtom } from 'jotai/utils'
 import type { AggregateRoot } from '@mx-space/api-client'
 import type { FC, PropsWithChildren } from 'react'
 
 import { fetchAppUrl, setWebUrl } from '~/atoms'
 import { login } from '~/atoms/owner'
+import { useBeforeMounted } from '~/hooks/common/use-before-mounted'
 import { jotaiStore } from '~/lib/store'
 
 export const aggregationDataAtom = atom<null | AggregateRoot>(null)
@@ -19,15 +20,24 @@ export const AggregationProvider: FC<
     appConfig: AppConfig
   }>
 > = ({ children, aggregationData, appConfig }) => {
-  useHydrateAtoms(
-    [
-      [aggregationDataAtom, aggregationData],
-      [appConfigAtom, appConfig],
-    ],
-    {
-      dangerouslyForceHydrate: true,
-    },
-  )
+  useBeforeMounted(() => {
+    if (!aggregationData) return
+    jotaiStore.set(aggregationDataAtom, aggregationData)
+    setWebUrl(aggregationData.url.webUrl)
+  })
+  useBeforeMounted(() => {
+    if (!appConfig) return
+    jotaiStore.set(appConfigAtom, appConfig)
+  })
+  // useHydrateAtoms(
+  //   [
+  //     [aggregationDataAtom, aggregationData],
+  //     [appConfigAtom, appConfig],
+  //   ],
+  //   {
+  //     dangerouslyForceHydrate: true,
+  //   },
+  // )
 
   useEffect(() => {
     if (!appConfig) return
