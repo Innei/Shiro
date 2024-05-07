@@ -303,7 +303,9 @@ const OptimizedImage = memo(
     DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>
   >(({ src, alt, ...rest }, ref) => {
     const { height, width } = useMarkdownImageRecord(src!) || rest
-    const hasDim = !!(height && width)
+
+    const isGif = src!.endsWith('.gif')
+    const useOptimize = !!(height && width) && !isGif
 
     const placeholderImageRef = useRef<HTMLImageElement>(null)
     const ImageEl = (
@@ -326,9 +328,10 @@ const OptimizedImage = memo(
       if (!placeholderImageRef.current) return
       placeholderImageRef.current.src = $renderImage.src
     }, [src])
+
     return (
       <>
-        {hasDim ? (
+        {useOptimize ? (
           <>
             <Image
               alt={alt || ''}
