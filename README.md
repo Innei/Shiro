@@ -10,7 +10,7 @@
 - [可愛い松](https://blog.wibus.ren/)
 - [HuaSui](https://www.vlo.cc/)
 - [天翔 TNXG](https://tnxg.top)
-- [Star](https://www.xingbest.fun)
+- [Star](https://ssstttar.com/)
 
 欢迎你来体验 Shiro 的魅力！
 
