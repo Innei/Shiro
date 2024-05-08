@@ -25,7 +25,7 @@ export function escapeXml(unsafe: string) {
 
 export const getOgUrl = (type: 'post' | 'note' | 'page', data: any) => {
   const host = headers().get('host')
-  const ogUrl = new URL(`${isDev ? 'http' : 'https'}://${host}/render/og`)
+  const ogUrl = new URL(`${isDev ? 'http' : 'https'}://${host}/og`)
   ogUrl.searchParams.set(
     'data',
     encodeURIComponent(

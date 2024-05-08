@@ -104,7 +104,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
       type: 'website',
       url: url.webUrl,
       images: {
-        url: `${url.webUrl}/render/home-og`,
+        url: `${url.webUrl}/home-og`,
         username: user.name,
       },
     },
