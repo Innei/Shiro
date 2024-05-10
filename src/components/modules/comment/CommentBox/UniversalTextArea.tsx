@@ -101,11 +101,17 @@ export const UniversalTextArea: Component = ({ className }) => {
             <EmojiPicker onEmojiSelect={handleInsertEmoji} />
           </FloatPopover>
         )}
-        <KaomojiPanel placement="bottom" inputRef={taRef}>
+        <KaomojiPanel
+          placement="bottom"
+          inputRef={taRef}
+          onValueChange={(val) => {
+            setter('text', val)
+          }}
+        >
           <div
             role="button"
             tabIndex={0}
-            className="ml-0 inline-flex shrink-0 text-xs center md:ml-4"
+            className="center ml-0 inline-flex shrink-0 text-xs md:ml-4"
           >
             {useMemo(() => sample(KAOMOJI_LIST), [])}
             <span className="sr-only">颜文字</span>
@@ -119,7 +125,7 @@ export const UniversalTextArea: Component = ({ className }) => {
 const EmojiButton = () => {
   return (
     <div
-      className="ml-0 inline-flex size-5 translate-y-1 text-base center md:ml-4"
+      className="center ml-0 inline-flex size-5 translate-y-1 text-base md:ml-4"
       role="button"
       tabIndex={0}
     >

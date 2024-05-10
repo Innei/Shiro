@@ -23,8 +23,17 @@ export const KaomojiPanel: FC<
     open?: boolean
     onOpenChange?: (open: boolean) => void
     placement?: Placement
+    onValueChange?: (value: string) => void
   } & PropsWithChildren
-> = ({ to, inputRef, placement, onOpenChange, open, children }) => {
+> = ({
+  to,
+  inputRef,
+  placement,
+  onOpenChange,
+  open,
+  children,
+  onValueChange,
+}) => {
   const KaomojiContentEl = (
     <ScrollArea.ScrollArea rootClassName="pointer-events-auto h-[250px] w-auto lg:h-[200px] lg:w-[400px]">
       <div className="grid grid-cols-4 gap-4">
@@ -47,6 +56,7 @@ export const KaomojiPanel: FC<
                     end,
                     $ta.value.length,
                   )}`
+                  onValueChange?.($ta.value)
 
                   requestAnimationFrame(() => {
                     const shouldMoveToPos = start + escapeKaomoji.length + 2
