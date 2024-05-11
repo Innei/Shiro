@@ -1,10 +1,13 @@
 'use client'
 
-import { use, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { StyledButton } from '~/components/ui/button'
 import { Input } from '~/components/ui/input/Input'
+import { useEventCallback } from '~/hooks/common/use-event-callback'
+import { AuthnUtils } from '~/lib/authn'
+import { setToken } from '~/lib/cookie'
 import { apiClient } from '~/lib/request'
 import { Routes } from '~/lib/route-builder'
 
@@ -19,8 +22,8 @@ export default function LoginPage() {
 
   const { passkey: canPasskey, password: canPassword } = use(canLoginPromise)
 
-  const handleLogin = async (e: any) => {
-    e.preventDefault()
+  const handleLogin = useEventCallback(async (e?: any) => {
+    e?.preventDefault()
     const { login } = await import('~/atoms/owner')
     await login(username, password)
 
@@ -30,7 +33,19 @@ export default function LoginPage() {
     } else {
       router.push(Routes.Home)
     }
-  }
+  })
+
+  useEffect(() => {
+    if (canPasskey) {
+      AuthnUtils.validate().then((res) => {
+        if (res?.token) {
+          setToken(res.token)
+          handleLogin()
+        }
+      })
+    }
+  }, [canPasskey, handleLogin])
+
   return (
     <div className="center flex min-h-[calc(100vh-7rem)] flex-col">
       <div className="mb-6 text-lg font-medium">

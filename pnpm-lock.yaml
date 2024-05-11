@@ -107,6 +107,12 @@ importers:
       '@shikijs/transformers':
         specifier: 1.4.0
         version: 1.4.0
+      '@simplewebauthn/browser':
+        specifier: 10.0.0
+        version: 10.0.0
+      '@simplewebauthn/typescript-types':
+        specifier: 8.3.4
+        version: 8.3.4
       '@tanstack/query-async-storage-persister':
         specifier: 5.35.1
         version: 5.35.1
@@ -1787,6 +1793,16 @@ packages:
 
   '@shikijs/transformers@1.4.0':
     resolution: {integrity: sha512-kzvlWmWYYSeaLKRce/kgmFFORUtBtFahfXRKndor0b60ocYiXufBQM6d6w1PlMuUkdk55aor9xLvy9wy7hTEJg==}
+
+  '@simplewebauthn/browser@10.0.0':
+    resolution: {integrity: sha512-hG0JMZD+LiLUbpQcAjS4d+t4gbprE/dLYop/CkE01ugU/9sKXflxV5s0DRjdz3uNMFecatRfb4ZLG3XvF8m5zg==}
+
+  '@simplewebauthn/types@10.0.0':
+    resolution: {integrity: sha512-SFXke7xkgPRowY2E+8djKbdEznTVnD5R6GO7GPTthpHrokLvNKw8C3lFZypTxLI7KkCfGPfhtqB3d7OVGGa9jQ==}
+
+  '@simplewebauthn/typescript-types@8.3.4':
+    resolution: {integrity: sha512-38xtca0OqfRVNloKBrFB5LEM6PN5vzFbJG6rAutPVrtGHFYxPdiV3btYWq0eAZAZmP+dqFPYJxJWeJrGfmYHng==}
+    deprecated: This package has been renamed to @simplewebauthn/types. Please install @simplewebauthn/types instead to ensure you receive future updates.
 
   '@sindresorhus/slugify@2.2.1':
     resolution: {integrity: sha512-MkngSCRZ8JdSOCHRaYd+D01XhvU3Hjy6MGl06zhOk614hp9EOAp5gIkBeQg7wtmxpitU6eAL4kdiRMcJa2dlrw==}
@@ -7250,6 +7266,14 @@ snapshots:
   '@shikijs/transformers@1.4.0':
     dependencies:
       shiki: 1.4.0
+
+  '@simplewebauthn/browser@10.0.0':
+    dependencies:
+      '@simplewebauthn/types': 10.0.0
+
+  '@simplewebauthn/types@10.0.0': {}
+
+  '@simplewebauthn/typescript-types@8.3.4': {}
 
   '@sindresorhus/slugify@2.2.1':
     dependencies:

@@ -82,6 +82,11 @@ export const dashboardRoutes = {
       icon: <i className="icon-[mingcute--comment-2-line]" />,
       path: '/says',
     },
+    // {
+    //   title: '认证',
+    //   icon: <i className="icon-[mingcute--key-2-line]" />,
+    //   path: '/passkey',
+    // },
     {
       title: '完整功能与其他设置',
       icon: <i className="icon-[mingcute--settings-1-line]" />,
