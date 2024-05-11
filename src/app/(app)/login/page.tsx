@@ -34,7 +34,8 @@ export default function LoginPage() {
   return (
     <div className="center flex min-h-[calc(100vh-7rem)] flex-col">
       <div className="mb-6 text-lg font-medium">
-        你发现了神秘的登录入口，但这并没有什么用
+        你发现了神秘的登录入口
+        {!canPassword ? '，但这里什么也没有' : ''}
       </div>
       {canPassword && (
         <form className="flex flex-col space-y-5" onSubmit={handleLogin}>
