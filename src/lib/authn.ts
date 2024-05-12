@@ -1,7 +1,7 @@
 import type {
   AuthenticationResponseJSON,
   RegistrationResponseJSON,
-} from '@simplewebauthn/typescript-types'
+} from '@simplewebauthn/types'
 
 import { startAuthentication, startRegistration } from '@simplewebauthn/browser'
 
