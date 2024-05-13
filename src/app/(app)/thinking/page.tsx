@@ -1,6 +1,10 @@
 'use client'
 
-import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
 import clsx from 'clsx'
 import { stagger, useAnimate } from 'framer-motion'
@@ -57,26 +61,29 @@ const PostBox = () => {
 
   const [value, setValue] = useState('')
   const queryClient = useQueryClient()
-  if (!isLogin) return null
+  const { mutateAsync: handleSend, isPending } = useMutation({
+    mutationFn: async () => {
+      apiClient.shorthand.proxy
+        .post({ data: { content: value } })
+        .then((res) => {
+          setValue('')
 
-  const handleSend = () => {
-    apiClient.shorthand.proxy.post({ data: { content: value } }).then((res) => {
-      setValue('')
-
-      queryClient.setQueryData<
-        InfiniteData<
-          RecentlyModel[] & {
-            comments: number
-          }
-        >
-      >(QUERY_KEY, (old) => {
-        return produce(old, (draft) => {
-          draft?.pages[0].unshift(res.$serialized as any)
-          return draft
+          queryClient.setQueryData<
+            InfiniteData<
+              RecentlyModel[] & {
+                comments: number
+              }
+            >
+          >(QUERY_KEY, (old) => {
+            return produce(old, (draft) => {
+              draft?.pages[0].unshift(res.$serialized as any)
+              return draft
+            })
+          })
         })
-      })
-    })
-  }
+    },
+  })
+  if (!isLogin) return null
   return (
     <form onSubmit={preventDefault} className="mb-8">
       <TextArea
@@ -94,8 +101,8 @@ const PostBox = () => {
       >
         <div className="absolute bottom-2 right-2 flex size-5 center">
           <MotionButtonBase
-            onClick={handleSend}
-            disabled={value.length === 0}
+            onClick={() => handleSend()}
+            disabled={value.length === 0 || isPending}
             className="duration-200 disabled:cursor-not-allowed disabled:opacity-10"
           >
             <TiltedSendIcon className="size-5 text-zinc-800 dark:text-zinc-200" />
