@@ -1,6 +1,10 @@
 'use client'
 
-import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { stagger, useAnimate } from 'framer-motion'
 import { produce } from 'immer'
@@ -31,7 +35,8 @@ export default function Page() {
             aria-hidden
             href="/thinking/feed"
             target="_blank"
-            className="flex size-8 select-none text-[#EE802F] center" rel="noreferrer"
+            className="center flex size-8 select-none text-[#EE802F]"
+            rel="noreferrer"
           >
             <i className="icon-[mingcute--rss-fill]" />
           </a>
@@ -51,26 +56,30 @@ const PostBox = () => {
 
   const [value, setValue] = useState('')
   const queryClient = useQueryClient()
+  const { mutateAsync: handleSend, isPending } = useMutation({
+    mutationFn: async () => {
+      apiClient.shorthand.proxy
+        .post({ data: { content: value } })
+        .then((res) => {
+          setValue('')
+
+          queryClient.setQueryData<
+            InfiniteData<
+              RecentlyModel[] & {
+                comments: number
+              }
+            >
+          >(QUERY_KEY, (old) => {
+            return produce(old, (draft) => {
+              draft?.pages[0].unshift(res.$serialized as any)
+              return draft
+            })
+          })
+        })
+    },
+  })
   if (!isLogin) return null
 
-  const handleSend = () => {
-    apiClient.shorthand.proxy.post({ data: { content: value } }).then((res) => {
-      setValue('')
-
-      queryClient.setQueryData<
-        InfiniteData<
-          RecentlyModel[] & {
-            comments: number
-          }
-        >
-      >(QUERY_KEY, (old) => {
-        return produce(old, (draft) => {
-          draft?.pages[0].unshift(res.$serialized as any)
-          return draft
-        })
-      })
-    })
-  }
   return (
     <form onSubmit={preventDefault} className="mb-8">
       <TextArea
@@ -86,10 +95,10 @@ const PostBox = () => {
           handleSend()
         }}
       >
-        <div className="absolute bottom-2 right-2 flex size-5 center">
+        <div className="center absolute bottom-2 right-2 flex size-5">
           <MotionButtonBase
-            onClick={handleSend}
-            disabled={value.length === 0}
+            onClick={() => handleSend()}
+            disabled={value.length === 0 || isPending}
             className="duration-200 disabled:cursor-not-allowed disabled:opacity-10"
           >
             <TiltedSendIcon className="size-5 text-zinc-800 dark:text-zinc-200" />
