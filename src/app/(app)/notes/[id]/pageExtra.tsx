@@ -45,7 +45,7 @@ export const NoteTitle = () => {
 
   if (!title) return null
   return (
-    <>
+    <div className="relative">
       <h1 className="my-8 text-balance text-left text-4xl font-bold leading-tight text-base-content/95">
         {title}
       </h1>
@@ -55,7 +55,7 @@ export const NoteTitle = () => {
         id={id!}
         className="absolute right-0 top-0"
       />
-    </>
+    </div>
   )
 }
 
