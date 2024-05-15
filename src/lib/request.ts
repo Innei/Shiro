@@ -53,6 +53,7 @@ const $fetch = createFetch({
         // eslint-disable-next-line no-console
         console.info(`[Request]: ${context.request}`)
       }
+      context.options.headers = headers
     },
     onResponse(context) {
       // log response
