@@ -24,29 +24,6 @@ export const attachServerFetch = () => {
     'User-Agent',
     `${ua} NextJS/v${PKG.dependencies.next} ${PKG.name}/${PKG.version}`,
   )
-
-  // TODO 安全考虑还是去掉了
-  // const jwt = getAuthFromCookie()
-  // clearGlobalSearchParams()
-
-  // if (jwt)
-  //   setGlobalSearchParams({
-  //     token: jwt,
-  //   })
-}
-
-export const attachServerFetchAuth = () => {
-  const jwt = getAuthFromCookie()
-
-  if (jwt) {
-    attachFetchHeader('Authorization', `Bearer ${jwt}`)
-  } else {
-    attachFetchHeader('Authorization', '')
-  }
-}
-
-export const detachServerFetchAuth = () => {
-  attachFetchHeader('Authorization', null)
 }
 
 export const getAuthFromCookie = () => {

@@ -3,7 +3,7 @@
 import clsx from 'clsx'
 import { m } from 'framer-motion'
 import type { FC, JSX } from 'react'
-import type { ToastProps, TypeOptions } from 'react-toastify/dist/types'
+import type { TypeOptions } from 'react-toastify'
 
 import { MotionButtonBase } from '../../ui/button'
 
@@ -19,7 +19,9 @@ const typeMap: Record<TypeOptions, JSX.Element> = {
 
 export const ToastCard: FC<{
   message: string
-  toastProps?: ToastProps
+  toastProps?: {
+    type: TypeOptions
+  }
   iconElement?: JSX.Element
   closeToast?: () => void
   onClick?: () => void

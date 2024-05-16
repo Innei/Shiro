@@ -126,7 +126,8 @@
     "unist-util-visit": "5.0.0",
     "use-context-selector": "2.0.0",
     "vaul": "0.9.1",
-    "xss": "1.0.15"
+    "xss": "1.0.15",
+    "@shiro/fetch": "link:./packages/fetch"
   },
   "devDependencies": {
     "@biomejs/biome": "1.7.3",
@@ -150,6 +151,7 @@
     "@types/remove-markdown": "0.3.4",
     "@types/rss": "0.0.32",
     "autoprefixer": "10.4.19",
+    "client-only": "0.0.1",
     "cross-env": "7.0.3",
     "dotenv": "16.4.5",
     "lint-staged": "15.2.2",

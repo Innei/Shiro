@@ -6,11 +6,11 @@
       "dom.iterable",
       "esnext"
     ],
+    "outDir": "./dist",
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "Bundler",
@@ -18,7 +18,6 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "baseUrl": ".",
-    "incremental": true,
     "plugins": [
       {
         "name": "next"
@@ -26,20 +25,12 @@
     ],
     "paths": {
       "~/*": [
-        "./src/*"
+        "../../src/*"
       ]
     }
   },
   "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "packages/fetch/index.js",
+    "./src"
   ],
-  "exclude": [
-    "node_modules",
-    "packages/markdown",
-    "./storybook"
-  ]
+  "exclude": []
 }

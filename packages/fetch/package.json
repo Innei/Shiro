@@ -1,0 +1,10 @@
+{
+  "name": "@shiro/fetch",
+  "exports": {
+    ".": {
+      "react-server": "./src/fetch.server.ts",
+      "default": "./src/fetch.client.ts"
+    }
+  },
+  "devDependencies": {}
+}
