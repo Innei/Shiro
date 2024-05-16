@@ -107,6 +107,9 @@ importers:
       '@shikijs/transformers':
         specifier: 1.4.0
         version: 1.4.0
+      '@shiro/fetch':
+        specifier: link:./packages/fetch
+        version: link:packages/fetch
       '@simplewebauthn/browser':
         specifier: 10.0.0
         version: 10.0.0
@@ -366,6 +369,9 @@ importers:
       autoprefixer:
         specifier: 10.4.19
         version: 10.4.19(postcss@8.4.38)
+      client-only:
+        specifier: 0.0.1
+        version: 0.0.1
       cross-env:
         specifier: 7.0.3
         version: 7.0.3

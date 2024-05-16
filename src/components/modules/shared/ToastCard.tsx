@@ -3,7 +3,7 @@
 import clsx from 'clsx'
 import { m } from 'framer-motion'
 import type { FC, JSX } from 'react'
-import type { ToastProps, TypeOptions } from 'react-toastify/dist/types'
+import type { TypeOptions } from 'react-toastify'
 
 import { MotionButtonBase } from '../../ui/button'
 
@@ -19,7 +19,9 @@ const typeMap: Record<TypeOptions, JSX.Element> = {
 
 export const ToastCard: FC<{
   message: string
-  toastProps?: ToastProps
+  toastProps?: {
+    type: TypeOptions
+  }
   iconElement?: JSX.Element
   closeToast?: () => void
   onClick?: () => void
@@ -32,7 +34,7 @@ export const ToastCard: FC<{
     <MotionTag
       layout="position"
       className={clsx(
-        'relative w-full overflow-hidden rounded-xl card-shadow',
+        'card-shadow relative w-full overflow-hidden rounded-xl',
         'my-4 mr-4 px-4 py-5 pr-8',
         'bg-zinc-50/90 backdrop-blur-sm dark:bg-neutral-900/90',
         'border border-slate-100/80 dark:border-neutral-900/80',
