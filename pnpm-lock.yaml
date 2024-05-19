@@ -27,11 +27,11 @@ importers:
         specifier: 3.577.0
         version: 3.577.0
       '@clerk/nextjs':
-        specifier: 5.0.9
-        version: 5.0.9(next@14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 5.0.12
+        version: 5.0.12(next@14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@clerk/themes':
-        specifier: 2.1.4
-        version: 2.1.4
+        specifier: 2.1.6
+        version: 2.1.6
       '@excalidraw/excalidraw':
         specifier: 0.17.6
         version: 0.17.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -153,8 +153,8 @@ importers:
         specifier: 5.6.0
         version: 5.6.0
       emoji-picker-react:
-        specifier: 4.9.2
-        version: 4.9.2(react@18.3.1)
+        specifier: 4.9.3
+        version: 4.9.3(react@18.3.1)
       foxact:
         specifier: 0.2.33
         version: 0.2.33(react@18.3.1)
@@ -210,8 +210,8 @@ importers:
         specifier: 14.2.3
         version: 14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-runtime-env:
-        specifier: 3.2.1
-        version: 3.2.1(next@14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+        specifier: 3.2.2
+        version: 3.2.2(next@14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       next-themes:
         specifier: 0.3.0
         version: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -767,27 +767,27 @@ packages:
   '@braintree/sanitize-url@6.0.4':
     resolution: {integrity: sha512-s3jaWicZd0pkP0jf5ysyHUI/RE7MHos6qlToFcGWXVp+ykHOy77OUMrfbgJ9it2C5bow7OIQwYYaHjk9XlBQ2A==}
 
-  '@clerk/backend@1.1.4':
-    resolution: {integrity: sha512-3Tgsh5JIuEX8UePlxf5ULl4DqSr5MKastuyMZ+HjytD4hqG7GALQILUNFCLIJGhvwpnaYnK5ZfQ/T2CH/G445A==}
+  '@clerk/backend@1.1.5':
+    resolution: {integrity: sha512-e1CD4A5y+H4NbGdGJSE1ZnLGAYaFssrG7NStMmpwaOJry7zF0AbcMMrTzPGWoeu9xrrIRllcOMnAzhehe0/kYg==}
     engines: {node: '>=18.17.0'}
 
-  '@clerk/clerk-react@5.0.5':
-    resolution: {integrity: sha512-L6ofmAD22oJy8TmF2HdWv8tAo+3+yAkpaDO6foBnFdRCdo5KDwbkxezKQ1dZ+H9B3+wlr+BNyWhuZX1U+YUn5w==}
+  '@clerk/clerk-react@5.1.0':
+    resolution: {integrity: sha512-drc/V0J+h9Jsz32QsL7WmuUhhhkU21KbNz5mwLPbSzBMoLg43sx6aRjJGCfBQYPxPsuFZWDlKoJhX6LZ8yxHcA==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
 
-  '@clerk/nextjs@5.0.9':
-    resolution: {integrity: sha512-NIhft1y8Ynnm6GYevw/8fExHK3aRJxPG7hVaBd1LivxJPVSGZ3k8zbgeVc9UwtwYkjD5+xM/PnsMJ0aXGLa5+Q==}
+  '@clerk/nextjs@5.0.12':
+    resolution: {integrity: sha512-uRbt31bfPOhQw14wJUThVGlP1HT2v7Ii+UY00MWFuyx7RmOUgqDnBax2FhUcCEJJhICSU0Xf/TqrWOkQUTEg/A==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       next: ^13.5.4 || ^14.0.3
       react: '>=18'
       react-dom: '>=18'
 
-  '@clerk/shared@2.1.0':
-    resolution: {integrity: sha512-8BwfjHFUHLtvFJzFFFvk66+maXb+EZlrf1NZ2GiRz6pOfT0VoYLK7MzLrY5GtHilNRtsvuTVlzg8Xxvn06AP6g==}
+  '@clerk/shared@2.1.1':
+    resolution: {integrity: sha512-cj8VZdEtuqghHBFApl2fFgBtjYZ0NN085uXPqSvdBS62EIKpSENCqm7Ug1H5R2WSuCIv819ZZEBxPiYZM0TNFg==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       react: '>=18'
@@ -798,12 +798,12 @@ packages:
       react-dom:
         optional: true
 
-  '@clerk/themes@2.1.4':
-    resolution: {integrity: sha512-Pzoh0WgorAtnm795DNRXHsrzY1umiZCuqUcxmn02k1WKiAecZRKfr53X91yinqj6DrLrXwrmdEInMTjZer95YQ==}
+  '@clerk/themes@2.1.6':
+    resolution: {integrity: sha512-KEn0lOMzDOBvMeEYhOIp4oi7TjsY0mZz31COFcc6mSEguGU2KM700ZTNgZ8nbtQEtJVytXG+ajQ7jstPuzMDYA==}
     engines: {node: '>=18.17.0'}
 
-  '@clerk/types@4.3.0':
-    resolution: {integrity: sha512-wsqnmyHLygj6Xgma175NihErsmMgXTEo6a+6eTCNQJTxfMb9fic8w6ssipSM1/rphVO3dLSkRNXeQGqiwOFesw==}
+  '@clerk/types@4.4.0':
+    resolution: {integrity: sha512-OaT02uLG1P/jBFNyoPM3n9nLdV4H0etTpa/l3iTW4IgOLiAINToLpMOvEpWzKWUq9nvmOouZlBzPVMozu7dwDg==}
     engines: {node: '>=18.17.0'}
 
   '@crossbell/ipfs-fetch@0.0.21':
@@ -2648,8 +2648,8 @@ packages:
   emoji-mart@5.6.0:
     resolution: {integrity: sha512-eJp3QRe79pjwa+duv+n7+5YsNhRcMl812EcFVwrnRvYKoNPoQb5qxU8DG6Bgwji0akHdp6D4Ln6tYLG58MFSow==}
 
-  emoji-picker-react@4.9.2:
-    resolution: {integrity: sha512-pdvLKpto0DMrjE+/8V9QeYjrMcOkJmqBn3GyCSG2zanY32rN2cnWzBUmzArvapAjzBvgf7hNmJP8xmsdu0cmJA==}
+  emoji-picker-react@4.9.3:
+    resolution: {integrity: sha512-1O38tt6Yty8MiAB/3BWBpjyKr6sKVIl7Uc/fcATBxgz43fN31j1gVAsbY0+S2Yolaxgro838tFd2iADV2Ot2nA==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=16'
@@ -3432,8 +3432,8 @@ packages:
     engines: {node: ^18 || >=20}
     hasBin: true
 
-  next-runtime-env@3.2.1:
-    resolution: {integrity: sha512-vyuTpUMwnGUA9GjOGXNnuosqFQOa52IcKmu4mnTaQi4EqeFoCy3aYUxSF6mLaKkQ5yNC8yLa/gFjny74czpc9Q==}
+  next-runtime-env@3.2.2:
+    resolution: {integrity: sha512-S5S6NxIf3XeaVc9fLBN2L5Jzu+6dLYCXeOaPQa1RzKRYlG2BBayxXOj6A4VsciocyNkJMazW1VAibtbb1/ZjAw==}
     peerDependencies:
       next: ^14
       react: ^18
@@ -5345,9 +5345,9 @@ snapshots:
 
   '@braintree/sanitize-url@6.0.4': {}
 
-  '@clerk/backend@1.1.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@clerk/backend@1.1.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@clerk/shared': 2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@clerk/shared': 2.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       cookie: 0.5.0
       snakecase-keys: 5.4.4
       tslib: 2.4.1
@@ -5355,19 +5355,19 @@ snapshots:
       - react
       - react-dom
 
-  '@clerk/clerk-react@5.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@clerk/clerk-react@5.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@clerk/shared': 2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@clerk/types': 4.3.0
+      '@clerk/shared': 2.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@clerk/types': 4.4.0
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       tslib: 2.4.1
 
-  '@clerk/nextjs@5.0.9(next@14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@clerk/nextjs@5.0.12(next@14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@clerk/backend': 1.1.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@clerk/clerk-react': 5.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@clerk/shared': 2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@clerk/backend': 1.1.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@clerk/clerk-react': 5.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@clerk/shared': 2.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       crypto-js: 4.2.0
       next: 14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       path-to-regexp: 6.2.1
@@ -5375,7 +5375,7 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       tslib: 2.4.1
 
-  '@clerk/shared@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@clerk/shared@2.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       glob-to-regexp: 0.4.1
       js-cookie: 3.0.1
@@ -5385,12 +5385,12 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@clerk/themes@2.1.4':
+  '@clerk/themes@2.1.6':
     dependencies:
-      '@clerk/types': 4.3.0
+      '@clerk/types': 4.4.0
       tslib: 2.4.1
 
-  '@clerk/types@4.3.0':
+  '@clerk/types@4.4.0':
     dependencies:
       csstype: 3.1.1
 
@@ -7430,7 +7430,7 @@ snapshots:
 
   emoji-mart@5.6.0: {}
 
-  emoji-picker-react@4.9.2(react@18.3.1):
+  emoji-picker-react@4.9.3(react@18.3.1):
     dependencies:
       flairup: 0.0.38
       react: 18.3.1
@@ -8432,7 +8432,7 @@ snapshots:
 
   nanoid@5.0.7: {}
 
-  next-runtime-env@3.2.1(next@14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
+  next-runtime-env@3.2.2(next@14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
     dependencies:
       next: 14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
