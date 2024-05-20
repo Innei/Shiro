@@ -35,11 +35,11 @@ export const HeaderMeta = () => {
     <AnimatePresence>
       {show && (
         <m.div
-          className="absolute inset-0 flex min-w-0 items-center justify-between px-0 lg:px-16"
+          className="absolute inset-0 flex min-w-0 items-center justify-between gap-3 px-0 lg:px-16"
           data-testid="header-meta"
           {...animationProps}
         >
-          <div className="align-center flex min-w-0 shrink grow flex-col">
+          <div className="flex min-w-0 shrink grow flex-col">
             <small className="min-w-0 truncate">
               <span className="text-gray-600/60 dark:text-gray-300/60">
                 {description}
@@ -50,7 +50,7 @@ export const HeaderMeta = () => {
             </h2>
           </div>
 
-          <div className="hidden min-w-0 shrink flex-col text-right leading-5 lg:flex">
+          <div className="hidden min-w-0 shrink-[5] flex-col text-right leading-5 lg:flex">
             <small className="min-w-0 truncate whitespace-pre text-gray-600/60 dark:text-gray-300/60">
               {' '}
               {slug}
