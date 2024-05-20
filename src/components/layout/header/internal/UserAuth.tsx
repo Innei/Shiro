@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import { AnimatePresence } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
@@ -62,6 +61,7 @@ export function UserAuth() {
   const isLogged = useIsLogged()
 
   const isDark = useIsDark()
+
   if (isLogged) {
     return <OwnerAvatar />
   }

@@ -23,6 +23,19 @@ export const CommentBoxAuthedInput = () => {
     setter('avatar', user.imageUrl)
     setter('mail', user.primaryEmailAddress?.emailAddress || '')
 
+    for (const account of user.externalAccounts) {
+      if (account.provider === 'github') {
+        account.username &&
+          setter('url', `https://github.com/${account.username}`)
+        break
+      }
+
+      if (account.provider === 'twitter') {
+        account.username && setter('url', `https://x.com/${account.username}`)
+        break
+      }
+    }
+
     const strategy = user.primaryEmailAddress?.verification.strategy
 
     strategy && setter('source', strategy)
