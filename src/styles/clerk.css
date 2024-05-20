@@ -7,7 +7,9 @@
   --accent: theme('colors.zinc.900');
   --accentDark: theme('colors.zinc.800');
 }
-
+.cl-userButtonPopoverCard.cl-userButton-popover {
+  @apply pt-0;
+}
 .cl-cardBox {
   @apply overflow-visible;
 }
