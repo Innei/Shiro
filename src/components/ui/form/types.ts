@@ -15,6 +15,7 @@ export interface Field {
   transform?: <X, T = string>(value: T) => X
 
   getEl: () => HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null
+  setValue: (value: any) => void
 }
 
 export interface FormFieldBaseProps<T> extends Pick<Field, 'transform'> {

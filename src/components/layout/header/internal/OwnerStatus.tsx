@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
+import dynamic from 'next/dynamic'
 import type { OwnerStatus as TOwnerStatus } from '~/atoms/status'
 import type { FormContextType, InputFieldProps } from '~/components/ui/form'
 
@@ -15,6 +16,12 @@ import { usePageIsActive } from '~/hooks/common/use-is-active'
 import { stopPropagation } from '~/lib/dom'
 import { apiClient } from '~/lib/request'
 import { toast } from '~/lib/toast'
+
+const EmojiPicker = dynamic(() =>
+  import('~/components/modules/shared/EmojiPicker').then(
+    (mod) => mod.EmojiPicker,
+  ),
+)
 
 export const OwnerStatus = () => {
   const pageIsActive = usePageIsActive()
@@ -151,6 +158,7 @@ const SettingStatusModalContent = () => {
           name: 'ttl',
           placeholder: '持续时间',
           type: 'number',
+          defaultValue: 1,
           rules: [
             {
               validator: (value: string) => !isNaN(Number(value)),
@@ -205,9 +213,35 @@ const SettingStatusModalContent = () => {
     dismiss()
   }, [dismiss])
 
+  const wrapperRef = useRef<HTMLDivElement>(null)
+
   return (
     <Form ref={formRef} className="flex flex-col gap-2" onSubmit={handleSubmit}>
-      {inputs.slice(0, -1).map((input) => (
+      <div ref={wrapperRef} className="relative flex flex-col gap-1">
+        <FormInput {...inputs[0]} />
+        <FloatPopover
+          mobileAsSheet
+          trigger="click"
+          triggerElement={
+            <div
+              tabIndex={0}
+              role="button"
+              className="center absolute right-2 top-3 flex"
+            >
+              <i className="icon-[mingcute--emoji-line]" />
+              <span className="sr-only">表情</span>
+            </div>
+          }
+          headless
+        >
+          <EmojiPicker
+            onEmojiSelect={(val) => {
+              formRef.current?.setValue('emoji', val)
+            }}
+          />
+        </FloatPopover>
+      </div>
+      {inputs.slice(1, -1).map((input) => (
         <FormInput key={input.name} {...input} />
       ))}
 
@@ -225,7 +259,7 @@ const SettingStatusModalContent = () => {
         />
       </div>
 
-      <div className="flex w-full gap-2 center">
+      <div className="center flex w-full gap-2">
         <StyledButton
           className="rounded-md"
           isLoading={isLoading}

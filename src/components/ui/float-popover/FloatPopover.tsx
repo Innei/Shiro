@@ -26,6 +26,7 @@ import { useIsMobile } from '~/atoms/hooks'
 import { microReboundPreset } from '~/constants/spring'
 import useClickAway from '~/hooks/common/use-click-away'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
+import { stopPropagation } from '~/lib/dom'
 import { clsxm } from '~/lib/helper'
 
 import { RootPortal } from '../portal'
@@ -257,9 +258,10 @@ const RealFloatPopover = function FloatPopover<T extends {}>(
         {open && (
           <RootPortal to={to}>
             <m.div
+              onWheel={stopPropagation}
               className={clsxm(
                 'float-popover',
-                'relative z-[99]',
+                'pointer-events-auto relative z-[99]',
                 popoverWrapperClassNames,
               )}
               {...(trigger === 'hover' || trigger === 'both' ? listener : {})}

@@ -38,11 +38,13 @@ export const useAddField = ({
   transform,
   getEl: getRef,
   name,
+  setValue,
 }: Field & { name: string }) => {
   const FormCtx = useAssetFormContext()
 
   const { addField, removeField } = FormCtx
   const stableGetEl = useEventCallback(getRef)
+  const stableSetValue = useEventCallback(setValue)
   useEffect(() => {
     if (!rules) return
     if (!name) return
@@ -51,12 +53,21 @@ export const useAddField = ({
       rules,
       getEl: stableGetEl,
       transform,
+      setValue: stableSetValue,
     })
 
     return () => {
       removeField(name)
     }
-  }, [addField, stableGetEl, name, removeField, rules, transform])
+  }, [
+    addField,
+    stableGetEl,
+    name,
+    removeField,
+    rules,
+    transform,
+    stableSetValue,
+  ])
 }
 
 export const useResetFieldStatus = (name: string) => {
@@ -84,6 +95,7 @@ export const useCheckFieldStatus = (name: string) => {
       return produce(p, (draft) => {
         if (!name) return
         const value = draft[name].getEl()?.value
+
         if (!value) return
         draft[name].rules.some((rule) => {
           const result = rule.validator(value)
@@ -91,6 +103,9 @@ export const useCheckFieldStatus = (name: string) => {
             rule.status = 'error'
 
             return true
+          } else {
+            rule.status = 'success'
+            return false
           }
         })
       })

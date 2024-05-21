@@ -14,7 +14,7 @@ export const EmojiPicker: FC<{
       onEmojiClick={(e) => {
         onEmojiSelect(e.emoji)
       }}
-      emojiStyle={EmojiStyle.NATIVE}
+      emojiStyle={EmojiStyle.TWITTER}
     />
   )
 })

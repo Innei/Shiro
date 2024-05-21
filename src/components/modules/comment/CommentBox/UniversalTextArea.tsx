@@ -95,7 +95,16 @@ export const UniversalTextArea: Component = ({ className }) => {
           <FloatPopover
             mobileAsSheet
             trigger="click"
-            TriggerComponent={EmojiButton}
+            triggerElement={
+              <div
+                className="center ml-0 inline-flex size-5 translate-y-1 text-base md:ml-4"
+                role="button"
+                tabIndex={0}
+              >
+                <i className="icon-[mingcute--emoji-2-line]" />
+                <span className="sr-only">表情</span>
+              </div>
+            }
             headless
           >
             <EmojiPicker onEmojiSelect={handleInsertEmoji} />
@@ -119,18 +128,5 @@ export const UniversalTextArea: Component = ({ className }) => {
         </KaomojiPanel>
       </CommentBoxSlotPortal>
     </TextArea>
-  )
-}
-
-const EmojiButton = () => {
-  return (
-    <div
-      className="center ml-0 inline-flex size-5 translate-y-1 text-base md:ml-4"
-      role="button"
-      tabIndex={0}
-    >
-      <i className="icon-[mingcute--emoji-2-line]" />
-      <span className="sr-only">表情</span>
-    </div>
   )
 }

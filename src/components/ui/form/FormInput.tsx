@@ -3,6 +3,7 @@ import type { DetailedHTMLProps, FC, InputHTMLAttributes } from 'react'
 import type { FormFieldBaseProps } from './types'
 
 import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
+import { isDev } from '~/lib/env'
 import { clsxm } from '~/lib/helper'
 
 import { Input } from '../input'
@@ -26,12 +27,7 @@ export const FormInput: FC<
   const inputRef = useRef<HTMLInputElement>(null)
 
   const errorMessage = useFormErrorMessage(name)
-  useAddField({
-    rules: rules || [],
-    transform,
-    getEl: () => inputRef.current,
-    name,
-  })
+
   const resetFieldStatus = useResetFieldStatus(name)
 
   const handleKeyDown = useCallback(
@@ -43,6 +39,25 @@ export const FormInput: FC<
   )
 
   const validateField = useCheckFieldStatus(name)
+  useAddField({
+    rules: rules || [],
+    transform,
+    getEl: () => inputRef.current,
+    name,
+    setValue: useCallback(
+      (value) => {
+        const $el = inputRef.current
+        if (!$el) {
+          isDev && console.error('element not found')
+          return
+        }
+        $el.value = value
+
+        validateField()
+      },
+      [validateField],
+    ),
+  })
 
   return (
     <>

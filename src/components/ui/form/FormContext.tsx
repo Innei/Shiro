@@ -9,6 +9,7 @@ export interface FormContextType {
   removeField: (name: string) => void
   getField: (name: string) => Field | undefined
   getCurrentValues: () => Record<string, any>
+  setValue(name: string, value: any): void
 }
 
 export const FormContext = createContext<FormContextType>(null!)

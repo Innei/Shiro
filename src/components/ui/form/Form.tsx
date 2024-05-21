@@ -61,6 +61,9 @@ export const Form = forwardRef<
         return pp
       })
     },
+    setValue: (name: string, value: any) => {
+      ctxValue.getField(name)?.setValue(value)
+    },
   }))
 
   useImperativeHandle(ref, () => ctxValue, [ctxValue])
