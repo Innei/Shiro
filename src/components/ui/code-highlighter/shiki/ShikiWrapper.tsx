@@ -17,7 +17,6 @@ import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
 import { useMaskScrollArea } from '~/hooks/shared/use-mask-scrollarea'
 import { stopPropagation } from '~/lib/dom'
 import { clsxm } from '~/lib/helper'
-import { toast } from '~/lib/toast'
 
 import { MotionButtonBase } from '../../button'
 import styles from './Shiki.module.css'
@@ -137,7 +136,7 @@ export const ShikiHighLighterWrapper = forwardRef<
       {!filename && !!language && (
         <div
           aria-hidden
-          className="pointer-events-none absolute bottom-3 right-3 z-10 text-sm opacity-60"
+          className="pointer-events-none absolute bottom-3 right-3 z-[2] text-sm opacity-60"
         >
           {language.toUpperCase()}
         </div>
@@ -146,7 +145,7 @@ export const ShikiHighLighterWrapper = forwardRef<
         <MotionButtonBase
           onClick={handleCopy}
           className={clsx(
-            'absolute right-2 top-2 z-[1] flex text-xs center',
+            'center absolute right-2 top-2 z-[3] flex text-xs',
             'rounded-md border border-accent/5 bg-accent/80 p-1.5 text-white backdrop-blur duration-200',
             'opacity-0 group-hover:opacity-100',
             filename && '!top-12',
