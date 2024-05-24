@@ -10,6 +10,7 @@ import { dark } from '@clerk/themes/dist/themes/src/themes/dark'
 import { useIsLogged } from '~/atoms/hooks'
 import { UserArrowLeftIcon } from '~/components/icons/user-arrow-left'
 import { MotionButtonBase } from '~/components/ui/button'
+import { useIsClient } from '~/hooks/common/use-is-client'
 import { useIsDark } from '~/hooks/common/use-is-dark'
 import { urlBuilder } from '~/lib/url-builder'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
@@ -61,6 +62,8 @@ export function UserAuth() {
   const isLogged = useIsLogged()
 
   const isDark = useIsDark()
+  const isClient = useIsClient()
+  if (!isClient) return null
 
   if (isLogged) {
     return <OwnerAvatar />

@@ -14,6 +14,15 @@ import {
 } from './shared'
 
 const isDev = process.env.NODE_ENV === 'development'
+
+export const getAuthToken = () => {
+  const cookie = cookies()
+  const clerkJwt = cookie.get(ClerkCookieKey)?.value
+
+  const token = cookie.get(TokenKey)?.value || clerkJwt
+
+  return token
+}
 export const $fetch = createFetch({
   defaults: {
     timeout: 8000,

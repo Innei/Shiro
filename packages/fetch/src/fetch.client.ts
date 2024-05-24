@@ -1,10 +1,16 @@
 import 'client-only'
 
+import Cookies from 'js-cookie'
 import { nanoid } from 'nanoid'
 import { createFetch } from 'ofetch'
 
 import PKG from '../../../package.json'
-import { createApiClient, createFetchAdapter, getToken } from './shared'
+import {
+  ClerkCookieKey,
+  createApiClient,
+  createFetchAdapter,
+  TokenKey,
+} from './shared'
 
 const isDev = process.env.NODE_ENV === 'development'
 const isServerSide = typeof window === 'undefined'
@@ -13,6 +19,16 @@ const uuid = nanoid()
 
 const globalConfigureHeader = {} as any
 const globalConfigureSearchParams = {} as any
+
+export function getAuthToken(): string | null {
+  // FUCK clerk constants not export, and mark it internal and can not custom
+  // packages/backend/src/constants.ts
+  const clerkJwt = Cookies.get(ClerkCookieKey)
+
+  const token = Cookies.get(TokenKey) || clerkJwt
+
+  return token || null
+}
 
 if (isServerSide) {
   globalConfigureHeader['User-Agent'] =
@@ -25,7 +41,7 @@ export const $fetch = createFetch({
     // next: { revalidate: 3 },
     headers: globalConfigureHeader,
     onRequest(context) {
-      const token = getToken()
+      const token = getAuthToken()
       const headers: any = context.options.headers ?? {}
       if (token) {
         headers['Authorization'] = `bearer ${token}`

@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import { ToastContainer } from 'react-toastify'
 import { env, PublicEnvScript } from 'next-runtime-env'
+import { cookies } from 'next/headers'
+import { TokenKey } from 'packages/fetch/src/shared'
 import type { Metadata, Viewport } from 'next'
 import type { PropsWithChildren } from 'react'
 
@@ -19,8 +21,10 @@ import { SearchPanelWithHotKey } from '~/components/modules/shared/SearchFAB'
 import { TocAutoScroll } from '~/components/modules/toc/TocAutoScroll'
 import { PreRenderError } from '~/lib/error-factory'
 import { sansFont, serifFont } from '~/lib/fonts'
+import { apiClient } from '~/lib/request'
 import { AggregationProvider } from '~/providers/root/aggregation-data-provider'
 import { AppFeatureProvider } from '~/providers/root/app-feature-provider'
+import { HydrateuserAuthProvider } from '~/providers/root/hydrate-user-auth-provider'
 import { ScriptInjectProvider } from '~/providers/root/script-inject-provider'
 
 import { WebAppProviders } from '../../providers/root'
@@ -158,6 +162,19 @@ export default async function RootLayout(props: PropsWithChildren) {
 
   const { openpanel } = themeConfig.config?.module || {}
 
+  // const token = getAuthToken()
+  const token = cookies().get(TokenKey)?.value
+  let userAuth = false
+  if (token) {
+    userAuth = await apiClient.user
+      .checkTokenValid(token)
+      .then((res) => !!res.ok)
+
+      .catch(() => {
+        return false
+      })
+  }
+
   return (
     <ClerkProvider publishableKey={env('NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY')}>
       <AppFeatureProvider tmdb={!!process.env.TMDB_API_KEY}>
@@ -169,6 +186,8 @@ export default async function RootLayout(props: PropsWithChildren) {
             trackOutgoingLinks={true}
           />
         )}
+
+        <HydrateuserAuthProvider isLogged={userAuth} />
 
         <html lang="zh-CN" className="noise themed" suppressHydrationWarning>
           <head>
