@@ -14,9 +14,10 @@ import { LinkState, LinkType, RequestError } from '@mx-space/api-client'
 import { NotSupport } from '~/components/common/NotSupport'
 import { Avatar } from '~/components/ui/avatar'
 import { StyledButton } from '~/components/ui/button'
+import { Collapse } from '~/components/ui/collapse'
 import { BackToTopFAB } from '~/components/ui/fab'
 import { Form, FormInput } from '~/components/ui/form'
-import { Loading } from '~/components/ui/loading'
+import { FullPageLoading } from '~/components/ui/loading'
 import { useModalStack } from '~/components/ui/modal'
 import { BottomToUpTransitionView } from '~/components/ui/transition'
 import { shuffle } from '~/lib/lodash'
@@ -26,7 +27,7 @@ import { toast } from '~/lib/toast'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
 const renderTitle = (text: string) => {
-  return <h1 className="headline !my-12 !text-xl">{text}</h1>
+  return <h1 className="!my-12 !text-xl font-bold">{text}</h1>
 }
 
 export default function Page() {
@@ -71,7 +72,7 @@ export default function Page() {
     }, []),
   })
 
-  if (isLoading) return <Loading useDefaultLoadingText />
+  if (isLoading) return <FullPageLoading />
   if (!data) return null
   const { banned, collections, friends, outdated } = data
   return (
@@ -97,14 +98,24 @@ export default function Page() {
 
         {outdated.length > 0 && (
           <>
-            {friends.length !== 0 && renderTitle('以下站点无法访问，已失联')}
-            <OutdateSection data={outdated} />
+            <Collapse
+              title={
+                <div className="mt-8 font-bold">以下站点无法访问，已失联</div>
+              }
+            >
+              <OutdateSection data={outdated} />
+            </Collapse>
           </>
         )}
         {banned.length > 0 && (
           <>
-            {friends.length !== 0 && renderTitle('以下站点不合规，已被禁止')}
-            <BannedSection data={banned} />
+            <Collapse
+              title={
+                <div className="mt-8 font-bold">以下站点不合规，已被禁止</div>
+              }
+            >
+              <BannedSection data={banned} />
+            </Collapse>
           </>
         )}
       </main>
@@ -157,7 +168,8 @@ const Card: FC<{ link: LinkModel }> = ({ link }) => {
       aria-label={`Go to ${link.name}'s website`}
       className="relative flex flex-col items-center justify-center"
       onMouseEnter={() => setEnter(true)}
-      onMouseLeave={() => setEnter(false)} rel="noreferrer"
+      onMouseLeave={() => setEnter(false)}
+      rel="noreferrer"
     >
       {enter && <LayoutBg />}
 
@@ -190,7 +202,8 @@ const FavoriteSection: FC<FriendSectionProps> = ({ data }) => {
             <a
               href={link.url}
               target="_blank"
-              className="shrink-0 text-base leading-none" rel="noreferrer"
+              className="shrink-0 text-base leading-none"
+              rel="noreferrer"
             >
               {link.name}
             </a>
@@ -207,12 +220,12 @@ const FavoriteSection: FC<FriendSectionProps> = ({ data }) => {
 
 const OutdateSection: FC<FriendSectionProps> = ({ data }) => {
   return (
-    <ul>
+    <ul className="space-y-1 p-4 opacity-80">
       {data.map((link) => {
         return (
           <li key={link.id}>
-            <a className="cursor-not-allowed">{link.name}</a>
-            <span className="meta">{link.description || ''}</span>
+            <span className="cursor-not-allowed font-medium">{link.name}</span>
+            <span className="ml-2 text-sm">{link.description || ''}</span>
           </li>
         )
       })}
@@ -222,7 +235,7 @@ const OutdateSection: FC<FriendSectionProps> = ({ data }) => {
 
 const BannedSection: FC<FriendSectionProps> = ({ data }) => {
   return (
-    <ul>
+    <ul className="space-y-1 p-4 opacity-40">
       {data.map((link) => {
         return (
           <li key={link.id}>
