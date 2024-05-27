@@ -1,7 +1,7 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import React, { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import Link from 'next/link'
 
 import { useViewport } from '~/atoms/hooks'
@@ -212,7 +212,7 @@ export const HomePageTimeLine = () => {
                         placement="bottom"
                         triggerElement={
                           <div
-                            className="absolute top-[2px] w-[3px] -translate-y-full translate-x-full rounded-md bg-accent"
+                            className="absolute top-[2px] w-[3px] -translate-y-full translate-x-[calc(100%-0.5px)] rounded-md bg-accent"
                             style={{
                               height: `${Math.min(thisMonthTotalPost * 12, 250)}px`,
                             }}
