@@ -83,16 +83,22 @@ const HomeOGImage: FC<AggregateRoot> = ({ seo, user: { avatar } }) => {
         width={256}
       />
 
-      <p
+      <div
         style={{
           display: 'flex',
           flexDirection: 'column',
+          marginLeft: '3rem',
+          width: '500px',
+          overflow: 'hidden',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         <h3
           style={{
             color: '#ffffff99',
             fontSize: '3.5rem',
+            whiteSpace: 'nowrap',
           }}
         >
           {seo.title}
@@ -100,13 +106,15 @@ const HomeOGImage: FC<AggregateRoot> = ({ seo, user: { avatar } }) => {
         <p
           style={{
             fontSize: '1.8rem',
-
+            height: '5.2rem',
+            overflow: 'hidden',
+            lineClamp: 2,
             color: '#ffffff89',
           }}
         >
           {seo.description}
         </p>
-      </p>
+      </div>
     </div>
   )
 }
@@ -279,10 +287,9 @@ export const GET = async (req: NextRequest) => {
               style={{
                 color: 'rgba(255, 255, 255, 0.92)',
                 fontSize: '50px',
-                WebkitLineClamp: 2,
-                lineClamp: 2,
-                fontWeight: 800,
-                display: '-webkit-box',
+                overflow: 'hidden',
+                maxHeight: '150px',
+                fontWeight: 'bold',
               }}
             >
               {title}
@@ -291,7 +298,7 @@ export const GET = async (req: NextRequest) => {
               style={{
                 color: 'rgba(255, 255, 255, 0.85)',
                 fontSize: '38px',
-                fontWeight: 300,
+                fontWeight: 'lighter',
               }}
             >
               {subtitle}
