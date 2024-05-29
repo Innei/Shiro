@@ -56,16 +56,22 @@ export const GET = async () => {
           width={256}
         />
 
-        <p
+        <div
           style={{
             display: 'flex',
             flexDirection: 'column',
+            marginLeft: '3rem',
+            width: '500px',
+            overflow: 'hidden',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
           <h3
             style={{
               color: '#ffffff99',
               fontSize: '3.5rem',
+              whiteSpace: 'nowrap',
             }}
           >
             {seo.title}
@@ -73,13 +79,15 @@ export const GET = async () => {
           <p
             style={{
               fontSize: '1.8rem',
-
+              height: '5.2rem',
+              overflow: 'hidden',
+              lineClamp: 2,
               color: '#ffffff89',
             }}
           >
             {seo.description}
           </p>
-        </p>
+        </div>
       </div>
     ),
     {
