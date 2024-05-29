@@ -193,10 +193,9 @@ export const GET = async (req: NextRequest) => {
               style={{
                 color: 'rgba(255, 255, 255, 0.92)',
                 fontSize: '50px',
-                WebkitLineClamp: 2,
-                lineClamp: 2,
-                fontWeight: 800,
-                display: '-webkit-box',
+                overflow: 'hidden',
+                maxHeight: '150px',
+                fontWeight: 'bold',
               }}
             >
               {title}
@@ -205,7 +204,7 @@ export const GET = async (req: NextRequest) => {
               style={{
                 color: 'rgba(255, 255, 255, 0.85)',
                 fontSize: '38px',
-                fontWeight: 300,
+                fontWeight: 'lighter',
               }}
             >
               {subtitle}
