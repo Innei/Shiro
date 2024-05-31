@@ -38,6 +38,11 @@ export const queryClient = new QueryClient({
     },
   },
 })
+declare module '@tanstack/react-query' {
+  interface Register {
+    persist: boolean
+  }
+}
 
 const persistOptions: Omit<PersistQueryClientOptions, 'queryClient'> = {
   persister: asyncStoragePersister,

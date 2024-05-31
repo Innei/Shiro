@@ -1,11 +1,17 @@
 'use client'
 
-import { createElement } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { createElement, useRef } from 'react'
 import clsx from 'clsx'
 import { m } from 'framer-motion'
 import Image from 'next/image'
 
 import { isSupportIcon, SocialIcon } from '~/components/modules/home/SocialIcon'
+import {
+  fetchHitokoto,
+  SentenceType,
+} from '~/components/modules/shared/Hitokoto'
+import { MotionButtonBase } from '~/components/ui/button'
 import {
   BottomToUpTransitionView,
   TextUpTransitionView,
@@ -117,14 +123,87 @@ export const Hero = () => {
             'center text-neutral-800/80 dark:text-neutral-200/80',
           )}
         >
-          <small className="text-center">
-            当第一颗卫星飞向大气层外，我们便以为自己终有一日会征服宇宙。
-          </small>
+          <FootHitokoto />
           <span className="mt-8 animate-bounce">
             <i className="icon-[mingcute--right-line] rotate-90 text-2xl" />
           </span>
         </m.div>
       </TwoColumnLayout>
     </div>
+  )
+}
+
+const FootHitokoto = () => {
+  const { custom, random } = useAppConfigSelector(
+    (config) => config.hero.hitokoto || {},
+  )!
+
+  if (random) return <RemoteHitokoto />
+  return (
+    <small className="text-center">
+      {custom ?? '当第一颗卫星飞向大气层外，我们便以为自己终有一日会征服宇宙。'}
+    </small>
+  )
+}
+
+const RemoteHitokoto = () => {
+  const {
+    data: hitokoto,
+    isLoading,
+    refetch,
+    isRefetching,
+  } = useQuery({
+    queryKey: ['hitokoto'],
+    queryFn: () =>
+      fetchHitokoto([
+        SentenceType.动画,
+        SentenceType.原创,
+        SentenceType.哲学,
+        SentenceType.文学,
+      ]).then((data) => {
+        const postfix = Object.values({
+          from: data.from,
+          from_who: data.from_who,
+          creator: data.creator,
+        }).filter(Boolean)[0]
+        if (!data.hitokoto) {
+          return null
+        } else {
+          return data.hitokoto + (postfix ? ` —— ${postfix}` : '')
+        }
+      }),
+    refetchInterval: 30_0000,
+    staleTime: Infinity,
+    refetchOnMount: 'always',
+    meta: {
+      persist: true,
+    },
+  })
+
+  const memoedLoadingRef = useRef(isLoading)
+
+  if (!hitokoto) return null
+
+  return (
+    <m.small
+      initial={
+        isLoading ? { opacity: 0.0001, y: 50 } : memoedLoadingRef.current
+      }
+      animate={{ opacity: 1, y: 0 }}
+      className="group flex w-[80ch] items-center justify-center text-balance"
+    >
+      {hitokoto}
+      <MotionButtonBase
+        className={clsxm(
+          'ml-3 flex items-center duration-200 group-hover:opacity-100',
+
+          isRefetching ? 'animate-spin' : 'opacity-0',
+        )}
+        disabled={isRefetching}
+        onClick={() => refetch()}
+      >
+        <i className="icon-[mingcute--refresh-2-line]" />
+      </MotionButtonBase>
+    </m.small>
   )
 }

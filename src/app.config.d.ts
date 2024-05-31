@@ -55,6 +55,10 @@ declare global {
   export interface Hero {
     title: Title
     description: string
+    hitokoto?: {
+      random?: boolean
+      custom?: string
+    }
   }
   export interface Title {
     template: TemplateItem[]

@@ -57,7 +57,7 @@ export const Hitokoto = () => {
   )
 }
 
-enum SentenceType {
+export enum SentenceType {
   '动画' = 'a',
   '漫画' = 'b',
   '游戏' = 'c',
@@ -71,7 +71,7 @@ enum SentenceType {
   '哲学' = 'k',
   '抖机灵' = 'l',
 }
-const fetchHitokoto = async (
+export const fetchHitokoto = async (
   type: SentenceType[] | SentenceType = SentenceType.文学,
 ) => {
   const json = await fetch(
