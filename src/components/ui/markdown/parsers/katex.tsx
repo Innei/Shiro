@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+'use client'
+
+import { useState } from 'react'
+import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { blockRegex, Priority, simpleInlineRegex } from 'markdown-to-jsx'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import type { FC } from 'react'
 
-import { loadScript, loadStyleSheet } from '~/lib/load-script'
+import 'katex/dist/katex.min.css'
 
-// @ts-ignore
-const useInsertionEffect = React.useInsertionEffect || React.useEffect
 //  $ c = \pm\sqrt{a^2 + b^2} $
 export const KateXRule: MarkdownToJSX.Rule = {
   match: simpleInlineRegex(
@@ -38,20 +39,24 @@ const LateX: FC<LateXProps> = (props) => {
 
   const throwOnError = false // render unsupported commands as text instead of throwing a `ParseError`
 
-  useInsertionEffect(() => {
-    loadStyleSheet(
-      'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css',
-    )
-    loadScript(
-      'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js',
-    ).then(() => {
-      // @ts-ignore
-      const html = window.katex.renderToString(children, {
-        displayMode,
-        throwOnError,
-      })
+  useIsomorphicLayoutEffect(() => {
+    let isMounted = true
+    import('katex').then((katex) => {
+      if (!isMounted) return
+      // biome-ignore lint/correctness/noUnsafeOptionalChaining: <explanation>
+      const html = (katex?.default?.renderToString || katex?.renderToString)(
+        children,
+        {
+          displayMode,
+          throwOnError,
+        },
+      )
+
       setHtml(html)
     })
+    return () => {
+      isMounted = false
+    }
   }, [])
 
   return <span dangerouslySetInnerHTML={{ __html: html }} />

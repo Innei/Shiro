@@ -1,17 +1,19 @@
-import {
-  blockRegex,
-  compiler,
-  parseCaptureInline,
-  Priority,
-  simpleInlineRegex,
-} from 'markdown-to-jsx'
+import { compiler } from 'markdown-to-jsx'
 import RSS from 'rss'
 import xss from 'xss'
 import type { AggregateRoot } from '@mx-space/api-client'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 
+import { simpleCamelcaseKeys } from '@mx-space/api-client'
+
 import { CDN_HOST } from '~/app.static.config'
+import { AlertsRule as __AlertsRule } from '~/components/ui/markdown/parsers/alert'
+import { ContainerRule as __ContainerRule } from '~/components/ui/markdown/parsers/container'
 import { InsertRule } from '~/components/ui/markdown/parsers/ins'
+import {
+  KateXBlockRule as __KateXBlockRule,
+  KateXRule as __KateXRule,
+} from '~/components/ui/markdown/parsers/katex'
 import { MarkRule } from '~/components/ui/markdown/parsers/mark'
 import { MentionRule } from '~/components/ui/markdown/parsers/mention'
 import { SpoilerRule } from '~/components/ui/markdown/parsers/spoiler'
@@ -48,7 +50,10 @@ export async function GET() {
       next: {
         revalidate: 86400,
       },
-    }).then((res) => res.json() as Promise<AggregateRoot>),
+    }).then(
+      async (res) =>
+        simpleCamelcaseKeys(await res.json()) as Promise<AggregateRoot>,
+    ),
   ])
 
   const { title, description } = agg.seo
@@ -66,72 +71,87 @@ export async function GET() {
   })
 
   data.forEach((item) => {
+    const render = () => {
+      try {
+        return ReactDOM.renderToString(
+          <div>
+            <blockquote>
+              该渲染由 Shiro API 生成，可能存在排版问题，最佳体验请前往：
+              <a href={`${xss(item.link)}`}>${xss(item.link)}</a>
+            </blockquote>
+            {compiler(item.text, {
+              overrides: {
+                LinkCard: NotSupportRender,
+                Gallery: NotSupportRender,
+                Tabs: NotSupportRender,
+                Tab: NotSupportRender,
+
+                img: ({ src, alt }) => {
+                  if (src) {
+                    if (new URL(src).hostname === CDN_HOST) {
+                      return <span>此图片不支持在 RSS Render 中查看。</span>
+                    }
+                  }
+                  return <img src={src} alt={alt} />
+                },
+              },
+              extendsRules: {
+                codeBlock: {
+                  react(node, output, state) {
+                    if (
+                      node.lang === 'mermaid' ||
+                      node.lang === 'excalidraw' ||
+                      node.lang === 'component'
+                    ) {
+                      return <NotSupportRender />
+                    }
+                    return (
+                      <pre key={state.key}>
+                        <code className={node.lang ? `lang-${node.lang}` : ''}>
+                          {node.content}
+                        </code>
+                      </pre>
+                    )
+                  },
+                },
+              },
+              additionalParserRules: {
+                spoilder: SpoilerRule,
+                mention: MentionRule,
+
+                mark: MarkRule,
+                ins: InsertRule,
+
+                kateX: KateXRule,
+                kateXBlock: KateXBlockRule,
+                container: ContainerRule,
+                alerts: AlertsRule,
+              },
+            })}
+            <p
+              style={{
+                textAlign: 'right',
+              }}
+            >
+              <a href={`${`${xss(item.link)}#comments`}`}>看完了？说点什么呢</a>
+            </p>
+          </div>,
+        )
+      } catch {
+        return ReactDOM.renderToString(
+          <p>
+            当前内容无法在 RSS render 中正确渲染，请前往：
+            <a href={`${xss(item.link)}`}>${xss(item.link)}</a>
+          </p>,
+        )
+      }
+    }
     feed.item({
       author,
       title: item.title,
       url: item.link,
       date: item.created!,
-      description: `<blockquote>该渲染由 Shiro API 生成，可能存在排版问题，最佳体验请前往：<a href='${xss(
-        item.link,
-      )}'>${xss(item.link)}</a></blockquote>
-${ReactDOM.renderToString(
-  <div>
-    {compiler(item.text, {
-      overrides: {
-        LinkCard: () => null,
-        Gallery: () => (
-          <div style={{ textAlign: 'center' }}>这个内容只能在原文中查看哦~</div>
-        ),
-        Tabs: NotSupportRender,
-        Tab: NotSupportRender,
-
-        img: ({ src, alt }) => {
-          if (src) {
-            if (new URL(src).hostname === CDN_HOST) {
-              return <span>此图片不支持在 RSS Render 中查看。</span>
-            }
-          }
-          return <img src={src} alt={alt} />
-        },
-      },
-      extendsRules: {
-        codeBlock: {
-          react(node, output, state) {
-            if (
-              node.lang === 'mermaid' ||
-              node.lang === 'excalidraw' ||
-              node.lang === 'component'
-            ) {
-              return <NotSupportRender />
-            }
-            return (
-              <pre key={state.key}>
-                <code className={node.lang ? `lang-${node.lang}` : ''}>
-                  {node.content}
-                </code>
-              </pre>
-            )
-          },
-        },
-      },
-      additionalParserRules: {
-        spoilder: SpoilerRule,
-        mention: MentionRule,
-
-        mark: MarkRule,
-        ins: InsertRule,
-
-        kateX: KateXRule,
-        kateXBlock: KateXBlockRule,
-        container: ContainerRule,
-        alerts: AlertsRule,
-      },
-    })}
-  </div>,
-)}
-      <p style='text-align: right'>
-      <a href='${`${xss(item.link)}#comments`}'>看完了？说点什么呢</a>
-      </p>`,
+      description: render(),
     })
   })
 
@@ -146,92 +166,32 @@ ${ReactDOM.renderToString(
   })
 }
 
-const NotSupportRender = () => (
-  <blockquote
-    style={{
-      textAlign: 'center',
-      margin: '1rem 0',
-      backgroundColor: '#f5f5f5',
-      borderRadius: '0.5rem',
-    }}
-  >
-    <em>这个内容只能在原文中查看哦</em>
-  </blockquote>
-)
-
-const ALERT_BLOCKQUOTE_R =
-  /^(> \[!(?<type>NOTE|IMPORTANT|WARNING)\].*?)(?<body>(?:\n *>.*?)*)(?=\n{2,}|$)/
+const NotSupportRender = () => {
+  throw new Error('Not support render in RSS')
+}
 
 const KateXRule: MarkdownToJSX.Rule = {
-  match: simpleInlineRegex(
-    /^(?!\\)\$\s{0,}((?:\[(?:[^$]|(?=\\)\$)*?\]|<(?:[^$]|(?=\\)\$)*?>(?:(?:[^$]|(?=\\)\$)*?<(?:[^$]|(?=\\)\$)*?>)?|`(?:[^$]|(?=\\)\$)*?`|(?:[^$]|(?=\\)\$))*?)\s{0,}(?!\\)\$/,
-  ),
-  order: Priority.LOW,
-  parse: parseCaptureInline,
+  ...__KateXRule,
   react(node, _, state?) {
     return <NotSupportRender key={state?.key} />
   },
 }
 const KateXBlockRule: MarkdownToJSX.Rule = {
-  match: blockRegex(
-    new RegExp(`^\\s*\\$\\$ *(?<content>[\\s\\S]+?)\\s*\\$\\$ *(?:\n *)+\n?`),
-  ),
-
-  order: Priority.LOW,
-  parse(capture) {
-    return {
-      type: 'kateXBlock',
-      groups: capture.groups,
-    }
-  },
+  ...__KateXBlockRule,
   react(node, _, state?) {
     return <NotSupportRender key={state?.key} />
   },
 }
 
 const AlertsRule: MarkdownToJSX.Rule = {
-  match: blockRegex(ALERT_BLOCKQUOTE_R),
-  order: Priority.HIGH,
-  parse(capture) {
-    return {
-      raw: capture[0],
-      parsed: {
-        ...capture.groups,
-      },
-    }
-  },
+  ...__AlertsRule,
   react(node, output, state) {
     return <NotSupportRender key={state?.key} />
   },
 }
 
-const shouldCatchContainerName = [
-  'gallery',
-  'banner',
-  'carousel',
-
-  'warn',
-  'error',
-  'danger',
-  'info',
-  'success',
-  'warning',
-  'note',
-].join('|')
-
 const ContainerRule: MarkdownToJSX.Rule = {
-  match: blockRegex(
-    new RegExp(
-      `^\\s*::: *(?<name>(${shouldCatchContainerName})) *({(?<params>(.*?))})? *\n(?<content>[\\s\\S]+?)\\s*::: *(?:\n *)+\n?`,
-    ),
-  ),
-  order: Priority.MED,
-  parse(capture) {
-    const { groups } = capture
-    return {
-      ...groups,
-    }
-  },
+  ...__ContainerRule,
   // @ts-ignore
   react(node, _, state) {
     return <NotSupportRender key={state?.key} />
