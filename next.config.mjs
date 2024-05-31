@@ -1,5 +1,6 @@
 import { execSync } from 'child_process'
 import path from 'path'
+import { fileURLToPath } from 'url'
 import { config } from 'dotenv'
 
 import NextBundleAnalyzer from '@next/bundle-analyzer'
@@ -10,6 +11,9 @@ process.title = 'Shiro (NextJS)'
 
 const env = config().parsed || {}
 const isProd = process.env.NODE_ENV === 'production'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 let commitHash = ''
 let commitUrl = ''
@@ -70,7 +74,6 @@ let nextConfig = {
   },
 
   webpack: (config, { webpack }) => {
-    const __dirname = new URL('./', import.meta.url).pathname
     config.resolve.alias['jotai'] = path.resolve(
       __dirname,
       'node_modules/jotai',
