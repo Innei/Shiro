@@ -2,11 +2,11 @@
 
 import { useQuery } from '@tanstack/react-query'
 
-import { Hitokoto } from '~/components/modules/dashboard/home'
 import { DataStat } from '~/components/modules/dashboard/home/DataStat'
 import { ShiJu } from '~/components/modules/dashboard/home/Shiju'
 import { Version } from '~/components/modules/dashboard/home/Version'
 import { IpInfoPopover } from '~/components/modules/dashboard/ip'
+import { Hitokoto } from '~/components/modules/shared/Hitokoto'
 import { parseDate } from '~/lib/datetime'
 import { apiClient } from '~/lib/request'
 
