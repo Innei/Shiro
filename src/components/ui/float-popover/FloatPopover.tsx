@@ -273,14 +273,15 @@ const RealFloatPopover = function FloatPopover<T extends {}>(
                 className={clsxm(
                   !headless && [
                     'rounded-xl border border-zinc-400/20 p-4 outline-none backdrop-blur-lg dark:border-zinc-500/30',
-                    'bg-zinc-50/80 dark:bg-neutral-900/80',
+                    'bg-white/80 dark:bg-neutral-900/80',
                   ],
 
-                  'relative z-[2]',
+                  'shadow-perfect relative z-[2]',
 
                   type === 'tooltip'
-                    ? `shadow-out-sm max-w-[25rem] break-all rounded-xl px-4 py-2`
-                    : 'shadow-lg',
+                    ? `max-w-[25rem] break-all rounded-xl px-4 py-2`
+                    : '',
+
                   popoverClassNames,
                 )}
                 ref={refs.setFloating}
