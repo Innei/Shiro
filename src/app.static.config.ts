@@ -14,9 +14,6 @@ export const appStaticConfig = {
   },
 
   revalidate: 1000 * 10, // 10s
-  rss: {
-    content: false, // rss 中是否包含文章内容
-  },
 }
 
 export const CDN_HOST = 'cdn.innei.ren'

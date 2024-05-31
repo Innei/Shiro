@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { blockRegex, Priority, simpleInlineRegex } from 'markdown-to-jsx'

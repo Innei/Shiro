@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+
 import { Priority } from 'markdown-to-jsx'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 
