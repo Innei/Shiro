@@ -12,7 +12,7 @@ export const CurrentReadingCountingMetaBarItem: FC<{
 
   const count = useCurrentRoomCount(roomCtx?.roomName || '')
 
-  if (!roomCtx || !count) return null
+  if (!roomCtx || count <= 1) return null
 
   return (
     <>
