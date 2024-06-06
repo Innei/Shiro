@@ -37,7 +37,7 @@ export default function Home() {
     },
     image: {
       '@type': 'ImageObject',
-      url: `${config?.url.webUrl}/og`,
+      url: `${config?.url.webUrl}/home-og`,
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
