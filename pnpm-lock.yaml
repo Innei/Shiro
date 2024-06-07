@@ -204,8 +204,8 @@ importers:
         specifier: 2.0.0
         version: 2.0.0
       markdown-to-jsx:
-        specifier: npm:@innei/markdown-to-jsx@7.4.5-fork.2
-        version: '@innei/markdown-to-jsx@7.4.5-fork.2(react@18.3.1)'
+        specifier: npm:@innei/markdown-to-jsx@7.4.5-fork.4
+        version: '@innei/markdown-to-jsx@7.4.5-fork.4(react@18.3.1)'
       marked:
         specifier: 12.0.2
         version: 12.0.2
@@ -1107,8 +1107,8 @@ packages:
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
 
-  '@innei/markdown-to-jsx@7.4.5-fork.2':
-    resolution: {integrity: sha512-6W46HOBCndfH1qWsNMEA57QEVCstsScLuN9krlHuwEYtp/pLZ0aDtjCeyh9CwaWV+34bMJreeK4r4icvrdCocQ==}
+  '@innei/markdown-to-jsx@7.4.5-fork.4':
+    resolution: {integrity: sha512-X7gtRiDenAillLDb2uhr1S4QlQ9I1YpjidaeMUxcm5sJ3uSIIKs+t94uN4frzdD8AQdoR9a2ZAkOWXgT/21+qw==}
     engines: {node: '>= 10'}
     peerDependencies:
       react: '>= 0.14.0'
@@ -5736,7 +5736,7 @@ snapshots:
 
   '@iconify/types@2.0.0': {}
 
-  '@innei/markdown-to-jsx@7.4.5-fork.2(react@18.3.1)':
+  '@innei/markdown-to-jsx@7.4.5-fork.4(react@18.3.1)':
     dependencies:
       react: 18.3.1
 
