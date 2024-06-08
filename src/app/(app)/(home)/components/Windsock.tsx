@@ -1,8 +1,9 @@
 'use client'
 
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import React, { createElement } from 'react'
+import { createElement } from 'react'
 import { m } from 'framer-motion'
+import Link from 'next/link'
 
 import {
   FaSolidComments,
@@ -27,6 +28,9 @@ const windsock = [
     type: 'Post',
     subMenu: [],
     icon: IcTwotoneSignpost,
+    do() {
+      window.__POST_LIST_ANIMATED__ = true
+    },
   },
   {
     title: '手记',
@@ -104,13 +108,14 @@ export const Windsock = () => {
                 key={index}
                 className="flex items-center justify-between text-sm duration-200 hover:!-translate-y-2"
               >
-                <a
+                <Link
                   href={item.path}
                   className="flex items-center gap-4 text-neutral-800 duration-200 hover:!text-accent dark:text-neutral-200"
+                  onClick={item.do}
                 >
                   {createElement(item.icon, { className: 'w-6 h-6' })}
                   <span>{item.title}</span>
-                </a>
+                </Link>
 
                 {index != windsock.length - 1 && (
                   <span className="mx-4 hidden select-none lg:inline"> · </span>

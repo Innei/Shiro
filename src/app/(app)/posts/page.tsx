@@ -10,7 +10,6 @@ import { PostItemComposer } from '~/components/modules/post/PostItemComposer'
 import { NothingFound } from '~/components/modules/shared/NothingFound'
 import { SearchFAB } from '~/components/modules/shared/SearchFAB'
 import { BackToTopFAB } from '~/components/ui/fab'
-import { BottomToUpTransitionView } from '~/components/ui/transition'
 import { OnlyDesktop } from '~/components/ui/viewport'
 import { apiClient } from '~/lib/request'
 import { definePrerenderPage } from '~/lib/request.server'
@@ -31,7 +30,7 @@ export const metadata = {
 }
 
 export const dynamic = 'force-dynamic'
-export const revalidate = 60
+export const revalidate = 600
 export default definePrerenderPage<Props>()({
   fetcher: async (params) => {
     const { page, size, orderBy, sortBy } = params || {}
@@ -47,7 +46,7 @@ export default definePrerenderPage<Props>()({
   Component: async (props) => {
     const { params, fetchedAt } = props
     const { data, pagination } = props.data
-    const { page, view_mode = 'loose' } = params
+    const { page } = params
 
     const currentPage = page ? parseInt(page) : 1
 
@@ -60,16 +59,7 @@ export default definePrerenderPage<Props>()({
         <PostListDataRevaildate fetchedAt={fetchedAt} />
         <ul data-fetch-at={fetchedAt}>
           {data.map((item, index) => {
-            return (
-              <BottomToUpTransitionView
-                lcpOptimization
-                key={item.id}
-                as="li"
-                delay={index * 100}
-              >
-                <PostItemComposer data={item} />
-              </BottomToUpTransitionView>
-            )
+            return <PostItemComposer key={item.id} index={index} data={item} />
           })}
         </ul>
 

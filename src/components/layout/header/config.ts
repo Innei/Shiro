@@ -24,6 +24,7 @@ export interface IHeaderMenu {
   subMenu?: Omit<IHeaderMenu, 'exclude'>[]
   exclude?: string[]
   search?: Record<string, string>
+  do?: () => void
 }
 export const headerMenuConfig: IHeaderMenu[] = [
   {
@@ -39,6 +40,9 @@ export const headerMenuConfig: IHeaderMenu[] = [
     type: 'Post',
     subMenu: [],
     icon: h(IcTwotoneSignpost),
+    do() {
+      window.__POST_LIST_ANIMATED__ = true
+    },
   },
   {
     title: '手记',

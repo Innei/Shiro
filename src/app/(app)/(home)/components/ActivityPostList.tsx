@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import { m } from 'framer-motion'
 import Link from 'next/link'
 
@@ -51,6 +50,7 @@ export const ActivityPostList = () => {
       <Link
         className="flex items-center justify-end opacity-70 duration-200 hover:text-accent"
         href={routeBuilder(Routes.Posts, {})}
+        onClick={() => (window.__POST_LIST_ANIMATED__ = true)}
       >
         <i className="icon-[mingcute--arrow-right-circle-line]" />
         <span className="ml-2">还有更多</span>

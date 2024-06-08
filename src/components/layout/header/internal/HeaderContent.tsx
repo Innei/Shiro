@@ -169,6 +169,7 @@ const HeaderMenuItem = memo<{
   return (
     <MenuPopover subMenu={section.subMenu} key={href}>
       <AnimatedItem
+        do={section.do}
         href={href}
         isActive={isActive}
         className="transition-[padding]"
@@ -195,11 +196,13 @@ function AnimatedItem({
   children,
   className,
   isActive,
+  do: _do,
 }: {
   href: string
   children: React.ReactNode
   className?: string
   isActive?: boolean
+  do?: () => void
 }) {
   const isExternal = href.startsWith('http')
   const As = isExternal ? 'a' : Link
@@ -214,6 +217,7 @@ function AnimatedItem({
           className,
         )}
         target={isExternal ? '_blank' : undefined}
+        onClick={_do}
       >
         {children}
         {isActive && (
