@@ -1,12 +1,12 @@
 /* eslint-disable react/display-name */
 import { NormalContainer } from '~/components/layout/container/Normal'
+import { PostPagination } from '~/components/modules/post'
+
+import '~/components/modules/post/PostItem'
+
 import { PostsSettingFab } from '~/components/modules/post/fab/PostsSettingsFab'
 import { PostTagsFAB } from '~/components/modules/post/fab/PostTagsFAB'
-import {
-  PostCompactItem,
-  PostLooseItem,
-} from '~/components/modules/post/PostItem'
-import { PostPagination } from '~/components/modules/post/PostPagination'
+import { PostItemComposer } from '~/components/modules/post/PostItemComposer'
 import { NothingFound } from '~/components/modules/shared/NothingFound'
 import { SearchFAB } from '~/components/modules/shared/SearchFAB'
 import { BackToTopFAB } from '~/components/ui/fab'
@@ -31,7 +31,7 @@ export const metadata = {
 }
 
 export const dynamic = 'force-dynamic'
-
+export const revalidate = 60
 export default definePrerenderPage<Props>()({
   fetcher: async (params) => {
     const { page, size, orderBy, sortBy } = params || {}
@@ -54,6 +54,7 @@ export default definePrerenderPage<Props>()({
     if (!data?.length) {
       return <NothingFound />
     }
+
     return (
       <NormalContainer>
         <PostListDataRevaildate fetchedAt={fetchedAt} />
@@ -66,11 +67,7 @@ export default definePrerenderPage<Props>()({
                 as="li"
                 delay={index * 100}
               >
-                {view_mode === 'loose' ? (
-                  <PostLooseItem data={item} />
-                ) : (
-                  <PostCompactItem data={item} />
-                )}
+                <PostItemComposer data={item} />
               </BottomToUpTransitionView>
             )
           })}

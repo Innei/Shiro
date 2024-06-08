@@ -51,6 +51,7 @@ let nextConfig = {
   experimental: {
     serverMinification: true,
     webpackBuildWorker: true,
+
     // optimizePackageImports: ['dayjs'],
   },
   images: {

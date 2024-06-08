@@ -67,7 +67,6 @@ export const NoteTimelineItem = memo<{
             : styles(),
         )}
         href={attachToken ? `${href}?token=${getToken()}` : href}
-        scroll={false}
       >
         {title}
       </Link>

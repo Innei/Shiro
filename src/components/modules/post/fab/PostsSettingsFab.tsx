@@ -1,9 +1,10 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback } from 'react'
 import clsx from 'clsx'
-import { atom, useAtom } from 'jotai'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
+import { atom, useAtom, useSetAtom } from 'jotai'
+import { useRouter } from 'next/navigation'
 import type { PostsParams } from '~/lib/route-builder'
 
 import { FABPortable } from '~/components/ui/fab'
@@ -14,6 +15,8 @@ import { useRefValue } from '~/hooks/common/use-ref-value'
 import { useSetSearchParams } from '~/hooks/common/use-set-search-params'
 import { Noop } from '~/lib/noop'
 import { routeBuilder, Routes } from '~/lib/route-builder'
+
+import { postsViewModeAtom, usePostViewMode } from '../atom'
 
 type SortBy = 'default' | 'created' | 'modified'
 type OrderBy = 'asc' | 'desc'
@@ -28,7 +31,6 @@ type OrderByValues = {
   value: OrderBy
 }[]
 
-type ViewMode = 'loose' | 'compact'
 const sortByAtom = atom<SortBy>('default')
 const orderByAtom = atom<OrderBy>('desc')
 
@@ -120,14 +122,14 @@ const SortingAndOrdering = () => {
 }
 
 export const PostsSettingFab = () => {
-  const setSearch = useSetSearchParams()
-  const searchParams = useSearchParams()
-  const [viewMode, setViewMode] = useState(
-    searchParams.get('view_mode') || ('loose' as ViewMode),
-  )
-  useEffect(() => {
-    setSearch('view_mode', viewMode)
+  const setViewMode = useSetAtom(postsViewModeAtom)
+  const viewMode = usePostViewMode()
+  const setParams = useSetSearchParams()
+
+  useIsomorphicLayoutEffect(() => {
+    setParams('view_mode', viewMode)
   }, [viewMode])
+
   return (
     <FloatPanel
       placement="left-end"
@@ -146,6 +148,7 @@ export const PostsSettingFab = () => {
             <div className="flex items-center gap-2">
               <input
                 type="radio"
+                id="compact"
                 name="radio-4"
                 onChange={(e) => {
                   if (e.target.checked) setViewMode('compact')
@@ -154,7 +157,7 @@ export const PostsSettingFab = () => {
                 checked={viewMode === 'compact'}
               />
 
-              <span>紧凑模式</span>
+              <label htmlFor="compact">紧凑模式</label>
             </div>
             <div className="flex items-center gap-2">
               <input
@@ -163,12 +166,13 @@ export const PostsSettingFab = () => {
                 name="radio-4"
                 className="radio-accent radio radio-xs"
                 checked={viewMode === 'loose'}
+                id="loose"
                 onChange={(e) => {
                   if (e.target.checked) setViewMode('loose')
                 }}
               />
 
-              <span>预览模式</span>
+              <label htmlFor="loose">预览模式</label>
             </div>
           </div>
         </section>

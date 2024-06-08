@@ -20,7 +20,7 @@ export const useSetSearchParams = () => {
   return useCallback(
     (name: string, value: string) => {
       const queryString = createQueryString(name, value)
-      router.replace(`${pathname}?${queryString}`)
+      router.replace(`${pathname}?${queryString}`, { scroll: false })
     },
     [createQueryString, pathname, router],
   )
