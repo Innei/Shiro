@@ -67,6 +67,7 @@ const safeParse = (value: string) => {
 }
 const previewDataAtom = atom<PostModel | NoteModel | null>(null)
 export default function PreviewPage() {
+  // handle preview by storage observer
   useIsomorphicLayoutEffect(() => {
     const search = location.search
     const searchParams = new URLSearchParams(search)
@@ -105,11 +106,19 @@ export default function PreviewPage() {
     }
   }, [])
 
+  // handle preview by postMessage
+
   useIsomorphicLayoutEffect(() => {
     const search = location.search
     const searchParams = new URLSearchParams(search)
 
     let targetOrigin = searchParams.get('origin')
+
+    // const isInIframe = window.self !== window.top
+
+    // if (isInIframe) {
+    //   return
+    // }
 
     if (!targetOrigin) {
       return
@@ -121,6 +130,7 @@ export default function PreviewPage() {
 
       if (!parsedData) return
       const PREVIEW_HASH = new URLSearchParams(location.search).get('key')
+
       if (!PREVIEW_HASH) return
       if (parsedData.key !== PREVIEW_HASH) {
         return
@@ -132,16 +142,18 @@ export default function PreviewPage() {
           JSON.stringify(parsedData.data)
         )
           return
+
         jotaiStore.set(previewDataAtom, simpleCamelcaseKeys(parsedData.data))
       }
     }
     window.addEventListener('message', handler)
 
     console.info('preview page ready')
-    window.opener.postMessage('ok', targetOrigin)
+    const parentWindow = window.opener || window.parent
+    parentWindow.postMessage('ok', targetOrigin)
 
     const timer = setInterval(() => {
-      window.opener.postMessage('ok', targetOrigin)
+      parentWindow.postMessage('ok', targetOrigin)
     }, 3000)
     return () => {
       window.removeEventListener('message', handler)
@@ -216,7 +228,6 @@ const NotePreview = () => {
               next: undefined,
               data: {
                 ...data,
-
                 created: new Date().toISOString(),
                 images: data.images ?? [],
                 count: data.count ?? {
