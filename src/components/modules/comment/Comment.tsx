@@ -119,7 +119,7 @@ export const Comment: Component<{
               >
                 <span className="ml-2 flex grow flex-col flex-wrap items-start gap-0.5 md:flex-row md:items-center md:gap-2">
                   {authorElement}
-                  <span className="flex min-w-0 shrink select-none flex-wrap items-center space-x-2 md:self-end">
+                  <span className="-mt-1 flex min-w-0 shrink select-none flex-wrap items-center space-x-2 md:mt-0 md:self-end">
                     <span className="inline-flex shrink-0 text-[0.71rem] font-medium opacity-40">
                       <RelativeTime date={comment.created} />
                     </span>
@@ -144,11 +144,12 @@ export const Comment: Component<{
               <div
                 className={clsx(
                   styles['comment__message'],
-                  'relative inline-block rounded-xl px-2 py-1 text-zinc-800 dark:text-zinc-200',
+                  'relative inline-block rounded-xl text-zinc-800 dark:text-zinc-200',
                   'bg-zinc-600/5 dark:bg-zinc-500/20',
                   'max-w-[calc(100%-3rem)]',
-                  'rounded-tl-sm md:rounded-bl-sm md:rounded-tl-none',
-                  'ml-4 md:ml-0',
+                  'rounded-tl-sm md:rounded-bl-sm md:rounded-tl-xl',
+                  'ml-4 px-3 py-2 md:ml-0',
+                  // 'prose-ol:list-inside prose-ul:list-inside',
                 )}
               >
                 <CommentMarkdown>{text}</CommentMarkdown>
