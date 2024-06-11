@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## [1.1.4](https://github.com/Innei/sprightly/compare/v1.1.3...v1.1.4) (2024-06-11)
+
+
+### Bug Fixes
+
+* ci ([3431ac8](https://github.com/Innei/sprightly/commit/3431ac8292e84cca6fa107b904ad8a553fcb2f8b))
+* **deps:** update all non-major dependencies (minor) ([#368](https://github.com/Innei/sprightly/issues/368)) ([f0679ae](https://github.com/Innei/sprightly/commit/f0679ae56f3679237009ea94ef4f6c4a926a191b))
+* jotai path configuration on windows ([#373](https://github.com/Innei/sprightly/issues/373)) ([fec6f9b](https://github.com/Innei/sprightly/commit/fec6f9be035fdad59249f09cf9e025ba14506b89))
+* katex deps ([#375](https://github.com/Innei/sprightly/issues/375)) ([8209bb0](https://github.com/Innei/sprightly/commit/8209bb0c9971a558f5350192be2a54735cd57826))
+* link card github pr parser ([2e5b9aa](https://github.com/Innei/sprightly/commit/2e5b9aa4a90be105528ee22ee836d01a9732c1c0))
+* markdown first line of list ([51a10f1](https://github.com/Innei/sprightly/commit/51a10f1c256d38c94a9fb796a222b4f8124128be))
+* markdown render error ([653cac2](https://github.com/Innei/sprightly/commit/653cac2ee21b7ddb9f9fdc4ab1c4d53cb511db4e))
+* metabar reading count ([13917d8](https://github.com/Innei/sprightly/commit/13917d86a99fbf5b4fd9505c9f7badfd102b1d47))
+* preview page ([2bc2500](https://github.com/Innei/sprightly/commit/2bc250080f1b2f4fd8e2ffe5a47a3ff70633a890))
+* rss render ([4825aef](https://github.com/Innei/sprightly/commit/4825aefc7948cee5de8940b4958401a2b2b88dfc))
+* xlog summary, closes [#24](https://github.com/Innei/sprightly/issues/24) ([3a7e297](https://github.com/Innei/sprightly/commit/3a7e297fb979dbf7f509d9082bc31799b5633950))
+
+
+
 ## [1.1.3](https://github.com/Innei/sprightly/compare/v1.1.2...v1.1.3) (2024-05-31)
 
 
