@@ -77,7 +77,7 @@ export const TocTree: Component<
     return Array.from($headings).map((el, idx) => {
       const depth = +el.tagName.slice(1)
       const elClone = el.cloneNode(true) as HTMLElement
-      elClone.querySelectorAll('del').forEach((del) => {
+      elClone.querySelectorAll('del, .katex-container').forEach((del) => {
         del.remove()
       })
 

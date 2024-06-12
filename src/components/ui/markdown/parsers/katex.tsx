@@ -59,7 +59,12 @@ const LateX: FC<LateXProps> = (props) => {
     }
   }, [])
 
-  return <span dangerouslySetInnerHTML={{ __html: html }} />
+  return (
+    <span
+      dangerouslySetInnerHTML={{ __html: html }}
+      className="katex-container"
+    />
+  )
 }
 
 export const KateXBlockRule: MarkdownToJSX.Rule = {
