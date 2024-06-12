@@ -70,16 +70,12 @@
     }
   }
 
-  li > p {
-    display: inline;
-  }
-
   li {
     margin: 0.5em 0;
   }
 
   :global(a.is-link) {
-    @apply break-all border-b-[0.5px] border-current text-inherit no-underline duration-200  hover:text-accent;
+    @apply break-all border-b-[0.5px] border-current text-inherit no-underline duration-200 hover:text-accent;
   }
 
   hr {
