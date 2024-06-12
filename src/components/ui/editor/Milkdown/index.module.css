@@ -40,7 +40,7 @@
 }
 
 .editor blockquote {
-  @apply border-l-4  border-accent pl-4 font-serif not-italic;
+  @apply border-l-4 border-accent pl-4 font-serif not-italic;
 }
 
 .editor code:not(pre > code) {
@@ -120,10 +120,6 @@
 
 .editor ol {
   @apply list-inside list-decimal;
-}
-
-.editor li > p {
-  @apply inline;
 }
 
 .editor {
