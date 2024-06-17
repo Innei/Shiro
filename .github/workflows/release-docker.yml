@@ -36,7 +36,7 @@ jobs:
             type=sha
             type=raw,value=latest
       - name: Build and export to Docker
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           load: true
