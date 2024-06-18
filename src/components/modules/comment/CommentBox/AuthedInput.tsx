@@ -14,7 +14,10 @@ export const CommentBoxAuthedInput = () => {
   const { user } = useUser()
   const setter = useSetCommentBoxValues()
   const displayName = user
-    ? user.fullName || user.lastName || user.firstName || 'Anonymous'
+    ? user.fullName ||
+      `${user.firstName || ''} ${user.lastName || ''}`.trim() ||
+      user.username ||
+      'Anonymous'
     : ''
 
   useEffect(() => {
