@@ -1,12 +1,12 @@
 'use client'
 
-/* eslint-disable react-hooks/rules-of-hooks */
-import type React from 'react'
 import { Fragment, memo, Suspense, useMemo, useRef } from 'react'
 import { clsx } from 'clsx'
 import { compiler, sanitizeUrl } from 'markdown-to-jsx'
 import Script from 'next/script'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
+/* eslint-disable react-hooks/rules-of-hooks */
+import type React from 'react'
 import type { FC, PropsWithChildren } from 'react'
 
 import { CodeBlockRender } from '~/components/modules/shared/CodeBlock'
@@ -139,6 +139,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
                   key={state?.key}
                   checked={node.completed}
                   readOnly
+                  className="!size-[1em]"
                 />
               )
             },
