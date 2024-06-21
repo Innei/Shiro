@@ -68,6 +68,8 @@ declare global {
     text?: string
     class?: string
   }
+
+  type RSSCustomElements = Array<Record<string, RSSCustomElements | string>>
   export interface Module {
     donate: Donate
     bilibili: Bilibili
@@ -79,6 +81,9 @@ declare global {
       enable: boolean
       id: string
       url: string
+    }
+    rss: {
+      custom_elements: RSSCustomElements
     }
 
     signature: Signature

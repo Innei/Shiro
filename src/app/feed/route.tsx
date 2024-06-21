@@ -1,10 +1,7 @@
 import { compiler } from 'markdown-to-jsx'
 import RSS from 'rss'
 import xss from 'xss'
-import type { AggregateRoot } from '@mx-space/api-client'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
-
-import { simpleCamelcaseKeys } from '@mx-space/api-client'
 
 import { CDN_HOST } from '~/app.static.config'
 import { AlertsRule as __AlertsRule } from '~/components/ui/markdown/parsers/alert'
@@ -17,6 +14,7 @@ import {
 import { MarkRule } from '~/components/ui/markdown/parsers/mark'
 import { MentionRule } from '~/components/ui/markdown/parsers/mention'
 import { SpoilerRule } from '~/components/ui/markdown/parsers/spoiler'
+import { get } from '~/lib/lodash'
 import { apiClient } from '~/lib/request'
 
 export const dynamic = 'force-dynamic'
@@ -41,19 +39,8 @@ export async function GET() {
   const ReactDOM = (await import('react-dom/server')).default
 
   const [{ author, data, url }, agg] = await Promise.all([
-    fetch(apiClient.aggregate.proxy.feed.toString(true), {
-      next: {
-        revalidate: 86400,
-      },
-    }).then((res) => res.json() as Promise<RSSProps>),
-    fetch(apiClient.aggregate.proxy.toString(true), {
-      next: {
-        revalidate: 86400,
-      },
-    }).then(
-      async (res) =>
-        simpleCamelcaseKeys(await res.json()) as Promise<AggregateRoot>,
-    ),
+    apiClient.aggregate.proxy.feed.get<RSSProps>(),
+    apiClient.aggregate.getAggregateData('shiro'),
   ])
 
   const { title, description } = agg.seo
@@ -68,6 +55,11 @@ export async function GET() {
     image_url: `${url}/og`,
     generator: 'Shiro (https://github.com/Innei/Shiro)',
     pubDate: now.toUTCString(),
+
+    custom_elements: get(
+      agg.$raw.theme as AppConfig,
+      'config.module.rss.custom_elements',
+    ),
   })
 
   data.forEach((item) => {
@@ -155,7 +147,7 @@ export async function GET() {
     })
   })
 
-  return new Response(feed.xml(), {
+  return new Response(`${feed.xml()}`, {
     headers: {
       'Content-Type': 'application/xml',
       'Cache-Control': 'max-age=60, s-maxage=86400',
