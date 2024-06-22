@@ -77,7 +77,7 @@ export async function GET() {
           <div>
             <blockquote>
               该渲染由 Shiro API 生成，可能存在排版问题，最佳体验请前往：
-              <a href={`${xss(item.link)}`}>${xss(item.link)}</a>
+              <a href={`${xss(item.link)}`}>{xss(item.link)}</a>
             </blockquote>
             {compiler(item.text, {
               overrides: {
