@@ -4,7 +4,6 @@ import { AnimatePresence, m } from 'framer-motion'
 import type { Placement, Strategy } from '@floating-ui/react-dom'
 import type { FC, PropsWithChildren } from 'react'
 
-import useClickAway from '~/hooks/common/use-click-away'
 import { clsxm } from '~/lib/helper'
 
 import { RootPortal } from '../portal'
@@ -34,9 +33,10 @@ export const FloatPanel: FC<FloatPanelProps & PropsWithChildren> = (props) => {
   const floatingRef = useRef<HTMLElement>()
   floatingRef.current = elements.floating || undefined
   // @ts-ignore
-  useClickAway(floatingRef, () => {
-    setPanelOpen(false)
-  })
+  // useClickAway(floatingRef, (e) => {
+
+  //   setPanelOpen(false)
+  // })
 
   return (
     <>
