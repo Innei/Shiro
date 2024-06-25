@@ -83,7 +83,12 @@ export const TagDetailModal = (props: { name: string }) => {
     meta: {},
   })
   const { dismissAll } = useModalStack()
-  if (isLoading) return <div className="h-30 loading-dots flex w-full center" />
+  if (isLoading)
+    return (
+      <div className="center flex h-24 w-full">
+        <div className="loading loading-dots loading-md" />
+      </div>
+    )
 
   if (!data) return <EmptyIcon />
 
