@@ -8,7 +8,7 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import { m, useAnimationControls } from 'framer-motion'
+import { m, useAnimationControls, useDragControls } from 'framer-motion'
 import { useSetAtom } from 'jotai'
 import type { Target, Transition } from 'framer-motion'
 import type { SyntheticEvent } from 'react'
@@ -94,6 +94,7 @@ export const ModalInternal: Component<{
   const isMobile = useIsMobile()
   const isUnmounted = useIsUnMounted()
   const animateController = useAnimationControls()
+  const dragController = useDragControls()
   useEffect(() => {
     if (isMobile) return
     animateController.start(enterStyle)
@@ -234,6 +235,8 @@ export const ModalInternal: Component<{
                 )}
                 onClick={stopPropagation}
                 drag
+                dragControls={dragController}
+                dragListener={false}
                 dragElastic={0}
                 dragMomentum={false}
                 dragConstraints={edgeElementRef}
@@ -241,7 +244,10 @@ export const ModalInternal: Component<{
                   cursor: 'grabbing',
                 }}
               >
-                <div className="relative flex items-center">
+                <div
+                  className="relative flex items-center"
+                  onPointerDown={(e) => dragController.start(e)}
+                >
                   <Dialog.Title className="shrink-0 grow items-center px-4 py-1 text-lg font-medium">
                     {title}
                   </Dialog.Title>
@@ -251,10 +257,7 @@ export const ModalInternal: Component<{
                 </div>
                 <Divider className="my-2 shrink-0 border-slate-200 opacity-80 dark:border-neutral-800" />
 
-                <div
-                  onPointerDownCapture={stopPropagation}
-                  className="min-h-0 shrink grow overflow-auto px-4 py-2"
-                >
+                <div className="min-h-0 shrink grow overflow-auto px-4 py-2">
                   {finalChildren}
                 </div>
               </m.div>
