@@ -20,7 +20,6 @@ import type { ModalProps } from './types'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { CloseIcon } from '~/components/icons/close'
-import { DialogOverlay } from '~/components/ui/dialog/DialogOverlay'
 import { Divider } from '~/components/ui/divider'
 import { microReboundPreset } from '~/constants/spring'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
@@ -154,6 +153,8 @@ export const ModalInternal: Component<{
     </CurrentModalContext.Provider>
   )
 
+  const edgeElementRef = useRef<HTMLDivElement>(null)
+
   if (isMobile) {
     const drawerLength = jotaiStore.get(sheetStackAtom).length
 
@@ -181,7 +182,7 @@ export const ModalInternal: Component<{
       <Wrapper>
         <Dialog.Root open onOpenChange={onClose}>
           <Dialog.Portal>
-            <DialogOverlay zIndex={20} />
+            <Dialog.Overlay />
             <Dialog.DialogTitle className="sr-only">{title}</Dialog.DialogTitle>
             <Dialog.Content asChild>
               <div
@@ -205,9 +206,9 @@ export const ModalInternal: Component<{
     <Wrapper>
       <Dialog.Root open onOpenChange={onClose}>
         <Dialog.Portal>
-          <DialogOverlay zIndex={20} />
           <Dialog.Content asChild>
             <div
+              ref={edgeElementRef}
               className={clsxm(
                 'center fixed inset-0 z-20 flex',
                 modalContainerClassName,
@@ -222,7 +223,7 @@ export const ModalInternal: Component<{
                 transition={modalTransition}
                 className={clsxm(
                   'relative flex flex-col overflow-hidden rounded-lg',
-                  'bg-zinc-50/80 dark:bg-neutral-900/80',
+                  'bg-zinc-50/90 dark:bg-neutral-900/90',
                   'p-2 shadow-2xl shadow-stone-300 backdrop-blur-sm dark:shadow-stone-800',
                   max
                     ? 'h-[90vh] w-[90vw]'
@@ -232,6 +233,13 @@ export const ModalInternal: Component<{
                   modalClassName,
                 )}
                 onClick={stopPropagation}
+                drag
+                dragElastic={0}
+                dragMomentum={false}
+                dragConstraints={edgeElementRef}
+                whileDrag={{
+                  cursor: 'grabbing',
+                }}
               >
                 <div className="relative flex items-center">
                   <Dialog.Title className="shrink-0 grow items-center px-4 py-1 text-lg font-medium">
@@ -243,7 +251,10 @@ export const ModalInternal: Component<{
                 </div>
                 <Divider className="my-2 shrink-0 border-slate-200 opacity-80 dark:border-neutral-800" />
 
-                <div className="min-h-0 shrink grow overflow-auto px-4 py-2">
+                <div
+                  onPointerDownCapture={stopPropagation}
+                  className="min-h-0 shrink grow overflow-auto px-4 py-2"
+                >
                   {finalChildren}
                 </div>
               </m.div>
