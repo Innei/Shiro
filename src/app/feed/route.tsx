@@ -99,7 +99,9 @@ export async function GET() {
                     }
                     return (
                       <pre key={state.key}>
-                        <code className={node.lang ? `lang-${node.lang}` : ''}>
+                        <code
+                          className={node.lang ? `language-${node.lang}` : ''}
+                        >
                           {node.content}
                         </code>
                       </pre>
