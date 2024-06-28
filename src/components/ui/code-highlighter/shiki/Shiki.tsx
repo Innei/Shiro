@@ -15,14 +15,14 @@ export interface ShikiProps {
 
 const codeHighlighterPromise = (async () => {
   if (isServerSide) return
-  const [{ getHighlighterCore }, getWasm, { codeHighlighter }] =
+  const [{ createHighlighterCore }, getWasm, { codeHighlighter }] =
     await Promise.all([
       import('shiki/core'),
       import('shiki/wasm').then((m) => m.default),
       import('./core'),
     ])
 
-  const core = await getHighlighterCore({
+  const core = await createHighlighterCore({
     themes: [
       import('shiki/themes/github-light.mjs'),
       import('shiki/themes/github-dark.mjs'),
