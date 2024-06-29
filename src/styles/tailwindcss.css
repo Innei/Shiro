@@ -46,6 +46,10 @@ html body {
 }
 * {
   tab-size: 2;
+
+  &:hover {
+    scrollbar-color: auto;
+  }
 }
 
 .animate-ping {
