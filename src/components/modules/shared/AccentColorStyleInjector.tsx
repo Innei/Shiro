@@ -4,6 +4,7 @@ import Color from 'colorjs.io'
 import { createPngNoiseBackground } from '~/lib/noise'
 
 const hexToOklchString = (hex: string) => {
+  // @ts-ignore
   return new Color(hex).oklch
 }
 const accentColorLight = [
