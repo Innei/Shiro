@@ -10,7 +10,6 @@ import {
 } from 'react'
 import { m, useAnimationControls, useDragControls } from 'framer-motion'
 import { useSetAtom } from 'jotai'
-import type { Target, Transition } from 'framer-motion'
 import type { SyntheticEvent } from 'react'
 import type {
   CurrentModalContentProps,
@@ -21,27 +20,15 @@ import type { ModalProps } from './types'
 import { useIsMobile } from '~/atoms/hooks'
 import { CloseIcon } from '~/components/icons/close'
 import { Divider } from '~/components/ui/divider'
-import { microReboundPreset } from '~/constants/spring'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { useIsUnMounted } from '~/hooks/common/use-is-unmounted'
-import { stopPropagation } from '~/lib/dom'
+import { nextFrame, stopPropagation } from '~/lib/dom'
 import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
 
 import { PresentSheet, sheetStackAtom } from '../../sheet'
+import { MODAL_STACK_Z_INDEX, modalMontionConfig } from './constants'
 import { CurrentModalContext, modalStackAtom } from './context'
-
-const enterStyle: Target = {
-  scale: 1,
-  opacity: 1,
-}
-const initialStyle: Target = {
-  scale: 0.96,
-  opacity: 0,
-}
-const modalTransition: Transition = {
-  ...microReboundPreset,
-}
 
 export const ModalInternal: Component<{
   item: ModalProps & { id: string }
@@ -83,7 +70,11 @@ export const ModalInternal: Component<{
     wrapper: Wrapper = Fragment,
     max,
   } = item
-  const modalStyle = useMemo(() => ({ zIndex: 99 + index }), [index])
+  const zIndexStyle = useMemo(
+    () => ({ zIndex: MODAL_STACK_Z_INDEX + index + 1 }),
+    [index],
+  )
+
   const dismiss = useCallback(
     (e: SyntheticEvent) => {
       stopPropagation(e)
@@ -97,7 +88,9 @@ export const ModalInternal: Component<{
   const dragController = useDragControls()
   useEffect(() => {
     if (isMobile) return
-    animateController.start(enterStyle)
+    nextFrame(() => {
+      animateController.start(modalMontionConfig.animate)
+    })
   }, [animateController, isMobile])
   const noticeModal = useCallback(() => {
     animateController
@@ -116,19 +109,20 @@ export const ModalInternal: Component<{
   }, [animateController])
 
   useEffect(() => {
-    if (!isTop) {
-      animateController.start({
-        scale: 0.96,
-        y: 10,
-      })
-      return () => {
-        try {
-          animateController.stop()
-          animateController.start({
-            scale: 1,
-            y: 0,
-          })
-        } catch {}
+    if (isTop) return
+    animateController.start({
+      scale: 0.96,
+      y: 10,
+    })
+    return () => {
+      try {
+        animateController.stop()
+        animateController.start({
+          scale: 1,
+          y: 0,
+        })
+      } catch {
+        /* empty */
       }
     }
   }, [isTop])
@@ -183,7 +177,6 @@ export const ModalInternal: Component<{
       <Wrapper>
         <Dialog.Root open onOpenChange={onClose}>
           <Dialog.Portal>
-            <Dialog.Overlay />
             <Dialog.DialogTitle className="sr-only">{title}</Dialog.DialogTitle>
             <Dialog.Content asChild>
               <div
@@ -192,6 +185,7 @@ export const ModalInternal: Component<{
                   modalContainerClassName,
                 )}
                 onClick={clickOutsideToDismiss ? dismiss : undefined}
+                style={zIndexStyle}
               >
                 <div className="contents" onClick={stopPropagation}>
                   <CustomModalComponent>{finalChildren}</CustomModalComponent>
@@ -214,14 +208,13 @@ export const ModalInternal: Component<{
                 'center fixed inset-0 z-20 flex',
                 modalContainerClassName,
               )}
+              style={zIndexStyle}
               onClick={clickOutsideToDismiss ? dismiss : noticeModal}
             >
               <m.div
-                style={modalStyle}
-                exit={initialStyle}
-                initial={initialStyle}
+                style={zIndexStyle}
+                {...modalMontionConfig}
                 animate={animateController}
-                transition={modalTransition}
                 className={clsxm(
                   'relative flex flex-col overflow-hidden rounded-lg',
                   'bg-zinc-50/90 dark:bg-neutral-900/90',

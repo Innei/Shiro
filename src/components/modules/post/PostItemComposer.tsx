@@ -24,7 +24,9 @@ export const PostItemComposer: FC<{
   index: number
 }> = ({ data, index }) => {
   const renderedViewMode = usePostViewMode()
-  const doAnimated = useRef(window.__POST_LIST_ANIMATED__)
+  const doAnimated = useRef(
+    'window' in globalThis ? window.__POST_LIST_ANIMATED__ : false,
+  )
 
   useEffect(() => {
     if (!isClientSide) return

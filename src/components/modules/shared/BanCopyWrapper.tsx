@@ -6,8 +6,7 @@ import { AnimatePresence, m } from 'framer-motion'
 import type { FC, PropsWithChildren } from 'react'
 
 import { isLogged } from '~/atoms'
-
-import { DialogOverlay } from '../../ui/dialog'
+import { ModalOverlay } from '~/components/ui/modal/stacked/overlay'
 
 const BanCopyContext = createContext(false)
 
@@ -52,10 +51,10 @@ export const BanCopyWrapper: FC<PropsWithChildren> = (props) => {
         <AnimatePresence>
           {showCopyWarn && (
             <DialogPortal>
-              <DialogOverlay />
+              <ModalOverlay />
               <DialogContent asChild>
                 <m.div
-                  className="fixed inset-0 z-[11] flex flex-col gap-4 center"
+                  className="center fixed inset-0 z-[999] flex flex-col gap-4"
                   exit={{
                     opacity: 0,
                   }}

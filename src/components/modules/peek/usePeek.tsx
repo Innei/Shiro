@@ -13,6 +13,7 @@ export const usePeek = () => {
       if (isMobile) return
       const basePresentProps = {
         clickOutsideToDismiss: true,
+        overlay: true,
         title: 'Preview',
         modalClassName:
           'relative mx-auto mt-[10vh] scrollbar-none max-w-full overflow-auto px-2 lg:max-w-[65rem] lg:p-0',
@@ -25,6 +26,7 @@ export const usePeek = () => {
           )
           present({
             ...basePresentProps,
+
             CustomModalComponent: () => (
               <PeekModal to={href}>
                 <NotePreview noteId={parseInt(href.split('/').pop()!)} />

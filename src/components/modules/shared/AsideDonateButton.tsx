@@ -8,7 +8,7 @@ import { useIsMobile } from '~/atoms/hooks'
 import { ImpressionView } from '~/components/common/ImpressionTracker'
 import { RiUserHeartLine } from '~/components/icons/user-heart'
 import { MotionButtonBase } from '~/components/ui/button'
-import { DialogOverlay } from '~/components/ui/dialog/DialogOverlay'
+import { ModalOverlay } from '~/components/ui/modal/stacked/overlay'
 import { PresentSheet } from '~/components/ui/sheet'
 import { TrackerAction } from '~/constants/tracker'
 import { useIsClient } from '~/hooks/common/use-is-client'
@@ -42,8 +42,8 @@ export const AsideDonateButton = () => {
             <AnimatePresence>
               {overlayOpen && (
                 <>
-                  <DialogOverlay />
-                  <DialogContent className="fixed inset-0 z-[11] flex flex-col center">
+                  <ModalOverlay />
+                  <DialogContent className="center fixed inset-0 z-[999] flex flex-col">
                     <DonateContent />
 
                     <DonateButtonTop />
@@ -154,7 +154,7 @@ const DonateContent = () => {
       <m.h2 exit={{ opacity: 0 }} className="mb-6 text-lg font-medium">
         感谢您的支持，助力梦想继续前行。
       </m.h2>
-      <div className="flex flex-wrap gap-4 overflow-auto center">
+      <div className="center flex flex-wrap gap-4 overflow-auto">
         {donate?.qrcode?.map((src) => (
           <m.img
             exit={{ opacity: 0 }}

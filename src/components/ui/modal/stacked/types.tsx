@@ -12,4 +12,6 @@ export interface ModalProps {
   max?: boolean
 
   wrapper?: FC
+
+  overlay?: boolean
 }

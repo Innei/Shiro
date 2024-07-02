@@ -7,8 +7,10 @@ import type { ModalProps } from './types'
 
 import { jotaiStore } from '~/lib/store'
 
+import { MODAL_STACK_Z_INDEX } from './constants'
 import { modalIdToPropsMap, modalStackAtom } from './context'
 import { ModalInternal } from './modal'
+import { ModalOverlay } from './overlay'
 
 const useDismissAllWhenRouterChange = () => {
   const pathname = usePathname()
@@ -92,20 +94,24 @@ export const ModalStackProvider: FC<PropsWithChildren> = ({ children }) => {
 const ModalStack = () => {
   const stack = useAtomValue(modalStackAtom)
 
+  // Vite HMR issue
   useDismissAllWhenRouterChange()
+
+  const forceOverlay = stack.some((item) => item.overlay)
 
   return (
     <AnimatePresence mode="popLayout">
-      {stack.map((item, index) => {
-        return (
-          <ModalInternal
-            key={item.id}
-            item={item}
-            index={index}
-            isTop={index === stack.length - 1}
-          />
-        )
-      })}
+      {stack.map((item, index) => (
+        <ModalInternal
+          key={item.id}
+          item={item}
+          index={index}
+          isTop={index === stack.length - 1}
+        />
+      ))}
+      {stack.length > 0 && forceOverlay && (
+        <ModalOverlay zIndex={MODAL_STACK_Z_INDEX + stack.length - 1} />
+      )}
     </AnimatePresence>
   )
 }
