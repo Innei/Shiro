@@ -20,3 +20,6 @@ export const transitionViewIfSupported = (updateCb: () => any) => {
 export function escapeSelector(selector: string) {
   return selector.replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '\\$&')
 }
+
+export const nextFrame = (fn: () => void) =>
+  requestAnimationFrame(() => requestAnimationFrame(fn))

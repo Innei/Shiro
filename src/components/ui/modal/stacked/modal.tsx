@@ -25,7 +25,7 @@ import { Divider } from '~/components/ui/divider'
 import { microReboundPreset } from '~/constants/spring'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { useIsUnMounted } from '~/hooks/common/use-is-unmounted'
-import { stopPropagation } from '~/lib/dom'
+import { nextFrame, stopPropagation } from '~/lib/dom'
 import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
 
@@ -90,7 +90,9 @@ export const Modal: Component<{
   const animateController = useAnimationControls()
   useEffect(() => {
     if (isMobile) return
-    animateController.start(enterStyle)
+    nextFrame(() => {
+      animateController.start(enterStyle)
+    })
   }, [animateController, isMobile])
   const noticeModal = useCallback(() => {
     animateController
