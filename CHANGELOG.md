@@ -1,5 +1,36 @@
 # CHANGELOG
 
+## [1.1.5](https://github.com/Innei/sprightly/compare/v1.1.4...v1.1.5) (2024-07-06)
+
+
+### Bug Fixes
+
+* authed input name getter ([2bae0e7](https://github.com/Innei/sprightly/commit/2bae0e794c8fb0b13563273a05e8c4303cf1ba11))
+* **deps:** update all non-major dependencies ([ba98daf](https://github.com/Innei/sprightly/commit/ba98daf63f5b8b9a603bda3355ea776ecd452347))
+* **deps:** update all non-major dependencies ([#380](https://github.com/Innei/sprightly/issues/380)) ([46a9a57](https://github.com/Innei/sprightly/commit/46a9a57de175a7c53a307a2debe24bcd67144335))
+* **deps:** update all non-major dependencies (minor) ([#386](https://github.com/Innei/sprightly/issues/386)) ([1365704](https://github.com/Innei/sprightly/commit/1365704e96037dd26da863e396b84917781668c4))
+* **deps:** update all non-major dependencies (minor) ([#389](https://github.com/Innei/sprightly/issues/389)) ([6b5075f](https://github.com/Innei/sprightly/commit/6b5075ffffdcd729900207430efcde9391a36bfa))
+* **deps:** update all non-major dependencies (minor) ([#391](https://github.com/Innei/sprightly/issues/391)) ([9a44f93](https://github.com/Innei/sprightly/commit/9a44f93248a3b61df8d3c6b5cd64e2fb3d1ee2c0))
+* **deps:** update all non-major dependencies (minor) ([#392](https://github.com/Innei/sprightly/issues/392)) ([913cddd](https://github.com/Innei/sprightly/commit/913cddd7c8a5f7ec5b5421ca0fd5df8d98462767))
+* **deps:** update all non-major dependencies (patch) ([#385](https://github.com/Innei/sprightly/issues/385)) ([cb9264f](https://github.com/Innei/sprightly/commit/cb9264f5f3715943a46f308423727d9aacd2953f))
+* **deps:** update dependency marked to v13 ([#384](https://github.com/Innei/sprightly/issues/384)) ([9625774](https://github.com/Innei/sprightly/commit/9625774d26ba29035fbfb4f320b2fab1b7a8fda7))
+* feed language ([ce7bc0d](https://github.com/Innei/sprightly/commit/ce7bc0d7fe486a58d11d74a6b6b185ebdb249446))
+* feed link ([6d354c2](https://github.com/Innei/sprightly/commit/6d354c24080d8d4785201a7b968a13154ff98560))
+* framer modal enter motion ([c5f0a59](https://github.com/Innei/sprightly/commit/c5f0a59ffedd2fefe757eea49d1abb9354231db4))
+* list p style ([c3f5c79](https://github.com/Innei/sprightly/commit/c3f5c793a3e845e81356c7c2e8065e8946adbe50))
+* remove katex in toc tree ([0097e9f](https://github.com/Innei/sprightly/commit/0097e9fe6440714f788fcafe103d7e7261a15537))
+* remvoe panel clickaway ([434efee](https://github.com/Innei/sprightly/commit/434efee18b86c700c2e6d6088896718eb36c137f))
+* scrollbar color, fixes [#390](https://github.com/Innei/sprightly/issues/390) ([3fa97c3](https://github.com/Innei/sprightly/commit/3fa97c3ea6a593d57b3224d157d9cad62cf073a0))
+* tag detail modal loading ([2a5621b](https://github.com/Innei/sprightly/commit/2a5621b5b006b791e6b87a11559252d7721b44ed))
+* type ([a6471df](https://github.com/Innei/sprightly/commit/a6471df65f0fe9d0d495eda5cf04a65bd55b5dbb))
+
+
+### Features
+
+* footnote style and gfm task style ([fafd9e4](https://github.com/Innei/sprightly/commit/fafd9e4499e9929c529336fb777c5c6501a9fe31))
+
+
+
 ## [1.1.4](https://github.com/Innei/sprightly/compare/v1.1.3...v1.1.4) (2024-06-11)
 
 
