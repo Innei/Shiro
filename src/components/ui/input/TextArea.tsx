@@ -65,7 +65,7 @@ export const TextArea = forwardRef<
         roundedMap[rounded],
 
         'border-transparent',
-        isFocus && 'border-accent/80 ring-2',
+        isFocus && 'border-accent/80 bg-accent/5 ring-2',
         // 'bg-gray-200/50 dark:bg-zinc-800/50',
         'dark:text-zinc-200 dark:placeholder:text-zinc-500',
         wrapperClassName,
