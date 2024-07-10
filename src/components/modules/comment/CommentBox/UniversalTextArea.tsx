@@ -95,6 +95,7 @@ export const UniversalTextArea: Component = ({ className }) => {
               trigger="click"
               TriggerComponent={EmojiButton}
               headless
+              popoverClassNames="pointer-events-auto"
             >
               <EmojiPicker onEmojiSelect={handleInsertEmoji} />
             </FloatPopover>
