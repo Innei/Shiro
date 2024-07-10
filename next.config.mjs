@@ -1,6 +1,7 @@
 import { execSync } from 'child_process'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { codeInspectorPlugin } from 'code-inspector-plugin'
 import { config } from 'dotenv'
 
 import NextBundleAnalyzer from '@next/bundle-analyzer'
@@ -73,7 +74,7 @@ let nextConfig = {
     }
   },
 
-  webpack: (config, { webpack }) => {
+  webpack: (config) => {
     config.resolve.alias['jotai'] = path.resolve(
       __dirname,
       'node_modules/jotai',
@@ -83,6 +84,10 @@ let nextConfig = {
       'utf-8-validate': 'commonjs utf-8-validate',
       bufferutil: 'commonjs bufferutil',
     })
+
+    config.plugins.push(
+      codeInspectorPlugin({ bundler: 'webpack', hotKeys: ['metaKey'] }),
+    )
 
     return config
   },
@@ -137,13 +142,6 @@ function getRepoInfo() {
     const { VERCEL_GIT_PROVIDER, VERCEL_GIT_REPO_SLUG, VERCEL_GIT_REPO_OWNER } =
       process.env
 
-    // eslint-disable-next-line no-console
-    console.log(
-      'VERCEL_GIT_PROVIDER',
-      VERCEL_GIT_PROVIDER,
-      VERCEL_GIT_REPO_SLUG,
-      VERCEL_GIT_REPO_OWNER,
-    )
     switch (VERCEL_GIT_PROVIDER) {
       case 'github':
         return {
