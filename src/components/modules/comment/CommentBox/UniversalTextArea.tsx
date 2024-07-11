@@ -106,6 +106,8 @@ export const UniversalTextArea: Component = ({ className }) => {
               </div>
             }
             headless
+            popoverWrapperClassNames="z-[999]"
+            popoverClassNames="pointer-events-auto"
           >
             <EmojiPicker onEmojiSelect={handleInsertEmoji} />
           </FloatPopover>
