@@ -9,7 +9,7 @@ export const ProjectIcon: Component<{ avatar?: string; name?: string }> = (
   return (
     <div
       className={clsxm(
-        'project-icon flex shrink-0 grow items-center justify-center',
+        'project-icon flex min-w-0 shrink-0 grow items-center justify-center',
         avatar
           ? 'ring-2 ring-slate-200 dark:ring-neutral-800'
           : 'bg-slate-300 text-white dark:bg-neutral-800',
