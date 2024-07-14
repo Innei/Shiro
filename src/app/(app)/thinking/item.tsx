@@ -67,7 +67,7 @@ export const ThinkingItem: FC<{
       trimmedContent.startsWith('http') &&
       trimmedContent.split('\n').length === 1
     )
-  }, [])
+  }, [item.content])
   return (
     <li
       key={item.id}
