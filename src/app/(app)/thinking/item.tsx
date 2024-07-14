@@ -19,6 +19,7 @@ import { PeekLink } from '~/components/modules/peek/PeekLink'
 import { StyledButton } from '~/components/ui/button'
 import { Divider } from '~/components/ui/divider'
 import { Markdown } from '~/components/ui/markdown'
+import { BlockLinkRenderer } from '~/components/ui/markdown/renderers/LinkRenderer'
 import { useModalStack } from '~/components/ui/modal'
 import { RelativeTime } from '~/components/ui/relative-time'
 import { sample } from '~/lib/lodash'
@@ -59,6 +60,14 @@ export const ThinkingItem: FC<{
   }
 
   const { present } = useModalStack()
+
+  const isSingleLinkContent = useMemo(() => {
+    const trimmedContent = item.content.trim()
+    return (
+      trimmedContent.startsWith('http') &&
+      trimmedContent.split('\n').length === 1
+    )
+  }, [])
   return (
     <li
       key={item.id}
@@ -80,27 +89,31 @@ export const ThinkingItem: FC<{
         </div>
 
         <div className="relative w-full min-w-0">
-          <div
-            className={clsx(
-              'relative inline-block rounded-xl p-3 text-zinc-800 dark:text-zinc-200',
-              'rounded-tl-sm bg-zinc-600/5 dark:bg-zinc-500/20',
-              'max-w-full overflow-auto',
-            )}
-          >
-            <Markdown>{item.content}</Markdown>
+          {isSingleLinkContent ? (
+            <BlockLinkRenderer href={item.content} />
+          ) : (
+            <div
+              className={clsx(
+                'relative inline-block rounded-xl p-3 text-zinc-800 dark:text-zinc-200',
+                'rounded-tl-sm bg-zinc-600/5 dark:bg-zinc-500/20',
+                'max-w-full overflow-auto',
+              )}
+            >
+              <Markdown forceBlock>{item.content}</Markdown>
 
-            {!!item.ref && (
-              <div>
-                <RefPreview refModel={item.ref} />
-              </div>
-            )}
-          </div>
+              {!!item.ref && (
+                <div>
+                  <RefPreview refModel={item.ref} />
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         <div
           className={clsx(
             'mt-4 space-x-8 opacity-50 duration-200 hover:opacity-100',
-            '[&_button:hover]:text-accent [&_button]:inline-flex [&_button]:space-x-1 [&_button]:text-sm [&_button]:center',
+            '[&_button]:center [&_button:hover]:text-accent [&_button]:inline-flex [&_button]:space-x-1 [&_button]:text-sm',
             '[&_button]:-my-5 [&_button]:-ml-5 [&_button]:p-5',
           )}
         >
