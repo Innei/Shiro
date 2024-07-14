@@ -28,6 +28,7 @@ import { Divider } from '~/components/ui/divider'
 import { TextArea } from '~/components/ui/input'
 import { Loading } from '~/components/ui/loading'
 import { Markdown } from '~/components/ui/markdown'
+import { BlockLinkRenderer } from '~/components/ui/markdown/renderers/LinkRenderer'
 import { useModalStack } from '~/components/ui/modal'
 import { RelativeTime } from '~/components/ui/relative-time'
 import { usePrevious } from '~/hooks/common/use-previous'
@@ -198,6 +199,14 @@ const List = () => {
     <ul ref={scope}>
       {data?.pages.map((page) => {
         return page.map((item) => {
+          const isSingleLinkContent = (() => {
+            const trimmedContent = item.content.trim()
+            return (
+              trimmedContent.startsWith('http') &&
+              trimmedContent.split('\n').length === 1
+            )
+          })()
+
           return (
             <li
               key={item.id}
@@ -219,21 +228,25 @@ const List = () => {
                 </div>
 
                 <div className="relative min-w-0 grow">
-                  <div
-                    className={clsx(
-                      'relative inline-block rounded-xl p-3 text-zinc-800 dark:text-zinc-200',
-                      'rounded-tl-sm bg-zinc-600/5 dark:bg-zinc-500/20',
-                      'max-w-full overflow-auto',
-                    )}
-                  >
-                    <Markdown>{item.content}</Markdown>
+                  {isSingleLinkContent ? (
+                    <BlockLinkRenderer href={item.content} />
+                  ) : (
+                    <div
+                      className={clsx(
+                        'relative inline-block rounded-xl p-3 text-zinc-800 dark:text-zinc-200',
+                        'rounded-tl-sm bg-zinc-600/5 dark:bg-zinc-500/20',
+                        'max-w-full overflow-auto',
+                      )}
+                    >
+                      <Markdown forceBlock>{item.content}</Markdown>
 
-                    {!!item.ref && (
-                      <div>
-                        <RefPreview refModel={item.ref} />
-                      </div>
-                    )}
-                  </div>
+                      {!!item.ref && (
+                        <div>
+                          <RefPreview refModel={item.ref} />
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
                 <div
                   className={clsx(
