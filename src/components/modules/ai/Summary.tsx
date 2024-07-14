@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { memo } from 'react'
 import type { FC } from 'react'
 
-import { LogosOpenaiIcon } from '~/components/icons/platform/OpenAIIcon'
+import { LogosOpenaiIcon } from '~/components/icons/platform/OpenAiIcon'
 import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
 import { Markdown } from '~/components/ui/markdown'
 import { clsxm } from '~/lib/helper'
