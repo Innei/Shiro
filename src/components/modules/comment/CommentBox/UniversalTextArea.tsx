@@ -26,29 +26,32 @@ export const UniversalTextArea: Component = ({ className }) => {
   const value = useCommentBoxTextValue()
 
   const taRef = useRef<HTMLTextAreaElement>(null)
-  const handleInsertEmoji = useCallback((emoji: string) => {
-    if (!taRef.current) {
-      return
-    }
+  const handleInsertEmoji = useCallback(
+    (emoji: string) => {
+      if (!taRef.current) {
+        return
+      }
 
-    const $ta = taRef.current
-    const start = $ta.selectionStart
-    const end = $ta.selectionEnd
+      const $ta = taRef.current
+      const start = $ta.selectionStart
+      const end = $ta.selectionEnd
 
-    $ta.value = `${$ta.value.substring(
-      0,
-      start,
-    )} ${emoji} ${$ta.value.substring(end, $ta.value.length)}`
+      $ta.value = `${$ta.value.substring(
+        0,
+        start,
+      )} ${emoji} ${$ta.value.substring(end, $ta.value.length)}`
 
-    setter('text', $ta.value)
-    requestAnimationFrame(() => {
-      const shouldMoveToPos = start + emoji.length + 2
-      $ta.selectionStart = shouldMoveToPos
-      $ta.selectionEnd = shouldMoveToPos
+      setter('text', $ta.value)
+      requestAnimationFrame(() => {
+        const shouldMoveToPos = start + emoji.length + 2
+        $ta.selectionStart = shouldMoveToPos
+        $ta.selectionEnd = shouldMoveToPos
 
-      $ta.focus()
-    })
-  }, [])
+        $ta.focus()
+      })
+    },
+    [setter],
+  )
 
   useEffect(() => {
     const $ta = taRef.current
@@ -74,6 +77,31 @@ export const UniversalTextArea: Component = ({ className }) => {
 
   const [sendComment] = useSendComment()
   const isMobile = useIsMobile()
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault()
+        const $ta = taRef.current
+        if ($ta) {
+          const start = $ta.selectionStart
+          const end = $ta.selectionEnd
+          const textBefore = $ta.value.substring(0, start)
+          const textAfter = $ta.value.substring(end)
+          $ta.value = `${textBefore}\n${textAfter}`
+          setter('text', $ta.value)
+          requestAnimationFrame(() => {
+            const shouldMoveToPos = start + 2
+            $ta.selectionStart = shouldMoveToPos
+            $ta.selectionEnd = shouldMoveToPos
+            $ta.focus()
+          })
+        }
+      }
+    },
+    [setter],
+  )
+
   return (
     <TextArea
       bordered={false}
@@ -86,6 +114,7 @@ export const UniversalTextArea: Component = ({ className }) => {
         e.preventDefault()
         sendComment()
       }}
+      onKeyDown={handleKeyDown}
     >
       <CommentBoxSlotPortal>
         <>
