@@ -1,5 +1,4 @@
 import { headers } from 'next/headers'
-import { redirect } from 'next/navigation'
 import type { ModelWithLiked, PostModel } from '@mx-space/api-client'
 import type { Metadata } from 'next'
 import type { Article, WithContext } from 'schema-dts'
@@ -54,6 +53,7 @@ import {
   PostMarkdownImageRecordProvider,
   PostMetaBarInternal,
   PostTitle,
+  SlugReplacer,
 } from './pageExtra'
 
 export const dynamic = 'force-dynamic'
@@ -197,11 +197,8 @@ export default definePrerenderPage<PageParams>()({
   Component: async (props) => {
     const { data, params, fetchedAt } = props
 
-    const fullPath = `/${data.category.slug}/${data.slug}`
-    const currentPath = `/${params.category}/${params.slug}`
-    if (currentPath !== fullPath) {
-      redirect(fullPath)
-    }
+    const fullPath = `/posts/${data.category.slug}/${data.slug}`
+    const currentPath = `/posts/${params.category}/${params.slug}`
 
     const jsonLd: WithContext<Article> = {
       '@context': 'https://schema.org',
@@ -215,6 +212,7 @@ export default definePrerenderPage<PageParams>()({
 
     return (
       <>
+        {currentPath !== fullPath && <SlugReplacer to={fullPath} />}
         <LdJsonWithAuthor baseLdJson={jsonLd} />
 
         <PageColorGradient seed={data.title + data.category.name} />

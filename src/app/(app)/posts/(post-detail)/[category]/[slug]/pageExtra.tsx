@@ -2,6 +2,7 @@
 
 import { useQueryClient } from '@tanstack/react-query'
 import { useEffect, useMemo, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 import type { Image } from '@mx-space/api-client'
 import type { FC, PropsWithChildren } from 'react'
 import type { BlogPosting, WithContext } from 'schema-dts'
@@ -169,3 +170,15 @@ export const PostDataReValidate: FC<{
   }, [category, dataSetter, isOutdated, queryClient, slug])
   return null
 })
+
+export const SlugReplacer = ({ to }: { to: string }) => {
+  const router = useRouter()
+  const onceRef = useRef(false)
+
+  if (!onceRef.current) {
+    onceRef.current = true
+    router.replace(to)
+  }
+
+  return null
+}
