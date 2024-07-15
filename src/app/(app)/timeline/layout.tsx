@@ -27,8 +27,7 @@ export default definePrerenderPage<{
     }[type]
     const queryClient = getQueryClient()
     await queryClient.fetchQuery({
-      queryKey: ['timeline'],
-      meta: { nextType, year },
+      queryKey: ['timeline', nextType, year],
       queryFn: async () => {
         return await apiClient.aggregate
           .getTimeline({

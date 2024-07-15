@@ -17,9 +17,6 @@ export const aggregation = {
             },
         ),
       gcTime: 1000 * 60 * 10,
-      meta: {
-        forceHydration: true,
-      },
       staleTime: isServer ? 1000 * 60 * 10 : undefined,
     }),
 }

@@ -41,7 +41,7 @@ export const queryClient = new QueryClient({
 
 declare module '@tanstack/react-query' {
   interface Meta {
-    queryMeta: { persist: boolean }
+    queryMeta: { persist?: boolean }
   }
 
   interface Register extends Meta {}
