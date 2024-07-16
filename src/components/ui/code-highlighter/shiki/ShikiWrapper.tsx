@@ -77,6 +77,7 @@ export const ShikiHighLighterWrapper = forwardRef<
 
   const [isCollapsed, setIsCollapsed] = useState(shouldCollapsed)
   const [isOverflow, setIsOverflow] = useState(false)
+
   useEffect(() => {
     if (!shouldCollapsed) {
       return
@@ -88,6 +89,7 @@ export const ShikiHighLighterWrapper = forwardRef<
     const windowHeight = getViewport().h
     const halfWindowHeight = windowHeight / 2
     const $elScrollHeight = $el.scrollHeight
+
     if ($elScrollHeight >= halfWindowHeight) {
       setIsOverflow(true)
 
@@ -199,7 +201,8 @@ export const ShikiHighLighterWrapper = forwardRef<
           {isOverflow && isCollapsed && (
             <div
               className={`absolute inset-x-0 bottom-0 flex justify-center py-2 duration-200 ${
-                ['mask-both-lg', 'mask-b-lg'].includes(maskClassName)
+                maskClassName.includes('mask-both') ||
+                maskClassName.includes('mask-b')
                   ? ''
                   : 'pointer-events-none opacity-0'
               }`}
