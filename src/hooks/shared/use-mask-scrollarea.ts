@@ -79,6 +79,7 @@ export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>({
     containerRef,
     canScroll
       ? clsx(
+          'scroller',
           isScrollToBottom && 'mask-t',
           isScrollToTop && 'mask-b',
           !isScrollToBottom && !isScrollToTop && 'mask-both',
