@@ -1,10 +1,7 @@
 import { compiler } from 'markdown-to-jsx'
 import RSS from 'rss'
 import xss from 'xss'
-import type { AggregateRoot } from '@mx-space/api-client'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
-
-import { simpleCamelcaseKeys } from '@mx-space/api-client'
 
 import { CDN_HOST } from '~/app.static.config'
 import { AlertsRule as __AlertsRule } from '~/components/ui/markdown/parsers/alert'
@@ -18,6 +15,8 @@ import { MarkRule } from '~/components/ui/markdown/parsers/mark'
 import { MentionRule } from '~/components/ui/markdown/parsers/mention'
 import { SpoilerRule } from '~/components/ui/markdown/parsers/spoiler'
 import { apiClient } from '~/lib/request'
+
+import { fetchAggregationData } from '../(app)/api'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 86400 // 1 day
@@ -46,14 +45,8 @@ export async function GET() {
         revalidate: 86400,
       },
     }).then((res) => res.json() as Promise<RSSProps>),
-    fetch(apiClient.aggregate.proxy.toString(true), {
-      next: {
-        revalidate: 86400,
-      },
-    }).then(
-      async (res) =>
-        simpleCamelcaseKeys(await res.json()) as Promise<AggregateRoot>,
-    ),
+
+    fetchAggregationData(),
   ])
 
   const { title, description } = agg.seo
@@ -65,7 +58,7 @@ export async function GET() {
     site_url: url,
     feed_url: `${url}/feed`,
     language: 'zh-CN',
-    image_url: `${url}/og`,
+    image_url: `${url}${agg?.theme?.config?.site?.favicon}`,
     generator: 'Shiro (https://github.com/Innei/Shiro)',
     pubDate: now.toUTCString(),
   })
