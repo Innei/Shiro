@@ -40,7 +40,7 @@ export async function GET() {
 
   const [{ author, data, url }, agg] = await Promise.all([
     apiClient.aggregate.proxy.feed.get<RSSProps>(),
-    apiClient.aggregate.getAggregateData('shiro'),
+    apiClient.aggregate.getAggregateData<AppThemeConfig>('shiro'),
   ])
 
   const { title, description } = agg.seo
@@ -52,7 +52,7 @@ export async function GET() {
     site_url: url,
     feed_url: `${url}/feed`,
     language: 'zh-CN',
-    image_url: `${url}/og`,
+    image_url: `${url}${agg?.theme?.config?.site?.favicon}`,
     generator: 'Shiro (https://github.com/Innei/Shiro)',
     pubDate: now.toUTCString(),
 
