@@ -135,7 +135,7 @@ export async function GET() {
         return ReactDOM.renderToString(
           <p>
             当前内容无法在 RSS render 中正确渲染，请前往：
-            <a href={`${xss(item.link)}`}>${xss(item.link)}</a>
+            <a href={`${xss(item.link)}`}>{xss(item.link)}</a>
           </p>,
         )
       }
