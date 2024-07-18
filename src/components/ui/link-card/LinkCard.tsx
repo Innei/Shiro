@@ -177,13 +177,15 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
         styles['card-grid'],
         (loading || isError) && styles['skeleton'],
         isError && styles['error'],
+        'not-prose',
+
         'group',
 
         className,
         classNames.cardRoot,
       )}
       style={{
-        borderColor: cardInfo?.color ? `${cardInfo.color}30` : '',
+        borderColor: cardInfo?.color ? `${cardInfo.color}30` : undefined,
       }}
       onClick={handleCanPeek}
       onMouseMove={handleMouseMove}

@@ -13,13 +13,17 @@
   padding: 0.857rem 1.286rem;
   backdrop-filter: blur(20px) saturate(180%);
   transition: background-color 0.2s ease-in-out;
-
+  text-indent: 0;
   gap: 1.286rem;
 
   @apply cursor-pointer border font-sans no-underline;
   @apply [&_*]:!not-italic;
   @apply border border-slate-200/80 bg-slate-50/80 dark:border-neutral-700 dark:bg-zinc-800;
   @apply transition-colors duration-200;
+
+  & span {
+    border-bottom: 0 !important;
+  }
 }
 
 .contents {
