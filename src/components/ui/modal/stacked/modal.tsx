@@ -9,7 +9,8 @@ import {
   useRef,
 } from 'react'
 import { m, useAnimationControls, useDragControls } from 'framer-motion'
-import { useSetAtom } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
+import { selectAtom } from 'jotai/utils'
 import type { SyntheticEvent } from 'react'
 import type {
   CurrentModalContentProps,
@@ -50,6 +51,22 @@ export const ModalInternal: Component<{
     })
     onPropsClose?.(false)
   })
+
+  const currentIsClosing = useAtomValue(
+    useMemo(
+      () =>
+        selectAtom(modalStackAtom, (atomValue) =>
+          atomValue.every((modal) => modal.id !== item.id),
+        ),
+      [item.id],
+    ),
+  )
+  useEffect(() => {
+    if (currentIsClosing) {
+      // Radix dialog will block pointer events
+      document.body.style.pointerEvents = 'auto'
+    }
+  }, [currentIsClosing])
 
   const onClose = useCallback(
     (open: boolean): void => {
@@ -182,6 +199,7 @@ export const ModalInternal: Component<{
               <div
                 className={clsxm(
                   'fixed inset-0 z-20 overflow-auto',
+                  currentIsClosing && 'pointer-events-none',
                   modalContainerClassName,
                 )}
                 onClick={clickOutsideToDismiss ? dismiss : undefined}
@@ -206,6 +224,7 @@ export const ModalInternal: Component<{
               ref={edgeElementRef}
               className={clsxm(
                 'center fixed inset-0 z-20 flex',
+                currentIsClosing && 'pointer-events-none',
                 modalContainerClassName,
               )}
               style={zIndexStyle}
