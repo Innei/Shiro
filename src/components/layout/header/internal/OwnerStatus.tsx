@@ -232,6 +232,7 @@ const SettingStatusModalContent = () => {
               <span className="sr-only">表情</span>
             </div>
           }
+          popoverWrapperClassNames="z-[999]"
           headless
         >
           <EmojiPicker
