@@ -91,7 +91,7 @@
         margin-bottom: 2rem;
       }
 
-      .paragraph:not(
+      > .paragraph:not(
           :where([class~='not-prose'], [class~='not-prose'] *)
         ):first-child::first-letter {
         float: left;
