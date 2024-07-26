@@ -8,8 +8,8 @@ export const ActivityScreen = () => {
   return (
     <div className="mt-24">
       <TwoColumnLayout
-        rightContainerClassName="block lg:flex [&>div]:w-full pr-4"
-        leftContainerClassName="[&>div]:w-full"
+        rightContainerClassName="block lg:flex [&>div]:w-full px-4"
+        leftContainerClassName="[&>div]:w-full px-4"
       >
         <ActivityPostList />
         <ErrorBoundary>

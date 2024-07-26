@@ -40,8 +40,11 @@ export const Hero = () => {
       return acc + (cur.text?.length || 0)
     }, 0) * 50
   return (
-    <div className="mt-20 min-w-0 max-w-screen overflow-hidden lg:mt-[-4.5rem] lg:h-dvh lg:min-h-[800px]">
-      <TwoColumnLayout leftContainerClassName="mt-[120px] lg:mt-0 h-[15rem] lg:h-1/2">
+    <div className="mx-auto mt-20 min-w-0 max-w-7xl overflow-hidden lg:mt-[-4.5rem] lg:h-dvh lg:min-h-[800px] lg:px-8">
+      <TwoColumnLayout
+        leftContainerClassName="mt-[120px] lg:mt-0 h-[15rem] lg:h-1/2"
+        rightContainerClassName="lg:flex lg:justify-end lg:items-end"
+      >
         <>
           <m.div
             className="group relative text-center leading-[4] lg:text-left [&_*]:inline-block"
