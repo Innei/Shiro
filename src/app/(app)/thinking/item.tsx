@@ -22,6 +22,7 @@ import { Markdown } from '~/components/ui/markdown'
 import { BlockLinkRenderer } from '~/components/ui/markdown/renderers/LinkRenderer'
 import { useModalStack } from '~/components/ui/modal'
 import { RelativeTime } from '~/components/ui/relative-time'
+import { clsxm } from '~/lib/helper'
 import { sample } from '~/lib/lodash'
 import { apiClient } from '~/lib/request'
 import { toast } from '~/lib/toast'
@@ -69,25 +70,27 @@ export const ThinkingItem: FC<{
     )
   }, [item.content])
   return (
-    <li
-      key={item.id}
-      className="mb-8 mt-[50px] grid grid-cols-[40px_auto] flex-col gap-4 space-y-2"
-    >
-      <div className="translate-y-6">
+    <li key={item.id} className="mb-8 mt-[50px] flex flex-col gap-2">
+      <div className="flex gap-4">
         <img
           src={owner.avatar}
           className="size-[40px] rounded-full ring-2 ring-slate-200 dark:ring-zinc-800"
         />
-      </div>
-      <div className="min-w-0 max-w-full">
-        <div className="flex items-center space-x-2">
+
+        <div className="flex flex-col items-center self-start md:flex-row md:gap-2">
           <span className="text-lg font-medium">{owner.name}</span>
 
-          <span className="text-xs opacity-80">
+          <span className="text-xs opacity-80 md:-translate-y-1 md:self-end">
             <RelativeTime date={item.created} />
           </span>
         </div>
-
+      </div>
+      <div
+        className={clsxm(
+          'min-w-0 max-w-full',
+          'mt-2 pl-4 md:mt-0 md:-translate-y-4 md:pl-14',
+        )}
+      >
         <div className="relative w-full min-w-0">
           {isSingleLinkContent ? (
             <BlockLinkRenderer href={item.content} />
