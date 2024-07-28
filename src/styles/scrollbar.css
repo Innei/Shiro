@@ -4,12 +4,12 @@ body::-webkit-scrollbar {
 
 html {
   /*  for firefox */
-  scrollbar-color: theme(colors.zinc.100);
+  scrollbar-color: theme(colors.gray.300);
   scrollbar-width: thin;
 }
 
 html.dark {
-  scrollbar-color: theme(colors.zinc.800);
+  scrollbar-color: theme(colors.neutral-500);
 }
 
 body {
@@ -18,31 +18,29 @@ body {
 }
 
 [data-theme='dark'] {
-  *::-webkit-scrollbar-thumb,
+  *::-webkit-scrollbar-thumb {
+    border: 3px solid theme(colors.neutral-500);
+  }
+
   *::-webkit-scrollbar-thumb:hover {
-    border: 3px solid theme(colors.zinc.700/20);
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: theme(colors.zinc.800/96);
-  }
-
-  *::-webkit-scrollbar {
-    background: theme(colors.zinc.800);
+    background: theme(colors.neutral-400/0.5);
   }
 }
 
-*::-webkit-scrollbar-thumb,
-*::-webkit-scrollbar-thumb:hover {
+*::-webkit-scrollbar-thumb {
   background-color: transparent;
-  border: 3px solid theme(colors.zinc.300/40);
-  border-radius: 5px;
+  border: 3px solid theme(colors.gray.300);
+  @apply rounded-xl;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  border-color: theme(colors.neutral-400/0.8);
 }
 
 *::-webkit-scrollbar {
-  width: 5px !important;
-  height: 5px !important;
-  background: theme(colors.zinc.100);
+  width: 6px !important;
+  height: 6px !important;
+  background: transparent;
 }
 
 *::-webkit-scrollbar-thumb {
