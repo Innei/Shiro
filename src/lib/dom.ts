@@ -63,6 +63,7 @@ export const scrollTextareaToCursor = (
     div.appendChild(textBeforeNode)
     div.appendChild(cursorNode)
     div.appendChild(textAfterNode)
+    document.body.appendChild(div)
 
     // 获取光标元素的位置
     const cursorSpan = document.getElementById('cursor')
