@@ -50,7 +50,8 @@ const ReactComponentRenderImpl: FC<DlsProps> = (dlsProps) => {
   const style = useContext(StyleContext)
   useIsomorphicLayoutEffect(() => {
     loadScript(dlsProps.import).then(() => {
-      const Component = get(window, dlsProps.name)
+      const Component =
+        get(window, `${dlsProps.name}.default`) || get(window, dlsProps.name)
 
       setComponent({ component: Component })
     })
