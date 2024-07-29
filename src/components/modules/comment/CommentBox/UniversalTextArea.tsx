@@ -8,10 +8,10 @@ import { useIsMobile } from '~/atoms/hooks'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { TextArea } from '~/components/ui/input'
 import { useRefValue } from '~/hooks/common/use-ref-value'
+import { scrollTextareaToCursor } from '~/lib/dom'
 
 import { getRandomPlaceholder } from './constants'
 import {
-  scrollTextareaToCursor,
   useCommentBoxTextValue,
   useSendComment,
   useSetCommentBoxValues,
