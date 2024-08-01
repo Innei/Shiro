@@ -18,7 +18,7 @@ import { get } from '~/lib/lodash'
 import { apiClient } from '~/lib/request'
 
 export const dynamic = 'force-dynamic'
-export const revalidate = 86400 // 1 day
+export const revalidate = 60
 
 interface RSSProps {
   title: string
