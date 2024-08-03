@@ -26,21 +26,21 @@ export interface IHeaderMenu {
 }
 export const headerMenuConfig: IHeaderMenu[] = [
   {
-    title: '首页',
+    title: 'Home',
     path: '/',
     type: 'Home',
     icon: h(FaSolidDotCircle),
     subMenu: [],
   },
   {
-    title: '文稿',
+    title: 'Posts',
     path: '/posts',
     type: 'Post',
     subMenu: [],
     icon: h(IcTwotoneSignpost),
   },
   {
-    title: '手记',
+    title: 'Notes',
     type: 'Note',
     path: '/notes',
     icon: h(FaSolidFeatherAlt),
@@ -48,27 +48,27 @@ export const headerMenuConfig: IHeaderMenu[] = [
   },
 
   {
-    title: '时光',
+    title: 'Timeline',
     icon: h(FaSolidHistory),
     path: '/timeline',
     subMenu: [
       {
-        title: '手记',
+        title: 'Notes',
         icon: h(FaSolidFeatherAlt),
         path: '/timeline?type=note',
       },
       {
-        title: '文稿',
+        title: 'Posts',
         icon: h(IonBook),
         path: '/timeline?type=post',
       },
       {
-        title: '回忆',
+        title: 'Memory',
         icon: h(FaSolidCircle),
         path: '/timeline?memory=1',
       },
       {
-        title: '专栏',
+        title: 'Topics',
         path: '/notes/topics',
         icon: h('i', {
           className: 'icon-[mingcute--align-bottom-fill] flex center',
@@ -77,33 +77,33 @@ export const headerMenuConfig: IHeaderMenu[] = [
     ],
   },
   {
-    title: '友链',
+    title: 'Friends',
     icon: h(FaSolidUserFriends),
     path: '/friends',
   },
 
   {
-    title: '更多',
+    title: 'More',
     icon: h(FaSolidCircleNotch),
     path: '#',
     subMenu: [
       {
-        title: '思考',
+        title: 'Thoughts',
         icon: h(MdiLightbulbOn20),
         path: '/thinking',
       },
       {
-        title: '项目',
+        title: 'Projects',
         icon: h(MdiFlask),
         path: '/projects',
       },
       {
-        title: '一言',
+        title: 'Sayings',
         path: '/says',
         icon: h(FaSolidComments),
       },
       {
-        title: '跃迁',
+        title: 'Warp',
         icon: h(RMixPlanet),
         path: 'https://travel.moe/go.html',
       },

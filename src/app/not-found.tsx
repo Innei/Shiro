@@ -10,7 +10,7 @@ export default () => {
         <div data-theme>
           <NotFound404>
             <StyledButton>
-              <a href="/">返回首页</a>
+              <a href="/">Back to Home</a>
             </StyledButton>
           </NotFound404>
         </div>
