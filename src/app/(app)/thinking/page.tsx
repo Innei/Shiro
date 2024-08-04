@@ -91,7 +91,7 @@ const PostBox = () => {
         bordered={false}
         wrapperClassName="h-[150px] bg-gray-200/50 dark:bg-zinc-800/50"
         value={value}
-        placeholder="此刻在想什么？"
+        placeholder="What's in your mind?"
         onChange={(e) => {
           setValue(e.target.value)
         }}
@@ -278,7 +278,7 @@ const List = () => {
                     }}
                   >
                     <i className="icon-[mingcute--heart-line]" />
-                    <span className="sr-only">喜欢</span>
+                    <span className="sr-only">Like</span>
                     <span>{item.up}</span>
                   </button>
 
@@ -288,7 +288,7 @@ const List = () => {
                     }}
                   >
                     <i className="icon-[mingcute--heart-crack-line]" />
-                    <span className="sr-only">不喜欢</span>
+                    <span className="sr-only">Dislike</span>
                     <span>{item.down}</span>
                   </button>
 
