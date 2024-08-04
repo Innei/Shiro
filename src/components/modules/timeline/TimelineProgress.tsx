@@ -46,23 +46,22 @@ export const TimelineProgress = () => {
   return (
     <>
       <p>
-        <span className="shrink-0">今天是 {currentYear} 年的第</span>
+        <span className="shrink-0">Today is NO. </span>
         <CountUp
           to={currentDay}
           className="mx-1"
           decimals={0}
           duration={PROGRESS_DURATION}
         />
-        <span className="shrink-0">天</span>
+        <span className="shrink-0">day in {currentYear}.</span>
       </p>
       <p>
-        今年已过{' '}
         <CountUp to={percentOfYear} decimals={6} duration={PROGRESS_DURATION} />
-        %
+        %{' '}of this year has passed
       </p>
       <p>
-        今天已过{' '}
         <CountUp to={percentOfDay} decimals={6} duration={PROGRESS_DURATION} />%
+        {' '}of today has passed
       </p>
     </>
   )

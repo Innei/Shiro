@@ -45,17 +45,17 @@ export const relativeTimeFromNow = (
 
   if (elapsed < msPerMinute) {
     const gap = Math.ceil(elapsed / 1000)
-    return gap <= 0 ? '刚刚' : `${gap} 秒前`
+    return gap <= 0 ? 'just now' : `${gap} seconds ago`
   } else if (elapsed < msPerHour) {
-    return `${Math.round(elapsed / msPerMinute)} 分钟前`
+    return `${Math.round(elapsed / msPerMinute)} minutes ago`
   } else if (elapsed < msPerDay) {
-    return `${Math.round(elapsed / msPerHour)} 小时前`
+    return `${Math.round(elapsed / msPerHour)} hours ago`
   } else if (elapsed < msPerMonth) {
-    return `${Math.round(elapsed / msPerDay)} 天前`
+    return `${Math.round(elapsed / msPerDay)} days ago`
   } else if (elapsed < msPerYear) {
-    return `${Math.round(elapsed / msPerMonth)} 个月前`
+    return `${Math.round(elapsed / msPerMonth)} months ago`
   } else {
-    return `${Math.round(elapsed / msPerYear)} 年前`
+    return `${Math.round(elapsed / msPerYear)} years ago`
   }
 }
 export const dayOfYear = () => {
@@ -94,9 +94,9 @@ export function formatSeconds(seconds: number) {
   const mins = Math.floor(seconds / 60)
 
   let formatted = ''
-  if (days > 0) formatted += `${days} 天 `
-  if (hrs > 0) formatted += `${hrs} 小时 `
-  if (mins > 0) formatted += `${mins} 分钟`
+  if (days > 0) formatted += `${days} days `
+  if (hrs > 0) formatted += `${hrs} hours `
+  if (mins > 0) formatted += `${mins} minutes`
 
   return formatted.trim()
 }

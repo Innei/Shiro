@@ -38,7 +38,7 @@ export const ReadIndicator: Component<{
         )}
       >
         <i className="icon-[mingcute--arrow-up-circle-line]" />
-        <span className="whitespace-nowrap">回到顶部</span>
+        <span className="whitespace-nowrap">Back to top</span>
       </MotionButtonBase>
       {!inView && <ReadIndicatorVertical className="right-px" />}
     </As>

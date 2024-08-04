@@ -31,38 +31,38 @@ export const PostCopyright: FC = () => {
       className="mt-4 text-sm leading-loose text-gray-600 dark:text-neutral-400"
       id="copyright"
     >
-      <p>文章标题：{title}</p>
-      <p>文章作者：{name}</p>
+      <p>Title: {title}</p>
+      <p>Author: {name}</p>
       <p>
-        文章链接：<span>{link}</span>{' '}
+        Link: <span>{link}</span>{' '}
         <a
           onClick={() => {
             navigator.clipboard.writeText(link)
-            toast.success('已复制文章链接')
+            toast.success('Post link copied')
           }}
           data-hide-print
           className="cursor-pointer select-none"
         >
-          [复制]
+          [Copy]
         </a>
       </p>
       <p>
-        最后修改时间:{' '}
-        {date ? dayjs(date).format('YYYY 年 MM 月 DD 日 H:mm') : '暂没有修改过'}
+        Last modifying time:{' '}
+        {date ? dayjs(date).format('YYYY 年 MM 月 DD 日 H:mm') : 'Not modified'}
       </p>
       <Divider />
       <div>
         <p>
-          商业转载请联系站长获得授权，非商业转载请注明本文出处及文章链接，您可以自由地在任何媒体以任何形式复制和分发作品，也可以修改和创作，但是分发衍生作品时必须采用相同的许可协议。
+          For commercial reprints, please contact the site owner for authorization. For non-commercial reprints, please indicate the source and provide a link to this article. You are free to copy and distribute the work in any medium or format, as well as adapt and build upon it, but you must distribute derivative works under the same license.
           <br />
-          本文采用
+          This article is licensed under a
           <a
             className="shiro-link--underline"
             href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
           >
-            CC BY-NC-SA 4.0 - 非商业性使用 - 相同方式共享 4.0 国际
+            CC BY-NC-SA 4.0 - NonCommercial - ShareAlike  4.0 International
           </a>
-          进行许可。
+          {' '}licence.  
         </p>
       </div>
     </section>

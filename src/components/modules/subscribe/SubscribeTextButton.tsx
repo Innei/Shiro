@@ -15,7 +15,7 @@ export const SubscribeTextButton: FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
       <span>
-        <button onClick={present}>订阅</button>
+        <button onClick={present}>Subscribe</button>
       </span>
       {children}
     </>

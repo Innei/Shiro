@@ -83,9 +83,9 @@ export const NoteHeaderDate = () => {
   }))
   if (!date?.created) return null
 
-  const tips = `创建于 ${parseDate(date.created, 'YYYY 年 M 月 D 日 dddd')}${
+  const tips = `Created at ${parseDate(date.created, 'YYYY 年 M 月 D 日 dddd')}${
     date.modified
-      ? `，修改于 ${parseDate(date.modified, 'YYYY 年 M 月 D 日 dddd')}`
+      ? `，modified at ${parseDate(date.modified, 'YYYY 年 M 月 D 日 dddd')}`
       : ''
   }`
 
@@ -134,7 +134,7 @@ export const NoteHeaderMetaInfoSetting = () => {
 
     return {
       title: note?.title,
-      description: `手记${note.topic?.name ? ` / ${note.topic?.name}` : ''}`,
+      description: `Note${note.topic?.name ? ` / ${note.topic?.name}` : ''}`,
       slug: note?.nid.toString(),
     }
   })

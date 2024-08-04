@@ -98,9 +98,9 @@ const cardSlot: CardProps<PostModel>['slots'] = {
             wrapperClassName="text-xs"
             as="span"
             type="tooltip"
-            triggerElement="(已编辑)"
+            triggerElement="(Edited)"
           >
-            编辑于 <RelativeTime date={data.modified} />
+            Edited <RelativeTime date={data.modified} />
           </FloatPopover>
         )}
         <FloatPopover
@@ -113,10 +113,10 @@ const cardSlot: CardProps<PostModel>['slots'] = {
           }
         >
           <div className="flex flex-col gap-1">
-            <div>分类：{data.category.name}</div>
+            <div>Category: {data.category.name}</div>
             {data.tags.length > 0 && (
               <div className="flex items-center">
-                <span>标签：</span>
+                <span>Labels: </span>
                 <div className="flex gap-2">
                   {data.tags.map((tag) => (
                     <Tag className="px-2 py-1" text={tag} key={tag} />

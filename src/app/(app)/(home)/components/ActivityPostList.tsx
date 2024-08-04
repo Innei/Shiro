@@ -21,7 +21,7 @@ export const ActivityPostList = () => {
       className="mt-8 flex flex-col gap-4 lg:mt-0"
       viewport={{ once: true }}
     >
-      <h2 className="text-2xl font-medium leading-loose">最近更新的文稿</h2>
+      <h2 className="text-2xl font-medium leading-loose">Recent posts</h2>
       <ul className="shiro-timeline mt-4">
         {posts.map((post) => {
           return (
@@ -53,11 +53,11 @@ export const ActivityPostList = () => {
         href={routeBuilder(Routes.Posts, {})}
       >
         <i className="icon-[mingcute--arrow-right-circle-line]" />
-        <span className="ml-2">还有更多</span>
+        <span className="ml-2">and more</span>
       </Link>
 
       <Divider />
-      <h2 className="text-2xl font-medium leading-loose">最近更新的手记</h2>
+      <h2 className="text-2xl font-medium leading-loose">Recent notes</h2>
       <ul className="shiro-timeline mt-4">
         {notes.map((note, i) => {
           return (
@@ -86,7 +86,7 @@ export const ActivityPostList = () => {
         href={routeBuilder(Routes.Timelime, { type: 'note' })}
       >
         <i className="icon-[mingcute--arrow-right-circle-line]" />
-        <span className="ml-2">还有更多</span>
+        <span className="ml-2">and more</span>
       </Link>
     </m.section>
   )

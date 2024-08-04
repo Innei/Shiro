@@ -36,7 +36,7 @@ const useNewCommentObserver = (refId: string) => {
         // 如果标签页在后台
 
         if (document.visibilityState === 'hidden') {
-          document.title = `新评论！${currentTitle}`
+          document.title = `New comment!${currentTitle}`
         }
       }
     })
@@ -78,7 +78,7 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
   if (!data || !data.pages.length || !data.pages[0].data.length)
     return (
       <div className="flex min-h-[400px] center">
-        <NotSupport text="这里还没有评论呢" />
+        <NotSupport text="No comments yet" />
       </div>
     )
   return (

@@ -24,7 +24,7 @@ export function CommentBoxSignedOutContent() {
           setCommentMode(CommentBoxMode.legacy)
         }}
       >
-        免登录评论
+        Commenting withou login
       </StyledButton>
       <SignInButton
         mode="modal"
@@ -38,7 +38,7 @@ export function CommentBoxSignedOutContent() {
           type="button"
         >
           <UserArrowLeftIcon className="mr-1 size-5" />
-          登录后才可以留言噢
+          Leave a message after login
         </StyledButton>
       </SignInButton>
     </div>

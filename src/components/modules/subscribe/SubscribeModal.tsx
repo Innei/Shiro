@@ -90,7 +90,7 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
 
   const handleSubList: React.EventHandler<any> = async (e) => {
     if (!canSub) {
-      toast.error('订阅功能暂时没有开启哦')
+      toast.error('The subscription feature is currently not enabled')
       return
     }
     preventDefault(e)
@@ -101,7 +101,7 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
       Object.keys(types).filter((name) => state.types[name]) as any[],
     )
 
-    toast.success('订阅成功，谢谢你！')
+    toast.success('Subscribed, thank you so much🙏')
     dispatch({ type: 'reset' })
     onConfirm()
   }
@@ -110,12 +110,12 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
   return (
     <form onSubmit={handleSubList} className="flex flex-col gap-5">
       <p className="text-gray-1 text-sm">
-        欢迎订阅「{title}
-        」，我会定期推送最新的内容到你的邮箱。
+        Feel free to subscribe「{title}
+        」, I would send new contents to your e-mail.
       </p>
       <Input
         type="text"
-        placeholder="留下你的邮箱哦 *"
+        placeholder="Please leave your email *"
         required
         value={state.email}
         onChange={(e) => {
@@ -156,13 +156,12 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
       </div>
 
       <p className="text-gray-1 -mt-2 text-sm">
-        或者你也可以通过{' '}
+        Or you can subscribe to the RSS stram of 「{title}」by clicking{' '}
         <a href="/feed" className="text-green" target="_blank" rel="noreferrer">
           /feed
         </a>{' '}
-        订阅「{title}」的 RSS 流。
       </p>
-      <StyledButton disabled={!state.email}>订阅</StyledButton>
+      <StyledButton disabled={!state.email}>Subscribe</StyledButton>
     </form>
   )
 }

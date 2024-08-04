@@ -116,7 +116,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
     alternates: {
       canonical: url.webUrl,
       types: {
-        'application/rss+xml': [{ url: 'feed', title: 'RSS 订阅' }],
+        'application/rss+xml': [{ url: 'feed', title: 'RSS Subscribe' }],
       },
     },
   } satisfies Metadata
@@ -141,8 +141,7 @@ export default async function RootLayout(props: PropsWithChildren) {
           className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
         >
           <div className="flex h-screen center">
-            初始数据的获取失败，请检查 API
-            服务器是否正常运行。接口请求错误信息：
+          Failed to retrieve initial data. Please check if the API server is running normally. Interface request error message:
             <br />
             {data.message}
           </div>

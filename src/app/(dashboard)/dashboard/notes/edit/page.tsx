@@ -106,7 +106,7 @@ const EditPage: FC<{
             <div />
           ) : (
             <span>
-              {props.initialData ? <>编辑「{editingData.title}」</> : '撰写'}
+              {props.initialData ? <>edit「{editingData.title}」</> : 'Write'}
             </span>
           )}
           <ActionButtonGroup initialData={props.initialData} />
@@ -114,7 +114,7 @@ const EditPage: FC<{
             middleSlot={NoteNid}
             titleLabel={
               created
-                ? `记录 ${created.getFullYear()} 年第 ${dayOfYear()} 天`
+                ? `Recording the ${dayOfYear()} day of year ${created.getFullYear()}`
                 : undefined
             }
           />

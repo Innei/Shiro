@@ -21,69 +21,69 @@ export const dashboardRoutes = {
 
   children: [
     {
-      title: '仪表盘',
+      title: 'Dashboard',
       icon: <i className="icon-[mingcute--dashboard-line]" />,
 
       path: '',
     },
     {
-      title: '文稿',
+      title: 'Posts',
       icon: <i className="icon-[mingcute--code-line]" />,
       redirect: '/dashboard/posts/list',
       path: '/posts',
       children: [
         {
-          title: '列表',
+          title: 'List',
           icon: <i className="icon-[mingcute--table-2-line]" />,
           path: '/list',
         },
         {
-          title: '编辑',
+          title: 'Edit',
           icon: <i className="icon-[mingcute--pen-line]" />,
           path: '/edit',
         },
         {
-          title: '分类/标签',
+          title: 'Category/Labels',
           icon: <i className="icon-[mingcute--pen-line]" />,
           path: '/category',
         },
       ],
     },
     {
-      title: '手记',
+      title: 'Notes',
       icon: <i className="icon-[mingcute--quill-pen-line]" />,
       redirect: '/dashboard/notes/list',
       path: '/notes',
       children: [
         {
-          title: '列表',
+          title: 'List',
           icon: <i className="icon-[mingcute--table-2-line]" />,
           path: '/list',
         },
         {
-          title: '编辑',
+          title: 'Edit',
           icon: <i className="icon-[mingcute--pen-line]" />,
           path: '/edit',
         },
         {
-          title: '话题',
+          title: 'Topics',
           icon: <IconParkOutlineTopic />,
           path: '/topics',
         },
       ],
     },
     {
-      title: '评论',
+      title: 'Comments',
       icon: <i className="icon-[mingcute--comment-line]" />,
       path: '/comments',
     },
     {
-      title: '页面',
+      title: 'Pages',
       icon: <i className="icon-[mingcute--file-line]" />,
       path: '/pages',
     },
     {
-      title: '完整功能与其他设置',
+      title: 'Complete functions and other settings',
       icon: <i className="icon-[mingcute--settings-1-line]" />,
       path: '/vue',
     },

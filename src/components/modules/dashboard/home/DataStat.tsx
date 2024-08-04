@@ -70,19 +70,19 @@ export const DataStat = () => {
     if (!stat) return []
     return [
       {
-        label: '博文',
+        label: 'Posts',
         value: stat.posts,
         icon: <CodeIcon />,
         actions: [
           {
-            name: '撰写',
+            name: 'Write',
             primary: true,
             onClick() {
               router.push('/dashboard/posts/edit')
             },
           },
           {
-            name: '管理',
+            name: 'Manage',
             onClick() {
               router.push('/dashboard/posts/list')
             },
@@ -91,19 +91,19 @@ export const DataStat = () => {
       },
 
       {
-        label: '手记',
+        label: 'Note',
         value: stat.notes,
         icon: <i className="icon-[mingcute--quill-pen-line]" />,
         actions: [
           {
-            name: '撰写',
+            name: 'Write',
             primary: true,
             onClick() {
               router.push('/dashboard/notes/edit')
             },
           },
           {
-            name: '管理',
+            name: 'Manage',
             onClick() {
               router.push('/dashboard/notes/list')
             },
@@ -112,13 +112,13 @@ export const DataStat = () => {
       },
 
       {
-        label: '页面',
+        label: 'Page',
         value: stat.pages,
         icon: <i className="icon-[mingcute--file-line]" />,
         actions: [
           {
             primary: true,
-            name: '管理',
+            name: 'Manage',
             onClick() {
               router.push('/dashboard/pages')
             },
@@ -127,13 +127,13 @@ export const DataStat = () => {
       },
 
       {
-        label: '分类',
+        label: 'Category',
         value: stat.categories,
         icon: <i className="icon-[mingcute--pen-line]" />,
         actions: [
           {
             primary: true,
-            name: '管理',
+            name: 'Manage',
             onClick() {
               router.push('/dashboard/posts/category')
             },
@@ -142,14 +142,14 @@ export const DataStat = () => {
       },
 
       {
-        label: '未读评论',
+        label: 'Unread Comments',
         value: stat.unreadComments,
         icon: <i className="icon-[mingcute--comment-line]" />,
         highlight: stat.unreadComments > 0,
         actions: [
           {
             primary: true,
-            name: '管理',
+            name: 'Manage',
             onClick() {
               router.push('/dashboard/comments')
             },

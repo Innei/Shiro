@@ -78,20 +78,21 @@ export default function Page() {
   return (
     <div>
       <header className="prose prose-p:my-2">
-        <h1>朋友们</h1>
+        <h1>Friends</h1>
         <h3>海内存知己，天涯若比邻</h3>
+        <h3>“Friendship is everything. Friendship is more than talent. It’s more than the government. It is almost equal to the family.” -- Don Vito Corleone, "The Godfather"</h3>
       </header>
 
       <main className="mt-10 flex w-full flex-col">
         {friends.length > 0 && (
           <>
-            {collections.length !== 0 && renderTitle('我的朋友')}
+            {collections.length !== 0 && renderTitle('My friends')}
             <FriendSection data={friends} />
           </>
         )}
         {collections.length > 0 && (
           <>
-            {friends.length !== 0 && renderTitle('我的收藏')}
+            {friends.length !== 0 && renderTitle('Collections')}
             <FavoriteSection data={collections} />
           </>
         )}
@@ -100,7 +101,7 @@ export default function Page() {
           <>
             <Collapse
               title={
-                <div className="mt-8 font-bold">以下站点无法访问，已失联</div>
+                <div className="mt-8 font-bold">The following sites are inaccessible and have lost connection.</div>
               }
             >
               <OutdateSection data={outdated} />
@@ -111,7 +112,7 @@ export default function Page() {
           <>
             <Collapse
               title={
-                <div className="mt-8 font-bold">以下站点不合规，已被禁止</div>
+                <div className="mt-8 font-bold">The following sites are non-compliant and have been banned.</div>
               }
             >
               <BannedSection data={banned} />
@@ -264,30 +265,31 @@ const ApplyLinkInfo: FC = () => {
   })
   const { present } = useModalStack()
   if (!canApply) {
-    return <NotSupport className="mt-20" text="主人禁止了申请友链。" />
+    return <NotSupport className="mt-20" text="
+The owner has prohibited link exchange requests." />
   }
   return (
     <>
       <div className="prose mt-20">
         <Markdown>
           {[
-            `- 申请友链前请**务必确保**贵站有我站的友链，若审批通过后移除本站链接，本站也将移除友链，并加入黑名单。`,
-            `- 若站点长时间无法访问，我会删除您的友链，恢复后可再次申请。`,
-            `- 确保您的网站不存在政治敏感问题及违法内容。没有过多的广告、无恶意软件、脚本。且转载文章须注明出处。`,
-            `- 确保站点全局启用 HTTPS`,
-            `- 您需要有自己的独立域名，暂且不同意公有子域名或免费域名的友链申请 (如 github.io, vercel.app, eu.org, js.cool, .tk, .ml, .cf 等)`,
-            `- 暂时不同意商业及非个人的网站的友链申请`,
+            `- Before applying for a link exchange, please **ensure** that your site has a link to my site. If you remove my site’s link after approval, my site will also remove your link.`,
+            `- If your site is inaccessible for a long time, I will delete your link. You can reapply once it is restored.`,
+            `- Ensure that your site does not contain illegal content. It should not have excessive advertisements, malicious software, or scripts. Reposted articles must indicate the source.`,
+            `- Ensure that your site is fully HTTPS enabled.`,
+            `- You need to have your own independent domain name. Currently, link exchange requests for public subdomains or free domains (such as github.io, vercel.app, eu.org, js.cool, .tk, .ml, .cf, etc.) are not accepted.`,
+            `- Link exchange requests from commercial and non-personal websites are currently not accepted.`,
           ].join('\n\n')}
         </Markdown>
         <Markdown className="[&_p]:!my-1">
           {[
             '',
-            `**站点标题**: [${
+            `**Site title**: [${
               seo.title
             }](${`${location.protocol}//${location.host}`})`,
-            `**站点描述**: ${seo.description}`,
-            `**主人头像**: [点击下载](${avatar})`,
-            `**主人名字**: ${name}`,
+            `**Site descriptions**: ${seo.description}`,
+            `**Owner's avatar**: [Press to download](${avatar})`,
+            `**Owner's name**: ${name}`,
           ].join('\n\n')}
         </Markdown>
       </div>
@@ -297,13 +299,13 @@ const ApplyLinkInfo: FC = () => {
         className="mt-5"
         onClick={() => {
           present({
-            title: '我想和你交朋友！',
+            title: 'Let me be your friend!',
 
             content: () => <FormModal />,
           })
         }}
       >
-        和我做朋友吧！
+        Make friend with me!
       </StyledButton>
     </>
   )
@@ -314,75 +316,75 @@ const FormModal = () => {
   const [inputs] = useState(() => [
     {
       name: 'author',
-      placeholder: '昵称 *',
+      placeholder: 'Nickname *',
       rules: [
         {
           validator: (value: string) => !!value,
-          message: '昵称不能为空',
+          message: 'Nickname shall not be empty',
         },
         {
           validator: (value: string) => value.length <= 20,
-          message: '昵称不能超过20个字符',
+          message: 'Nickname shall not be longer than 20 characters',
         },
       ],
     },
     {
       name: 'name',
-      placeholder: '站点标题 *',
+      placeholder: 'Site title *',
       rules: [
         {
           validator: (value: string) => !!value,
-          message: '站点标题不能为空',
+          message: 'Site title can not be empty',
         },
         {
           validator: (value: string) => value.length <= 20,
-          message: '站点标题不能超过20个字符',
+          message: 'Site title can not be more than 20 characters',
         },
       ],
     },
     {
       name: 'url',
-      placeholder: '网站 * https://',
+      placeholder: 'Website * https://',
       rules: [
         {
           validator: isHttpsUrl,
-          message: '请输入正确的网站链接 https://',
+          message: 'Please enter a valid website link https://',
         },
       ],
     },
     {
       name: 'avatar',
-      placeholder: '头像链接 * https://',
+      placeholder: 'Avatar link * https://',
       rules: [
         {
           validator: isHttpsUrl,
-          message: '请输入正确的头像链接 https://',
+          message: 'Please enter a valid avatar link https://',
         },
       ],
     },
     {
       name: 'email',
-      placeholder: '留下你的邮箱哦 *',
+      placeholder: 'Please leave an e-mail *',
 
       rules: [
         {
           validator: isEmail,
-          message: '请输入正确的邮箱',
+          message: 'Please enter a valid e-mail',
         },
       ],
     },
     {
       name: 'description',
-      placeholder: '一句话描述一下自己吧 *',
+      placeholder: 'One line description on yourself *',
 
       rules: [
         {
           validator: (value: string) => !!value,
-          message: '一句话描述一下自己吧',
+          message: 'One line description on yourself',
         },
         {
           validator: (value: string) => value.length <= 50,
-          message: '一句话描述不要超过50个字啦',
+          message: 'oh please no more than 50 words, thanks',
         },
       ],
     },
@@ -400,7 +402,7 @@ const FormModal = () => {
         .applyLink({ ...(currentValues as any) })
         .then(() => {
           dismissTop()
-          toast.success('好耶！')
+          toast.success('Yeah!')
         })
         .catch((err) => {
           if (err instanceof RequestError)
@@ -424,7 +426,7 @@ const FormModal = () => {
       ))}
 
       <StyledButton variant="primary" type="submit">
-        好耶！
+        Yeah!
       </StyledButton>
     </Form>
   )

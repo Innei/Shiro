@@ -48,7 +48,7 @@ export const ActivityRecent = () => {
       viewport={{ once: true }}
     >
       <m.h2 className="mb-8 text-2xl font-medium leading-loose lg:ml-14">
-        最近发生的事
+        Recent Activity
       </m.h2>
 
       {isLoading ? (

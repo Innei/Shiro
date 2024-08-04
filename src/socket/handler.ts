@@ -88,7 +88,7 @@ export const eventHandler = (
         Reflect.deleteProperty(nextPost, 'category')
         Object.assign(draft, nextPost)
       })
-      toast('文章已更新')
+      toast('Article updated')
       trackerRealtimeEvent()
 
       if (currentData.text !== post.text) {
@@ -109,7 +109,7 @@ export const eventHandler = (
       ) {
         if (getGlobalCurrentPostData()?.id === post.id) {
           router.replace(routeBuilder(Routes.PageDeletd, {}))
-          toast.error('文章已删除')
+          toast.error('Article deleted')
           trackerRealtimeEvent()
         }
       }
@@ -129,7 +129,7 @@ export const eventHandler = (
       setCurrentNoteData((draft) => {
         Object.assign(draft.data, note)
       })
-      toast('手记已更新')
+      toast('Note updated')
       trackerRealtimeEvent()
 
       if (currentData.text !== note.text) {
@@ -149,7 +149,7 @@ export const eventHandler = (
       ) {
         if (getCurrentNoteData()?.data.id === note.id) {
           router.replace(routeBuilder(Routes.PageDeletd, {}))
-          toast.error('手记已删除')
+          toast.error('Note deleted')
           trackerRealtimeEvent()
         }
       }
@@ -164,7 +164,7 @@ export const eventHandler = (
         setCurrentPageData((draft) => {
           Object.assign(draft, data)
         })
-        toast('页面已更新')
+        toast('Page updated')
         trackerRealtimeEvent()
       }
       break
@@ -173,7 +173,7 @@ export const eventHandler = (
     case EventTypes.NOTE_CREATE: {
       const { title, nid } = data as NoteModel
 
-      toast.success(`有新的内容发布了：「${title}」`, {
+      toast.success(`New content published:「${title}」`, {
         onClick: () => {
           window.peek(`/notes/${nid}`)
         },
@@ -187,7 +187,7 @@ export const eventHandler = (
 
     case EventTypes.POST_CREATE: {
       const { title, category, slug } = data as PostModel
-      toast.success(`有新的内容发布了：「${title}」`, {
+      toast.success(`New content published:「${title}」`, {
         onClick: () => {
           window.peek(`/posts/${category.slug}/${slug}`)
         },
@@ -211,7 +211,7 @@ export const eventHandler = (
         //   },
         // )
       } else {
-        toast.success(`写下一点小思考：\n${(data as RecentlyModel).content}`, {
+        toast.success(`Write down some thoughts: \n${(data as RecentlyModel).content}`, {
           autoClose: 10000,
           iconElement: React.createElement(MdiLightbulbOn20),
           onClick: () => {
@@ -335,7 +335,7 @@ export const eventHandler = (
     }
 
     case 'fn#shiro#update': {
-      toast.info('网站已更新，请刷新页面', {
+      toast.info('Website updated, please refresh', {
         onClick: () => {
           location.reload()
         },

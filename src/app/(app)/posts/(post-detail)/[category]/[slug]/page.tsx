@@ -115,7 +115,7 @@ const PostPage = ({ data }: { data: ModelWithLiked<PostModel> }) => {
 
           <PostOutdate />
 
-          <PostRelated infoText="阅读此文章之前，你可能需要首先阅读以下的文章才能更好的理解上下文。" />
+          <PostRelated infoText="Before reading this article, you might need to first read the following articles to better understand the context." />
         </div>
         <WrappedElementProvider eoaDetect>
           <ReadIndicatorForMobile />
@@ -139,7 +139,7 @@ const PostPage = ({ data }: { data: ModelWithLiked<PostModel> }) => {
         </WrappedElementProvider>
       </div>
       <ClientOnly>
-        <PostRelated infoText="关联阅读" />
+        <PostRelated infoText="Further Reading" />
         <PostCopyright />
 
         {/* <SubscribeBell defaultType="post_c" /> */}

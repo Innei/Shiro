@@ -32,7 +32,7 @@ export const PostItem = memo<{ data: PostModel }>(function PostItem({ data }) {
       <div className="relative mt-8 space-y-2">
         {!!data.summary && (
           <p className="mb-4 break-all rounded-md px-4 py-2 text-sm leading-relaxed text-gray-900 ring-1 ring-accent/10 dark:text-zinc-50">
-            摘要： {data.summary}
+            Abstract:  {data.summary}
           </p>
         )}
         <div className="relative overflow-hidden text-justify">
@@ -54,7 +54,7 @@ export const PostItem = memo<{ data: PostModel }>(function PostItem({ data }) {
       <div className="post-meta-bar mt-2 flex select-none flex-wrap items-center justify-end gap-4 text-base-content/60">
         <PostMetaBar meta={data} />
         <span className="flex shrink-0 select-none items-center space-x-1 text-right text-accent hover:text-accent [&>svg]:hover:ml-2">
-          <span>阅读全文</span>
+          <span>Read Full Article</span>
           <i className="icon-[mingcute--arrow-right-line] text-lg transition-[margin]" />
         </span>
       </div>
