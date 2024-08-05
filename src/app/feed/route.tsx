@@ -176,10 +176,10 @@ export async function GET() {
   return new Response(`${feed.xml()}`, {
     headers: {
       'Content-Type': 'application/xml',
-      'Cache-Control': 'max-age=60, s-maxage=86400',
-      'CDN-Cache-Control': 'max-age=86400',
-      'Cloudflare-CDN-Cache-Control': 'max-age=86400',
-      'Vercel-CDN-Cache-Control': 'max-age=86400',
+      'Cache-Control': `max-age=60, s-maxage=${revalidate}`,
+      'CDN-Cache-Control': `max-age=${revalidate}`,
+      'Cloudflare-CDN-Cache-Control': `max-age=${revalidate}`,
+      'Vercel-CDN-Cache-Control': `max-age=${revalidate}`,
     },
   })
 }
