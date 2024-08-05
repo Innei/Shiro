@@ -46,6 +46,33 @@ export async function GET() {
   const { title, description } = agg.seo
 
   const now = new Date()
+  const custom_elements = get(
+    agg.$raw.theme as AppConfig,
+    'config.module.rss.custom_elements',
+  )
+
+  const followChallengeIndex = custom_elements
+    ? custom_elements.findIndex((item: any) => item.follow_challenge)
+    : -1
+  if (-~followChallengeIndex) {
+    const map = {} as Record<string, string>
+
+    const follow_challenge =
+      custom_elements[followChallengeIndex].follow_challenge
+    for (const item of follow_challenge) {
+      Object.assign(map, item)
+    }
+
+    custom_elements[followChallengeIndex].follow_challenge = [
+      {
+        feedId: map.feed_id,
+      },
+      {
+        userId: map.user_id,
+      },
+    ]
+  }
+
   const feed = new RSS({
     title,
     description,
@@ -56,10 +83,7 @@ export async function GET() {
     generator: 'Shiro (https://github.com/Innei/Shiro)',
     pubDate: now.toUTCString(),
 
-    custom_elements: get(
-      agg.$raw.theme as AppConfig,
-      'config.module.rss.custom_elements',
-    ),
+    custom_elements,
   })
 
   data.forEach((item) => {
