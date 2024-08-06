@@ -38,15 +38,15 @@ export const PostsSortingFab = () => {
     () =>
       [
         {
-          label: '默认',
+          label: 'Default',
           value: 'default',
         },
         {
-          label: '创建时间',
+          label: 'Created Time',
           value: 'created',
         },
         {
-          label: '更新时间',
+          label: 'Modified Time',
           value: 'modified',
         },
       ] as SortByValues,
@@ -56,11 +56,11 @@ export const PostsSortingFab = () => {
     () =>
       [
         {
-          label: '降序',
+          label: 'descending',
           value: 'desc',
         },
         {
-          label: '升序',
+          label: 'ascending',
           value: 'asc',
         },
       ] as OrderByValues,
@@ -93,7 +93,7 @@ export const PostsSortingFab = () => {
     >
       <main className="relative flex w-[300px] flex-col">
         <section>
-          <div className="ml-1">按...排序</div>
+          <div className="ml-1">Sorting by...</div>
           <Select<SortBy>
             className="mt-2"
             values={sortByValues}
@@ -109,7 +109,7 @@ export const PostsSortingFab = () => {
         </section>
 
         <section className="mb-2 mt-4">
-          <div className="ml-1">顺序</div>
+          <div className="ml-1">Order</div>
           <Select<OrderBy>
             className={clsx(
               'mt-2',

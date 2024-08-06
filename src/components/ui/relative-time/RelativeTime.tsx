@@ -11,7 +11,7 @@ const formatTime = (date: string | Date, relativeBeforeDay?: number) => {
     relativeBeforeDay &&
     Math.abs(dayjs(date).diff(new Date(), 'd')) > relativeBeforeDay
   ) {
-    return parseDate(date, 'YYYY 年 M 月 D 日 dddd')
+    return parseDate(date, 'YYYY-MM-DD dddd')
   }
   return relativeTimeFromNow(date)
 }

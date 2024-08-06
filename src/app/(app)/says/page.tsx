@@ -17,7 +17,7 @@ export default function Page() {
   return (
     <div>
       <header className="prose">
-        <h1>一言</h1>
+        <h1>Sayings</h1>
       </header>
 
       <main className="mt-10">

@@ -48,21 +48,26 @@ export const PostCopyright: FC = () => {
       </p>
       <p>
         Last modifying time:{' '}
-        {date ? dayjs(date).format('YYYY 年 MM 月 DD 日 H:mm') : 'Not modified'}
+        {date ? dayjs(date).format('DD/MM/YYYY') : 'Not modified'}
       </p>
       <Divider />
       <div>
         <p>
-          For commercial reprints, please contact the site owner for authorization. For non-commercial reprints, please indicate the source and provide a link to this article. You are free to copy and distribute the work in any medium or format, as well as adapt and build upon it, but you must distribute derivative works under the same license.
+          For commercial reprints, please contact the site owner for
+          authorization. For non-commercial reprints, please indicate the source
+          and provide a link to this article. You are free to copy and
+          distribute the work in any medium or format, as well as adapt and
+          build upon it, but you must distribute derivative works under the same
+          license.
           <br />
           This article is licensed under a
           <a
             className="shiro-link--underline"
             href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
           >
-            CC BY-NC-SA 4.0 - NonCommercial - ShareAlike  4.0 International
-          </a>
-          {' '}licence.  
+            CC BY-NC-SA 4.0 - NonCommercial - ShareAlike 4.0 International
+          </a>{' '}
+          licence.
         </p>
       </div>
     </section>

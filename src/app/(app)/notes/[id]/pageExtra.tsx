@@ -65,7 +65,7 @@ export const NoteDateMeta = () => {
   if (!created) return null
   const dateFormat = dayjs(created)
     .locale('zh-cn')
-    .format('YYYY 年 M 月 D 日 dddd')
+    .format('dddd, MMMM D, YYYY h:mm A')
 
   return (
     <span className="inline-flex items-center space-x-1">

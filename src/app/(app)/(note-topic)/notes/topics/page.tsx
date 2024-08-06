@@ -15,7 +15,7 @@ export default definePrerenderPage()({
     return (
       <BottomToUpSoftScaleTransitionView>
         <header className="prose">
-          <h1>专栏</h1>
+          <h1>Topics</h1>
         </header>
 
         <main className="mt-10 text-zinc-950/80 dark:text-zinc-50/80">

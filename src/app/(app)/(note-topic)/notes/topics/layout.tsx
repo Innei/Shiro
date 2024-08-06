@@ -5,7 +5,7 @@ import { NormalContainer } from '~/components/layout/container/Normal'
 
 export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
-  title: '专栏',
+  title: 'Topics',
 }
 
 export default async function Layout(props: PropsWithChildren) {

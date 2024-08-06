@@ -152,7 +152,7 @@ const DonateContent = () => {
   return (
     <>
       <m.h2 exit={{ opacity: 0 }} className="mb-6 text-lg font-medium">
-        感谢您的支持，助力梦想继续前行。
+        Thank you so much for your support.
       </m.h2>
       <div className="flex flex-wrap gap-4 overflow-auto center">
         {donate?.qrcode?.map((src) => (

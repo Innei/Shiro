@@ -51,7 +51,7 @@ export default function Page() {
   return (
     <BottomToUpSoftScaleTransitionView>
       <header className="prose">
-        <h1>专栏 - {name}</h1>
+        <h1>Topic - {name}</h1>
       </header>
 
       <main className="mt-10 text-zinc-950/80 dark:text-zinc-50/80">

@@ -17,7 +17,7 @@ export const generateMetadata = async (
   }
 
   return {
-    title: `分类 · ${data.name}`,
+    title: `Category · ${data.name}`,
   } satisfies Metadata
 }
 export default async function Layout(

@@ -24,7 +24,7 @@ export const generateMetadata = async (
   const data = await queryClient.fetchQuery(query)
 
   return {
-    title: `专栏 · ${data.name}`,
+    title: `Topic · ${data.name}`,
   } satisfies Metadata
 }
 

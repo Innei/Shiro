@@ -34,7 +34,7 @@ export default function Page() {
     <div className="mt-10">
       <header className="prose my-12 flex items-center">
         <h1 className="flex items-center">
-          项目{' '}
+          Projects{' '}
           {githubUsername && (
             <a
               href={`https://github.com/${githubUsername}`}

@@ -20,7 +20,7 @@ interface Props {
 }
 
 export const metadata = {
-  title: '文章列表',
+  title: 'Article list',
 }
 
 export default definePrerenderPage<Props>()({

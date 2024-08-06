@@ -20,25 +20,25 @@ const taClassName =
   'relative h-[150px] w-full rounded-xl bg-gray-200/50 dark:bg-zinc-800/50'
 type FormKey = 'author' | 'mail' | 'url'
 const placeholderMap = {
-  author: '昵称',
-  mail: '邮箱',
-  url: '网址',
+  author: 'Nickname',
+  mail: 'e-mai',
+  url: 'website',
 } as const
 
 const validatorMap = {
   author: {
     validator: (v: string) => v.length > 0 && v.length <= 20,
-    message: '昵称长度应在 1-20 之间',
+    message: 'Nickname should have a length between 1 - 20 characters',
   },
   mail: {
     validator: (v: string) =>
       /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(v),
-    message: '邮箱格式不正确',
+    message: 'invalid e-mail format',
   },
   url: {
     validator: (v: string) =>
       /^https?:\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/.test(v),
-    message: '网址格式不正确',
+    message: 'invalid website format',
   },
 }
 const FormInput = (props: { fieldKey: FormKey; required?: boolean }) => {
@@ -86,7 +86,7 @@ const LoggedForm = () => {
         className={clsx(
           'mb-2 shrink-0 select-none self-end overflow-hidden rounded-full',
           'dark:ring-zinc-800" bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800',
-          'backface-hidden ml-[2px]',
+          'ml-[2px] backface-hidden',
         )}
       >
         <Image
