@@ -29,3 +29,5 @@ export const viewportAtom = atom({
   h: 0,
   w: 0,
 })
+
+export const pageScrollElementAtom = atom<HTMLElement | null>(null)

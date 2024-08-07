@@ -5,6 +5,7 @@ import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 import type { FC, PropsWithChildren } from 'react'
 
+import { pageScrollElementAtom } from '~/atoms'
 import { setIsInteractive } from '~/atoms/is-interactive'
 import { createAtomSelector } from '~/lib/atom'
 import { throttle } from '~/lib/lodash'
@@ -27,6 +28,7 @@ const ScrollDetector = () => {
   const prevScrollY = useRef(0)
   const setIsInteractiveOnceRef = useRef(false)
 
+  const pageScrollElement = useAtomValue(pageScrollElementAtom)
   useIsomorphicLayoutEffect(() => {
     const scrollHandler = throttle(
       () => {
@@ -34,7 +36,8 @@ const ScrollDetector = () => {
           setIsInteractive(true)
           setIsInteractiveOnceRef.current = true
         }
-        let currentTop = document.documentElement.scrollTop
+        const element = pageScrollElement || document.documentElement
+        let currentTop = element.scrollTop
 
         // 当 radix modal 被唤出，body 会被设置为 fixed，此时需要获取 body 的 top 值。
         // 只有在 mobile 端会出现这种逻辑
@@ -57,14 +60,16 @@ const ScrollDetector = () => {
         leading: false,
       },
     )
-    window.addEventListener('scroll', scrollHandler)
+
+    const element = pageScrollElement || window
+    element.addEventListener('scroll', scrollHandler)
 
     scrollHandler()
 
     return () => {
-      window.removeEventListener('scroll', scrollHandler)
+      element.removeEventListener('scroll', scrollHandler)
     }
-  }, [])
+  }, [pageScrollElement])
 
   return null
 }

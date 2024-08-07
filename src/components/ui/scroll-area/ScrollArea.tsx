@@ -1,5 +1,3 @@
-/* eslint-disable tailwindcss/enforces-negative-arbitrary-values */
-/* eslint-disable tailwindcss/no-unnecessary-arbitrary-value */
 'use client'
 
 import * as ScrollAreaBase from '@radix-ui/react-scroll-area'
@@ -31,17 +29,19 @@ const Thumb = React.forwardRef<
     ref={forwardedRef}
     className={clsxm(
       'relative w-full flex-1 rounded-xl transition-colors duration-150',
-      'bg-gray-300 hover:bg-neutral-400/80 dark:bg-neutral-500',
-      'active:bg-neutral-400/50',
+      'bg-gray-300 hover:bg-neutral-400/80',
+      'active:bg-neutral-400',
+      'dark:bg-neutral-500 hover:dark:bg-neutral-400/80 active:dark:bg-neutral-400',
       'before:absolute before:-left-1/2 before:-top-1/2 before:h-full before:min-h-[44]',
       'before:w-full before:min-w-[44] before:-translate-x-full before:-translate-y-full before:content-[""]',
+
       className,
     )}
   />
 ))
 Thumb.displayName = 'ScrollArea.Thumb'
 
-export const Scrollbar = React.forwardRef<
+const Scrollbar = React.forwardRef<
   React.ElementRef<typeof ScrollAreaBase.Scrollbar>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaBase.Scrollbar>
 >(({ className, children, ...rest }, forwardedRef) => {
@@ -55,6 +55,7 @@ export const Scrollbar = React.forwardRef<
         orientation === 'horizontal'
           ? `h-2.5 w-full flex-col`
           : `w-2.5 flex-row`,
+        'animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in',
         className,
       )}
     >
@@ -65,7 +66,7 @@ export const Scrollbar = React.forwardRef<
 })
 Scrollbar.displayName = 'ScrollArea.Scrollbar'
 
-export const Viewport = React.forwardRef<
+const Viewport = React.forwardRef<
   React.ElementRef<typeof ScrollAreaBase.Viewport>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaBase.Viewport>
 >(({ className, ...rest }, forwardedRef) => {
@@ -85,12 +86,13 @@ export const Viewport = React.forwardRef<
 })
 Viewport.displayName = 'ScrollArea.Viewport'
 
-export const Root = React.forwardRef<
+const Root = React.forwardRef<
   React.ElementRef<typeof ScrollAreaBase.Root>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaBase.Root>
 >(({ className, children, ...rest }, forwardedRef) => (
   <ScrollAreaBase.Root
     {...rest}
+    scrollHideDelay={0}
     ref={forwardedRef}
     className={clsxm('overflow-hidden', className)}
   >
@@ -100,18 +102,32 @@ export const Root = React.forwardRef<
 ))
 
 Root.displayName = 'ScrollArea.Root'
-export const ScrollArea: React.FC<
+
+export const ScrollArea = React.forwardRef<
+  HTMLDivElement,
   React.PropsWithChildren & {
     rootClassName?: string
     viewportClassName?: string
+    scrollbarClassName?: string
+    flex?: boolean
   }
-> = ({ children, rootClassName, viewportClassName }) => {
-  return (
+>(
+  (
+    { flex, children, rootClassName, viewportClassName, scrollbarClassName },
+    ref,
+  ) => (
     <Root className={rootClassName}>
-      <Viewport onWheel={stopPropagation} className={viewportClassName}>
+      <Viewport
+        ref={ref}
+        onWheel={stopPropagation}
+        className={clsxm(
+          flex ? '[&>div]:!flex [&>div]:!flex-col' : '',
+          viewportClassName,
+        )}
+      >
         {children}
       </Viewport>
-      <Scrollbar />
+      <Scrollbar className={scrollbarClassName} />
     </Root>
-  )
-}
+  ),
+)

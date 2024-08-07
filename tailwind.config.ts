@@ -298,6 +298,7 @@ const twConfig: Config = {
     require('tailwind-scrollbar'),
     require('@tailwindcss/container-queries'),
     require('tailwindcss-animated'),
+    require('tailwindcss-animate'),
 
     require('./src/styles/theme.css'),
     require('./src/styles/layer.css'),

@@ -5,7 +5,7 @@ import type { ExtractAtomValue } from 'jotai'
 
 import { jotaiStore } from '~/lib/store'
 
-import { viewportAtom } from '../viewport'
+import { pageScrollElementAtom, viewportAtom } from '../viewport'
 
 export const useViewport = <T>(
   selector: (value: ExtractAtomValue<typeof viewportAtom>) => T,
@@ -15,6 +15,7 @@ export const useViewport = <T>(
       viewportAtom,
       useCallback((atomValue) => selector(atomValue), []),
     ),
+    { store: jotaiStore },
   )
 
 export const useIsMobile = () =>
@@ -30,3 +31,6 @@ export const currentIsMobile = () => {
 }
 
 export const getViewport = () => jotaiStore.get(viewportAtom)
+
+export const usePageScrollElement = () =>
+  useAtomValue(pageScrollElementAtom) || document.documentElement

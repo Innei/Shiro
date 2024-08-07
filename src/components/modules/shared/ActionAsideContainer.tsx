@@ -3,7 +3,7 @@
 import { cloneElement, isValidElement } from 'react'
 import clsx from 'clsx'
 
-import { useViewport } from '~/atoms/hooks'
+import { usePageScrollElement, useViewport } from '~/atoms/hooks'
 import { clsxm } from '~/lib/helper'
 import { usePageScrollLocationSelector } from '~/providers/root/page-scroll-info-provider'
 import { useIsEoFWrappedElement } from '~/providers/shared/WrappedElementProvider'
@@ -24,13 +24,14 @@ export const ActionAsideContainer: Component = ({ className, children }) => {
   const isEOA = useIsEoFWrappedElement()
   const h = useViewport((v) => v.h)
 
+  const scrollElement = usePageScrollElement()
   const isEndOfPage = usePageScrollLocationSelector(
     (y) => {
       const threshold = 100
 
-      return y + h >= document.body.scrollHeight - threshold
+      return y + h >= scrollElement.scrollHeight - threshold
     },
-    [h],
+    [h, scrollElement],
   )
 
   return (

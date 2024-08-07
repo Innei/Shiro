@@ -194,7 +194,6 @@ export const ModalInternal: Component<{
       <Wrapper>
         <Dialog.Root open onOpenChange={onClose}>
           <Dialog.Portal>
-            <Dialog.DialogTitle className="sr-only">{title}</Dialog.DialogTitle>
             <Dialog.Content asChild>
               <div
                 className={clsxm(
@@ -205,6 +204,7 @@ export const ModalInternal: Component<{
                 onClick={clickOutsideToDismiss ? dismiss : undefined}
                 style={zIndexStyle}
               >
+                <Dialog.Title className="sr-only">{title}</Dialog.Title>
                 <div className="contents" onClick={stopPropagation}>
                   <CustomModalComponent>{finalChildren}</CustomModalComponent>
                 </div>

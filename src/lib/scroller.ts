@@ -2,13 +2,19 @@
 
 import { animateValue } from 'framer-motion'
 
+import { pageScrollElementAtom } from '~/atoms'
 import { microDampingPreset } from '~/constants/spring'
+
+import { jotaiStore } from './store'
 
 // TODO scroller lock
 export const springScrollTo = (y: number) => {
+  const pageScrollElement = jotaiStore.get(pageScrollElementAtom)
   const scrollTop =
+    pageScrollElement?.scrollTop ||
     // FIXME latest version framer will ignore keyframes value `0`
-    document.documentElement.scrollTop || document.body.scrollTop
+    document.documentElement.scrollTop ||
+    document.body.scrollTop
 
   const stopSpringScrollHandler = () => {
     animation.stop()
@@ -26,7 +32,8 @@ export const springScrollTo = (y: number) => {
       if (latest <= 0) {
         animation.stop()
       }
-      window.scrollTo(0, latest)
+      const el = pageScrollElement || window
+      el.scrollTo(0, latest)
     },
   })
 
