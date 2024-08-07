@@ -1,8 +1,8 @@
 'use client'
 
-import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { m } from 'framer-motion'
+import type React from 'react'
 
 import { softSpringPreset } from '~/constants/spring'
 import { clsxm } from '~/lib/helper'
@@ -49,7 +49,9 @@ export const AutoResizeHeight: React.FC<AnimateChangeInHeightProps> = ({
       animate={{ height }}
       transition={spring ? softSpringPreset : { duration }}
     >
-      <div ref={containerRef}>{children}</div>
+      <div className="overflow-hidden" ref={containerRef}>
+        {children}
+      </div>
     </m.div>
   )
 }
