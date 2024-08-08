@@ -29,7 +29,7 @@ export const usePeek = () => {
 
             CustomModalComponent: () => (
               <PeekModal to={href}>
-                <NotePreview noteId={parseInt(href.split('/').pop()!)} />
+                <NotePreview noteId={Number.parseInt(href.split('/').pop()!)} />
               </PeekModal>
             ),
             content: () => null,

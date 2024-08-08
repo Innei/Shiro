@@ -53,6 +53,4 @@ export const useRoomContext = () => {
   return ctx
 }
 
-export const useMaybeInRoomContext = () => {
-  return useContext(RoomContext)
-}
+export const useMaybeInRoomContext = () => useContext(RoomContext)

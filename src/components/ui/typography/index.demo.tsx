@@ -2,13 +2,11 @@ import type { DocumentComponent, DocumentPageMeta } from 'storybook/typings'
 
 import { EllipsisHorizontalTextWithTooltip } from './EllipsisWithTooltip'
 
-export const EllipsisTextWithTooltipDemo: DocumentComponent = () => {
-  return (
-    <EllipsisHorizontalTextWithTooltip width="12rem">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-    </EllipsisHorizontalTextWithTooltip>
-  )
-}
+export const EllipsisTextWithTooltipDemo: DocumentComponent = () => (
+  <EllipsisHorizontalTextWithTooltip width="12rem">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+  </EllipsisHorizontalTextWithTooltip>
+)
 
 EllipsisTextWithTooltipDemo.meta = {
   title: '文本溢出省略 + 提示',

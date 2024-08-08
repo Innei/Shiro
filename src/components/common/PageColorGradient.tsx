@@ -10,9 +10,7 @@ import { createPngNoiseBackground } from '~/lib/noise'
 
 import { RootPortal } from '../ui/portal'
 
-const hexToOklchString = (hex: string) => {
-  return new Color(hex).oklch
-}
+const hexToOklchString = (hex: string) => new Color(hex).oklch
 const lightBg = 'rgb(250, 250, 250)'
 const darkBg = 'rgb(0, 2, 18)'
 export const PageColorGradient: FC<{

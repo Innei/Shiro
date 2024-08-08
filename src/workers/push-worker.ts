@@ -7,6 +7,7 @@ import type { AggregateRoot } from '@mx-space/api-client'
 const dbStore = createStore('shiro-worker', 'config')
 
 const sw: ServiceWorkerGlobalScope = self as any
+// eslint-disable-next-line unused-imports/no-unused-vars
 const resources = (self as any).__WB_MANIFEST // this is just to satisfy workbox
 
 const POLL_INTERVAL = 10 * 60 * 1000 // 10 分钟
@@ -46,7 +47,7 @@ sw.addEventListener('message', (event) => {
   if (!event.data) return
 
   switch (event.data.type) {
-    case 'INIT_CONFIG':
+    case 'INIT_CONFIG': {
       console.info('Received configuration:', event.data.config)
 
       Object.assign(config, event.data.config)
@@ -56,8 +57,10 @@ sw.addEventListener('message', (event) => {
       }
       startPolling()
       break
-    default:
+    }
+    default: {
       break
+    }
   }
 })
 
@@ -118,12 +121,11 @@ async function pollAPI() {
   setTimeout(pollAPI, config.pollInterval)
 }
 
-sw.addEventListener('notificationclick', function (event) {
+sw.addEventListener('notificationclick', (event) => {
   event.notification.close()
   event.waitUntil(
-    sw.clients.matchAll({ type: 'window' }).then(function (clientList) {
-      for (let i = 0; i < clientList.length; i++) {
-        const client = clientList[i]
+    sw.clients.matchAll({ type: 'window' }).then((clientList) => {
+      for (const client of clientList) {
         if (client.url == '/' && 'focus' in client) {
           return client.focus()
         }

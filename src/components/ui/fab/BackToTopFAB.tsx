@@ -9,9 +9,7 @@ import { FABPortable } from './FABContainer'
 export const BackToTopFAB = () => {
   const windowHeight = useViewport((v) => v.h)
   const shouldShow = usePageScrollLocationSelector(
-    (scrollTop) => {
-      return scrollTop > windowHeight / 5
-    },
+    (scrollTop) => scrollTop > windowHeight / 5,
     [windowHeight],
   )
 

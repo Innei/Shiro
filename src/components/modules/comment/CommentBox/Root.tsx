@@ -53,24 +53,20 @@ export const CommentBoxRoot: Component<CommentBaseProps> = (props) => {
   )
 }
 
-const CommentBoxLegacy = () => {
-  return (
-    <AutoResizeHeight>
-      <CommentBoxLegacyForm />
-    </AutoResizeHeight>
-  )
-}
+const CommentBoxLegacy = () => (
+  <AutoResizeHeight>
+    <CommentBoxLegacyForm />
+  </AutoResizeHeight>
+)
 
-const CommentBoxWithAuth = () => {
-  return (
-    <AutoResizeHeight>
-      <SignedOut>
-        <CommentBoxSignedOutContent />
-      </SignedOut>
+const CommentBoxWithAuth = () => (
+  <AutoResizeHeight>
+    <SignedOut>
+      <CommentBoxSignedOutContent />
+    </SignedOut>
 
-      <SignedIn>
-        <CommentBoxAuthedInput />
-      </SignedIn>
-    </AutoResizeHeight>
-  )
-}
+    <SignedIn>
+      <CommentBoxAuthedInput />
+    </SignedIn>
+  </AutoResizeHeight>
+)

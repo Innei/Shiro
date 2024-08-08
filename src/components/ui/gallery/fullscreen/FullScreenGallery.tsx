@@ -12,7 +12,7 @@ export const FullScreenGallery: FC<{ images: GalleryImageType[] }> = (
   const prevScrolltopRef = useRef(0)
   useIsomorphicLayoutEffect(() => {
     prevScrolltopRef.current = document.documentElement.scrollTop
-    const $root = document.getElementById('root')
+    const $root = document.querySelector('#root')
     if (!$root) return
     $root.style.display = 'none'
     document.documentElement.scrollTop = 0

@@ -1,6 +1,6 @@
-import { headers } from 'next/headers'
 import type { NoteModel } from '@mx-space/api-client'
 import type { Metadata } from 'next'
+import { headers } from 'next/headers'
 
 import { AckRead } from '~/components/common/AckRead'
 import { ClientOnly } from '~/components/common/ClientOnly'
@@ -73,16 +73,12 @@ const Summary = async ({ data }: { data: NoteModel }) => {
       onlyDb: true,
       lang: acceptLang || undefined,
     })
-    .then((res) => {
-      return {
-        summary: res?.summary,
-      }
-    })
-    .catch(() => {
-      return {
-        summary: false,
-      }
-    })
+    .then((res) => ({
+      summary: res?.summary,
+    }))
+    .catch(() => ({
+      summary: false,
+    }))
   return (
     <SummarySwitcher
       articleId={data.id!}
@@ -169,7 +165,7 @@ export const generateMetadata = async ({
   try {
     const res = await getData(params)
 
-    const data = res.data
+    const { data } = res
     const { title, text } = data
     const description = getSummaryFromMd(text ?? '')
 

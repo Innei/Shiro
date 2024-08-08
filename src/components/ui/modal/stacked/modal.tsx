@@ -46,9 +46,7 @@ export const ModalInternal: Component<{
 }) {
   const setStack = useSetAtom(modalStackAtom)
   const close = useEventCallback(() => {
-    setStack((p) => {
-      return p.filter((modal) => modal.id !== item.id)
-    })
+    setStack((p) => p.filter((modal) => modal.id !== item.id))
     onPropsClose?.(false)
   })
 
@@ -161,7 +159,7 @@ export const ModalInternal: Component<{
   )
   const finalChildren = (
     <CurrentModalContext.Provider value={ModalContextProps}>
-      {children ? children : createElement(content, ModalProps)}
+      {children ?? createElement(content, ModalProps)}
     </CurrentModalContext.Provider>
   )
 

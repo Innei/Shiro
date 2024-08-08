@@ -31,13 +31,13 @@ const shouldCatchContainerName = [
 export const ContainerRule: MarkdownToJSX.Rule = {
   match: (source: string) => {
     const result =
-      /^\s*::: *(?<type>.*?) *(?:{(?<params>.*?)})? *\n(?<content>[\s\S]+?)\s*::: *(?:\n *)+\n?/.exec(
+      /^\s*::: *(?<type>.*?) *(?:\{(?<params>.*?)\} *)?\n(?<content>[\s\S]+?)\s*::: *(?:\n *)+/.exec(
         source,
       )
 
     if (!result) return null
 
-    const type = result.groups!.type
+    const { type } = result.groups!
     if (!type || !type.match(shouldCatchContainerName)) return null
     return result
   },
@@ -110,24 +110,22 @@ export const ContainerRule: MarkdownToJSX.Rule = {
 
         const { cols, gap = 8, rows, type = 'normal' } = parseParams(params)
 
-        const Grid: Component = ({ children, className }) => {
-          return (
-            <div
-              className={clsxm('relative grid w-full', className)}
-              style={{
-                gridTemplateColumns: cols
-                  ? `repeat(${cols}, minmax(0, 1fr))`
-                  : undefined,
-                gap: `${gap}px`,
-                gridTemplateRows: rows
-                  ? `repeat(${rows}, minmax(0, 1fr))`
-                  : undefined,
-              }}
-            >
-              {children}
-            </div>
-          )
-        }
+        const Grid: Component = ({ children, className }) => (
+          <div
+            className={clsxm('relative grid w-full', className)}
+            style={{
+              gridTemplateColumns: cols
+                ? `repeat(${cols}, minmax(0, 1fr))`
+                : undefined,
+              gap: `${gap}px`,
+              gridTemplateRows: rows
+                ? `repeat(${rows}, minmax(0, 1fr))`
+                : undefined,
+            }}
+          >
+            {children}
+          </div>
+        )
         switch (type) {
           case 'normal': {
             return (
@@ -156,8 +154,9 @@ export const ContainerRule: MarkdownToJSX.Rule = {
               />
             )
           }
-          default:
+          default: {
             return null
+          }
         }
       }
     }
@@ -180,9 +179,7 @@ export const ContainerRule: MarkdownToJSX.Rule = {
  * :::
  */
 
-type ParsedResult = {
-  [key: string]: string
-}
+type ParsedResult = Record<string, string>
 
 function parseParams(input: string): ParsedResult {
   const regex = /(\w+)=(\w+)/g

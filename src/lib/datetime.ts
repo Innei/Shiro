@@ -1,7 +1,6 @@
-import dayjs from 'dayjs'
-
 import 'dayjs/locale/zh-cn'
 
+import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
 

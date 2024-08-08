@@ -1,6 +1,6 @@
 export const getQuery = (req: Request) => {
   const url = new URL(req.url)
-  const searchParams = url.searchParams
+  const { searchParams } = url
   const obj = {} as Record<string, any>
 
   for (const [key, value] of searchParams.entries()) {
@@ -32,7 +32,7 @@ export class NextServerResponse {
     //   return
     // }
 
-    if (typeof data === 'object' || typeof data === 'undefined') {
+    if (typeof data === 'object' || data === undefined) {
       return this.json(data)
     }
 

@@ -22,16 +22,14 @@ import { useHeaderConfig } from './HeaderDataConfigureProvider'
 import { useHeaderHasMetaInfo, useMenuOpacity } from './hooks'
 import { MenuPopover } from './MenuPopover'
 
-export const HeaderContent = () => {
-  return (
-    <LayoutGroup>
-      <AnimatedMenu>
-        <ForDesktop />
-      </AnimatedMenu>
-      <AccessibleMenu />
-    </LayoutGroup>
-  )
-}
+export const HeaderContent = () => (
+  <LayoutGroup>
+    <AnimatedMenu>
+      <ForDesktop />
+    </AnimatedMenu>
+    <AccessibleMenu />
+  </LayoutGroup>
+)
 
 const AccessibleMenu: Component = () => {
   const hasMetaInfo = useHeaderHasMetaInfo()
@@ -93,7 +91,7 @@ const ForDesktop: Component<{
       const bounds = currentTarget.getBoundingClientRect()
       mouseX.set(clientX - bounds.left)
       mouseY.set(clientY - bounds.top)
-      radius.set(Math.sqrt(bounds.width ** 2 + bounds.height ** 2) / 2.5)
+      radius.set(Math.hypot(bounds.width, bounds.height) / 2.5)
     },
     [mouseX, mouseY, radius],
   )
@@ -124,13 +122,12 @@ const ForDesktop: Component<{
       <div className="flex px-4 font-medium text-zinc-800 dark:text-zinc-200">
         {headerMenuConfig.map((section) => {
           const subItemActive =
-            section.subMenu?.findIndex((item) => {
-              return (
+            section.subMenu?.findIndex(
+              (item) =>
                 item.path === pathname ||
                 pathname.slice(1) === item.path ||
-                pathname.startsWith(`${item.path}/`)
-              )
-            }) ?? -1
+                pathname.startsWith(`${item.path}/`),
+            ) ?? -1
 
           return (
             <HeaderMenuItem

@@ -72,15 +72,12 @@ export const EmbedGithubFile = memo(
     const fileType = (ext2FileType as any)[ext] || 'text'
     const { data, isLoading, isError } = useQuery<string>({
       queryKey: ['github-preview', owner, repo, path, refType],
-      queryFn: async () => {
-        return fetch(
+      queryFn: async () =>
+        fetch(
           `https://cdn.jsdelivr.net/gh/${owner}/${repo}${
             refType ? `@${refType}` : ''
           }/${path}`,
-        ).then(async (res) => {
-          return res.text()
-        })
-      },
+        ).then(async (res) => res.text()),
     })
 
     if (isLoading) {
@@ -94,7 +91,7 @@ export const EmbedGithubFile = memo(
 
     if (isError) {
       return (
-        <pre className="flex h-[50vh] flex-wrap rounded-md border border-uk-orange-light center">
+        <pre className="center flex h-[50vh] flex-wrap rounded-md border border-uk-orange-light">
           <code>Loading GitHub File Preview Failed:</code>
           <br />
           <code>

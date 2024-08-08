@@ -11,6 +11,4 @@ init()
 if (isClientSide) {
   cheatVueDevtools()
 }
-export const InitInClient = () => {
-  return null
-}
+export const InitInClient = () => null

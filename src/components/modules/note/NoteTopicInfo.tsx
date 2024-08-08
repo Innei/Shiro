@@ -69,17 +69,15 @@ const NoteTopicRank: FC<{
           </p>
 
           <ul className="space-y-1 opacity-80">
-            {filteredNotes.map((item) => {
-              return (
-                <NoteTimelineItem
-                  attachToken={item.hide}
-                  active={false}
-                  title={item.title}
-                  nid={item.nid}
-                  key={item.id}
-                />
-              )
-            })}
+            {filteredNotes.map((item) => (
+              <NoteTimelineItem
+                attachToken={item.hide}
+                active={false}
+                title={item.title}
+                nid={item.nid}
+                key={item.id}
+              />
+            ))}
           </ul>
         </>
       )}

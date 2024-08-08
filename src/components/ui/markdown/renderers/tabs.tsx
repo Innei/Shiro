@@ -23,7 +23,7 @@ export const Tabs: FC<PropsWithChildren> = ({ children }) => {
       if (!('type' in child)) continue
 
       if (child.type !== Tab) continue
-      const label = child.props.label
+      const { label } = child.props
       labels.push(label)
     }
     return labels
@@ -32,28 +32,26 @@ export const Tabs: FC<PropsWithChildren> = ({ children }) => {
   return (
     <RadixTabs.Root value={activeTab || ''} onValueChange={setActiveTab}>
       <RadixTabs.List className="flex gap-2">
-        {tabs.map((tab) => {
-          return (
-            <RadixTabs.Trigger
-              className={clsxm(
-                'relative flex px-2 py-1 text-sm font-bold focus:outline-none',
-                'text-gray-600 transition-colors duration-300 dark:text-gray-300',
-              )}
-              key={tab}
-              value={tab}
-            >
-              {tab}
+        {tabs.map((tab) => (
+          <RadixTabs.Trigger
+            className={clsxm(
+              'relative flex px-2 py-1 text-sm font-bold focus:outline-none',
+              'text-gray-600 transition-colors duration-300 dark:text-gray-300',
+            )}
+            key={tab}
+            value={tab}
+          >
+            {tab}
 
-              {activeTab === tab && (
-                <m.div
-                  layoutId={`tab${id}`}
-                  layout
-                  className="absolute inset-x-2 -bottom-1 h-[2px] rounded-md bg-accent"
-                />
-              )}
-            </RadixTabs.Trigger>
-          )
-        })}
+            {activeTab === tab && (
+              <m.div
+                layoutId={`tab${id}`}
+                layout
+                className="absolute inset-x-2 -bottom-1 h-[2px] rounded-md bg-accent"
+              />
+            )}
+          </RadixTabs.Trigger>
+        ))}
       </RadixTabs.List>
 
       {children}
@@ -64,15 +62,13 @@ export const Tabs: FC<PropsWithChildren> = ({ children }) => {
 export const Tab: FC<{
   label: string
   children: React.ReactNode
-}> = ({ label, children }) => {
-  return (
-    <RadixTabs.Content
-      className="animate-fade animate-duration-500"
-      value={label}
-    >
-      <Markdown wrapper={null} removeWrapper>
-        {children as string}
-      </Markdown>
-    </RadixTabs.Content>
-  )
-}
+}> = ({ label, children }) => (
+  <RadixTabs.Content
+    className="animate-fade animate-duration-500"
+    value={label}
+  >
+    <Markdown wrapper={null} removeWrapper>
+      {children as string}
+    </Markdown>
+  </RadixTabs.Content>
+)

@@ -11,17 +11,15 @@ import { CurrentReadingCountingMetaBarItem } from '../shared/MetaBar'
 const dividerVertical = <DividerVertical className="!mx-2 scale-y-50" />
 
 const sectionBlockClassName = 'flex items-center space-x-1 flex-shrink-0'
-export const NoteMetaBar = () => {
-  return (
-    <>
-      <NoteMetaWeather />
-      <NoteMetaMood />
-      <NoteMetaReadCount />
-      <NoteMetaLikeCount />
-      <NoteMetaCC />
-    </>
-  )
-}
+export const NoteMetaBar = () => (
+  <>
+    <NoteMetaWeather />
+    <NoteMetaMood />
+    <NoteMetaReadCount />
+    <NoteMetaLikeCount />
+    <NoteMetaCC />
+  </>
+)
 
 export const NoteMetaWeather = () => {
   const weather = useCurrentNoteDataSelector((data) => data?.data.weather)
@@ -85,29 +83,27 @@ export const NoteMetaLikeCount = () => {
   )
 }
 
-export const NoteMetaCC = () => {
-  return (
-    <>
-      {dividerVertical}
-      <span className="inline-flex items-center" key="cc">
-        <a
-          href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
-          target="_blank"
-          className="inline-flex cursor-pointer items-center text-current"
-          rel="noreferrer"
+export const NoteMetaCC = () => (
+  <>
+    {dividerVertical}
+    <span className="inline-flex items-center" key="cc">
+      <a
+        href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
+        target="_blank"
+        className="inline-flex cursor-pointer items-center text-current"
+        rel="noreferrer"
+      >
+        <span
+          title="知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议"
+          className="inline-flex items-center"
         >
-          <span
-            title="知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议"
-            className="inline-flex items-center"
-          >
-            <CreativeCommonsIcon />
-          </span>
-        </a>
-      </span>
-    </>
-  )
-}
+          <CreativeCommonsIcon />
+        </span>
+      </a>
+    </span>
+  </>
+)
 
-export const NoteMetaReadingCount = () => {
-  return <CurrentReadingCountingMetaBarItem leftElement={dividerVertical} />
-}
+export const NoteMetaReadingCount = () => (
+  <CurrentReadingCountingMetaBarItem leftElement={dividerVertical} />
+)

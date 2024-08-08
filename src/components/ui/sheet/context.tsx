@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react'
 
 interface SheetContextValue {
-  dismiss(): void
+  dismiss: () => void
 }
 export const SheetContext = createContext<SheetContextValue>(null!)
 

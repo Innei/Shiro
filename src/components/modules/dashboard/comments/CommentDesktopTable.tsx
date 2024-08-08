@@ -25,9 +25,9 @@ export const CommentDesktopTable = () => {
   if (!flatData?.length) return <Empty className="grow" />
   return (
     <div className="mt-16 flex flex-col gap-3">
-      {flatData?.map((item) => {
-        return <MemoCommentItem key={item.id} comment={item} />
-      })}
+      {flatData?.map((item) => (
+        <MemoCommentItem key={item.id} comment={item} />
+      ))}
     </div>
   )
 }
@@ -57,16 +57,14 @@ const CommentCheckBox: FC<{
     />
   )
 }
-const CommentItem = ({ comment }: { comment: CommentModel }) => {
-  return (
-    <div className="mx-auto grid w-[100rem] max-w-full grid-cols-[40px_300px_auto] gap-8">
-      <div className="ml-2 mt-[18px]">
-        <CommentCheckBox id={comment.id} />
-      </div>
-
-      <CommentAuthorCell className="mt-0" comment={comment} />
-      <CommentContentCell className="mt-0" comment={comment} />
+const CommentItem = ({ comment }: { comment: CommentModel }) => (
+  <div className="mx-auto grid w-[100rem] max-w-full grid-cols-[40px_300px_auto] gap-8">
+    <div className="ml-2 mt-[18px]">
+      <CommentCheckBox id={comment.id} />
     </div>
-  )
-}
+
+    <CommentAuthorCell className="mt-0" comment={comment} />
+    <CommentContentCell className="mt-0" comment={comment} />
+  </div>
+)
 const MemoCommentItem = memo(CommentItem)

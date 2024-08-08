@@ -1,10 +1,10 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { createElement, useRef } from 'react'
 import clsx from 'clsx'
 import { m } from 'framer-motion'
 import Image from 'next/image'
+import { createElement, useRef } from 'react'
 
 import { isSupportIcon, SocialIcon } from '~/components/modules/home/SocialIcon'
 import {
@@ -27,18 +27,14 @@ import {
 import { TwoColumnLayout } from './TwoColumnLayout'
 
 export const Hero = () => {
-  const { title, description } = useAppConfigSelector((config) => {
-    return {
-      ...config.hero,
-    }
-  })!
+  const { title, description } = useAppConfigSelector((config) => ({
+    ...config.hero,
+  }))!
   const siteOwner = useAggregationSelector((agg) => agg.user)
   const { avatar, socialIds } = siteOwner || {}
 
   const titleAnimateD =
-    title.template.reduce((acc, cur) => {
-      return acc + (cur.text?.length || 0)
-    }, 0) * 50
+    title.template.reduce((acc, cur) => acc + (cur.text?.length || 0), 0) * 50
   return (
     <div className="mx-auto mt-20 min-w-0 max-w-7xl overflow-hidden lg:mt-[-4.5rem] lg:h-dvh lg:min-h-[800px] lg:px-8">
       <TwoColumnLayout
@@ -56,9 +52,7 @@ export const Hero = () => {
               const { type } = t
               const prevAllTextLength = title.template
                 .slice(0, i)
-                .reduce((acc, cur) => {
-                  return acc + (cur.text?.length || 0)
-                }, 0)
+                .reduce((acc, cur) => acc + (cur.text?.length || 0), 0)
               return createElement(
                 type,
                 { key: i, className: t.class },
@@ -168,7 +162,7 @@ const RemoteHitokoto = () => {
           from: data.from,
           from_who: data.from_who,
           creator: data.creator,
-        }).filter(Boolean)[0]
+        }).find(Boolean)
         if (!data.hitokoto) {
           return null
         } else {

@@ -24,7 +24,7 @@ export const CommentReplyButton: FC<{
         className={clsx(
           'absolute bottom-0 right-0 translate-x-2/3 translate-y-1/4 text-xs',
           'aspect-square rounded-full',
-          'box-content flex size-6 p-[2px] center',
+          'center box-content flex size-6 p-[2px]',
           'border border-slate-200 bg-zinc-100 dark:border-neutral-700 dark:bg-gray-800',
           'invisible cursor-pointer opacity-0',
           'group-[:hover]:visible group-[:hover]:opacity-70',

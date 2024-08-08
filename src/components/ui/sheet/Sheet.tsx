@@ -63,18 +63,14 @@ export const PresentSheet: FC<PropsWithChildren<PresentSheetProps>> = (
   useEffect(() => {
     const holder = holderRef
     if (!holder) return
-    store.set(sheetStackAtom, (p) => {
-      return p.concat(holder)
-    })
+    store.set(sheetStackAtom, (p) => p.concat(holder))
 
     return () => {
-      store.set(sheetStackAtom, (p) => {
-        return p.filter((item) => item !== holder)
-      })
+      store.set(sheetStackAtom, (p) => p.filter((item) => item !== holder))
     }
   }, [holderRef, store])
 
-  const Root = Drawer.Root
+  const { Root } = Drawer
 
   const overlayZIndex = zIndex - 1
   const contentZIndex = zIndex

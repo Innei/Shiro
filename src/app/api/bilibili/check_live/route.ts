@@ -26,16 +26,15 @@ export const GET = async (req: NextRequest): Promise<Response> => {
   const queryClient = getQueryClient()
   const res = await queryClient.fetchQuery({
     queryKey: ['bilibili-live', liveId],
-    queryFn: async () => {
-      return fetch(
+    queryFn: async () =>
+      fetch(
         `https://api.live.bilibili.com/xlive/web-room/v2/index/getRoomPlayInfo?room_id=${liveId}&protocol=0,1&format=0,1,2&codec=0,1&qn=0&platform=web&ptype=8&dolby=5`,
         {
           headers: requestHeader,
         },
       )
         .then((res) => res.json())
-        .catch(() => null)
-    },
+        .catch(() => null),
   })
 
   if (!res?.data) {
@@ -58,6 +57,6 @@ export const GET = async (req: NextRequest): Promise<Response> => {
     return response.end()
   }
 
-  const info = (userInfo as BLUser).data.info
+  const { info } = (userInfo as BLUser).data
   return response.json({ ...info })
 }

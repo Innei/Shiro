@@ -13,14 +13,12 @@ import { throttle } from '~/lib/lodash'
 const pageScrollLocationAtom = atom(0)
 const pageScrollDirectionAtom = atom<'up' | 'down' | null>(null)
 
-export const PageScrollInfoProvider: FC<PropsWithChildren> = ({ children }) => {
-  return (
-    <>
-      <ScrollDetector />
-      {children}
-    </>
-  )
-}
+export const PageScrollInfoProvider: FC<PropsWithChildren> = ({ children }) => (
+  <>
+    <ScrollDetector />
+    {children}
+  </>
+)
 
 const ScrollDetector = () => {
   const setPageScrollLocation = useSetAtom(pageScrollLocationAtom)
@@ -45,7 +43,7 @@ const ScrollDetector = () => {
           const bodyStyle = document.body.style
           if (bodyStyle.position === 'fixed') {
             const bodyTop = bodyStyle.top
-            currentTop = Math.abs(parseInt(bodyTop, 10))
+            currentTop = Math.abs(Number.parseInt(bodyTop, 10))
           }
         }
         setPageScrollDirection(
@@ -82,8 +80,8 @@ const usePageScrollDirectionSelector = createAtomSelector(
   pageScrollDirectionAtom,
 )
 
-const useIsScrollUpAndPageIsOver = (threshold: number) => {
-  return useAtomValue(
+const useIsScrollUpAndPageIsOver = (threshold: number) =>
+  useAtomValue(
     useMemo(
       () =>
         atom((get) => {
@@ -94,11 +92,10 @@ const useIsScrollUpAndPageIsOver = (threshold: number) => {
       [threshold],
     ),
   )
-}
 export {
-  usePageScrollDirection,
-  usePageScrollLocation,
   useIsScrollUpAndPageIsOver,
-  usePageScrollLocationSelector,
+  usePageScrollDirection,
   usePageScrollDirectionSelector,
+  usePageScrollLocation,
+  usePageScrollLocationSelector,
 }

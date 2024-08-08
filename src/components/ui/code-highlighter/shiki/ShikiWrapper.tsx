@@ -95,7 +95,7 @@ export const ShikiHighLighterWrapper = forwardRef<
 
       const $hightlighted = $el.querySelector('.highlighted')
       if ($hightlighted) {
-        const lineHeight = parseInt(
+        const lineHeight = Number.parseInt(
           getComputedStyle($hightlighted).height || '0',
           10,
         )
@@ -111,9 +111,7 @@ export const ShikiHighLighterWrapper = forwardRef<
     }
   }, [value, codeBlockRef])
 
-  const filename = useMemo(() => {
-    return parseFilenameFromAttrs(attrs || '')
-  }, [attrs])
+  const filename = useMemo(() => parseFilenameFromAttrs(attrs || ''), [attrs])
   const [, maskClassName] = useMaskScrollArea({
     element: codeBlockRef!,
     size: 'lg',

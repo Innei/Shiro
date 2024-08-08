@@ -1,8 +1,8 @@
 'use client'
 
-import type React from 'react'
 import { useEffect, useReducer } from 'react'
 import type { SubscribeTypeToBitMap } from '@mx-space/api-client'
+import type React from 'react'
 import type { FC } from 'react'
 
 import { StyledButton } from '~/components/ui/button'
@@ -46,10 +46,12 @@ const useFormData = () => {
   const [state, dispatch] = useReducer(
     (state: typeof initialState, payload: Action) => {
       switch (payload.type) {
-        case 'set':
+        case 'set': {
           return { ...state, ...payload.data }
-        case 'reset':
+        }
+        case 'reset': {
           return initialState
+        }
       }
     },
     { ...initialState },
@@ -68,7 +70,7 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
   const stateRef = useStateToRef(state)
 
   useEffect(() => {
-    if (!defaultTypes || !defaultTypes.length) {
+    if (!defaultTypes || defaultTypes.length === 0) {
       return
     }
 

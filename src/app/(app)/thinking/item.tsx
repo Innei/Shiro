@@ -169,9 +169,7 @@ ThinkingItem.displayName = 'ThinkingItem'
 const RefPreview: FC<{ refModel: any }> = (props) => {
   const title = props.refModel?.title
 
-  const url = useMemo(() => {
-    return urlBuilder.build(props.refModel)
-  }, [props.refModel])
+  const url = useMemo(() => urlBuilder.build(props.refModel), [props.refModel])
 
   if (!title) {
     return null
@@ -203,8 +201,8 @@ const DeleteButton = (props: { id: string }) => {
 
         queryClient.setQueryData<InfiniteData<RecentlyModel[]>>(
           QUERY_KEY,
-          (old) => {
-            return produce(old, (draft) => {
+          (old) =>
+            produce(old, (draft) => {
               draft?.pages.forEach((page) => {
                 page.forEach((item, index) => {
                   if (item.id === props.id) {
@@ -212,8 +210,7 @@ const DeleteButton = (props: { id: string }) => {
                   }
                 })
               })
-            })
-          },
+            }),
         )
       })
   }

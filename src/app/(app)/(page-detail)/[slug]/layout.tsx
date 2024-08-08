@@ -1,6 +1,5 @@
-/* eslint-disable react/display-name */
-import { cache } from 'react'
 import type { Metadata } from 'next'
+import { cache } from 'react'
 
 import { PageColorGradient } from '~/components/common/PageColorGradient'
 import {
@@ -88,62 +87,57 @@ export default definePrerenderPage<PageParams>()({
     return getData(params)
   },
 
-  Component: ({ data, children }) => {
-    return (
-      <>
-        <PageColorGradient seed={data.title + data.subtitle} />
-        <CurrentPageDataProvider data={data} />
-        <div className="relative flex min-h-[120px] w-full">
-          <PageLoading>
-            <div className="relative w-full min-w-0">
-              <HeaderMetaInfoSetting />
+  Component: ({ data, children }) => (
+    <>
+      <PageColorGradient seed={data.title + data.subtitle} />
+      <CurrentPageDataProvider data={data} />
+      <div className="relative flex min-h-[120px] w-full">
+        <PageLoading>
+          <div className="relative w-full min-w-0">
+            <HeaderMetaInfoSetting />
 
-              <RoomProvider roomName={buildRoomName(data.id)}>
-                <WrappedElementProvider eoaDetect>
-                  <article className="prose">
-                    <header className="mb-8">
-                      <BottomToUpSoftScaleTransitionView
-                        lcpOptimization
-                        delay={0}
-                      >
-                        <PageTitle />
-                      </BottomToUpSoftScaleTransitionView>
+            <RoomProvider roomName={buildRoomName(data.id)}>
+              <WrappedElementProvider eoaDetect>
+                <article className="prose">
+                  <header className="mb-8">
+                    <BottomToUpSoftScaleTransitionView
+                      lcpOptimization
+                      delay={0}
+                    >
+                      <PageTitle />
+                    </BottomToUpSoftScaleTransitionView>
 
-                      <BottomToUpSoftScaleTransitionView
-                        lcpOptimization
-                        delay={200}
-                      >
-                        <PageSubTitle />
-                      </BottomToUpSoftScaleTransitionView>
-                    </header>
-                    <BottomToUpTransitionView lcpOptimization delay={600}>
-                      {children}
-                    </BottomToUpTransitionView>
+                    <BottomToUpSoftScaleTransitionView
+                      lcpOptimization
+                      delay={200}
+                    >
+                      <PageSubTitle />
+                    </BottomToUpSoftScaleTransitionView>
+                  </header>
+                  <BottomToUpTransitionView lcpOptimization delay={600}>
+                    {children}
+                  </BottomToUpTransitionView>
 
-                    <Presence />
-                  </article>
-                </WrappedElementProvider>
-              </RoomProvider>
+                  <Presence />
+                </article>
+              </WrappedElementProvider>
+            </RoomProvider>
 
-              <BottomToUpSoftScaleTransitionView delay={1000}>
-                <PagePaginator />
-              </BottomToUpSoftScaleTransitionView>
-            </div>
-          </PageLoading>
+            <BottomToUpSoftScaleTransitionView delay={1000}>
+              <PagePaginator />
+            </BottomToUpSoftScaleTransitionView>
+          </div>
+        </PageLoading>
 
-          <LayoutRightSideProvider className="absolute inset-y-0 right-0 hidden translate-x-full lg:block" />
-        </div>
-        <BottomToUpSoftScaleTransitionView delay={1000}>
-          <CommentAreaRootLazy
-            refId={data.id}
-            allowComment={data.allowComment}
-          />
-        </BottomToUpSoftScaleTransitionView>
+        <LayoutRightSideProvider className="absolute inset-y-0 right-0 hidden translate-x-full lg:block" />
+      </div>
+      <BottomToUpSoftScaleTransitionView delay={1000}>
+        <CommentAreaRootLazy refId={data.id} allowComment={data.allowComment} />
+      </BottomToUpSoftScaleTransitionView>
 
-        <OnlyMobile>
-          <TocFAB />
-        </OnlyMobile>
-      </>
-    )
-  },
+      <OnlyMobile>
+        <TocFAB />
+      </OnlyMobile>
+    </>
+  ),
 })

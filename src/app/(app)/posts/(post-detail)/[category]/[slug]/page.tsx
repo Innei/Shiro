@@ -1,8 +1,7 @@
-import { headers } from 'next/headers'
 import type { ModelWithLiked, PostModel } from '@mx-space/api-client'
 import type { Metadata } from 'next'
+import { headers } from 'next/headers'
 import type { Article, WithContext } from 'schema-dts'
-import type { PageParams } from './api'
 
 import { AckRead } from '~/components/common/AckRead'
 import { ClientOnly } from '~/components/common/ClientOnly'
@@ -43,6 +42,7 @@ import {
 } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
+import type { PageParams } from './api'
 import { getData } from './api'
 import {
   HeaderMetaInfoSetting,
@@ -112,16 +112,12 @@ const Summary = async ({ data }: { data: ModelWithLiked<PostModel> }) => {
       onlyDb: true,
       lang: acceptLang || undefined,
     })
-    .then((res) => {
-      return {
-        summary: res?.summary,
-      }
-    })
-    .catch(() => {
-      return {
-        summary: false,
-      }
-    })
+    .then((res) => ({
+      summary: res?.summary,
+    }))
+    .catch(() => ({
+      summary: false,
+    }))
   return (
     <SummarySwitcher
       articleId={id!}

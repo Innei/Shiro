@@ -195,26 +195,24 @@ export default function TimelinePage() {
       </header>
 
       <main className="mt-10 text-zinc-950/80 dark:text-zinc-50/80" key={type}>
-        {sortedArr.reverse().map(([year, value]) => {
-          return (
-            <BottomToUpSoftScaleTransitionView key={year} className="my-4">
-              <m.h4
-                className={clsx(
-                  'relative mb-4 ml-3 text-lg font-medium',
-                  'rounded-md before:absolute before:inset-y-[4px] before:-left-3 before:w-[2px] before:bg-accent before:content-auto',
-                )}
-              >
-                {year}
-                <small className="ml-2">({value.length})</small>
-              </m.h4>
-              <TimelineList>
-                {value.map((item) => {
-                  return <Item item={item} key={item.id} />
-                })}
-              </TimelineList>
-            </BottomToUpSoftScaleTransitionView>
-          )
-        })}
+        {sortedArr.reverse().map(([year, value]) => (
+          <BottomToUpSoftScaleTransitionView key={year} className="my-4">
+            <m.h4
+              className={clsx(
+                'relative mb-4 ml-3 text-lg font-medium',
+                'rounded-md before:content-auto before:absolute before:inset-y-[4px] before:-left-3 before:w-[2px] before:bg-accent',
+              )}
+            >
+              {year}
+              <small className="ml-2">({value.length})</small>
+            </m.h4>
+            <TimelineList>
+              {value.map((item) => (
+                <Item item={item} key={item.id} />
+              ))}
+            </TimelineList>
+          </BottomToUpSoftScaleTransitionView>
+        ))}
       </main>
       <BackToTopFAB />
     </NormalContainer>

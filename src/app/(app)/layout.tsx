@@ -1,13 +1,11 @@
-/* eslint-disable no-console */
-import { ToastContainer } from 'react-toastify'
-import { env, PublicEnvScript } from 'next-runtime-env'
-import { cookies } from 'next/headers'
-import { TokenKey } from 'packages/fetch/src/shared'
-import type { Metadata, Viewport } from 'next'
-import type { PropsWithChildren } from 'react'
-
 import { ClerkProvider } from '@clerk/nextjs'
 import { OpenpanelProvider } from '@openpanel/nextjs'
+import type { Metadata, Viewport } from 'next'
+import { cookies } from 'next/headers'
+import { env, PublicEnvScript } from 'next-runtime-env'
+import { TokenKey } from 'packages/fetch/src/shared'
+import type { PropsWithChildren } from 'react'
+import { ToastContainer } from 'react-toastify'
 
 import PKG from '~/../package.json'
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
@@ -131,9 +129,9 @@ export const dynamic = 'force-dynamic'
 export default async function RootLayout(props: PropsWithChildren) {
   const { children } = props
 
-  const data = await fetchAggregationData().catch((err) => {
-    return new PreRenderError(err.message)
-  })
+  const data = await fetchAggregationData().catch(
+    (err) => new PreRenderError(err.message),
+  )
 
   if (data instanceof PreRenderError) {
     return (
@@ -169,9 +167,7 @@ export default async function RootLayout(props: PropsWithChildren) {
       .checkTokenValid(token)
       .then((res) => !!res.ok)
 
-      .catch(() => {
-        return false
-      })
+      .catch(() => false)
   }
 
   return (
@@ -239,19 +235,18 @@ export default async function RootLayout(props: PropsWithChildren) {
   )
 }
 
-const SayHi = () => {
-  return (
-    <script
-      dangerouslySetInnerHTML={{
-        __html: `var version = "${version}";
+const SayHi = () => (
+  <script
+    dangerouslySetInnerHTML={{
+      __html: `var version = "${version}";
     (${function () {
       console.info(
-        `%c Mix Space %c https://github.com/mx-space `,
+        `%c Mix Space %c https://github.com/mx-space`,
         'color: #fff; margin: 1em 0; padding: 5px 0; background: #2980b9;',
         'margin: 1em 0; padding: 5px 0; background: #efefef;',
       )
       console.info(
-        `%c 白い ${window.version} %c https://innei.in `,
+        `%c 白い ${window.version} %c https://innei.in`,
         'color: #fff; margin: 1em 0; padding: 5px 0; background: #39C5BB;',
         'margin: 1em 0; padding: 5px 0; background: #efefef;',
       )
@@ -267,10 +262,9 @@ Stay hungry. Stay foolish. --Steve Jobs
         document.prepend(document.createComment(motto))
       }
     }.toString()})();`,
-      }}
-    />
-  )
-}
+    }}
+  />
+)
 
 declare global {
   interface Window {

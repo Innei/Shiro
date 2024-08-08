@@ -73,27 +73,29 @@ export const TocTree: Component<
 }) => {
   const [activeId, setActiveId] = useActiveId($headings)
 
-  const toc: ITocItem[] = useMemo(() => {
-    return Array.from($headings).map((el, idx) => {
-      const depth = +el.tagName.slice(1)
-      const elClone = el.cloneNode(true) as HTMLElement
-      elClone.querySelectorAll('del, .katex-container').forEach((del) => {
-        del.remove()
-      })
+  const toc: ITocItem[] = useMemo(
+    () =>
+      Array.from($headings).map((el, idx) => {
+        const depth = +el.tagName.slice(1)
+        const elClone = el.cloneNode(true) as HTMLElement
+        elClone.querySelectorAll('del, .katex-container').forEach((del) => {
+          del.remove()
+        })
 
-      const title = elClone.textContent || ''
+        const title = elClone.textContent || ''
 
-      const index = idx
+        const index = idx
 
-      return {
-        depth,
-        index: isNaN(index) ? -1 : index,
-        title,
-        anchorId: el.id,
-        $heading: el,
-      }
-    })
-  }, [$headings])
+        return {
+          depth,
+          index: Number.isNaN(index) ? -1 : index,
+          title,
+          anchorId: el.id,
+          $heading: el,
+        }
+      }),
+    [$headings],
+  )
 
   const rootDepth = useMemo(
     () =>
@@ -148,21 +150,19 @@ export const TocTree: Component<
         className={clsx('scrollbar-none overflow-auto', scrollClassname)}
         ref={scrollContainerRef}
       >
-        {toc?.map((heading) => {
-          return (
-            <MemoedItem
-              heading={heading}
-              isActive={heading.anchorId === activeId}
-              key={heading.title}
-              rootDepth={rootDepth}
-              onClick={handleScrollTo}
-            />
-          )
-        })}
+        {toc?.map((heading) => (
+          <MemoedItem
+            heading={heading}
+            isActive={heading.anchorId === activeId}
+            key={heading.title}
+            rootDepth={rootDepth}
+            onClick={handleScrollTo}
+          />
+        ))}
       </ul>
       {accessoryElement && (
         <li className="shrink-0">
-          {!!toc.length && <Divider />}
+          {toc.length > 0 && <Divider />}
           {accessoryElement}
         </li>
       )}
@@ -197,7 +197,7 @@ const MemoedItem = memo<{
     const containerHeight = $container.clientHeight
     const itemHeight = $item.clientHeight
     const itemOffsetTop = $item.offsetTop
-    const scrollTop = $container.scrollTop
+    const { scrollTop } = $container
 
     const itemTop = itemOffsetTop - scrollTop
     const itemBottom = itemTop + itemHeight

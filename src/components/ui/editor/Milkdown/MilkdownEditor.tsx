@@ -43,30 +43,28 @@ import { createPlugins } from './plugins'
 export interface MilkdownProps {
   initialMarkdown?: string
   readonly?: boolean
-  onBlur?(): void
-  onChange?(e: { target: { value: string } }): void
-  onMarkdownChange?(markdown: string): void
-  onCreated?(): void
+  onBlur?: () => void
+  onChange?: (e: { target: { value: string } }) => void
+  onMarkdownChange?: (markdown: string) => void
+  onCreated?: () => void
 }
 
 export interface MilkdownRef {
-  getMarkdown(): string | undefined
-  setMarkdown(markdown: string): void
-  getAction(cb: (ctx: Ctx) => void): void
+  getMarkdown: () => string | undefined
+  setMarkdown: (markdown: string) => void
+  getAction: (cb: (ctx: Ctx) => void) => void
 
   editor: Editor
 }
 
 export const MilkdownEditor = forwardRef<MilkdownRef, MilkdownProps>(
-  (props, ref) => {
-    return (
-      <MilkdownProvider>
-        <ProsemirrorAdapterProvider>
-          <MilkdownEditorImpl ref={ref} {...props} />
-        </ProsemirrorAdapterProvider>
-      </MilkdownProvider>
-    )
-  },
+  (props, ref) => (
+    <MilkdownProvider>
+      <ProsemirrorAdapterProvider>
+        <MilkdownEditorImpl ref={ref} {...props} />
+      </ProsemirrorAdapterProvider>
+    </MilkdownProvider>
+  ),
 )
 
 MilkdownEditor.displayName = 'MilkdownEditor'

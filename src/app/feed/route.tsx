@@ -57,8 +57,7 @@ export async function GET() {
   if (-~followChallengeIndex) {
     const map = {} as Record<string, string>
 
-    const follow_challenge =
-      custom_elements[followChallengeIndex].follow_challenge
+    const { follow_challenge } = custom_elements[followChallengeIndex]
     for (const item of follow_challenge) {
       Object.assign(map, item)
     }
@@ -103,10 +102,8 @@ export async function GET() {
                 Tab: NotSupportRender,
 
                 img: ({ src, alt }) => {
-                  if (src) {
-                    if (new URL(src).hostname === CDN_HOST) {
-                      return <span>此图片不支持在 RSS Render 中查看。</span>
-                    }
+                  if (src && new URL(src).hostname === CDN_HOST) {
+                    return <span>此图片不支持在 RSS Render 中查看。</span>
                   }
                   return <img src={src} alt={alt} />
                 },

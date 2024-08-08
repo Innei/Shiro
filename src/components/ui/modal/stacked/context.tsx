@@ -13,9 +13,7 @@ export const CurrentModalContext = createContext<CurrentModalContentProps>(
   null as any,
 )
 
-export const useCurrentModal = () => {
-  return useContext(CurrentModalContext)
-}
+export const useCurrentModal = () => useContext(CurrentModalContext)
 
 export type ModalContentComponent<T> = FC<ModalContentPropsInternal & T>
 export type ModalContentPropsInternal = {

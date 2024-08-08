@@ -1,3 +1,1 @@
-import { NotFound404 } from '~/components/common/404'
-
-export default NotFound404
+export { NotFound404 as default } from '~/components/common/404'

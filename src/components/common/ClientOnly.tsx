@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 'use client'
 
 import type { ReactNode } from 'react'
@@ -13,12 +12,10 @@ export const ClientOnly: Component<{
   return <>{props.children}</>
 }
 
-export const withClientOnly = <P extends {}>(Component: Component<P>) => {
-  return (props: P) => {
-    return (
-      <ClientOnly>
-        <Component {...props} />
-      </ClientOnly>
-    )
-  }
-}
+export const withClientOnly =
+  <P extends {}>(Component: Component<P>) =>
+  (props: P) => (
+    <ClientOnly>
+      <Component {...props} />
+    </ClientOnly>
+  )

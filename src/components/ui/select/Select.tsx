@@ -88,24 +88,22 @@ export const Select = function Select<T>(
 const SelectItem = React.forwardRef<
   HTMLDivElement,
   PropsWithChildren<SelectImpl.SelectItemProps>
->(({ children, ...props }, forwardedRef) => {
-  return (
-    <SelectImpl.Item
-      className="flex cursor-auto items-center justify-between rounded-sm px-3 py-1 hover:bg-zinc-200 dark:hover:bg-neutral-800"
-      {...props}
-      ref={forwardedRef}
-    >
-      <SelectImpl.ItemText asChild>
-        <span className="pointer-events-none min-w-0 select-none truncate">
-          {children}
-        </span>
-      </SelectImpl.ItemText>
+>(({ children, ...props }, forwardedRef) => (
+  <SelectImpl.Item
+    className="flex cursor-auto items-center justify-between rounded-sm px-3 py-1 hover:bg-zinc-200 dark:hover:bg-neutral-800"
+    {...props}
+    ref={forwardedRef}
+  >
+    <SelectImpl.ItemText asChild>
+      <span className="pointer-events-none min-w-0 select-none truncate">
+        {children}
+      </span>
+    </SelectImpl.ItemText>
 
-      <SelectImpl.ItemIndicator className="shrink-0">
-        <i className="icon-[mingcute--check-line]" />
-      </SelectImpl.ItemIndicator>
-    </SelectImpl.Item>
-  )
-})
+    <SelectImpl.ItemIndicator className="shrink-0">
+      <i className="icon-[mingcute--check-line]" />
+    </SelectImpl.ItemIndicator>
+  </SelectImpl.Item>
+))
 
 SelectItem.displayName = 'SelectItem'

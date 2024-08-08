@@ -11,12 +11,11 @@ import { fetchAppUrl } from '../url'
 export const useIsLogged = () => useAtomValue(isLoggedAtom)
 
 export const useOwner = () => useAtomValue(ownerAtom)
-export const useRefreshToken = () => {
-  return useMutation({
+export const useRefreshToken = () =>
+  useMutation({
     mutationKey: ['refreshToken'],
     mutationFn: refreshToken,
   })
-}
 
 export const refreshToken = async () => {
   const token = getToken()

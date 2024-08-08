@@ -243,42 +243,38 @@ export const DataStat = () => {
         </small>
       </h3>
       <div className="grid grid-cols-1 gap-6 @[550px]:grid-cols-2 @[900px]:grid-cols-3 @[1124px]:grid-cols-4 @[1200px]:grid-cols-5">
-        {dataStat.map((stat) => {
-          return (
-            <div
-              className={clsx(
-                'relative rounded-md border p-4',
-                stat.highlight && 'border-accent bg-accent/20',
-              )}
-              key={stat.label}
-            >
-              <div className="font-medium">{stat.label}</div>
+        {dataStat.map((stat) => (
+          <div
+            className={clsx(
+              'relative rounded-md border p-4',
+              stat.highlight && 'border-accent bg-accent/20',
+            )}
+            key={stat.label}
+          >
+            <div className="font-medium">{stat.label}</div>
 
-              <div className="my-2 text-2xl font-medium">
-                {formatNumber(stat.value)}
-              </div>
-
-              <div className="absolute right-4 top-1/2 flex -translate-y-1/2 text-[30px] center">
-                {stat.icon}
-              </div>
-
-              <div className="mt-4 flex flex-wrap gap-2">
-                {stat.actions?.map((action) => {
-                  return (
-                    <StyledButton
-                      variant={action.primary ? 'primary' : 'secondary'}
-                      key={action.name}
-                      className="rounded-md shadow-none"
-                      onClick={action.onClick}
-                    >
-                      {action.name}
-                    </StyledButton>
-                  )
-                })}
-              </div>
+            <div className="my-2 text-2xl font-medium">
+              {formatNumber(stat.value)}
             </div>
-          )
-        })}
+
+            <div className="center absolute right-4 top-1/2 flex -translate-y-1/2 text-[30px]">
+              {stat.icon}
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {stat.actions?.map((action) => (
+                <StyledButton
+                  variant={action.primary ? 'primary' : 'secondary'}
+                  key={action.name}
+                  className="rounded-md shadow-none"
+                  onClick={action.onClick}
+                >
+                  {action.name}
+                </StyledButton>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   )
@@ -296,15 +292,13 @@ const fetchStat = async () => {
   return counts
 }
 
-const fetchReadAndLikeCounts = async () => {
-  return await apiClient.aggregate.proxy.count_read_and_like.get<{
+const fetchReadAndLikeCounts = async () =>
+  await apiClient.aggregate.proxy.count_read_and_like.get<{
     totalLikes: number
     totalReads: number
   }>()
-}
 
-const fetchSiteWordCount = async () => {
-  return await apiClient.proxy.aggregate.count_site_words.get<{
+const fetchSiteWordCount = async () =>
+  await apiClient.proxy.aggregate.count_site_words.get<{
     data: { length: number }
   }>()
-}

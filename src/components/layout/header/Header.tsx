@@ -19,48 +19,44 @@ import { HeaderMeta } from './internal/HeaderMeta'
 import { HeaderWithShadow } from './internal/HeaderWithShadow'
 import { UserAuth } from './internal/UserAuth'
 
-export const Header = () => {
-  return (
-    <ErrorBoundary>
-      <HeaderDataConfigureProvider>
-        <MemoedHeader />
-      </HeaderDataConfigureProvider>
-    </ErrorBoundary>
-  )
-}
-const MemoedHeader = memo(() => {
-  return (
-    <HeaderWithShadow>
-      <BluredBackground />
-      <div
-        className={clsxm(
-          'relative mx-auto grid h-full min-h-0 max-w-7xl grid-cols-[4.5rem_auto_4.5rem] lg:px-8',
-          styles['header--grid'],
-        )}
-      >
-        <HeaderLeftButtonArea>
-          <HeaderDrawerButton />
-        </HeaderLeftButtonArea>
+export const Header = () => (
+  <ErrorBoundary>
+    <HeaderDataConfigureProvider>
+      <MemoedHeader />
+    </HeaderDataConfigureProvider>
+  </ErrorBoundary>
+)
+const MemoedHeader = memo(() => (
+  <HeaderWithShadow>
+    <BluredBackground />
+    <div
+      className={clsxm(
+        'relative mx-auto grid h-full min-h-0 max-w-7xl grid-cols-[4.5rem_auto_4.5rem] lg:px-8',
+        styles['header--grid'],
+      )}
+    >
+      <HeaderLeftButtonArea>
+        <HeaderDrawerButton />
+      </HeaderLeftButtonArea>
 
-        <HeaderLogoArea>
-          <AnimatedLogo />
+      <HeaderLogoArea>
+        <AnimatedLogo />
 
-          <OnlyMobile>
-            <HeaderMeta />
-          </OnlyMobile>
-        </HeaderLogoArea>
-
-        <HeaderCenterArea>
-          <HeaderContent />
+        <OnlyMobile>
           <HeaderMeta />
-        </HeaderCenterArea>
+        </OnlyMobile>
+      </HeaderLogoArea>
 
-        <div className="flex size-full items-center">
-          <UserAuth />
-        </div>
+      <HeaderCenterArea>
+        <HeaderContent />
+        <HeaderMeta />
+      </HeaderCenterArea>
+
+      <div className="flex size-full items-center">
+        <UserAuth />
       </div>
-    </HeaderWithShadow>
-  )
-})
+    </div>
+  </HeaderWithShadow>
+))
 
 MemoedHeader.displayName = 'MemoedHeader'

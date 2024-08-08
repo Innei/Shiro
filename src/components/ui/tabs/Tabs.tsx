@@ -117,25 +117,23 @@ export const Pager: Component<PagerProps & MotionProps> = ({
   className,
   children,
   ...rest
-}) => {
-  return (
-    <m.div
-      className={clsxm('flex size-full', className)}
-      initial={false}
-      animate={{
-        x: `${-100 * index}%`,
-      }}
-      transition={{
-        tension: 190,
-        friction: 70,
-        mass: 0.4,
-      }}
-      {...rest}
-    >
-      {children}
-    </m.div>
-  )
-}
+}) => (
+  <m.div
+    className={clsxm('flex size-full', className)}
+    initial={false}
+    animate={{
+      x: `${-100 * index}%`,
+    }}
+    transition={{
+      tension: 190,
+      friction: 70,
+      mass: 0.4,
+    }}
+    {...rest}
+  >
+    {children}
+  </m.div>
+)
 
 export const Content = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,

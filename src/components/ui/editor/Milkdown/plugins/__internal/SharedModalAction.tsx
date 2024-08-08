@@ -10,7 +10,7 @@ import { useEditorCtx } from '../../ctx'
 
 export const SharedModalAction: Component<{
   nodeCtx: NodeViewContext
-  getValue(): string | undefined
+  getValue: () => string | undefined
 
   save?: (value: string) => Promise<void> | void
 }> = ({ nodeCtx, getValue, save, children }) => {
@@ -21,7 +21,7 @@ export const SharedModalAction: Component<{
   const deleteNode = () => {
     const pos = getPos()
 
-    if (typeof pos === 'undefined') return
+    if (pos === undefined) return
     view.dispatch(view.state.tr.delete(pos, pos + node.nodeSize))
     dismiss()
   }
@@ -47,8 +47,8 @@ export const SharedModalAction: Component<{
           }
           // set first firstChild text
           const pos = getPos()
-          if (typeof pos === 'undefined') return
-          const tr = view.state.tr
+          if (pos === undefined) return
+          const { tr } = view.state
 
           const nextValue = getValue()!
 

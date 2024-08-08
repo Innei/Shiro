@@ -67,14 +67,12 @@ export const StyledButton: FC<ButtonProps> = ({
   )
 }
 
-const LoadingButtonWrapper: FC<PropsWithChildren> = ({ children }) => {
-  return (
-    <div className="relative">
-      {children}
+const LoadingButtonWrapper: FC<PropsWithChildren> = ({ children }) => (
+  <div className="relative">
+    {children}
 
-      <div className="absolute inset-0 z-[1] flex items-center justify-center">
-        <div className="loading loading-spinner size-5" />
-      </div>
+    <div className="absolute inset-0 z-[1] flex items-center justify-center">
+      <div className="loading loading-spinner size-5" />
     </div>
-  )
-}
+  </div>
+)

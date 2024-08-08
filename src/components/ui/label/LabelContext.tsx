@@ -9,10 +9,8 @@ export const useLabelPropsContext = () => React.useContext(LabelPropsContext)
 
 export const LabelProvider: React.FC<
   React.ContextType<typeof LabelPropsContext> & React.PropsWithChildren
-> = ({ children, ...props }) => {
-  return (
-    <LabelPropsContext.Provider value={props}>
-      {children}
-    </LabelPropsContext.Provider>
-  )
-}
+> = ({ children, ...props }) => (
+  <LabelPropsContext.Provider value={props}>
+    {children}
+  </LabelPropsContext.Provider>
+)

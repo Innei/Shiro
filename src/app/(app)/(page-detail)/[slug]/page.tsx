@@ -11,23 +11,21 @@ import {
   PageMarkdown,
 } from './pageExtra'
 
-const PageDetail = () => {
-  return (
-    <WrappedElementProvider eoaDetect>
-      <ReadIndicatorForMobile />
-      <MarkdownImageRecordProviderInternal>
-        <MarkdownSelection>
-          <PageMarkdown />
-        </MarkdownSelection>
-      </MarkdownImageRecordProviderInternal>
-      <Signature />
+const PageDetail = () => (
+  <WrappedElementProvider eoaDetect>
+    <ReadIndicatorForMobile />
+    <MarkdownImageRecordProviderInternal>
+      <MarkdownSelection>
+        <PageMarkdown />
+      </MarkdownSelection>
+    </MarkdownImageRecordProviderInternal>
+    <Signature />
 
-      <LayoutRightSidePortal>
-        <ArticleRightAside>
-          <PageActionAside />
-        </ArticleRightAside>
-      </LayoutRightSidePortal>
-    </WrappedElementProvider>
-  )
-}
+    <LayoutRightSidePortal>
+      <ArticleRightAside>
+        <PageActionAside />
+      </ArticleRightAside>
+    </LayoutRightSidePortal>
+  </WrappedElementProvider>
+)
 export default PageDetail

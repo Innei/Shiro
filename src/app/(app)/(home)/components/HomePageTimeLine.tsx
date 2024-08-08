@@ -1,8 +1,8 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useMemo, useRef } from 'react'
 import Link from 'next/link'
+import { useEffect, useMemo, useRef } from 'react'
 
 import { useViewport } from '~/atoms/hooks'
 import { FloatPopover } from '~/components/ui/float-popover'
@@ -42,7 +42,7 @@ function organizePostsByDate<T extends Post>(posts: T[]): DataByDate<T> {
       month.getMonth() + 1,
       0,
     ).getDate()
-    postsByDate.push(Array(daysInMonth).fill(null))
+    postsByDate.push(new Array(daysInMonth).fill(null))
   }
 
   // Group posts by day
@@ -93,9 +93,7 @@ function PhDotBold() {
 export const HomePageTimeLine = () => {
   const { data: yearData } = useQuery({
     queryKey: ['home-timeline'],
-    queryFn: async () => {
-      return apiClient.activity.getLastYearPublication()
-    },
+    queryFn: async () => apiClient.activity.getLastYearPublication(),
   })
   const { data, month } = useMemo(
     () =>
@@ -154,8 +152,8 @@ export const HomePageTimeLine = () => {
                     }}
                   >
                     {data[idx].length > 0 &&
-                      data[idx].map((items) => {
-                        return items?.map((item, index) => {
+                      data[idx].map((items) =>
+                        items?.map((item, index) => {
                           const created = new Date(item.created)
                           const dateInThisMonth = created.getDate()
                           const thisMonthTotalDays = new Date(
@@ -203,8 +201,8 @@ export const HomePageTimeLine = () => {
                               </Link>
                             </FloatPopover>
                           )
-                        })
-                      })}
+                        }),
+                      )}
                     <div className="absolute left-0 top-1/2 size-[8px] -translate-y-1/2 rounded-full bg-accent">
                       <FloatPopover
                         type="tooltip"

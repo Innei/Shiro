@@ -7,6 +7,5 @@ import { statusAtom } from '../status'
 
 export const useOwnerStatus = () => useAtomValue(statusAtom)
 
-export const setOwnerStatus = (status: null | OwnerStatus) => {
-  return jotaiStore.set(statusAtom, status)
-}
+export const setOwnerStatus = (status: null | OwnerStatus) =>
+  jotaiStore.set(statusAtom, status)

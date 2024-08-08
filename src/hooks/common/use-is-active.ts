@@ -9,6 +9,5 @@ const subscribe = (cb: () => void) => {
 
 const getSnapshot = () => document.visibilityState === 'visible'
 const getServerSnapshot = () => true
-export const usePageIsActive = () => {
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
-}
+export const usePageIsActive = () =>
+  useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)

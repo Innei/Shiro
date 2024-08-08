@@ -3,9 +3,7 @@ import Color from 'colorjs.io'
 
 import { createPngNoiseBackground } from '~/lib/noise'
 
-const hexToOklchString = (hex: string) => {
-  return new Color(hex).oklch
-}
+const hexToOklchString = (hex: string) => new Color(hex).oklch
 const accentColorLight = [
   // 浅葱
   '#33A6B8',

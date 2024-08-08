@@ -45,17 +45,15 @@ export const NoteBottomBarAction: Component = () => {
   )
 }
 
-export const NoteActionAside: Component = ({ className }) => {
-  return (
-    <ActionAsideContainer className={className}>
-      <LikeButton />
-      <ShareButton />
-      <SubscribeButton />
-      <NoteAsideCommentButton />
-      <AsideDonateButton />
-    </ActionAsideContainer>
-  )
-}
+export const NoteActionAside: Component = ({ className }) => (
+  <ActionAsideContainer className={className}>
+    <LikeButton />
+    <ShareButton />
+    <SubscribeButton />
+    <NoteAsideCommentButton />
+    <AsideDonateButton />
+  </ActionAsideContainer>
+)
 
 const NoteAsideCommentButton = () => {
   const { title, id, allowComment } =

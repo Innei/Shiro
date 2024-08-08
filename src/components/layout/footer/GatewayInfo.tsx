@@ -15,43 +15,41 @@ import { usePageIsActive } from '~/hooks/common/use-is-active'
 import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 
-const Help = () => {
-  return (
-    <FloatPopover
-      mobileAsSheet
-      as="span"
-      triggerElement={
-        <i className="icon-[mingcute--question-line] cursor-help" />
-      }
-      type="tooltip"
-      asChild
-      sheet={{
-        triggerAsChild: true,
-      }}
-    >
-      <div className="space-y-2 leading-relaxed">
-        <p className="flex items-center space-x-1 opacity-80">
-          <i className="icon-[mingcute--question-line]" />
-          <span className="font-medium">这是如何实现的？</span>
-        </p>
-        <p>
-          当你打开这个页面时，会自动建立 WebSocket
-          连接，当成功连接后服务器会推送当前浏览页面的人数。
-        </p>
-        <p>
-          WebSocket
-          用于通知站点，站长在站点的实时活动，包括不限于文章的发布和更新。
-        </p>
+const Help = () => (
+  <FloatPopover
+    mobileAsSheet
+    as="span"
+    triggerElement={
+      <i className="icon-[mingcute--question-line] cursor-help" />
+    }
+    type="tooltip"
+    asChild
+    sheet={{
+      triggerAsChild: true,
+    }}
+  >
+    <div className="space-y-2 leading-relaxed">
+      <p className="flex items-center space-x-1 opacity-80">
+        <i className="icon-[mingcute--question-line]" />
+        <span className="font-medium">这是如何实现的？</span>
+      </p>
+      <p>
+        当你打开这个页面时，会自动建立 WebSocket
+        连接，当成功连接后服务器会推送当前浏览页面的人数。
+      </p>
+      <p>
+        WebSocket
+        用于通知站点，站长在站点的实时活动，包括不限于文章的发布和更新。
+      </p>
 
-        <Divider />
+      <Divider />
 
-        <p>
-          当前 Socket 状态： <ConnectedIndicator />
-        </p>
-      </div>
-    </FloatPopover>
-  )
-}
+      <p>
+        当前 Socket 状态： <ConnectedIndicator />
+      </p>
+    </div>
+  </FloatPopover>
+)
 
 const ConnectedIndicator = () => {
   const connected = useSocketIsConnect()
@@ -165,7 +163,7 @@ const RoomsInfo = () => {
 
   if (!data)
     return (
-      <div className="flex size-6 center">
+      <div className="center flex size-6">
         <div className="loading loading-spinner" />
       </div>
     )

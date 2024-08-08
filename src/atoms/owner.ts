@@ -9,9 +9,7 @@ import { aggregationDataAtom } from '~/providers/root/aggregation-data-provider'
 import { refreshToken } from './hooks/owner'
 import { fetchAppUrl } from './url'
 
-export const ownerAtom = atom((get) => {
-  return get(aggregationDataAtom)?.user
-})
+export const ownerAtom = atom((get) => get(aggregationDataAtom)?.user)
 export const isLoggedAtom = atom(false)
 
 export const login = async (username?: string, password?: string) => {
@@ -22,7 +20,7 @@ export const login = async (username?: string, password?: string) => {
       throw err
     })
     if (user) {
-      const token = user.token
+      const { token } = user
       setToken(token)
       jotaiStore.set(isLoggedAtom, true)
 

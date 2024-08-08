@@ -11,7 +11,7 @@ export const SidebarWrapper = (props: PropsWithChildren) => {
     <div
       ref={ref}
       className={clsx(
-        'flex max-h-[calc(100vh-6rem)] grow flex-col gap-8 overflow-auto px-2 pb-4 font-medium scrollbar-none lg:h-0 lg:max-h-[auto]',
+        'scrollbar-none flex max-h-[calc(100vh-6rem)] grow flex-col gap-8 overflow-auto px-2 pb-4 font-medium lg:h-0 lg:max-h-[auto]',
 
         className,
       )}

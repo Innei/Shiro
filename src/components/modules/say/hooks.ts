@@ -9,8 +9,8 @@ import { SayModalForm } from './SayModalForm'
 
 export const sayQueryKey = ['says']
 
-export const useSayListQuery = () => {
-  return useInfiniteQuery({
+export const useSayListQuery = () =>
+  useInfiniteQuery({
     queryKey: sayQueryKey,
     queryFn: async ({ pageParam }) => {
       const data = await apiClient.say.getAllPaginated(pageParam)
@@ -22,7 +22,6 @@ export const useSayListQuery = () => {
         ? lastPage.pagination.currentPage + 1
         : undefined,
   })
-}
 
 export const useSayModal = () => {
   const { present } = useModalStack()

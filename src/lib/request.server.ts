@@ -23,8 +23,8 @@ export const requestErrorHandler = (error: Error | RequestError) => {
   throw error
 }
 
-const defaultErrorRenderer = (error: any) => {
-  return createElement(
+const defaultErrorRenderer = (error: any) =>
+  createElement(
     NormalContainer,
     null,
     createElement(
@@ -35,7 +35,6 @@ const defaultErrorRenderer = (error: any) => {
       error.message?.replace(API_URL, '<API_URL>'),
     ),
   )
-}
 
 export const definePrerenderPage =
   <Params extends {}>() =>
@@ -112,7 +111,7 @@ export const definePrerenderPage =
           )
         }
 
-        console.error('error in fetcher: ', error)
+        console.error('error in fetcher:', error)
         return errorRenderer(error, params) ?? defaultErrorRenderer(error)
       }
     }

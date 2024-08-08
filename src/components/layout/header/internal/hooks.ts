@@ -51,13 +51,14 @@ export const useHeaderMetaShouldShow = () => {
   return useAtomValue(headerMetaShouldShowAtom) && !v
 }
 export const useSetHeaderMetaInfo = () => {
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       jotaiStore.set(headerMetaTitleAtom, '')
       jotaiStore.set(headerMetaDescriptionAtom, '')
       jotaiStore.set(headerMetaSlugAtom, '')
-    }
-  }, [])
+    },
+    [],
+  )
   return ({
     title,
     description,
@@ -73,13 +74,11 @@ export const useSetHeaderMetaInfo = () => {
   }
 }
 
-export const useHeaderMetaInfo = () => {
-  return {
-    title: useAtomValue(headerMetaTitleAtom),
-    description: useAtomValue(headerMetaDescriptionAtom),
-    slug: useAtomValue(headerMetaSlugAtom),
-  }
-}
+export const useHeaderMetaInfo = () => ({
+  title: useAtomValue(headerMetaTitleAtom),
+  description: useAtomValue(headerMetaDescriptionAtom),
+  slug: useAtomValue(headerMetaSlugAtom),
+})
 
 const headerHasMetaInfoAtom = atom((get) => {
   const title = get(headerMetaTitleAtom)
@@ -87,6 +86,4 @@ const headerHasMetaInfoAtom = atom((get) => {
 
   return title !== '' && description !== ''
 })
-export const useHeaderHasMetaInfo = () => {
-  return useAtomValue(headerHasMetaInfoAtom)
-}
+export const useHeaderHasMetaInfo = () => useAtomValue(headerHasMetaInfoAtom)

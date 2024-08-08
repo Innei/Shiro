@@ -29,9 +29,7 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
       })
         .then((res) => res.json())
         .catch(() => null),
-    select: useCallback((data: any) => {
-      return !!data
-    }, []),
+    select: useCallback((data: any) => !!data, []),
     refetchInterval: 1000 * 60,
     enabled: !!liveId,
     meta: {

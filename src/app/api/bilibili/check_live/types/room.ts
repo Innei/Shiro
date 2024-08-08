@@ -9,9 +9,7 @@ interface Data {
   by_room_ids: By_room_ids
 }
 
-interface By_room_ids {
-  [key: number]: RoomInfo
-}
+type By_room_ids = Record<number, RoomInfo>
 export interface RoomInfo {
   room_id: number
   uid: number

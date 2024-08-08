@@ -21,12 +21,11 @@ export const AISummary: FC<AiSummaryProps> = memo((props) => {
 
   const { data: response, isLoading } = useQuery({
     queryKey: ['ai-summary', articleId],
-    queryFn: async () => {
-      return apiClient.ai.getSummary({
+    queryFn: async () =>
+      apiClient.ai.getSummary({
         articleId,
         lang: navigator.language,
-      })
-    },
+      }),
     retryDelay: 5000,
     enabled: !hydrateText,
   })

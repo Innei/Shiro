@@ -93,19 +93,15 @@ export default function Page() {
   )
 }
 
-const UnreadTabTitle: FC = () => {
-  return (
-    <span className="inline-block space-x-1 pb-1">
-      <span>未读</span>
-    </span>
-  )
-}
+const UnreadTabTitle: FC = () => (
+  <span className="inline-block space-x-1 pb-1">
+    <span>未读</span>
+  </span>
+)
 
 const CommentTable = (props: { state: CommentState }) => {
   const setSelectionKeys = useSetCommentSelectionKeys()
-  useEffect(() => {
-    return () => setSelectionKeys(new Set())
-  }, [])
+  useEffect(() => () => setSelectionKeys(new Set()), [])
 
   const { data, isLoading, fetchNextPage, hasNextPage } =
     // @ts-expect-error

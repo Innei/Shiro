@@ -178,9 +178,7 @@ const ThinkingLinkRenderer: FC<{
 }> = ({ id }) => {
   const { data } = useQuery({
     queryKey: ['thinking', 'recently', id],
-    queryFn: () => {
-      return apiClient.recently.getById(id)
-    },
+    queryFn: () => apiClient.recently.getById(id),
   })
 
   if (!data) return null
@@ -197,22 +195,20 @@ const FixedRatioContainer = ({
 }: {
   ratio?: number
   children: React.ReactNode
-}) => {
-  return (
-    <div className="my-2">
-      <div className="flex justify-center px-4">
-        <div
-          className="relative h-0 w-full"
-          style={{
-            paddingBottom: `${ratio}%`,
-          }}
-        >
-          {children}
-        </div>
+}) => (
+  <div className="my-2">
+    <div className="flex justify-center px-4">
+      <div
+        className="relative h-0 w-full"
+        style={{
+          paddingBottom: `${ratio}%`,
+        }}
+      >
+        {children}
       </div>
     </div>
-  )
-}
+  </div>
+)
 
 const GithubUrlRenderL: FC<{
   url: URL

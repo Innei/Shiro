@@ -213,9 +213,7 @@ interface FixedImageProps extends TImageProps {
   width?: number
 }
 export const FixedZoomedImage: Component<FixedImageProps> = (props) => {
-  const placeholder = useMemo(() => {
-    return <Placeholder {...props} />
-  }, [props])
+  const placeholder = useMemo(() => <Placeholder {...props} />, [props])
   return <ImageLazy zoom placeholder={placeholder} {...props} />
 }
 
@@ -281,21 +279,19 @@ const Placeholder: FC<
   )
 }
 
-const NoFixedPlaceholder = ({ accent }: { accent?: string }) => {
-  return (
-    <span
-      className={clsxm(
-        'image-placeholder',
-        styles.base,
-        'h-[300px] w-full bg-slate-300 dark:bg-slate-700',
-      )}
-      style={{
-        backgroundColor: accent,
-        outline: isDev ? '4px solid red' : undefined,
-      }}
-    />
-  )
-}
+const NoFixedPlaceholder = ({ accent }: { accent?: string }) => (
+  <span
+    className={clsxm(
+      'image-placeholder',
+      styles.base,
+      'h-[300px] w-full bg-slate-300 dark:bg-slate-700',
+    )}
+    style={{
+      backgroundColor: accent,
+      outline: isDev ? '4px solid red' : undefined,
+    }}
+  />
+)
 
 const OptimizedImage = memo(
   forwardRef<

@@ -161,7 +161,7 @@ const SettingStatusModalContent = () => {
           defaultValue: 1,
           rules: [
             {
-              validator: (value: string) => !isNaN(Number(value)),
+              validator: (value: string) => !Number.isNaN(Number(value)),
               message: '持续时间必须是数字',
             },
           ],

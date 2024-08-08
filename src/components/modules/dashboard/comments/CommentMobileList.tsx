@@ -21,9 +21,7 @@ export const CommentMobileList = () => {
   }
 
   const totalLength =
-    data?.pages.reduce((acc, page) => {
-      return acc + page.data.length
-    }, 0) || 0
+    data?.pages.reduce((acc, page) => acc + page.data.length, 0) || 0
 
   if (totalLength === 0) {
     return <Empty className="grow" />
@@ -38,8 +36,8 @@ export const CommentMobileList = () => {
           isLoading && 'opacity-80',
         )}
       >
-        {data?.pages.map((page, i) => {
-          return page.data.map((item, j) => {
+        {data?.pages.map((page, i) =>
+          page.data.map((item, j) => {
             const idx = i * page.data.length + j
             return (
               <li key={item.id} className="flex flex-col gap-2">
@@ -49,8 +47,8 @@ export const CommentMobileList = () => {
                 {idx !== totalLength - 1 && <Divider />}
               </li>
             )
-          })
-        })}
+          }),
+        )}
       </ul>
     </OffsetMainLayout>
   )

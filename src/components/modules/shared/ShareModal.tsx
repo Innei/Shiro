@@ -49,34 +49,32 @@ interface ShareData {
   text: string
 }
 
-export const ShareModal: FC<ShareData> = ({ url, text, title }) => {
-  return (
-    <div className="relative grid grid-cols-[200px_auto] gap-5">
-      <div className="qrcode inline-block size-[200px] bg-gray-200/80 dark:bg-zinc-800/90">
-        <QRCodeSVG
-          value={url}
-          className="aspect-square w-[200px]"
-          height={200}
-          width={200}
-        />
-      </div>
-      <div className="share-options flex flex-col gap-2">
-        分享到...
-        <ul className="w-[200px] flex-col gap-2 [&>li]:flex [&>li]:items-center [&>li]:space-x-2">
-          {shareList.map(({ name, icon, onClick }) => (
-            <li
-              key={name}
-              className="flex cursor-pointer items-center space-x-2 rounded-md px-3 py-2 text-lg transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
-              aria-label={`Share to ${name}`}
-              role="button"
-              onClick={() => onClick({ url, text, title })}
-            >
-              {icon}
-              <span>{name}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+export const ShareModal: FC<ShareData> = ({ url, text, title }) => (
+  <div className="relative grid grid-cols-[200px_auto] gap-5">
+    <div className="qrcode inline-block size-[200px] bg-gray-200/80 dark:bg-zinc-800/90">
+      <QRCodeSVG
+        value={url}
+        className="aspect-square w-[200px]"
+        height={200}
+        width={200}
+      />
     </div>
-  )
-}
+    <div className="share-options flex flex-col gap-2">
+      分享到...
+      <ul className="w-[200px] flex-col gap-2 [&>li]:flex [&>li]:items-center [&>li]:space-x-2">
+        {shareList.map(({ name, icon, onClick }) => (
+          <li
+            key={name}
+            className="flex cursor-pointer items-center space-x-2 rounded-md px-3 py-2 text-lg transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+            aria-label={`Share to ${name}`}
+            role="button"
+            onClick={() => onClick({ url, text, title })}
+          >
+            {icon}
+            <span>{name}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+)

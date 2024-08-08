@@ -82,10 +82,8 @@ export const NoteFooterNavigation = () => {
 }
 
 export const NoteFooterNavigationBarForMobile: typeof NoteFooterNavigation =
-  () => {
-    return (
-      <OnlyMobile>
-        <NoteFooterNavigation />
-      </OnlyMobile>
-    )
-  }
+  () => (
+    <OnlyMobile>
+      <NoteFooterNavigation />
+    </OnlyMobile>
+  )

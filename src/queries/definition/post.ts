@@ -81,8 +81,8 @@ export const postAdmin = {
     defineQuery({
       queryKey: ['postAdmin', 'getRelatedList'],
 
-      queryFn: async ({ pageParam }: any) => {
-        return apiClient.proxy.posts.get({
+      queryFn: async ({ pageParam }: any) =>
+        apiClient.proxy.posts.get({
           params: {
             page: pageParam || 1,
             size: 50,
@@ -92,8 +92,7 @@ export const postAdmin = {
           PaginateResult<
             Pick<PostModel, 'id' | 'title' | 'slug' | 'category' | 'categoryId'>
           >
-        >
-      },
+        >,
     }),
 }
 

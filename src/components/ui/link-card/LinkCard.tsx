@@ -117,7 +117,7 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
     setLoading(true)
 
     await fetchFn(id, setCardInfo, setFullUrl).catch((err) => {
-      console.error('fetch card info error: ', err)
+      console.error('fetch card info error:', err)
       setIsError(true)
     })
     setLoading(false)
@@ -142,7 +142,7 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
       const bounds = currentTarget.getBoundingClientRect()
       mouseX.set(clientX - bounds.left)
       mouseY.set(clientY - bounds.top)
-      radius.set(Math.sqrt(bounds.width ** 2 + bounds.height ** 2) * 1.3)
+      radius.set(Math.hypot(bounds.width, bounds.height) * 1.3)
     },
     [mouseX, mouseY, radius],
   )
@@ -232,17 +232,15 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
 
 const LinkCardSkeleton: FC<{
   className?: string
-}> = ({ className }) => {
-  return (
-    <span className={clsxm(styles['card-grid'], styles['skeleton'], className)}>
-      <span className={styles['contents']}>
-        <span className={styles['title']} />
-        <span className={styles['desc']} />
-      </span>
-      <span className={styles['image']} />
+}> = ({ className }) => (
+  <span className={clsxm(styles['card-grid'], styles['skeleton'], className)}>
+    <span className={styles['contents']}>
+      <span className={styles['title']} />
+      <span className={styles['desc']} />
     </span>
-  )
-}
+    <span className={styles['image']} />
+  </span>
+)
 
 type FetchFunction = (
   id: string,

@@ -71,36 +71,34 @@ declare const window: any
 window.React = React
 window.ReactDOM = ReactDOM
 
-export const MarkdownCustomize: DocumentComponent = () => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <main className="relative m-auto mt-6 max-w-[800px]">
-          <Markdown
-            value={customize}
-            extendsRules={{
-              codeBlock: {
-                react(node, output, state) {
-                  return (
-                    <CodeBlockRender
-                      key={state?.key}
-                      content={node.content}
-                      lang={node.lang}
-                    />
-                  )
-                },
+export const MarkdownCustomize: DocumentComponent = () => (
+  <QueryClientProvider client={queryClient}>
+    <ThemeProvider>
+      <main className="relative m-auto mt-6 max-w-[800px]">
+        <Markdown
+          value={customize}
+          extendsRules={{
+            codeBlock: {
+              react(node, output, state) {
+                return (
+                  <CodeBlockRender
+                    key={state?.key}
+                    content={node.content}
+                    lang={node.lang}
+                  />
+                )
               },
-            }}
-            className="prose"
-            as="article"
-          />
-        </main>
+            },
+          }}
+          className="prose"
+          as="article"
+        />
+      </main>
 
-        <ToastContainer />
-      </ThemeProvider>
-    </QueryClientProvider>
-  )
-}
+      <ToastContainer />
+    </ThemeProvider>
+  </QueryClientProvider>
+)
 
 MarkdownCustomize.meta = {
   title: 'Markdown Customize',

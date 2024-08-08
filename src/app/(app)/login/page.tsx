@@ -1,7 +1,7 @@
 'use client'
 
-import { use, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { use, useEffect, useState } from 'react'
 
 import { StyledButton } from '~/components/ui/button'
 import { Input } from '~/components/ui/input/Input'

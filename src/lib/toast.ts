@@ -27,12 +27,12 @@ interface ToastCustom {
       iconElement?: JSX.Element
     },
   ): Id
-  success(message: string, options?: ToastOptions & CustomToastOptions): Id
-  info(message: string, options?: ToastOptions & CustomToastOptions): Id
-  warn(message: string, options?: ToastOptions & CustomToastOptions): Id
-  error(message: string, options?: ToastOptions & CustomToastOptions): Id
+  success: (message: string, options?: ToastOptions & CustomToastOptions) => Id
+  info: (message: string, options?: ToastOptions & CustomToastOptions) => Id
+  warn: (message: string, options?: ToastOptions & CustomToastOptions) => Id
+  error: (message: string, options?: ToastOptions & CustomToastOptions) => Id
 
-  dismiss(id: Id): void
+  dismiss: (id: Id) => void
 }
 
 // @ts-ignore

@@ -38,9 +38,7 @@ const serverTimeAtom = atom(new Date())
 
 export const useSetServerTime = () => useSetAtom(serverTimeAtom)
 
-export const getServerTime = () => {
-  return jotaiStore.get(serverTimeAtom)
-}
+export const getServerTime = () => jotaiStore.get(serverTimeAtom)
 
 export const useServerTime = () => useAtomValue(serverTimeAtom)
 

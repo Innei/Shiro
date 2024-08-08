@@ -21,13 +21,12 @@ export const GET = async (req: NextRequest) => {
   const queryClient = getQueryClient()
   const res = await queryClient.fetchQuery({
     queryKey: ['xlog-summary', cid],
-    queryFn: async () => {
-      return fetch(`https://xlog.app/api/summary?cid=${cid}&lang=${lang}`, {
+    queryFn: async () =>
+      fetch(`https://xlog.app/api/summary?cid=${cid}&lang=${lang}`, {
         headers: new Headers(headers),
       })
         .then((res) => res.json())
-        .catch(() => null)
-    },
+        .catch(() => null),
   })
 
   const response = new NextServerResponse()

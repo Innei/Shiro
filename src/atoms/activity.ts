@@ -40,11 +40,11 @@ export const setActivityPresence = (presence: ActivityPresence) => {
 }
 
 export const deleteActivityPresence = (sessionId: string) => {
-  jotaiStore.set(activityPresenceAtom, (prev) => {
-    return produce(prev, (draft) => {
+  jotaiStore.set(activityPresenceAtom, (prev) =>
+    produce(prev, (draft) => {
       delete draft[sessionId]
-    })
-  })
+    }),
+  )
 }
 
 export const resetActivityPresence = (

@@ -19,12 +19,11 @@ import { MilkdownEditor } from './Milkdown'
 // ![](https://loremflickr.com/640/480/city?4 'Image')
 // :::
 
-export const EditorDemo: DocumentComponent = () => {
-  return (
-    <WebAppProviders>
-      <div className="m-auto w-[60ch] border p-2">
-        <MilkdownEditor
-          initialMarkdown={`::iframe{src="https://saul-mirone.github.io"}
+export const EditorDemo: DocumentComponent = () => (
+  <WebAppProviders>
+    <div className="m-auto w-[60ch] border p-2">
+      <MilkdownEditor
+        initialMarkdown={`::iframe{src="https://saul-mirone.github.io"}
 > 1111
 > 2222
 
@@ -90,11 +89,10 @@ https://loremflickr.com/640/480/city?3
 
 
 `}
-        />
-      </div>
-    </WebAppProviders>
-  )
-}
+      />
+    </div>
+  </WebAppProviders>
+)
 
 EditorDemo.meta = {
   title: 'Editor',

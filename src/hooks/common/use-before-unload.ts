@@ -103,7 +103,6 @@ const BeforeUnloadProvider = ({ children }: React.PropsWithChildren) => {
         nextjsPopStateHandler = args[1]
         window.addEventListener = originalAddEventListener
       } else {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         originalAddEventListener(...args)
       }

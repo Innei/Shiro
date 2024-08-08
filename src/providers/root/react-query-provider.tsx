@@ -67,16 +67,14 @@ const persistOptions: Omit<PersistQueryClientOptions, 'queryClient'> = {
     },
   },
 }
-export const ReactQueryProvider = ({ children }: PropsWithChildren) => {
-  return (
-    <PersistQueryClientProvider
-      client={queryClient}
-      persistOptions={persistOptions}
-    >
-      {children}
-    </PersistQueryClientProvider>
-  )
-}
+export const ReactQueryProvider = ({ children }: PropsWithChildren) => (
+  <PersistQueryClientProvider
+    client={queryClient}
+    persistOptions={persistOptions}
+  >
+    {children}
+  </PersistQueryClientProvider>
+)
 
 export const getQueryClientForDashboard = () =>
   new QueryClient({
@@ -86,9 +84,8 @@ export const getQueryClientForDashboard = () =>
         refetchIntervalInBackground: false,
         refetchOnMount: true,
         retry(failureCount, error) {
-          if (error instanceof RequestError) {
-            if (error.status === 401) return false
-          }
+          if (error instanceof RequestError && error.status === 401)
+            return false
           return failureCount < 3
         },
       },
@@ -97,10 +94,8 @@ export const getQueryClientForDashboard = () =>
 
 export const ReactQueryProviderForDashboard = ({
   children,
-}: PropsWithChildren) => {
-  return (
-    <QueryClientProvider client={useState(getQueryClientForDashboard)[0]}>
-      {children}
-    </QueryClientProvider>
-  )
-}
+}: PropsWithChildren) => (
+  <QueryClientProvider client={useState(getQueryClientForDashboard)[0]}>
+    {children}
+  </QueryClientProvider>
+)

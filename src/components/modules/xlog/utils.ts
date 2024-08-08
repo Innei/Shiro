@@ -1,3 +1,1 @@
-export const getCidForBaseModel = (data: any) => {
-  return data?.meta?.xLog?.cid
-}
+export const getCidForBaseModel = (data: any) => data?.meta?.xLog?.cid

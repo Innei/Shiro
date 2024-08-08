@@ -39,18 +39,13 @@ export const HeaderDrawerContent = () => {
 
             {section.subMenu && (
               <ul className="my-2 grid grid-cols-2 gap-2">
-                {section.subMenu.map((sub) => {
-                  return (
-                    <li key={sub.path}>
-                      <LinkInternal
-                        className="inline-block p-2"
-                        href={sub.path}
-                      >
-                        {sub.title}
-                      </LinkInternal>
-                    </li>
-                  )
-                })}
+                {section.subMenu.map((sub) => (
+                  <li key={sub.path}>
+                    <LinkInternal className="inline-block p-2" href={sub.path}>
+                      {sub.title}
+                    </LinkInternal>
+                  </li>
+                ))}
               </ul>
             )}
           </m.section>

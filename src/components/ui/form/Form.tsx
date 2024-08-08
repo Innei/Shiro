@@ -27,11 +27,10 @@ export const Form = forwardRef<
   const ctxValue: FormContextType = useRefValue(() => ({
     showErrorMessage,
     fields: fieldsAtom,
-    getField: (name: string) => {
-      return (jotaiStore.get(fieldsAtom as any) as any)[name]
-    },
-    getCurrentValues: () => {
-      return Object.fromEntries(
+    getField: (name: string) =>
+      (jotaiStore.get(fieldsAtom as any) as any)[name],
+    getCurrentValues: () =>
+      Object.fromEntries(
         Object.entries(jotaiStore.get(fieldsAtom)).map(([key, value]) => {
           const nextValue = (value as any as Field).getEl()?.value
 
@@ -42,15 +41,12 @@ export const Form = forwardRef<
               : nextValue,
           ]
         }),
-      )
-    },
+      ),
     addField: (name: string, field: Field) => {
-      jotaiStore.set(fieldsAtom, (p) => {
-        return {
-          ...p,
-          [name]: field,
-        }
-      })
+      jotaiStore.set(fieldsAtom, (p) => ({
+        ...p,
+        [name]: field,
+      }))
     },
 
     removeField: (name: string) => {
@@ -95,10 +91,9 @@ const FormInternal = (
       for await (const [key, field] of Object.entries(fields)) {
         const $ref = field.getEl()
         if (!$ref) continue
-        const value = $ref.value
-        const rules = field.rules
-        for (let i = 0; i < rules.length; i++) {
-          const rule = rules[i]
+        const { value } = $ref
+        const { rules } = field
+        for (const [i, rule] of rules.entries()) {
           try {
             const isOk = await rule.validator(value)
             if (!isOk) {
@@ -108,11 +103,11 @@ const FormInternal = (
               )
               $ref.focus()
               if (rule.message) {
-                jotaiStore.set(fieldsAtom, (prev) => {
-                  return produce(prev, (draft) => {
+                jotaiStore.set(fieldsAtom, (prev) =>
+                  produce(prev, (draft) => {
                     ;(draft[key] as Field).rules[i].status = 'error'
-                  })
-                })
+                  }),
+                )
               }
               return
             }

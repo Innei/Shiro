@@ -48,9 +48,7 @@ export const useCommentBoxTextValue = () =>
 export const useCommentBoxRefIdValue = () =>
   useAtomValue(useContext(CommentBoxContext).refId)
 
-export const useGetCommentBoxAtomValues = () => {
-  return useContext(CommentBoxContext)
-}
+export const useGetCommentBoxAtomValues = () => useContext(CommentBoxContext)
 export const useCommentBoxLifeCycle = () =>
   useContext(CommentBoxLifeCycleContext)
 

@@ -1,2 +1,2 @@
-export * from './EllipsisWithTooltip'
 export * from './AdjustableText'
+export * from './EllipsisWithTooltip'

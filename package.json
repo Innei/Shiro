@@ -1,42 +1,25 @@
 {
   "name": "Shiroi",
-  "license": "AGPL-3.0",
-  "private": false,
   "version": "6.6.6",
+  "private": false,
+  "packageManager": "pnpm@9.7.0",
+  "license": "AGPL-3.0",
   "engines": {
     "node": ">=18"
   },
-  "bump": {
-    "before": [
-      "git pull --rebase",
-      "ni"
-    ],
-    "changelog": true
-  },
-  "simple-git-hooks": {
-    "pre-commit": "pnpm exec lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "prettier --ignore-path ./.gitignore --write "
-    ],
-    "*.{js,ts,cjs,mjs,jsx,tsx,json}": [
-      "biome lint --write --no-errors-on-unmatched"
-    ]
-  },
   "scripts": {
-    "prepare": "pnpm exec simple-git-hooks && test -f .env || cp .env.template .env",
-    "start": "npm run dev",
-    "prebuild": "rimraf .next || exit 0",
-    "dev": "cross-env NODE_ENV=development next dev -p 2323",
-    "dev:turbo": "cross-env NODE_ENV=development next dev -p 2323 --turbo",
     "analyze": "cross-env NODE_ENV=production ANALYZE=true BUNDLE_ANALYZE=browser next build",
     "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 next build",
     "build:ci": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 NEXT_TELEMETRY_DISABLED=1 CI=true next build",
-    "lint": "biome lint --write src/**/*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json} --no-errors-on-unmatched",
+    "dev": "cross-env NODE_ENV=development next dev -p 2323",
+    "dev:turbo": "cross-env NODE_ENV=development next dev -p 2323 --turbo",
+    "lint": "eslint --fix",
+    "prebuild": "rimraf .next || exit 0",
+    "prepare": "pnpm exec simple-git-hooks && test -f .env || cp .env.template .env",
     "prod:pm2": "cross-env NODE_ENV=production pm2 restart ecosystem.config.cjs",
+    "prod:reload": "pm2 reload ecosystem.config.cjs",
     "prod:stop": "pm2 stop ecosystem.config.cjs",
-    "prod:reload": "pm2 reload ecosystem.config.cjs"
+    "start": "npm run dev"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.624.0",
@@ -44,7 +27,6 @@
     "@clerk/themes": "2.1.18",
     "@excalidraw/excalidraw": "0.17.6",
     "@floating-ui/react-dom": "2.1.1",
-    "markdown-to-jsx": "npm:@innei/markdown-to-jsx@7.4.5-fork.4",
     "@milkdown/core": "7.4.0",
     "@milkdown/ctx": "7.4.0",
     "@milkdown/plugin-clipboard": "7.4.0",
@@ -100,6 +82,7 @@
     "katex": "0.16.11",
     "kbar": "0.1.0-beta.45",
     "markdown-escape": "2.0.0",
+    "markdown-to-jsx": "npm:@innei/markdown-to-jsx@7.4.5-fork.4",
     "marked": "13.0.3",
     "mdast-util-to-markdown": "2.1.0",
     "medium-zoom": "1.1.0",
@@ -136,7 +119,6 @@
     "xss": "1.0.15"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.8.3",
     "@iconify-json/material-symbols": "1.1.86",
     "@iconify-json/mingcute": "1.1.19",
     "@iconify/tailwind": "1.1.2",
@@ -162,6 +144,8 @@
     "code-inspector-plugin": "0.15.2",
     "cross-env": "7.0.3",
     "dotenv": "16.4.5",
+    "eslint": "9.8.0",
+    "eslint-config-hyoban": "3.1.0",
     "lint-staged": "15.2.8",
     "postcss": "8.4.41",
     "postcss-import": "16.1.0",
@@ -181,14 +165,6 @@
     "typescript": "5.5.4",
     "zx": "8.1.4"
   },
-  "nextBundleAnalysis": {
-    "budget": 358400,
-    "budgetPercentIncreaseRed": 20,
-    "showDetails": true
-  },
-  "browserslist": [
-    "defaults and fully supports es6-module"
-  ],
   "pnpm": {
     "overrides": {
       "array-includes": "npm:@nolyfill/array-includes@latest",
@@ -206,5 +182,30 @@
       "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@latest"
     }
   },
-  "packageManager": "pnpm@9.7.0"
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --ignore-path ./.gitignore --write "
+    ],
+    "*.{js,ts,cjs,mjs,jsx,tsx,json}": [
+      "eslint --fix"
+    ]
+  },
+  "bump": {
+    "before": [
+      "git pull --rebase",
+      "ni"
+    ],
+    "changelog": true
+  },
+  "nextBundleAnalysis": {
+    "budget": 358400,
+    "budgetPercentIncreaseRed": 20,
+    "showDetails": true
+  },
+  "browserslist": [
+    "defaults and fully supports es6-module"
+  ]
 }

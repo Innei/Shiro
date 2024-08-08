@@ -44,9 +44,7 @@ export const springScrollTo = (y: number) => {
   return animation
 }
 
-export const springScrollToTop = () => {
-  return springScrollTo(0)
-}
+export const springScrollToTop = () => springScrollTo(0)
 
 export const springScrollToElement = (element: HTMLElement, delta = 40) => {
   const y = calculateElementTop(element)

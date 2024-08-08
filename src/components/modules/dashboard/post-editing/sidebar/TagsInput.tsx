@@ -53,20 +53,16 @@ const TagCompletion = () => {
       allTags={data}
       existsTags={existsTags}
       onSelected={(suggestion) => {
-        setter((prev) => {
-          return {
-            ...prev,
-            tags: [...prev.tags, suggestion.value],
-          }
-        })
+        setter((prev) => ({
+          ...prev,
+          tags: [...prev.tags, suggestion.value],
+        }))
       }}
       onEnter={async (value) => {
-        setter((prev) => {
-          return {
-            ...prev,
-            tags: [...prev.tags, value],
-          }
-        })
+        setter((prev) => ({
+          ...prev,
+          tags: [...prev.tags, value],
+        }))
       }}
     />
   )

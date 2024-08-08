@@ -5,12 +5,9 @@ import { clsxm } from '~/lib/helper'
 
 import { FloatPopover } from '../float-popover'
 
-const isTextOverflowed = (element: HTMLElement) => {
-  return (
-    element.offsetWidth < element.scrollWidth ||
-    element.offsetHeight < element.scrollHeight
-  )
-}
+const isTextOverflowed = (element: HTMLElement) =>
+  element.offsetWidth < element.scrollWidth ||
+  element.offsetHeight < element.scrollHeight
 type EllipsisProps = PropsWithChildren<{
   width?: string
   className?: string

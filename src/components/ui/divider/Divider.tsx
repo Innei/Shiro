@@ -35,21 +35,19 @@ export const DividerVertical: FC<
   )
 }
 
-export const BreadcrumbDivider: Component = ({ className }) => {
-  return (
-    <svg
-      width="24"
-      height="24"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      color="currentColor"
-      shapeRendering="geometricPrecision"
-      viewBox="0 0 24 24"
-      className={className}
-    >
-      <path d="M16.88 3.549L7.12 20.451" />
-    </svg>
-  )
-}
+export const BreadcrumbDivider: Component = ({ className }) => (
+  <svg
+    width="24"
+    height="24"
+    fill="none"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    color="currentColor"
+    shapeRendering="geometricPrecision"
+    viewBox="0 0 24 24"
+    className={className}
+  >
+    <path d="M16.88 3.549L7.12 20.451" />
+  </svg>
+)

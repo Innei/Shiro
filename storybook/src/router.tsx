@@ -11,23 +11,21 @@ import {
 // import Debug from './routes/debug'
 import { Root } from './routes/root'
 
-const renderFromComponents = componentsKeys.map((key, index) => {
-  return {
-    path: key,
-    name: key,
-    Component: () => (
-      <ErrorBoundary fallback={<div>Component has some errors.</div>}>
-        <Suspense fallback={<div>Loading...</div>}>
-          {createElement(laziedComponents[index])}
-        </Suspense>
-      </ErrorBoundary>
-    ),
-  }
-}) satisfies RouteObject[]
+const renderFromComponents = componentsKeys.map((key, index) => ({
+  path: key,
+  name: key,
+  Component: () => (
+    <ErrorBoundary fallback={<div>Component has some errors.</div>}>
+      <Suspense fallback={<div>Loading...</div>}>
+        {createElement(laziedComponents[index])}
+      </Suspense>
+    </ErrorBoundary>
+  ),
+})) satisfies RouteObject[]
 
-const children = [...renderFromComponents].sort((a, b) => {
-  return a.name.localeCompare(b.name)
-})
+const children = [...renderFromComponents].sort((a, b) =>
+  a.name.localeCompare(b.name),
+)
 
 // children.push({
 //   path: 'debug',

@@ -165,15 +165,13 @@ const ReadPresenceTimeline = () => {
   return (
     <RootPortal>
       <div className="group fixed inset-y-20 left-0 z-[3] w-8">
-        {uniqueActivityPresenceIdsCurrentRoom.map((identity) => {
-          return (
-            <TimelineItem
-              key={identity}
-              identity={identity}
-              type={identity === sessionId ? 'current' : 'other'}
-            />
-          )
-        })}
+        {uniqueActivityPresenceIdsCurrentRoom.map((identity) => (
+          <TimelineItem
+            key={identity}
+            identity={identity}
+            type={identity === sessionId ? 'current' : 'other'}
+          />
+        ))}
       </div>
     </RootPortal>
   )
@@ -231,7 +229,7 @@ export const DisplayNameHelper = ({ displayName }: { displayName: string }) => {
         })
       }}
       className={clsx(
-        'border-border fixed bottom-5 left-5 z-10 flex size-5 rounded-full border bg-base-100/80 text-2xl backdrop-blur center',
+        'border-border center fixed bottom-5 left-5 z-10 flex size-5 rounded-full border bg-base-100/80 text-2xl backdrop-blur',
         'animation-wave',
       )}
     >
@@ -377,15 +375,13 @@ MoitonBar.displayName = 'MoitonBar'
 function generateRandomName(seed: string): string {
   const feedback = seed.charAt(0).toUpperCase() + seed.charAt(1)
   // 找到 seed 中的第一个字母字符
-  const firstAlphabetChar = seed.split('').find((char) => /[A-Za-z]/.test(char))
+  const firstAlphabetChar = seed.split('').find((char) => /[A-Z]/i.test(char))
   if (!firstAlphabetChar) {
     return feedback
   }
 
   // 计算 seed 的简单哈希值
-  const hash = seed.split('').reduce((acc, char) => {
-    return acc + char.charCodeAt(0)
-  }, 0)
+  const hash = seed.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
 
   // 确定使用哪个名字数组
   const nameList = (names as any)[firstAlphabetChar.toUpperCase()]

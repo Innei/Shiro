@@ -14,9 +14,8 @@ import { socketWorker } from '../../socket/worker-client'
 if (typeof window !== 'undefined') {
   import('../../socket/worker-client')
 }
-export const SocketContainer = () => {
-  return useIsClient() ? <SocketContainerImpl /> : null
-}
+export const SocketContainer = () =>
+  useIsClient() ? <SocketContainerImpl /> : null
 const SocketContainerImpl: Component = () => {
   const connectOnce = useRef(false)
   const router = useRouter()

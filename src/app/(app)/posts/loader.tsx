@@ -1,11 +1,11 @@
 'use client'
 
+import '~/components/modules/post'
+
+import type { Pager } from '@mx-space/api-client'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'next/navigation'
-import type { Pager } from '@mx-space/api-client'
 import type { FC } from 'react'
-
-import '~/components/modules/post'
 
 import { PostItemComposer } from '~/components/modules/post/PostItemComposer'
 import { LoadMoreIndicator } from '~/components/modules/shared/LoadMoreIndicator'
@@ -41,16 +41,16 @@ export const PostLoadMore: FC<{ pagination: Pager }> = ({ pagination }) => {
     return <Loading useDefaultLoadingText />
   }
 
-  if (!data || !data.pages.length) return null
+  if (!data || data.pages.length === 0) return null
 
   return (
     <>
       <ul>
-        {data.pages.map((page) => {
-          return page.data.map((item, index) => {
-            return <PostItemComposer key={item.id} data={item} index={index} />
-          })
-        })}
+        {data.pages.map((page) =>
+          page.data.map((item, index) => (
+            <PostItemComposer key={item.id} data={item} index={index} />
+          )),
+        )}
       </ul>
 
       {hasNextPage && <LoadMoreIndicator onLoading={fetchNextPage} />}

@@ -113,7 +113,7 @@ const HeaderMenu: Component = ({ className }) => {
 
   const firstLevelMenu = dashboardRoutes
     .children!.map((route) => {
-      const title = route.title
+      const { title } = route
       if (!title) return null
 
       return {

@@ -105,9 +105,7 @@ export const CommentBoxSlotPortal = memo((props: PropsWithChildren) => {
   return null
 })
 
-export const CommentBoxSlotProvider: FC = memo(() => {
-  return useCommentActionLeftSlot()
-})
+export const CommentBoxSlotProvider: FC = memo(() => useCommentActionLeftSlot())
 
 CommentBoxSlotProvider.displayName = 'CommentBoxSlotProvider'
 CommentBoxSlotPortal.displayName = 'CommentBoxSlotPortal'

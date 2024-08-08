@@ -10,14 +10,11 @@ const AppFeatureContext = createContext(appFeatures)
 export const AppFeatureProvider: FC<PropsWithChildren & typeof appFeatures> = ({
   children,
   ...features
-}) => {
-  return (
-    <AppFeatureContext.Provider value={features}>
-      {children}
-    </AppFeatureContext.Provider>
-  )
-}
+}) => (
+  <AppFeatureContext.Provider value={features}>
+    {children}
+  </AppFeatureContext.Provider>
+)
 
-export const useFeatureEnabled = (feature: keyof typeof appFeatures) => {
-  return useContextSelector(AppFeatureContext, (ctx) => ctx[feature])
-}
+export const useFeatureEnabled = (feature: keyof typeof appFeatures) =>
+  useContextSelector(AppFeatureContext, (ctx) => ctx[feature])

@@ -48,7 +48,6 @@ export const EventProvider: Component = ({ children }) => {
     }
     try {
       window.matchMedia('screen').addEventListener('change', callback)
-      // eslint-disable-next-line no-empty
     } catch {}
 
     return () => {

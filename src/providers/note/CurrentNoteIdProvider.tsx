@@ -30,9 +30,7 @@ export const CurrentNoteNidProvider: FC<
 })
 CurrentNoteNidProvider.displayName = 'CurrentNoteIdProvider'
 
-export const useCurrentNoteNid = () => {
-  return useAtomValue(currentNoteNidAtom)
-}
+export const useCurrentNoteNid = () => useAtomValue(currentNoteNidAtom)
 
 /**
  * Only used in error page to set current note id

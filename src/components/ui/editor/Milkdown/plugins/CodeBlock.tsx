@@ -15,7 +15,7 @@ import { useEditorCtx } from '../ctx'
 const CodeBlock = () => {
   const { node } = useNodeViewContext()
 
-  const language = node.attrs.language
+  const { language } = node.attrs
   const content = node.content.firstChild?.text
 
   return (
@@ -45,13 +45,13 @@ const NormalCodeBlock: FC<{
         padding={8}
         language={language}
         onChange={(code) => {
-          const view = nodeCtx.view
+          const { view } = nodeCtx
 
-          const node = nodeCtx.node
+          const { node } = nodeCtx
 
           const pos = nodeCtx.getPos()
-          const tr = view.state.tr
-          if (typeof pos === 'undefined') return
+          const { tr } = view.state
+          if (pos === undefined) return
           if (!code) {
             // remove node
 

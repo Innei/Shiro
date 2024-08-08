@@ -37,7 +37,7 @@ export default async function middleware(req: NextRequest) {
   requestHeaders.set(REQUEST_IP, ip || '')
   requestHeaders.set(REQUEST_HOST, headers.get('host') || '')
 
-  const searchParams = req.nextUrl.searchParams
+  const { searchParams } = req.nextUrl
 
   if (searchParams.has('peek-to')) {
     const peekTo = searchParams.get('peek-to')

@@ -37,41 +37,39 @@ export const KaomojiPanel: FC<
   const KaomojiContentEl = (
     <ScrollArea.ScrollArea rootClassName="pointer-events-auto h-[250px] w-auto lg:h-[200px] lg:w-[400px]">
       <div className="grid grid-cols-4 gap-4">
-        {KAOMOJI_LIST.map((kamoji) => {
-          return (
-            <MotionButtonBase
-              key={kamoji}
-              onClick={() => {
-                const $ta = inputRef.current!
-                $ta.focus()
+        {KAOMOJI_LIST.map((kamoji) => (
+          <MotionButtonBase
+            key={kamoji}
+            onClick={() => {
+              const $ta = inputRef.current!
+              $ta.focus()
+
+              requestAnimationFrame(() => {
+                const start = $ta.selectionStart as number
+                const end = $ta.selectionEnd as number
+                const escapeKaomoji = markdownEscape(kamoji)
+                $ta.value = `${$ta.value.slice(
+                  0,
+                  Math.max(0, start),
+                )} ${escapeKaomoji} ${$ta.value.substring(
+                  end,
+                  $ta.value.length,
+                )}`
+                onValueChange?.($ta.value)
 
                 requestAnimationFrame(() => {
-                  const start = $ta.selectionStart as number
-                  const end = $ta.selectionEnd as number
-                  const escapeKaomoji = markdownEscape(kamoji)
-                  $ta.value = `${$ta.value.substring(
-                    0,
-                    start,
-                  )} ${escapeKaomoji} ${$ta.value.substring(
-                    end,
-                    $ta.value.length,
-                  )}`
-                  onValueChange?.($ta.value)
+                  const shouldMoveToPos = start + escapeKaomoji.length + 2
+                  $ta.selectionStart = shouldMoveToPos
+                  $ta.selectionEnd = shouldMoveToPos
 
-                  requestAnimationFrame(() => {
-                    const shouldMoveToPos = start + escapeKaomoji.length + 2
-                    $ta.selectionStart = shouldMoveToPos
-                    $ta.selectionEnd = shouldMoveToPos
-
-                    $ta.focus()
-                  })
+                  $ta.focus()
                 })
-              }}
-            >
-              {kamoji}
-            </MotionButtonBase>
-          )
-        })}
+              })
+            }}
+          >
+            {kamoji}
+          </MotionButtonBase>
+        ))}
       </div>
     </ScrollArea.ScrollArea>
   )

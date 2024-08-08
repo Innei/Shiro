@@ -8,23 +8,21 @@ import { useNoteMainContainerHeight } from './NoteMainContainer'
 import { NoteTimeline } from './NoteTimeline'
 import { NoteTopicInfo } from './NoteTopicInfo'
 
-export const NoteLeftSidebar: Component = ({ className }) => {
-  return (
-    <OnlyDesktop>
-      <AutoHeightOptimize className={className}>
-        <m.div
-          layoutRoot
-          layout
-          className="sticky top-[120px] mt-[120px] min-h-[300px]"
-        >
-          <NoteTimeline />
+export const NoteLeftSidebar: Component = ({ className }) => (
+  <OnlyDesktop>
+    <AutoHeightOptimize className={className}>
+      <m.div
+        layoutRoot
+        layout
+        className="sticky top-[120px] mt-[120px] min-h-[300px]"
+      >
+        <NoteTimeline />
 
-          <NoteTopicInfo />
-        </m.div>
-      </AutoHeightOptimize>
-    </OnlyDesktop>
-  )
-}
+        <NoteTopicInfo />
+      </m.div>
+    </AutoHeightOptimize>
+  </OnlyDesktop>
+)
 
 const AutoHeightOptimize: Component = ({ children }) => {
   const mainContainerHeight = useNoteMainContainerHeight()

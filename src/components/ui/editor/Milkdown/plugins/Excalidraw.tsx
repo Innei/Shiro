@@ -69,61 +69,57 @@ function remarkExcalidraw() {
 
 const id = 'excalidraw'
 /// Schema for diagram node.
-export const excalidrawSchema = $nodeSchema(id, () => {
-  return {
-    content: 'text*',
-    group: 'block',
-    marks: '',
-    defining: true,
-    atom: true,
-    isolating: true,
+export const excalidrawSchema = $nodeSchema(id, () => ({
+  content: 'text*',
+  group: 'block',
+  marks: '',
+  defining: true,
+  atom: true,
+  isolating: true,
 
-    attrs: {
-      value: {
-        default: '',
-      },
+  attrs: {
+    value: {
+      default: '',
     },
+  },
 
-    parseDOM: [
-      {
-        tag: `div[data-type="${id}"]`,
-        preserveWhitespace: 'full',
-        getAttrs: (dom) => {
-          return {
-            value: (dom as any)?.dataset?.value || '',
-          }
-        },
-      },
-    ],
-    toDOM: (node) => {
-      const code = node.attrs.value as string
-
-      const dom = document.createElement('div')
-      dom.dataset.type = id
-
-      dom.dataset.value = code
-      dom.textContent = code
-
-      return dom
+  parseDOM: [
+    {
+      tag: `div[data-type="${id}"]`,
+      preserveWhitespace: 'full',
+      getAttrs: (dom) => ({
+        value: (dom as any)?.dataset?.value || '',
+      }),
     },
+  ],
+  toDOM: (node) => {
+    const code = node.attrs.value as string
 
-    parseMarkdown: {
-      match: ({ type }) => type === id,
-      runner: (state, node, type) => {
-        const value = node.value as string
-        state.addNode(type, { value })
-      },
+    const dom = document.createElement('div')
+    dom.dataset.type = id
+
+    dom.dataset.value = code
+    dom.textContent = code
+
+    return dom
+  },
+
+  parseMarkdown: {
+    match: ({ type }) => type === id,
+    runner: (state, node, type) => {
+      const value = node.value as string
+      state.addNode(type, { value })
     },
-    toMarkdown: {
-      match: (node) => node.type.name === id,
-      runner: (state, node) => {
-        state.addNode('code', undefined, node.attrs.value || '', {
-          lang: 'excalidraw',
-        })
-      },
+  },
+  toMarkdown: {
+    match: (node) => node.type.name === id,
+    runner: (state, node) => {
+      state.addNode('code', undefined, node.attrs.value || '', {
+        lang: 'excalidraw',
+      })
     },
-  }
-})
+  },
+}))
 
 /// A input rule that will insert a diagram node when you type ` ```excalidraw `.
 const insertExcalidrawInputRules = $inputRule(

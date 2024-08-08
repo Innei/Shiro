@@ -25,34 +25,32 @@ export default definePrerenderPage<{
               (a, b) =>
                 new Date(b.created).getTime() - new Date(a.created).getTime(),
             )
-            .map((item) => {
-              return (
-                <li
-                  key={item.id}
-                  className="flex items-center justify-between"
-                  data-id={item.id}
-                >
-                  <span className="flex min-w-0 shrink items-center">
-                    <span className="mr-2 inline-block tabular-nums">
-                      {Intl.DateTimeFormat('en-us', {
-                        month: '2-digit',
-                        day: '2-digit',
-                        year: '2-digit',
-                      }).format(new Date(item.created))}
-                    </span>
-                    <Link
-                      href={routeBuilder(Routes.Post, {
-                        category: item.category.slug,
-                        slug: item.slug,
-                      })}
-                      className="min-w-0 truncate leading-6"
-                    >
-                      <span className="min-w-0 truncate">{item.title}</span>
-                    </Link>
+            .map((item) => (
+              <li
+                key={item.id}
+                className="flex items-center justify-between"
+                data-id={item.id}
+              >
+                <span className="flex min-w-0 shrink items-center">
+                  <span className="mr-2 inline-block tabular-nums">
+                    {Intl.DateTimeFormat('en-us', {
+                      month: '2-digit',
+                      day: '2-digit',
+                      year: '2-digit',
+                    }).format(new Date(item.created))}
                   </span>
-                </li>
-              )
-            })}
+                  <Link
+                    href={routeBuilder(Routes.Post, {
+                      category: item.category.slug,
+                      slug: item.slug,
+                    })}
+                    className="min-w-0 truncate leading-6"
+                  >
+                    <span className="min-w-0 truncate">{item.title}</span>
+                  </Link>
+                </span>
+              </li>
+            ))}
         </TimelineList>
       </NormalContainer>
     )

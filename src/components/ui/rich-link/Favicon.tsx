@@ -79,9 +79,7 @@ const type2IconMap = map.reduce(
 )
 
 type AllType = (typeof map)[number]['type']
-const getUrlSource = (url: URL) => {
-  return map.find((item) => item.test(url))?.type
-}
+const getUrlSource = (url: URL) => map.find((item) => item.test(url))?.type
 
 type FaviconProps =
   | {

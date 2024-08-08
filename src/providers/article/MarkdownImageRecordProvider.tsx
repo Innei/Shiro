@@ -24,16 +24,13 @@ export const MarkdownImageRecordProvider: Component<{
   )
 }
 
-export const useMarkdownImageRecord = (src: string) => {
-  return useAtomValue(
+export const useMarkdownImageRecord = (src: string) =>
+  useAtomValue(
     selectAtom(
       useContext(MarkdownImageRecordProviderInternal),
       useCallback(
-        (value: Image[]) => {
-          return value.find((image) => image.src === src)
-        },
+        (value: Image[]) => value.find((image) => image.src === src),
         [src],
       ),
     ),
   )
-}

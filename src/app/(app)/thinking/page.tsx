@@ -69,12 +69,12 @@ const PostBox = () => {
                 comments: number
               }
             >
-          >(QUERY_KEY, (old) => {
-            return produce(old, (draft) => {
+          >(QUERY_KEY, (old) =>
+            produce(old, (draft) => {
               draft?.pages[0].unshift(res.$serialized as any)
               return draft
-            })
-          })
+            }),
+          )
         })
     },
   })
@@ -129,9 +129,7 @@ const List = () => {
     enabled: hasNext,
     refetchOnMount: true,
 
-    getNextPageParam: (l) => {
-      return l.length > 0 ? l[l.length - 1]?.id : undefined
-    },
+    getNextPageParam: (l) => (l.length > 0 ? l.at(-1)?.id : undefined),
     initialPageParam: undefined as undefined | string,
   })
 
@@ -141,9 +139,7 @@ const List = () => {
   useEffect(() => {
     if (!data) return
     const pages = getPrevData()?.pages
-    const count = pages?.reduce((acc, cur) => {
-      return acc + cur.length
-    }, 0)
+    const count = pages?.reduce((acc, cur) => acc + cur.length, 0)
 
     animate(
       'li',
@@ -165,11 +161,9 @@ const List = () => {
 
   return (
     <ul ref={scope}>
-      {data?.pages.map((page) => {
-        return page.map((item) => {
-          return <ThinkingItem item={item} key={item.id} />
-        })
-      })}
+      {data?.pages.map((page) =>
+        page.map((item) => <ThinkingItem item={item} key={item.id} />),
+      )}
 
       {hasNext && (
         <LoadMoreIndicator

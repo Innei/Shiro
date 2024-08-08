@@ -1,9 +1,9 @@
 'use client'
 
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { createElement } from 'react'
 import { m } from 'framer-motion'
 import Link from 'next/link'
+import { createElement } from 'react'
 
 import {
   FaSolidComments,
@@ -86,43 +86,41 @@ export const Windsock = () => {
         <div className="my-5 text-2xl font-medium">风向标</div>
         <div className="mb-24 opacity-90">去到别处看看？</div>
         <ul className="flex flex-col flex-wrap gap-2 gap-y-8 opacity-80 lg:flex-row">
-          {windsock.map((item, index) => {
-            return (
-              <m.li
-                initial={{ opacity: 0.0001, y: 10 }}
-                viewport={{ once: true }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  transition: {
-                    stiffness: 641,
-                    damping: 23,
-                    mass: 3.9,
-                    type: 'spring',
-                    delay: index * 0.05,
-                  },
-                }}
-                transition={{
-                  delay: 0.001,
-                }}
-                key={index}
-                className="flex items-center justify-between text-sm duration-200 hover:!-translate-y-2"
+          {windsock.map((item, index) => (
+            <m.li
+              initial={{ opacity: 0.0001, y: 10 }}
+              viewport={{ once: true }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                transition: {
+                  stiffness: 641,
+                  damping: 23,
+                  mass: 3.9,
+                  type: 'spring',
+                  delay: index * 0.05,
+                },
+              }}
+              transition={{
+                delay: 0.001,
+              }}
+              key={index}
+              className="flex items-center justify-between text-sm duration-200 hover:!-translate-y-2"
+            >
+              <Link
+                href={item.path}
+                className="flex items-center gap-4 text-neutral-800 duration-200 hover:!text-accent dark:text-neutral-200"
+                onClick={item.do}
               >
-                <Link
-                  href={item.path}
-                  className="flex items-center gap-4 text-neutral-800 duration-200 hover:!text-accent dark:text-neutral-200"
-                  onClick={item.do}
-                >
-                  {createElement(item.icon, { className: 'w-6 h-6' })}
-                  <span>{item.title}</span>
-                </Link>
+                {createElement(item.icon, { className: 'w-6 h-6' })}
+                <span>{item.title}</span>
+              </Link>
 
-                {index != windsock.length - 1 && (
-                  <span className="mx-4 hidden select-none lg:inline"> · </span>
-                )}
-              </m.li>
-            )
-          })}
+              {index != windsock.length - 1 && (
+                <span className="mx-4 hidden select-none lg:inline"> · </span>
+              )}
+            </m.li>
+          ))}
         </ul>
       </div>
 
@@ -134,9 +132,7 @@ export const Windsock = () => {
               .proxy('like_this')
               .post()
               .then(() => {
-                queryClient.setQueryData(likeQueryKey, (prev: any) => {
-                  return prev + 1
-                })
+                queryClient.setQueryData(likeQueryKey, (prev: any) => prev + 1)
               })
 
             toast('谢谢你！', undefined, {

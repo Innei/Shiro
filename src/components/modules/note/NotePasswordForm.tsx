@@ -12,9 +12,9 @@ export const NotePasswordForm = () => {
     window.location.href = `${window.location.href}?password=${password}`
   }
   return (
-    <div className="flex h-[calc(100vh-15rem)] flex-col space-y-4 center">
+    <div className="center flex h-[calc(100vh-15rem)] flex-col space-y-4">
       需要密码才能查看！
-      <form className="mt-8 flex flex-col space-y-4 center">
+      <form className="center mt-8 flex flex-col space-y-4">
         <Input
           value={password}
           onChange={(e) => setPassword(e.target.value)}

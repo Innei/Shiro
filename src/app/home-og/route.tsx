@@ -22,7 +22,7 @@ const resOptions = {
 } as ImageResponseOptions
 export const GET = async () => {
   const aggregateData = await apiClient.aggregate.getAggregateData()
-  const seed = Math.random().toString(36).substring(7)
+  const seed = Math.random().toString(36).slice(7)
   const [bgAccent, bgAccentLight, bgAccentUltraLight] =
     getBackgroundGradient(seed)
 

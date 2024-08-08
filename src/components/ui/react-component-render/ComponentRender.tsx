@@ -70,18 +70,16 @@ const ReactComponentRenderImpl: FC<DlsProps> = (dlsProps) => {
 
 const ComponentBlockError: FC<{
   style?: React.CSSProperties
-}> = ({ style }) => {
-  return (
-    <BlockLoading style={style} className="bg-red-300 dark:bg-red-700">
-      Component Error
-    </BlockLoading>
-  )
-}
+}> = ({ style }) => (
+  <BlockLoading style={style} className="bg-red-300 dark:bg-red-700">
+    Component Error
+  </BlockLoading>
+)
 const ComponentBlockLoading: FC<{
   style?: React.CSSProperties
-}> = ({ style }) => {
-  return <BlockLoading style={style}>Component Loading...</BlockLoading>
-}
+}> = ({ style }) => (
+  <BlockLoading style={style}>Component Loading...</BlockLoading>
+)
 
 type DlsProps = {
   name: string

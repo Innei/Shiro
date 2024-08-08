@@ -1,6 +1,6 @@
+import type { NoteWrappedWithLikedPayload } from '@mx-space/api-client'
 import { cookies } from 'next/headers'
 import { notFound, redirect } from 'next/navigation'
-import type { NoteWrappedWithLikedPayload } from '@mx-space/api-client'
 
 import { getAuthFromCookie } from '~/lib/attach-fetch'
 import { AuthKeyNames } from '~/lib/cookie'

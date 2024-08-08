@@ -57,29 +57,27 @@ export default function Page() {
   return <EditPage />
 }
 
-const createInitialEditingData = (): PostDto => {
-  return {
-    title: '',
-    allowComment: true,
+const createInitialEditingData = (): PostDto => ({
+  title: '',
+  allowComment: true,
 
-    copyright: true,
+  copyright: true,
 
-    categoryId: '',
-    id: '',
-    images: [],
+  categoryId: '',
+  id: '',
+  images: [],
 
-    pin: null,
-    pinOrder: 0,
-    relatedId: [],
-    slug: '',
-    tags: [],
-    text: '',
-    meta: {},
-    related: [],
+  pin: null,
+  pinOrder: 0,
+  relatedId: [],
+  slug: '',
+  tags: [],
+  text: '',
+  meta: {},
+  related: [],
 
-    summary: '',
-  }
-}
+  summary: '',
+})
 
 const EditPage: FC<{
   initialData?: PostDto
@@ -93,11 +91,13 @@ const EditPage: FC<{
   const [forceUpdateKey] = useAutoSaver([editingData, setEditingData])
   const editingAtom = useMemo(() => atom(editingData), [editingData])
   const store = useStore()
-  useEffect(() => {
-    return store.sub(editingAtom, () => {
-      window.dispatchEvent(new WriteEditEvent(store.get(editingAtom)))
-    })
-  }, [editingAtom, store])
+  useEffect(
+    () =>
+      store.sub(editingAtom, () => {
+        window.dispatchEvent(new WriteEditEvent(store.get(editingAtom)))
+      }),
+    [editingAtom, store],
+  )
 
   const isMobile = useIsMobile()
   return (
@@ -130,12 +130,12 @@ const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => {
       text: string
       meta?: Record<string, any> | undefined
     }): void => {
-      setData((prev) => {
-        return produce(prev, (draft) => {
+      setData((prev) =>
+        produce(prev, (draft) => {
           const nextData = data
           Reflect.deleteProperty(nextData, 'meta')
           Object.assign(draft, nextData)
-          const meta = data.meta
+          const { meta } = data
 
           if (data.text) {
             editorRef?.setMarkdown(data.text)
@@ -151,8 +151,8 @@ const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => {
 
             draft.meta = meta
           }
-        })
-      })
+        }),
+      )
     },
   )
 
@@ -168,12 +168,10 @@ const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => {
         <div className="flex gap-2">
           <ImportMarkdownButton onParsedValue={handleParsed} />
           <PreviewButton
-            getData={() => {
-              return {
-                ...getData(),
-                id: 'preview',
-              }
-            }}
+            getData={() => ({
+              ...getData(),
+              id: 'preview',
+            })}
           />
         </div>
 

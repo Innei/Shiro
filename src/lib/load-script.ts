@@ -31,7 +31,7 @@ export function loadScript(url: string) {
     }
 
     if (isDev) {
-      console.info('load script: ', url)
+      console.info('load script:', url)
     }
 
     script.onerror = function (e) {
@@ -46,7 +46,7 @@ export function loadScript(url: string) {
       reject(e)
     }
 
-    document.head.appendChild(script)
+    document.head.append(script)
   })
 }
 
@@ -75,7 +75,7 @@ export function loadStyleSheet(href: string) {
     cssMap.delete(href)
   }
 
-  document.head.appendChild($link)
+  document.head.append($link)
 
   return {
     remove: () => {
@@ -89,7 +89,7 @@ export function loadStyleSheet(href: string) {
 export function appendStyle(style: string) {
   let $style: HTMLStyleElement | null = document.createElement('style')
   $style.innerHTML = style
-  document.head.appendChild($style)
+  document.head.append($style)
   return {
     remove: () => {
       if (!$style) return

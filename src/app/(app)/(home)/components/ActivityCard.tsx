@@ -1,13 +1,11 @@
 'use client'
 
-import { useMemo } from 'react'
+import { CollectionRefTypes } from '@mx-space/api-client'
 import clsx from 'clsx'
 import Link from 'next/link'
-import RemoveMarkdown from 'remove-markdown'
 import type { ReactNode } from 'react'
-import type { ReactActivityType } from './types'
-
-import { CollectionRefTypes } from '@mx-space/api-client'
+import { useMemo } from 'react'
+import RemoveMarkdown from 'remove-markdown'
 
 import {
   FaSolidFeatherAlt,
@@ -16,6 +14,8 @@ import {
 } from '~/components/icons/menu-collection'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
+
+import type { ReactActivityType } from './types'
 
 export const iconClassName =
   'rounded-full border shrink-0 border-accent/30 text-xs center inline-flex size-6 text-accent'

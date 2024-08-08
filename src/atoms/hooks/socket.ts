@@ -43,6 +43,4 @@ export const useSocketSessionId = () => {
   }, [owner, ownerIsLogin, user])
 }
 
-export const useSocketIsConnect = () => {
-  return useAtomValue(socketIsConnectAtom)
-}
+export const useSocketIsConnect = () => useAtomValue(socketIsConnectAtom)

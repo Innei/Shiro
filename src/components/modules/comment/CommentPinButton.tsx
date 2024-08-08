@@ -21,8 +21,8 @@ export const CommentPinButton = ({ comment }: { comment: CommentModel }) => {
       onPinChange={async (nextPin) => {
         queryClient.setQueryData<InfiniteData<PaginateResult<CommentModel>>>(
           buildCommentsQueryKey(refId),
-          (old) => {
-            return produce(old, (draft) => {
+          (old) =>
+            produce(old, (draft) => {
               if (!draft) return draft
               let draftComment: Draft<CommentModel | null> = null
               draft.pages.forEach((page) =>
@@ -34,8 +34,7 @@ export const CommentPinButton = ({ comment }: { comment: CommentModel }) => {
               if (!draftComment) return draft
               ;(draftComment as any as CommentModel).pin = nextPin
               return draft
-            })
-          },
+            }),
         )
         await apiClient.comment.proxy(comment.id).patch({
           data: {

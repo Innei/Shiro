@@ -41,8 +41,8 @@ export interface ExcalidrawProps {
 }
 
 export interface ExcalidrawRefObject {
-  getRefData(): ExcalidrawElement | null | undefined
-  getDiffDelta(): Delta | null | undefined
+  getRefData: () => ExcalidrawElement | null | undefined
+  getDiffDelta: () => Delta | null | undefined
 }
 export const Excalidraw = forwardRef<
   ExcalidrawRefObject,
@@ -105,7 +105,7 @@ export const Excalidraw = forwardRef<
 Excalidraw.displayName = 'Excalidraw'
 
 interface InternelExcalidrawRefObject {
-  getRemoteData(): ExcalidrawElement | null | undefined
+  getRemoteData: () => ExcalidrawElement | null | undefined
 }
 
 const ExcalidrawImpl = forwardRef<InternelExcalidrawRefObject, ExcalidrawProps>(
@@ -138,13 +138,11 @@ const ExcalidrawImpl = forwardRef<InternelExcalidrawRefObject, ExcalidrawProps>(
       enabled: !!refUrl,
     })
 
-    useImperativeHandle(ref, () => {
-      return {
-        getRemoteData() {
-          return refData
-        },
-      }
-    })
+    useImperativeHandle(ref, () => ({
+      getRemoteData() {
+        return refData
+      },
+    }))
 
     const finalDataIfRefUrl = useMemo(() => {
       if (!refData) return null
@@ -169,7 +167,7 @@ const ExcalidrawImpl = forwardRef<InternelExcalidrawRefObject, ExcalidrawProps>(
         className={clsxm('relative h-[500px] w-full', className)}
       >
         {isLoading && (
-          <div className="absolute inset-0 z-10 flex center">
+          <div className="center absolute inset-0 z-10 flex">
             <div className="loading loading-spinner" />
           </div>
         )}
@@ -231,7 +229,7 @@ const ExcalidrawImpl = forwardRef<InternelExcalidrawRefObject, ExcalidrawProps>(
               }
             }}
             className={clsxm(
-              'absolute bottom-2 right-2 z-10 box-content flex size-5 rounded-md border p-2 center',
+              'center absolute bottom-2 right-2 z-10 box-content flex size-5 rounded-md border p-2',
               'border-zinc-200 bg-base-100 text-zinc-600',
               'dark:border-neutral-800 dark:text-zinc-500',
             )}

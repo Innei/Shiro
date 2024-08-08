@@ -8,13 +8,12 @@ import { SubscribeModal } from './SubscribeModal'
 
 const QUERY_CHECK_SUBSCRIBE_KEY = ['subscribe-status']
 
-export const useSubscribeStatusQuery = () => {
-  return useQuery({
+export const useSubscribeStatusQuery = () =>
+  useQuery({
     queryKey: QUERY_CHECK_SUBSCRIBE_KEY,
     queryFn: apiClient.subscribe.check,
     gcTime: 60_000 * 10,
   })
-}
 
 export const useIsEnableSubscribe = () =>
   useQuery({

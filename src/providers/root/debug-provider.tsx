@@ -8,16 +8,14 @@ import { DevIndicator } from '~/components/common/DevIndicator'
 
 export const DebugProvider = ({
   children,
-}: PropsWithChildren): ReactElement => {
-  return (
-    <>
-      <Suspense>
-        <div data-hide-print>
-          <ReactQueryDevtools buttonPosition="bottom-left" />
-          <DevIndicator />
-        </div>
-      </Suspense>
-      {children}
-    </>
-  )
-}
+}: PropsWithChildren): ReactElement => (
+  <>
+    <Suspense>
+      <div data-hide-print>
+        <ReactQueryDevtools buttonPosition="bottom-left" />
+        <DevIndicator />
+      </div>
+    </Suspense>
+    {children}
+  </>
+)

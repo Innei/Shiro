@@ -60,36 +60,32 @@ export const MarkdownImage = (props: { src: string; alt?: string }) => {
   return <FixedZoomedImage {...nextProps} containerWidth={w} />
 }
 
-export const GridMarkdownImage = (props: any) => {
-  return (
-    <WrappedElementProvider>
-      <div className="relative flex min-w-0 grow">
-        <MarkdownImage {...props} />
-      </div>
-    </WrappedElementProvider>
-  )
-}
+export const GridMarkdownImage = (props: any) => (
+  <WrappedElementProvider>
+    <div className="relative flex min-w-0 grow">
+      <MarkdownImage {...props} />
+    </div>
+  </WrappedElementProvider>
+)
 
 export const GridMarkdownImages: FC<{
   imagesSrc: string[]
   Wrapper: Component
   height: number
-}> = ({ imagesSrc, Wrapper, height = 1 }) => {
-  return (
-    <div
-      className="relative"
-      style={{
-        paddingBottom: `${height * 100}%`,
-      }}
-    >
-      <Wrapper className="absolute inset-0">
-        {imagesSrc.map((src) => {
-          return <GridZoomImage key={src} src={src} />
-        })}
-      </Wrapper>
-    </div>
-  )
-}
+}> = ({ imagesSrc, Wrapper, height = 1 }) => (
+  <div
+    className="relative"
+    style={{
+      paddingBottom: `${height * 100}%`,
+    }}
+  >
+    <Wrapper className="absolute inset-0">
+      {imagesSrc.map((src) => (
+        <GridZoomImage key={src} src={src} />
+      ))}
+    </Wrapper>
+  </div>
+)
 
 const GridZoomImage: FC<{ src: string }> = memo(({ src }) => {
   const { accent, height, width } = useMarkdownImageRecord(src) || {}
@@ -101,7 +97,7 @@ const GridZoomImage: FC<{ src: string }> = memo(({ src }) => {
 
   return (
     <div
-      className="relative flex size-full overflow-hidden rounded-md bg-cover bg-center center"
+      className="center relative flex size-full overflow-hidden rounded-md bg-cover bg-center"
       style={{
         backgroundColor: accent,
       }}

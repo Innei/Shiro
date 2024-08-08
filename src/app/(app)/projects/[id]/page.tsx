@@ -1,8 +1,8 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 import { NotFound404 } from '~/components/common/404'
 import { Loading } from '~/components/ui/loading'

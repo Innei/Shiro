@@ -1,8 +1,7 @@
-import { cache } from 'react'
-import { $fetch } from 'ofetch'
 import type { AggregateRoot } from '@mx-space/api-client'
-
 import { simpleCamelcaseKeys } from '@mx-space/api-client'
+import { $fetch } from 'ofetch'
+import { cache } from 'react'
 
 import { appStaticConfig } from '~/app.static.config'
 import { attachServerFetch } from '~/lib/attach-fetch'

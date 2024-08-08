@@ -1,9 +1,7 @@
 import clsx from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
-export const clsxm = (...args: any[]) => {
-  return twMerge(clsx(args))
-}
+export const clsxm = (...args: any[]) => twMerge(clsx(args))
 
 export const escapeHTMLTag = (html: string) => {
   const lt = /</g,
@@ -12,16 +10,16 @@ export const escapeHTMLTag = (html: string) => {
     ic = /"/g
   return html
     .toString()
-    .replace(lt, '&lt;')
-    .replace(gt, '&gt;')
-    .replace(ap, '&#39;')
-    .replace(ic, '&#34;')
+    .replaceAll(lt, '&lt;')
+    .replaceAll(gt, '&gt;')
+    .replaceAll(ap, '&#39;')
+    .replaceAll(ic, '&#34;')
 }
 
 export const safeJsonParse = (str: string) => {
   try {
     return JSON.parse(str)
-  } catch (e) {
+  } catch {
     return null
   }
 }

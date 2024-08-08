@@ -20,7 +20,7 @@ export default function Page() {
     <div className="mx-auto w-full max-w-screen-lg">
       <StyledButton
         onClick={() => present()}
-        className="ml-auto flex duration-200 center"
+        className="center ml-auto flex duration-200"
       >
         <i className="icon-[mingcute--add-circle-line]" />
         新建

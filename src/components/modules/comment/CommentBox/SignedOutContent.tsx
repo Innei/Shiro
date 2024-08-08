@@ -16,7 +16,7 @@ export function CommentBoxSignedOutContent() {
   const { dismissAll } = useModalStack()
 
   return (
-    <div className="flex h-[150px] w-full space-x-4 rounded-lg bg-gray-100/80 center dark:bg-zinc-900/80">
+    <div className="center flex h-[150px] w-full space-x-4 rounded-lg bg-gray-100/80 dark:bg-zinc-900/80">
       <StyledButton
         variant="secondary"
         type="button"

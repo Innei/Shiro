@@ -2,9 +2,9 @@ import React, { createElement, Fragment } from 'react'
 import type { FC, ReactNode } from 'react'
 import type { DocumentComponent, DocumentPageMeta } from '../typings'
 
+import { GLOB_PATH } from '../config' with { type: 'macro' }
 import { Markdown } from './components/Markdown'
 
-import { GLOB_PATH } from '../config' assert { type: 'macro' }
 // TODO find project root
 const modulesPath2PromiseMapping = import.meta.glob(GLOB_PATH)
 
@@ -37,8 +37,8 @@ export const componentsKeys = Object.keys(componentName2PromiseMapping)
 
 export const laziedComponents: FC<any>[] = Object.values(
   modulesPath2PromiseMapping,
-).map((promise) => {
-  return React.lazy(() =>
+).map((promise) =>
+  React.lazy(() =>
     promise().then((module: any) => {
       const keys = Object.keys(module).filter((key) => key !== 'metadata')
       const isOnlyDefault = keys.length === 1 && module.default
@@ -75,5 +75,5 @@ export const laziedComponents: FC<any>[] = Object.values(
             default: () => createElement(Fragment, null, components),
           }
     }),
-  )
-})
+  ),
+)

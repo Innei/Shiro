@@ -43,17 +43,15 @@ export default (function Page() {
   return (
     <div className="relative mt-8">
       <CardMasonry data={data}>
-        {(data) => {
-          return (
-            <Card
-              data={data}
-              key={data.id}
-              title={data.title}
-              description={RemoveMarkdown(data.text)}
-              slots={cardSlot}
-            />
-          )
-        }}
+        {(data) => (
+          <Card
+            data={data}
+            key={data.id}
+            title={data.title}
+            description={RemoveMarkdown(data.text)}
+            slots={cardSlot}
+          />
+        )}
       </CardMasonry>
 
       {hasNextPage && (

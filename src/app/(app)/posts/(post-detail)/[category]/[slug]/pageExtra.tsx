@@ -1,10 +1,10 @@
 'use client'
 
-import { useQueryClient } from '@tanstack/react-query'
-import { useEffect, useMemo, useRef } from 'react'
-import { useRouter } from 'next/navigation'
 import type { Image } from '@mx-space/api-client'
+import { useQueryClient } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
 import type { FC, PropsWithChildren } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import type { BlogPosting, WithContext } from 'schema-dts'
 
 import { appStaticConfig } from '~/app.static.config'
@@ -29,16 +29,17 @@ export const LdJsonWithAuthor = ({
 }: {
   baseLdJson: WithContext<BlogPosting>
 }) => {
-  const jsonLd = useAggregationSelector((state) => {
-    return {
-      ...baseLdJson,
-      author: {
-        '@type': 'Person',
-        name: state.user.name,
-        url: state.url.webUrl,
-      },
-    } as WithContext<BlogPosting>
-  })
+  const jsonLd = useAggregationSelector(
+    (state) =>
+      ({
+        ...baseLdJson,
+        author: {
+          '@type': 'Person',
+          name: state.user.name,
+          url: state.url.webUrl,
+        },
+      }) as WithContext<BlogPosting>,
+  )
   return (
     <script
       type="application/ld+json"

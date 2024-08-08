@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client'
 
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'

@@ -75,14 +75,14 @@ export const useResetFieldStatus = (name: string) => {
   const FormCtx = useAssetFormContext()
   const { fields } = FormCtx
   return useCallback(() => {
-    jotaiStore.set(fields, (p) => {
-      return produce(p, (draft) => {
+    jotaiStore.set(fields, (p) =>
+      produce(p, (draft) => {
         if (!name) return
         draft[name].rules.forEach((rule) => {
           if (rule.status === 'error') rule.status = 'success'
         })
-      })
-    })
+      }),
+    )
   }, [fields, jotaiStore, name])
 }
 
@@ -91,8 +91,8 @@ export const useCheckFieldStatus = (name: string) => {
   const FormCtx = useAssetFormContext()
   const { fields } = FormCtx
   return useCallback(() => {
-    jotaiStore.set(fields, (p) => {
-      return produce(p, (draft) => {
+    jotaiStore.set(fields, (p) =>
+      produce(p, (draft) => {
         if (!name) return
         const value = draft[name].getEl()?.value
 
@@ -108,7 +108,7 @@ export const useCheckFieldStatus = (name: string) => {
             return false
           }
         })
-      })
-    })
+      }),
+    )
   }, [fields, jotaiStore, name])
 }

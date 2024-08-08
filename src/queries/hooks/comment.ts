@@ -24,9 +24,8 @@ export const useUpdateCommentStateMutation = (
   const state = useGetCurrentCommentStateFromQuery()
   return useMutation({
     mutationKey: ['comment', 'updateState'],
-    mutationFn: async ({ id, state }: { id: string; state: CommentState }) => {
-      return apiClient.proxy.comments(id).patch({ data: { state } })
-    },
+    mutationFn: async ({ id, state }: { id: string; state: CommentState }) =>
+      apiClient.proxy.comments(id).patch({ data: { state } }),
     onMutate: async ({ id }) => {
       queryClient.setQueryData<InfiniteData<PaginateResult<CommentModel>>>(
         commentAdmin.byState(state).queryKey,
@@ -53,9 +52,8 @@ export const useDeleteCommentMutation = (options?: MutationOptions<any>) => {
 
   return useMutation({
     mutationKey: ['comment', 'delete'],
-    mutationFn: async ({ id }: { id: string }) => {
-      return apiClient.proxy.comments(id).delete()
-    },
+    mutationFn: async ({ id }: { id: string }) =>
+      apiClient.proxy.comments(id).delete(),
     onMutate: async ({ id }) => {
       queryClient.setQueryData<InfiniteData<PaginateResult<CommentModel>>>(
         commentAdmin.byState(state).queryKey,
@@ -82,13 +80,12 @@ export const useReplyCommentMutation = () => {
 
   return useMutation({
     mutationKey: ['comment', 'reply'],
-    mutationFn: async ({ id, content }: { id: string; content: string }) => {
-      return apiClient.proxy.comments.master.reply(id).post({
+    mutationFn: async ({ id, content }: { id: string; content: string }) =>
+      apiClient.proxy.comments.master.reply(id).post({
         data: {
           text: content,
         },
-      })
-    },
+      }),
     onMutate({ id }) {
       queryClient.setQueryData<InfiniteData<PaginateResult<CommentModel>>>(
         commentAdmin.byState(state).queryKey,

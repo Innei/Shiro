@@ -22,7 +22,7 @@ export const SummarySwitcher: FC<
 > = memo((props) => {
   const { enabled } = appStaticConfig.ai.summary
   const { summary, cid, articleId, hydrateText, enabledMixSpaceSummary } = props
-  if (summary && summary.trim().length)
+  if (summary && summary.trim().length > 0)
     return <ManualSummary className="my-4" summary={summary} />
 
   if (!enabled) return null
@@ -30,12 +30,14 @@ export const SummarySwitcher: FC<
   let comp: any
 
   switch (true) {
-    case enabledMixSpaceSummary:
+    case enabledMixSpaceSummary: {
       comp = <AISummary articleId={articleId} hydrateText={hydrateText} />
       break
-    case !!cid:
+    }
+    case !!cid: {
       comp = <XLogSummary cid={cid} />
       break
+    }
   }
 
   if (!comp) return null
@@ -51,21 +53,19 @@ SummarySwitcher.displayName = 'SummarySwitcher'
 
 const ManualSummary: Component<{
   summary: string
-}> = ({ className, summary }) => {
-  return (
-    <div
-      className={clsxm(
-        `space-y-2 rounded-xl border border-slate-200 p-4 dark:border-neutral-800`,
-        className,
-      )}
-    >
-      <div className="flex items-center">
-        <i className="icon-[mingcute--sparkles-line] mr-2 text-lg" />
-        摘要
-      </div>
-      <div className="!m-0 text-sm leading-loose text-base-content/85">
-        {summary}
-      </div>
+}> = ({ className, summary }) => (
+  <div
+    className={clsxm(
+      `space-y-2 rounded-xl border border-slate-200 p-4 dark:border-neutral-800`,
+      className,
+    )}
+  >
+    <div className="flex items-center">
+      <i className="icon-[mingcute--sparkles-line] mr-2 text-lg" />
+      摘要
     </div>
-  )
-}
+    <div className="!m-0 text-sm leading-loose text-base-content/85">
+      {summary}
+    </div>
+  </div>
+)

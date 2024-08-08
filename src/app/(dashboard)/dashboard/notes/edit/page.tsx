@@ -58,24 +58,22 @@ export default function Page() {
   return <EditPage />
 }
 
-const createInitialEditingData = (): NoteDto => {
-  return {
-    title: '',
-    allowComment: true,
+const createInitialEditingData = (): NoteDto => ({
+  title: '',
+  allowComment: true,
 
-    id: '',
-    nid: 0,
-    location: null,
-    coordinates: null,
-    images: [],
-    mood: null,
-    password: '',
-    topicId: null,
-    weather: null,
-    text: '',
-    meta: {},
-  }
-}
+  id: '',
+  nid: 0,
+  location: null,
+  coordinates: null,
+  images: [],
+  mood: null,
+  password: '',
+  topicId: null,
+  weather: null,
+  text: '',
+  meta: {},
+})
 
 const EditPage: FC<{
   initialData?: NoteDto
@@ -91,11 +89,13 @@ const EditPage: FC<{
   const created = editingData.created ? new Date(editingData.created) : null
 
   const store = useStore()
-  useEffect(() => {
-    return store.sub(editingAtom, () => {
-      window.dispatchEvent(new WriteEditEvent(store.get(editingAtom)))
-    })
-  }, [editingAtom, store])
+  useEffect(
+    () =>
+      store.sub(editingAtom, () => {
+        window.dispatchEvent(new WriteEditEvent(store.get(editingAtom)))
+      }),
+    [editingAtom, store],
+  )
 
   const isMobile = useIsMobile()
   return (
@@ -135,12 +135,12 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
       text: string
       meta?: Record<string, any> | undefined
     }): void => {
-      setData((prev) => {
-        return produce(prev, (draft) => {
+      setData((prev) =>
+        produce(prev, (draft) => {
           const nextData = data
           Reflect.deleteProperty(nextData, 'meta')
           Object.assign(draft, nextData)
-          const meta = data.meta
+          const { meta } = data
 
           if (data.text) {
             editorRef?.setMarkdown(data.text)
@@ -156,8 +156,8 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
 
             draft.meta = meta
           }
-        })
-      })
+        }),
+      )
     },
   )
 
@@ -174,12 +174,10 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
         <div className="flex gap-2">
           <ImportMarkdownButton onParsedValue={handleParsed} />
           <PreviewButton
-            getData={() => {
-              return {
-                ...getData(),
-                id: 'preview',
-              }
-            }}
+            getData={() => ({
+              ...getData(),
+              id: 'preview',
+            })}
           />
         </div>
 

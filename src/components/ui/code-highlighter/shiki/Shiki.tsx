@@ -32,9 +32,8 @@ const codeHighlighterPromise = (async () => {
 
   return {
     codeHighlighter: core,
-    fn: (o: { lang: string; attrs: string; code: string }) => {
-      return codeHighlighter(core, o)
-    },
+    fn: (o: { lang: string; attrs: string; code: string }) =>
+      codeHighlighter(core, o),
   }
 })()
 
@@ -60,14 +59,16 @@ export const ShikiHighLighter: FC<ShikiProps> = (props) => {
       return loadShikiLanguage(language || '', importFn)
     }, [codeHighlighter?.codeHighlighter, language]),
   )
-  const highlightedHtml = useMemo(() => {
-    return codeHighlighter?.fn?.({
-      attrs: attrs || '',
-      // code: `${value.split('\n')[0].repeat(10)} // [!code highlight]\n${value}`,
-      code: value,
-      lang: language ? language.toLowerCase() : '',
-    })
-  }, [attrs, codeHighlighter, language, value])
+  const highlightedHtml = useMemo(
+    () =>
+      codeHighlighter?.fn?.({
+        attrs: attrs || '',
+        // code: `${value.split('\n')[0].repeat(10)} // [!code highlight]\n${value}`,
+        code: value,
+        lang: language ? language.toLowerCase() : '',
+      }),
+    [attrs, codeHighlighter, language, value],
+  )
 
   const [renderedHtml, setRenderedHtml] = useState(highlightedHtml)
   const [codeBlockRef, setCodeBlockRef] = useState<HTMLDivElement | null>(null)
@@ -79,9 +80,7 @@ export const ShikiHighLighter: FC<ShikiProps> = (props) => {
 
       const $lines = codeBlockRef.querySelectorAll('.line')
       const maxLineWidth = Math.max(
-        ...Array.from($lines).map((el) => {
-          return (el as HTMLElement).scrollWidth
-        }),
+        ...Array.from($lines).map((el) => (el as HTMLElement).scrollWidth),
       )
       $lines.forEach((el) => {
         ;(el as HTMLElement).style.width = `${maxLineWidth}px`

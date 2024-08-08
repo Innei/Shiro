@@ -18,7 +18,7 @@ export const transitionViewIfSupported = (updateCb: () => any) => {
 }
 
 export function escapeSelector(selector: string) {
-  return selector.replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '\\$&')
+  return selector.replaceAll(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '\\$&')
 }
 
 export const nextFrame = (fn: () => void) =>
@@ -53,24 +53,24 @@ export const scrollTextareaToCursor = (
     // 将文本插入到 div 中，并在光标位置添加一个 span
     const start = $ta.selectionStart
     const end = $ta.selectionEnd
-    const textBeforeCursor = $ta.value.substring(0, start)
-    const textAfterCursor = $ta.value.substring(end)
+    const textBeforeCursor = $ta.value.slice(0, Math.max(0, start))
+    const textAfterCursor = $ta.value.slice(Math.max(0, end))
     const textBeforeNode = document.createTextNode(textBeforeCursor)
     const cursorNode = document.createElement('span')
     cursorNode.id = 'cursor'
     const textAfterNode = document.createTextNode(textAfterCursor)
 
-    div.appendChild(textBeforeNode)
-    div.appendChild(cursorNode)
-    div.appendChild(textAfterNode)
-    document.body.appendChild(div)
+    div.append(textBeforeNode)
+    div.append(cursorNode)
+    div.append(textAfterNode)
+    document.body.append(div)
 
     // 获取光标元素的位置
-    const cursorSpan = document.getElementById('cursor')
+    const cursorSpan = document.querySelector('#cursor')
     const cursorY = cursorSpan!.offsetTop
-    const lineHeight = parseInt(styles.lineHeight)
+    const lineHeight = Number.parseInt(styles.lineHeight)
     // 移除临时 div
-    document.body.removeChild(div)
+    div.remove()
 
     // 计算滚动位置
     const scrollTop = cursorY - $ta.clientHeight / 2 + lineHeight / 2

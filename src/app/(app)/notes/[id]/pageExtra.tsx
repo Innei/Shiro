@@ -1,14 +1,11 @@
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client'
 
+import type { Image } from '@mx-space/api-client'
 import { useQueryClient } from '@tanstack/react-query'
-import { useEffect, useMemo, useRef } from 'react'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
-import type { Image } from '@mx-space/api-client'
-import type { MarkdownToJSX } from '~/components/ui/markdown'
 import type { FC, PropsWithChildren } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 
 import { appStaticConfig } from '~/app.static.config'
 import { withClientOnly } from '~/components/common/ClientOnly'
@@ -17,6 +14,7 @@ import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { GoToAdminEditingButton } from '~/components/modules/shared/GoToAdminEditingButton'
 import { WithArticleSelectionAction } from '~/components/modules/shared/WithArticleSelectionAction'
 import { FloatPopover } from '~/components/ui/float-popover'
+import type { MarkdownToJSX } from '~/components/ui/markdown'
 import { MainMarkdown } from '~/components/ui/markdown'
 import { parseDate } from '~/lib/datetime'
 import { logger } from '~/lib/logger'
@@ -153,26 +151,24 @@ export const NoteHeaderMetaInfoSetting = () => {
 
   return null
 }
-const MarkdownRenderers: { [name: string]: Partial<MarkdownToJSX.Rule> } = {
+const MarkdownRenderers: Record<string, Partial<MarkdownToJSX.Rule>> = {
   text: {
     react(node, _, state) {
       return <span key={state?.key}>{node.content}</span>
     },
   },
 }
-export const IndentArticleContainer = (props: PropsWithChildren) => {
-  return (
-    <article
-      className={clsx(
-        'prose relative',
-        styles['with-indent'],
-        styles['with-serif'],
-      )}
-    >
-      {props.children}
-    </article>
-  )
-}
+export const IndentArticleContainer = (props: PropsWithChildren) => (
+  <article
+    className={clsx(
+      'prose relative',
+      styles['with-indent'],
+      styles['with-serif'],
+    )}
+  >
+    {props.children}
+  </article>
+)
 
 export const NoteDataReValidate: FC<{ fetchedAt: string }> = withClientOnly(
   ({ fetchedAt }) => {

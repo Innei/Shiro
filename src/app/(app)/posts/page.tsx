@@ -1,9 +1,7 @@
-/* eslint-disable react/display-name */
-import { NormalContainer } from '~/components/layout/container/Normal'
-import { PostPagination } from '~/components/modules/post'
-
 import '~/components/modules/post/PostItem'
 
+import { NormalContainer } from '~/components/layout/container/Normal'
+import { PostPagination } from '~/components/modules/post'
 import { PostsSettingFab } from '~/components/modules/post/fab/PostsSettingsFab'
 import { PostTagsFAB } from '~/components/modules/post/fab/PostTagsFAB'
 import { PostItemComposer } from '~/components/modules/post/PostItemComposer'
@@ -34,8 +32,8 @@ export const revalidate = 600
 export default definePrerenderPage<Props>()({
   fetcher: async (params) => {
     const { page, size, orderBy, sortBy } = params || {}
-    const currentPage = page ? parseInt(page) : 1
-    const currentSize = size ? parseInt(size) : 10
+    const currentPage = page ? Number.parseInt(page) : 1
+    const currentSize = size ? Number.parseInt(size) : 10
 
     return await apiClient.post.getList(currentPage, currentSize, {
       sortBy: sortBy as any,
@@ -48,7 +46,7 @@ export default definePrerenderPage<Props>()({
     const { data, pagination } = props.data
     const { page } = params
 
-    const currentPage = page ? parseInt(page) : 1
+    const currentPage = page ? Number.parseInt(page) : 1
 
     if (!data?.length) {
       return <NothingFound />
@@ -58,9 +56,9 @@ export default definePrerenderPage<Props>()({
       <NormalContainer>
         <PostListDataRevaildate fetchedAt={fetchedAt} />
         <ul data-fetch-at={fetchedAt}>
-          {data.map((item, index) => {
-            return <PostItemComposer key={item.id} index={index} data={item} />
-          })}
+          {data.map((item, index) => (
+            <PostItemComposer key={item.id} index={index} data={item} />
+          ))}
         </ul>
 
         {currentPage > 1 ? (

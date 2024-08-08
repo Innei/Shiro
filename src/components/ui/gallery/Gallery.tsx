@@ -138,14 +138,15 @@ export const Gallery: FC<GalleryProps> = (props) => {
     },
   })
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       clearInterval(autoplayTimerRef.current)
-    }
-  }, [])
+    },
+    [],
+  )
 
   const [fullScreen, setFullScreen] = useState(false)
-  if (!images.length) {
+  if (images.length === 0) {
     return null
   }
   if (images.length === 1) {
@@ -171,9 +172,9 @@ export const Gallery: FC<GalleryProps> = (props) => {
         onTouchMove={handleCancelAutoplay}
         onWheel={handleCancelAutoplay}
       >
-        {images.map((image) => {
-          return <GalleryItem key={image.url} image={image} />
-        })}
+        {images.map((image) => (
+          <GalleryItem key={image.url} image={image} />
+        ))}
       </div>
 
       {currentIndex > 0 && (
@@ -234,18 +235,16 @@ export const Gallery: FC<GalleryProps> = (props) => {
       <div className={clsx(styles['indicator'], 'space-x-2')}>
         {Array.from({
           length: images.length,
-        }).map((_, i) => {
-          return (
-            <div
-              className={clsx(
-                'size-[6px] cursor-pointer rounded-full bg-stone-600 opacity-50 transition-opacity duration-200 ease-in-out',
-                currentIndex == i && '!opacity-100',
-              )}
-              key={i}
-              onClick={handleScrollTo.bind(null, i)}
-            />
-          )
-        })}
+        }).map((_, i) => (
+          <div
+            className={clsx(
+              'size-[6px] cursor-pointer rounded-full bg-stone-600 opacity-50 transition-opacity duration-200 ease-in-out',
+              currentIndex == i && '!opacity-100',
+            )}
+            key={i}
+            onClick={handleScrollTo.bind(null, i)}
+          />
+        ))}
       </div>
     </div>
   )

@@ -17,29 +17,27 @@ const images = Array.from({ length: 10 }).map((_, i) => ({
   accent: `#${genHex()}`,
 }))
 
-export const Demo1: DocumentComponent = () => {
-  return (
-    <div
-      className="inline-block overflow-hidden border border-accent"
-      style={{
-        width: '600px',
-      }}
-    >
-      <WrappedElementProvider>
-        <MarkdownImageRecordProvider images={images}>
-          <Gallery
-            images={images.map((image) => ({
-              ...image,
-              url: image.src,
-              name: image.src,
-              footnote: image.src,
-            }))}
-          />
-        </MarkdownImageRecordProvider>
-      </WrappedElementProvider>
-    </div>
-  )
-}
+export const Demo1: DocumentComponent = () => (
+  <div
+    className="inline-block overflow-hidden border border-accent"
+    style={{
+      width: '600px',
+    }}
+  >
+    <WrappedElementProvider>
+      <MarkdownImageRecordProvider images={images}>
+        <Gallery
+          images={images.map((image) => ({
+            ...image,
+            url: image.src,
+            name: image.src,
+            footnote: image.src,
+          }))}
+        />
+      </MarkdownImageRecordProvider>
+    </WrappedElementProvider>
+  </div>
+)
 
 Demo1.meta = {
   title: 'Gallery',

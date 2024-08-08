@@ -1,4 +1,3 @@
-import type React from 'react'
 import {
   use,
   useCallback,
@@ -7,6 +6,7 @@ import {
   useMemo,
   useRef,
 } from 'react'
+import type React from 'react'
 import type { FC } from 'react'
 import type { ShikiProps } from './shiki/Shiki'
 
@@ -117,11 +117,9 @@ const useLoadHighlighter = (ref: React.RefObject<HTMLElement | null>) => {
       'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.css',
     )
 
-    Promise.all([
-      loadScript(
-        'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/components/prism-core.min.js',
-      ),
-    ])
+    loadScript(
+      'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/components/prism-core.min.js',
+    )
       .then(() =>
         Promise.all([
           loadScript(

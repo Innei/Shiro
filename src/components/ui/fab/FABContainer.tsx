@@ -1,12 +1,10 @@
 'use client'
 
-import { useEffect, useId, useRef } from 'react'
+import { useId, useRef } from 'react'
 import clsx from 'clsx'
 import { typescriptHappyForwardRef } from 'foxact/typescript-happy-forward-ref'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
-import { AnimatePresence, m } from 'framer-motion'
 import { atom, useAtomValue } from 'jotai'
-import type { HTMLMotionProps } from 'framer-motion'
 import type React from 'react'
 import type {
   ButtonHTMLAttributes,
@@ -103,9 +101,7 @@ export const FABContainer = (props: { children?: ReactNode }) => {
   const isMobile = useIsMobile()
 
   const shouldHide = usePageScrollDirectionSelector(
-    (direction) => {
-      return isMobile && direction === 'down'
-    },
+    (direction) => isMobile && direction === 'down',
     [isMobile],
   )
 

@@ -10,6 +10,4 @@ export const defineQuery = <
 ): Omit<
   FetchQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
   'queryKey'
-> & { queryKey: string[] } => {
-  return options as any
-}
+> & { queryKey: string[] } => options as any

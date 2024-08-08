@@ -1,21 +1,19 @@
-/* eslint-disable react/jsx-no-target-blank */
 'use client'
 
+import type { LinkModel } from '@mx-space/api-client'
+import { LinkState, LinkType, RequestError } from '@mx-space/api-client'
 import { useQuery } from '@tanstack/react-query'
-import { memo, useCallback, useRef, useState } from 'react'
 import { m } from 'framer-motion'
 import Markdown from 'markdown-to-jsx'
-import type { LinkModel } from '@mx-space/api-client'
-import type { FormContextType } from '~/components/ui/form'
 import type { FC } from 'react'
-
-import { LinkState, LinkType, RequestError } from '@mx-space/api-client'
+import { memo, useCallback, useRef, useState } from 'react'
 
 import { NotSupport } from '~/components/common/NotSupport'
 import { Avatar } from '~/components/ui/avatar'
 import { StyledButton } from '~/components/ui/button'
 import { Collapse } from '~/components/ui/collapse'
 import { BackToTopFAB } from '~/components/ui/fab'
+import type { FormContextType } from '~/components/ui/form'
 import { Form, FormInput } from '~/components/ui/form'
 import { FullPageLoading } from '~/components/ui/loading'
 import { useModalStack } from '~/components/ui/modal'
@@ -26,9 +24,9 @@ import { getErrorMessageFromRequestError } from '~/lib/request.shared'
 import { toast } from '~/lib/toast'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
-const renderTitle = (text: string) => {
-  return <h1 className="!my-12 !text-xl font-bold">{text}</h1>
-}
+const renderTitle = (text: string) => (
+  <h1 className="!my-12 !text-xl font-bold">{text}</h1>
+)
 
 export default function Page() {
   const { data, isLoading } = useQuery({
@@ -49,12 +47,14 @@ export default function Page() {
         }
 
         switch (link.state) {
-          case LinkState.Banned:
+          case LinkState.Banned: {
             banned.push(link)
             continue
-          case LinkState.Outdate:
+          }
+          case LinkState.Outdate: {
             outdated.push(link)
             continue
+          }
         }
 
         switch (link.type) {
@@ -85,13 +85,13 @@ export default function Page() {
       <main className="mt-10 flex w-full flex-col">
         {friends.length > 0 && (
           <>
-            {collections.length !== 0 && renderTitle('我的朋友')}
+            {collections.length > 0 && renderTitle('我的朋友')}
             <FriendSection data={friends} />
           </>
         )}
         {collections.length > 0 && (
           <>
-            {friends.length !== 0 && renderTitle('我的收藏')}
+            {friends.length > 0 && renderTitle('我的收藏')}
             <FavoriteSection data={collections} />
           </>
         )}
@@ -129,31 +129,25 @@ type FriendSectionProps = {
   data: LinkModel[]
 }
 
-const FriendSection: FC<FriendSectionProps> = ({ data }) => {
-  return (
-    <section className="grid grid-cols-2 gap-6 md:grid-cols-3 2xl:grid-cols-3">
-      {data.map((link) => {
-        return (
-          <BottomToUpTransitionView key={link.id} duration={50}>
-            <Card link={link} />
-          </BottomToUpTransitionView>
-        )
-      })}
-    </section>
-  )
-}
+const FriendSection: FC<FriendSectionProps> = ({ data }) => (
+  <section className="grid grid-cols-2 gap-6 md:grid-cols-3 2xl:grid-cols-3">
+    {data.map((link) => (
+      <BottomToUpTransitionView key={link.id} duration={50}>
+        <Card link={link} />
+      </BottomToUpTransitionView>
+    ))}
+  </section>
+)
 
-const LayoutBg = memo(() => {
-  return (
-    <m.span
-      layoutId="bg"
-      className="absolute -inset-2 z-[-1] rounded-md bg-slate-200/80 dark:bg-neutral-600/80"
-      initial={{ opacity: 0.8, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.8, transition: { delay: 0.2 } }}
-    />
-  )
-})
+const LayoutBg = memo(() => (
+  <m.span
+    layoutId="bg"
+    className="absolute -inset-2 z-[-1] rounded-md bg-slate-200/80 dark:bg-neutral-600/80"
+    initial={{ opacity: 0.8, scale: 0.8 }}
+    animate={{ opacity: 1, scale: 1 }}
+    exit={{ opacity: 0, scale: 0.8, transition: { delay: 0.2 } }}
+  />
+))
 LayoutBg.displayName = 'LayoutBg'
 
 const Card: FC<{ link: LinkModel }> = ({ link }) => {
@@ -193,59 +187,47 @@ const Card: FC<{ link: LinkModel }> = ({ link }) => {
   )
 }
 
-const FavoriteSection: FC<FriendSectionProps> = ({ data }) => {
-  return (
-    <ul className="relative flex w-full grow flex-col gap-4">
-      {data.map((link) => {
-        return (
-          <li key={link.id} className="flex w-full items-end">
-            <a
-              href={link.url}
-              target="_blank"
-              className="shrink-0 text-base leading-none"
-              rel="noreferrer"
-            >
-              {link.name}
-            </a>
+const FavoriteSection: FC<FriendSectionProps> = ({ data }) => (
+  <ul className="relative flex w-full grow flex-col gap-4">
+    {data.map((link) => (
+      <li key={link.id} className="flex w-full items-end">
+        <a
+          href={link.url}
+          target="_blank"
+          className="shrink-0 text-base leading-none"
+          rel="noreferrer"
+        >
+          {link.name}
+        </a>
 
-            <span className="ml-2 h-[12px] max-w-full truncate break-all text-xs leading-none text-base-content/80">
-              {link.description || ''}
-            </span>
-          </li>
-        )
-      })}
-    </ul>
-  )
-}
+        <span className="ml-2 h-[12px] max-w-full truncate break-all text-xs leading-none text-base-content/80">
+          {link.description || ''}
+        </span>
+      </li>
+    ))}
+  </ul>
+)
 
-const OutdateSection: FC<FriendSectionProps> = ({ data }) => {
-  return (
-    <ul className="space-y-1 p-4 opacity-80">
-      {data.map((link) => {
-        return (
-          <li key={link.id}>
-            <span className="cursor-not-allowed font-medium">{link.name}</span>
-            <span className="ml-2 text-sm">{link.description || ''}</span>
-          </li>
-        )
-      })}
-    </ul>
-  )
-}
+const OutdateSection: FC<FriendSectionProps> = ({ data }) => (
+  <ul className="space-y-1 p-4 opacity-80">
+    {data.map((link) => (
+      <li key={link.id}>
+        <span className="cursor-not-allowed font-medium">{link.name}</span>
+        <span className="ml-2 text-sm">{link.description || ''}</span>
+      </li>
+    ))}
+  </ul>
+)
 
-const BannedSection: FC<FriendSectionProps> = ({ data }) => {
-  return (
-    <ul className="space-y-1 p-4 opacity-40">
-      {data.map((link) => {
-        return (
-          <li key={link.id}>
-            <span className="cursor-not-allowed">{link.name}</span>
-          </li>
-        )
-      })}
-    </ul>
-  )
-}
+const BannedSection: FC<FriendSectionProps> = ({ data }) => (
+  <ul className="space-y-1 p-4 opacity-40">
+    {data.map((link) => (
+      <li key={link.id}>
+        <span className="cursor-not-allowed">{link.name}</span>
+      </li>
+    ))}
+  </ul>
+)
 
 const ApplyLinkInfo: FC = () => {
   const {
@@ -430,20 +412,16 @@ const FormModal = () => {
   )
 }
 
-const isHttpsUrl = (value: string) => {
-  return (
-    /^https?:\/\/.*/.test(value) &&
-    (() => {
-      try {
-        new URL(value)
-        return true
-      } catch {
-        return false
-      }
-    })()
-  )
-}
+const isHttpsUrl = (value: string) =>
+  /^https?:\/\/.*/.test(value) &&
+  (() => {
+    try {
+      new URL(value)
+      return true
+    } catch {
+      return false
+    }
+  })()
 
-const isEmail = (value: string) => {
-  return /^.+@.+\..+$/.test(value)
-}
+const isEmail = (value: string) =>
+  /^.[^\n\r@\u2028\u2029]*@.[^\n\r.\u2028\u2029]*\..+$/.test(value)

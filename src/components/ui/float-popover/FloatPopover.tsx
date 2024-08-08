@@ -175,24 +175,27 @@ const RealFloatPopover = function FloatPopover<T extends {}>(
       // onBlur: doPopoverDisappear,
     }
     switch (trigger) {
-      case 'click':
+      case 'click': {
         return {
           ...baseListener,
           onClick: doPopoverShow,
         }
-      case 'hover':
+      }
+      case 'hover': {
         return {
           ...baseListener,
           onMouseOver: doPopoverShow,
           onMouseOut: doPopoverDisappear,
         }
-      case 'both':
+      }
+      case 'both': {
         return {
           ...baseListener,
           onClick: doPopoverShow,
           onMouseOver: doPopoverShow,
           onMouseOut: handleMouseOut,
         }
+      }
     }
   }, [doPopoverDisappear, doPopoverShow, handleMouseOut, trigger])
 
@@ -242,9 +245,10 @@ const RealFloatPopover = function FloatPopover<T extends {}>(
       onClose?.()
     }
   }, [open])
-  const actionCtxValue = useMemo(() => {
-    return { close: doPopoverDisappear }
-  }, [doPopoverDisappear])
+  const actionCtxValue = useMemo(
+    () => ({ close: doPopoverDisappear }),
+    [doPopoverDisappear],
+  )
 
   if (!props.children) {
     return TriggerWrapper

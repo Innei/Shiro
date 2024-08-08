@@ -45,17 +45,15 @@ export const PostBottomBarAction: Component = () => {
   )
 }
 
-export const PostActionAside: Component = ({ className }) => {
-  return (
-    <ActionAsideContainer className={className}>
-      <LikeButton />
-      <ShareButton />
-      <SubscribeButton />
-      <AsideDonateButton />
-      <PostAsideCommentButton />
-    </ActionAsideContainer>
-  )
-}
+export const PostActionAside: Component = ({ className }) => (
+  <ActionAsideContainer className={className}>
+    <LikeButton />
+    <ShareButton />
+    <SubscribeButton />
+    <AsideDonateButton />
+    <PostAsideCommentButton />
+  </ActionAsideContainer>
+)
 
 const SubscribeButton = () => {
   const { present } = usePresentSubscribeModal(['post_c'])
@@ -68,13 +66,11 @@ const SubscribeButton = () => {
 
 const PostAsideCommentButton = () => {
   const { title, id, allowComment } =
-    useCurrentPostDataSelector((data) => {
-      return {
-        title: data?.title,
-        id: data?.id,
-        allowComment: data?.allowComment,
-      }
-    }) || {}
+    useCurrentPostDataSelector((data) => ({
+      title: data?.title,
+      id: data?.id,
+      allowComment: data?.allowComment,
+    })) || {}
   const isEof = useIsEoFWrappedElement()
   if (!id) return null
   if (isEof) return null

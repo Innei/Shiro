@@ -69,27 +69,21 @@ export const useModalStack = (options?: ModalStackOptions) => {
 
 const actions = {
   dismiss(id: string) {
-    jotaiStore.set(modalStackAtom, (p) => {
-      return p.filter((item) => item.id !== id)
-    })
+    jotaiStore.set(modalStackAtom, (p) => p.filter((item) => item.id !== id))
   },
   dismissTop() {
-    jotaiStore.set(modalStackAtom, (p) => {
-      return p.slice(0, -1)
-    })
+    jotaiStore.set(modalStackAtom, (p) => p.slice(0, -1))
   },
   dismissAll() {
     jotaiStore.set(modalStackAtom, [])
   },
 }
-export const ModalStackProvider: FC<PropsWithChildren> = ({ children }) => {
-  return (
-    <>
-      {children}
-      <ModalStack />
-    </>
-  )
-}
+export const ModalStackProvider: FC<PropsWithChildren> = ({ children }) => (
+  <>
+    {children}
+    <ModalStack />
+  </>
+)
 
 const ModalStack = () => {
   const stack = useAtomValue(modalStackAtom)

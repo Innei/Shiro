@@ -82,7 +82,7 @@ const SearchPanel = () => {
         {panelOpen && (
           <Dialog.Portal>
             <Dialog.Content>
-              <div className="fixed inset-0 z-20 flex center">
+              <div className="center fixed inset-0 z-20 flex">
                 <div
                   className="fixed inset-0 z-[-1]"
                   onClick={() => {
@@ -138,27 +138,30 @@ const SearchPanelImpl = () => {
 
       const _list: SearchListType[] = data?.data.map((item: any) => {
         switch (item.type) {
-          case 'post':
+          case 'post': {
             return {
               title: item.title,
               subtitle: item.category.name,
               id: item.id,
               url: `/posts/${item.category.slug}/${item.slug}`,
             }
-          case 'note':
+          }
+          case 'note': {
             return {
               title: item.title,
               subtitle: '手记',
               id: item.id,
               url: `/notes/${item.nid}`,
             }
-          case 'page':
+          }
+          case 'page': {
             return {
               title: item.title,
               subtitle: '页面',
               id: item.id,
               url: `/pages/${item.slug}`,
             }
+          }
         }
       })
       setCurrentSelect(0)
@@ -272,13 +275,13 @@ const SearchPanelImpl = () => {
               </div>
             </div>
           ) : (
-            data.map((item, index) => {
-              return <SearchItem key={item.id} {...item} index={index} />
-            })
+            data.map((item, index) => (
+              <SearchItem key={item.id} {...item} index={index} />
+            ))
           )}
 
           {data.length === 0 && isLoading && (
-            <div className="flex h-full grow center">
+            <div className="center flex h-full grow">
               <div className="loading loading-spinner" />
             </div>
           )}
@@ -339,7 +342,7 @@ const SearchItem = memo(function Item({
     <li
       className={clsx(
         'relative flex w-full justify-between px-1',
-        'before:absolute before:inset-0 before:rounded-md before:content-auto',
+        'before:content-auto before:absolute before:inset-0 before:rounded-md',
         'before:z-0 hover:before:bg-zinc-200/80 dark:hover:before:bg-zinc-800/80',
         isSelect && 'before:bg-zinc-200/80 dark:before:bg-zinc-800/80',
       )}

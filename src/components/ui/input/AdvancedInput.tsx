@@ -21,13 +21,11 @@ const useAdvancedInputPropsContext = () => useContext(InputPropsContext)
 
 export const AdvancedInputProvider: FC<
   ContextType<typeof InputPropsContext> & PropsWithChildren
-> = ({ children, ...props }) => {
-  return (
-    <InputPropsContext.Provider value={props}>
-      {children}
-    </InputPropsContext.Provider>
-  )
-}
+> = ({ children, ...props }) => (
+  <InputPropsContext.Provider value={props}>
+    {children}
+  </InputPropsContext.Provider>
+)
 
 export interface AdvancedInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {

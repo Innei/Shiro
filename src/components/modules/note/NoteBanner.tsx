@@ -58,21 +58,19 @@ export const NoteBanner: FC<{
   className?: string
   message: string
   type?: keyof typeof bannerClassNames
-}> = (banner) => {
-  return (
-    <div
-      className={clsxm(
-        'mt-4 flex justify-center p-4 text-base leading-8',
-        'lg:-ml-12 lg:w-[calc(100%+6rem)]',
-        // '-ml-4 w-[calc(100%+2rem)]',
-        'mx-[var(--padding-h)]',
+}> = (banner) => (
+  <div
+    className={clsxm(
+      'mt-4 flex justify-center p-4 text-base leading-8',
+      'lg:-ml-12 lg:w-[calc(100%+6rem)]',
+      // '-ml-4 w-[calc(100%+2rem)]',
+      'mx-[var(--padding-h)]',
 
-        bannerClassNames[banner.type as keyof typeof bannerClassNames],
-        banner.className,
-      )}
-      style={banner.style}
-    >
-      {banner.message}
-    </div>
-  )
-}
+      bannerClassNames[banner.type as keyof typeof bannerClassNames],
+      banner.className,
+    )}
+    style={banner.style}
+  >
+    {banner.message}
+  </div>
+)

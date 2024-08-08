@@ -33,12 +33,11 @@ const ActivityIconContext = createContext<{
 }>(null!)
 
 const CND_DOMAIN = 'https://fastly.jsdelivr.net/gh/Innei/reporter-assets@main'
-const fetchJsonData = () => {
-  return Promise.all([
+const fetchJsonData = () =>
+  Promise.all([
     fetch(`${CND_DOMAIN}/app-icon.json`).then((res) => res.json() as object),
     fetch(`${CND_DOMAIN}/app-desc.json`).then((res) => res.json() as object),
   ])
-}
 export const Activity = () => {
   const shouldShowMeta = useHeaderMetaShouldShow()
 
@@ -68,8 +67,8 @@ const ActivityIcon = memo(() => {
   const isPageActive = usePageIsActive()
   const { data } = useQuery({
     queryKey: ['activity'],
-    queryFn: async () => {
-      return await apiClient
+    queryFn: async () =>
+      await apiClient
         .proxy(endpoint)
         .post<{
           processName: string
@@ -85,14 +84,11 @@ const ActivityIcon = memo(() => {
           }
         }>()
         .then((res) => res)
-        .catch(() => {
-          return {
-            processName: '',
-            processInfo: undefined,
-            mediaInfo: undefined,
-          }
-        })
-    },
+        .catch(() => ({
+          processName: '',
+          processInfo: undefined,
+          mediaInfo: undefined,
+        })),
     refetchInterval: 1000 * 5 * 60,
     refetchOnMount: 'always',
     retry: false,

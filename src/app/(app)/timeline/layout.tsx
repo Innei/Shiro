@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import { dehydrate } from '@tanstack/react-query'
 import type { PropsWithChildren } from 'react'
 
@@ -28,14 +27,13 @@ export default definePrerenderPage<{
     const queryClient = getQueryClient()
     await queryClient.fetchQuery({
       queryKey: ['timeline', nextType, year],
-      queryFn: async () => {
-        return await apiClient.aggregate
+      queryFn: async () =>
+        await apiClient.aggregate
           .getTimeline({
             type: nextType,
             year: +(year || 0) || undefined,
           })
-          .then((res) => res.data)
-      },
+          .then((res) => res.data),
     })
   },
   Component: async (props: PropsWithChildren) => {
@@ -43,9 +41,7 @@ export default definePrerenderPage<{
     return (
       <QueryHydrate
         state={dehydrate(queryClient, {
-          shouldDehydrateQuery: (query) => {
-            return query.queryKey[0] === 'timeline'
-          },
+          shouldDehydrateQuery: (query) => query.queryKey[0] === 'timeline',
         })}
       >
         {props.children}

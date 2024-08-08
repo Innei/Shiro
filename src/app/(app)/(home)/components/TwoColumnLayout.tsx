@@ -15,30 +15,26 @@ export const TwoColumnLayout = ({
   leftContainerClassName?: string
   rightContainerClassName?: string
   className?: string
-}) => {
-  return (
-    <div
-      className={clsxm(
-        'relative mx-auto block size-full min-w-0 max-w-[1800px] flex-col flex-wrap items-center lg:flex lg:flex-row',
-        className,
-      )}
-    >
-      {children.slice(0, 2).map((child, i) => {
-        return (
-          <div
-            key={i}
-            className={clsxm(
-              'center flex w-full flex-col lg:h-auto lg:w-1/2',
+}) => (
+  <div
+    className={clsxm(
+      'relative mx-auto block size-full min-w-0 max-w-[1800px] flex-col flex-wrap items-center lg:flex lg:flex-row',
+      className,
+    )}
+  >
+    {children.slice(0, 2).map((child, i) => (
+      <div
+        key={i}
+        className={clsxm(
+          'center flex w-full flex-col lg:h-auto lg:w-1/2',
 
-              i === 0 ? leftContainerClassName : rightContainerClassName,
-            )}
-          >
-            <div className="relative max-w-full lg:max-w-2xl">{child}</div>
-          </div>
-        )
-      })}
+          i === 0 ? leftContainerClassName : rightContainerClassName,
+        )}
+      >
+        <div className="relative max-w-full lg:max-w-2xl">{child}</div>
+      </div>
+    ))}
 
-      {children[2]}
-    </div>
-  )
-}
+    {children[2]}
+  </div>
+)

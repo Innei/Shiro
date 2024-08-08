@@ -20,9 +20,7 @@ export default definePrerenderPage()({
     return queryClient
       .fetchQuery({
         queryKey,
-        queryFn: async () => {
-          return (await apiClient.aggregate.getTop(5)).$serialized
-        },
+        queryFn: async () => (await apiClient.aggregate.getTop(5)).$serialized,
       })
       .catch(requestErrorHandler)
   },

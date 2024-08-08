@@ -28,10 +28,7 @@ export const MenuPopover: Component<{
       ])}
       triggerElement={<>{children}</>}
     >
-      {!!subMenu.length &&
-        subMenu.map((m) => {
-          return <Item key={m.title} {...m} />
-        })}
+      {subMenu.length > 0 && subMenu.map((m) => <Item key={m.title} {...m} />)}
     </FloatPopover>
   )
 })

@@ -9,19 +9,17 @@ import { NoteCombinedSwitch } from './NoteCombinedSwitch'
 import { NoteWeatherAndMood } from './NoteWeatherAndMood'
 import { TopicSelector } from './TopicSelector'
 
-const Sidebar = () => {
-  return (
-    <SidebarWrapper>
-      <NoteWeatherAndMood />
-      <TopicSelector />
-      <NoteCombinedSwitch />
-      <XLogEnable />
-      <NoteCoverInput />
-      <ImageSection />
-      <MetaSection />
-    </SidebarWrapper>
-  )
-}
+const Sidebar = () => (
+  <SidebarWrapper>
+    <NoteWeatherAndMood />
+    <TopicSelector />
+    <NoteCombinedSwitch />
+    <XLogEnable />
+    <NoteCoverInput />
+    <ImageSection />
+    <MetaSection />
+  </SidebarWrapper>
+)
 
 const NoteCoverInput = () => (
   <CoverInput accessor={useNoteModelSingleFieldAtom('meta')} />
@@ -44,12 +42,10 @@ const MetaSection = () => {
   return <MetaKeyValueEditSection keyValue={meta} onChange={setMeta} />
 }
 
-export const NoteEditorSidebar = () => {
-  return (
-    <div className="hidden flex-col lg:flex">
-      <Sidebar />
+export const NoteEditorSidebar = () => (
+  <div className="hidden flex-col lg:flex">
+    <Sidebar />
 
-      <PresentComponentFab Component={Sidebar} />
-    </div>
-  )
-}
+    <PresentComponentFab Component={Sidebar} />
+  </div>
+)

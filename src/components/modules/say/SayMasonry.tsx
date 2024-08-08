@@ -28,15 +28,12 @@ export const SayMasonry = () => {
   if (!data) return null
 
   const list = data.pages
-    .map((page) => page.data)
-    .flat()
-    .map((say) => {
-      return {
-        text: say.text,
-        item: say,
-        id: say.id,
-      }
-    })
+    .flatMap((page) => page.data)
+    .map((say) => ({
+      text: say.text,
+      item: say,
+      id: say.id,
+    }))
 
   return (
     <>
@@ -63,22 +60,20 @@ export const SayMasonry = () => {
 const placeholderData = Array.from({ length: 10 }).map((_, index) => ({
   index,
   text: '',
-  id: index.toFixed(),
+  id: index.toFixed(0),
   item: {} as SayModel,
 }))
-const SaySkeleton = memo(() => {
-  return (
-    <div className="relative border-l-[3px] border-l-slate-500 bg-slate-200/50 px-4 py-3 dark:bg-neutral-800">
-      <div className="mb-2 h-6 w-full rounded bg-slate-300/80 dark:bg-neutral-700" />
-      <div className="flex text-sm text-base-content/60 md:justify-between">
-        <div className="mb-2 h-4 w-14 rounded bg-slate-300/80 dark:bg-neutral-700 md:mb-0" />
-        <div className="ml-auto text-right">
-          <div className="h-4 w-1/4 rounded bg-slate-300/80 dark:bg-neutral-700" />
-        </div>
+const SaySkeleton = memo(() => (
+  <div className="relative border-l-[3px] border-l-slate-500 bg-slate-200/50 px-4 py-3 dark:bg-neutral-800">
+    <div className="mb-2 h-6 w-full rounded bg-slate-300/80 dark:bg-neutral-700" />
+    <div className="flex text-sm text-base-content/60 md:justify-between">
+      <div className="mb-2 h-4 w-14 rounded bg-slate-300/80 dark:bg-neutral-700 md:mb-0" />
+      <div className="ml-auto text-right">
+        <div className="h-4 w-1/4 rounded bg-slate-300/80 dark:bg-neutral-700" />
       </div>
     </div>
-  )
-})
+  </div>
+))
 SaySkeleton.displayName = 'SaySkeleton'
 
 const options = {
@@ -136,7 +131,7 @@ const Item = memo<{
             onClick={() => present(say)}
             className={clsxm(
               'absolute right-0 top-0 -translate-y-1/3 translate-x-1/3 bg-base-100',
-              'flex size-6 rounded-full text-accent opacity-0 ring-1 ring-slate-200 duration-200 center group-hover:opacity-100 dark:ring-neutral-800',
+              'center flex size-6 rounded-full text-accent opacity-0 ring-1 ring-slate-200 duration-200 group-hover:opacity-100 dark:ring-neutral-800',
             )}
           >
             <i className="icon-[mingcute--quill-pen-line]" />

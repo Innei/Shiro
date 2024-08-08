@@ -17,28 +17,26 @@ import { GatewayInfo } from './GatewayInfo'
 import { OwnerName } from './OwnerName'
 
 // const isVercelEnv = !!process.env.NEXT_PUBLIC_VERCEL_ENV
-export const FooterInfo = () => {
-  return (
-    <>
-      <div className="relative">
-        <FooterLinkSection />
-        {/* {isVercelEnv && (
+export const FooterInfo = () => (
+  <>
+    <div className="relative">
+      <FooterLinkSection />
+      {/* {isVercelEnv && (
           <div className="absolute top-0 hidden lg:-right-8 lg:block">
             <VercelPoweredBy />
           </div>
         )} */}
-      </div>
+    </div>
 
-      <FooterBottom />
+    <FooterBottom />
 
-      {/* {isVercelEnv && (
+    {/* {isVercelEnv && (
         <div className="mt-6 flex justify-center lg:hidden">
           <VercelPoweredBy />
         </div>
       )} */}
-    </>
-  )
-}
+  </>
+)
 
 const FooterLinkSection = async () => {
   const { footer } = (await fetchAggregationData()).theme
@@ -48,34 +46,30 @@ const FooterLinkSection = async () => {
 
   return (
     <div className="space-x-0 space-y-3 md:space-x-6 md:space-y-0">
-      {footerConfig.linkSections.map((section) => {
-        return (
-          <div
-            className="flex items-center gap-4 md:inline-flex"
-            key={section.name}
-          >
-            <b className="inline-flex items-center font-medium">
-              {section.name}
-              <IonIosArrowDown className="ml-2 inline -rotate-90 select-none" />
-            </b>
+      {footerConfig.linkSections.map((section) => (
+        <div
+          className="flex items-center gap-4 md:inline-flex"
+          key={section.name}
+        >
+          <b className="inline-flex items-center font-medium">
+            {section.name}
+            <IonIosArrowDown className="ml-2 inline -rotate-90 select-none" />
+          </b>
 
-            <span className="space-x-4 text-neutral-content/90">
-              {section.links.map((link) => {
-                return (
-                  <StyledLink
-                    external={link.external}
-                    className="link-hover link"
-                    href={link.href}
-                    key={link.name}
-                  >
-                    {link.name}
-                  </StyledLink>
-                )
-              })}
-            </span>
-          </div>
-        )
-      })}
+          <span className="space-x-4 text-neutral-content/90">
+            {section.links.map((link) => (
+              <StyledLink
+                external={link.external}
+                className="link-hover link"
+                href={link.href}
+                key={link.name}
+              >
+                {link.name}
+              </StyledLink>
+            ))}
+          </span>
+        </div>
+      ))}
     </div>
   )
 }
@@ -99,68 +93,64 @@ const StyledLink = (
     </As>
   )
 }
-const Divider: Component = ({ className }) => {
-  return (
-    <span className={clsxm('select-none whitespace-pre opacity-50', className)}>
-      {' '}
-      |{' '}
-    </span>
-  )
-}
+const Divider: Component = ({ className }) => (
+  <span className={clsxm('select-none whitespace-pre opacity-50', className)}>
+    {' '}
+    |{' '}
+  </span>
+)
 
-const PoweredBy: Component = ({ className }) => {
-  return (
-    <span className={className}>
-      Powered by{' '}
-      <StyledLink href="https://github.com/mx-space" target="_blank">
-        Mix Space
-      </StyledLink>
-      <span className="mx-1">&</span>
-      <FloatPopover
-        mobileAsSheet
-        type="tooltip"
-        triggerElement={
+const PoweredBy: Component = ({ className }) => (
+  <span className={className}>
+    Powered by{' '}
+    <StyledLink href="https://github.com/mx-space" target="_blank">
+      Mix Space
+    </StyledLink>
+    <span className="mx-1">&</span>
+    <FloatPopover
+      mobileAsSheet
+      type="tooltip"
+      triggerElement={
+        <StyledLink
+          className="cursor-help"
+          href="https://github.com/innei/Shiro"
+          target="_blank"
+        >
+          白い
+        </StyledLink>
+      }
+    >
+      <div className="space-y-2">
+        <p>
+          这是{' '}
           <StyledLink
-            className="cursor-help"
+            className="underline"
             href="https://github.com/innei/Shiro"
             target="_blank"
           >
-            白い
-          </StyledLink>
-        }
-      >
-        <div className="space-y-2">
+            Shiro
+          </StyledLink>{' '}
+          的闭源版本。
+        </p>
+        <p>
+          可以通过{' '}
+          <MLink popper={false} href="https://github.com/sponsors/Innei">
+            Sponsor
+          </MLink>{' '}
+          获取
+        </p>
+        {process.env.COMMIT_HASH && process.env.COMMIT_URL && (
           <p>
-            这是{' '}
-            <StyledLink
-              className="underline"
-              href="https://github.com/innei/Shiro"
-              target="_blank"
-            >
-              Shiro
-            </StyledLink>{' '}
-            的闭源版本。
+            <MLink popper={false} href={process.env.COMMIT_URL}>
+              版本哈希：{process.env.COMMIT_HASH.slice(0, 8)}
+            </MLink>
           </p>
-          <p>
-            可以通过{' '}
-            <MLink popper={false} href="https://github.com/sponsors/Innei">
-              Sponsor
-            </MLink>{' '}
-            获取
-          </p>
-          {process.env.COMMIT_HASH && process.env.COMMIT_URL && (
-            <p>
-              <MLink popper={false} href={process.env.COMMIT_URL}>
-                版本哈希：{process.env.COMMIT_HASH.slice(0, 8)}
-              </MLink>
-            </p>
-          )}
-        </div>
-      </FloatPopover>
-      .
-    </span>
-  )
-}
+        )}
+      </div>
+    </FloatPopover>
+    .
+  </span>
+)
 
 // type VisitorGeolocation = {
 //   country: string
