@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unknown-property */
 export const NotFound404: Component = ({ children }) => {
   return (
     <div className="min-h-[500px]">

@@ -7,7 +7,6 @@ import { useIsClient } from '~/hooks/common/use-is-client'
 import { ActionAsideIcon } from './ActionAsideContainer'
 import { CommentModal } from './CommentModal'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AsideCommentButtonProps {}
 
 export const AsideCommentButton = (

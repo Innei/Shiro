@@ -6,5 +6,4 @@ export * from './LeftToRightTransitionView'
 export * from './RightToLeftTransitionView'
 export * from './ScaleTransitionView'
 export * from './TextUpTransitionView'
-
 export * from './typings'

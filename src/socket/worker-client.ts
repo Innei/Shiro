@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import type { EventTypes, SocketEmitEnum } from '~/types/events'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
@@ -28,7 +27,7 @@ class SocketWorker {
   constructor() {
     if (isServerSide) return
 
-    const worker = new SharedWorker(new URL('./io.worker', import.meta.url), {
+    const worker = new SharedWorker(new URL('io.worker', import.meta.url), {
       name: 'shiro-ws-worker',
     })
     this.prepare(worker)
@@ -118,7 +117,6 @@ class SocketWorker {
   }
   handleEvent(type: EventTypes, data: any) {
     if (isDev) {
-      // eslint-disable-next-line no-console
       console.info(data)
     }
 

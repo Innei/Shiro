@@ -138,27 +138,30 @@ const SearchPanelImpl = () => {
 
       const _list: SearchListType[] = data?.data.map((item: any) => {
         switch (item.type) {
-          case 'post':
+          case 'post': {
             return {
               title: item.title,
               subtitle: item.category.name,
               id: item.id,
               url: `/posts/${item.category.slug}/${item.slug}`,
             }
-          case 'note':
+          }
+          case 'note': {
             return {
               title: item.title,
               subtitle: '手记',
               id: item.id,
               url: `/notes/${item.nid}`,
             }
-          case 'page':
+          }
+          case 'page': {
             return {
               title: item.title,
               subtitle: '页面',
               id: item.id,
               url: `/pages/${item.slug}`,
             }
+          }
         }
       })
       setCurrentSelect(0)

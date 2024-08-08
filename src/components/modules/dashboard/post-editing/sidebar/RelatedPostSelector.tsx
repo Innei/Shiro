@@ -156,7 +156,7 @@ const RealtedPostList: FC = () => {
                 className="checkbox-accent checkbox"
                 checked={selection.has(post.id)}
                 onChange={(e) => {
-                  const checked = e.target.checked
+                  const { checked } = e.target
 
                   if (checked) {
                     setter(

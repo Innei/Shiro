@@ -31,8 +31,7 @@ const validatorMap = {
     message: '昵称长度应在 1-20 之间',
   },
   mail: {
-    validator: (v: string) =>
-      /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(v),
+    validator: (v: string) => /^[\w-]+@[\w-]+(\.[\w-]+)+$/.test(v),
     message: '邮箱格式不正确',
   },
   url: {
@@ -86,7 +85,7 @@ const LoggedForm = () => {
         className={clsx(
           'mb-2 shrink-0 select-none self-end overflow-hidden rounded-full',
           'dark:ring-zinc-800" bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800',
-          'backface-hidden ml-[2px]',
+          'ml-[2px] backface-hidden',
         )}
       >
         <Image

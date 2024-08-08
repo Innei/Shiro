@@ -140,7 +140,7 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
           const nextData = data
           Reflect.deleteProperty(nextData, 'meta')
           Object.assign(draft, nextData)
-          const meta = data.meta
+          const { meta } = data
 
           if (data.text) {
             editorRef?.setMarkdown(data.text)

@@ -92,10 +92,9 @@ const FormInternal = (
       for await (const [key, field] of Object.entries(fields)) {
         const $ref = field.getEl()
         if (!$ref) continue
-        const value = $ref.value
-        const rules = field.rules
-        for (let i = 0; i < rules.length; i++) {
-          const rule = rules[i]
+        const { value } = $ref
+        const { rules } = field
+        for (const [i, rule] of rules.entries()) {
           try {
             const isOk = await rule.validator(value)
             if (!isOk) {

@@ -98,7 +98,7 @@ export const Avatar: FC<
             <img
               src={imageUrl}
               style={{
-                ...{ opacity: loaded ? 1 : 0 },
+                opacity: loaded ? 1 : 0,
                 ...(radius
                   ? { borderRadius: radius === 'full' ? '100%' : `${radius}px` }
                   : undefined),

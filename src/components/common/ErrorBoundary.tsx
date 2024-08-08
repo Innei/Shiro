@@ -4,7 +4,6 @@ import { ErrorBoundary as ErrorBoundaryLib } from 'react-error-boundary'
 import type { FC, PropsWithChildren } from 'react'
 
 // import { captureException } from '@sentry/nextjs'
-
 import { StyledButton } from '../ui/button'
 
 const FallbackComponent = () => {

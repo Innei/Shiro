@@ -22,7 +22,7 @@ export const login = async (username?: string, password?: string) => {
       throw err
     })
     if (user) {
-      const token = user.token
+      const { token } = user
       setToken(token)
       jotaiStore.set(isLoggedAtom, true)
 

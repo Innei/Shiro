@@ -14,7 +14,7 @@ export function getSummaryFromMd(
   },
 ) {
   const rawText = RemoveMarkdown(text, { gfm: true })
-  const description = rawText.slice(0, options.length).replace(/[\s]/gm, ' ')
+  const description = rawText.slice(0, options.length).replaceAll(/\s/g, ' ')
   if (options.count) {
     return {
       description,

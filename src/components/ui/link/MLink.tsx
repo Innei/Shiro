@@ -46,8 +46,8 @@ export const MLink: FC<{
         return
       }
       e.preventDefault()
-      const pathArr = toUrlParser.pathname.split('/').filter(Boolean)
-      const headPath = pathArr[0]
+      const pathArr = toUrlParser.pathname.split('/').find(Boolean)
+      const headPath = pathArr
 
       switch (headPath) {
         case 'posts':

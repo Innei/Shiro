@@ -2,7 +2,7 @@
 // cssAsPlugin.js
 const postcss = require('postcss')
 const postcssJs = require('postcss-js')
-const { readFileSync } = require('fs')
+const { readFileSync } = require('node:fs')
 
 require.extensions['.css'] = function (module, filename) {
   module.exports = ({ addBase, addComponents, addUtilities }) => {

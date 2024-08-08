@@ -178,7 +178,7 @@ export const ImageDetailSection: FC<ImageDetailSectionProps> = (props) => {
     },
   )
 
-  if (!nextImages.length) return null
+  if (nextImages.length === 0) return null
 
   return (
     <>
@@ -228,7 +228,7 @@ const Item: FC<
             label="高度"
             value={image.height?.toString() || ''}
             onChange={(e) => {
-              const validValue = parseInt(e.target.value)
+              const validValue = Number.parseInt(e.target.value)
               if (Number.isNaN(validValue)) return
               handleOnChange(image.src, 'height', validValue)
             }}
@@ -237,7 +237,7 @@ const Item: FC<
             label="宽度"
             value={image.width?.toString() || ''}
             onChange={(e) => {
-              const validValue = parseInt(e.target.value)
+              const validValue = Number.parseInt(e.target.value)
               if (Number.isNaN(validValue)) return
               handleOnChange(image.src, 'width', validValue)
             }}

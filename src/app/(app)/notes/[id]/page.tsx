@@ -135,7 +135,7 @@ export const generateMetadata = async ({
   try {
     const res = await getData(params)
 
-    const data = res.data
+    const { data } = res
     const { title, text } = data
     const description = getSummaryFromMd(text ?? '')
 

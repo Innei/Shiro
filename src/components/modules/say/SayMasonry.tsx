@@ -27,8 +27,7 @@ export const SayMasonry = () => {
   if (!data) return null
 
   const list = data.pages
-    .map((page) => page.data)
-    .flat()
+    .flatMap((page) => page.data)
     .map((say) => {
       return {
         text: say.text,
@@ -62,7 +61,7 @@ export const SayMasonry = () => {
 const placeholderData = Array.from({ length: 10 }).map((_, index) => ({
   index,
   text: '',
-  id: index.toFixed(),
+  id: index.toFixed(0),
   item: {} as SayModel,
 }))
 const SaySkeleton = memo(() => {

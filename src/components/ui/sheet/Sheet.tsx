@@ -74,7 +74,7 @@ export const PresentSheet: FC<PropsWithChildren<PresentSheetProps>> = (
     }
   }, [holderRef, store])
 
-  const Root = Drawer.Root
+  const { Root } = Drawer
 
   const overlayZIndex = zIndex - 1
   const contentZIndex = zIndex

@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-key */
+/* eslint-disable @eslint-react/no-missing-key */
 import { memo, useMemo } from 'react'
 import type { ReactNode } from 'react'
 

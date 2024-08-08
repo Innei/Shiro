@@ -28,7 +28,7 @@ export const MenuPopover: Component<{
       ])}
       triggerElement={<>{children}</>}
     >
-      {!!subMenu.length &&
+      {subMenu.length > 0 &&
         subMenu.map((m) => {
           return <Item key={m.title} {...m} />
         })}

@@ -77,7 +77,7 @@ function loadAndApplyFont(
 
   const $style = document.createElement('style')
   $style.innerHTML = `#${MAIN_MARKDOWN_ID} { font-family: ${config.fontFamily};`
-  document.head.appendChild($style)
+  document.head.append($style)
 
   return () => {
     document.head.removeChild($style)

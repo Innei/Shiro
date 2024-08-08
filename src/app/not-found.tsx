@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import { NotFound404 } from '~/components/common/404'
 import { StyledButton } from '~/components/ui/button'
 import { sansFont } from '~/lib/fonts'

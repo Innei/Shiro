@@ -93,7 +93,7 @@ const ForDesktop: Component<{
       const bounds = currentTarget.getBoundingClientRect()
       mouseX.set(clientX - bounds.left)
       mouseY.set(clientY - bounds.top)
-      radius.set(Math.sqrt(bounds.width ** 2 + bounds.height ** 2) / 2.5)
+      radius.set(Math.hypot(bounds.width, bounds.height) / 2.5)
     },
     [mouseX, mouseY, radius],
   )

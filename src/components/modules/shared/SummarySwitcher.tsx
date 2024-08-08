@@ -20,7 +20,7 @@ export const SummarySwitcher: FC<
   const cid = getCidForBaseModel(data)
 
   const finalSummary = 'summary' in data ? data.summary : summary
-  if (finalSummary && finalSummary.trim().length)
+  if (finalSummary && finalSummary.trim().length > 0)
     return <ManualSummary className="my-4" summary={finalSummary} />
 
   if (!enabled) return null
@@ -30,12 +30,14 @@ export const SummarySwitcher: FC<
   for (const provider of providers) {
     if (comp) break
     switch (provider) {
-      case 'xlog':
+      case 'xlog': {
         if (cid) comp = <XLogSummary cid={cid} />
         break
-      case 'openai':
+      }
+      case 'openai': {
         if (!process.env.OPENAI_API_KEY) break
         if (data) comp = <AISummary data={data} />
+      }
     }
   }
 

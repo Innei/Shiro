@@ -24,7 +24,7 @@ export const Hitokoto = () => {
         from: data.from,
         from_who: data.from_who,
         creator: data.creator,
-      }).filter(Boolean)[0]
+      }).find(Boolean)
       if (!data.hitokoto) {
         return '没有获取到句子信息'
       } else {

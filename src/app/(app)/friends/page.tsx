@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-target-blank */
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
@@ -49,12 +48,14 @@ export default function Page() {
         }
 
         switch (link.state) {
-          case LinkState.Banned:
+          case LinkState.Banned: {
             banned.push(link)
             continue
-          case LinkState.Outdate:
+          }
+          case LinkState.Outdate: {
             outdated.push(link)
             continue
+          }
         }
 
         switch (link.type) {
@@ -85,13 +86,13 @@ export default function Page() {
       <main className="mt-10 flex w-full flex-col">
         {friends.length > 0 && (
           <>
-            {collections.length !== 0 && renderTitle('我的朋友')}
+            {collections.length > 0 && renderTitle('我的朋友')}
             <FriendSection data={friends} />
           </>
         )}
         {collections.length > 0 && (
           <>
-            {friends.length !== 0 && renderTitle('我的收藏')}
+            {friends.length > 0 && renderTitle('我的收藏')}
             <FavoriteSection data={collections} />
           </>
         )}

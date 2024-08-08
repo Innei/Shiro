@@ -1,12 +1,12 @@
-import { execSync } from 'child_process'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import { execSync } from 'node:child_process'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+import NextBundleAnalyzer from '@next/bundle-analyzer'
 import { codeInspectorPlugin } from 'code-inspector-plugin'
 import { config } from 'dotenv'
 
-import NextBundleAnalyzer from '@next/bundle-analyzer'
-
-import pkg from './package.json' assert { type: 'json' }
+ 
 
 process.title = 'Shiro (NextJS)'
 
@@ -26,7 +26,7 @@ if (repoInfo) {
 }
 
 /** @type {import('next').NextConfig} */
-// eslint-disable-next-line import/no-mutable-exports
+ 
 let nextConfig = {
   // logging: {
   //   fetches: {
@@ -35,7 +35,7 @@ let nextConfig = {
   //   },
   // },
   env: {
-    APP_VERSION: pkg.version,
+     
     COMMIT_HASH: commitHash,
     COMMIT_URL: commitUrl,
   },
@@ -143,11 +143,12 @@ function getRepoInfo() {
       process.env
 
     switch (VERCEL_GIT_PROVIDER) {
-      case 'github':
+      case 'github': {
         return {
           hash: process.env.VERCEL_GIT_COMMIT_SHA,
           url: `https://github.com/${VERCEL_GIT_REPO_OWNER}/${VERCEL_GIT_REPO_SLUG}/commit/${process.env.VERCEL_GIT_COMMIT_SHA}`,
         }
+      }
     }
   } else {
     return getRepoInfoFromGit()

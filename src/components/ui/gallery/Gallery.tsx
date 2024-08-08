@@ -141,7 +141,7 @@ export const Gallery: FC<GalleryProps> = (props) => {
     }
   }, [])
 
-  if (!images.length) {
+  if (images.length === 0) {
     return null
   }
   if (images.length === 1) {

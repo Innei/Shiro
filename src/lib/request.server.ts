@@ -104,7 +104,7 @@ export const definePrerenderPage =
           )
         }
 
-        console.error('error in fetcher: ', error)
+        console.error('error in fetcher:', error)
         return errorRenderer(error, params) ?? defaultErrorRenderer(error)
       }
     }

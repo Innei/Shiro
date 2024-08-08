@@ -21,8 +21,8 @@ declare global {
 if (isDev && isClientSide) window.getModelPostData = getGlobalModelData
 
 export {
-  ModelDataProvider as CurrentPostDataProvider,
   ModelDataAtomProvider as CurrentPostDataAtomProvider,
+  ModelDataProvider as CurrentPostDataProvider,
   getGlobalModelData as getGlobalCurrentPostData,
   setGlobalModelData as setGlobalCurrentPostData,
   useModelDataSelector as useCurrentPostDataSelector,

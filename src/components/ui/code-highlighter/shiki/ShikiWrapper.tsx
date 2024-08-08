@@ -95,7 +95,7 @@ export const ShikiHighLighterWrapper = forwardRef<
 
       const $hightlighted = $el.querySelector('.highlighted')
       if ($hightlighted) {
-        const lineHeight = parseInt(
+        const lineHeight = Number.parseInt(
           getComputedStyle($hightlighted).height || '0',
           10,
         )

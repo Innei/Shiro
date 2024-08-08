@@ -34,7 +34,7 @@ export const Sidebar: FC = () => {
                     {componentName.at(0)?.toUpperCase() +
                       componentName
                         .slice(1)
-                        .replace(/-\s*(\w)/g, (match, p1) => {
+                        .replaceAll(/-\s*(\w)/g, (match, p1) => {
                           return ` ${p1.toUpperCase()}`
                         })}
                   </Link>

@@ -37,7 +37,7 @@ export const MHeader = (props: HeadingProps) => {
           tabIndex={0}
           aria-hidden
           onClick={() => {
-            const state = history.state
+            const { state } = history
             history.replaceState(state, '', `#${nextId}`)
             springScrollToElement(document.getElementById(nextId)!, -100)
           }}

@@ -3,11 +3,9 @@
 import { useEffect } from 'react'
 
 // import { captureException } from '@sentry/nextjs'
-
 import { NormalContainer } from '~/components/layout/container/Normal'
 import { StyledButton } from '~/components/ui/button'
 
-// eslint-disable-next-line react/display-name
 export default ({ error, reset }: any) => {
   useEffect(() => {
     console.error('error', error)

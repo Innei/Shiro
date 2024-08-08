@@ -1,10 +1,9 @@
-import ReactDOM from 'react-dom/client'
-import { RouterProvider } from 'react-router-dom'
-
 import './index.css'
 import './markdown.css'
 import '../../src/styles/index.css'
 
+import ReactDOM from 'react-dom/client'
+import { RouterProvider } from 'react-router-dom'
 import { LazyMotion } from 'framer-motion'
 
 import { routes } from './router'

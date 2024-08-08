@@ -18,7 +18,7 @@ export const transitionViewIfSupported = (updateCb: () => any) => {
 }
 
 export function escapeSelector(selector: string) {
-  return selector.replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '\\$&')
+  return selector.replaceAll(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '\\$&')
 }
 
 export const nextFrame = (fn: () => void) =>
@@ -60,15 +60,15 @@ export const scrollTextareaToCursor = (
     cursorNode.id = 'cursor'
     const textAfterNode = document.createTextNode(textAfterCursor)
 
-    div.appendChild(textBeforeNode)
-    div.appendChild(cursorNode)
-    div.appendChild(textAfterNode)
-    document.body.appendChild(div)
+    div.append(textBeforeNode)
+    div.append(cursorNode)
+    div.append(textAfterNode)
+    document.body.append(div)
 
     // 获取光标元素的位置
     const cursorSpan = document.getElementById('cursor')
     const cursorY = cursorSpan!.offsetTop
-    const lineHeight = parseInt(styles.lineHeight)
+    const lineHeight = Number.parseInt(styles.lineHeight)
     // 移除临时 div
     document.body.removeChild(div)
 

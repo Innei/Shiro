@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { useQuery } from '@tanstack/react-query'
 import type { AggregateTop } from '@mx-space/api-client'
+import { useQuery } from '@tanstack/react-query'
 
 export const queryKey = ['home']
 

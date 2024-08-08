@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import { dehydrate } from '@tanstack/react-query'
 import type { PropsWithChildren } from 'react'
 

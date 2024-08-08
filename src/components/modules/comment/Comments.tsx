@@ -32,12 +32,11 @@ const useNewCommentObserver = (refId: string) => {
     document.addEventListener('visibilitychange', onVisibilityChange)
 
     const cleaner = WsEvent.on(BusinessEvents.COMMENT_CREATE, (data: any) => {
-      if (data.ref === refId) {
-        // 如果标签页在后台
-
-        if (document.visibilityState === 'hidden') {
-          document.title = `新评论！${currentTitle}`
-        }
+      if (
+        data.ref === refId && // 如果标签页在后台
+        document.visibilityState === 'hidden'
+      ) {
+        document.title = `新评论！${currentTitle}`
       }
     })
     return () => {
@@ -75,7 +74,7 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
   if (isLoading) {
     return <CommentSkeleton />
   }
-  if (!data || !data.pages.length || !data.pages[0].data.length)
+  if (!data || data.pages.length === 0 || data.pages[0].data.length === 0)
     return (
       <div className="flex min-h-[400px] center">
         <NotSupport text="这里还没有评论呢" />

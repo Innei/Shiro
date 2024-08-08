@@ -62,7 +62,7 @@ export const CodeBlockRender = (props: {
         )
       }
       default: {
-        const lang = props.lang
+        const { lang } = props
         const nextProps = { ...props }
         nextProps.content = formatCode(props.content)
         if (lang) {

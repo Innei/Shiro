@@ -6,7 +6,6 @@ export const debounce = <F extends (...args: any[]) => any>(
   let timeoutId: ReturnType<typeof setTimeout> | undefined
 
   return function (this: any, ...args: Parameters<F>) {
-
     const doLater = () => {
       timeoutId = undefined
       if (!immediate) {
@@ -75,8 +74,7 @@ export const throttle = <F extends (...args: any[]) => any>(
   }
 }
 
-export const isUndefined = (val: any): val is undefined =>
-  typeof val === 'undefined'
+export const isUndefined = (val: any): val is undefined => val === undefined
 
 export const cloneDeep = <T>(val: T): T => {
   if (Array.isArray(val)) {
@@ -120,8 +118,8 @@ export const isShallowEqualArray = <T>(arr1: T[], arr2: T[]): boolean => {
     return false
   }
 
-  for (let i = 0; i < arr1.length; i++) {
-    if (!Object.is(arr1[i], arr2[i])) {
+  for (const [i, element] of arr1.entries()) {
+    if (!Object.is(element, arr2[i])) {
       return false
     }
   }

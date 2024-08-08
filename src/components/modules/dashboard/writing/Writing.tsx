@@ -109,13 +109,13 @@ const MenuBar = () => {
         if (!ctx) return
         const view = ctx.get(editorViewCtx)
         if (!view) return
-        const state = view.state
+        const { state } = view
 
         const currentCursorPosition = state.selection.from
 
         const schema = ctx.get(schemaCtx)
         const nextNode = schema.node(excalidrawSchema.type(ctx), {})
-        const tr = state.tr
+        const { tr } = state
         tr.replaceSelectionWith(nextNode)
         // 判断是否插入的 node 位于文档的末尾
         const isNewNodeIsEof =
@@ -132,7 +132,7 @@ const MenuBar = () => {
         if (!ctx) return
         const view = ctx.get(editorViewCtx)
         if (!view) return
-        const state = view.state
+        const { state } = view
 
         const currentCursorPosition = state.selection.from
         const schema = ctx.get(schemaCtx)
@@ -140,7 +140,7 @@ const MenuBar = () => {
           value: '<auto_open>',
         })
 
-        const tr = state.tr
+        const { tr } = state
         tr.replaceSelectionWith(nextNode)
         // 判断是否插入的 node 位于文档的末尾
         const isNewNodeIsEof =

@@ -86,9 +86,8 @@ export const getQueryClientForDashboard = () =>
         refetchIntervalInBackground: false,
         refetchOnMount: true,
         retry(failureCount, error) {
-          if (error instanceof RequestError) {
-            if (error.status === 401) return false
-          }
+          if (error instanceof RequestError && error.status === 401)
+            return false
           return failureCount < 3
         },
       },

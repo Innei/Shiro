@@ -102,16 +102,15 @@ export const eventHandler = (
       const post = data as PostModel
       if (
         location.pathname ===
-        routeBuilder(Routes.Post, {
-          category: post.category.slug,
-          slug: post.slug,
-        })
+          routeBuilder(Routes.Post, {
+            category: post.category.slug,
+            slug: post.slug,
+          }) &&
+        getGlobalCurrentPostData()?.id === post.id
       ) {
-        if (getGlobalCurrentPostData()?.id === post.id) {
-          router.replace(routeBuilder(Routes.PageDeletd, {}))
-          toast.error('文章已删除')
-          trackerRealtimeEvent()
-        }
+        router.replace(routeBuilder(Routes.PageDeletd, {}))
+        toast.error('文章已删除')
+        trackerRealtimeEvent()
       }
 
       break
@@ -143,15 +142,14 @@ export const eventHandler = (
       const note = data as NoteModel
       if (
         location.pathname ===
-        routeBuilder(Routes.Note, {
-          id: note.id,
-        })
+          routeBuilder(Routes.Note, {
+            id: note.id,
+          }) &&
+        getCurrentNoteData()?.data.id === note.id
       ) {
-        if (getCurrentNoteData()?.data.id === note.id) {
-          router.replace(routeBuilder(Routes.PageDeletd, {}))
-          toast.error('手记已删除')
-          trackerRealtimeEvent()
-        }
+        router.replace(routeBuilder(Routes.PageDeletd, {}))
+        toast.error('手记已删除')
+        trackerRealtimeEvent()
       }
 
       break
@@ -239,7 +237,7 @@ export const eventHandler = (
 
     case EventTypes.ACTIVITY_UPDATE_PRESENCE: {
       const payload = data as ActivityPresence
-      const queryKey = queries.activity.presence(payload.roomName).queryKey
+      const { queryKey } = queries.activity.presence(payload.roomName)
       const queryState = queryClient.getQueryState(queryKey)
       queryClient.cancelQueries({
         queryKey,
@@ -347,7 +345,6 @@ export const eventHandler = (
 
     default: {
       if (isDev) {
-        // eslint-disable-next-line no-console
         console.info(type, data)
       }
     }

@@ -2,9 +2,9 @@ import React, { createElement, Fragment } from 'react'
 import type { FC, ReactNode } from 'react'
 import type { DocumentComponent, DocumentPageMeta } from '../typings'
 
+import { GLOB_PATH } from '../config' with { type: 'macro' }
 import { Markdown } from './components/Markdown'
 
-import { GLOB_PATH } from '../config' assert { type: 'macro' }
 // TODO find project root
 const modulesPath2PromiseMapping = import.meta.glob(GLOB_PATH)
 

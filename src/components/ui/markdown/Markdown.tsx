@@ -5,7 +5,6 @@ import { clsx } from 'clsx'
 import { compiler, sanitizeUrl } from 'markdown-to-jsx'
 import Script from 'next/script'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
-/* eslint-disable react-hooks/rules-of-hooks */
 import type React from 'react'
 import type { FC, PropsWithChildren } from 'react'
 
@@ -48,7 +47,7 @@ export interface MdProps {
   value?: string
 
   style?: React.CSSProperties
-  readonly renderers?: { [key: string]: Partial<MarkdownToJSX.Rule> }
+  readonly renderers?: Record<string, Partial<MarkdownToJSX.Rule>>
   wrapperProps?: React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
@@ -180,12 +179,12 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
                   const isCurrentHost =
                     thisUrl.hostname === window.location.hostname
                   if (!isCurrentHost && !isDev) {
-                    return undefined
+                    return
                   }
-                  const pathname = thisUrl.pathname
+                  const { pathname } = thisUrl
                   return pathname.slice(1)
                 } catch {
-                  return undefined
+                  return
                 }
               })()
 

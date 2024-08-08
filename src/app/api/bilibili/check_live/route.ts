@@ -59,6 +59,6 @@ export const GET = async (req: NextRequest): Promise<Response> => {
     return response.end()
   }
 
-  const info = (userInfo as BLUser).data.info
+  const { info } = (userInfo as BLUser).data
   return response.json({ ...info })
 }

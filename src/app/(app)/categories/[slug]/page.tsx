@@ -25,7 +25,7 @@ export default definePrerenderPage<{ slug: string }>()({
           <h1>分类 - {name}</h1>
 
           <h3 className="font-light">
-            {children.length
+            {children.length > 0
               ? `当前共有 ${children.length} 篇文章，加油！`
               : `这里还有没有内容呢，再接再厉！`}
           </h3>

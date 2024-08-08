@@ -82,9 +82,7 @@ declare global {
   }
 
   declare module '*?worker' {
-    const workerConstructor: {
-      new (): Worker
-    }
+    const workerConstructor: new () => Worker
     export default workerConstructor
   }
 }

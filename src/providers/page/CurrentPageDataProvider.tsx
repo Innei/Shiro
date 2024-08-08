@@ -22,9 +22,9 @@ declare global {
 if (isDev && isClientSide) window.getCurrentPageData = getModelData
 
 export {
+  ModelDataAtomProvider as CurrentPageDataAtomProvider,
   ModelDataProvider as CurrentPageDataProvider,
   getModelData as getCurrentPageData,
   setModelData as setCurrentPageData,
   useModelDataSelector as useCurrentPageDataSelector,
-  ModelDataAtomProvider as CurrentPageDataAtomProvider,
 }

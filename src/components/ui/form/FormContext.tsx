@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react'
 import { atom } from 'jotai'
 import type { Field } from './types'
 
-const initialFields = atom({} as { [key: string]: Field })
+const initialFields = atom({} as Record<string, Field>)
 export interface FormContextType {
   fields: typeof initialFields
   addField: (name: string, field: Field) => void

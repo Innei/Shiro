@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import { NormalContainer } from '~/components/layout/container/Normal'
 import { PostsSortingFab } from '~/components/modules/post/fab/PostsSortingFab'
 import { PostTagsFAB } from '~/components/modules/post/fab/PostTagsFAB'
@@ -26,8 +25,8 @@ export const metadata = {
 export default definePrerenderPage<Props>()({
   fetcher: async (params) => {
     const { page, size, orderBy, sortBy } = params || {}
-    const currentPage = page ? parseInt(page) : 1
-    const currentSize = size ? parseInt(size) : 10
+    const currentPage = page ? Number.parseInt(page) : 1
+    const currentSize = size ? Number.parseInt(size) : 10
 
     return await apiClient.post.getList(currentPage, currentSize, {
       sortBy: sortBy as any,
@@ -39,7 +38,7 @@ export default definePrerenderPage<Props>()({
     const { data, pagination } = props.data
     const { page } = params
 
-    const currentPage = page ? parseInt(page) : 1
+    const currentPage = page ? Number.parseInt(page) : 1
 
     if (!data?.length) {
       return <NothingFound />

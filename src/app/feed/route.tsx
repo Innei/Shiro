@@ -80,10 +80,8 @@ export async function GET() {
                 Tab: NotSupportRender,
 
                 img: ({ src, alt }) => {
-                  if (src) {
-                    if (new URL(src).hostname === CDN_HOST) {
-                      return <span>此图片不支持在 RSS Render 中查看。</span>
-                    }
+                  if (src && new URL(src).hostname === CDN_HOST) {
+                    return <span>此图片不支持在 RSS Render 中查看。</span>
                   }
                   return <img src={src} alt={alt} />
                 },

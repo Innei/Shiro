@@ -135,7 +135,7 @@ const List = () => {
     refetchOnMount: true,
 
     getNextPageParam: (l) => {
-      return l.length > 0 ? l[l.length - 1]?.id : undefined
+      return l.length > 0 ? l.at(-1)?.id : undefined
     },
     initialPageParam: undefined as undefined | string,
   })

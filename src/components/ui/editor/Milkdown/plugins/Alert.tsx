@@ -71,7 +71,7 @@ function visitCodeBlock(ast: Node, stringify: (ast: any) => string) {
     ast,
     'blockquote',
     (node: any, index, parent: Node & { children: Node[] }) => {
-      if (node.children.length < 1) {
+      if (node.children.length === 0) {
         return node
       }
 
@@ -101,7 +101,7 @@ function visitCodeBlock(ast: Node, stringify: (ast: any) => string) {
       transformedTree.type = 'root'
       const newNode = createAlertDiv({
         // FIXME: replace all backslashes with empty string,
-        text: stringify(transformedTree).replace(/\\/g, '') || '',
+        text: stringify(transformedTree).replaceAll('\\', '') || '',
         type: (matched[1] as string) || 'NOTE',
       })
 
@@ -147,7 +147,7 @@ const AlertRender = () => {
   const { contentRef, setAttrs, node, selected } = useNodeViewContext()
 
   const attrs = node.attrs as AlertValue
-  const type = attrs.type
+  const { type } = attrs
 
   return (
     <div>

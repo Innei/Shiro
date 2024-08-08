@@ -1,16 +1,16 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { useMemo } from 'react'
 import clsx from 'clsx'
 import { m } from 'framer-motion'
-import type { ReactActivityType } from './types'
+import { useMemo } from 'react'
 
 import { ScrollArea } from '~/components/ui/scroll-area'
 import { softBouncePreset } from '~/constants/spring'
 import { apiClient } from '~/lib/request'
 
 import { ActivityCard, iconClassName } from './ActivityCard'
+import type { ReactActivityType } from './types'
 
 export const ActivityRecent = () => {
   const { data, isLoading } = useQuery({
@@ -26,13 +26,12 @@ export const ActivityRecent = () => {
 
   const flatData = useMemo(() => {
     return [...Object.entries(data || {})]
-      .map(([type, items]) => {
+      .flatMap(([type, items]) => {
         if (!Array.isArray(items)) return []
         return items.map((item: any) => {
           return { ...item, bizType: type }
         })
       })
-      .flat()
       .sort((a, b) => {
         return new Date(b.created).getTime() - new Date(a.created).getTime()
       }) as ReactActivityType[]

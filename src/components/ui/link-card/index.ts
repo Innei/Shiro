@@ -1,3 +1,2 @@
-export * from './LinkCard'
-
 export * from './enums'
+export * from './LinkCard'

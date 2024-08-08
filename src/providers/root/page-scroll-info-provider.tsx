@@ -42,7 +42,7 @@ const ScrollDetector = () => {
           const bodyStyle = document.body.style
           if (bodyStyle.position === 'fixed') {
             const bodyTop = bodyStyle.top
-            currentTop = Math.abs(parseInt(bodyTop, 10))
+            currentTop = Math.abs(Number.parseInt(bodyTop, 10))
           }
         }
         setPageScrollDirection(
@@ -91,9 +91,9 @@ const useIsScrollUpAndPageIsOver = (threshold: number) => {
   )
 }
 export {
-  usePageScrollDirection,
-  usePageScrollLocation,
   useIsScrollUpAndPageIsOver,
-  usePageScrollLocationSelector,
+  usePageScrollDirection,
   usePageScrollDirectionSelector,
+  usePageScrollLocation,
+  usePageScrollLocationSelector,
 }

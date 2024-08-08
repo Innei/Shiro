@@ -61,7 +61,7 @@ import {
 const safeParse = (value: string) => {
   try {
     return JSON.parse(value)
-  } catch (e) {
+  } catch {
     return null
   }
 }
@@ -69,7 +69,7 @@ const previewDataAtom = atom<PostModel | NoteModel | null>(null)
 export default function PreviewPage() {
   // handle preview by storage observer
   useIsomorphicLayoutEffect(() => {
-    const search = location.search
+    const { search } = location
     const searchParams = new URLSearchParams(search)
 
     const sameSite = searchParams.get('same-site')
@@ -109,7 +109,7 @@ export default function PreviewPage() {
   // handle preview by postMessage
 
   useIsomorphicLayoutEffect(() => {
-    const search = location.search
+    const { search } = location
     const searchParams = new URLSearchParams(search)
 
     let targetOrigin = searchParams.get('origin')
@@ -168,13 +168,16 @@ export default function PreviewPage() {
   }
 
   switch (true) {
-    case isNoteModel(previewData):
+    case isNoteModel(previewData): {
       return <NotePreview />
-    case isPostModel(previewData):
+    }
+    case isPostModel(previewData): {
       return <PostPreview />
+    }
 
-    case isPageModel(previewData):
+    case isPageModel(previewData): {
       return <PagePreview />
+    }
   }
 
   return null

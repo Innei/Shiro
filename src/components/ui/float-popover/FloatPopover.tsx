@@ -174,24 +174,27 @@ const RealFloatPopover = function FloatPopover<T extends {}>(
       // onBlur: doPopoverDisappear,
     }
     switch (trigger) {
-      case 'click':
+      case 'click': {
         return {
           ...baseListener,
           onClick: doPopoverShow,
         }
-      case 'hover':
+      }
+      case 'hover': {
         return {
           ...baseListener,
           onMouseOver: doPopoverShow,
           onMouseOut: doPopoverDisappear,
         }
-      case 'both':
+      }
+      case 'both': {
         return {
           ...baseListener,
           onClick: doPopoverShow,
           onMouseOver: doPopoverShow,
           onMouseOut: handleMouseOut,
         }
+      }
     }
   }, [doPopoverDisappear, doPopoverShow, handleMouseOut, trigger])
 
@@ -277,7 +280,7 @@ const RealFloatPopover = function FloatPopover<T extends {}>(
                   'relative z-[2]',
 
                   type === 'tooltip'
-                    ? `shadow-out-sm max-w-[25rem] break-all rounded-xl px-4 py-2`
+                    ? `max-w-[25rem] break-all rounded-xl px-4 py-2 shadow-out-sm`
                     : 'shadow-lg',
                   popoverClassNames,
                 )}

@@ -40,7 +40,6 @@ export const $fetch = createFetch({
         context.options.cache = 'no-store'
       }
       if (isDev && isServerSide) {
-        // eslint-disable-next-line no-console
         console.info(`[Request]: ${context.request}`)
       }
 
@@ -49,7 +48,6 @@ export const $fetch = createFetch({
     onResponse(context) {
       // log response
       if (isDev && isServerSide) {
-        // eslint-disable-next-line no-console
         console.info(`[Response]: ${context.request}`, context.response.status)
       }
     },
@@ -66,7 +64,7 @@ export const attachFetchHeader = (key: string, value: string | null) => {
   }
 
   return () => {
-    if (typeof original === 'undefined') {
+    if (original === undefined) {
       delete globalConfigureHeader[key]
     } else {
       globalConfigureHeader[key] = original

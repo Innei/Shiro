@@ -50,7 +50,7 @@ const WhisperCheckbox = () => {
         checked={isWhisper}
         type="checkbox"
         onChange={(e) => {
-          const checked = e.target.checked
+          const { checked } = e.target
           setter('isWhisper', checked)
         }}
       />
@@ -75,7 +75,7 @@ const SyncToRecentlyCheckbox = () => {
         checked={syncToRecently}
         type="checkbox"
         onChange={(e) => {
-          const checked = e.target.checked
+          const { checked } = e.target
           setter('syncToRecently', checked)
         }}
       />

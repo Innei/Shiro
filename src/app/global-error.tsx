@@ -4,7 +4,6 @@ import { useEffect } from 'react'
 import { domAnimation, LazyMotion } from 'framer-motion'
 
 // import { captureException } from '@sentry/nextjs'
-
 import { NormalContainer } from '~/components/layout/container/Normal'
 import { StyledButton } from '~/components/ui/button'
 

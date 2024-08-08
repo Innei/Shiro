@@ -87,7 +87,7 @@ export const TocTree: Component<
 
       return {
         depth,
-        index: isNaN(index) ? -1 : index,
+        index: Number.isNaN(index) ? -1 : index,
         title,
         anchorId: el.id,
         $heading: el,
@@ -159,7 +159,7 @@ export const TocTree: Component<
       </ul>
       {accessoryElement && (
         <li className="shrink-0">
-          {!!toc.length && <Divider />}
+          {toc.length > 0 && <Divider />}
           {accessoryElement}
         </li>
       )}
@@ -194,7 +194,7 @@ const MemoedItem = memo<{
     const containerHeight = $container.clientHeight
     const itemHeight = $item.clientHeight
     const itemOffsetTop = $item.offsetTop
-    const scrollTop = $container.scrollTop
+    const { scrollTop } = $container
 
     const itemTop = itemOffsetTop - scrollTop
     const itemBottom = itemTop + itemHeight

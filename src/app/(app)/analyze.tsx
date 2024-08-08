@@ -1,7 +1,8 @@
 'use client'
 
-import { useRef } from 'react'
 import { useServerInsertedHTML } from 'next/navigation'
+import { useRef } from 'react'
+
 import type { TrackerAction } from '~/constants/tracker'
 
 declare global {
@@ -32,7 +33,7 @@ export const Analyze = () => {
                 const $ = e.target as HTMLElement
 
                 let current: HTMLElement | null = $
-                let event = $.dataset.event
+                let { event } = $.dataset
                 while (!event && current && current !== document.body) {
                   event = current.dataset.event
                   current = current.parentElement

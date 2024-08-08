@@ -139,7 +139,7 @@ const ActivityIcon = memo(() => {
     <>
       {!!media && (
         <m.div className="absolute inset-y-0 left-0 z-10 flex items-center lg:left-[-30px]">
-          <div className="center absolute inset-0 z-[-1] flex">
+          <div className="absolute inset-0 z-[-1] flex center">
             <div className="size-6 rounded-md ring-2 ring-red-500 dark:ring-red-400" />
           </div>
           <FloatPopover

@@ -39,7 +39,7 @@ export default definePrerenderPage<{ slug: string }>()({
   Component: async ({ children, params }) => {
     const queryClient = getQueryClient()
     const query = getTopicQuery(params.slug)
-    const queryKey = query.queryKey
+    const { queryKey } = query
 
     return (
       <QueryHydrate

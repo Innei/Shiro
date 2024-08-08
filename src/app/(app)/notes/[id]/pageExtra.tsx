@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client'
 
 import { useEffect } from 'react'
@@ -145,7 +143,7 @@ export const NoteHeaderMetaInfoSetting = () => {
 
   return null
 }
-const MarkdownRenderers: { [name: string]: Partial<MarkdownToJSX.Rule> } = {
+const MarkdownRenderers: Record<string, Partial<MarkdownToJSX.Rule>> = {
   text: {
     react(node, _, state) {
       return <span key={state?.key}>{node.content}</span>

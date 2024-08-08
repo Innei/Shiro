@@ -12,24 +12,29 @@ function isSupportedBrowser() {
   // 检测 Safari
   if (ua.includes('Safari') && !ua.includes('Chrome') && !ua.includes('Edg')) {
     const match = ua.match(safariRegex)
-    return match && parseInt(match[1], 10) >= 16
+    return match && Number.parseInt(match[1], 10) >= 16
   }
 
   const match = ua.match(browserRegex)
   if (!match) return false
 
-  const version = parseInt(match[1], 10)
+  const version = Number.parseInt(match[1], 10)
   switch (true) {
-    case ua.includes('Chrome') && !ua.includes('Edg'):
+    case ua.includes('Chrome') && !ua.includes('Edg'): {
       return version >= 110
-    case ua.includes('Edg'):
+    }
+    case ua.includes('Edg'): {
       return version >= 110
-    case ua.includes('Firefox'):
+    }
+    case ua.includes('Firefox'): {
       return version >= 113
-    case ua.includes('Opera'):
+    }
+    case ua.includes('Opera'): {
       return version >= 102
-    default:
+    }
+    default: {
       return false
+    }
   }
 }
 

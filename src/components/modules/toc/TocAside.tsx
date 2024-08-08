@@ -1,6 +1,5 @@
 'use client'
 
-import type React from 'react'
 import {
   forwardRef,
   startTransition,
@@ -9,6 +8,7 @@ import {
   useMemo,
   useRef,
 } from 'react'
+import type React from 'react'
 
 import { DOMCustomEvents } from '~/constants/event'
 import { useForceUpdate } from '~/hooks/common/use-force-update'
@@ -59,8 +59,8 @@ export const TocAside = forwardRef<
       getContainer: () => containerRef.current,
     }))
 
-    if (typeof $article === 'undefined') {
-      throw new Error('<Toc /> must be used in <WrappedElementProvider />')
+    if ($article === undefined) {
+      throw new TypeError('<Toc /> must be used in <WrappedElementProvider />')
     }
     const $headings = useMemo(() => {
       if (!$article) {

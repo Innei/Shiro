@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query'
 import { createModelDataProvider } from 'jojoo/react'
 import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
-
 import type { NoteWrappedPayload } from '@mx-space/api-client'
 
 import { queries } from '~/queries/definition'
@@ -19,8 +18,8 @@ const {
 } = createModelDataProvider<NoteWrappedPayload>()
 
 export {
-  ModelDataProvider as CurrentNoteDataProvider,
   ModelDataAtomProvider as CurrentNoteDataAtomProvider,
+  ModelDataProvider as CurrentNoteDataProvider,
   getModelData as getCurrentNoteData,
   setModelData as setCurrentNoteData,
   useModelDataSelector as useCurrentNoteDataSelector,
