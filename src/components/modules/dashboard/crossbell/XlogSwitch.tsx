@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { useEffect } from 'react'
 import { useAtom, useStore } from 'jotai'
+import { useEffect } from 'react'
 
 import { XLogIcon } from '~/components/icons/platform/XLogIcon'
 import { LabelSwitch } from '~/components/ui/switch'

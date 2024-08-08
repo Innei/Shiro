@@ -2,7 +2,6 @@ import 'server-only'
 
 import Link from 'next/link'
 import type { JSX } from 'react'
-import type { FooterConfig } from './config'
 
 import { fetchAggregationData } from '~/app/(app)/api'
 import { IonIosArrowDown } from '~/components/icons/arrow'
@@ -11,6 +10,7 @@ import { FloatPopover } from '~/components/ui/float-popover'
 import { MLink } from '~/components/ui/link'
 import { clsxm } from '~/lib/helper'
 
+import type { FooterConfig } from './config'
 import { defaultLinkSections } from './config'
 // import { footerConfig } from './config'
 import { GatewayInfo } from './GatewayInfo'

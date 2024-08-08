@@ -1,5 +1,5 @@
-import { use } from 'react'
 import Image from 'next/image'
+import { use } from 'react'
 import type { TwitterComponents } from 'react-tweet'
 
 const components: TwitterComponents = {

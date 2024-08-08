@@ -1,6 +1,5 @@
-import type { FetchError } from 'ofetch'
-
 import { RequestError } from '@mx-space/api-client'
+import type { FetchError } from 'ofetch'
 
 export const getErrorMessageFromRequestError = (error: RequestError) => {
   if (!(error instanceof RequestError)) return (error as Error).message

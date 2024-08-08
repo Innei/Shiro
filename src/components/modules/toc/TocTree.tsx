@@ -1,5 +1,9 @@
 'use client'
 
+import clsx from 'clsx'
+import { m } from 'framer-motion'
+import { atom, useAtom } from 'jotai'
+import type { FC } from 'react'
 import React, {
   memo,
   startTransition,
@@ -8,12 +12,6 @@ import React, {
   useMemo,
   useRef,
 } from 'react'
-import clsx from 'clsx'
-import { m } from 'framer-motion'
-import { atom, useAtom } from 'jotai'
-import type { FC } from 'react'
-import type { TocSharedProps } from './TocAside'
-import type { ITocItem } from './TocItem'
 
 import { Divider } from '~/components/ui/divider'
 import { RightToLeftTransitionView } from '~/components/ui/transition'
@@ -22,6 +20,8 @@ import { useMaskScrollArea } from '~/hooks/shared/use-mask-scrollarea'
 import { clsxm } from '~/lib/helper'
 import { springScrollToElement } from '~/lib/scroller'
 
+import type { TocSharedProps } from './TocAside'
+import type { ITocItem } from './TocItem'
 import { TocItem } from './TocItem'
 
 const tocActiveIdAtom = atom<string | null>(null)

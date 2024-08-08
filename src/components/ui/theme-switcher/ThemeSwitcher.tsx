@@ -1,7 +1,7 @@
 'use client'
 
-import { flushSync } from 'react-dom'
 import { useTheme } from 'next-themes'
+import { flushSync } from 'react-dom'
 import { tv } from 'tailwind-variants'
 
 import { useIsClient } from '~/hooks/common/use-is-client'

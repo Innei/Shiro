@@ -1,11 +1,11 @@
 import type { FC } from 'react'
-import type { CommentBaseProps } from './types'
 
 import { LazyLoad } from '~/components/common/Lazyload'
 
 import { CommentBoxRoot } from './CommentBox/Root'
 import { Comments } from './Comments'
 import { CommentSkeleton } from './CommentSkeleton'
+import type { CommentBaseProps } from './types'
 
 export const CommentAreaRoot: FC<
   CommentBaseProps & {

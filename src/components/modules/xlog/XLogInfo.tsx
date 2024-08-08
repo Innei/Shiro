@@ -1,14 +1,15 @@
 'use client'
 
-import { useState } from 'react'
 import { clsx } from 'clsx'
 import type { FC, JSX, SVGProps } from 'react'
-import type { XLogMeta } from './types'
+import { useState } from 'react'
 
 import { CollapseContent } from '~/components/ui/collapse'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
+
+import type { XLogMeta } from './types'
 
 export const XLogInfoForPost: FC = () => {
   const meta = useCurrentPostDataSelector((data) => data?.meta?.xLog)

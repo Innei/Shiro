@@ -1,9 +1,8 @@
 'use client'
 
-import { useEffect } from 'react'
-import clsx from 'clsx'
-
 import { useUser } from '@clerk/nextjs'
+import clsx from 'clsx'
+import { useEffect } from 'react'
 
 import { CommentBoxActionBar } from './ActionBar'
 import { CommentBoxAuthedInputSkeleton } from './AuthedInputSkeleton'

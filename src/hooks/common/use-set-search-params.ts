@@ -1,5 +1,5 @@
-import { useCallback } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useCallback } from 'react'
 
 // https://nextjs.org/docs/app/api-reference/functions/use-search-params#updating-searchparams
 export const useSetSearchParams = () => {

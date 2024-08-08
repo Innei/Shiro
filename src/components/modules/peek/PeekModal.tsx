@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect } from 'react'
 import { m } from 'framer-motion'
 import Link from 'next/link'
 import type { PropsWithChildren } from 'react'
+import { useEffect } from 'react'
 
 import { ImpressionView } from '~/components/common/ImpressionTracker'
 import { useModalStack } from '~/components/ui/modal'

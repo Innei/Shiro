@@ -1,11 +1,10 @@
 'use client'
 
-import { useCallback } from 'react'
 import clsx from 'clsx'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { atom, useAtom, useSetAtom } from 'jotai'
 import { useRouter } from 'next/navigation'
-import type { PostsParams } from '~/lib/route-builder'
+import { useCallback } from 'react'
 
 import { FABPortable } from '~/components/ui/fab'
 import { FloatPanel } from '~/components/ui/float-panel/FloatPanel'
@@ -14,6 +13,7 @@ import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { useRefValue } from '~/hooks/common/use-ref-value'
 import { useSetSearchParams } from '~/hooks/common/use-set-search-params'
 import { Noop } from '~/lib/noop'
+import type { PostsParams } from '~/lib/route-builder'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 
 import { postsViewModeAtom, usePostViewMode } from '../atom'

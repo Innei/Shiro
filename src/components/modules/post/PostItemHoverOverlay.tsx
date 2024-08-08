@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
 import { AnimatePresence, m } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
 
 export const PostItemHoverOverlay = () => {
   const [mouseEnter, setMouseEnter] = useState(false)

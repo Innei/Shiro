@@ -1,9 +1,9 @@
 'use client'
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import { memo } from 'react'
-import { AnimatePresence, m } from 'framer-motion'
 import type { TargetAndTransition } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
+import { memo } from 'react'
 
 import { apiClient } from '~/lib/request'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'

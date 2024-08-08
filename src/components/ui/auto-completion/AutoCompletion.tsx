@@ -1,3 +1,7 @@
+import clsx from 'clsx'
+import { AnimatePresence } from 'framer-motion'
+import Fuse from 'fuse.js'
+import type { KeyboardEvent } from 'react'
 import {
   forwardRef,
   useEffect,
@@ -6,17 +10,13 @@ import {
   useRef,
   useState,
 } from 'react'
-import clsx from 'clsx'
-import { AnimatePresence } from 'framer-motion'
-import Fuse from 'fuse.js'
-import type { KeyboardEvent } from 'react'
-import type { AdvancedInputProps } from '../input'
 
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { stopPropagation } from '~/lib/dom'
 import { clsxm } from '~/lib/helper'
 import { merge, throttle } from '~/lib/lodash'
 
+import type { AdvancedInputProps } from '../input'
 import { Input } from '../input'
 import { RootPortal } from '../portal'
 

@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import markdownEscape from 'markdown-escape'
 import type { Placement } from '@floating-ui/react-dom'
+import markdownEscape from 'markdown-escape'
 import type { FC, PropsWithChildren } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { MotionButtonBase } from '~/components/ui/button'

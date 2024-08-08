@@ -1,3 +1,7 @@
+import clsx from 'clsx'
+import type { Variants } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
+import type { PropsWithChildren } from 'react'
 import {
   forwardRef,
   useCallback,
@@ -7,10 +11,6 @@ import {
   useRef,
   useState,
 } from 'react'
-import clsx from 'clsx'
-import { AnimatePresence, m } from 'framer-motion'
-import type { Variants } from 'framer-motion'
-import type { PropsWithChildren } from 'react'
 
 import { getViewport } from '~/atoms/hooks'
 import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'

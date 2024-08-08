@@ -1,3 +1,5 @@
+import type React from 'react'
+import type { FC } from 'react'
 import {
   use,
   useCallback,
@@ -6,9 +8,6 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import type React from 'react'
-import type { FC } from 'react'
-import type { ShikiProps } from './shiki/Shiki'
 
 import { useIsPrintMode } from '~/atoms/css-media'
 import { useIsDark } from '~/hooks/common/use-is-dark'
@@ -18,6 +17,7 @@ import { loadScript, loadStyleSheet } from '~/lib/load-script'
 import { toast } from '~/lib/toast'
 
 import styles from './CodeHighlighter.module.css'
+import type { ShikiProps } from './shiki/Shiki'
 import { ShikiHighLighter } from './shiki/Shiki'
 
 declare global {

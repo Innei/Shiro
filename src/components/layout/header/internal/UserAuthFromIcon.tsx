@@ -1,8 +1,7 @@
 'use client'
 
-import React from 'react'
-
 import { useUser } from '@clerk/nextjs'
+import React from 'react'
 
 import { getStrategyIconComponent } from '~/components/ui/user/UserAuthStrategyIcon'
 import { clsxm } from '~/lib/helper'

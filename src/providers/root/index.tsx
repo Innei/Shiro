@@ -1,14 +1,10 @@
 'use client'
 
-import {
-  ReactQueryProvider,
-  ReactQueryProviderForDashboard,
-} from './react-query-provider'
-import { Fragment, useState } from 'react'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { LazyMotion } from 'framer-motion'
 import { ThemeProvider } from 'next-themes'
 import type { JSX, PropsWithChildren } from 'react'
+import { Fragment, useState } from 'react'
 
 import { pageScrollElementAtom } from '~/atoms'
 import { useIsMobile } from '~/atoms/hooks'
@@ -25,6 +21,10 @@ import { DebugProvider } from './debug-provider'
 import { EventProvider } from './event-provider'
 import { JotaiStoreProvider } from './jotai-provider'
 import { PageScrollInfoProvider } from './page-scroll-info-provider'
+import {
+  ReactQueryProvider,
+  ReactQueryProviderForDashboard,
+} from './react-query-provider'
 import { SocketContainer } from './socket-provider'
 
 const loadFeatures = () =>

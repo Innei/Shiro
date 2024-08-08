@@ -1,5 +1,5 @@
-import { createElement, useId } from 'react'
 import type { DOMAttributes } from 'react'
+import { createElement, useId } from 'react'
 
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { springScrollToElement } from '~/lib/scroller'

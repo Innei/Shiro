@@ -1,8 +1,8 @@
-import { createContext, createElement, useContext, useEffect } from 'react'
+import type { PrimitiveAtom } from 'jotai'
 import { atom, useAtom } from 'jotai'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import type { PrimitiveAtom } from 'jotai'
 import type { FC } from 'react'
+import { createContext, createElement, useContext, useEffect } from 'react'
 
 import { useBeforeMounted } from '../common/use-before-mounted'
 

@@ -1,9 +1,8 @@
+import { startAuthentication, startRegistration } from '@simplewebauthn/browser'
 import type {
   AuthenticationResponseJSON,
   RegistrationResponseJSON,
 } from '@simplewebauthn/types'
-
-import { startAuthentication, startRegistration } from '@simplewebauthn/browser'
 
 import { apiClient } from './request'
 import { toast } from './toast'

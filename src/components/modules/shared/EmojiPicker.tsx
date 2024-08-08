@@ -1,6 +1,6 @@
 import EmojiPicker$, { EmojiStyle, Theme } from 'emoji-picker-react'
-import { memo } from 'react'
 import type { FC } from 'react'
+import { memo } from 'react'
 
 import { useIsDark } from '~/hooks/common/use-is-dark'
 

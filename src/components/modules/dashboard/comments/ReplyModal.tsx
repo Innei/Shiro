@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import type { CommentModel } from '@mx-space/api-client'
 import clsx from 'clsx'
 import { atom, useStore } from 'jotai'
-import type { CommentModel } from '@mx-space/api-client'
+import { useEffect, useState } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { StyledButton } from '~/components/ui/button'

@@ -1,5 +1,6 @@
 'use client'
 
+import type { UseFloatingOptions } from '@floating-ui/react-dom'
 import {
   autoUpdate,
   flip,
@@ -7,6 +8,8 @@ import {
   shift,
   useFloating,
 } from '@floating-ui/react-dom'
+import { AnimatePresence, m } from 'framer-motion'
+import type { FC, PropsWithChildren, ReactElement } from 'react'
 import React, {
   createContext,
   createElement,
@@ -17,10 +20,6 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import { AnimatePresence, m } from 'framer-motion'
-import type { UseFloatingOptions } from '@floating-ui/react-dom'
-import type { FC, PropsWithChildren, ReactElement } from 'react'
-import type { PresentSheetProps } from '../sheet'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { microReboundPreset } from '~/constants/spring'
@@ -30,6 +29,7 @@ import { stopPropagation } from '~/lib/dom'
 import { clsxm } from '~/lib/helper'
 
 import { RootPortal } from '../portal'
+import type { PresentSheetProps } from '../sheet'
 import { PresentSheet } from '../sheet'
 
 export const FloatPopover = function <T extends {}>(

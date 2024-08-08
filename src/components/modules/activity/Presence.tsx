@@ -1,6 +1,11 @@
 'use client'
 
+import { useUser } from '@clerk/nextjs'
 import { useQuery } from '@tanstack/react-query'
+import clsx from 'clsx'
+import { useAtomValue, useSetAtom } from 'jotai'
+import { atomWithStorage } from 'jotai/utils'
+import type { FC, PropsWithChildren } from 'react'
 import {
   forwardRef,
   memo,
@@ -13,13 +18,6 @@ import {
   useRef,
   useState,
 } from 'react'
-import clsx from 'clsx'
-import { useAtomValue, useSetAtom } from 'jotai'
-import { atomWithStorage } from 'jotai/utils'
-import type { FormContextType } from '~/components/ui/form'
-import type { FC, PropsWithChildren } from 'react'
-
-import { useUser } from '@clerk/nextjs'
 
 import {
   useActivityPresenceByRoomName,
@@ -32,6 +30,7 @@ import {
 import { getServerTime } from '~/components/common/SyncServerTime'
 import { MotionButtonBase, StyledButton } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
+import type { FormContextType } from '~/components/ui/form'
 import { Form, FormInput } from '~/components/ui/form'
 import { useCurrentModal, useModalStack } from '~/components/ui/modal'
 import { RootPortal } from '~/components/ui/portal'

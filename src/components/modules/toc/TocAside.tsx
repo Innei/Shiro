@@ -1,5 +1,6 @@
 'use client'
 
+import type React from 'react'
 import {
   forwardRef,
   startTransition,
@@ -8,7 +9,6 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import type React from 'react'
 
 import { DOMCustomEvents } from '~/constants/event'
 import { useForceUpdate } from '~/hooks/common/use-force-update'

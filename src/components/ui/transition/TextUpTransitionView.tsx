@@ -1,8 +1,8 @@
 'use client'
 
-import React from 'react'
 import { m } from 'framer-motion'
 import type { FC, JSX } from 'react'
+import React from 'react'
 
 import { microReboundPreset } from '~/constants/spring'
 

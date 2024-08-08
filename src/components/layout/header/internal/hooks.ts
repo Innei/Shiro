@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
+import { useEffect } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { jotaiStore } from '~/lib/store'

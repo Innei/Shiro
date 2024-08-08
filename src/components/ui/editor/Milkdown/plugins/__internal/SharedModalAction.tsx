@@ -1,7 +1,6 @@
-import { useState } from 'react'
-import type { NodeViewContext } from '@prosemirror-adapter/react'
-
 import { schemaCtx } from '@milkdown/core'
+import type { NodeViewContext } from '@prosemirror-adapter/react'
+import { useState } from 'react'
 
 import { StyledButton } from '~/components/ui/button'
 import { useCurrentModal } from '~/components/ui/modal'

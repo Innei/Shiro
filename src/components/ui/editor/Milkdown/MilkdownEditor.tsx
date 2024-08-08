@@ -1,5 +1,24 @@
 /* eslint-disable no-console */
+import type { Config } from '@milkdown/core'
+import {
+  defaultValueCtx,
+  Editor,
+  EditorStatus,
+  editorViewCtx,
+  editorViewOptionsCtx,
+  remarkStringifyOptionsCtx,
+  rootCtx,
+  serializerCtx,
+} from '@milkdown/core'
+import type { Ctx } from '@milkdown/ctx'
+import { clipboard } from '@milkdown/plugin-clipboard'
+import { history } from '@milkdown/plugin-history'
+import { indent } from '@milkdown/plugin-indent'
+import { listener, listenerCtx } from '@milkdown/plugin-listener'
+import { commonmark } from '@milkdown/preset-commonmark'
+import { gfm } from '@milkdown/preset-gfm'
 import { Milkdown, MilkdownProvider, useEditor } from '@milkdown/react'
+import { replaceAll } from '@milkdown/utils'
 import {
   ProsemirrorAdapterProvider,
   useNodeViewFactory,
@@ -11,26 +30,6 @@ import {
   useImperativeHandle,
   useRef,
 } from 'react'
-import type { Config } from '@milkdown/core'
-import type { Ctx } from '@milkdown/ctx'
-
-import {
-  defaultValueCtx,
-  Editor,
-  EditorStatus,
-  editorViewCtx,
-  editorViewOptionsCtx,
-  remarkStringifyOptionsCtx,
-  rootCtx,
-  serializerCtx,
-} from '@milkdown/core'
-import { clipboard } from '@milkdown/plugin-clipboard'
-import { history } from '@milkdown/plugin-history'
-import { indent } from '@milkdown/plugin-indent'
-import { listener, listenerCtx } from '@milkdown/plugin-listener'
-import { commonmark } from '@milkdown/preset-commonmark'
-import { gfm } from '@milkdown/preset-gfm'
-import { replaceAll } from '@milkdown/utils'
 
 import { useIsUnMounted } from '~/hooks/common/use-is-unmounted'
 import { isDev } from '~/lib/env'

@@ -1,8 +1,8 @@
-import { flip, offset, shift, useFloating } from '@floating-ui/react-dom'
-import { cloneElement, useMemo, useRef, useState } from 'react'
-import { AnimatePresence, m } from 'framer-motion'
 import type { Placement, Strategy } from '@floating-ui/react-dom'
+import { flip, offset, shift, useFloating } from '@floating-ui/react-dom'
+import { AnimatePresence, m } from 'framer-motion'
 import type { FC, PropsWithChildren } from 'react'
+import { cloneElement, useMemo, useRef, useState } from 'react'
 
 import { clsxm } from '~/lib/helper'
 

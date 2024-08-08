@@ -1,5 +1,5 @@
-import { createElement } from 'react'
 import dynamic from 'next/dynamic'
+import { createElement } from 'react'
 
 import { Loading } from '~/components/ui/loading'
 

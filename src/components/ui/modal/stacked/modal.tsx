@@ -1,4 +1,8 @@
 import * as Dialog from '@radix-ui/react-dialog'
+import { m, useAnimationControls, useDragControls } from 'framer-motion'
+import { useAtomValue, useSetAtom } from 'jotai'
+import { selectAtom } from 'jotai/utils'
+import type { SyntheticEvent } from 'react'
 import {
   createElement,
   Fragment,
@@ -8,15 +12,6 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import { m, useAnimationControls, useDragControls } from 'framer-motion'
-import { useAtomValue, useSetAtom } from 'jotai'
-import { selectAtom } from 'jotai/utils'
-import type { SyntheticEvent } from 'react'
-import type {
-  CurrentModalContentProps,
-  ModalContentPropsInternal,
-} from './context'
-import type { ModalProps } from './types'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { CloseIcon } from '~/components/icons/close'
@@ -29,7 +24,12 @@ import { jotaiStore } from '~/lib/store'
 
 import { PresentSheet, sheetStackAtom } from '../../sheet'
 import { MODAL_STACK_Z_INDEX, modalMontionConfig } from './constants'
+import type {
+  CurrentModalContentProps,
+  ModalContentPropsInternal,
+} from './context'
 import { CurrentModalContext, modalStackAtom } from './context'
+import type { ModalProps } from './types'
 
 export const ModalInternal: Component<{
   item: ModalProps & { id: string }

@@ -1,8 +1,8 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { memo, useMemo } from 'react'
 import type { FC } from 'react'
+import { memo, useMemo } from 'react'
 
 import { Divider } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'

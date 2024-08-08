@@ -1,6 +1,3 @@
-import { queryClient } from '~/providers/root/react-query-provider'
-import React from 'react'
-import { produce } from 'immer'
 import type {
   CommentModel,
   NoteModel,
@@ -11,9 +8,9 @@ import type {
 } from '@mx-space/api-client'
 import type { BusinessEvents } from '@mx-space/webhook'
 import type { InfiniteData } from '@tanstack/react-query'
-import type { OwnerStatus } from '~/atoms/status'
-import type { ActivityPresence } from '~/models/activity'
+import { produce } from 'immer'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
+import React from 'react'
 
 import { setOnlineCount } from '~/atoms'
 import {
@@ -23,6 +20,7 @@ import {
   setActivityProcessInfo,
 } from '~/atoms/activity'
 import { setOwnerStatus } from '~/atoms/hooks/status'
+import type { OwnerStatus } from '~/atoms/status'
 import {
   FaSolidFeatherAlt,
   IcTwotoneSignpost,
@@ -34,6 +32,7 @@ import { TrackerAction } from '~/constants/tracker'
 import { isDev } from '~/lib/env'
 import { routeBuilder, Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
+import type { ActivityPresence } from '~/models/activity'
 import {
   getCurrentNoteData,
   setCurrentNoteData,
@@ -46,6 +45,7 @@ import {
   getGlobalCurrentPostData,
   setGlobalCurrentPostData,
 } from '~/providers/post/CurrentPostDataProvider'
+import { queryClient } from '~/providers/root/react-query-provider'
 import { queries } from '~/queries/definition'
 import { buildCommentsQueryKey } from '~/queries/keys'
 import { EventTypes } from '~/types/events'

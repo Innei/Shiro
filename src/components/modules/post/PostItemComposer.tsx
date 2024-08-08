@@ -2,9 +2,9 @@
 
 import 'jotai'
 
-import { useEffect, useRef } from 'react'
 import type { PostModel } from '@mx-space/api-client'
 import type { FC } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { BottomToUpTransitionView } from '~/components/ui/transition'
 import { isClientSide } from '~/lib/env'

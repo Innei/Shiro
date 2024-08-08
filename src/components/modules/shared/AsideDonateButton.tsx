@@ -1,8 +1,8 @@
 import { DialogContent, DialogPortal, Root } from '@radix-ui/react-dialog'
-import { useState } from 'react'
+import type { HTMLMotionProps } from 'framer-motion'
 import { AnimatePresence, m } from 'framer-motion'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
-import type { HTMLMotionProps } from 'framer-motion'
+import { useState } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { ImpressionView } from '~/components/common/ImpressionTracker'

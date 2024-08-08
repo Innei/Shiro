@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
 import { AnimatePresence, m } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { MotionButtonBase } from '~/components/ui/button'

@@ -1,8 +1,8 @@
 'use client'
 
-import { Fragment } from 'react'
-import { useRouter } from 'next/navigation'
 import type { PostModel } from '@mx-space/api-client'
+import { useRouter } from 'next/navigation'
+import { Fragment } from 'react'
 
 import { MdiClockOutline } from '~/components/icons/clock'
 import { FeHash } from '~/components/icons/fa-hash'

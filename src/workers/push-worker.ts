@@ -1,8 +1,8 @@
 /// <reference lib="webworker" />
 
+import type { AggregateRoot } from '@mx-space/api-client'
 import { createStore, get, set } from 'idb-keyval'
 import { $fetch } from 'ofetch'
-import type { AggregateRoot } from '@mx-space/api-client'
 
 const dbStore = createStore('shiro-worker', 'config')
 

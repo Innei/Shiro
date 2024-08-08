@@ -1,7 +1,7 @@
 'use client'
 
-import { Priority } from 'markdown-to-jsx'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
+import { Priority } from 'markdown-to-jsx'
 
 import { clsxm } from '~/lib/helper'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'

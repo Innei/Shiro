@@ -1,8 +1,8 @@
-import { useQuery } from '@tanstack/react-query'
-import { useMemo } from 'react'
-import { atom } from 'jotai'
 import type { PostModel } from '@mx-space/api-client'
+import { useQuery } from '@tanstack/react-query'
+import { atom } from 'jotai'
 import type { FC } from 'react'
+import { useMemo } from 'react'
 
 import {
   PostMarkdown,

@@ -1,6 +1,6 @@
-import { useCallback, useRef, useState } from 'react'
 import clsx from 'clsx'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
+import { useCallback, useRef, useState } from 'react'
 
 import { useViewport } from '~/atoms/hooks'
 

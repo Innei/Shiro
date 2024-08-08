@@ -3,7 +3,7 @@ import { useAtom } from 'jotai'
 import Image from 'next/image'
 
 import { useIsLogged } from '~/atoms/hooks'
-import { FormInput as FInput, Form } from '~/components/ui/form'
+import { Form, FormInput as FInput } from '~/components/ui/form'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
 import { CommentBoxActionBar } from './ActionBar'

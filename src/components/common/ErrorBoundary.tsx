@@ -1,7 +1,7 @@
 'use client'
 
-import { ErrorBoundary as ErrorBoundaryLib } from 'react-error-boundary'
 import type { FC, PropsWithChildren } from 'react'
+import { ErrorBoundary as ErrorBoundaryLib } from 'react-error-boundary'
 
 // import { captureException } from '@sentry/nextjs'
 import { StyledButton } from '../ui/button'

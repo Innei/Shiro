@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
-import { Suspense, useMemo } from 'react'
 import dynamic from 'next/dynamic'
 import type React from 'react'
 import type { FC, PropsWithChildren, ReactNode } from 'react'
+import { Suspense, useMemo } from 'react'
 
 import { ThinkingItem } from '~/app/(app)/thinking/item'
 import { ClientOnly } from '~/components/common/ClientOnly'
@@ -32,8 +32,8 @@ import { apiClient } from '~/lib/request'
 import { useFeatureEnabled } from '~/providers/root/app-feature-provider'
 
 import { EmbedGithubFile } from '../../../modules/shared/EmbedGithubFile'
-import { LinkCard, LinkCardSource } from '../../link-card'
 import { MLink } from '../../link/MLink'
+import { LinkCard, LinkCardSource } from '../../link-card'
 
 const Tweet = dynamic(() => import('~/components/modules/shared/Tweet'), {
   ssr: false,

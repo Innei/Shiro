@@ -1,5 +1,5 @@
-import { useCallback, useRef } from 'react'
 import type { CompositionEventHandler } from 'react'
+import { useCallback, useRef } from 'react'
 
 export const useInputComposition = (
   props: Pick<

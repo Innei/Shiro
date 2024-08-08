@@ -1,6 +1,6 @@
-import { useId } from 'react'
 import clsx from 'clsx'
 import type { FC } from 'react'
+import { useId } from 'react'
 
 export const CheckBoxLabel: FC<{
   label: string

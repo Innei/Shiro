@@ -1,8 +1,8 @@
 import { useAtomValue } from 'jotai'
-import type { OwnerStatus } from '../status'
 
 import { jotaiStore } from '~/lib/store'
 
+import type { OwnerStatus } from '../status'
 import { statusAtom } from '../status'
 
 export const useOwnerStatus = () => useAtomValue(statusAtom)

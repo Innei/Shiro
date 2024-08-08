@@ -1,6 +1,6 @@
+import type { SayModel } from '@mx-space/api-client'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { createElement, useCallback } from 'react'
-import type { SayModel } from '@mx-space/api-client'
 
 import { useModalStack } from '~/components/ui/modal'
 import { apiClient } from '~/lib/request'

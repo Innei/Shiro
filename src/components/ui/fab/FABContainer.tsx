@@ -1,6 +1,5 @@
 'use client'
 
-import { useId, useRef } from 'react'
 import clsx from 'clsx'
 import { typescriptHappyForwardRef } from 'foxact/typescript-happy-forward-ref'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
@@ -12,6 +11,7 @@ import type {
   PropsWithChildren,
   ReactNode,
 } from 'react'
+import { useId, useRef } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { clsxm } from '~/lib/helper'

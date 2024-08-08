@@ -1,9 +1,9 @@
 'use client'
 
-import * as React from 'react'
 import clsx from 'clsx'
-import { AnimatePresence, m } from 'framer-motion'
 import type { Variants } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
+import * as React from 'react'
 
 import { IonIosArrowDown } from '~/components/icons/arrow'
 import { microReboundPreset } from '~/constants/spring'

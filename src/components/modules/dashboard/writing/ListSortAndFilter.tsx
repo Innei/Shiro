@@ -1,6 +1,6 @@
-import { createContext, useMemo } from 'react'
 import { atom } from 'jotai'
 import type { FC, PropsWithChildren } from 'react'
+import { createContext, useMemo } from 'react'
 
 const filterAtom = atom([] as string[])
 const sortingAtom = atom({ key: 'created', order: 'desc' } as {

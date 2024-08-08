@@ -1,7 +1,7 @@
-import { useCallback } from 'react'
+import type { ExtractAtomValue } from 'jotai'
 import { useAtomValue } from 'jotai'
 import { selectAtom } from 'jotai/utils'
-import type { ExtractAtomValue } from 'jotai'
+import { useCallback } from 'react'
 
 import { jotaiStore } from '~/lib/store'
 

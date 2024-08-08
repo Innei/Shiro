@@ -1,8 +1,7 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
-
 import { SignInButton } from '@clerk/nextjs'
+import { usePathname } from 'next/navigation'
 
 import { UserArrowLeftIcon } from '~/components/icons/user-arrow-left'
 import { StyledButton } from '~/components/ui/button'

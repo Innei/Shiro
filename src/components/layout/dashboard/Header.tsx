@@ -1,14 +1,14 @@
 'use client'
 
-import { useCallback } from 'react'
 import { m } from 'framer-motion'
 import { atom, useAtom, useSetAtom } from 'jotai'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import type { DashboardRoute } from '~/app/(dashboard)/routes'
 import type { MouseEventHandler, ReactNode } from 'react'
+import { useCallback } from 'react'
 
+import type { DashboardRoute } from '~/app/(dashboard)/routes'
 import { dashboardRoutes, useParentRouteObject } from '~/app/(dashboard)/routes'
 import { useIsMobile } from '~/atoms/hooks'
 import { Avatar } from '~/components/ui/avatar'

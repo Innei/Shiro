@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import type { Pager } from '@mx-space/api-client'
+import Link from 'next/link'
 import type { FC } from 'react'
 
 import { MotionButtonBase } from '~/components/ui/button'

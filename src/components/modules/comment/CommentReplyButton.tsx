@@ -1,6 +1,6 @@
-import { useCallback, useState } from 'react'
 import clsx from 'clsx'
 import type { FC } from 'react'
+import { useCallback, useState } from 'react'
 
 import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
 

@@ -1,10 +1,10 @@
+import type { Contract } from 'crossbell'
 import { createContract, Indexer } from 'crossbell'
 import Unidata from 'unidata.js'
-import type { NoteDto, PostDto } from '~/models/writing'
-import type { Contract } from 'crossbell'
 
 import { apiClient } from '~/lib/request'
 import { toast } from '~/lib/toast'
+import type { NoteDto, PostDto } from '~/models/writing'
 
 const unidata = new Unidata()
 

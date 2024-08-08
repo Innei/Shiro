@@ -1,7 +1,4 @@
-import { ImageResponse } from 'next/og'
 import type { AggregateRoot } from '@mx-space/api-client'
-import type { ImageResponseOptions, NextRequest } from 'next/server'
-
 import {
   AggregateController,
   createClient,
@@ -10,6 +7,8 @@ import {
   PostController,
 } from '@mx-space/api-client'
 import { fetchAdaptor } from '@mx-space/api-client/dist/adaptors/fetch'
+import { ImageResponse } from 'next/og'
+import type { ImageResponseOptions, NextRequest } from 'next/server'
 
 import { API_URL } from '~/constants/env'
 import { getBackgroundGradient } from '~/lib/helper.server'

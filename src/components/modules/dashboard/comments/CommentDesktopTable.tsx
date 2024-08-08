@@ -1,6 +1,6 @@
-import { memo } from 'react'
 import type { CommentModel } from '@mx-space/api-client'
 import type { FC } from 'react'
+import { memo } from 'react'
 
 import { PageLoading } from '~/components/layout/dashboard/PageLoading'
 

@@ -1,10 +1,10 @@
 'use client'
 
-import React, { memo, useRef } from 'react'
 import clsx from 'clsx'
 import mediumZoom from 'medium-zoom'
 import Image from 'next/image'
 import type { FC } from 'react'
+import React, { memo, useRef } from 'react'
 
 import { LazyLoad } from '~/components/common/Lazyload'
 import { addImageUrlResizeQuery } from '~/lib/image'

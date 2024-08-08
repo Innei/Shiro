@@ -1,8 +1,7 @@
-import { useMemo } from 'react'
+import { useUser } from '@clerk/nextjs'
 import { useAtomValue } from 'jotai'
 import { customAlphabet } from 'nanoid'
-
-import { useUser } from '@clerk/nextjs'
+import { useMemo } from 'react'
 
 import { isClientSide } from '~/lib/env'
 import { buildNSKey } from '~/lib/ns'

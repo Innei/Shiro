@@ -1,8 +1,8 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { memo } from 'react'
 import type { FC } from 'react'
+import { memo } from 'react'
 
 import { LogosOpenaiIcon } from '~/components/icons/platform/OpenAIIcon'
 import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'

@@ -1,9 +1,9 @@
-import { useMemo } from 'react'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { selectAtom } from 'jotai/utils'
-import type { ActivityPresence } from '~/models/activity'
+import { useMemo } from 'react'
 
 import { useEventCallback } from '~/hooks/common/use-event-callback'
+import type { ActivityPresence } from '~/models/activity'
 
 import { activityAtom, activityPresenceAtom } from '../activity'
 

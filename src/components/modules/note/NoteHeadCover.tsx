@@ -1,7 +1,7 @@
 'use client'
 
-import { useLayoutEffect, useState } from 'react'
 import clsx from 'clsx'
+import { useLayoutEffect, useState } from 'react'
 
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 

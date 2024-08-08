@@ -1,10 +1,10 @@
 'use client'
 
+import type { NoteWrappedPayload } from '@mx-space/api-client'
 import { useQuery } from '@tanstack/react-query'
 import { createModelDataProvider } from 'jojoo/react'
-import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
-import type { NoteWrappedPayload } from '@mx-space/api-client'
+import { useEffect } from 'react'
 
 import { queries } from '~/queries/definition'
 

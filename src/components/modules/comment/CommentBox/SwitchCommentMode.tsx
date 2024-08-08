@@ -1,8 +1,7 @@
 'use client'
 
-import clsx from 'clsx'
-
 import { useUser } from '@clerk/nextjs'
+import clsx from 'clsx'
 
 import { useIsLogged } from '~/atoms/hooks'
 import { MotionButtonBase } from '~/components/ui/button'

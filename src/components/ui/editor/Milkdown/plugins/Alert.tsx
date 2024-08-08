@@ -1,13 +1,9 @@
 /* Copyright 2021, Milkdown by Mirone. */
-import { useNodeViewContext } from '@prosemirror-adapter/react'
-import { visit } from 'unist-util-visit'
+import { remarkCtx } from '@milkdown/core'
 import type { Ctx, MilkdownPlugin } from '@milkdown/ctx'
+import { wrappingInputRule } from '@milkdown/prose/inputrules'
 import type { Node } from '@milkdown/transformer'
 import type { $NodeSchema } from '@milkdown/utils'
-import type { PluginCtx } from './types'
-
-import { remarkCtx } from '@milkdown/core'
-import { wrappingInputRule } from '@milkdown/prose/inputrules'
 import {
   $inputRule,
   $nodeAttr,
@@ -15,9 +11,13 @@ import {
   $remark,
   $view,
 } from '@milkdown/utils'
+import { useNodeViewContext } from '@prosemirror-adapter/react'
+import { visit } from 'unist-util-visit'
 
 import { AlertIcon } from '~/components/ui/markdown/parsers/alert'
 import { cloneDeep } from '~/lib/lodash'
+
+import type { PluginCtx } from './types'
 
 /// HTML attributes for alert node.
 export const alertAttr = $nodeAttr('alert')

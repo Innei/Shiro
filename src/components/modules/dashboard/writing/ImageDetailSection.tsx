@@ -1,7 +1,6 @@
-import { memo, useEffect, useMemo, useState } from 'react'
 import { marked } from 'marked'
-import type { WriteBaseType } from '~/models/writing'
 import type { FC } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 
 import { MotionButtonBase, StyledButton } from '~/components/ui/button'
 import { Collapse } from '~/components/ui/collapse'
@@ -12,6 +11,7 @@ import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { getDominantColor } from '~/lib/image'
 import { uniqBy } from '~/lib/lodash'
 import { toast } from '~/lib/toast'
+import type { WriteBaseType } from '~/models/writing'
 
 const pickImagesFromMarkdown = (text: string) => {
   const ast = marked.lexer(text)

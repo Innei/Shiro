@@ -1,3 +1,8 @@
+import type { CommentModel } from '@mx-space/api-client'
+import clsx from 'clsx'
+import { m } from 'framer-motion'
+import { atom, useAtomValue } from 'jotai'
+import type { PropsWithChildren } from 'react'
 import {
   createContext,
   memo,
@@ -7,11 +12,6 @@ import {
   useRef,
 } from 'react'
 import { createPortal } from 'react-dom'
-import clsx from 'clsx'
-import { m } from 'framer-motion'
-import { atom, useAtomValue } from 'jotai'
-import type { CommentModel } from '@mx-space/api-client'
-import type { PropsWithChildren } from 'react'
 
 import { Avatar } from '~/components/ui/avatar'
 import { RelativeTime } from '~/components/ui/relative-time'

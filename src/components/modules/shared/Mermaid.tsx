@@ -1,5 +1,5 @@
-import { useEffect, useId, useState } from 'react'
 import type { FC } from 'react'
+import { useEffect, useId, useState } from 'react'
 
 import { useIsDark } from '~/hooks/common/use-is-dark'
 import { useWrappedElementSize } from '~/providers/shared/WrappedElementProvider'
