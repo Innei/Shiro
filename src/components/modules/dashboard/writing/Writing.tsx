@@ -1,9 +1,3 @@
-import React, { isValidElement, useEffect, useRef } from 'react'
-import { produce } from 'immer'
-import { atom, useAtomValue, useSetAtom, useStore } from 'jotai'
-import type { FC } from 'react'
-import type { MilkdownRef } from '../../../ui/editor'
-
 import { editorViewCtx, schemaCtx } from '@milkdown/core'
 import { redoCommand, undoCommand } from '@milkdown/plugin-history'
 import {
@@ -14,6 +8,10 @@ import {
   wrapInOrderedListCommand,
 } from '@milkdown/preset-commonmark'
 import { callCommand } from '@milkdown/utils'
+import { produce } from 'immer'
+import { atom, useAtomValue, useSetAtom, useStore } from 'jotai'
+import type { FC } from 'react'
+import React, { isValidElement, useEffect, useRef } from 'react'
 
 import { SimpleIconsMermaid } from '~/components/icons/mermaid'
 import { useEditorCtx } from '~/components/ui/editor/Milkdown/ctx'
@@ -22,6 +20,7 @@ import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
 
+import type { MilkdownRef } from '../../../ui/editor'
 import { MilkdownEditor } from '../../../ui/editor'
 import { useBaseWritingContext } from './BaseWritingProvider'
 import { TitleInput } from './TitleInput'

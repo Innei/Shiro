@@ -1,7 +1,6 @@
-import { useContext, useMemo } from 'react'
 import type { CommentModel } from '@mx-space/api-client'
-
 import { CollectionRefTypes } from '@mx-space/api-client'
+import { useContext, useMemo } from 'react'
 
 import { RelativeTime } from '~/components/ui/relative-time'
 import { EllipsisHorizontalTextWithTooltip } from '~/components/ui/typography'

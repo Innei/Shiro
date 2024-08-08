@@ -1,7 +1,7 @@
 'use client'
 
-import { createModelDataProvider } from 'jojoo/react'
 import type { PostModel } from '@mx-space/api-client'
+import { createModelDataProvider } from 'jojoo/react'
 
 import { isClientSide, isDev } from '~/lib/env'
 

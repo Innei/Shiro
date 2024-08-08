@@ -1,6 +1,6 @@
 import { Label } from '@radix-ui/react-label'
-import { useMemo, useRef } from 'react'
 import type { FC } from 'react'
+import { useMemo, useRef } from 'react'
 
 import { StyledButton } from '~/components/ui/button'
 import { CodeEditor } from '~/components/ui/code-editor'

@@ -1,7 +1,6 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
-
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
+import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
 
 import { s3Config as config } from '~/app.static.config'
 import { apiClient } from '~/lib/request'

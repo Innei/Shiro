@@ -1,16 +1,15 @@
-import { useNodeViewContext } from '@prosemirror-adapter/react'
-import type { MilkdownPlugin } from '@milkdown/ctx'
-import type { FC } from 'react'
-import type { PluginCtx } from './types'
-
 import { schemaCtx } from '@milkdown/core'
+import type { MilkdownPlugin } from '@milkdown/ctx'
 import { codeBlockSchema } from '@milkdown/preset-commonmark'
 import { $view } from '@milkdown/utils'
+import { useNodeViewContext } from '@prosemirror-adapter/react'
+import type { FC } from 'react'
 
 import { CodeEditor } from '~/components/ui/code-editor'
 import { Input } from '~/components/ui/input'
 
 import { useEditorCtx } from '../ctx'
+import type { PluginCtx } from './types'
 
 const CodeBlock = () => {
   const { node } = useNodeViewContext()

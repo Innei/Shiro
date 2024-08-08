@@ -1,7 +1,7 @@
 import * as ScrollArea from '@radix-ui/react-scroll-area'
+import type { FC } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useDarkModeDetector } from 'src/hooks/use-dark'
-import type { FC } from 'react'
 
 import { routeKeys } from '../../router'
 

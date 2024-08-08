@@ -1,11 +1,9 @@
 'use client'
 
-import { useInfiniteQuery } from '@tanstack/react-query'
-import { memo, useEffect, useMemo } from 'react'
-import type { FC } from 'react'
-import type { CommentBaseProps } from './types'
-
 import { BusinessEvents } from '@mx-space/webhook'
+import { useInfiniteQuery } from '@tanstack/react-query'
+import type { FC } from 'react'
+import { memo, useEffect, useMemo } from 'react'
 
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { NotSupport } from '~/components/common/NotSupport'
@@ -18,6 +16,7 @@ import { LoadMoreIndicator } from '../shared/LoadMoreIndicator'
 import { Comment } from './Comment'
 import { CommentBoxProvider } from './CommentBox/providers'
 import { CommentSkeleton } from './CommentSkeleton'
+import type { CommentBaseProps } from './types'
 
 const useNewCommentObserver = (refId: string) => {
   useEffect(() => {

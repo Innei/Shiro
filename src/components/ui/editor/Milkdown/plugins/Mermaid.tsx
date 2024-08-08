@@ -1,18 +1,18 @@
-import { useNodeViewContext } from '@prosemirror-adapter/react'
-import { useEffect, useRef } from 'react'
 import type { MilkdownPlugin } from '@milkdown/ctx'
-import type { ModalContentPropsInternal } from '~/components/ui/modal'
-import type { FC } from 'react'
-import type { PluginCtx } from './types'
-
 import { diagramSchema } from '@milkdown/plugin-diagram'
 import { $view } from '@milkdown/utils'
+import { useNodeViewContext } from '@prosemirror-adapter/react'
+import type { FC } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { Mermaid } from '~/components/modules/shared/Mermaid'
 import { StyledButton } from '~/components/ui/button'
 import { TextArea } from '~/components/ui/input'
+import type { ModalContentPropsInternal } from '~/components/ui/modal'
 import { useModalStack } from '~/components/ui/modal'
 import { useUncontrolledInput } from '~/hooks/common/use-uncontrolled-input'
+
+import type { PluginCtx } from './types'
 
 const autoOpenValue = '<auto_open>'
 

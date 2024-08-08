@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect } from 'react'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
+import { useEffect } from 'react'
 
 import { setIsPrintMode } from '~/atoms/css-media'
 import { viewportAtom } from '~/atoms/viewport'

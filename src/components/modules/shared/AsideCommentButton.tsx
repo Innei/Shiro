@@ -1,10 +1,9 @@
-import type { CommentModalProps } from './CommentModal'
-
 import { MotionButtonBase } from '~/components/ui/button'
 import { useModalStack } from '~/components/ui/modal'
 import { useIsClient } from '~/hooks/common/use-is-client'
 
 import { ActionAsideIcon } from './ActionAsideContainer'
+import type { CommentModalProps } from './CommentModal'
 import { CommentModal } from './CommentModal'
 
 export interface AsideCommentButtonProps {}

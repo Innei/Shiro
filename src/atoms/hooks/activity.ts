@@ -1,6 +1,7 @@
-import { useMemo } from 'react'
 import { useAtomValue } from 'jotai'
 import { selectAtom } from 'jotai/utils'
+import { useMemo } from 'react'
+
 import type { ActivityPresence } from '~/models/activity'
 
 import { activityAtom, activityPresenceAtom } from '../activity'

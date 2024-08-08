@@ -1,15 +1,15 @@
-import { useMutation } from '@tanstack/react-query'
 import type {
   NoteModel,
   NoteWrappedPayload,
   NoteWrappedWithLikedPayload,
 } from '@mx-space/api-client'
-import type { NoteDto } from '~/models/writing'
+import { useMutation } from '@tanstack/react-query'
 
 import { useResetAutoSaverData } from '~/components/modules/dashboard/writing/BaseWritingProvider'
 import { cloneDeep } from '~/lib/lodash'
 import { apiClient } from '~/lib/request'
 import { toast } from '~/lib/toast'
+import type { NoteDto } from '~/models/writing'
 
 import { defineQuery } from '../helper'
 

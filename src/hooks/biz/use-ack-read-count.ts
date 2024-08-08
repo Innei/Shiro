@@ -1,7 +1,7 @@
-import { queryClient } from '~/providers/root/react-query-provider'
 import { useEffect } from 'react'
 
 import { apiClient } from '~/lib/request'
+import { queryClient } from '~/providers/root/react-query-provider'
 
 export const useAckReadCount = (type: 'post' | 'note', id: string) => {
   useEffect(() => {

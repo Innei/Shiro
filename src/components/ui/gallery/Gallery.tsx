@@ -1,9 +1,9 @@
 'use client'
 
-import { memo, useCallback, useEffect, useRef, useState } from 'react'
-import { useInView } from 'react-intersection-observer'
 import clsx from 'clsx'
 import type { FC, UIEventHandler } from 'react'
+import { memo, useCallback, useEffect, useRef, useState } from 'react'
+import { useInView } from 'react-intersection-observer'
 
 import { useStateToRef } from '~/hooks/common/use-state-ref'
 import { throttle } from '~/lib/lodash'

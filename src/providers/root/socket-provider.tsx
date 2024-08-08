@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
+import { useEffect, useRef } from 'react'
 
 import { deleteActivityPresence } from '~/atoms/activity'
 import { useSocketIsConnect, useSocketSessionId } from '~/atoms/hooks'

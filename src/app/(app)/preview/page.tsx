@@ -1,16 +1,15 @@
 'use client'
 
-import { useMemo } from 'react'
-import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
-import { atom, useAtomValue } from 'jotai'
 import type {
   NoteModel,
   NoteWrappedPayload,
   PageModel,
   PostModel,
 } from '@mx-space/api-client'
-
 import { simpleCamelcaseKeys } from '@mx-space/api-client'
+import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
+import { atom, useAtomValue } from 'jotai'
+import { useMemo } from 'react'
 
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { Paper } from '~/components/layout/container/Paper'

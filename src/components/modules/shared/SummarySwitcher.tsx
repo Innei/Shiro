@@ -1,11 +1,11 @@
-import { memo } from 'react'
 import type { FC } from 'react'
-import type { AiSummaryProps } from '../ai/Summary'
+import { memo } from 'react'
 
 import { appStaticConfig } from '~/app.static.config'
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { clsxm } from '~/lib/helper'
 
+import type { AiSummaryProps } from '../ai/Summary'
 import { AISummary } from '../ai/Summary'
 import { XLogSummary } from '../xlog'
 import { getCidForBaseModel } from '../xlog/utils'

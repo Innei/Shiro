@@ -1,5 +1,5 @@
-import { forwardRef } from 'react'
 import type { DetailedHTMLProps, InputHTMLAttributes } from 'react'
+import { forwardRef } from 'react'
 
 import { useInputComposition } from '~/hooks/common/use-input-composition'
 import { clsxm } from '~/lib/helper'

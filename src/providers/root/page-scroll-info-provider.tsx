@@ -1,9 +1,9 @@
 'use client'
 
-import { useMemo, useRef } from 'react'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 import type { FC, PropsWithChildren } from 'react'
+import { useMemo, useRef } from 'react'
 
 import { setIsInteractive } from '~/atoms/is-interactive'
 import { createAtomSelector } from '~/lib/atom'

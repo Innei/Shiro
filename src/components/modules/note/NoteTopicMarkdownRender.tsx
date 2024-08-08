@@ -1,7 +1,7 @@
 'use client'
 
-import Markdown from 'markdown-to-jsx'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
+import Markdown from 'markdown-to-jsx'
 import type { FC } from 'react'
 
 const mdOptions: MarkdownToJSX.Options = {

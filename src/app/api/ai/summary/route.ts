@@ -1,11 +1,10 @@
-import OpenAI from 'openai'
-import type { ArticleDataType } from '~/types/api'
-import type { NextRequest } from 'next/server'
-
 import { sql } from '@vercel/postgres'
+import type { NextRequest } from 'next/server'
+import OpenAI from 'openai'
 
 import { API_URL } from '~/constants/env'
 import { apiClient } from '~/lib/request'
+import type { ArticleDataType } from '~/types/api'
 
 export const dynamic = 'force-dynamic'
 export const GET = async (req: NextRequest) => {

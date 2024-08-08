@@ -1,9 +1,9 @@
 import './dashboard.css'
 
-import { ToastContainer } from 'react-toastify'
-import { PublicEnvScript } from 'next-runtime-env'
 import type { Viewport } from 'next'
+import { PublicEnvScript } from 'next-runtime-env'
 import type { PropsWithChildren } from 'react'
+import { ToastContainer } from 'react-toastify'
 
 import { ClientOnly } from '~/components/common/ClientOnly'
 import { HydrationEndDetector } from '~/components/common/HydrationEndDetector'

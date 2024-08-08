@@ -1,6 +1,9 @@
 'use client'
 
+import { useUser } from '@clerk/nextjs'
 import { useQuery } from '@tanstack/react-query'
+import clsx from 'clsx'
+import type { FC } from 'react'
 import {
   forwardRef,
   memo,
@@ -13,10 +16,6 @@ import {
   useRef,
   useState,
 } from 'react'
-import clsx from 'clsx'
-import type { FC } from 'react'
-
-import { useUser } from '@clerk/nextjs'
 
 import {
   useActivityPresenceByRoomName,

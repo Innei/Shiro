@@ -1,13 +1,13 @@
-import { ReactComponentRender } from '~/components/ui/react-component-render'
-import { lazy, Suspense, useMemo, useState } from 'react'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import dynamic from 'next/dynamic'
 import type { ReactNode } from 'react'
+import { lazy, Suspense, useMemo, useState } from 'react'
 
 import { HighLighterPrismCdn } from '~/components/ui/code-highlighter'
 import { ShikiHighLighterWrapper } from '~/components/ui/code-highlighter/shiki/ShikiWrapper'
 import { parseShouldCollapsedFromAttrs } from '~/components/ui/code-highlighter/shiki/utils'
 import { ExcalidrawLoading } from '~/components/ui/excalidraw/ExcalidrawLoading'
+import { ReactComponentRender } from '~/components/ui/react-component-render'
 import { isClientSide } from '~/lib/env'
 
 import { BlockLoading } from './BlockLoading'

@@ -1,10 +1,9 @@
 /* eslint-disable no-console */
-import { ToastContainer } from 'react-toastify'
-import { env, PublicEnvScript } from 'next-runtime-env'
-import type { Metadata, Viewport } from 'next'
-import type { PropsWithChildren } from 'react'
-
 import { ClerkProvider } from '@clerk/nextjs'
+import type { Metadata, Viewport } from 'next'
+import { env, PublicEnvScript } from 'next-runtime-env'
+import type { PropsWithChildren } from 'react'
+import { ToastContainer } from 'react-toastify'
 
 import PKG from '~/../package.json'
 import { Global } from '~/components/common/Global'

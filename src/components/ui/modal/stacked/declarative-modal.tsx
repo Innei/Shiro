@@ -1,13 +1,13 @@
-import React, { useId, useMemo } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import type { FC, ReactNode } from 'react'
-import type { ModalProps } from './types'
+import React, { useId, useMemo } from 'react'
 
 import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
 
 import { modalStackAtom } from './context'
 import { Modal } from './modal'
+import type { ModalProps } from './types'
 
 export interface DeclarativeModalProps extends Omit<ModalProps, 'content'> {
   open?: boolean

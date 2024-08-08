@@ -1,6 +1,5 @@
 'use client'
 
-import { forwardRef, useCallback, useState } from 'react'
 import clsx from 'clsx'
 import { m, useMotionTemplate, useMotionValue } from 'framer-motion'
 import type {
@@ -8,6 +7,7 @@ import type {
   PropsWithChildren,
   TextareaHTMLAttributes,
 } from 'react'
+import { forwardRef, useCallback, useState } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { useInputComposition } from '~/hooks/common/use-input-composition'

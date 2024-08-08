@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { useViewport } from '~/atoms/hooks'
 

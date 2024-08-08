@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import Link from 'next/link'
-import { tv } from 'tailwind-variants'
 import type { FC, PropsWithChildren } from 'react'
+import { tv } from 'tailwind-variants'
 
 import { MotionButtonBase } from './MotionButton'
 

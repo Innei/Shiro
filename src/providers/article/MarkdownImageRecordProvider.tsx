@@ -1,7 +1,7 @@
-import { createContext, useCallback, useContext, useEffect } from 'react'
+import type { Image } from '@mx-space/api-client'
 import { atom, useAtomValue } from 'jotai'
 import { selectAtom } from 'jotai/utils'
-import type { Image } from '@mx-space/api-client'
+import { createContext, useCallback, useContext, useEffect } from 'react'
 
 import { useRefValue } from '~/hooks/common/use-ref-value'
 import { jotaiStore } from '~/lib/store'

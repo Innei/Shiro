@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect } from 'react'
 import { domAnimation, LazyMotion } from 'framer-motion'
+import { useEffect } from 'react'
 
 // import { captureException } from '@sentry/nextjs'
 import { NormalContainer } from '~/components/layout/container/Normal'

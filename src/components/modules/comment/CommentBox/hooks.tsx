@@ -1,10 +1,5 @@
 'use client'
 
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useCallback, useContext } from 'react'
-import { produce } from 'immer'
-import { atom, useAtomValue } from 'jotai'
-import { atomWithStorage, selectAtom } from 'jotai/utils'
 import type {
   CommentDto,
   CommentModel,
@@ -12,9 +7,13 @@ import type {
   RequestError,
 } from '@mx-space/api-client'
 import type { InfiniteData } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { produce } from 'immer'
 import type { ExtractAtomValue } from 'jotai'
+import { atom, useAtomValue } from 'jotai'
+import { atomWithStorage, selectAtom } from 'jotai/utils'
 import type React from 'react'
-import type { createInitialValue } from './providers'
+import { useCallback, useContext } from 'react'
 
 import { useIsLogged } from '~/atoms/hooks'
 import { apiClient } from '~/lib/request'
@@ -24,6 +23,7 @@ import { toast } from '~/lib/toast'
 import { buildCommentsQueryKey } from '~/queries/keys'
 
 import { MAX_COMMENT_TEXT_LENGTH } from './constants'
+import type { createInitialValue } from './providers'
 import {
   CommentBoxContext,
   CommentBoxLifeCycleContext,

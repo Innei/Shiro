@@ -1,9 +1,9 @@
 'use client'
 
-import { queryClient } from '~/providers/root/react-query-provider'
 import { Suspense } from 'react'
 
 import { clsxm } from '~/lib/helper'
+import { queryClient } from '~/providers/root/react-query-provider'
 
 import { AutoResizeHeight } from '../shared/AutoResizeHeight'
 

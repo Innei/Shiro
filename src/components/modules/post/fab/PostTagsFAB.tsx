@@ -1,9 +1,9 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-import { memo, useCallback } from 'react'
-import Link from 'next/link'
 import type { TagModel } from '@mx-space/api-client'
+import { useQuery } from '@tanstack/react-query'
+import Link from 'next/link'
+import { memo, useCallback } from 'react'
 
 import { EmptyIcon } from '~/components/icons/empty'
 import { FABPortable } from '~/components/ui/fab'

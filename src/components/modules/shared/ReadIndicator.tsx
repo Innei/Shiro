@@ -1,8 +1,8 @@
 'use client'
 
+import type { ElementType } from 'react'
 import { useDeferredValue } from 'react'
 import { useInView } from 'react-intersection-observer'
-import type { ElementType } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { MaterialSymbolsProgressActivity } from '~/components/icons/Progress'

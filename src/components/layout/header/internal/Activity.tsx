@@ -1,6 +1,8 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
+import clsx from 'clsx'
+import { AnimatePresence, m } from 'framer-motion'
 import React, {
   createContext,
   memo,
@@ -9,8 +11,6 @@ import React, {
   useEffect,
   useMemo,
 } from 'react'
-import clsx from 'clsx'
-import { AnimatePresence, m } from 'framer-motion'
 
 import { setActivityMediaInfo, setActivityProcessInfo } from '~/atoms/activity'
 import { useActivity } from '~/atoms/hooks'

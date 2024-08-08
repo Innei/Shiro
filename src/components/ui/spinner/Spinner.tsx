@@ -1,5 +1,5 @@
-import { forwardRef } from 'react'
 import clsx from 'clsx'
+import { forwardRef } from 'react'
 
 export const Spinner = forwardRef<
   HTMLDivElement,

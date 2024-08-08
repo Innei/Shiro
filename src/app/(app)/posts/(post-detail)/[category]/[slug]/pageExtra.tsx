@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { useRouter } from 'next/navigation'
 import type { Image } from '@mx-space/api-client'
+import { useRouter } from 'next/navigation'
 import type { PropsWithChildren } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { PostMetaBar } from '~/components/modules/post/PostMetaBar'

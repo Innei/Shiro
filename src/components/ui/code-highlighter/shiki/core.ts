@@ -1,13 +1,12 @@
-import type { BundledLanguage } from 'shiki/langs'
-import type { BundledTheme } from 'shiki/themes'
-import type { CodeToHastOptions, HighlighterCore } from 'shiki/types.mjs'
-
 import {
   transformerMetaHighlight,
   transformerNotationDiff,
   transformerNotationHighlight,
   transformerNotationWordHighlight,
 } from '@shikijs/transformers'
+import type { BundledLanguage } from 'shiki/langs'
+import type { BundledTheme } from 'shiki/themes'
+import type { CodeToHastOptions, HighlighterCore } from 'shiki/types.mjs'
 
 export function codeHighlighter(
   highlighter: HighlighterCore,

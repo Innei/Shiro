@@ -1,10 +1,10 @@
 'use client'
 
-import { useCallback, useEffect, useRef } from 'react'
+import type { AggregateRoot } from '@mx-space/api-client'
 import { atom, useAtomValue } from 'jotai'
 import { selectAtom } from 'jotai/utils'
-import type { AggregateRoot } from '@mx-space/api-client'
 import type { FC, PropsWithChildren } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
 import { fetchAppUrl, setWebUrl } from '~/atoms'
 import { login } from '~/atoms/owner'

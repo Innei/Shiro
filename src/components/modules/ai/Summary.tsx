@@ -1,16 +1,16 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-import { useMemo } from 'react'
 import type { NoteModel, PageModel, PostModel } from '@mx-space/api-client'
-import type { ArticleDataType } from '~/types/api'
+import { useQuery } from '@tanstack/react-query'
 import type { FC } from 'react'
+import { useMemo } from 'react'
 
 import { LogosOpenaiIcon } from '~/components/icons/platform/OpenAIIcon'
 import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
 import { API_URL } from '~/constants/env'
 import { clsxm } from '~/lib/helper'
 import { isNoteModel, isPageModel, isPostModel } from '~/lib/url-builder'
+import type { ArticleDataType } from '~/types/api'
 
 export interface AiSummaryProps {
   data: PostModel | NoteModel | PageModel

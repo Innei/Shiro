@@ -1,6 +1,5 @@
 'use client'
 
-import React, { memo } from 'react'
 import clsx from 'clsx'
 import {
   AnimatePresence,
@@ -11,13 +10,14 @@ import {
 } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import type { IHeaderMenu } from '../config'
+import React, { memo } from 'react'
 
 import { RootPortal } from '~/components/ui/portal'
 import useDebounceValue from '~/hooks/common/use-debounce-value'
 import { clsxm } from '~/lib/helper'
 import { useIsScrollUpAndPageIsOver } from '~/providers/root/page-scroll-info-provider'
 
+import type { IHeaderMenu } from '../config'
 import { useHeaderConfig } from './HeaderDataConfigureProvider'
 import { useHeaderHasMetaInfo, useMenuOpacity } from './hooks'
 import { MenuPopover } from './MenuPopover'

@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback } from 'react'
+import type { Atom } from 'jotai'
 import { useAtomValue } from 'jotai'
 import { selectAtom } from 'jotai/utils'
-import type { Atom } from 'jotai'
+import { useCallback } from 'react'
 
 export const createAtomSelector = <T>(atom: Atom<T>) => {
   const hook = <R>(selector: (a: T) => R, deps: any[] = []) =>

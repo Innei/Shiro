@@ -1,8 +1,8 @@
 'use client'
 
-import { memo, useCallback, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import type { FC, ReactNode } from 'react'
+import { memo, useCallback, useMemo } from 'react'
 
 import { isServerSide } from '~/lib/env'
 import { useAppConfigSelector } from '~/providers/root/aggregation-data-provider'

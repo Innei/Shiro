@@ -1,22 +1,21 @@
 'use client'
 
+import type { RecentlyModel } from '@mx-space/api-client'
+import {
+  RecentlyAttitudeEnum,
+  RecentlyAttitudeResultEnum,
+} from '@mx-space/api-client'
+import type { InfiniteData } from '@tanstack/react-query'
 import {
   useInfiniteQuery,
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
-import { useEffect, useMemo, useState } from 'react'
 import clsx from 'clsx'
 import { stagger, useAnimate } from 'framer-motion'
 import { produce } from 'immer'
-import type { RecentlyModel } from '@mx-space/api-client'
-import type { InfiniteData } from '@tanstack/react-query'
 import type { FC } from 'react'
-
-import {
-  RecentlyAttitudeEnum,
-  RecentlyAttitudeResultEnum,
-} from '@mx-space/api-client'
+import { useEffect, useMemo, useState } from 'react'
 
 import { useIsLogged } from '~/atoms/hooks'
 import { TiltedSendIcon } from '~/components/icons/TiltedSendIcon'

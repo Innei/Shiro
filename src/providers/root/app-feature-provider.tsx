@@ -1,7 +1,7 @@
 'use client'
 
-import { createContext, useContextSelector } from 'use-context-selector'
 import type { FC, PropsWithChildren } from 'react'
+import { createContext, useContextSelector } from 'use-context-selector'
 
 const appFeatures = {
   tmdb: false,

@@ -1,15 +1,14 @@
 'use client'
 
-import { useEffect } from 'react'
-import type { CommentBaseProps } from '../types'
-
 import { SignedIn, SignedOut } from '@clerk/nextjs'
+import { useEffect } from 'react'
 
 import { useIsLogged } from '~/atoms/hooks'
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
 import { clsxm } from '~/lib/helper'
 
+import type { CommentBaseProps } from '../types'
 import { CommentBoxAuthedInput } from './AuthedInput'
 import { CommentBoxLegacyForm } from './CommentBoxLegacyForm'
 import { CommentBoxMode, setCommentMode, useCommentMode } from './hooks'

@@ -1,6 +1,5 @@
-import { memo, useCallback, useRef } from 'react'
 import type { DetailedHTMLProps, FC, InputHTMLAttributes } from 'react'
-import type { FormFieldBaseProps } from './types'
+import { memo, useCallback, useRef } from 'react'
 
 import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
 import { clsxm } from '~/lib/helper'
@@ -13,6 +12,7 @@ import {
   useFormErrorMessage,
   useResetFieldStatus,
 } from './hooks'
+import type { FormFieldBaseProps } from './types'
 
 export const FormTextarea: FC<
   Omit<

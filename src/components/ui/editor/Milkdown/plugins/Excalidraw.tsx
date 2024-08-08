@@ -1,18 +1,7 @@
-import { useNodeViewContext } from '@prosemirror-adapter/react'
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
-import { useAtom } from 'jotai'
-import { atomWithStorage } from 'jotai/utils'
-import { diff } from 'jsondiffpatch'
-import { visit } from 'unist-util-visit'
 import type { MilkdownPlugin } from '@milkdown/ctx'
-import type { Node } from '@milkdown/transformer'
-import type { ExcalidrawRefObject } from '~/components/ui/excalidraw'
-import type { ModalContentPropsInternal } from '~/components/ui/modal'
-import type { FC } from 'react'
-import type { PluginCtx } from './types'
-
 import { setBlockType } from '@milkdown/prose/commands'
 import { InputRule } from '@milkdown/prose/inputrules'
+import type { Node } from '@milkdown/transformer'
 import {
   $command,
   $inputRule,
@@ -20,10 +9,19 @@ import {
   $remark,
   $view,
 } from '@milkdown/utils'
+import { useNodeViewContext } from '@prosemirror-adapter/react'
+import { useAtom } from 'jotai'
+import { atomWithStorage } from 'jotai/utils'
+import { diff } from 'jsondiffpatch'
+import type { FC } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
+import { visit } from 'unist-util-visit'
 
 import { BlockLoading } from '~/components/modules/shared/BlockLoading'
 import { StyledButton } from '~/components/ui/button'
 import { CheckBoxLabel } from '~/components/ui/checkbox'
+import type { ExcalidrawRefObject } from '~/components/ui/excalidraw'
+import type { ModalContentPropsInternal } from '~/components/ui/modal'
 import { useModalStack } from '~/components/ui/modal'
 import { useForceUpdate } from '~/hooks/common/use-force-update'
 import { safeJsonParse } from '~/lib/helper'
@@ -32,6 +30,7 @@ import { toast } from '~/lib/toast'
 import { FileTypeEnum, uploadFileToServer } from '~/lib/upload'
 
 import { SharedModalAction } from './__internal/SharedModalAction'
+import type { PluginCtx } from './types'
 
 function createExcalidrawDiv(contents: string) {
   return {

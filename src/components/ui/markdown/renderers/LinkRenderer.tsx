@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react'
 import dynamic from 'next/dynamic'
 import type { FC, PropsWithChildren, ReactNode } from 'react'
+import React, { useMemo } from 'react'
 
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import {
@@ -25,8 +25,8 @@ import {
 import { useFeatureEnabled } from '~/providers/root/app-feature-provider'
 
 import { EmbedGithubFile } from '../../../modules/shared/EmbedGithubFile'
-import { LinkCard, LinkCardSource } from '../../link-card'
 import { MLink } from '../../link/MLink'
+import { LinkCard, LinkCardSource } from '../../link-card'
 
 const Tweet = dynamic(() => import('~/components/modules/shared/Tweet'), {
   ssr: false,

@@ -1,6 +1,5 @@
 import type { ModelWithLiked, PostModel } from '@mx-space/api-client'
 import type { Metadata } from 'next'
-import type { PageParams } from './api'
 
 import { AckRead } from '~/components/common/AckRead'
 import { ClientOnly } from '~/components/common/ClientOnly'
@@ -38,6 +37,7 @@ import {
 } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
+import type { PageParams } from './api'
 import { getData } from './api'
 import {
   HeaderMetaInfoSetting,

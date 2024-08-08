@@ -1,8 +1,8 @@
 'use client'
 
-import { useCallback, useEffect, useRef } from 'react'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import dynamic from 'next/dynamic'
+import { useCallback, useEffect, useRef } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { FloatPopover } from '~/components/ui/float-popover'

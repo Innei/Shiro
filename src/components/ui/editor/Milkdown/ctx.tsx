@@ -1,5 +1,5 @@
-import { atom, useAtomValue } from 'jotai'
 import type { Ctx } from '@milkdown/ctx'
+import { atom, useAtomValue } from 'jotai'
 
 import { jotaiStore } from '~/lib/store'
 

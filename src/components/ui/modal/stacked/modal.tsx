@@ -1,4 +1,8 @@
 import * as Dialog from '@radix-ui/react-dialog'
+import type { Target, Transition } from 'framer-motion'
+import { m, useAnimationControls } from 'framer-motion'
+import { useSetAtom } from 'jotai'
+import type { SyntheticEvent } from 'react'
 import {
   createElement,
   Fragment,
@@ -8,15 +12,6 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import { m, useAnimationControls } from 'framer-motion'
-import { useSetAtom } from 'jotai'
-import type { Target, Transition } from 'framer-motion'
-import type { SyntheticEvent } from 'react'
-import type {
-  CurrentModalContentProps,
-  ModalContentPropsInternal,
-} from './context'
-import type { ModalProps } from './types'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { CloseIcon } from '~/components/icons/close'
@@ -30,7 +25,12 @@ import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
 
 import { PresentSheet, sheetStackAtom } from '../../sheet'
+import type {
+  CurrentModalContentProps,
+  ModalContentPropsInternal,
+} from './context'
 import { CurrentModalContext, modalStackAtom } from './context'
+import type { ModalProps } from './types'
 
 const enterStyle: Target = {
   scale: 1,

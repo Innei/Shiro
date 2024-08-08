@@ -1,6 +1,5 @@
-import { useSearchParams } from 'next/navigation'
-
 import { CommentState } from '@mx-space/api-client'
+import { useSearchParams } from 'next/navigation'
 
 import { RoundedIconButton, StyledButton } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'

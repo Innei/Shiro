@@ -1,9 +1,5 @@
 'use client'
 
-import {
-  ReactQueryProvider,
-  ReactQueryProviderForDashboard,
-} from './react-query-provider'
 import { LazyMotion } from 'framer-motion'
 import { ThemeProvider } from 'next-themes'
 import type { JSX, PropsWithChildren } from 'react'
@@ -18,6 +14,10 @@ import { DebugProvider } from './debug-provider'
 import { EventProvider } from './event-provider'
 import { JotaiStoreProvider } from './jotai-provider'
 import { PageScrollInfoProvider } from './page-scroll-info-provider'
+import {
+  ReactQueryProvider,
+  ReactQueryProviderForDashboard,
+} from './react-query-provider'
 import { SocketContainer } from './socket-provider'
 
 const loadFeatures = () =>

@@ -1,6 +1,6 @@
 import clsx from 'clsx'
-import { blockRegex, Priority } from 'markdown-to-jsx'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
+import { blockRegex, Priority } from 'markdown-to-jsx'
 import type { FC } from 'react'
 
 import {

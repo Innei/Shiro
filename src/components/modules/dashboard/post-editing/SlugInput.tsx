@@ -1,6 +1,6 @@
+import type { CategoryModel } from '@mx-space/api-client'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useRef } from 'react'
-import type { CategoryModel } from '@mx-space/api-client'
 
 import { adminQueries } from '~/queries/definition'
 

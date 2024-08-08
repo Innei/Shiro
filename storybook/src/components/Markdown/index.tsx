@@ -1,5 +1,5 @@
-import { memo } from 'react'
 import { marked } from 'marked'
+import { memo } from 'react'
 
 export const Markdown = memo((props: { value: string }) => {
   const { value } = props

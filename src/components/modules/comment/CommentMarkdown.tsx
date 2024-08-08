@@ -1,6 +1,6 @@
-import type { MarkdownToJSX } from '~/components/ui/markdown'
 import type { FC } from 'react'
 
+import type { MarkdownToJSX } from '~/components/ui/markdown'
 import { Markdown } from '~/components/ui/markdown'
 
 const disabledTypes = [

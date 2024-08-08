@@ -1,7 +1,7 @@
-import { createContext, Suspense, useContext, useMemo, useState } from 'react'
-import { ErrorBoundary } from 'react-error-boundary'
 import { useIsomorphicLayoutEffect } from 'framer-motion'
 import type { FC } from 'react'
+import { createContext, Suspense, useContext, useMemo, useState } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 
 import { BlockLoading } from '~/components/modules/shared/BlockLoading'
 import { loadScript } from '~/lib/load-script'
