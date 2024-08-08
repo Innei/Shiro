@@ -1,8 +1,8 @@
-import { useRef } from 'react'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import type { FC } from 'react'
-import type { GalleryImageType } from '../Gallery'
+import { useRef } from 'react'
 
+import type { GalleryImageType } from '../Gallery'
 import styles from './FullScreenGallery.module.css'
 
 export const FullScreenGallery: FC<{ images: GalleryImageType[] }> = (
@@ -12,7 +12,7 @@ export const FullScreenGallery: FC<{ images: GalleryImageType[] }> = (
   const prevScrolltopRef = useRef(0)
   useIsomorphicLayoutEffect(() => {
     prevScrolltopRef.current = document.documentElement.scrollTop
-    const $root = document.querySelector('#root')
+    const $root = document.querySelector('#root') as HTMLElement
     if (!$root) return
     $root.style.display = 'none'
     document.documentElement.scrollTop = 0

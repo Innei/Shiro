@@ -66,7 +66,7 @@ export const scrollTextareaToCursor = (
     document.body.append(div)
 
     // 获取光标元素的位置
-    const cursorSpan = document.querySelector('#cursor')
+    const cursorSpan = document.querySelector('#cursor') as HTMLSpanElement
     const cursorY = cursorSpan!.offsetTop
     const lineHeight = Number.parseInt(styles.lineHeight)
     // 移除临时 div
