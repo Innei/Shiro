@@ -1,0 +1,143 @@
+imagePullSecrets: []
+  # - name: 'my_registry_secret'
+  #   endpoint: 'https://index.docker.io/v1/'
+  #   username: 'my_username'
+  #   password: 'your_password_here'
+
+mxcore:
+  # imagePullSecret: 'my_registry_secret'
+  image:
+    # repository: ''
+    # tag: ''
+    pullPolicy: IfNotPresent
+  baseUrl: ''
+  allowedOrigins: []
+  security:
+    jwtSecret: 'your_secret_here'
+    # jwtExpiration: 3600
+  encryption:
+    enabled: false
+    # key: ''
+  externalMongo:
+    enabled: false
+    # host: ''
+    # port: ''
+    # user: ''
+    # password: ''
+    # database: ''
+  externalRedis:
+    enabled: false
+    # host: ''
+    # port: ''
+    auth:
+      enabled: false
+      password: ''
+
+admin:
+  imagePullSecret: []
+    # username: ''
+    # password: ''
+  image:
+    # repository: ''
+    # tag: ''
+    pullPolicy: IfNotPresent
+  # base_url: ''
+  # username: ''
+  # password: ''
+  ingress:
+    enabled: false
+    # annotations: {}
+    # ingressClass: ''
+    # hosts:
+    #   - host: admin.myblog.com
+    #     paths:
+    #       - /
+
+shiro:
+  imagePullSecret: []
+    # username: ''
+    # password: ''
+  image:
+    # repository: ''
+    # tag: ''
+    pullPolicy: IfNotPresent
+  clerk:
+    publishableKey: ''
+    secretKey: ''
+  ingress:
+    enabled: false
+    # annotations: {}
+    # ingressClass: ''
+    # hosts:
+    #   - host: myblog.com
+    #     paths:
+    #       - /
+
+## MongoDB subchart
+## More values can be found at https://artifacthub.io/packages/helm/bitnami/mongodb
+mongodb:
+  enabled: true
+  # architecture: standalone
+  auth:
+    enabled: true
+    usernames: ['mx_space']
+    passwords: ['your_password_here']
+    databases: ['mx_space']
+
+# redis subchart
+## More values can be found at https://artifacthub.io/packages/helm/bitnami/redis
+redis:
+  enabled: true
+  # architecture: standalone
+  auth:
+    enabled: false
+    password: ''
+
+storage:
+  enabled: false
+  # accessKey: ''
+  # secretKey: ''
+  # bucket: ''
+  # region: ''
+  # endpoint: ''
+  # path: ''
+  # expiration: ''
+  # secure: true
+
+persistence:
+  enabled: false
+  # storageClass: ''
+  # accessMode: ReadWriteOnce
+  # size: 1Gi
+
+updateStrategy:
+  type: RollingUpdate
+  # rollingUpdate:
+  #   maxUnavailable: 25%
+  #   maxSurge: 25%
+
+tolerations: []
+
+nodeSelector: {}
+
+affinity: {}
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+podAnnotations: {}
+
+securityContext:
+  runAsUser: 1000
+  fsGroup: 1000
+  runAsNonRoot: true
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
