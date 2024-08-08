@@ -1,7 +1,7 @@
+import type { MarkdownToJSX } from 'markdown-to-jsx'
 import { compiler } from 'markdown-to-jsx'
 import RSS from 'rss'
 import xss from 'xss'
-import type { MarkdownToJSX } from 'markdown-to-jsx'
 
 import { CDN_HOST } from '~/app.static.config'
 import { AlertsRule as __AlertsRule } from '~/components/ui/markdown/parsers/alert'

@@ -1,12 +1,11 @@
 'use client'
 
-import { useInfiniteQuery } from '@tanstack/react-query'
-import { createElement, useEffect, useMemo } from 'react'
-import clsx from 'clsx'
 import type { NoteModel, PostModel } from '@mx-space/api-client'
-import type { FC } from 'react'
-
 import { CommentState } from '@mx-space/api-client'
+import { useInfiniteQuery } from '@tanstack/react-query'
+import clsx from 'clsx'
+import type { FC } from 'react'
+import { createElement, useEffect, useMemo } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import {
