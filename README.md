@@ -9,11 +9,12 @@
 以下是一些使用 Shiro 的示例站点：
 
 - [静かな森](https://innei.in)
+- [猫羽のブログす](https://www.maoyv.com/)
 - [可愛い松](https://blog.wibus.ren/)
 - [HuaSui](https://www.vlo.cc/)
 - [天翔 TNXG](https://tnxg.top)
 - [Star](https://www.xingbest.fun)
-
+  
 欢迎你来体验 Shiro 的魅力！
 
 ## :sparkles: 特征
