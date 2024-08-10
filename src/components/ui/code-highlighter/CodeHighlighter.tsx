@@ -164,9 +164,7 @@ export const ShikiFallback: FC<ShikiProps> = (props) => {
       return bundledLanguagesKeysSet.has(lang)
     }, [lang]),
   )
-
-  if (!shikiSupported) {
-    return <HighLighterPrismCdn {...props} />
-  }
-  return <ShikiHighLighter {...props} />
+  return (
+    <ShikiHighLighter {...props} lang={shikiSupported ? props.lang : 'text'} />
+  )
 }
