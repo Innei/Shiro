@@ -2,6 +2,7 @@
 
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import { Priority } from 'markdown-to-jsx'
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
 
 import { clsxm } from '~/lib/helper'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
@@ -26,6 +27,7 @@ const shouldCatchContainerName = [
   'note',
 
   'grid',
+  'masonry',
 ].join('|')
 
 export const ContainerRule: MarkdownToJSX.Rule = {
@@ -158,6 +160,25 @@ export const ContainerRule: MarkdownToJSX.Rule = {
             return null
           }
         }
+      }
+      case 'masonry': {
+        const { gap = 8 } = parseParams(params)
+        const imagesSrc = pickImagesFromMarkdown(content).map((r) => r.url)
+
+        return (
+          <ResponsiveMasonry
+            columnsCountBreakPoints={{
+              350: 1,
+              750: 2,
+            }}
+          >
+            <Masonry gutter={`${gap}px`} className="[&_figure]:my-0">
+              {imagesSrc.map((src) => (
+                <GridMarkdownImage key={src} src={src} />
+              ))}
+            </Masonry>
+          </ResponsiveMasonry>
+        )
       }
     }
 
