@@ -38,7 +38,7 @@ export const Hero = () => {
   return (
     <div className="mx-auto mt-20 min-w-0 max-w-7xl overflow-hidden lg:mt-[-4.5rem] lg:h-dvh lg:min-h-[800px] lg:px-8">
       <TwoColumnLayout
-        leftContainerClassName="mt-[120px] lg:mt-0 h-[15rem] lg:h-1/2"
+        leftContainerClassName="mt-[120px] lg:mt-0 lg:h-[15rem] lg:h-1/2"
         rightContainerClassName="lg:flex lg:justify-end lg:items-end"
       >
         <>
@@ -76,7 +76,7 @@ export const Hero = () => {
             <span className="opacity-80">{description}</span>
           </BottomToUpTransitionView>
 
-          <ul className="center mx-[60px] mt-8 flex flex-wrap gap-4 lg:mx-auto lg:mt-28 lg:justify-start">
+          <ul className="center mx-[60px] mt-8 flex flex-wrap gap-4 gap-y-6 lg:mx-auto lg:mt-28 lg:justify-start lg:gap-y-4">
             {Object.entries(socialIds || noopObj).map(
               ([type, id]: any, index) => {
                 if (!isSupportIcon(type)) return null
