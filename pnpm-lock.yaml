@@ -198,8 +198,8 @@ importers:
         specifier: npm:@innei/markdown-to-jsx@7.4.5-fork.4
         version: '@innei/markdown-to-jsx@7.4.5-fork.4(react@18.3.1)'
       marked:
-        specifier: 13.0.3
-        version: 13.0.3
+        specifier: 14.0.0
+        version: 14.0.0
       medium-zoom:
         specifier: 1.1.0
         version: 1.1.0
@@ -4054,8 +4054,8 @@ packages:
   markdown-table@3.0.3:
     resolution: {integrity: sha512-Z1NL3Tb1M9wH4XESsCDEksWoKTdlUafKc4pt0GRwjUyXaCFZ+dc3g2erqB6zm3szA2IUSi7VnPI+o/9jnxh9hw==}
 
-  marked@13.0.3:
-    resolution: {integrity: sha512-rqRix3/TWzE9rIoFGIn8JmsVfhiuC8VIQ8IdX5TfzmeBucdY05/0UlzKaw0eVtpcN/OdVFpBk7CjKGo9iHJ/zA==}
+  marked@14.0.0:
+    resolution: {integrity: sha512-uIj4+faQ+MgHgwUW1l2PsPglZLOLOT1uErt06dAPtx2kjteLAkbsd/0FiYg/MGS+i7ZKLb7w2WClxHkzOOuryQ==}
     engines: {node: '>= 18'}
     hasBin: true
 
@@ -10162,7 +10162,7 @@ snapshots:
 
   markdown-table@3.0.3: {}
 
-  marked@13.0.3: {}
+  marked@14.0.0: {}
 
   mdast-util-definitions@6.0.0:
     dependencies:
