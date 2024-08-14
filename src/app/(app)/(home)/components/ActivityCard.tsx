@@ -96,7 +96,7 @@ export const ActivityCard = ({ activity }: { activity: ReactActivityType }) => {
               <FaSolidFeatherAlt />
             </div>
             <div className="space-x-2">
-              <small>发布了</small>{' '}
+              <small>Posted</small>{' '}
               <Link href={routeBuilder(Routes.Note, { id: activity.nid })}>
                 <b>{activity.title}</b>
               </Link>
@@ -111,7 +111,7 @@ export const ActivityCard = ({ activity }: { activity: ReactActivityType }) => {
               <IcTwotoneSignpost />
             </div>
             <div className="space-x-2">
-              <small>发布了</small>{' '}
+              <small>Posted</small>{' '}
               <Link href={`/posts/${activity.slug}`}>
                 <b>{activity.title}</b>
               </Link>
