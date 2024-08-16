@@ -7,10 +7,12 @@ import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvide
 export const MTable: FC<JSX.IntrinsicElements['table']> = (props) => {
   const { className, ...rest } = props
   return (
-    <table
-      {...rest}
-      className={clsxm('table table-zebra table-pin-rows', className)}
-    />
+    <div className="w-full min-w-0 overflow-auto">
+      <table
+        {...rest}
+        className={clsxm('table table-zebra table-pin-rows', className)}
+      />
+    </div>
   )
 }
 
