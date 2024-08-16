@@ -1,6 +1,6 @@
 name: 🐞 Bug report
 description: Report an issue
-labels: [pending triage]
+labels: [bug]
 body:
   - type: markdown
     attributes:
@@ -14,7 +14,7 @@ body:
       placeholder: Bug description
     validations:
       required: true
-  - type: input
+  - type: textarea
     id: reproduction
     attributes:
       label: Reproduction
