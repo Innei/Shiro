@@ -55,7 +55,6 @@ export const login = async (username?: string, password?: string) => {
   }
 
   await refreshToken()
-  toast(`欢迎回来，${jotaiStore.get(ownerAtom)?.name}`, 'success')
 
   return true
 }
