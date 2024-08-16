@@ -22,6 +22,7 @@ import {
   useRef,
   useState,
 } from 'react'
+import { Blurhash } from 'react-blurhash'
 import { tv } from 'tailwind-variants'
 
 import { useIsMobile } from '~/atoms/hooks'
@@ -190,11 +191,7 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
         </LazyLoad>
       </span>
 
-      <img
-        className="max-w-1/3 !hidden print:!block"
-        src={src}
-        alt={alt || title}
-      />
+      <img className="!hidden print:!block" src={src} alt={alt || title} />
 
       {!!figcaption && (
         <figcaption className="mt-1 flex flex-col items-center justify-center">
@@ -264,7 +261,7 @@ const Placeholder: FC<
 
   return (
     <span
-      className={`image-placeholder ${styles.base}`}
+      className={`image-placeholder relative ${styles.base}`}
       data-width={scaledSize.scaleWidth}
       data-height={scaledSize.scaleHeight}
       data-from-record-height={imageMeta?.height}
@@ -275,7 +272,18 @@ const Placeholder: FC<
         width: scaledSize.scaleWidth,
         backgroundColor: accentColor,
       }}
-    />
+    >
+      {imageMeta?.blurHash && (
+        <Blurhash
+          resolutionX={32}
+          resolutionY={32}
+          punch={1}
+          height={scaledSize.scaleHeight}
+          width={scaledSize.scaleWidth}
+          hash={imageMeta.blurHash}
+        />
+      )}
+    </span>
   )
 }
 

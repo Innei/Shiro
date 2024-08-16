@@ -78,8 +78,8 @@ importers:
         specifier: 7.5.0
         version: 7.5.0(@milkdown/core@7.5.0(@milkdown/ctx@7.5.0)(@milkdown/prose@7.5.0)(@milkdown/transformer@7.5.0(@milkdown/prose@7.5.0)))(@milkdown/ctx@7.5.0)(@milkdown/prose@7.5.0)(@milkdown/transformer@7.5.0(@milkdown/prose@7.5.0))
       '@mx-space/api-client':
-        specifier: 1.13.1
-        version: 1.13.1
+        specifier: 1.13.2
+        version: 1.13.2
       '@openpanel/nextjs':
         specifier: 0.0.10-beta
         version: 0.0.10-beta(next@14.2.5(@babel/core@7.24.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -137,6 +137,9 @@ importers:
       '@vercel/postgres':
         specifier: 0.9.0
         version: 0.9.0
+      blurhash:
+        specifier: 2.0.5
+        version: 2.0.5
       bypass-vue-devtools:
         specifier: 0.0.6
         version: 0.0.6
@@ -248,6 +251,9 @@ importers:
       react:
         specifier: 18.3.1
         version: 18.3.1
+      react-blurhash:
+        specifier: 0.3.0
+        version: 0.3.0(blurhash@2.0.5)(react@18.3.1)
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
@@ -1461,8 +1467,8 @@ packages:
       '@milkdown/prose': ^7.2.0
       '@milkdown/transformer': ^7.2.0
 
-  '@mx-space/api-client@1.13.1':
-    resolution: {integrity: sha512-5pd9JajHBNFRHYgFoESP6oNCqdrc/zoDZkvAc70WuJI6hPUlXPQ3mYcXouEnsTyo2MvDVrWRyEnT4+ADC2VMzA==}
+  '@mx-space/api-client@1.13.2':
+    resolution: {integrity: sha512-93OrFV5NctIqC1hQBdE7DPkxAtcDo3J3YjhzQsfP2udSPl4WsWxC+e0SBihbk+btMkTA4oH1KtFbtheq5ESDtg==}
 
   '@mx-space/webhook@0.3.0':
     resolution: {integrity: sha512-BWNY6ekY3BoByPHzhQafGMe8w/UGNmZij3EZ6I7a+XR1iqaLb49tnN+BYfEWmDhWZ/f8nPHVcIP5eIHMoluwfg==}
@@ -2729,6 +2735,9 @@ packages:
 
   birecord@0.1.1:
     resolution: {integrity: sha512-VUpsf/qykW0heRlC8LooCq28Kxn3mAqKohhDG/49rrsQ1dT1CXyj/pgXS+5BSRzFTR/3DyIBOqQOrGyZOh71Aw==}
+
+  blurhash@2.0.5:
+    resolution: {integrity: sha512-cRygWd7kGBQO3VEhPiTgq4Wc43ctsM+o46urrmPOiuAe+07fzlSB9OJVdpgDL0jPqXUVQ9ht7aq7kxOeJHRK+w==}
 
   bowser@2.11.0:
     resolution: {integrity: sha512-AlcaJBi/pqqJBIQ8U9Mcpc9i8Aqxn88Skv5d+xBX006BY5u8N3mGLHa5Lgppa7L/HfwgwLgZ6NYs+Ag6uUmJRA==}
@@ -5117,6 +5126,12 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
+  react-blurhash@0.3.0:
+    resolution: {integrity: sha512-XlKr4Ns1iYFRnk6DkAblNbAwN/bTJvxTVoxMvmTcURdc5oLoXZwqAF9N3LZUh/HT+QFlq5n6IS6VsDGsviYAiQ==}
+    peerDependencies:
+      blurhash: ^2.0.3
+      react: '>=15'
+
   react-dom@18.3.1:
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
     peerDependencies:
@@ -7466,7 +7481,7 @@ snapshots:
       nanoid: 5.0.7
       tslib: 2.6.3
 
-  '@mx-space/api-client@1.13.1': {}
+  '@mx-space/api-client@1.13.2': {}
 
   '@mx-space/webhook@0.3.0': {}
 
@@ -8873,6 +8888,8 @@ snapshots:
   binary-extensions@2.3.0: {}
 
   birecord@0.1.1: {}
+
+  blurhash@2.0.5: {}
 
   bowser@2.11.0: {}
 
@@ -11691,6 +11708,11 @@ snapshots:
       react: 18.3.1
 
   queue-microtask@1.2.3: {}
+
+  react-blurhash@0.3.0(blurhash@2.0.5)(react@18.3.1):
+    dependencies:
+      blurhash: 2.0.5
+      react: 18.3.1
 
   react-dom@18.3.1(react@18.3.1):
     dependencies:

@@ -5,6 +5,7 @@ import mediumZoom from 'medium-zoom'
 import Image from 'next/image'
 import type { FC } from 'react'
 import React, { memo, useRef } from 'react'
+import { Blurhash } from 'react-blurhash'
 
 import { LazyLoad } from '~/components/common/Lazyload'
 import { addImageUrlResizeQuery } from '~/lib/image'
@@ -88,7 +89,7 @@ export const GridMarkdownImages: FC<{
 )
 
 const GridZoomImage: FC<{ src: string }> = memo(({ src }) => {
-  const { accent, height, width } = useMarkdownImageRecord(src) || {}
+  const { accent, height, width, blurHash } = useMarkdownImageRecord(src) || {}
   const cropUrl = addImageUrlResizeQuery(src, 600)
   const imageEl = useRef<HTMLImageElement>(null)
   const wGreaterThanH = width && height ? width > height : true
@@ -102,6 +103,14 @@ const GridZoomImage: FC<{ src: string }> = memo(({ src }) => {
         backgroundColor: accent,
       }}
     >
+      {!!blurHash && (
+        <Blurhash
+          hash={blurHash}
+          resolutionX={32}
+          resolutionY={32}
+          className="!size-full"
+        />
+      )}
       <LazyLoad offset={30}>
         <ImageComponent
           loading="lazy"
