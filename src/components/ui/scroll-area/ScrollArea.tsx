@@ -3,7 +3,6 @@
 import * as ScrollAreaBase from '@radix-ui/react-scroll-area'
 import * as React from 'react'
 
-import { useMaskScrollArea } from '~/hooks/shared/use-mask-scrollarea'
 import { stopPropagation } from '~/lib/dom'
 import { clsxm } from '~/lib/helper'
 
@@ -51,7 +50,7 @@ const Scrollbar = React.forwardRef<
       {...rest}
       ref={forwardedRef}
       className={clsxm(
-        'z-[10000] flex w-2.5 touch-none select-none p-0.5',
+        'z-[10000] flex w-2.5 touch-none select-none p-0.5 mr-1',
         orientation === 'horizontal'
           ? `h-2.5 w-full flex-col`
           : `w-2.5 flex-row`,
@@ -68,19 +67,18 @@ Scrollbar.displayName = 'ScrollArea.Scrollbar'
 
 const Viewport = React.forwardRef<
   React.ElementRef<typeof ScrollAreaBase.Viewport>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaBase.Viewport>
->(({ className, ...rest }, forwardedRef) => {
+  React.ComponentPropsWithoutRef<typeof ScrollAreaBase.Viewport> & {
+    mask?: boolean
+  }
+>(({ className, mask, ...rest }, forwardedRef) => {
   const ref = React.useRef<HTMLDivElement>(null)
-  const [, maskClassName] = useMaskScrollArea({
-    ref,
-    size: 'lg',
-  })
+
   React.useImperativeHandle(forwardedRef, () => ref.current as HTMLDivElement)
   return (
     <ScrollAreaBase.Viewport
       {...rest}
       ref={ref}
-      className={clsxm('block size-full', maskClassName, className)}
+      className={clsxm('block size-full', mask && 'mask-scroller', className)}
     />
   )
 })
@@ -110,14 +108,23 @@ export const ScrollArea = React.forwardRef<
     viewportClassName?: string
     scrollbarClassName?: string
     flex?: boolean
+    mask?: boolean
   }
 >(
   (
-    { flex, children, rootClassName, viewportClassName, scrollbarClassName },
+    {
+      flex,
+      children,
+      mask,
+      rootClassName,
+      viewportClassName,
+      scrollbarClassName,
+    },
     ref,
   ) => (
     <Root className={rootClassName}>
       <Viewport
+        mask={mask}
         ref={ref}
         onWheel={stopPropagation}
         className={clsxm(

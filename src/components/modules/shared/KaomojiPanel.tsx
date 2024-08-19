@@ -35,7 +35,10 @@ export const KaomojiPanel: FC<
   onValueChange,
 }) => {
   const KaomojiContentEl = (
-    <ScrollArea.ScrollArea rootClassName="pointer-events-auto h-[250px] w-auto lg:h-[200px] lg:w-[400px]">
+    <ScrollArea.ScrollArea
+      mask
+      rootClassName="pointer-events-auto h-[250px] w-auto lg:h-[200px] lg:w-[400px]"
+    >
       <div className="grid grid-cols-4 gap-4">
         {KAOMOJI_LIST.map((kamoji) => (
           <MotionButtonBase

@@ -70,7 +70,10 @@ export const ActivityRecent = () => {
           </ul>
         </div>
       ) : (
-        <ScrollArea.ScrollArea rootClassName="h-[400px] relative max-h-[80vh]">
+        <ScrollArea.ScrollArea
+          mask
+          rootClassName="h-[400px] relative max-h-[80vh]"
+        >
           <ul className="shiro-timeline mt-4 flex flex-col pb-8 pl-2">
             {flatData.map((activity) => (
               <li

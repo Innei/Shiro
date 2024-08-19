@@ -16,7 +16,9 @@ import React, {
 import { Divider } from '~/components/ui/divider'
 import { RightToLeftTransitionView } from '~/components/ui/transition'
 import { useStateToRef } from '~/hooks/common/use-state-ref'
-import { useMaskScrollArea } from '~/hooks/shared/use-mask-scrollarea'
+import {
+  useContainerCanScroll,
+} from '~/hooks/shared/use-mask-scrollarea'
 import { clsxm } from '~/lib/helper'
 import { springScrollToElement } from '~/lib/scroller'
 
@@ -134,10 +136,8 @@ export const TocTree: Component<
       ? accessory
       : React.createElement(accessory as FC)
   }, [accessory])
-
-  const [scrollContainerRef, scrollClassname] =
-    useMaskScrollArea<HTMLUListElement>()
-
+  const treeRef = useRef<HTMLUListElement>(null)
+  const [, canScroll] = useContainerCanScroll({ ref: treeRef })
   return (
     <ul
       className={clsxm(
@@ -147,8 +147,11 @@ export const TocTree: Component<
       ref={containerRef}
     >
       <ul
-        className={clsx('scrollbar-none overflow-auto', scrollClassname)}
-        ref={scrollContainerRef}
+        ref={treeRef}
+        className={clsx(
+          'scrollbar-none overflow-auto',
+          canScroll && 'mask-scroller',
+        )}
       >
         {toc?.map((heading) => (
           <MemoedItem
