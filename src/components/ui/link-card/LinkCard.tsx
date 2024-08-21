@@ -13,6 +13,7 @@ import { MingcuteStarHalfFill } from '~/components/icons/star'
 import { usePeek } from '~/components/modules/peek/usePeek'
 import { LanguageToColorMap } from '~/constants/language'
 import { useIsClientTransition } from '~/hooks/common/use-is-client'
+import useIsCommandOrControlPressed from '~/hooks/common/use-is-command-or-control-pressed'
 import { preventDefault } from '~/lib/dom'
 import { fetchGitHubApi } from '~/lib/github'
 import { clsxm } from '~/lib/helper'
@@ -72,12 +73,15 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
   const [cardInfo, setCardInfo] = useState<CardState>()
 
   const peek = usePeek()
+  const isCommandPressed = useIsCommandOrControlPressed()
+
   const handleCanPeek = useCallback(
     async (e: SyntheticEvent<any>) => {
+      if (isCommandPressed) return
       const success = peek(fullUrl)
       if (success) preventDefault(e)
     },
-    [fullUrl],
+    [fullUrl, isCommandPressed, peek],
   )
 
   const tmdbEnabled = useFeatureEnabled('tmdb')
