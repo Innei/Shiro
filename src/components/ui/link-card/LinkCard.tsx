@@ -520,24 +520,12 @@ const fetchLeetCodeQuestionData: FetchObject = {
   },
   fetch: async (id, setCardInfo, setFullUrl) => {
     try {
-      // 第一个请求：获取题目基本信息
+      //获取题目信息
       const body = {
-        query: `
-          query questionTitle($titleSlug: String!) {
-            question(titleSlug: $titleSlug) {
-              questionId
-              title
-              isPaidOnly
-              difficulty
-              likes
-              dislikes
-              categoryTitle
-            }
-          }
-        `,
+        query: `query questionData($titleSlug: String!) {\n  question(titleSlug: $titleSlug) {translatedTitle\n   difficulty\n    likes\n     topicTags { translatedName\n }\n    stats\n  }\n}\n`,
         variables: { titleSlug: id },
       }
-      const questionTitleResponse = await fetch('/api/v2/fn/leetcode/shiro', {
+      const questionData = await fetch('/api/v2/fn/leetcode/shiro', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -549,95 +537,44 @@ const fetchLeetCodeQuestionData: FetchObject = {
         }
         return res.json()
       })
-      const questionTitleData = camelcaseKeys(
-        questionTitleResponse.data.question,
-      )
-      console.log('----------questionTitleData:', questionTitleData)
-
-      const bodyTrans = {
-        query: `
-            query questionTranslations($titleSlug: String!) {
-              question(titleSlug: $titleSlug) {
-                translatedTitle
-                translatedContent
-              }
-            }
-          `,
-        variables: { titleSlug: id },
-      }
-
-      // 第二个请求：获取题目翻译
-      const translationResponse = await fetch('/api/v2/fn/leetcode/shiro', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(bodyTrans),
-      }).then(async (res) => {
-        if (!res.ok) {
-          throw new Error('Failed to fetch LeetCode question translation')
-        }
-        return res.json()
-      })
-      const translationData = camelcaseKeys(translationResponse.data.question)
-
-      // 第三个请求：获取题目标签
-      const tagsResponse = await fetch('/api/v2/fn/leetcode/shiro', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: `
-            query singleQuestionTopicTags($titleSlug: String!) {
-              question(titleSlug: $titleSlug) {
-                topicTags {
-                  name
-                  translatedName
-                }
-              }
-            }
-        `,
-          variables: { titleSlug: id },
-        }),
-      }).then(async (res) => {
-        if (!res.ok) {
-          throw new Error('Failed to fetch LeetCode question tags')
-        }
-        return res.json()
-      })
-
-      const tagsData = camelcaseKeys(tagsResponse.data.question.topicTags)
-
+      const questionTitleData = camelcaseKeys(questionData.data.question)
+      const stats = JSON.parse(questionTitleData.stats)
       // 设置卡片信息
       setCardInfo({
         title: (
-          <span className="flex items-center gap-2">
-            <span className="flex-1">
-              {translationData.translatedTitle || questionTitleData.title}
-            </span>
-            <span className="shrink-0 self-end justify-self-end">
-              {questionTitleData.likes > 0 && (
-                <span className="inline-flex shrink-0 items-center gap-1 self-center text-sm text-orange-400 dark:text-yellow-500">
-                  <i className="icon-[mingcute--thumb-up-line]" />
-                  <span className="font-sans font-medium">
-                    {questionTitleData.likes}
+          <>
+            <span className="flex items-center gap-2">
+              <span className="flex-1">
+                {questionTitleData.translatedTitle}
+              </span>
+              <span className="shrink-0 self-end justify-self-end">
+                {questionTitleData.likes > 0 && (
+                  <span className="inline-flex shrink-0 items-center gap-1 self-center text-sm text-orange-400 dark:text-yellow-500">
+                    <i className="icon-[mingcute--thumb-up-line]" />
+                    <span className="font-sans font-medium">
+                      {questionTitleData.likes}
+                    </span>
                   </span>
-                </span>
-              )}
+                )}
+              </span>
             </span>
-          </span>
+          </>
         ),
         desc: (
           <>
             <span
-              className={`ml-6 font-bold ${getDifficultyColorClass(questionTitleData.difficulty)}`}
+              className={`mr-4 font-bold ${getDifficultyColorClass(questionTitleData.difficulty)}`}
             >
               {questionTitleData.difficulty}
             </span>
             <span className="overflow-hidden">
-              {tagsData.map((tag: any) => tag.translatedName).join(' / ')}
-            </span>{' '}
+              {questionTitleData.topicTags
+                .map((tag: any) => tag.translatedName)
+                .join(' / ')}
+            </span>
+            <span className="float-right overflow-hidden">
+              AR: {stats.acRate}
+            </span>
           </>
         ),
         image:
@@ -645,7 +582,7 @@ const fetchLeetCodeQuestionData: FetchObject = {
         color: getDifficultyColor(questionTitleData.difficulty),
       })
 
-      setFullUrl(`https://leetcode.cn/problems/${id}`)
+      setFullUrl(`https://leetcode.cn/problems/${id}/description`)
     } catch (err) {
       console.error('Error fetching LeetCode question data:', err)
       throw err
@@ -654,7 +591,6 @@ const fetchLeetCodeQuestionData: FetchObject = {
 }
 
 // 映射难度到颜色的函数
-
 function getDifficultyColor(difficulty: string) {
   switch (difficulty) {
     case 'Easy':

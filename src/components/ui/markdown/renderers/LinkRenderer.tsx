@@ -13,6 +13,7 @@ import {
   isGithubPrUrl,
   isGithubRepoUrl,
   isGithubUrl,
+  isLeetCodeUrl,
   isSelfArticleUrl,
   isTMDBUrl,
   isTweetUrl,
@@ -129,6 +130,17 @@ export const BlockLinkRenderer = ({
 
       return fallbackElement
     }
+
+    case isLeetCodeUrl(url): {
+      return (
+        <LinkCard
+          fallbackUrl={url.toString()}
+          source={LinkCardSource.LEETCODE}
+          id={url.pathname.split('/')[2]}
+        />
+      )
+    }
+
     case isBilibiliVideoUrl(url): {
       const { id } = parseBilibiliVideoUrl(url)
 
