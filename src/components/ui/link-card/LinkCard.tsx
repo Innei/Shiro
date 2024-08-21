@@ -626,15 +626,14 @@ const fetchLeetCodeQuestionData: FetchObject = {
         ),
         desc: (
           <>
-            <span className="overflow-hidden">
-              {tagsData.map((tag: any) => tag.translatedName).join(' / ')}
-            </span>{' '}
             <span
-              className={getDifficultyColorClass(questionTitleData.difficulty)}
-              style={{ fontWeight: 'bold', marginLeft: '24px' }}
+              className={`ml-6 font-bold ${getDifficultyColorClass(questionTitleData.difficulty)}`}
             >
               {questionTitleData.difficulty}
             </span>
+            <span className="overflow-hidden">
+              {tagsData.map((tag: any) => tag.translatedName).join(' / ')}
+            </span>{' '}
           </>
         ),
         image:
@@ -642,7 +641,7 @@ const fetchLeetCodeQuestionData: FetchObject = {
         color: getDifficultyColor(questionTitleData.difficulty),
       })
 
-      setFullUrl(`https://leetcode.cn/problems/${id}/`)
+      setFullUrl(`https://leetcode.cn/problems/${id}`)
     } catch (err) {
       console.error('Error fetching LeetCode question data:', err)
       throw err
