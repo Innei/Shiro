@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import type { FC, PropsWithChildren, SyntheticEvent } from 'react'
 import { useCallback } from 'react'
 
+import useIsCommandOrControlPressed from '~/hooks/common/use-is-command-or-control-pressed'
 import { preventDefault } from '~/lib/dom'
 import { Routes } from '~/lib/route-builder'
 
@@ -21,16 +22,18 @@ export const PeekLink: FC<
   const peek = usePeek()
 
   const pathname = usePathname()
+  const isCommandPressed = useIsCommandOrControlPressed()
 
   const handlePeek = useCallback(
     async (e: SyntheticEvent) => {
       if (pathname === '/' || pathname === Routes.Posts) {
         return
       }
+      if (isCommandPressed) return
       const success = peek(href)
       if (success) preventDefault(e)
     },
-    [href, pathname, peek],
+    [href, isCommandPressed, pathname, peek],
   )
 
   return (
