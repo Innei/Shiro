@@ -12,6 +12,7 @@ import uniqolor from 'uniqolor'
 import { LazyLoad } from '~/components/common/Lazyload'
 import { MingcuteStarHalfFill } from '~/components/icons/star'
 import { usePeek } from '~/components/modules/peek/usePeek'
+import { API_URL } from '~/constants/env'
 import { LanguageToColorMap } from '~/constants/language'
 import { useIsClientTransition } from '~/hooks/common/use-is-client'
 import useIsCommandOrControlPressed from '~/hooks/common/use-is-command-or-control-pressed'
@@ -525,7 +526,7 @@ const fetchLeetCodeQuestionData: FetchObject = {
         query: `query questionData($titleSlug: String!) {\n  question(titleSlug: $titleSlug) {translatedTitle\n   difficulty\n    likes\n     topicTags { translatedName\n }\n    stats\n  }\n}\n`,
         variables: { titleSlug: id },
       }
-      const questionData = await fetch('/api/v2/fn/leetcode/shiro', {
+      const questionData = await fetch(`${API_URL}/fn/leetcode/shiro`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
