@@ -12,7 +12,6 @@ import uniqolor from 'uniqolor'
 import { LazyLoad } from '~/components/common/Lazyload'
 import { MingcuteStarHalfFill } from '~/components/icons/star'
 import { usePeek } from '~/components/modules/peek/usePeek'
-import { API_URL } from '~/constants/env'
 import { LanguageToColorMap } from '~/constants/language'
 import { useIsClientTransition } from '~/hooks/common/use-is-client'
 import useIsCommandOrControlPressed from '~/hooks/common/use-is-command-or-control-pressed'
@@ -526,7 +525,7 @@ const fetchLeetCodeQuestionData: FetchObject = {
         query: `query questionData($titleSlug: String!) {\n  question(titleSlug: $titleSlug) {translatedTitle\n   difficulty\n    likes\n     topicTags { translatedName\n }\n    stats\n  }\n}\n`,
         variables: { titleSlug: id },
       }
-      const questionData = await fetch(`${API_URL}/fn/leetcode/shiro`, {
+      const questionData = await fetch(`/api/leetcode`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -588,38 +587,31 @@ const fetchLeetCodeQuestionData: FetchObject = {
       console.error('Error fetching LeetCode question data:', err)
       throw err
     }
+
+    function getDifficultyColor(difficulty: string) {
+      switch (difficulty) {
+        case 'Easy':
+          return '#00BFA5'
+        case 'Medium':
+          return '#FFA726'
+        case 'Hard':
+          return '#F44336'
+        default:
+          return '#757575'
+      }
+    }
+
+    function getDifficultyColorClass(difficulty: string) {
+      switch (difficulty) {
+        case 'Easy':
+          return 'text-green-500'
+        case 'Medium':
+          return 'text-yellow-500'
+        case 'Hard':
+          return 'text-red-500'
+        default:
+          return 'text-gray-500'
+      }
+    }
   },
-}
-
-// 映射难度到颜色的函数
-function getDifficultyColor(difficulty: string) {
-  switch (difficulty) {
-    case 'Easy':
-      return '#00BFA5'
-    case 'Medium':
-      return '#FFA726'
-    case 'Hard':
-      return '#F44336'
-    default:
-      return '#757575'
-  }
-}
-
-// 难度字体颜色className
-function getDifficultyColorClass(difficulty: string) {
-  switch (difficulty) {
-    case 'Easy':
-      return 'text-green-500'
-    case 'Medium':
-      return 'text-yellow-500'
-    case 'Hard':
-      return 'text-red-500'
-    default:
-      return 'text-gray-500'
-  }
-}
-
-interface LeetCodeResponse {
-  query: string
-  variables: Record<string, any>
 }
