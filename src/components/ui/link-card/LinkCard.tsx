@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/switch-case-braces */
 import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
 import { m, useMotionTemplate, useMotionValue } from 'framer-motion'
 import Link from 'next/link'
@@ -11,6 +12,7 @@ import uniqolor from 'uniqolor'
 import { LazyLoad } from '~/components/common/Lazyload'
 import { MingcuteStarHalfFill } from '~/components/icons/star'
 import { usePeek } from '~/components/modules/peek/usePeek'
+import { API_URL } from '~/constants/env'
 import { LanguageToColorMap } from '~/constants/language'
 import { useIsClientTransition } from '~/hooks/common/use-is-client'
 import useIsCommandOrControlPressed from '~/hooks/common/use-is-command-or-control-pressed'
@@ -93,6 +95,7 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
         [LinkCardSource.GHCommit]: fetchGitHubCommitData,
         [LinkCardSource.GHPr]: fetchGitHubPRData,
         [LinkCardSource.Self]: fetchMxSpaceData,
+        [LinkCardSource.LEETCODE]: fetchLeetCodeQuestionData,
       } as Record<LinkCardSource, FetchObject>
       if (tmdbEnabled)
         fetchDataFunctions[LinkCardSource.TMDB] = fetchTheMovieDBData
@@ -509,4 +512,114 @@ const fetchTheMovieDBData: FetchObject = {
     })
     json.homepage && setFullUrl(json.homepage)
   },
+}
+
+const fetchLeetCodeQuestionData: FetchObject = {
+  isValid: (id) => {
+    // 检查 titleSlug 是否是一个有效的字符串
+    return typeof id === 'string' && id.length > 0
+  },
+  fetch: async (id, setCardInfo, setFullUrl) => {
+    try {
+      //获取题目信息
+      const body = {
+        query: `query questionData($titleSlug: String!) {\n  question(titleSlug: $titleSlug) {translatedTitle\n   difficulty\n    likes\n     topicTags { translatedName\n }\n    stats\n  }\n}\n`,
+        variables: { titleSlug: id },
+      }
+      const questionData = await fetch(`${API_URL}/fn/leetcode/shiro`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      }).then(async (res) => {
+        if (!res.ok) {
+          throw new Error('Failed to fetch LeetCode question title')
+        }
+        return res.json()
+      })
+      const questionTitleData = camelcaseKeys(questionData.data.question)
+      const stats = JSON.parse(questionTitleData.stats)
+      // 设置卡片信息
+      setCardInfo({
+        title: (
+          <>
+            <span className="flex items-center gap-2">
+              <span className="flex-1">
+                {questionTitleData.translatedTitle}
+              </span>
+              <span className="shrink-0 self-end justify-self-end">
+                {questionTitleData.likes > 0 && (
+                  <span className="inline-flex shrink-0 items-center gap-1 self-center text-sm text-orange-400 dark:text-yellow-500">
+                    <i className="icon-[mingcute--thumb-up-line]" />
+                    <span className="font-sans font-medium">
+                      {questionTitleData.likes}
+                    </span>
+                  </span>
+                )}
+              </span>
+            </span>
+          </>
+        ),
+        desc: (
+          <>
+            <span
+              className={`mr-4 font-bold ${getDifficultyColorClass(questionTitleData.difficulty)}`}
+            >
+              {questionTitleData.difficulty}
+            </span>
+            <span className="overflow-hidden">
+              {questionTitleData.topicTags
+                .map((tag: any) => tag.translatedName)
+                .join(' / ')}
+            </span>
+            <span className="float-right overflow-hidden">
+              AR: {stats.acRate}
+            </span>
+          </>
+        ),
+        image:
+          'https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png',
+        color: getDifficultyColor(questionTitleData.difficulty),
+      })
+
+      setFullUrl(`https://leetcode.cn/problems/${id}/description`)
+    } catch (err) {
+      console.error('Error fetching LeetCode question data:', err)
+      throw err
+    }
+  },
+}
+
+// 映射难度到颜色的函数
+function getDifficultyColor(difficulty: string) {
+  switch (difficulty) {
+    case 'Easy':
+      return '#00BFA5'
+    case 'Medium':
+      return '#FFA726'
+    case 'Hard':
+      return '#F44336'
+    default:
+      return '#757575'
+  }
+}
+
+// 难度字体颜色className
+function getDifficultyColorClass(difficulty: string) {
+  switch (difficulty) {
+    case 'Easy':
+      return 'text-green-500'
+    case 'Medium':
+      return 'text-yellow-500'
+    case 'Hard':
+      return 'text-red-500'
+    default:
+      return 'text-gray-500'
+  }
+}
+
+interface LeetCodeResponse {
+  query: string
+  variables: Record<string, any>
 }

@@ -28,7 +28,9 @@ export default function GlobalError({
           <h1 className="mb-4">禁止访问或者 API 服务出现问题</h1>
           <div className="flex justify-center">
             <LazyMotion features={domAnimation}>
-              <StyledButton onClick={location.reload}>重试</StyledButton>
+              <StyledButton onClick={() => location.reload()}>
+                重试
+              </StyledButton>
             </LazyMotion>
           </div>
         </NormalContainer>
