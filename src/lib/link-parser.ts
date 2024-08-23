@@ -5,7 +5,9 @@ import { isClientSide, isDev } from './env'
 export const getTweetId = (url: URL) => url.pathname.split('/').pop()!
 
 const GITHUB_HOST = 'github.com'
-
+export const isLeetCodeUrl = (url: URL) => {
+  return url.hostname === 'leetcode.cn' || url.hostname === 'leetcode.com'
+}
 export const isGithubRepoUrl = (url: URL) =>
   url.hostname === GITHUB_HOST &&
   url.pathname.startsWith('/') &&
