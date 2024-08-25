@@ -8,4 +8,5 @@ export enum LinkCardSource {
   GHPr = 'gh-pr',
   TMDB = 'tmdb',
   LEETCODE = 'leetcode',
+  Arxiv = 'arxiv',
 }

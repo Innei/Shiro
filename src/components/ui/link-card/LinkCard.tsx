@@ -93,6 +93,7 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
         [LinkCardSource.GHRepo]: fetchGitHubRepoData,
         [LinkCardSource.GHCommit]: fetchGitHubCommitData,
         [LinkCardSource.GHPr]: fetchGitHubPRData,
+        [LinkCardSource.Arxiv]: fetchArxivData,
         [LinkCardSource.Self]: fetchMxSpaceData,
         [LinkCardSource.LEETCODE]: fetchLeetCodeQuestionData,
       } as Record<LinkCardSource, FetchObject>
@@ -296,6 +297,53 @@ const fetchGitHubRepoData: FetchObject = {
       setFullUrl(data.htmlUrl)
     } catch (err) {
       console.error('Error fetching GitHub data:', err)
+      throw err
+    }
+  },
+}
+
+const fetchArxivData: FetchObject = {
+  isValid: (id) => {
+    // /\d{4}\.\d+(?:v\d+)?/
+    return /^\d{4}\.\d+(?:v\d+)?$/.test(id)
+  },
+  fetch: async (id, setCardInfo, setFullUrl) => {
+    try {
+      const response = await fetch(
+        `https://export.arxiv.org/api/query?id_list=${id}`,
+      )
+      const text = await response.text()
+      const parser = new DOMParser()
+      const xmlDoc = parser.parseFromString(text, 'application/xml')
+
+      const entry = xmlDoc.getElementsByTagName('entry')[0]
+      const title = entry.getElementsByTagName('title')[0].textContent
+      const authors = entry.getElementsByTagName('author')
+      const authorNames = Array.from(authors).map(
+        (author) => author.getElementsByTagName('name')[0].textContent,
+      )
+      // const category = entry
+      //   .getElementsByTagName('category')[0]
+      //   .getAttribute('term')
+
+      setCardInfo({
+        title: (
+          <span className="flex items-center gap-2">
+            <span className="flex-1">{title}</span>
+            <span className="shrink-0 self-end justify-self-end">
+              <span className="inline-flex shrink-0 items-center gap-1 self-center text-sm text-orange-400 dark:text-yellow-500">
+                <span className="font-sans font-medium">{id}</span>
+              </span>
+            </span>
+          </span>
+        ),
+        desc:
+          authorNames.length > 1 ? `${authorNames[0]} et al.` : authorNames[0],
+      })
+
+      setFullUrl(entry.getElementsByTagName('id')[0].textContent!)
+    } catch (err) {
+      console.error('Error fetching ArXiv data:', err)
       throw err
     }
   },

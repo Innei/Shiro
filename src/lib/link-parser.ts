@@ -13,6 +13,13 @@ export const isGithubRepoUrl = (url: URL) =>
   url.pathname.startsWith('/') &&
   url.pathname.split('/').length === 3
 
+const ARXIV_HOST = 'arxiv.org'
+
+export const isArxivUrl = (url: URL) =>
+  url.hostname === ARXIV_HOST &&
+  url.pathname.startsWith('/') &&
+  /(abs|pdf)\/\d{4}\.\d+(?:v\d+)?/i.test(url.pathname)
+
 export const isGithubPrUrl = (url: URL) =>
   url.hostname === GITHUB_HOST && url.pathname.includes('/pull/')
 

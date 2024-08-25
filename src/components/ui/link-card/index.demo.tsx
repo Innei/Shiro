@@ -49,3 +49,12 @@ LinkCardDemo5.meta = {
   description: 'Show Github Commit LinkCard',
   title: 'LinkCard - GitHub Commit',
 }
+
+export const LinkCardDemo6: DocumentComponent = () => (
+  <LinkCard id="2309.16889" source={LinkCardSource.Arxiv} />
+)
+
+LinkCardDemo6.meta = {
+  description: 'Show Arxiv LinkCard',
+  title: 'LinkCard - Arxiv',
+}

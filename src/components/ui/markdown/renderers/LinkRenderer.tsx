@@ -10,6 +10,7 @@ import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import { BlockLoading } from '~/components/modules/shared/BlockLoading'
 import {
   getTweetId,
+  isArxivUrl,
   isBilibiliVideoUrl,
   isCodesandboxUrl,
   isGistUrl,
@@ -80,6 +81,16 @@ export const BlockLinkRenderer = ({
         />
       )
     }
+    case isArxivUrl(url): {
+      return (
+        <LinkCard
+          fallbackUrl={url.toString()}
+          source={LinkCardSource.Arxiv}
+          id={url.pathname.slice(5).toLowerCase()}
+        />
+      )
+    }
+
     case isTweetUrl(url): {
       const id = getTweetId(url)
 
