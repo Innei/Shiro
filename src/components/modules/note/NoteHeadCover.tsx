@@ -81,10 +81,12 @@ const NoteHeadCoverImpl = ({ image }: { image: string }) => {
   return (
     <>
       <div
+        data-image-url={image}
         data-hide-print
+        aria-hidden
         className={clsx(
-          'z-1 absolute inset-x-0',
-          imageBlob || accentColor ? 'h-[224px]' : '0',
+          'absolute inset-x-0',
+          imageBlob || accentColor ? 'h-[224px]' : '',
           'cover-mask-b top-[-6.5rem] md:top-0',
         )}
         style={{
