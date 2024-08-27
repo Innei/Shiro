@@ -5,19 +5,20 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  array-includes: npm:@nolyfill/array-includes@latest
-  array.prototype.findlastindex: npm:@nolyfill/array.prototype.findlastindex@latest
-  array.prototype.flat: npm:@nolyfill/array.prototype.flat@latest
-  array.prototype.flatmap: npm:@nolyfill/array.prototype.flatmap@latest
-  array.prototype.tosorted: npm:@nolyfill/array.prototype.tosorted@latest
-  has: npm:@nolyfill/has@latest
-  object.assign: npm:@nolyfill/object.assign@latest
-  object.entries: npm:@nolyfill/object.entries@latest
-  object.fromentries: npm:@nolyfill/object.fromentries@latest
-  object.groupby: npm:@nolyfill/object.groupby@latest
-  object.hasown: npm:@nolyfill/object.hasown@latest
-  object.values: npm:@nolyfill/object.values@latest
-  string.prototype.matchall: npm:@nolyfill/string.prototype.matchall@latest
+  array-includes: npm:@nolyfill/array-includes@^1
+  array.prototype.findlastindex: npm:@nolyfill/array.prototype.findlastindex@^1
+  array.prototype.flat: npm:@nolyfill/array.prototype.flat@^1
+  array.prototype.flatmap: npm:@nolyfill/array.prototype.flatmap@^1
+  array.prototype.tosorted: npm:@nolyfill/array.prototype.tosorted@^1
+  has: npm:@nolyfill/has@^1
+  object.assign: npm:@nolyfill/object.assign@^1
+  object.entries: npm:@nolyfill/object.entries@^1
+  object.fromentries: npm:@nolyfill/object.fromentries@^1
+  object.groupby: npm:@nolyfill/object.groupby@^1
+  object.hasown: npm:@nolyfill/object.hasown@^1
+  object.values: npm:@nolyfill/object.values@^1
+  string.prototype.matchall: npm:@nolyfill/string.prototype.matchall@^1
+  is-core-module: npm:@nolyfill/is-core-module@^1
 
 importers:
 
@@ -1568,6 +1569,10 @@ packages:
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
+
+  '@nolyfill/is-core-module@1.0.39':
+    resolution: {integrity: sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==}
+    engines: {node: '>=12.4.0'}
 
   '@openpanel/nextjs@0.0.10-beta':
     resolution: {integrity: sha512-sPR0ctTVnSfSXx2kaXBNyEfDRzwXc61L+pRR2HoQHWOJSYj69GwDjDUcIHM1FDPyMRrHYYDlihCPYVKUCB9LoA==}
@@ -3682,9 +3687,6 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
-  function-bind@1.1.2:
-    resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
-
   fuse.js@6.6.2:
     resolution: {integrity: sha512-cJaJkxCCxC8qIIcPBF9yGxY0W/tVZS3uEISDxhYIdtk8OL93pe+6Zj7LjCqVV4dzbqcriOZ+kQ/NE4RXZHsIGA==}
     engines: {node: '>=10'}
@@ -3781,10 +3783,6 @@ packages:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
 
-  hasown@2.0.0:
-    resolution: {integrity: sha512-vUptKVTpIJhcczKBbgnS+RtcuYMB8+oNzPK2/Hp3hanz8JmpATdmmgLgSaadVREkDm+e2giHwY3ZRkyjSIDDFA==}
-    engines: {node: '>= 0.4'}
-
   hermes-estree@0.20.1:
     resolution: {integrity: sha512-SQpZK4BzR48kuOg0v4pb3EAGNclzIlqMj3Opu/mu7bbAoFw6oig6cEt/RAi0zTFW/iW6Iz9X9ggGuZTAZ/yZHg==}
 
@@ -3874,9 +3872,6 @@ packages:
   is-builtin-module@3.2.1:
     resolution: {integrity: sha512-BSLE3HnV2syZ0FK0iMA/yUGplUeMmNz4AW5fnTunbCIqZi4vG3WjJT9FHMy5D69xmAYBHXQhJdALdpwVxV501A==}
     engines: {node: '>=6'}
-
-  is-core-module@2.13.1:
-    resolution: {integrity: sha512-hHrIjvZsftOsvKSn2TRYl63zvxsgE0K+0mYMoH6gD4omR5IWB2KynivBQczo3+wF1cCkjzvptnI9Q0sPU66ilw==}
 
   is-decimal@2.0.1:
     resolution: {integrity: sha512-AAB9hiomQs5DXWcRB1rqsxGUstbRroFOPPVAomNk/3XHR5JyEZChOyTWe2oayKnsSsr/kcGqF+z6yuH6HHpN0A==}
@@ -7574,6 +7569,8 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
+  '@nolyfill/is-core-module@1.0.39': {}
+
   '@openpanel/nextjs@0.0.10-beta(next@14.2.6(@babel/core@7.24.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@openpanel/web': 0.0.9-beta
@@ -9556,7 +9553,7 @@ snapshots:
   eslint-import-resolver-node@0.3.9:
     dependencies:
       debug: 3.2.7
-      is-core-module: 2.13.1
+      is-core-module: '@nolyfill/is-core-module@1.0.39'
       resolve: 1.22.8
     transitivePeerDependencies:
       - supports-color
@@ -10000,8 +9997,6 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
-  function-bind@1.1.2: {}
-
   fuse.js@6.6.2: {}
 
   fuse.js@7.0.0: {}
@@ -10097,10 +10092,6 @@ snapshots:
 
   has-flag@4.0.0: {}
 
-  hasown@2.0.0:
-    dependencies:
-      function-bind: 1.1.2
-
   hermes-estree@0.20.1: {}
 
   hermes-parser@0.20.1:
@@ -10186,10 +10177,6 @@ snapshots:
   is-builtin-module@3.2.1:
     dependencies:
       builtin-modules: 3.3.0
-
-  is-core-module@2.13.1:
-    dependencies:
-      hasown: 2.0.0
 
   is-decimal@2.0.1: {}
 
@@ -11947,7 +11934,7 @@ snapshots:
 
   resolve@1.22.8:
     dependencies:
-      is-core-module: 2.13.1
+      is-core-module: '@nolyfill/is-core-module@1.0.39'
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
 
