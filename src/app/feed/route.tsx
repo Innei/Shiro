@@ -1,3 +1,4 @@
+import type { Image } from '@mx-space/api-client'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import { compiler } from 'markdown-to-jsx'
 import RSS from 'rss'
@@ -33,6 +34,7 @@ interface RSSProps {
     title: string
     text: string
     id: string
+    images: Image[]
   }[]
 }
 
@@ -79,11 +81,21 @@ export async function GET() {
                 Tabs: NotSupportRender,
                 Tab: NotSupportRender,
 
-                img: ({ src, alt }) => {
+                img: ({ src, alt, height, width }) => {
                   if (src && new URL(src).hostname === CDN_HOST) {
                     return <span>此图片不支持在 RSS Render 中查看。</span>
                   }
-                  return <img src={src} alt={alt} />
+
+                  const meta = item.images?.find((image) => image.src === src)
+
+                  return (
+                    <img
+                      src={src}
+                      alt={alt}
+                      height={height || meta?.height}
+                      width={width || meta?.width}
+                    />
+                  )
                 },
               },
               extendsRules: {
@@ -97,9 +109,20 @@ export async function GET() {
                       return <NotSupportRender />
                     }
                     return (
-                      <pre key={state.key}>
+                      <pre
+                        key={state.key}
+                        className={
+                          node.lang
+                            ? `language-${node.lang} lang-${node.lang}`
+                            : ''
+                        }
+                      >
                         <code
-                          className={node.lang ? `language-${node.lang}` : ''}
+                          className={
+                            node.lang
+                              ? `language-${node.lang} lang-${node.lang}`
+                              : ''
+                          }
                         >
                           {node.content}
                         </code>
