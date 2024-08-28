@@ -70,25 +70,27 @@ export const WrappedElementProvider: Component<WrappedElementProviderProps> = ({
 const ArticleElementResizeObserver = () => {
   const setSize = useSetWrappedElementSize()
   const setPos = useSetElementPosition()
-  const $article = useWrappedElement()
+  const $element = useWrappedElement()
   useIsomorphicLayoutEffect(() => {
-    if (!$article) return
-    const { height, width, x, y } = $article.getBoundingClientRect()
+    if (!$element) return
+    const { height, width, x, y } = $element.getBoundingClientRect()
     setSize({ h: height, w: width })
     setPos({ x, y })
 
     const observer = new ResizeObserver((entries) => {
       const entry = entries[0]
-      const { height, width, x, y } = entry.contentRect
+      const { height, width } = entry.contentRect
+      const { x, y } = entry.target.getBoundingClientRect()
+
       setSize({ h: height, w: width })
       setPos({ x, y })
     })
-    observer.observe($article)
+    observer.observe($element)
     return () => {
-      observer.unobserve($article)
+      observer.unobserve($element)
       observer.disconnect()
     }
-  }, [$article])
+  }, [$element])
 
   return null
 }
