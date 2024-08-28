@@ -11,7 +11,8 @@ import { CommentIsReplyProvider } from './CommentBox/providers'
 
 export const CommentReplyButton: FC<{
   commentId: string
-}> = ({ commentId }) => {
+  className?: string
+}> = ({ commentId, className }) => {
   const [replyFormOpen, setReplyFormOpen] = useState(false)
   const originalRefId = useCommentBoxRefIdValue()
   const onReplyCompleted = useCallback(() => {
@@ -28,6 +29,7 @@ export const CommentReplyButton: FC<{
           'border border-slate-200 bg-zinc-100 dark:border-neutral-700 dark:bg-gray-800',
           'invisible cursor-pointer opacity-0',
           'group-[:hover]:visible group-[:hover]:opacity-70',
+          className,
         )}
         onClick={() => {
           setReplyFormOpen((o) => !o)

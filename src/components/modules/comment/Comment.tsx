@@ -14,6 +14,7 @@ import {
 import { createPortal } from 'react-dom'
 
 import { Avatar } from '~/components/ui/avatar'
+import { BlockLinkRenderer } from '~/components/ui/markdown/renderers/LinkRenderer'
 import { RelativeTime } from '~/components/ui/relative-time'
 import {
   getStrategyIconComponent,
@@ -32,6 +33,14 @@ export const Comment: Component<{
 }> = memo(function Comment(props) {
   const { comment, className } = props
   const elAtom = useMemo(() => atom<HTMLDivElement | null>(null), [])
+  const isSingleLinkContent = useMemo(() => {
+    const trimmedContent = comment?.text
+    return (
+      trimmedContent.startsWith('http') &&
+      trimmedContent.split('\n').length === 1
+    )
+  }, [comment?.text])
+
   // FIXME 兜一下后端给的脏数据
   if (typeof comment === 'string') return null
   const {
@@ -60,6 +69,23 @@ export const Comment: Component<{
     <span className="max-w-full shrink-0 break-all">{author}</span>
   )
 
+  const CommentNormalContent = (
+    <div
+      className={clsx(
+        styles['comment__message'],
+        'relative inline-block rounded-xl text-zinc-800 dark:text-zinc-200',
+        'bg-zinc-600/5 dark:bg-zinc-500/20',
+        'max-w-[calc(100%-3rem)]',
+        'rounded-tl-sm md:rounded-bl-sm md:rounded-tl-xl',
+        'ml-4 px-3 py-2 md:ml-0',
+        // 'prose-ol:list-inside prose-ul:list-inside',
+      )}
+    >
+      <CommentMarkdown>{text}</CommentMarkdown>
+
+      <CommentReplyButton commentId={comment.id} />
+    </div>
+  )
   return (
     <>
       <CommentHolderContext.Provider value={elAtom}>
@@ -141,20 +167,20 @@ export const Comment: Component<{
               </span>
 
               {/* Content */}
-              <div
-                className={clsx(
-                  styles['comment__message'],
-                  'relative inline-block rounded-xl text-zinc-800 dark:text-zinc-200',
-                  'bg-zinc-600/5 dark:bg-zinc-500/20',
-                  'max-w-[calc(100%-3rem)]',
-                  'rounded-tl-sm md:rounded-bl-sm md:rounded-tl-xl',
-                  'ml-4 px-3 py-2 md:ml-0',
-                  // 'prose-ol:list-inside prose-ul:list-inside',
-                )}
-              >
-                <CommentMarkdown>{text}</CommentMarkdown>
-                <CommentReplyButton commentId={comment.id} />
-              </div>
+              {isSingleLinkContent ? (
+                <div className="relative inline-block">
+                  <BlockLinkRenderer
+                    href={text}
+                    fallback={CommentNormalContent}
+                  />
+                  <CommentReplyButton
+                    commentId={comment.id}
+                    className="bottom-4"
+                  />
+                </div>
+              ) : (
+                CommentNormalContent
+              )}
             </div>
           </div>
         </m.li>

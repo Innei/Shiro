@@ -47,7 +47,8 @@ const Tweet = dynamic(() => import('~/components/modules/shared/Tweet'), {
 export const BlockLinkRenderer = ({
   href,
   children,
-}: PropsWithChildren<{ href: string }>) => {
+  fallback,
+}: PropsWithChildren<{ href: string; fallback?: ReactNode }>) => {
   const url = useMemo(() => {
     try {
       return new URL(href)
@@ -57,12 +58,13 @@ export const BlockLinkRenderer = ({
   }, [href])
 
   const fallbackElement = useMemo(
-    () => (
-      <p>
-        <MLink href={href}>{children ?? <span>{href}</span>}</MLink>
-      </p>
-    ),
-    [children, href],
+    () =>
+      fallback ?? (
+        <p>
+          <MLink href={href}>{children ?? <span>{href}</span>}</MLink>
+        </p>
+      ),
+    [children, fallback, href],
   )
 
   const tmdbEnabled = useFeatureEnabled('tmdb')

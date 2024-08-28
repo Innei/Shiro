@@ -68,6 +68,24 @@ export const ThinkingItem: FC<{
       trimmedContent.split('\n').length === 1
     )
   }, [item.content])
+
+  const MarkdownContent = (
+    <div
+      className={clsx(
+        'relative inline-block rounded-xl p-3 text-zinc-800 dark:text-zinc-200',
+        'rounded-tl-sm bg-zinc-600/5 dark:bg-zinc-500/20',
+        'max-w-full overflow-auto',
+      )}
+    >
+      <Markdown forceBlock>{item.content}</Markdown>
+
+      {!!item.ref && (
+        <div>
+          <RefPreview refModel={item.ref} />
+        </div>
+      )}
+    </div>
+  )
   return (
     <li key={item.id} className="mb-8 mt-[50px] flex flex-col gap-2">
       <div className="flex gap-4">
@@ -92,23 +110,9 @@ export const ThinkingItem: FC<{
       >
         <div className="relative w-full min-w-0">
           {isSingleLinkContent ? (
-            <BlockLinkRenderer href={item.content} />
+            <BlockLinkRenderer href={item.content} fallback={MarkdownContent} />
           ) : (
-            <div
-              className={clsx(
-                'relative inline-block rounded-xl p-3 text-zinc-800 dark:text-zinc-200',
-                'rounded-tl-sm bg-zinc-600/5 dark:bg-zinc-500/20',
-                'max-w-full overflow-auto',
-              )}
-            >
-              <Markdown forceBlock>{item.content}</Markdown>
-
-              {!!item.ref && (
-                <div>
-                  <RefPreview refModel={item.ref} />
-                </div>
-              )}
-            </div>
+            MarkdownContent
           )}
         </div>
 

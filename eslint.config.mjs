@@ -23,6 +23,7 @@ export default defineConfig(
       'import/no-anonymous-default-export': 'off',
       eqeqeq: 'warn',
       'no-console': 'warn',
+      '@eslint-react/dom/no-missing-button-type': 0,
       'unicorn/prefer-math-trunc': 'off',
       'unicorn/prefer-dom-node-remove': 'off',
       '@typescript-eslint/no-unsafe-function-type': 'off',
