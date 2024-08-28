@@ -51,7 +51,7 @@ interface ShareData {
 
 export const ShareModal: FC<ShareData> = ({ url, text, title }) => (
   <div className="relative grid grid-cols-[200px_auto] gap-5">
-    <div className="qrcode inline-block size-[200px] bg-gray-200/80 dark:bg-zinc-800/90">
+    <div className="inline-block size-[200px] bg-gray-200/80 dark:bg-zinc-800/90">
       <QRCodeSVG
         value={url}
         className="aspect-square w-[200px]"
@@ -59,7 +59,7 @@ export const ShareModal: FC<ShareData> = ({ url, text, title }) => (
         width={200}
       />
     </div>
-    <div className="share-options flex flex-col gap-2">
+    <div className="flex flex-col gap-2">
       分享到...
       <ul className="w-[200px] flex-col gap-2 [&>li]:flex [&>li]:items-center [&>li]:space-x-2">
         {shareList.map(({ name, icon, onClick }) => (

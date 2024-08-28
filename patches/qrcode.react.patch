@@ -1,0 +1,21 @@
+diff --git a/package.json b/package.json
+index b5c49b77316f9679f18c7da74f96ae7a890074a2..80fc320e66c0f8448be34e7bf090a9f819e3368d 100644
+--- a/package.json
++++ b/package.json
+@@ -12,9 +12,13 @@
+   "module": "./lib/esm/index.js",
+   "types": "./lib/index.d.ts",
+   "exports": {
+-    ".": {
+-      "import": "./lib/esm/index.js",
+-      "require": "./lib/index.js"
++    "import": {
++      "types": "./lib/index.d.mts",
++      "default": "./lib/esm/index.js"
++    },
++    "require": {
++      "types": "./lib/index.d.ts",
++      "default": "./lib/index.js"
+     }
+   },
+   "author": "Paul O’Shannessy <paul@oshannessy.com>",

@@ -1,5 +1,5 @@
 import { ClerkProvider } from '@clerk/nextjs'
-import { OpenpanelProvider } from '@openpanel/nextjs'
+import { OpenPanelComponent } from '@openpanel/nextjs'
 import type { Metadata, Viewport } from 'next'
 import { cookies } from 'next/headers'
 import { env, PublicEnvScript } from 'next-runtime-env'
@@ -174,8 +174,8 @@ export default async function RootLayout(props: PropsWithChildren) {
     <ClerkProvider publishableKey={env('NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY')}>
       <AppFeatureProvider tmdb={!!process.env.TMDB_API_KEY}>
         {openpanel?.enable && (
-          <OpenpanelProvider
-            url={openpanel.url}
+          <OpenPanelComponent
+            apiUrl={openpanel.url}
             clientId={openpanel.id}
             trackScreenViews={true}
             trackOutgoingLinks={true}
