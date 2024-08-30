@@ -36,7 +36,7 @@ type MapType = {
 
 const useJumpTo = () => {
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       const jumpToId = new URLSearchParams(location.search).get('selectId')
 
       if (!jumpToId) return
@@ -68,6 +68,8 @@ const useJumpTo = () => {
 
       // wait for user focus
     }, 100)
+
+    return () => clearTimeout(timer)
   }, [])
 }
 

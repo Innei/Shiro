@@ -46,6 +46,14 @@
 
       transition: all 250ms ease;
     }
+
+    &::selection {
+      text-shadow: none;
+    }
+
+    &.no-shadow {
+      text-shadow: none;
+    }
   }
 
   .shiro-timeline {
