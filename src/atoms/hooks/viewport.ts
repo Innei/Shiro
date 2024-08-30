@@ -5,7 +5,7 @@ import { useCallback } from 'react'
 
 import { jotaiStore } from '~/lib/store'
 
-import { pageScrollElementAtom, viewportAtom } from '../viewport'
+import { viewportAtom } from '../viewport'
 
 export const useViewport = <T>(
   selector: (value: ExtractAtomValue<typeof viewportAtom>) => T,
@@ -32,5 +32,5 @@ export const currentIsMobile = () => {
 
 export const getViewport = () => jotaiStore.get(viewportAtom)
 
-export const usePageScrollElement = () =>
-  useAtomValue(pageScrollElementAtom) || document.documentElement
+// eslint-disable-next-line @eslint-react/hooks-extra/ensure-custom-hooks-using-other-hooks
+export const usePageScrollElement = () => document.documentElement

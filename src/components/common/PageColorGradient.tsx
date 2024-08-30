@@ -24,7 +24,7 @@ export const PageColorGradient: FC<{
 
   return (
     <>
-      <RootPortal usePageScrollElement>
+      <RootPortal>
         <div
           style={
             {

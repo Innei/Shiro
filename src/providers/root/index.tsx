@@ -1,19 +1,13 @@
 'use client'
 
-import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { LazyMotion } from 'framer-motion'
 import { ThemeProvider } from 'next-themes'
 import type { JSX, PropsWithChildren } from 'react'
-import { Fragment, useState } from 'react'
 
-import { pageScrollElementAtom } from '~/atoms'
-import { useIsMobile } from '~/atoms/hooks'
 import { PeekPortal } from '~/components/modules/peek/PeekPortal'
 import { ModalStackProvider } from '~/components/ui/modal'
-import { ScrollArea } from '~/components/ui/scroll-area'
 import { useBeforeUnload } from '~/hooks/common/use-before-unload'
 import { isDev } from '~/lib/env'
-import { jotaiStore } from '~/lib/store'
 
 import { ProviderComposer } from '../../components/common/ProviderComposer'
 import { AuthProvider } from './auth-provider'
@@ -43,30 +37,9 @@ const webappContexts: JSX.Element[] = baseContexts.concat(
 )
 
 export function WebAppProviders({ children }: PropsWithChildren) {
-  const [scrollRef, setScrollRef] = useState<HTMLDivElement | null>(null)
-  const isMobile = useIsMobile()
-
-  useIsomorphicLayoutEffect(() => {
-    if (!isMobile) {
-      jotaiStore.set(pageScrollElementAtom, scrollRef)
-    } else {
-      jotaiStore.set(pageScrollElementAtom, null)
-    }
-  }, [scrollRef, isMobile])
-  const Scroller = isMobile ? Fragment : ScrollArea.ScrollArea
   return (
     <ProviderComposer contexts={webappContexts}>
-      <Scroller
-        {...(!isMobile
-          ? {
-              flex: true,
-              rootClassName: 'h-screen',
-              ref: setScrollRef,
-            }
-          : undefined)}
-      >
-        {children}
-      </Scroller>
+      {children}
 
       <SocketContainer />
       <ModalStackProvider key="modalStackProvider" />

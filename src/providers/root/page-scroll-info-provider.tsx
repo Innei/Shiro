@@ -5,7 +5,6 @@ import { atom, useAtomValue, useSetAtom } from 'jotai'
 import type { FC, PropsWithChildren } from 'react'
 import { useMemo, useRef } from 'react'
 
-import { pageScrollElementAtom } from '~/atoms'
 import { setIsInteractive } from '~/atoms/is-interactive'
 import { createAtomSelector } from '~/lib/atom'
 import { throttle } from '~/lib/lodash'
@@ -26,7 +25,6 @@ const ScrollDetector = () => {
   const prevScrollY = useRef(0)
   const setIsInteractiveOnceRef = useRef(false)
 
-  const pageScrollElement = useAtomValue(pageScrollElementAtom)
   useIsomorphicLayoutEffect(() => {
     const scrollHandler = throttle(
       () => {
@@ -34,7 +32,7 @@ const ScrollDetector = () => {
           setIsInteractive(true)
           setIsInteractiveOnceRef.current = true
         }
-        const element = pageScrollElement || document.documentElement
+        const element = document.documentElement
         let currentTop = element.scrollTop
 
         // 当 radix modal 被唤出，body 会被设置为 fixed，此时需要获取 body 的 top 值。
@@ -59,15 +57,14 @@ const ScrollDetector = () => {
       },
     )
 
-    const element = pageScrollElement || window
-    element.addEventListener('scroll', scrollHandler)
+    window.addEventListener('scroll', scrollHandler)
 
     scrollHandler()
 
     return () => {
-      element.removeEventListener('scroll', scrollHandler)
+      window.removeEventListener('scroll', scrollHandler)
     }
-  }, [pageScrollElement])
+  }, [])
 
   return null
 }
