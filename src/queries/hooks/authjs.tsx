@@ -50,7 +50,7 @@ const AuthjsLoginModalContent = () => {
       className="absolute left-1/2 top-1/2"
       ref={setModalElement}
     >
-      <div className="w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-xl border bg-base-100 p-3 shadow-2xl shadow-stone-300 dark:shadow-stone-800">
+      <div className="w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-xl border bg-base-100 p-3 shadow-2xl shadow-stone-300 dark:border-neutral-800 dark:shadow-stone-800">
         <div className="-mt-12 mb-4 flex items-center justify-center">
           <Image
             className="rounded-full shadow-lg"
@@ -73,7 +73,7 @@ const AuthjsLoginModalContent = () => {
                   to={modalElement!}
                   triggerElement={
                     <MotionButtonBase onClick={() => signIn(provider)}>
-                      <div className="flex size-10 items-center justify-center rounded-full border">
+                      <div className="flex size-10 items-center justify-center rounded-full border dark:border-neutral-800">
                         <img
                           className="size-4"
                           src={`https://authjs.dev/img/providers/${provider}.svg`}
