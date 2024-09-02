@@ -91,3 +91,11 @@ export const clearGlobalSearchParams = () => {
   })
 }
 export const isReactClient = true
+
+if (typeof window !== 'undefined') {
+  Object.defineProperty(window, 'api', {
+    get() {
+      return apiClient
+    },
+  })
+}

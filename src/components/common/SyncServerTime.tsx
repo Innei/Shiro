@@ -11,12 +11,8 @@ import { jotaiStore } from '~/lib/store'
 
 async function fetchTime() {
   const t1 = Date.now()
-  const { t2, t3 } = await apiClient
-    .proxy('server-time')
-    .get<{
-      t2: number
-      t3: number
-    }>()
+  const { t2, t3 } = await fetch(apiClient.proxy('server-time').toString(true))
+    .then((res) => res.json())
     .then((time) => {
       const { t3: response_time, t2: request_time } = time
 
