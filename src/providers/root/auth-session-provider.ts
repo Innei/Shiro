@@ -1,3 +1,4 @@
+import { simpleCamelcaseKeys } from '@mx-space/api-client'
 import { useSession } from 'next-auth/react'
 import { useEffect } from 'react'
 
@@ -14,8 +15,10 @@ export const AuthSessionProvider: Component = ({ children }) => {
   const session = useSession()
 
   useEffect(() => {
-    setSessionReader(session.data)
-    if (session.data?.isOwner) jotaiStore.set(isLoggedAtom, true)
+    if (!session.data) return
+    const transformedData = simpleCamelcaseKeys(session.data)
+    setSessionReader(transformedData)
+    if (transformedData.isOwner) jotaiStore.set(isLoggedAtom, true)
   }, [session.data])
   return children
 }
