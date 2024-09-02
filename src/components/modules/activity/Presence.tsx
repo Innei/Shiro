@@ -7,6 +7,7 @@ import { atomWithStorage } from 'jotai/utils'
 import type { FC, PropsWithChildren } from 'react'
 import {
   forwardRef,
+  Fragment,
   memo,
   useDeferredValue,
   useEffect,
@@ -26,11 +27,9 @@ import {
   useOwner,
   useSocketSessionId,
 } from '~/atoms/hooks'
-import {
-  useAuthReader,
-  useSessionReader,
-} from '~/atoms/hooks/reader'
+import { useAuthReader, useSessionReader } from '~/atoms/hooks/reader'
 import { getServerTime } from '~/components/common/SyncServerTime'
+import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import { MotionButtonBase, StyledButton } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
 import type { FormContextType } from '~/components/ui/form'
@@ -184,6 +183,7 @@ const NameModalContent = () => {
   const title = useAggregationSelector((s) => s.seo.title)
 
   const providers = useAuthProviders()
+
   return (
     <div className="flex flex-col gap-2">
       <p>记录下你的名字，为了更好的记录当前的文章的阅读进度。</p>
@@ -220,25 +220,32 @@ const NameModalContent = () => {
         </div>
       </Form>
 
-      <p className="mt-3">
-        或者，选择登录到 <b>{title}</b>，你的名字将会自动使用你的账号名字。
-      </p>
-      {providers && (
-        <ul className="mt-6 flex items-center justify-center gap-3 pb-16 md:pb-3">
-          {Object.keys(providers).map((provider) => (
-            <li key={provider}>
-              <MotionButtonBase
-                onClick={() => signIn(provider)}
-                className="flex size-10 items-center justify-center rounded-full border border-base-content/10"
-              >
-                <img
-                  className="size-4"
-                  src={`https://authjs.dev/img/providers/${provider}.svg`}
-                />
-              </MotionButtonBase>
-            </li>
-          ))}
-        </ul>
+      {providers && Object.keys(providers).length > 0 && (
+        <Fragment>
+          <p className="mt-3">
+            或者，选择登录到 <b>{title}</b>，你的名字将会自动使用你的账号名字。
+          </p>
+
+          <ul className="mt-6 flex items-center justify-center gap-3 pb-16 md:pb-3">
+            {Object.keys(providers).map((provider) => (
+              <li key={provider}>
+                <MotionButtonBase
+                  onClick={() => signIn(provider)}
+                  className="flex size-10 items-center justify-center rounded-full border border-base-content/10"
+                >
+                  {provider === 'github' ? (
+                    <GitHubBrandIcon />
+                  ) : (
+                    <img
+                      className="size-4"
+                      src={`https://authjs.dev/img/providers/${provider}.svg`}
+                    />
+                  )}
+                </MotionButtonBase>
+              </li>
+            ))}
+          </ul>
+        </Fragment>
       )}
     </div>
   )
