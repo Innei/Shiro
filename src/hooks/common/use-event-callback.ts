@@ -1,3 +1,4 @@
+'use client'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { useCallback, useRef } from 'react'
 

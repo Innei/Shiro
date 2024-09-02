@@ -2,6 +2,7 @@ import type { CommentModel } from '@mx-space/api-client'
 import clsx from 'clsx'
 import { m } from 'framer-motion'
 import { atom, useAtomValue } from 'jotai'
+import type { BuiltInProviderType } from 'next-auth/providers/index'
 import type { PropsWithChildren } from 'react'
 import {
   createContext,
@@ -122,11 +123,15 @@ export const Comment: Component<{
                 alt={`${author}'s avatar`}
                 className="size-6 select-none rounded-full bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800 dark:ring-zinc-800 md:size-9"
               />
-              {source && !!getStrategyIconComponent(source) && (
-                <div className="center absolute -right-1.5 bottom-1 flex size-3.5 rounded-full bg-white ring-[1.5px] ring-zinc-200 dark:bg-zinc-800 dark:ring-black">
-                  <UserAuthStrategyIcon strategy={source} className="size-3" />
-                </div>
-              )}
+              {source &&
+                !!getStrategyIconComponent(source as BuiltInProviderType) && (
+                  <div className="center absolute -right-1.5 bottom-1 flex size-3.5 rounded-full bg-white ring-[1.5px] ring-zinc-200 dark:bg-zinc-800 dark:ring-black">
+                    <UserAuthStrategyIcon
+                      strategy={source as BuiltInProviderType}
+                      className="size-3"
+                    />
+                  </div>
+                )}
             </div>
 
             {/* Header */}
