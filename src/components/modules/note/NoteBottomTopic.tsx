@@ -36,7 +36,6 @@ export const NoteBottomTopic: FC = () => {
       <Divider />
       <div className="flex items-center gap-4">
         <Avatar
-          randomColor
           radius="full"
           size={60}
           imageUrl={icon}
