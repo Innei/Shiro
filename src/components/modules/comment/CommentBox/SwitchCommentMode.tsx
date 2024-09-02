@@ -1,9 +1,9 @@
 'use client'
 
-import { useUser } from '@clerk/nextjs'
 import clsx from 'clsx'
 
 import { useIsLogged } from '~/atoms/hooks'
+import { useSessionReader } from '~/atoms/hooks/reader'
 import { MotionButtonBase } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
 
@@ -40,7 +40,8 @@ export const SwitchCommentMode = () => {
 
   const hasText = useCommentBoxHasText()
 
-  const notLogged = !!useUser()
+  // TODO
+  const notLogged = !useSessionReader()
 
   const isOwnerLogged = useIsLogged()
   if (isOwnerLogged) return null

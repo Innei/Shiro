@@ -90,7 +90,7 @@ let nextConfig = {
     })
 
     config.plugins.push(
-      codeInspectorPlugin({ bundler: 'webpack', hotKeys: ['metaKey'] }),
+      codeInspectorPlugin({ bundler: 'webpack', hotKeys: ['altKey'] }),
     )
 
     return config

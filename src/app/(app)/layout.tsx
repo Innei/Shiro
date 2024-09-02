@@ -1,8 +1,8 @@
-import { ClerkProvider } from '@clerk/nextjs'
 import { OpenPanelComponent } from '@openpanel/nextjs'
 import type { Metadata, Viewport } from 'next'
 import { cookies } from 'next/headers'
-import { env, PublicEnvScript } from 'next-runtime-env'
+import { PublicEnvScript } from 'next-runtime-env'
+import { fetch } from 'ofetch'
 import { TokenKey } from 'packages/fetch/src/shared'
 import type { PropsWithChildren } from 'react'
 import { ToastContainer } from 'react-toastify'
@@ -159,19 +159,38 @@ export default async function RootLayout(props: PropsWithChildren) {
 
   const { openpanel } = themeConfig.config?.module || {}
 
-  // const token = getAuthToken()
   const token = cookies().get(TokenKey)?.value
-  let userAuth = false
-  if (token) {
-    userAuth = await apiClient.user
-      .checkTokenValid(token)
-      .then((res) => !!res.ok)
 
-      .catch(() => false)
-  }
+  let userAuth = false
+
+  const headers = new Headers()
+
+  headers.append(
+    'cookie',
+    cookies()
+      .getAll()
+      .map((cookie) => `${cookie.name}=${cookie.value}`)
+      .join('; '),
+  )
+
+  headers.append('user-agent', 'Shiro')
+
+  userAuth = await Promise.all([
+    token &&
+      apiClient.user
+        .checkTokenValid(token)
+        .then((res) => !!res.ok)
+        .catch(() => false),
+
+    fetch(apiClient.proxy('master')('check_logged').toString(true), {
+      headers,
+    })
+      .then((res) => res.json())
+      .then((res) => !!res.ok),
+  ]).then(([tokenValid, logged]) => tokenValid || logged)
 
   return (
-    <ClerkProvider publishableKey={env('NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY')}>
+    <>
       <AppFeatureProvider tmdb={!!process.env.TMDB_API_KEY}>
         {openpanel?.enable && (
           <OpenPanelComponent
@@ -231,7 +250,7 @@ export default async function RootLayout(props: PropsWithChildren) {
           </body>
         </html>
       </AppFeatureProvider>
-    </ClerkProvider>
+    </>
   )
 }
 

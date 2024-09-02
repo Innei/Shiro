@@ -3,6 +3,7 @@ import { useAtom } from 'jotai'
 import Image from 'next/image'
 
 import { useIsLogged } from '~/atoms/hooks'
+import { UserAuthFromIcon } from '~/components/layout/header/internal/UserAuthFromIcon'
 import { Form, FormInput as FInput } from '~/components/ui/form'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
@@ -78,8 +79,8 @@ const LoggedForm = () => {
     <div className="flex space-x-4">
       <div
         className={clsx(
-          'mb-2 shrink-0 select-none self-end overflow-hidden rounded-full',
-          'dark:ring-zinc-800" bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800',
+          'relative mb-2 shrink-0 select-none self-end rounded-full',
+          'ring-2 ring-accent',
           'backface-hidden ml-[2px]',
         )}
       >
@@ -90,6 +91,7 @@ const LoggedForm = () => {
           width={48}
           height={48}
         />
+        <UserAuthFromIcon className="absolute -bottom-1 right-0" />
       </div>
       <div className={taClassName}>
         <UniversalTextArea className="pb-5" />

@@ -1,4 +1,3 @@
-import { useUser } from '@clerk/nextjs'
 import { useAtomValue } from 'jotai'
 import { customAlphabet } from 'nanoid'
 import { useMemo } from 'react'
@@ -26,7 +25,13 @@ export const getSocketWebSessionId = () => {
 }
 
 export const useSocketSessionId = () => {
-  const user = useUser()
+  // TODO
+  const user = {
+    isSignedIn: false,
+    user: {
+      id: '1',
+    },
+  }
   const owner = useOwner()
   const ownerIsLogin = useIsLogged()
 

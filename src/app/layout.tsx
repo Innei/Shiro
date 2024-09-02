@@ -10,6 +10,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   return (
     <>
       {children}
+
       <InitInClient />
       {/* <BrowserSupport /> */}
     </>

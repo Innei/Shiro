@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import type { FC, PropsWithChildren } from 'react'
 import { useCallback, useEffect, useId, useRef } from 'react'
 
+import { useIsMobile } from '~/atoms/hooks'
 import { jotaiStore } from '~/lib/store'
 
 import { MODAL_STACK_Z_INDEX } from './constants'
@@ -93,6 +94,7 @@ const ModalStack = () => {
 
   const forceOverlay = stack.some((item) => item.overlay)
 
+  const isMobile = useIsMobile()
   return (
     <AnimatePresence mode="popLayout">
       {stack.map((item, index) => (
@@ -103,7 +105,7 @@ const ModalStack = () => {
           isTop={index === stack.length - 1}
         />
       ))}
-      {stack.length > 0 && forceOverlay && (
+      {stack.length > 0 && forceOverlay && !isMobile && (
         <ModalOverlay zIndex={MODAL_STACK_Z_INDEX + stack.length - 1} />
       )}
     </AnimatePresence>

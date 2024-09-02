@@ -1,0 +1,13 @@
+diff --git a/client/_utils.js b/client/_utils.js
+index de4e3c4eedfaffa561ff7ea80f109cbf3bb807e5..ea42a4893fbb67159663d21bd606f44eece0ebe1 100644
+--- a/client/_utils.js
++++ b/client/_utils.js
+@@ -57,6 +57,8 @@ function _fetchData() {
+               options.method = "POST";
+             }
+ 
++            options.credentials = "include";
++
+             _context.next = 7;
+             return fetch(url, options);
+ 

@@ -5,12 +5,7 @@ import { nanoid } from 'nanoid'
 import { createFetch } from 'ofetch'
 
 import PKG from '../../../package.json'
-import {
-  ClerkCookieKey,
-  createApiClient,
-  createFetchAdapter,
-  TokenKey,
-} from './shared'
+import { createApiClient, createFetchAdapter, TokenKey } from './shared'
 
 const isDev = process.env.NODE_ENV === 'development'
 const isServerSide = typeof window === 'undefined'
@@ -21,11 +16,7 @@ const globalConfigureHeader = {} as any
 const globalConfigureSearchParams = {} as any
 
 export function getAuthToken(): string | null {
-  // FUCK clerk constants not export, and mark it internal and can not custom
-  // packages/backend/src/constants.ts
-  const clerkJwt = Cookies.get(ClerkCookieKey)
-
-  const token = Cookies.get(TokenKey) || clerkJwt
+  const token = Cookies.get(TokenKey)
 
   return token || null
 }
@@ -38,6 +29,7 @@ if (isServerSide) {
 export const $fetch = createFetch({
   defaults: {
     timeout: 8000,
+    credentials: 'include',
     // next: { revalidate: 3 },
     headers: globalConfigureHeader,
     onRequest(context) {

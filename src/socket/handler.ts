@@ -1,4 +1,5 @@
 import type {
+  AuthUser,
   CommentModel,
   NoteModel,
   PaginateResult,
@@ -19,6 +20,7 @@ import {
   setActivityPresence,
   setActivityProcessInfo,
 } from '~/atoms/activity'
+import { setAuthReaders } from '~/atoms/hooks/reader'
 import { setOwnerStatus } from '~/atoms/hooks/status'
 import type { OwnerStatus } from '~/atoms/status'
 import {
@@ -238,14 +240,25 @@ export const eventHandler = (
     }
 
     case EventTypes.ACTIVITY_UPDATE_PRESENCE: {
-      const payload = data as ActivityPresence
+      const payload = data as ActivityPresence & {
+        reader?: AuthUser
+      }
       const { queryKey } = queries.activity.presence(payload.roomName)
       const queryState = queryClient.getQueryState(queryKey)
       queryClient.cancelQueries({
         queryKey,
       })
 
-      setActivityPresence(data)
+      setActivityPresence({
+        ...payload,
+        readerId: payload.reader?.id,
+      })
+
+      if (payload.reader) {
+        setAuthReaders({
+          [payload.reader.id]: payload.reader as AuthUser,
+        })
+      }
       if (!queryState?.data) {
         queryClient.invalidateQueries({
           queryKey,

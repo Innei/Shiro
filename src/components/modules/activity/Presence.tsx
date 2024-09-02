@@ -1,6 +1,5 @@
 'use client'
 
-import { useUser } from '@clerk/nextjs'
 import { useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
 import { useAtomValue, useSetAtom } from 'jotai'
@@ -9,7 +8,6 @@ import type { FC, PropsWithChildren } from 'react'
 import {
   forwardRef,
   memo,
-  useCallback,
   useDeferredValue,
   useEffect,
   useImperativeHandle,
@@ -18,6 +16,7 @@ import {
   useRef,
   useState,
 } from 'react'
+import { useDebouncedCallback } from 'use-debounce'
 
 import {
   useActivityPresenceByRoomName,
@@ -27,6 +26,10 @@ import {
   useOwner,
   useSocketSessionId,
 } from '~/atoms/hooks'
+import {
+  useAuthReader,
+  useSessionReader,
+} from '~/atoms/hooks/reader'
 import { getServerTime } from '~/components/common/SyncServerTime'
 import { MotionButtonBase, StyledButton } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
@@ -39,13 +42,16 @@ import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { useIsDark } from '~/hooks/common/use-is-dark'
 import { useReadPercent } from '~/hooks/shared/use-read-percent'
+import { getUserUrl, signIn } from '~/lib/authjs'
 import { getColorScheme, stringToHue } from '~/lib/color'
 import { formatSeconds } from '~/lib/datetime'
 import { safeJsonParse } from '~/lib/helper'
-import { debounce, uniq } from '~/lib/lodash'
+import { uniq } from '~/lib/lodash'
 import { buildNSKey } from '~/lib/ns'
 import { apiClient } from '~/lib/request'
+import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 import { queries } from '~/queries/definition'
+import { useAuthProviders } from '~/queries/hooks/authjs'
 import { socketWorker } from '~/socket/worker-client'
 
 import { commentStoragePrefix } from '../comment/CommentBox/providers'
@@ -72,7 +78,7 @@ const PresenceImpl = () => {
 
   const identity = useSocketSessionId()
 
-  const clerkUser = useUser()
+  const reader = useSessionReader()
   const owner = useOwner()
 
   const isOwnerLogged = useIsLogged()
@@ -91,34 +97,29 @@ const PresenceImpl = () => {
     () =>
       isOwnerLogged
         ? owner?.name
-        : clerkUser.isSignedIn
-          ? clerkUser.user.fullName
-          : presenceStoredName || commentStoredName || '',
+        : reader?.name || presenceStoredName || commentStoredName || '',
     [
-      clerkUser.isSignedIn,
-      clerkUser.user?.fullName,
       commentStoredName,
       isOwnerLogged,
       owner?.name,
       presenceStoredName,
+      reader?.name,
     ],
   )
 
-  const update = useCallback(
-    debounce(async (position: number) => {
-      const sid = await socketWorker.getSid()
-      if (!sid) return
-      apiClient.activity.updatePresence({
-        identity,
-        position,
-        sid,
-        roomName,
-        displayName: displayName || void 0,
-        ts: getServerTime().getTime() || Date.now(),
-      })
-    }, 1000),
-    [identity, displayName],
-  )
+  const update = useDebouncedCallback(async (position: number) => {
+    const sid = await socketWorker.getSid()
+    if (!sid) return
+    return apiClient.activity.updatePresence({
+      identity,
+      position,
+      sid,
+      roomName,
+      displayName: displayName || void 0,
+      readerId: reader?.id,
+      ts: getServerTime().getTime() || Date.now(),
+    })
+  }, 1000)
 
   const percent = useReadPercent()
 
@@ -160,7 +161,7 @@ const ReadPresenceTimeline = () => {
   const uniqueActivityPresenceIdsCurrentRoom = uniq(
     activityPresenceIdsCurrentRoom,
   )
-  if (uniqueActivityPresenceIdsCurrentRoom.length < 2) return null
+  // if (uniqueActivityPresenceIdsCurrentRoom.length < 2) return null
   return (
     <RootPortal>
       <div className="group fixed inset-y-20 left-0 z-[3] w-8">
@@ -180,11 +181,13 @@ const NameModalContent = () => {
   const { dismiss } = useCurrentModal()
   const setDisplayName = useSetAtom(presenceStoredNameAtom)
   const formRef = useRef<FormContextType>(null)
+  const title = useAggregationSelector((s) => s.seo.title)
 
+  const providers = useAuthProviders()
   return (
     <div className="flex flex-col gap-2">
       <p>记录下你的名字，为了更好的记录当前的文章的阅读进度。</p>
-      <small className="text-sm opacity-80">你的名字只会保存在本地。</small>
+      <small className="text-sm opacity-60">你的名字只会保存在本地。</small>
       <Form
         onSubmit={() => {
           const values = formRef.current?.getCurrentValues()
@@ -196,22 +199,47 @@ const NameModalContent = () => {
         ref={formRef}
         className="space-y-3 text-right"
       >
-        <FormInput
-          autoFocus
-          rules={[
-            {
-              validator(value) {
-                if (!value) return false
-                if (value.length > 20) return false
-                return true
+        <div className="flex items-center gap-2">
+          <FormInput
+            autoFocus
+            rules={[
+              {
+                validator(value) {
+                  if (!value) return false
+                  if (value.length > 20) return false
+                  return true
+                },
+                message: '名字不能为空，且长度不能超过 20 个字符',
               },
-              message: '名字不能为空，且长度不能超过 20 个字符',
-            },
-          ]}
-          name="name"
-        />
-        <StyledButton>保存</StyledButton>
+            ]}
+            name="name"
+          />
+          <div className="shrink-0">
+            <StyledButton>保存</StyledButton>
+          </div>
+        </div>
       </Form>
+
+      <p className="mt-3">
+        或者，选择登录到 <b>{title}</b>，你的名字将会自动使用你的账号名字。
+      </p>
+      {providers && (
+        <ul className="mt-6 flex items-center justify-center gap-3 pb-16 md:pb-3">
+          {Object.keys(providers).map((provider) => (
+            <li key={provider}>
+              <MotionButtonBase
+                onClick={() => signIn(provider)}
+                className="flex size-10 items-center justify-center rounded-full border border-base-content/10"
+              >
+                <img
+                  className="size-4"
+                  src={`https://authjs.dev/img/providers/${provider}.svg`}
+                />
+              </MotionButtonBase>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }
@@ -243,6 +271,8 @@ interface TimelineItemProps {
 }
 const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
   const presence = useActivityPresenceBySessionId(identity)
+
+  const reader = useAuthReader(presence?.readerId || '')
 
   const readPercent = useReadPercent()
   const isCurrent = type === 'current'
@@ -280,9 +310,28 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
           position={position}
           data-identity={presence?.identity}
         >
-          <div className="invisible -translate-y-1 translate-x-12 whitespace-nowrap text-xs opacity-0 duration-200 group-hover:visible group-hover:opacity-80">
-            {presence?.displayName} {readingDuration}
+          <div className="absolute left-5 top-full mt-1 whitespace-nowrap text-xs duration-200 group-hover:visible group-hover:left-2 group-hover:opacity-80">
+            {presence?.displayName} <br />
+            {readingDuration}
           </div>
+
+          {reader?.image && (
+            <div className="absolute left-full top-1/2 ml-2 size-5 -translate-y-1/2 duration-200 group-hover:size-6">
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={getUserUrl({
+                  provider: reader.provider,
+                  handle: reader.handle,
+                })}
+              >
+                <img
+                  src={reader.image}
+                  className="size-5 rounded-full group-hover:size-6"
+                />
+              </a>
+            </div>
+          )}
         </MoitonBar>
       }
     >
@@ -291,7 +340,8 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
       ) : (
         <p>
           读者{' '}
-          {presence?.displayName ||
+          {reader?.name ||
+            presence?.displayName ||
             (presence?.identity && generateRandomName(presence?.identity))}{' '}
           在这里。
         </p>

@@ -61,5 +61,4 @@ export const createApiClient = (
 
 export const TokenKey = 'mx-token'
 
-export const ClerkCookieKey = '__session'
-export const AuthKeyNames = [TokenKey, ClerkCookieKey]
+export const AuthKeyNames = [TokenKey]

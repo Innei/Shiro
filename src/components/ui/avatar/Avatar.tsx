@@ -24,6 +24,8 @@ interface AvatarProps {
   lazy?: boolean
 }
 
+const noop = {} as any
+
 export const Avatar: FC<
   AvatarProps &
     DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>
@@ -31,7 +33,7 @@ export const Avatar: FC<
   const {
     shadow = true,
     lazy = true,
-    wrapperProps = {},
+    wrapperProps = noop,
     size,
     imageUrl,
     text,
@@ -116,7 +118,15 @@ export const Avatar: FC<
             />
           </div>
         ) : text ? (
-          <div className="relative flex size-full grow select-none items-center justify-center">
+          <div
+            className="relative flex size-full grow select-none items-center justify-center"
+            style={{
+              backgroundColor: bgColor,
+              ...(radius
+                ? { borderRadius: radius === 'full' ? '100%' : `${radius}px` }
+                : undefined),
+            }}
+          >
             <FlexText scale={0.5} text={text} />
           </div>
         ) : null,
