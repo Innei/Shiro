@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { getProviders } from 'next-auth/react'
 import { useCallback, useState } from 'react'
 
+import { useIsMobile } from '~/atoms/hooks'
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import { MotionButtonBase } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
@@ -28,7 +29,7 @@ export const useOauthLoginModal = () => {
 
   return useCallback(() => {
     present({
-      title: 'Sign in',
+      title: '',
       overlay: true,
       clickOutsideToDismiss: true,
       CustomModalComponent: ({ children }) => <div>{children}</div>,
@@ -42,6 +43,58 @@ const AuthjsLoginModalContent = () => {
   const providers = useAuthProviders()
 
   const [modalElement, setModalElement] = useState<HTMLDivElement | null>(null)
+
+  const isMobile = useIsMobile()
+
+  const Inner = (
+    <>
+      <div className="-mt-24 mb-4 flex items-center justify-center md:-mt-12">
+        <Image
+          className="rounded-full shadow-lg"
+          height={60}
+          width={60}
+          src={ownerAvatar}
+          alt="site owner"
+        />
+      </div>
+      <div className="-mt-0 text-center">
+        登录到 <b>{title}</b>
+      </div>
+
+      {providers && (
+        <ul className="mt-6 flex items-center justify-center gap-3">
+          {Object.keys(providers).map((provider) => (
+            <li key={provider}>
+              <FloatPopover
+                type="tooltip"
+                to={modalElement!}
+                triggerElement={
+                  <MotionButtonBase onClick={() => signIn(provider)}>
+                    <div className="flex size-10 items-center justify-center rounded-full border dark:border-neutral-700">
+                      {provider === 'github' ? (
+                        <GitHubBrandIcon />
+                      ) : (
+                        <img
+                          className="size-4"
+                          src={`https://authjs.dev/img/providers/${provider}.svg`}
+                        />
+                      )}
+                    </div>
+                  </MotionButtonBase>
+                }
+              >
+                {providers[provider].name}
+              </FloatPopover>
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
+  )
+  if (isMobile) {
+    return Inner
+  }
+
   return (
     <m.div
       initial={{ opacity: 0, y: 10 }}
@@ -52,47 +105,7 @@ const AuthjsLoginModalContent = () => {
       ref={setModalElement}
     >
       <div className="w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-xl border bg-base-100 p-3 shadow-2xl shadow-stone-300 dark:border-neutral-700 dark:shadow-stone-800">
-        <div className="-mt-12 mb-4 flex items-center justify-center">
-          <Image
-            className="rounded-full shadow-lg"
-            height={60}
-            width={60}
-            src={ownerAvatar}
-            alt="site owner"
-          />
-        </div>
-        <div className="text-center">
-          登录到 <b>{title}</b>
-        </div>
-
-        {providers && (
-          <ul className="mt-6 flex items-center justify-center gap-3 pb-16 md:pb-3">
-            {Object.keys(providers).map((provider) => (
-              <li key={provider}>
-                <FloatPopover
-                  type="tooltip"
-                  to={modalElement!}
-                  triggerElement={
-                    <MotionButtonBase onClick={() => signIn(provider)}>
-                      <div className="flex size-10 items-center justify-center rounded-full border dark:border-neutral-700">
-                        {provider === 'github' ? (
-                          <GitHubBrandIcon />
-                        ) : (
-                          <img
-                            className="size-4"
-                            src={`https://authjs.dev/img/providers/${provider}.svg`}
-                          />
-                        )}
-                      </div>
-                    </MotionButtonBase>
-                  }
-                >
-                  {providers[provider].name}
-                </FloatPopover>
-              </li>
-            ))}
-          </ul>
-        )}
+        {Inner}
       </div>
     </m.div>
   )
