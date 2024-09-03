@@ -317,8 +317,12 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
           position={position}
           data-identity={presence?.identity}
         >
-          <div className="absolute left-5 top-full mt-1 whitespace-nowrap text-xs duration-200 group-hover:visible group-hover:left-2 group-hover:opacity-80">
-            {presence?.displayName} <br />
+          <div className="absolute left-5 top-full mt-1 whitespace-nowrap text-xs duration-200 group-hover:visible group-hover:left-5 group-hover:opacity-80 hover:!left-3">
+            {presence?.displayName && (
+              <>
+                {presence.displayName} <br />
+              </>
+            )}
             {readingDuration}
           </div>
 

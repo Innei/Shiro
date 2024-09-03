@@ -96,7 +96,7 @@ export function formatSeconds(seconds: number) {
   if (days > 0) formatted += `${days} 天 `
   if (hrs > 0) formatted += `${hrs} 小时 `
   if (mins > 0) formatted += `${mins} 分钟 `
-  if (seconds > 0) formatted += `${seconds.toFixed(0)} 秒`
+  if (seconds > 0) formatted += `${Math.ceil(seconds)} 秒`
 
   return formatted.trim()
 }
