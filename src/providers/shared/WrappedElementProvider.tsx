@@ -59,29 +59,41 @@ export const WrappedElementProvider: Component<WrappedElementProviderProps> = ({
   ...props
 }) => (
   <ProviderComposer contexts={Providers}>
-    <ArticleElementResizeObserver />
+    <ElementResizeObserver />
     <Content {...props} className={className}>
       {children}
     </Content>
   </ProviderComposer>
 )
-const ArticleElementResizeObserver = () => {
+const ElementResizeObserver = () => {
   const setSize = useSetWrappedElementSize()
   const setPos = useSetElementPosition()
   const $element = useWrappedElement()
   useIsomorphicLayoutEffect(() => {
     if (!$element) return
-    const { height, width, x, y } = $element.getBoundingClientRect()
+    const { height, width, left, top } = $element.getBoundingClientRect()
     setSize({ h: height, w: width })
-    setPos({ x, y })
+
+    const pageX = window.scrollX + left
+    const pageY = window.scrollY + top
+    setPos({ x: pageX, y: pageY })
 
     const observer = new ResizeObserver((entries) => {
       const entry = entries[0]
-      const { height, width } = entry.contentRect
-      const { x, y } = entry.target.getBoundingClientRect()
 
-      setSize({ h: height, w: width })
-      setPos({ x, y })
+      const { height, width } = entry.contentRect
+      const { left, top } = $element.getBoundingClientRect()
+      const pageX = window.scrollX + left
+      const pageY = window.scrollY + top
+
+      setSize((size) => {
+        if (size.h === height && size.w === width) return size
+        return { h: height, w: width }
+      })
+      setPos((pos) => {
+        if (pos.x === pageX && pos.y === pageY) return pos
+        return { x: pageX, y: pageY }
+      })
     })
     observer.observe($element)
     return () => {
