@@ -11,8 +11,7 @@ export const useReadPercent = () => {
   const readPercent = usePageScrollLocationSelector(
     (scrollTop) => {
       const winHeight = getViewport().h
-      const deltaHeight =
-        scrollTop >= winHeight ? winHeight : (scrollTop / winHeight) * winHeight
+      const deltaHeight = scrollTop >= winHeight ? winHeight : scrollTop
 
       return (
         Math.floor(
