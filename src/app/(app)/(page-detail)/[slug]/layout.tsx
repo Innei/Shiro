@@ -1,11 +1,6 @@
 import type { Metadata } from 'next'
 import React, { cache } from 'react'
 
-import {
-  buildRoomName,
-  Presence,
-  RoomProvider,
-} from '~/components/modules/activity'
 import { CommentAreaRootLazy } from '~/components/modules/comment'
 import { TocFAB } from '~/components/modules/toc/TocFAB'
 import {
@@ -94,32 +89,28 @@ export default definePrerenderPage<PageParams>()({
             <div className="relative w-full min-w-0">
               <HeaderMetaInfoSetting />
 
-              <RoomProvider roomName={buildRoomName(data.id)}>
-                <WrappedElementProvider eoaDetect>
-                  <article className="prose">
-                    <header className="mb-8">
-                      <BottomToUpSoftScaleTransitionView
-                        lcpOptimization
-                        delay={0}
-                      >
-                        <PageTitle />
-                      </BottomToUpSoftScaleTransitionView>
+              <WrappedElementProvider eoaDetect>
+                <article className="prose">
+                  <header className="mb-8">
+                    <BottomToUpSoftScaleTransitionView
+                      lcpOptimization
+                      delay={0}
+                    >
+                      <PageTitle />
+                    </BottomToUpSoftScaleTransitionView>
 
-                      <BottomToUpSoftScaleTransitionView
-                        lcpOptimization
-                        delay={200}
-                      >
-                        <PageSubTitle />
-                      </BottomToUpSoftScaleTransitionView>
-                    </header>
-                    <BottomToUpTransitionView lcpOptimization delay={600}>
-                      {children}
-                    </BottomToUpTransitionView>
-
-                    <Presence />
-                  </article>
-                </WrappedElementProvider>
-              </RoomProvider>
+                    <BottomToUpSoftScaleTransitionView
+                      lcpOptimization
+                      delay={200}
+                    >
+                      <PageSubTitle />
+                    </BottomToUpSoftScaleTransitionView>
+                  </header>
+                  <BottomToUpTransitionView lcpOptimization delay={600}>
+                    {children}
+                  </BottomToUpTransitionView>
+                </article>
+              </WrappedElementProvider>
 
               <BottomToUpSoftScaleTransitionView delay={1000}>
                 <PagePaginator />

@@ -13,7 +13,7 @@ export function getSummaryFromMd(
     length: 150,
   },
 ) {
-  const rawText = RemoveMarkdown(text, { gfm: true })
+  const rawText = RemoveMarkdown(text)
   const description = rawText.slice(0, options.length).replaceAll(/\s/g, ' ')
   if (options.count) {
     return {

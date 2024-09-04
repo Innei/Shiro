@@ -3,11 +3,6 @@ import type { Metadata } from 'next'
 
 import { AckRead } from '~/components/common/AckRead'
 import { ClientOnly } from '~/components/common/ClientOnly'
-import {
-  buildRoomName,
-  Presence,
-  RoomProvider,
-} from '~/components/modules/activity'
 import { CommentAreaRootLazy } from '~/components/modules/comment'
 import {
   NoteActionAside,
@@ -15,7 +10,6 @@ import {
   NoteBottomTopic,
   NoteFooterNavigationBarForMobile,
   NoteMetaBar,
-  NoteMetaReadingCount,
   NotePasswordForm,
 } from '~/components/modules/note'
 import {
@@ -74,7 +68,6 @@ function PageInner({ data }: { data: NoteModel }) {
 
           <ClientOnly>
             <NoteMetaBar />
-            <NoteMetaReadingCount />
           </ClientOnly>
         </span>
 
@@ -87,7 +80,6 @@ function PageInner({ data }: { data: NoteModel }) {
       <NoteHideIfSecret>
         <SummarySwitcher data={data} />
         <WrappedElementProvider eoaDetect>
-          <Presence />
           <ReadIndicatorForMobile />
           <NoteMarkdownImageRecordProvider>
             <BanCopyWrapper>
@@ -185,19 +177,18 @@ export default definePrerenderPage<NoteDetailPageParams>()({
         <CurrentNoteDataProvider data={data} />
 
         <SyncNoteDataAfterLoggedIn />
-        <RoomProvider roomName={buildRoomName(data.data.id)}>
-          <Transition className="min-w-0" lcpOptimization>
-            <Paper key={nid} as={NoteMainContainer}>
-              <PageInner data={data.data} />
-            </Paper>
-            <BottomToUpSoftScaleTransitionView delay={500}>
-              <CommentAreaRootLazy
-                refId={data.data.id}
-                allowComment={data.data.allowComment}
-              />
-            </BottomToUpSoftScaleTransitionView>
-          </Transition>
-        </RoomProvider>
+
+        <Transition className="min-w-0" lcpOptimization>
+          <Paper key={nid} as={NoteMainContainer}>
+            <PageInner data={data.data} />
+          </Paper>
+          <BottomToUpSoftScaleTransitionView delay={500}>
+            <CommentAreaRootLazy
+              refId={data.data.id}
+              allowComment={data.data.allowComment}
+            />
+          </BottomToUpSoftScaleTransitionView>
+        </Transition>
 
         <NoteFontSettingFab />
 
