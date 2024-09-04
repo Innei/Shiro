@@ -17,7 +17,6 @@ import { useAppConfigSelector } from '~/providers/root/aggregation-data-provider
 
 import { ActionAsideIcon } from './ActionAsideContainer'
 
-// TODO this component only use once in current page.
 const positionAtom = atom({
   x: 0,
   y: 0,
