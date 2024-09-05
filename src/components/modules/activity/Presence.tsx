@@ -1,5 +1,6 @@
 'use client'
 
+import * as Avatar from '@radix-ui/react-avatar'
 import { useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
 import { useAtomValue, useSetAtom } from 'jotai'
@@ -327,19 +328,23 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
           </div>
 
           {reader?.image && (
-            <div className="absolute left-full top-1/2 ml-2 size-5 -translate-y-1/2 duration-200 group-hover:size-6">
+            <div className="group center absolute left-full top-1/2 size-8 -translate-y-1/2 duration-200">
               <a
                 target="_blank"
+                className="center flex size-full"
                 rel="noopener noreferrer"
                 href={getUserUrl({
                   provider: reader.provider,
                   handle: reader.handle,
                 })}
               >
-                <img
-                  src={reader.image}
-                  className="size-5 rounded-full group-hover:size-6"
-                />
+                <Avatar.Root>
+                  <Avatar.Image
+                    src={reader.image}
+                    className="ml-2 size-5 rounded-full duration-200 animate-in fade-in group-hover:size-6"
+                  />
+                  <Avatar.Fallback />
+                </Avatar.Root>
               </a>
             </div>
           )}
