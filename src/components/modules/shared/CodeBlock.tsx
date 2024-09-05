@@ -137,7 +137,7 @@ function formatCode(code: string): string {
       // 如果是空行，则直接返回，避免移除空行的非空格字符（例如\t）
       return line
     } else {
-      return line.substring(minIndent)
+      return line.slice(Math.max(0, minIndent))
     }
   })
 

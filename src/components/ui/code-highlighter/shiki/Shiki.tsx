@@ -1,47 +1,40 @@
+import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import type { FC } from 'react'
-import { use, useEffect, useMemo, useState } from 'react'
+import { use, useMemo, useState } from 'react'
+import { createHighlighterCoreSync, createJavaScriptRegexEngine } from 'shiki'
+import githubDark from 'shiki/themes/github-dark.mjs'
+import githubLight from 'shiki/themes/github-light.mjs'
 
 import { isServerSide } from '~/lib/env'
 
+import { codeHighlighter as shiki } from './core'
 import { ShikiHighLighterWrapper } from './ShikiWrapper'
 import { parseShouldCollapsedFromAttrs } from './utils'
 
 export interface ShikiProps {
   lang: string | undefined
   content: string
-
   attrs?: string
 }
 
-const codeHighlighterPromise = (async () => {
+const codeHighlighter = (() => {
   if (isServerSide) return
-  const [{ createHighlighterCore }, getWasm, { codeHighlighter }] =
-    await Promise.all([
-      import('shiki/core'),
-      import('shiki/wasm').then((m) => m.default),
-      import('./core'),
-    ])
 
-  const core = await createHighlighterCore({
-    themes: [
-      import('shiki/themes/github-light.mjs'),
-      import('shiki/themes/github-dark.mjs'),
-    ],
+  const js = createJavaScriptRegexEngine()
+  const core = createHighlighterCoreSync({
+    themes: [githubDark, githubLight],
     langs: [],
-    loadWasm: getWasm,
+    engine: js,
   })
 
   return {
     codeHighlighter: core,
-    fn: (o: { lang: string; attrs: string; code: string }) => {
-      return codeHighlighter(core, o)
-    },
+    fn: (o: { lang: string; attrs: string; code: string }) => shiki(core, o),
   }
 })()
 
 export const ShikiHighLighter: FC<ShikiProps> = (props) => {
   const { lang: language, content: value, attrs } = props
-  const codeHighlighter = use(codeHighlighterPromise)
 
   use(
     useMemo(async () => {
@@ -59,45 +52,42 @@ export const ShikiHighLighter: FC<ShikiProps> = (props) => {
       const importFn = (bundledLanguages as any)[language]
       if (!importFn) return
       return loadShikiLanguage(language || '', importFn)
-    }, [codeHighlighter?.codeHighlighter, language]),
+    }, [language]),
   )
-  const highlightedHtml = useMemo(() => {
-    return codeHighlighter?.fn?.({
-      attrs: attrs || '',
-      // code: `${value.split('\n')[0].repeat(10)} // [!code highlight]\n${value}`,
-      code: value,
-      lang: language ? language.toLowerCase() : '',
-    })
-  }, [attrs, codeHighlighter, language, value])
+  const highlightedHtml = useMemo(
+    () =>
+      codeHighlighter?.fn?.({
+        attrs: attrs || '',
+        // code: `${value.split('\n')[0].repeat(10)} // [!code highlight]\n${value}`,
+        code: value,
+        lang: language ? language.toLowerCase() : '',
+      }),
+    [attrs, language, value],
+  )
 
-  const [renderedHtml, setRenderedHtml] = useState(highlightedHtml)
+  // const [renderedHtml, setRenderedHtml] = useState(highlightedHtml)
   const [codeBlockRef, setCodeBlockRef] = useState<HTMLDivElement | null>(null)
-  useEffect(() => {
-    setRenderedHtml(highlightedHtml)
-    requestAnimationFrame(() => {
-      if (!highlightedHtml) return
-      if (!codeBlockRef) return
+  useIsomorphicLayoutEffect(() => {
+    if (!highlightedHtml) return
+    if (!codeBlockRef) return
 
-      const $lines = codeBlockRef.querySelectorAll('.line')
-      const maxLineWidth = Math.max(
-        ...Array.from($lines).map((el) => {
-          return (el as HTMLElement).scrollWidth
-        }),
-      )
-      $lines.forEach((el) => {
-        ;(el as HTMLElement).style.width = `${maxLineWidth}px`
-      })
-
-      const pre = codeBlockRef.querySelector('pre')
-      if (pre) setRenderedHtml(pre.outerHTML)
+    const $lines = codeBlockRef.querySelectorAll('.line')
+    const maxLineWidth = Math.max(
+      ...Array.from($lines).map((el) => (el as HTMLElement).scrollWidth),
+    )
+    $lines.forEach((el) => {
+      ;(el as HTMLElement).style.width = `${maxLineWidth}px`
     })
+
+    // const pre = codeBlockRef.querySelector('pre')
+    // if (pre) setRenderedHtml(pre.outerHTML)
   }, [codeBlockRef, highlightedHtml])
 
   return (
     <ShikiHighLighterWrapper
       shouldCollapsed={parseShouldCollapsedFromAttrs(attrs || '')}
       {...props}
-      renderedHTML={renderedHtml}
+      renderedHTML={highlightedHtml}
       ref={setCodeBlockRef}
     />
   )

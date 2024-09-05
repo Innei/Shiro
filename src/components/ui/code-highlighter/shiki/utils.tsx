@@ -10,15 +10,13 @@ export const parseFilenameFromAttrs = (attrs: string) => {
   return null
 }
 
-export const parseShouldCollapsedFromAttrs = (attrs: string) => {
+export const parseShouldCollapsedFromAttrs = (attrs: string) =>
   // collapsed
-  return attrs.includes('collapsed') || !attrs.includes('expand')
-}
+  attrs.includes('collapsed') || !attrs.includes('expand')
 
 // const shikiSupportLangSet = new Set(Object.keys(bundledLanguages))
-export const isSupportedShikiLang = (lang: string) => {
+export const isSupportedShikiLang = (lang: string) =>
   // require esm error, fuck nextjs 14.12.x
   // @see https://github.com/vercel/next.js/issues/64434
   // return  shikiSupportLangSet.has(lang)
-  return true
-}
+  true

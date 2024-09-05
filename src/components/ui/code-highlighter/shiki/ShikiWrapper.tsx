@@ -111,9 +111,7 @@ export const ShikiHighLighterWrapper = forwardRef<
     }
   }, [value, codeBlockRef])
 
-  const filename = useMemo(() => {
-    return parseFilenameFromAttrs(attrs || '')
-  }, [attrs])
+  const filename = useMemo(() => parseFilenameFromAttrs(attrs || ''), [attrs])
   const [, maskClassName] = useMaskScrollArea({
     element: codeBlockRef!,
     size: 'lg',
