@@ -16,6 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '~/components/ui/dropdown-menu'
+import { EllipsisHorizontalTextWithTooltip } from '~/components/ui/typography'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { signOut } from '~/lib/authjs'
 import { getToken, removeToken } from '~/lib/cookie'
@@ -76,25 +77,29 @@ export function UserAuth() {
 
         {(session || isOwner) && (
           <DropdownMenuPortal>
-            <DropdownMenuContent sideOffset={8} align="end">
+            <DropdownMenuContent
+              sideOffset={8}
+              align="end"
+              className="relative flex max-w-[30ch] flex-col"
+            >
               {session && (
                 <Fragment>
                   <DropdownMenuLabel className="text-xs text-base-content/60">
                     Account
                   </DropdownMenuLabel>
-                  <DropdownMenuLabel>
-                    <div className="-mt-1 flex items-center gap-2">
+                  <DropdownMenuLabel className="min-w-0">
+                    <div className="-mt-1 flex min-w-0 items-center gap-2">
                       <img
                         src={session.image}
                         className="size-8 rounded-full"
                       />
-                      <div className="max-w-40 leading-none">
+                      <div className="min-w-0 max-w-40 leading-none">
                         <div className="truncate">{session.name}</div>
-                        <div className="text-xs text-base-content/60">
+                        <EllipsisHorizontalTextWithTooltip className="min-w-0 truncate text-xs text-base-content/60">
                           {session?.handle
                             ? `@${session.handle}`
                             : session?.email}
-                        </div>
+                        </EllipsisHorizontalTextWithTooltip>
                       </div>
                     </div>
                   </DropdownMenuLabel>

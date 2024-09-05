@@ -1,6 +1,6 @@
 'use client'
 
-
+import * as Avatar from '@radix-ui/react-avatar'
 import clsx from 'clsx'
 import { useEffect } from 'react'
 
@@ -47,13 +47,20 @@ export const CommentBoxAuthedInput = () => {
           'backface-hidden ml-[2px]',
         )}
       >
-        <img
-          className="rounded-full object-cover"
-          src={reader.image}
-          alt={`${displayName}'s avatar`}
-          width={48}
-          height={48}
-        />
+        <Avatar.Root>
+          <Avatar.Image
+            className="rounded-full object-cover"
+            src={reader.image}
+            alt={`${displayName}'s avatar`}
+            width={48}
+            height={48}
+          />
+          <Avatar.Fallback
+            delayMs={600}
+            className="block size-[48px] shrink-0 rounded-full"
+          />
+        </Avatar.Root>
+
         <UserAuthFromIcon className="absolute -bottom-1 right-0" />
       </div>
       <div className="relative h-[150px] w-full rounded-xl bg-gray-200/50 dark:bg-zinc-800/50">

@@ -1,5 +1,6 @@
 'use client'
 
+import * as RadixAvatar from '@radix-ui/react-avatar'
 import type { DetailedHTMLProps, FC, ImgHTMLAttributes, JSX } from 'react'
 import React, { createElement, useMemo, useRef, useState } from 'react'
 
@@ -97,25 +98,41 @@ export const Avatar: FC<
               className,
             )}
           >
-            <img
-              src={imageUrl}
-              style={{
-                opacity: loaded ? 1 : 0,
-                ...(radius
-                  ? { borderRadius: radius === 'full' ? '100%' : `${radius}px` }
-                  : undefined),
-              }}
-              height={size}
-              width={size}
-              onLoad={() => setLoaded(true)}
-              onError={() => setLoadError(true)}
-              loading={lazy ? 'lazy' : 'eager'}
-              {...imageProps}
-              className={clsxm(
-                'aspect-square duration-200',
-                imageProps.className,
-              )}
-            />
+            <RadixAvatar.Root>
+              <RadixAvatar.Image
+                src={imageUrl}
+                style={{
+                  opacity: loaded ? 1 : 0,
+                  ...(radius
+                    ? {
+                        borderRadius:
+                          radius === 'full' ? '100%' : `${radius}px`,
+                      }
+                    : undefined),
+                }}
+                height={size}
+                width={size}
+                onLoad={() => setLoaded(true)}
+                onError={() => setLoadError(true)}
+                loading={lazy ? 'lazy' : 'eager'}
+                {...imageProps}
+                className={clsxm(
+                  'aspect-square duration-200',
+                  imageProps.className,
+                )}
+              />
+              <RadixAvatar.Fallback
+                delayMs={600}
+                style={{
+                  height: `${size}px`,
+                  width: `${size}px`,
+                }}
+                className={clsxm(
+                  'rounded-full size-full block shrink-0',
+                  imageProps.className,
+                )}
+              />
+            </RadixAvatar.Root>
           </div>
         ) : text ? (
           <div
