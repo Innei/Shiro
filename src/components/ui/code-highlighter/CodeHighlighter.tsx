@@ -1,6 +1,13 @@
 import type React from 'react'
 import type { FC } from 'react'
-import { useCallback, useEffect, useInsertionEffect, useRef } from 'react'
+import {
+  use,
+  useCallback,
+  useEffect,
+  useInsertionEffect,
+  useMemo,
+  useRef,
+} from 'react'
 
 import { useIsPrintMode } from '~/atoms/css-media'
 import { useIsDark } from '~/hooks/common/use-is-dark'
@@ -10,6 +17,8 @@ import { loadScript, loadStyleSheet } from '~/lib/load-script'
 import { toast } from '~/lib/toast'
 
 import styles from './CodeHighlighter.module.css'
+import type { ShikiProps } from './shiki/Shiki'
+import { ShikiHighLighter } from './shiki/Shiki'
 
 declare global {
   interface Window {
@@ -139,4 +148,23 @@ const useLoadHighlighter = (ref: React.RefObject<HTMLElement | null>) => {
         }
       })
   }, [])
+}
+let bundledLanguagesKeysSet: Set<string> | null = null
+export const ShikiFallback: FC<ShikiProps> = (props) => {
+  const { lang } = props
+  const shikiSupported = use(
+    useMemo(async () => {
+      if (!lang) return false
+
+      if (!bundledLanguagesKeysSet) {
+        const { bundledLanguages } = await import('shiki/langs')
+        bundledLanguagesKeysSet = new Set(Object.keys(bundledLanguages))
+      }
+
+      return bundledLanguagesKeysSet.has(lang)
+    }, [lang]),
+  )
+  return (
+    <ShikiHighLighter {...props} lang={shikiSupported ? props.lang : 'text'} />
+  )
 }

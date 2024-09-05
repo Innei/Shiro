@@ -48,7 +48,7 @@ export const ShikiHighLighter: FC<ShikiProps> = (props) => {
 
       const { bundledLanguages } = await import('shiki/langs')
 
-      if (!language || !(bundledLanguages as any)[language]) return
+      if (!language) return
       const importFn = (bundledLanguages as any)[language]
       if (!importFn) return
       return loadShikiLanguage(language || '', importFn)
