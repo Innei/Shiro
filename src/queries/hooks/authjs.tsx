@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { m } from 'framer-motion'
 import Image from 'next/image'
 import { getProviders } from 'next-auth/react'
-import { useCallback, useState } from 'react'
+import { Fragment, useCallback, useState } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
@@ -45,6 +45,9 @@ const AuthjsLoginModalContent = () => {
   const [modalElement, setModalElement] = useState<HTMLDivElement | null>(null)
 
   const isMobile = useIsMobile()
+  const [authProcessingLockSet, setAuthProcessingLockSet] = useState(
+    () => new Set<string>(),
+  )
 
   const Inner = (
     <>
@@ -69,15 +72,34 @@ const AuthjsLoginModalContent = () => {
                 type="tooltip"
                 to={modalElement!}
                 triggerElement={
-                  <MotionButtonBase onClick={() => signIn(provider)}>
+                  <MotionButtonBase
+                    disabled={authProcessingLockSet.has(provider)}
+                    onClick={() => {
+                      if (authProcessingLockSet.has(provider)) return
+                      signIn(provider)
+
+                      setAuthProcessingLockSet((prev) => {
+                        prev.add(provider)
+                        return new Set(prev)
+                      })
+                    }}
+                  >
                     <div className="flex size-10 items-center justify-center rounded-full border dark:border-neutral-700">
-                      {provider === 'github' ? (
-                        <GitHubBrandIcon />
+                      {!authProcessingLockSet.has(provider) ? (
+                        <Fragment>
+                          {provider === 'github' ? (
+                            <GitHubBrandIcon />
+                          ) : (
+                            <img
+                              className="size-4"
+                              src={`https://authjs.dev/img/providers/${provider}.svg`}
+                            />
+                          )}
+                        </Fragment>
                       ) : (
-                        <img
-                          className="size-4"
-                          src={`https://authjs.dev/img/providers/${provider}.svg`}
-                        />
+                        <div className="center flex">
+                          <i className="loading loading-spinner loading-xs opacity-50" />
+                        </div>
                       )}
                     </div>
                   </MotionButtonBase>
