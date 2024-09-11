@@ -27,8 +27,8 @@ importers:
         specifier: 3.649.0
         version: 3.649.0
       '@clerk/nextjs':
-        specifier: 5.5.1
-        version: 5.5.1(next@14.2.9(@babel/core@7.24.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 5.5.2
+        version: 5.5.2(next@14.2.9(@babel/core@7.24.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@clerk/themes':
         specifier: 2.1.29
         version: 2.1.29
@@ -314,10 +314,10 @@ importers:
         version: 14.2.9(bufferutil@4.0.8)
       '@tailwindcss/container-queries':
         specifier: 0.1.1
-        version: 0.1.1(tailwindcss@3.4.10)
+        version: 0.1.1(tailwindcss@3.4.11)
       '@tailwindcss/typography':
         specifier: 0.5.15
-        version: 0.5.15(tailwindcss@3.4.10)
+        version: 0.5.15(tailwindcss@3.4.11)
       '@types/chroma-js':
         specifier: 2.4.4
         version: 2.4.4
@@ -374,7 +374,7 @@ importers:
         version: 9.10.0(jiti@1.21.0)
       eslint-config-hyoban:
         specifier: 3.1.5
-        version: 3.1.5(@typescript-eslint/eslint-plugin@8.4.0(@typescript-eslint/parser@8.4.0(eslint@9.10.0(jiti@1.21.0))(typescript@5.6.2))(eslint@9.10.0(jiti@1.21.0))(typescript@5.6.2))(eslint@9.10.0(jiti@1.21.0))(tailwindcss@3.4.10)(typescript@5.6.2)
+        version: 3.1.5(@typescript-eslint/eslint-plugin@8.4.0(@typescript-eslint/parser@8.4.0(eslint@9.10.0(jiti@1.21.0))(typescript@5.6.2))(eslint@9.10.0(jiti@1.21.0))(typescript@5.6.2))(eslint@9.10.0(jiti@1.21.0))(tailwindcss@3.4.11)(typescript@5.6.2)
       lint-staged:
         specifier: 15.2.10
         version: 15.2.10
@@ -410,16 +410,16 @@ importers:
         version: 2.11.1
       tailwind-scrollbar:
         specifier: 3.1.0
-        version: 3.1.0(tailwindcss@3.4.10)
+        version: 3.1.0(tailwindcss@3.4.11)
       tailwind-variants:
         specifier: 0.2.1
-        version: 0.2.1(tailwindcss@3.4.10)
+        version: 0.2.1(tailwindcss@3.4.11)
       tailwindcss:
-        specifier: ^3.4.10
-        version: 3.4.10
+        specifier: ^3.4.11
+        version: 3.4.11
       tailwindcss-animated:
         specifier: 1.1.2
-        version: 1.1.2(tailwindcss@3.4.10)
+        version: 1.1.2(tailwindcss@3.4.11)
       typescript:
         specifier: 5.6.2
         version: 5.6.2
@@ -771,27 +771,27 @@ packages:
   '@chevrotain/utils@11.0.3':
     resolution: {integrity: sha512-YslZMgtJUyuMbZ+aKvfF3x1f5liK4mWNxghFRv7jqRR9C3R3fAOGTTKvxXDa2Y1s9zSbcpuO0cAxDYsc9SrXoQ==}
 
-  '@clerk/backend@1.11.0':
-    resolution: {integrity: sha512-JIJwuTgPFq21MHDrdoXmWCcuyAAXBArAOCpgRd84vN/5LMomJKzs1SL21UGEhDiFCEW4L0OTfvLzWAaEr5t39g==}
+  '@clerk/backend@1.11.1':
+    resolution: {integrity: sha512-g+jk1wxS0j6s1or6e3rf8KK4bHaIxajCMHAASyhfl9a9OVBqtkeMgbQ3+LIFDRAOSQLxLKrIqJgPGPfOoHz17Q==}
     engines: {node: '>=18.17.0'}
 
-  '@clerk/clerk-react@5.8.1':
-    resolution: {integrity: sha512-n9zo6XNrK0xkp9xwkdpC+7e1d9zKWpNrZNJlr5xsWIbVkZcrLVd/R+K9LxTidbV8s7MR2ZQjw+u4i29/9iYTDg==}
+  '@clerk/clerk-react@5.8.2':
+    resolution: {integrity: sha512-5wXr02TmxlGBjBTrM5URCk01b0q/Po6xg3SPo/U8HgrQ8qnY82hbnLxZ1dUuqH3MIzUh2VAoISJzF4TEZYqJJA==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       react: '>=18 || >=19.0.0-beta'
       react-dom: '>=18 || >=19.0.0-beta'
 
-  '@clerk/nextjs@5.5.1':
-    resolution: {integrity: sha512-op987JSWA13GiYpsgPYc8ZknbM8p3M6S+hMPUnl/yUJrfvOfNEZHyxdEgE4vx0jtNVseqf2oIIPvKnzliTcDWA==}
+  '@clerk/nextjs@5.5.2':
+    resolution: {integrity: sha512-xBxwKzjvaJOHY8iCD5AwBU39owLUJw2rC6ndlC+R7mlPTXBrGCjLUNPh8vkokM2z3qACM4mDOGGchj2L8jJ7GQ==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       next: ^13.5.4 || ^14.0.3 || >=15.0.0-rc
       react: '>=18 || >=19.0.0-beta'
       react-dom: '>=18 || >=19.0.0-beta'
 
-  '@clerk/shared@2.7.1':
-    resolution: {integrity: sha512-cEhLSCP/bzrEKh6j/NjEcNlXexYvJy2CjD2pPyYLnZLGKmP0vBGDO6dqGeJPJm356lspi57O97GA7QEGgn0gRA==}
+  '@clerk/shared@2.7.2':
+    resolution: {integrity: sha512-0SymNLqE5oMPf1XwtqNazNcpIoCKUv77f8rHpx4U8mg73uXYfuEQThNgCJyoM4/qxYLL3SBPKAlZl9MAHfSiyA==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       react: '>=18 || >=19.0.0-beta'
@@ -4356,10 +4356,6 @@ packages:
   micromark@4.0.0:
     resolution: {integrity: sha512-o/sd0nMof8kYff+TqcDx3VSrgBTcZpSvYcAHIfHhv5VAuNmisCxjhx6YmxS8PFEpb9z5WKWKPdzf0jM23ro3RQ==}
 
-  micromatch@4.0.7:
-    resolution: {integrity: sha512-LPP/3KorzCwBxfeUuZmaR6bG2kdeHSbe0P2tY3FLRU4vYrjYz5hI4QZwV0njUx3jeuKe67YukQ1LSPZBKDqO/Q==}
-    engines: {node: '>=8.6'}
-
   micromatch@4.0.8:
     resolution: {integrity: sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==}
     engines: {node: '>=8.6'}
@@ -4680,9 +4676,6 @@ packages:
   path-scurry@2.0.0:
     resolution: {integrity: sha512-ypGJsmGtdXUOeM5u93TyeIEfEhM6s+ljAhrk5vAvSx8uyY/02OvrZnA0YNGUrPXfpJMgI1ODd3nwz8Npx4O4cg==}
     engines: {node: 20 || >=22}
-
-  path-to-regexp@6.2.2:
-    resolution: {integrity: sha512-GQX3SSMokngb36+whdpRXE+3f9V8UzyAorlYvOGx87ufGHehNTn5lCxrKtLyZ4Yl/wEKnNnr98ZzOwwDZV5ogw==}
 
   path-type@4.0.0:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
@@ -5580,8 +5573,8 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.1.0'
 
-  tailwindcss@3.4.10:
-    resolution: {integrity: sha512-KWZkVPm7yJRhdu4SRSl9d4AK2wM3a50UsvgHZO7xY77NQr2V+fIrEuoDGQcbvswWvFGbS2f6e+jC/6WJm1Dl0w==}
+  tailwindcss@3.4.11:
+    resolution: {integrity: sha512-qhEuBcLemjSJk5ajccN9xJFtM/h0AVCPaA6C92jNP+M2J8kX+eMJHI7R2HFKUvvAsMpcfLILMCFYSeDwpMmlUg==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -6705,9 +6698,9 @@ snapshots:
 
   '@chevrotain/utils@11.0.3': {}
 
-  '@clerk/backend@1.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@clerk/backend@1.11.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@clerk/shared': 2.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@clerk/shared': 2.7.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@clerk/types': 4.20.1
       cookie: 0.5.0
       snakecase-keys: 5.4.4
@@ -6716,29 +6709,28 @@ snapshots:
       - react
       - react-dom
 
-  '@clerk/clerk-react@5.8.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@clerk/clerk-react@5.8.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@clerk/shared': 2.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@clerk/shared': 2.7.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@clerk/types': 4.20.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       tslib: 2.4.1
 
-  '@clerk/nextjs@5.5.1(next@14.2.9(@babel/core@7.24.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@clerk/nextjs@5.5.2(next@14.2.9(@babel/core@7.24.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@clerk/backend': 1.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@clerk/clerk-react': 5.8.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@clerk/shared': 2.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@clerk/backend': 1.11.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@clerk/clerk-react': 5.8.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@clerk/shared': 2.7.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@clerk/types': 4.20.1
       crypto-js: 4.2.0
       next: 14.2.9(@babel/core@7.24.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      path-to-regexp: 6.2.2
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       server-only: 0.0.1
       tslib: 2.4.1
 
-  '@clerk/shared@2.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@clerk/shared@2.7.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@clerk/types': 4.20.1
       glob-to-regexp: 0.4.1
@@ -8374,17 +8366,17 @@ snapshots:
     dependencies:
       tslib: 2.7.0
 
-  '@tailwindcss/container-queries@0.1.1(tailwindcss@3.4.10)':
+  '@tailwindcss/container-queries@0.1.1(tailwindcss@3.4.11)':
     dependencies:
-      tailwindcss: 3.4.10
+      tailwindcss: 3.4.11
 
-  '@tailwindcss/typography@0.5.15(tailwindcss@3.4.10)':
+  '@tailwindcss/typography@0.5.15(tailwindcss@3.4.11)':
     dependencies:
       lodash.castarray: 4.4.0
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 3.4.10
+      tailwindcss: 3.4.11
 
   '@tanstack/query-async-storage-persister@5.55.4':
     dependencies:
@@ -9484,7 +9476,7 @@ snapshots:
       eslint: 9.10.0(jiti@1.21.0)
       find-up-simple: 1.0.0
 
-  eslint-config-hyoban@3.1.5(@typescript-eslint/eslint-plugin@8.4.0(@typescript-eslint/parser@8.4.0(eslint@9.10.0(jiti@1.21.0))(typescript@5.6.2))(eslint@9.10.0(jiti@1.21.0))(typescript@5.6.2))(eslint@9.10.0(jiti@1.21.0))(tailwindcss@3.4.10)(typescript@5.6.2):
+  eslint-config-hyoban@3.1.5(@typescript-eslint/eslint-plugin@8.4.0(@typescript-eslint/parser@8.4.0(eslint@9.10.0(jiti@1.21.0))(typescript@5.6.2))(eslint@9.10.0(jiti@1.21.0))(typescript@5.6.2))(eslint@9.10.0(jiti@1.21.0))(tailwindcss@3.4.11)(typescript@5.6.2):
     dependencies:
       '@eslint-react/eslint-plugin': 1.13.0(eslint@9.10.0(jiti@1.21.0))(typescript@5.6.2)
       '@eslint/js': 9.10.0
@@ -9505,7 +9497,7 @@ snapshots:
       eslint-plugin-react-refresh: 0.4.11(eslint@9.10.0(jiti@1.21.0))
       eslint-plugin-regexp: 2.6.0(eslint@9.10.0(jiti@1.21.0))
       eslint-plugin-simple-import-sort: 12.1.1(eslint@9.10.0(jiti@1.21.0))
-      eslint-plugin-tailwindcss: 3.17.4(tailwindcss@3.4.10)
+      eslint-plugin-tailwindcss: 3.17.4(tailwindcss@3.4.11)
       eslint-plugin-unicorn: 55.0.0(eslint@9.10.0(jiti@1.21.0))
       eslint-plugin-unused-imports: 4.1.3(@typescript-eslint/eslint-plugin@8.4.0(@typescript-eslint/parser@8.4.0(eslint@9.10.0(jiti@1.21.0))(typescript@5.6.2))(eslint@9.10.0(jiti@1.21.0))(typescript@5.6.2))(eslint@9.10.0(jiti@1.21.0))
       globals: 15.9.0
@@ -9737,11 +9729,11 @@ snapshots:
     dependencies:
       eslint: 9.10.0(jiti@1.21.0)
 
-  eslint-plugin-tailwindcss@3.17.4(tailwindcss@3.4.10):
+  eslint-plugin-tailwindcss@3.17.4(tailwindcss@3.4.11):
     dependencies:
       fast-glob: 3.3.2
       postcss: 8.4.45
-      tailwindcss: 3.4.10
+      tailwindcss: 3.4.11
 
   eslint-plugin-unicorn@55.0.0(eslint@9.10.0(jiti@1.21.0)):
     dependencies:
@@ -9875,7 +9867,7 @@ snapshots:
       '@nodelib/fs.walk': 1.2.8
       glob-parent: 5.1.2
       merge2: 1.4.1
-      micromatch: 4.0.7
+      micromatch: 4.0.8
 
   fast-json-stable-stringify@2.1.0: {}
 
@@ -10994,11 +10986,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  micromatch@4.0.7:
-    dependencies:
-      braces: 3.0.3
-      picomatch: 2.3.1
-
   micromatch@4.0.8:
     dependencies:
       braces: 3.0.3
@@ -11298,8 +11285,6 @@ snapshots:
     dependencies:
       lru-cache: 11.0.0
       minipass: 7.1.2
-
-  path-to-regexp@6.2.2: {}
 
   path-type@4.0.0: {}
 
@@ -12253,20 +12238,20 @@ snapshots:
 
   tailwind-merge@2.5.2: {}
 
-  tailwind-scrollbar@3.1.0(tailwindcss@3.4.10):
+  tailwind-scrollbar@3.1.0(tailwindcss@3.4.11):
     dependencies:
-      tailwindcss: 3.4.10
+      tailwindcss: 3.4.11
 
-  tailwind-variants@0.2.1(tailwindcss@3.4.10):
+  tailwind-variants@0.2.1(tailwindcss@3.4.11):
     dependencies:
       tailwind-merge: 2.5.2
-      tailwindcss: 3.4.10
+      tailwindcss: 3.4.11
 
-  tailwindcss-animated@1.1.2(tailwindcss@3.4.10):
+  tailwindcss-animated@1.1.2(tailwindcss@3.4.11):
     dependencies:
-      tailwindcss: 3.4.10
+      tailwindcss: 3.4.11
 
-  tailwindcss@3.4.10:
+  tailwindcss@3.4.11:
     dependencies:
       '@alloc/quick-lru': 5.2.0
       arg: 5.0.2
@@ -12278,7 +12263,7 @@ snapshots:
       is-glob: 4.0.3
       jiti: 1.21.0
       lilconfig: 2.1.0
-      micromatch: 4.0.7
+      micromatch: 4.0.8
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.0.1
