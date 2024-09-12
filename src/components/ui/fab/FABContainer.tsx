@@ -2,7 +2,6 @@
 
 import clsx from 'clsx'
 import { typescriptHappyForwardRef } from 'foxact/typescript-happy-forward-ref'
-import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { atom, useAtomValue } from 'jotai'
 import type React from 'react'
 import type {
@@ -11,9 +10,10 @@ import type {
   PropsWithChildren,
   ReactNode,
 } from 'react'
-import { useId, useRef } from 'react'
+import { useId } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
+import { useTypeScriptHappyCallback } from '~/hooks/common/use-callback'
 import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
 import { usePageScrollDirectionSelector } from '~/providers/root/page-scroll-info-provider'
@@ -105,19 +105,16 @@ export const FABContainer = (props: { children?: ReactNode }) => {
     [isMobile],
   )
 
-  const fabContainerRef = useRef<HTMLDivElement>(null)
-
-  useIsomorphicLayoutEffect(() => {
-    jotaiStore.set(fabContainerElementAtom, fabContainerRef.current)
-  }, [])
-
   return (
     <div
-      ref={fabContainerRef}
+      ref={useTypeScriptHappyCallback(
+        (el) => jotaiStore.set(fabContainerElementAtom, el),
+        [],
+      )}
       data-testid="fab-container"
       data-hide-print
       className={clsx(
-        'font-lg fixed bottom-[calc(2rem+env(safe-area-inset-bottom))] left-[calc(100vw-3rem-1rem)] z-[9] flex flex-col',
+        'fixed bottom-[calc(2rem+env(safe-area-inset-bottom))] left-[calc(100vw-3rem-1rem)] z-[9] flex flex-col',
         shouldHide ? 'translate-x-[calc(100%+2rem)]' : '',
         'transition-transform duration-300 ease-in-out',
       )}
