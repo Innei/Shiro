@@ -1,22 +1,22 @@
 'use client'
 
-import { SignInButton } from '@clerk/nextjs'
-import { usePathname } from 'next/navigation'
-
-import { UserArrowLeftIcon } from '~/components/icons/user-arrow-left'
+import { useSessionReader } from '~/atoms/hooks/reader'
 import { StyledButton } from '~/components/ui/button'
-import { useModalStack } from '~/components/ui/modal'
-import { urlBuilder } from '~/lib/url-builder'
+import { AuthProvidersRender } from '~/queries/hooks/authjs'
 
 import { CommentBoxMode, setCommentMode } from './hooks'
 
 export function CommentBoxSignedOutContent() {
-  const pathname = usePathname()
-  const { dismissAll } = useModalStack()
+  const isReaderLogin = !!useSessionReader()
+  if (isReaderLogin) return null
 
   return (
-    <div className="flex h-[150px] w-full space-x-4 rounded-lg bg-gray-100/80 center dark:bg-zinc-900/80">
+    <div className="center flex h-[150px] w-full flex-col rounded-lg bg-gray-100/80 dark:bg-zinc-900/80">
+      <p className="mb-4 text-sm">使用社交账号登录</p>
+      <AuthProvidersRender />
+
       <StyledButton
+        className="mt-6"
         variant="secondary"
         type="button"
         onClick={() => {
@@ -25,21 +25,6 @@ export function CommentBoxSignedOutContent() {
       >
         免登录评论
       </StyledButton>
-      <SignInButton
-        mode="modal"
-        fallbackRedirectUrl={urlBuilder(pathname).href}
-      >
-        <StyledButton
-          onClick={() => {
-            dismissAll()
-          }}
-          variant="primary"
-          type="button"
-        >
-          <UserArrowLeftIcon className="mr-1 size-5" />
-          登录后才可以留言噢
-        </StyledButton>
-      </SignInButton>
     </div>
   )
 }

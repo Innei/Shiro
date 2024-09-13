@@ -1,8 +1,11 @@
 import dynamic from 'next/dynamic'
+import type React from 'react'
 import type { FC, PropsWithChildren, ReactNode } from 'react'
-import React, { useMemo } from 'react'
+import { Suspense, useMemo } from 'react'
 
+import { ClientOnly } from '~/components/common/ClientOnly'
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
+import { BlockLoading } from '~/components/modules/shared/BlockLoading'
 import {
   getTweetId,
   isBilibiliVideoUrl,
@@ -39,7 +42,8 @@ const Tweet = dynamic(() => import('~/components/modules/shared/Tweet'), {
 export const BlockLinkRenderer = ({
   href,
   children,
-}: PropsWithChildren<{ href: string }>) => {
+  fallback,
+}: PropsWithChildren<{ href: string; fallback?: ReactNode }>) => {
   const url = useMemo(() => {
     try {
       return new URL(href)
@@ -49,12 +53,13 @@ export const BlockLinkRenderer = ({
   }, [href])
 
   const fallbackElement = useMemo(
-    () => (
-      <p>
-        <MLink href={href}>{children ?? <span>{href}</span>}</MLink>
-      </p>
-    ),
-    [children, href],
+    () =>
+      fallback ?? (
+        <p>
+          <MLink href={href}>{children ?? <span>{href}</span>}</MLink>
+        </p>
+      ),
+    [children, fallback, href],
   )
 
   const tmdbEnabled = useFeatureEnabled('tmdb')
@@ -73,10 +78,15 @@ export const BlockLinkRenderer = ({
         />
       )
     }
+
     case isTweetUrl(url): {
       const id = getTweetId(url)
 
-      return <Tweet id={id} />
+      return (
+        <Suspense>
+          <Tweet id={id} />
+        </Suspense>
+      )
     }
 
     case isYoutubeUrl(url): {
@@ -118,6 +128,7 @@ export const BlockLinkRenderer = ({
         />
       )
     }
+
     case isTMDBUrl(url): {
       if (tmdbEnabled)
         return (
@@ -145,15 +156,23 @@ export const BlockLinkRenderer = ({
       const { id } = parseBilibiliVideoUrl(url)
 
       return (
-        <div className="w-[640px] max-w-full">
+        <div className="w-screen max-w-full">
           <FixedRatioContainer>
-            <iframe
-              src={`//player.bilibili.com/player.html?bvid=${id}`}
-              scrolling="no"
-              frameBorder="no"
-              className="absolute inset-0 size-full rounded-md border-0"
-              allowFullScreen
-            />
+            <ClientOnly
+              fallback={
+                <BlockLoading className="absolute inset-0 size-full rounded-md">
+                  哔哩哔哩视频加载中...
+                </BlockLoading>
+              }
+            >
+              <iframe
+                src={`//player.bilibili.com/player.html?bvid=${id}&autoplay=0`}
+                scrolling="no"
+                frameBorder="no"
+                className="absolute inset-0 size-full rounded-md border-0"
+                allowFullScreen
+              />
+            </ClientOnly>
           </FixedRatioContainer>
         </div>
       )
@@ -168,22 +187,20 @@ const FixedRatioContainer = ({
 }: {
   ratio?: number
   children: React.ReactNode
-}) => {
-  return (
-    <div className="my-2">
-      <div className="flex justify-center px-4">
-        <div
-          className="relative h-0 w-full"
-          style={{
-            paddingBottom: `${ratio}%`,
-          }}
-        >
-          {children}
-        </div>
+}) => (
+  <div className="my-2">
+    <div className="flex justify-center px-4">
+      <div
+        className="relative h-0 w-full"
+        style={{
+          paddingBottom: `${ratio}%`,
+        }}
+      >
+        {children}
       </div>
     </div>
-  )
-}
+  </div>
+)
 
 const GithubUrlRenderL: FC<{
   url: URL
@@ -207,7 +224,7 @@ const GithubUrlRenderL: FC<{
           />
 
           <a
-            className="mt-2 flex space-x-2 center"
+            className="center mt-2 flex space-x-2"
             href={href}
             target="_blank"
             rel="noreferrer"

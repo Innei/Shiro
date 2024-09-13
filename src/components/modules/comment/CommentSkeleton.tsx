@@ -1,5 +1,5 @@
 const CommentSkeletonSingle = (
-  <li className="relative list-none content-auto">
+  <li className="content-auto relative list-none">
     <div className="group flex w-full items-stretch gap-2">
       <div className="flex w-9 shrink-0 items-end">
         <div className="size-9 rounded-full bg-gray-300 dark:bg-neutral-600" />
@@ -27,14 +27,12 @@ const CommentSkeletonSingle = (
   </li>
 )
 
-export const CommentSkeleton: Component = () => {
-  return (
-    <div className="flex min-h-[400px] flex-col space-y-4">
-      {CommentSkeletonSingle}
-      {CommentSkeletonSingle}
-      {CommentSkeletonSingle}
-      {CommentSkeletonSingle}
-      {CommentSkeletonSingle}
-    </div>
-  )
-}
+export const CommentSkeleton: Component = () => (
+  <div className="flex min-h-[400px] flex-col space-y-4">
+    {CommentSkeletonSingle}
+    {CommentSkeletonSingle}
+    {CommentSkeletonSingle}
+    {CommentSkeletonSingle}
+    {CommentSkeletonSingle}
+  </div>
+)

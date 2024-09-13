@@ -1,9 +1,9 @@
 'use client'
 
-import { SignedIn, SignedOut } from '@clerk/nextjs'
 import { useEffect } from 'react'
 
 import { useIsLogged } from '~/atoms/hooks'
+import { useSessionReader } from '~/atoms/hooks/reader'
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
 import { clsxm } from '~/lib/helper'
@@ -22,9 +22,14 @@ export const CommentBoxRoot: Component<CommentBaseProps> = (props) => {
   const mode = useCommentMode()
 
   const isLogged = useIsLogged()
+
+  const sessionReader = useSessionReader()
+
   useEffect(() => {
-    if (isLogged) setCommentMode(CommentBoxMode['legacy'])
-  }, [isLogged])
+    if (sessionReader) {
+      setCommentMode(CommentBoxMode['with-auth'])
+    }
+  }, [sessionReader])
 
   return (
     <ErrorBoundary>
@@ -40,7 +45,9 @@ export const CommentBoxRoot: Component<CommentBaseProps> = (props) => {
           <SwitchCommentMode />
 
           <div className="relative w-full">
-            {mode === CommentBoxMode.legacy ? (
+            {isLogged ? (
+              <CommentBoxLegacy />
+            ) : mode === CommentBoxMode.legacy ? (
               <CommentBoxLegacy />
             ) : (
               <CommentBoxWithAuth />
@@ -52,24 +59,22 @@ export const CommentBoxRoot: Component<CommentBaseProps> = (props) => {
   )
 }
 
-const CommentBoxLegacy = () => {
-  return (
-    <AutoResizeHeight>
-      <CommentBoxLegacyForm />
-    </AutoResizeHeight>
-  )
-}
+const CommentBoxLegacy = () => (
+  <AutoResizeHeight>
+    <CommentBoxLegacyForm />
+  </AutoResizeHeight>
+)
 
 const CommentBoxWithAuth = () => {
+  const isReaderLogin = !!useSessionReader()
+
   return (
     <AutoResizeHeight>
-      <SignedOut>
+      {!isReaderLogin ? (
         <CommentBoxSignedOutContent />
-      </SignedOut>
-
-      <SignedIn>
+      ) : (
         <CommentBoxAuthedInput />
-      </SignedIn>
+      )}
     </AutoResizeHeight>
   )
 }

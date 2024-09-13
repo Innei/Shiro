@@ -3,6 +3,7 @@ import { useAtom } from 'jotai'
 import Image from 'next/image'
 
 import { useIsLogged } from '~/atoms/hooks'
+import { UserAuthFromIcon } from '~/components/layout/header/internal/UserAuthFromIcon'
 import { Form, FormInput as FInput } from '~/components/ui/form'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
@@ -56,25 +57,20 @@ const FormInput = (props: { fieldKey: FormKey; required?: boolean }) => {
     />
   )
 }
-const FormWithUserInfo = () => {
-  return (
-    <Form
-      className="flex flex-col space-y-4 px-2 pt-2"
-      showErrorMessage={false}
-    >
-      <div className="flex flex-col space-x-0 space-y-4 md:flex-row md:space-x-4 md:space-y-0">
-        <FormInput fieldKey="author" required />
-        <FormInput fieldKey="mail" required />
-        <FormInput fieldKey="url" />
-      </div>
-      <div className={taClassName}>
-        <UniversalTextArea className="pb-8" />
-      </div>
+const FormWithUserInfo = () => (
+  <Form className="flex flex-col space-y-4 px-2 pt-2" showErrorMessage={false}>
+    <div className="flex flex-col space-x-0 space-y-4 md:flex-row md:space-x-4 md:space-y-0">
+      <FormInput fieldKey="author" required />
+      <FormInput fieldKey="mail" required />
+      <FormInput fieldKey="url" />
+    </div>
+    <div className={taClassName}>
+      <UniversalTextArea className="pb-8" />
+    </div>
 
-      <CommentBoxActionBar className="absolute bottom-4 left-0 right-4 mb-2 ml-2 w-auto px-4" />
-    </Form>
-  )
-}
+    <CommentBoxActionBar className="absolute bottom-4 left-0 right-4 mb-2 ml-2 w-auto px-4" />
+  </Form>
+)
 
 const LoggedForm = () => {
   const user = useAggregationSelector((v) => v.user)!
@@ -83,9 +79,9 @@ const LoggedForm = () => {
     <div className="flex space-x-4">
       <div
         className={clsx(
-          'mb-2 shrink-0 select-none self-end overflow-hidden rounded-full',
-          'dark:ring-zinc-800" bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800',
-          'ml-[2px] backface-hidden',
+          'relative mb-2 shrink-0 select-none self-end rounded-full',
+          'ring-2 ring-accent',
+          'backface-hidden ml-[2px]',
         )}
       >
         <Image
@@ -95,6 +91,7 @@ const LoggedForm = () => {
           width={48}
           height={48}
         />
+        <UserAuthFromIcon className="absolute -bottom-1 right-0" />
       </div>
       <div className={taClassName}>
         <UniversalTextArea className="pb-5" />

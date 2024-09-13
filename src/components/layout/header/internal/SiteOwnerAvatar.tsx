@@ -26,9 +26,7 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
       })
         .then((res) => res.json())
         .catch(() => null),
-    select: useCallback((data: any) => {
-      return !!data
-    }, []),
+    select: useCallback((data: any) => !!data, []),
     refetchInterval: 1000 * 60,
     enabled: !!liveId,
     meta: {
@@ -41,22 +39,25 @@ export const SiteOwnerAvatar: Component = ({ className }) => {
     <div
       role={isLiving ? 'button' : 'img'}
       className={clsxm(
-        'overflow pointer-events-none relative z-[9] select-none',
-
+        'pointer-events-none relative z-[9] size-[40px] select-none',
         isLiving ? 'cursor-pointer rounded-full' : '',
         className,
       )}
     >
-      <Image
-        src={avatar}
-        alt="Site Owner Avatar"
-        width={40}
-        height={40}
+      <div
         className={clsxm(
-          'ring-2 ring-slate-200 dark:ring-neutral-800',
           isLiving ? 'rounded-full' : 'mask mask-squircle',
+          'overflow-hidden',
         )}
-      />
+      >
+        <Image
+          src={avatar}
+          alt="Site Owner Avatar"
+          width={40}
+          height={40}
+          className="ring-2 ring-slate-200 dark:ring-neutral-800"
+        />
+      </div>
       {isLiving && (
         <>
           <p className="absolute bottom-0 right-0 z-[1] rounded-md bg-red-400 p-1 font-[system-ui] text-[6px] text-white dark:bg-orange-700">

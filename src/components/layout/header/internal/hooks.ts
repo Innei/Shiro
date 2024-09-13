@@ -21,17 +21,20 @@ export const useMenuOpacity = () => {
 export const useMenuVisibility = () => useMenuOpacity() > 0
 
 export const useHeaderBgOpacity = () => {
-  const threshold = 50
+  const threshold = 84 + 63 + 50
+  const distance = 50
   const isMobile = useIsMobile()
   const headerShouldShowBg = useHeaderShouldShowBg() || isMobile
 
   return usePageScrollLocationSelector(
-    (y) =>
-      headerShouldShowBg
-        ? y >= threshold
+    (y) => {
+      if (y < threshold) return 0
+      return headerShouldShowBg
+        ? y >= distance + threshold
           ? 1
-          : Math.floor((y / threshold) * 100) / 100
-        : 0,
+          : Math.floor(((y - threshold) / distance) * 100) / 100
+        : 0
+    },
     [headerShouldShowBg],
   )
 }
@@ -48,13 +51,14 @@ export const useHeaderMetaShouldShow = () => {
   return useAtomValue(headerMetaShouldShowAtom) && !v
 }
 export const useSetHeaderMetaInfo = () => {
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       jotaiStore.set(headerMetaTitleAtom, '')
       jotaiStore.set(headerMetaDescriptionAtom, '')
       jotaiStore.set(headerMetaSlugAtom, '')
-    }
-  }, [])
+    },
+    [],
+  )
   return ({
     title,
     description,
@@ -70,13 +74,11 @@ export const useSetHeaderMetaInfo = () => {
   }
 }
 
-export const useHeaderMetaInfo = () => {
-  return {
-    title: useAtomValue(headerMetaTitleAtom),
-    description: useAtomValue(headerMetaDescriptionAtom),
-    slug: useAtomValue(headerMetaSlugAtom),
-  }
-}
+export const useHeaderMetaInfo = () => ({
+  title: useAtomValue(headerMetaTitleAtom),
+  description: useAtomValue(headerMetaDescriptionAtom),
+  slug: useAtomValue(headerMetaSlugAtom),
+})
 
 const headerHasMetaInfoAtom = atom((get) => {
   const title = get(headerMetaTitleAtom)
@@ -84,6 +86,4 @@ const headerHasMetaInfoAtom = atom((get) => {
 
   return title !== '' && description !== ''
 })
-export const useHeaderHasMetaInfo = () => {
-  return useAtomValue(headerHasMetaInfoAtom)
-}
+export const useHeaderHasMetaInfo = () => useAtomValue(headerHasMetaInfoAtom)

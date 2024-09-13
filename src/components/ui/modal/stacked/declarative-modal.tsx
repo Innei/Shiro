@@ -6,7 +6,7 @@ import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
 
 import { modalStackAtom } from './context'
-import { Modal } from './modal'
+import { ModalInternal } from './modal'
 import type { ModalProps } from './types'
 
 export interface DeclarativeModalProps extends Omit<ModalProps, 'content'> {
@@ -38,23 +38,19 @@ const DeclarativeModalImpl: FC<DeclarativeModalProps> = ({
   return (
     <AnimatePresence>
       {open && (
-        <Modal onClose={onOpenChange} index={index} item={item}>
+        <ModalInternal isTop onClose={onOpenChange} index={index} item={item}>
           {children}
-        </Modal>
+        </ModalInternal>
       )}
     </AnimatePresence>
   )
 }
 
-const FooterAction: Component = ({ children, className }) => {
-  return (
-    <div
-      className={clsxm('mt-4 flex items-center justify-end gap-2', className)}
-    >
-      {children}
-    </div>
-  )
-}
+const FooterAction: Component = ({ children, className }) => (
+  <div className={clsxm('mt-4 flex items-center justify-end gap-2', className)}>
+    {children}
+  </div>
+)
 
 export const DeclarativeModal = Object.assign(DeclarativeModalImpl, {
   FooterAction,

@@ -1,9 +1,4 @@
-@media print {
-  /* styles for print */
-  html.noise body::before {
-    display: none;
-  }
-}
+@tailwind components;
 
 @layer components {
   /* Extend Tailwind classnames */
@@ -32,9 +27,7 @@
     background-size: 0% 1.5px;
     background-repeat: no-repeat;
     /* NOTE: this won't work with background images   */
-    text-shadow:
-      0.05em 0 theme(colors.base-100),
-      -0.05em 0 theme(colors.base-100);
+
     transition: all 500ms ease;
 
     @apply border-0 no-underline;
@@ -43,6 +36,9 @@
 
     &:hover {
       background-size: 100% 1.5px;
+      text-shadow:
+        0.05em 0 theme(colors.base-100),
+        -0.05em 0 theme(colors.base-100);
 
       transition: all 250ms ease;
     }
@@ -256,5 +252,130 @@
     50% {
       transform: rotate(20deg);
     }
+  }
+}
+
+@layer components {
+  .content-auto {
+    content-visibility: auto;
+  }
+
+  .shadow-out-sm {
+    box-shadow:
+      0 0 10px rgba(120, 120, 120, 0.1),
+      0 5px 20px rgba(120, 120, 120, 0.2);
+  }
+
+  .backface-hidden {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+  }
+
+  .center {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .fill-content {
+    min-height: calc(100vh - 17.5rem);
+  }
+
+  .card-shadow {
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.08),
+      0 4px 6px rgba(0, 0, 0, 0.04);
+  }
+
+  .card-shadow:hover {
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.08),
+      0 6px 14px rgba(0, 0, 0, 0.08);
+  }
+}
+
+@layer components {
+  .shadow-perfect {
+    /* https://codepen.io/jh3y/pen/yLWgjpd */
+    --tint: 214;
+    --alpha: 3;
+    --base: hsl(var(--tint, 214) 80% 27% / calc(var(--alpha, 4) * 1%));
+    /**
+      * Use relative syntax to get to: hsl(221 25% 22% / 40%)
+    */
+    --shade: hsl(from var(--base) calc(h + 8) 25 calc(l - 5));
+    --perfect-shadow: 0 0 0 1px var(--base), 0 1px 1px -0.5px var(--shade),
+      0 3px 3px -1.5px var(--shade), 0 6px 6px -3px var(--shade),
+      0 12px 12px -6px var(--base), 0 24px 24px -12px var(--base);
+    box-shadow: var(--perfect-shadow);
+  }
+
+  .perfect-sm {
+    --alpha: 1;
+  }
+
+  .perfect-md {
+    --alpha: 2;
+  }
+
+  [theme='dark'] .shadow-perfect {
+    --tint: 221;
+  }
+}
+
+@layer components {
+  .mask-scroller {
+    mask:
+      linear-gradient(white, transparent) 50% 0 / 100% 0 no-repeat,
+      linear-gradient(white, white) 50% 50% / 100% 100% no-repeat,
+      linear-gradient(transparent, white) 50% 100% / 100% 30px no-repeat;
+    mask-composite: exclude;
+    mask-size:
+      100% calc((var(--scroll-progress-top) / 100) * 30px),
+      100% 100%,
+      100% calc((100 - (100 * (var(--scroll-progress-bottom) / 100))) * 1px);
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .mask-scroller {
+      mask:
+        linear-gradient(white, transparent) 50% 0 / 100% 0 no-repeat,
+        linear-gradient(white, white) 50% 50% / 100% 100% no-repeat,
+        linear-gradient(transparent, white) 50% 100% / 100% 30px no-repeat;
+      mask-composite: exclude;
+      animation:
+        mask-up both linear,
+        mask-down both linear;
+      animation-timeline: scroll(self);
+      animation-range:
+        0 50px,
+        calc(100% - 50px) 100%;
+    }
+  }
+  @keyframes mask-up {
+    100% {
+      mask-size:
+        100% 30px,
+        100% 100%,
+        100% 30px;
+    }
+  }
+  @keyframes mask-down {
+    100% {
+      mask-size:
+        100% 30px,
+        100% 100%,
+        100% 0;
+    }
+  }
+}
+
+@layer components {
+  .shadow-context-menu {
+    box-shadow:
+      rgba(0, 0, 0, 0.067) 0px 3px 8px,
+      rgba(0, 0, 0, 0.067) 0px 2px 5px,
+      rgba(0, 0, 0, 0.067) 0px 1px 1px;
   }
 }

@@ -37,9 +37,9 @@ export const UniversalTextArea: Component = ({ className }) => {
       const start = $ta.selectionStart
       const end = $ta.selectionEnd
 
-      $ta.value = `${$ta.value.substring(
+      $ta.value = `${$ta.value.slice(
         0,
-        start,
+        Math.max(0, start),
       )} ${emoji} ${$ta.value.substring(end, $ta.value.length)}`
 
       setter('text', $ta.value)
@@ -62,8 +62,8 @@ export const UniversalTextArea: Component = ({ className }) => {
         if ($ta) {
           const start = $ta.selectionStart
           const end = $ta.selectionEnd
-          const textBefore = $ta.value.substring(0, start)
-          const textAfter = $ta.value.substring(end)
+          const textBefore = $ta.value.slice(0, Math.max(0, start))
+          const textAfter = $ta.value.slice(Math.max(0, end))
           $ta.value = `${textBefore}\n\n${textAfter}`
           setter('text', $ta.value)
 
@@ -120,33 +120,28 @@ export const UniversalTextArea: Component = ({ className }) => {
       }}
     >
       <CommentBoxSlotPortal>
-        <>
-          {!isMobile && (
-            <FloatPopover
-              mobileAsSheet
-              trigger="click"
-              TriggerComponent={EmojiButton}
-              headless
-              popoverClassNames="pointer-events-auto"
-            >
-              <EmojiPicker onEmojiSelect={handleInsertEmoji} />
-            </FloatPopover>
-          )}
-        </>
+        {!isMobile && (
+          <FloatPopover
+            mobileAsSheet
+            trigger="click"
+            triggerElement={
+              <div
+                className="center ml-0 inline-flex size-5 translate-y-1 text-base md:ml-4"
+                role="button"
+                tabIndex={0}
+              >
+                <i className="icon-[mingcute--emoji-2-line]" />
+                <span className="sr-only">表情</span>
+              </div>
+            }
+            headless
+            popoverWrapperClassNames="z-[999]"
+            popoverClassNames="pointer-events-auto"
+          >
+            <EmojiPicker onEmojiSelect={handleInsertEmoji} />
+          </FloatPopover>
+        )}
       </CommentBoxSlotPortal>
     </TextArea>
-  )
-}
-
-const EmojiButton = () => {
-  return (
-    <div
-      className="ml-0 inline-flex size-5 translate-y-1 text-base center md:ml-4"
-      role="button"
-      tabIndex={0}
-    >
-      <i className="icon-[mingcute--emoji-2-line]" />
-      <span className="sr-only">表情</span>
-    </div>
   )
 }

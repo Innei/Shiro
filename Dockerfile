@@ -11,7 +11,6 @@ WORKDIR /app
 
 COPY . .
 
-
 RUN npm install -g pnpm
 RUN pnpm install
 
@@ -19,15 +18,13 @@ FROM base AS builder
 
 RUN apk update && apk add --no-cache git
 
-
 WORKDIR /app
 COPY --from=deps /app/ .
 RUN npm install -g pnpm
 
 ENV NODE_ENV production
 ARG BASE_URL
-ARG NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-ARG CLERK_SECRET_KEY
+
 ARG S3_ACCESS_KEY
 ARG S3_SECRET_KEY
 ARG WEBHOOK_SECRET
@@ -36,8 +33,7 @@ ARG GH_TOKEN
 ENV BASE_URL=${BASE_URL}
 ENV NEXT_PUBLIC_API_URL=${BASE_URL}/api/v2
 ENV NEXT_PUBLIC_GATEWAY_URL=${BASE_URL}
-ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-ENV CLERK_SECRET_KEY=${CLERK_SECRET_KEY}
+
 ENV S3_ACCESS_KEY=${S3_ACCESS_KEY}
 ENV S3_SECRET_KEY=${S3_SECRET_KEY}
 ENV TMDB_API_KEY=${TMDB_API_KEY}
@@ -61,4 +57,4 @@ EXPOSE 2323
 
 ENV PORT 2323
 ENV NEXT_SHARP_PATH=/usr/local/lib/node_modules/sharp
-CMD echo "Mix Space Web [Shiro] Image." && node server.js;
+CMD echo "Mix Space Web [Shiro] Image." && node server.js

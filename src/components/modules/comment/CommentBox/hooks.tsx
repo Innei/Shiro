@@ -12,7 +12,7 @@ import { produce } from 'immer'
 import type { ExtractAtomValue } from 'jotai'
 import { atom, useAtomValue } from 'jotai'
 import { atomWithStorage, selectAtom } from 'jotai/utils'
-import type React from 'react'
+import type { PropsWithChildren } from 'react'
 import { useCallback, useContext } from 'react'
 
 import { useIsLogged } from '~/atoms/hooks'
@@ -48,18 +48,16 @@ export const useCommentBoxTextValue = () =>
 export const useCommentBoxRefIdValue = () =>
   useAtomValue(useContext(CommentBoxContext).refId)
 
-export const useGetCommentBoxAtomValues = () => {
-  return useContext(CommentBoxContext)
-}
+export const useGetCommentBoxAtomValues = () => useContext(CommentBoxContext)
 export const useCommentBoxLifeCycle = () =>
   useContext(CommentBoxLifeCycleContext)
 
 // ReactNode 导致 tsx 无法推断，过于复杂
-const commentActionLeftSlotAtom = atom(null as React.JSX.Element | null)
+const commentActionLeftSlotAtom = atom(null as PropsWithChildren['children'])
 export const useCommentActionLeftSlot = () =>
   useAtomValue(commentActionLeftSlotAtom)
 
-export const setCommentActionLeftSlot = (slot: React.JSX.Element | null) =>
+export const setCommentActionLeftSlot = (slot: PropsWithChildren['children']) =>
   jotaiStore.set(commentActionLeftSlotAtom, slot)
 
 export const useCommentBoxHasText = () =>

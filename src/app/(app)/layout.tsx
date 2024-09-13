@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import { ClerkProvider } from '@clerk/nextjs'
+
 import type { Metadata, Viewport } from 'next'
-import { env, PublicEnvScript } from 'next-runtime-env'
+import { PublicEnvScript } from 'next-runtime-env'
 import type { PropsWithChildren } from 'react'
 import { ToastContainer } from 'react-toastify'
 
@@ -139,7 +139,7 @@ export default async function RootLayout(props: PropsWithChildren) {
         <body
           className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
         >
-          <div className="flex h-screen center">
+          <div className="center flex h-screen">
             初始数据的获取失败，请检查 API
             服务器是否正常运行。接口请求错误信息：
             <br />
@@ -153,54 +153,52 @@ export default async function RootLayout(props: PropsWithChildren) {
   const themeConfig = data.theme
 
   return (
-    <ClerkProvider publishableKey={env('NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY')}>
-      <AppFeatureProvider tmdb={!!process.env.TMDB_API_KEY}>
-        <html lang="zh-CN" className="noise themed" suppressHydrationWarning>
-          <head>
-            <PublicEnvScript />
-            <Global />
-            <SayHi />
-            <HydrationEndDetector />
-            <AccentColorStyleInjector color={themeConfig.config.color} />
+    <AppFeatureProvider tmdb={!!process.env.TMDB_API_KEY}>
+      <html lang="zh-CN" className="noise themed" suppressHydrationWarning>
+        <head>
+          <PublicEnvScript />
+          <Global />
+          <SayHi />
+          <HydrationEndDetector />
+          <AccentColorStyleInjector color={themeConfig.config.color} />
 
-            <link
-              rel="shortcut icon"
-              href={themeConfig.config.site.faviconDark}
-              type="image/x-icon"
-              media="(prefers-color-scheme: dark)"
+          <link
+            rel="shortcut icon"
+            href={themeConfig.config.site.faviconDark}
+            type="image/x-icon"
+            media="(prefers-color-scheme: dark)"
+          />
+          <link
+            rel="shortcut icon"
+            href={themeConfig.config.site.favicon}
+            type="image/x-icon"
+            media="(prefers-color-scheme: light)"
+          />
+          <ScriptInjectProvider />
+        </head>
+        <body
+          className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
+        >
+          <WebAppProviders>
+            <AggregationProvider
+              aggregationData={data}
+              appConfig={themeConfig.config}
             />
-            <link
-              rel="shortcut icon"
-              href={themeConfig.config.site.favicon}
-              type="image/x-icon"
-              media="(prefers-color-scheme: light)"
-            />
-            <ScriptInjectProvider />
-          </head>
-          <body
-            className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
-          >
-            <WebAppProviders>
-              <AggregationProvider
-                aggregationData={data}
-                appConfig={themeConfig.config}
-              />
-              <div data-theme>
-                <Root>{children}</Root>
-              </div>
+            <div data-theme>
+              <Root>{children}</Root>
+            </div>
 
-              <TocAutoScroll />
-              <SearchPanelWithHotKey />
-              <Analyze />
-              <SyncServerTime />
-              <ToastContainer />
-              <ScrollTop />
-              <div className="fixed inset-y-0 right-0 w-[var(--removed-body-scroll-bar-size)]" />
-            </WebAppProviders>
-          </body>
-        </html>
-      </AppFeatureProvider>
-    </ClerkProvider>
+            <TocAutoScroll />
+            <SearchPanelWithHotKey />
+            <Analyze />
+            <SyncServerTime />
+            <ToastContainer />
+            <ScrollTop />
+            <div className="fixed inset-y-0 right-0 w-[var(--removed-body-scroll-bar-size)]" />
+          </WebAppProviders>
+        </body>
+      </html>
+    </AppFeatureProvider>
   )
 }
 
