@@ -1,8 +1,8 @@
 // reverse proxy to themoviedb api
 //
 
-import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
 
 import { NextServerResponse } from '~/lib/edge-function.server'
 
@@ -27,7 +27,9 @@ export const GET = async (req: NextRequest) => {
   const searchString = query.toString()
 
   const url = `https://api.themoviedb.org/3/${pathname.join('/')}${
-    searchString ? `?${searchString}` : ''
+    searchString
+      ? `?${searchString}&api_key=${process.env.TMDB_API_KEY}`
+      : `?api_key=${process.env.TMDB_API_KEY}`
   }`
 
   const headers = new Headers()

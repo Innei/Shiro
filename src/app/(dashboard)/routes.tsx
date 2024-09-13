@@ -111,10 +111,9 @@ export function useParentRouteObject(path: string) {
 export { dashboardRoute2ObjectMap }
 
 function attachRouteParent(route: DashboardRoute, parent?: DashboardRoute) {
-  if (parent)
-    if (parent.title !== Dashboard) {
-      route.parent = parent
-    }
+  if (parent && parent.title !== Dashboard) {
+    route.parent = parent
+  }
   if (route.children) {
     route.children.forEach((child) => {
       attachRouteParent(child, route)

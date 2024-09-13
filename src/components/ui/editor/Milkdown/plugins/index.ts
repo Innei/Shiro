@@ -1,6 +1,4 @@
 import type { MilkdownPlugin } from '@milkdown/ctx'
-import type { PluginCtx } from './types'
-
 import { diagram } from '@milkdown/plugin-diagram'
 
 import { AlertPlugin } from './Alert'
@@ -9,6 +7,7 @@ import { CodeBlockPlugin } from './CodeBlock'
 import { ExcalidrawPlugins } from './Excalidraw'
 import { ImagePlugin } from './Image'
 import { MermaidPlugin } from './Mermaid'
+import type { PluginCtx } from './types'
 
 export const createPlugins = (pluginCtx: PluginCtx): MilkdownPlugin[] =>
   [

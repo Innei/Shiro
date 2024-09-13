@@ -1,8 +1,8 @@
 'use client'
 
+import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 
 export const Global = () => {
   useIsomorphicLayoutEffect(() => {

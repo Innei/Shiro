@@ -1,11 +1,9 @@
-import { useNodeViewContext } from '@prosemirror-adapter/react'
-import { useCallback, useRef, useState } from 'react'
 import type { MilkdownPlugin } from '@milkdown/ctx'
-import type { FC } from 'react'
-import type { PluginCtx } from './types'
-
 import { imageSchema } from '@milkdown/preset-commonmark'
 import { $view } from '@milkdown/utils'
+import { useNodeViewContext } from '@prosemirror-adapter/react'
+import type { FC } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { MotionButtonBase, StyledButton } from '~/components/ui/button'
@@ -15,6 +13,8 @@ import { FixedZoomedImage } from '~/components/ui/image'
 import { useCurrentModal, useModalStack } from '~/components/ui/modal'
 import { getToken } from '~/lib/cookie'
 import { toast } from '~/lib/toast'
+
+import type { PluginCtx } from './types'
 
 const base64ToFile = (base64: string) => {
   const arr = base64.split(',')

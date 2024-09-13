@@ -1,8 +1,8 @@
 import { produce } from 'immer'
 import { atom } from 'jotai'
-import type { ActivityPresence } from '~/models/activity'
 
 import { jotaiStore } from '~/lib/store'
+import type { ActivityPresence } from '~/models/activity'
 
 type Activity = {
   process: {

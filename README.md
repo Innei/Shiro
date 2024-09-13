@@ -8,8 +8,6 @@
 
 - [静かな森](https://innei.in)
 - [可愛い松](https://blog.wibus.ren/)
-- [天翔 TNXG](https://tnxg.top)
-- [一只鬆の小站](https://tkgso.fun/)
 - [启动台の博客](https://www.launchpadx.top/)
 
 欢迎你来体验 Shiro 的魅力！

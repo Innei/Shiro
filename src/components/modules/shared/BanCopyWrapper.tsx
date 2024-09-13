@@ -1,9 +1,9 @@
 'use client'
 
 import { DialogContent, DialogPortal, Root } from '@radix-ui/react-dialog'
-import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 import type { FC, PropsWithChildren } from 'react'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
 
 import { isLogged } from '~/atoms'
 

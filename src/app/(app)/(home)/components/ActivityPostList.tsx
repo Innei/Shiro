@@ -1,8 +1,8 @@
 'use client'
 
-import React from 'react'
 import { m } from 'framer-motion'
 import Link from 'next/link'
+import React from 'react'
 
 import { Divider } from '~/components/ui/divider'
 import { RelativeTime } from '~/components/ui/relative-time'

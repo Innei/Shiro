@@ -1,10 +1,8 @@
+import type { Image } from '@mx-space/api-client'
+import type { MarkdownToJSX } from 'markdown-to-jsx'
 import { compiler } from 'markdown-to-jsx'
 import RSS from 'rss'
 import xss from 'xss'
-import type { AggregateRoot } from '@mx-space/api-client'
-import type { MarkdownToJSX } from 'markdown-to-jsx'
-
-import { simpleCamelcaseKeys } from '@mx-space/api-client'
 
 import { CDN_HOST } from '~/app.static.config'
 import { AlertsRule as __AlertsRule } from '~/components/ui/markdown/parsers/alert'
@@ -18,6 +16,8 @@ import { MarkRule } from '~/components/ui/markdown/parsers/mark'
 import { MentionRule } from '~/components/ui/markdown/parsers/mention'
 import { SpoilerRule } from '~/components/ui/markdown/parsers/spoiler'
 import { apiClient } from '~/lib/request'
+
+import { fetchAggregationData } from '../(app)/api'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 86400 // 1 day
@@ -34,6 +34,7 @@ interface RSSProps {
     title: string
     text: string
     id: string
+    images: Image[]
   }[]
 }
 
@@ -46,14 +47,8 @@ export async function GET() {
         revalidate: 86400,
       },
     }).then((res) => res.json() as Promise<RSSProps>),
-    fetch(apiClient.aggregate.proxy.toString(true), {
-      next: {
-        revalidate: 86400,
-      },
-    }).then(
-      async (res) =>
-        simpleCamelcaseKeys(await res.json()) as Promise<AggregateRoot>,
-    ),
+
+    fetchAggregationData(),
   ])
 
   const { title, description } = agg.seo
@@ -65,7 +60,7 @@ export async function GET() {
     site_url: url,
     feed_url: `${url}/feed`,
     language: 'zh-CN',
-    image_url: `${url}/og`,
+    image_url: `${url}${agg?.theme?.config?.site?.favicon}`,
     generator: 'Shiro (https://github.com/Innei/Shiro)',
     pubDate: now.toUTCString(),
   })
@@ -86,13 +81,21 @@ export async function GET() {
                 Tabs: NotSupportRender,
                 Tab: NotSupportRender,
 
-                img: ({ src, alt }) => {
-                  if (src) {
-                    if (new URL(src).hostname === CDN_HOST) {
-                      return <span>此图片不支持在 RSS Render 中查看。</span>
-                    }
+                img: ({ src, alt, height, width }) => {
+                  if (src && new URL(src).hostname === CDN_HOST) {
+                    return <span>此图片不支持在 RSS Render 中查看。</span>
                   }
-                  return <img src={src} alt={alt} />
+
+                  const meta = item.images?.find((image) => image.src === src)
+
+                  return (
+                    <img
+                      src={src}
+                      alt={alt}
+                      height={height || meta?.height}
+                      width={width || meta?.width}
+                    />
+                  )
                 },
               },
               extendsRules: {
@@ -106,8 +109,21 @@ export async function GET() {
                       return <NotSupportRender />
                     }
                     return (
-                      <pre key={state.key}>
-                        <code className={node.lang ? `lang-${node.lang}` : ''}>
+                      <pre
+                        key={state.key}
+                        className={
+                          node.lang
+                            ? `language-${node.lang} lang-${node.lang}`
+                            : ''
+                        }
+                      >
+                        <code
+                          className={
+                            node.lang
+                              ? `language-${node.lang} lang-${node.lang}`
+                              : ''
+                          }
+                        >
                           {node.content}
                         </code>
                       </pre>

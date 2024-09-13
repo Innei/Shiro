@@ -34,7 +34,7 @@ export const ScriptInjectProvider = async () => {
         )
 
         for (const key of dataKeys) {
-          const newKey = key.replace(/([A-Z])/g, '-$1').toLowerCase()
+          const newKey = key.replaceAll(/([A-Z])/g, '-$1').toLowerCase()
           nextProps[newKey] = nextProps[key]
           delete nextProps[key]
         }

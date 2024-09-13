@@ -1,5 +1,5 @@
-import { useMemo } from 'react'
 import { useTheme } from 'next-themes'
+import { useMemo } from 'react'
 
 import { MotionButtonBase } from '~/components/ui/button'
 
@@ -7,12 +7,15 @@ export const ThemeToggle = () => {
   const { theme, setTheme } = useTheme()
   const currentThemeIcon = useMemo(() => {
     switch (theme) {
-      case 'light':
+      case 'light': {
         return <i className="icon-[mingcute--sun-line]" />
-      case 'dark':
+      }
+      case 'dark': {
         return <i className="icon-[mingcute--moon-line]" />
-      default:
+      }
+      default: {
         return <i className="icon-[mingcute--computer-line]" />
+      }
     }
   }, [theme])
 
@@ -21,15 +24,18 @@ export const ThemeToggle = () => {
       className="p-2"
       onClick={() => {
         switch (theme) {
-          case 'light':
+          case 'light': {
             setTheme('dark')
             break
-          case 'dark':
+          }
+          case 'dark': {
             setTheme('system')
             break
-          case 'system':
+          }
+          case 'system': {
             setTheme('light')
             break
+          }
         }
       }}
     >

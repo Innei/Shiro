@@ -1,5 +1,5 @@
-import React from 'react'
 import type { FC, PropsWithChildren } from 'react'
+import React from 'react'
 
 import { KeyboardReturnRounded } from '~/components/icons/return'
 import { springScrollToElement } from '~/lib/scroller'
@@ -15,7 +15,7 @@ export const MFootNote: FC<PropsWithChildren> = (props) => {
       <ul className="list-[upper-roman] space-y-3 text-base text-zinc-600 dark:text-neutral-400">
         {React.Children.map(props.children, (child) => {
           if (React.isValidElement(child)) {
-            const id = child.props.id
+            const { id } = child.props
             return (
               <li id={`${getFootNoteDomId(id)}`} key={id}>
                 {React.cloneElement(child as React.ReactElement, {

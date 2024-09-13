@@ -1,13 +1,12 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useMemo, useState } from 'react'
 import dayjs from 'dayjs'
 import { produce } from 'immer'
 import { atom, useStore } from 'jotai'
 import { useRouter, useSearchParams } from 'next/navigation'
-import type { NoteDto } from '~/models/writing'
 import type { FC } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { PageLoading } from '~/components/layout/dashboard/PageLoading'
@@ -36,6 +35,7 @@ import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { dayOfYear } from '~/lib/datetime'
 import { cloneDeep } from '~/lib/lodash'
 import { toast } from '~/lib/toast'
+import type { NoteDto } from '~/models/writing'
 import { adminQueries } from '~/queries/definition'
 import { useCreateNote, useUpdateNote } from '~/queries/definition/note'
 
@@ -140,7 +140,7 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
           const nextData = data
           Reflect.deleteProperty(nextData, 'meta')
           Object.assign(draft, nextData)
-          const meta = data.meta
+          const { meta } = data
 
           if (data.text) {
             editorRef?.setMarkdown(data.text)

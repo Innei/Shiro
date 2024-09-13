@@ -1,4 +1,5 @@
 import type { FC, PropsWithChildren } from 'react'
+
 import type { ModalContentPropsInternal } from './context'
 
 export interface ModalProps {

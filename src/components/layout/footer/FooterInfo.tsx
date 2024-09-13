@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import type { JSX } from 'react'
-import type { FooterConfig } from './config'
 
 import { fetchAggregationData } from '~/app/(app)/api'
 import { IonIosArrowDown } from '~/components/icons/arrow'
@@ -11,6 +10,7 @@ import { clsxm } from '~/lib/helper'
 import { getQueryClient } from '~/lib/query-client.server'
 import { queries } from '~/queries/definition'
 
+import type { FooterConfig } from './config'
 import { defaultLinkSections } from './config'
 // import { footerConfig } from './config'
 import { GatewayInfo } from './GatewayInfo'

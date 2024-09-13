@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useMemo } from 'react'
 import { useAtomValue } from 'jotai'
 import { atomWithStorage, selectAtom } from 'jotai/utils'
+import { useEffect, useMemo } from 'react'
 
 import { MotionButtonBase } from '~/components/ui/button'
 import { FABPortable } from '~/components/ui/fab'
@@ -77,7 +77,7 @@ function loadAndApplyFont(
 
   const $style = document.createElement('style')
   $style.innerHTML = `#${MAIN_MARKDOWN_ID} { font-family: ${config.fontFamily};`
-  document.head.appendChild($style)
+  document.head.append($style)
 
   return () => {
     document.head.removeChild($style)

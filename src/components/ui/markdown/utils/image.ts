@@ -32,7 +32,7 @@ export const pickImagesFromMarkdown = (md: string) => {
 const isRawImageUrl = (url: string) => {
   try {
     new URL(url)
-  } catch (e) {
+  } catch {
     return false
   }
   return true

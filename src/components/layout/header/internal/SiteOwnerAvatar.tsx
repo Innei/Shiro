@@ -1,8 +1,8 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { useCallback } from 'react'
 import Image from 'next/image'
+import { useCallback } from 'react'
 
 import { clsxm } from '~/lib/helper'
 import {

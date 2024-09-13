@@ -1,5 +1,5 @@
-import { createElement, useId } from 'react'
 import type { DOMAttributes } from 'react'
+import { createElement, useId } from 'react'
 
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { springScrollToElement } from '~/lib/scroller'
@@ -37,7 +37,7 @@ export const MHeader = (props: HeadingProps) => {
           tabIndex={0}
           aria-hidden
           onClick={() => {
-            const state = history.state
+            const { state } = history
             history.replaceState(state, '', `#${nextId}`)
             springScrollToElement(document.getElementById(nextId)!, -100)
           }}

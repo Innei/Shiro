@@ -1,11 +1,12 @@
-import { execSync } from 'child_process'
-import path from 'path'
-import { fileURLToPath } from 'url'
-import { config } from 'dotenv'
+import { execSync } from 'node:child_process'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 import NextBundleAnalyzer from '@next/bundle-analyzer'
+import { codeInspectorPlugin } from 'code-inspector-plugin'
+import { config } from 'dotenv'
 
-import pkg from './package.json' assert { type: 'json' }
+ 
 
 process.title = 'Shiro (NextJS)'
 
@@ -25,7 +26,7 @@ if (repoInfo) {
 }
 
 /** @type {import('next').NextConfig} */
-// eslint-disable-next-line import/no-mutable-exports
+ 
 let nextConfig = {
   // logging: {
   //   fetches: {
@@ -34,7 +35,7 @@ let nextConfig = {
   //   },
   // },
   env: {
-    APP_VERSION: pkg.version,
+     
     COMMIT_HASH: commitHash,
     COMMIT_URL: commitUrl,
   },
@@ -73,7 +74,7 @@ let nextConfig = {
     }
   },
 
-  webpack: (config, { webpack }) => {
+  webpack: (config) => {
     config.resolve.alias['jotai'] = path.resolve(
       __dirname,
       'node_modules/jotai',
@@ -83,6 +84,10 @@ let nextConfig = {
       'utf-8-validate': 'commonjs utf-8-validate',
       bufferutil: 'commonjs bufferutil',
     })
+
+    config.plugins.push(
+      codeInspectorPlugin({ bundler: 'webpack', hotKeys: ['metaKey'] }),
+    )
 
     return config
   },
@@ -137,19 +142,13 @@ function getRepoInfo() {
     const { VERCEL_GIT_PROVIDER, VERCEL_GIT_REPO_SLUG, VERCEL_GIT_REPO_OWNER } =
       process.env
 
-    // eslint-disable-next-line no-console
-    console.log(
-      'VERCEL_GIT_PROVIDER',
-      VERCEL_GIT_PROVIDER,
-      VERCEL_GIT_REPO_SLUG,
-      VERCEL_GIT_REPO_OWNER,
-    )
     switch (VERCEL_GIT_PROVIDER) {
-      case 'github':
+      case 'github': {
         return {
           hash: process.env.VERCEL_GIT_COMMIT_SHA,
           url: `https://github.com/${VERCEL_GIT_REPO_OWNER}/${VERCEL_GIT_REPO_SLUG}/commit/${process.env.VERCEL_GIT_COMMIT_SHA}`,
         }
+      }
     }
   } else {
     return getRepoInfoFromGit()

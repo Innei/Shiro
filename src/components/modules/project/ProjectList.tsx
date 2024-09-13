@@ -14,22 +14,24 @@ export type Project = {
 export const ProjectList: FC<{ projects: Project[] }> = (props) => {
   return (
     <section key="list" className="text-center">
-      <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid min-w-0 grid-cols-2 gap-12 lg:grid-cols-3 xl:grid-cols-4">
         {props.projects.map((project) => {
           return (
             <Link
               href={routeBuilder(Routes.Project, { id: project.id })}
               key={project.id}
-              className="group grid grid-cols-[1fr_2fr] gap-4"
+              className="group flex shrink-0 grid-cols-[60px_2fr] flex-col items-center gap-4 md:grid"
             >
               <ProjectIcon
-                className="group-hover:-translate-y-2 group-hover:shadow-out-sm"
+                className="size-16 group-hover:-translate-y-2 group-hover:shadow-out-sm md:size-auto"
                 avatar={project.avatar}
                 name={project.name}
               />
               <span className="flex shrink-0 grow flex-col gap-2 text-left">
-                <h4 className="font-2xl m-0 p-0 font-medium">{project.name}</h4>
-                <span className="line-clamp-5 text-sm md:line-clamp-4 lg:line-clamp-2">
+                <h4 className="m-0 text-balance p-0 text-center font-medium md:text-left">
+                  {project.name}
+                </h4>
+                <span className="line-clamp-5 text-balance text-center text-sm md:line-clamp-4 md:text-left lg:line-clamp-2">
                   {project.description}
                 </span>
               </span>

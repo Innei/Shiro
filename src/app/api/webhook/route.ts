@@ -1,11 +1,10 @@
 import type { RequestWithJSONBody } from '@mx-space/webhook'
-import type { NextRequest } from 'next/server'
-
 import {
   BusinessEvents,
   InvalidSignatureError,
   readDataFromRequest,
 } from '@mx-space/webhook'
+import type { NextRequest } from 'next/server'
 
 import { CacheKeyMap } from '~/constants/keys'
 import { invalidateCache, invalidateCacheWithPrefix } from '~/lib/cache'
@@ -38,7 +37,7 @@ export const POST = async (nextreq: NextRequest) => {
       case BusinessEvents.NOTE_CREATE:
       case BusinessEvents.NOTE_DELETE:
       case BusinessEvents.NOTE_UPDATE: {
-        await Promise.all([invalidateCache(CacheKeyMap.AggregateTop)])
+        await invalidateCache(CacheKeyMap.AggregateTop)
         return res.status(200).send('OK')
       }
       case BusinessEvents.POST_CREATE:
@@ -53,7 +52,7 @@ export const POST = async (nextreq: NextRequest) => {
       case BusinessEvents.PAGE_CREATE:
       case BusinessEvents.PAGE_UPDATE:
       case BusinessEvents.SAY_CREATE: {
-        await Promise.all([invalidateCache(CacheKeyMap.AggregateTop)])
+        await invalidateCache(CacheKeyMap.AggregateTop)
         return res.status(200).send('OK')
       }
 

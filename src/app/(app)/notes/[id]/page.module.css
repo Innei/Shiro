@@ -80,7 +80,9 @@
         margin-bottom: 2rem;
       }
 
-      .paragraph:first-child::first-letter {
+      > .paragraph:not(
+          :where([class~='not-prose'], [class~='not-prose'] *)
+        ):first-child::first-letter {
         float: left;
         font-size: 2.4em;
         margin: 0 0.2em 0 0;

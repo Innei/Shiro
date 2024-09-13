@@ -1,9 +1,9 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { useCallback } from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 import { useRouter } from 'next/navigation'
+import { useCallback } from 'react'
 
 import { isLogged } from '~/atoms'
 import { useResolveAdminUrl, useViewport } from '~/atoms/hooks'

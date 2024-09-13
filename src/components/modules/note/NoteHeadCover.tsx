@@ -1,7 +1,7 @@
 'use client'
 
-import { useLayoutEffect, useState } from 'react'
 import clsx from 'clsx'
+import { useLayoutEffect, useState } from 'react'
 
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 
@@ -96,7 +96,6 @@ const NoteHeadCoverImpl = ({ image }: { image: string }) => {
             style={{
               backgroundImage: `url(${imageBlob})`,
             }}
-            // eslint-disable-next-line tailwindcss/classnames-order
             className="size-full animate-fade bg-cover bg-center bg-no-repeat"
           />
         )}

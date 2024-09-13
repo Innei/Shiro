@@ -1,6 +1,6 @@
 // @copy https://github.com/streamich/react-use/blob/master/src/useClickAway.ts
-import { useEffect, useRef } from 'react'
 import type { RefObject } from 'react'
+import { useEffect, useRef } from 'react'
 
 function on<T extends Window | Document | HTMLElement | EventTarget>(
   obj: T | null,

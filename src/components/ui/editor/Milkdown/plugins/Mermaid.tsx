@@ -1,25 +1,25 @@
-import { useNodeViewContext } from '@prosemirror-adapter/react'
-import { useEffect, useRef } from 'react'
 import type { MilkdownPlugin } from '@milkdown/ctx'
-import type { ModalContentPropsInternal } from '~/components/ui/modal'
-import type { FC } from 'react'
-import type { PluginCtx } from './types'
-
 import { diagramSchema } from '@milkdown/plugin-diagram'
 import { $view } from '@milkdown/utils'
+import { useNodeViewContext } from '@prosemirror-adapter/react'
+import type { FC } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { Mermaid } from '~/components/modules/shared/Mermaid'
 import { StyledButton } from '~/components/ui/button'
 import { TextArea } from '~/components/ui/input'
+import type { ModalContentPropsInternal } from '~/components/ui/modal'
 import { useModalStack } from '~/components/ui/modal'
 import { useUncontrolledInput } from '~/hooks/common/use-uncontrolled-input'
+
+import type { PluginCtx } from './types'
 
 const autoOpenValue = '<auto_open>'
 
 const MermaidRender = () => {
   const { contentRef, node, setAttrs, view, getPos } = useNodeViewContext()
 
-  const value = node.attrs.value
+  const { value } = node.attrs
   const autoOpen = value === autoOpenValue
 
   const modalStack = useModalStack()
@@ -28,7 +28,7 @@ const MermaidRender = () => {
     const Content: FC<ModalContentPropsInternal> = ({ dismiss }) => {
       const deleteNode = () => {
         const pos = getPos()
-        if (typeof pos === 'undefined') return
+        if (pos === undefined) return
         view.dispatch(view.state.tr.delete(pos, pos + node.nodeSize))
         dismiss()
       }
@@ -37,11 +37,7 @@ const MermaidRender = () => {
         useUncontrolledInput<HTMLTextAreaElement>(defaultValue)
       return (
         <div className="flex h-[450px] max-h-[80vh] w-[60ch] max-w-full flex-col">
-          <TextArea
-            defaultValue={defaultValue}
-            className="grow"
-            ref={ref}
-          />
+          <TextArea defaultValue={defaultValue} className="grow" ref={ref} />
           <div className="mt-4 flex justify-end space-x-2">
             <StyledButton variant="secondary" onClick={deleteNode}>
               删除

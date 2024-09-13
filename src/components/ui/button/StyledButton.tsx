@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Fragment } from 'react'
 import clsx from 'clsx'
 import Link from 'next/link'
-import { tv } from 'tailwind-variants'
 import type { FC, PropsWithChildren } from 'react'
+import { tv } from 'tailwind-variants'
 
 import { MotionButtonBase } from './MotionButton'
 
@@ -44,7 +42,7 @@ export const StyledButton: FC<ButtonProps> = ({
 
   ...props
 }) => {
-  const Wrapper = isLoading ? LoadingButtonWrapper : Fragment
+  const Wrapper = isLoading ? LoadingButtonWrapper : 'div'
   return (
     <Wrapper>
       {href ? (

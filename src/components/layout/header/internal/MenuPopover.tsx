@@ -1,11 +1,12 @@
 'use client'
 
-import React, { memo } from 'react'
 import Link from 'next/link'
-import type { IHeaderMenu } from '../config'
+import React, { memo } from 'react'
 
 import { FloatPopover } from '~/components/ui/float-popover'
 import { clsxm } from '~/lib/helper'
+
+import type { IHeaderMenu } from '../config'
 
 export const MenuPopover: Component<{
   subMenu: IHeaderMenu['subMenu']
@@ -28,7 +29,7 @@ export const MenuPopover: Component<{
       ])}
       triggerElement={<>{children}</>}
     >
-      {!!subMenu.length &&
+      {subMenu.length > 0 &&
         subMenu.map((m) => {
           return <Item key={m.title} {...m} />
         })}

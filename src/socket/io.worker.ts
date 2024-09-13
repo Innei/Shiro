@@ -1,7 +1,5 @@
-import { io } from 'socket.io-client'
 import type { Socket } from 'socket.io-client'
-
-/* eslint-disable no-console */
+import { io } from 'socket.io-client'
 
 /// <reference lib="webworker" />
 
@@ -10,7 +8,7 @@ let ws: Socket | null = null
 function setupIo(config: { url: string; socket_session_id: string }) {
   if (ws) return
   // 使用 socket.io
-  console.info('Connecting to io, url: ', config.url)
+  console.info('Connecting to io, url:', config.url)
 
   ws = io(config.url, {
     timeout: 10000,
@@ -75,19 +73,22 @@ const preparePort = (port: MessagePort | Window) => {
     console.info('get message from main', event.data)
 
     switch (type) {
-      case 'config':
+      case 'config': {
         setupIo(payload)
         break
-      case 'emit':
+      }
+      case 'emit': {
         if (ws) {
           if (ws.connected) ws.emit('message', payload)
           else waitingEmitQueue.push(payload)
         }
         break
-      case 'reconnect':
+      }
+      case 'reconnect': {
         if (ws) ws.open()
         break
-      case 'init':
+      }
+      case 'init': {
         port.postMessage({ type: 'ping' })
 
         if (ws) {
@@ -95,8 +96,10 @@ const preparePort = (port: MessagePort | Window) => {
           port.postMessage({ type: 'sid', payload: ws.id })
         }
         break
-      default:
+      }
+      default: {
         console.info('Unknown message type:', type)
+      }
     }
   }
 }

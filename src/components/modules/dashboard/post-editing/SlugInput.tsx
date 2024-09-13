@@ -1,6 +1,6 @@
+import type { CategoryModel } from '@mx-space/api-client'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useRef } from 'react'
-import type { CategoryModel } from '@mx-space/api-client'
 
 import { adminQueries } from '~/queries/definition'
 
@@ -25,12 +25,8 @@ export const SlugInput = () => {
   }, [category, categoryId, setCategoryId])
   const categoryIdMap: Record<string, CategoryModel> = useMemo(() => {
     if (!categories) return {}
-    return categories.data.reduce(
-      (acc, category) => ({
-        ...acc,
-        [category.id]: category,
-      }),
-      {},
+    return Object.fromEntries(
+      categories.data.map((category) => [category.id, category]),
     )
   }, [categories])
 

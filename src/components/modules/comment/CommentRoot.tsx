@@ -1,11 +1,11 @@
 import type { FC } from 'react'
-import type { CommentBaseProps } from './types'
 
 import { LazyLoad } from '~/components/common/Lazyload'
 
 import { CommentBoxRoot } from './CommentBox/Root'
 import { Comments } from './Comments'
 import { CommentSkeleton } from './CommentSkeleton'
+import type { CommentBaseProps } from './types'
 
 export const CommentAreaRoot: FC<
   CommentBaseProps & {
@@ -21,7 +21,7 @@ export const CommentAreaRoot: FC<
 
   const { allowComment, refId } = props
   // 兜下后端的数据，默认开
-  if (!allowComment && typeof allowComment !== 'undefined') {
+  if (!allowComment && allowComment !== undefined) {
     return (
       <p className="mt-[7.1rem] text-center text-xl font-medium">评论已关闭</p>
     )

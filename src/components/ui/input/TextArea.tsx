@@ -1,6 +1,5 @@
 'use client'
 
-import { forwardRef, useCallback, useState } from 'react'
 import clsx from 'clsx'
 import { m, useMotionTemplate, useMotionValue } from 'framer-motion'
 import type {
@@ -8,6 +7,7 @@ import type {
   PropsWithChildren,
   TextareaHTMLAttributes,
 } from 'react'
+import { forwardRef, useCallback, useState } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { useInputComposition } from '~/hooks/common/use-input-composition'
@@ -42,6 +42,7 @@ export const TextArea = forwardRef<
     rounded = 'xl',
     bordered = true,
     onCmdEnter,
+    onKeyDown,
     ...rest
   } = props
   const mouseX = useMotionValue(0)
@@ -54,9 +55,20 @@ export const TextArea = forwardRef<
     },
     [mouseX, mouseY],
   )
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+        onCmdEnter?.(e)
+      }
+      onKeyDown?.(e)
+    },
+    [onCmdEnter, onKeyDown],
+  )
   const background = useMotionTemplate`radial-gradient(320px circle at ${mouseX}px ${mouseY}px, var(--spotlight-color) 0%, transparent 85%)`
   const isMobile = useIsMobile()
-  const inputProps = useInputComposition(props)
+  const inputProps = useInputComposition(
+    Object.assign({}, props, { onKeyDown: handleKeyDown }),
+  )
   const [isFocus, setIsFocus] = useState(false)
   return (
     <div
@@ -65,7 +77,7 @@ export const TextArea = forwardRef<
         roundedMap[rounded],
 
         'border-transparent',
-        isFocus && 'border-accent/80 ring-2',
+        isFocus && 'border-accent/80 bg-accent/5 ring-2',
         // 'bg-gray-200/50 dark:bg-zinc-800/50',
         'dark:text-zinc-200 dark:placeholder:text-zinc-500',
         wrapperClassName,
@@ -112,13 +124,6 @@ export const TextArea = forwardRef<
           rest.onBlur?.(e)
         }}
         {...inputProps}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-            onCmdEnter?.(e)
-          }
-          rest.onKeyDown?.(e)
-          inputProps.onKeyDown?.(e)
-        }}
       />
 
       {children}

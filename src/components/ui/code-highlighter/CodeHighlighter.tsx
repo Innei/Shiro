@@ -1,4 +1,5 @@
 import type React from 'react'
+import type { FC } from 'react'
 import {
   use,
   useCallback,
@@ -7,8 +8,6 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import type { FC } from 'react'
-import type { ShikiProps } from './shiki/Shiki'
 
 import { useIsPrintMode } from '~/atoms/css-media'
 import { useIsDark } from '~/hooks/common/use-is-dark'
@@ -18,6 +17,7 @@ import { loadScript, loadStyleSheet } from '~/lib/load-script'
 import { toast } from '~/lib/toast'
 
 import styles from './CodeHighlighter.module.css'
+import type { ShikiProps } from './shiki/Shiki'
 import { ShikiHighLighter } from './shiki/Shiki'
 
 declare global {
@@ -117,11 +117,9 @@ const useLoadHighlighter = (ref: React.RefObject<HTMLElement | null>) => {
       'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.css',
     )
 
-    Promise.all([
-      loadScript(
-        'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/components/prism-core.min.js',
-      ),
-    ])
+    loadScript(
+      'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/components/prism-core.min.js',
+    )
       .then(() =>
         Promise.all([
           loadScript(
@@ -166,9 +164,7 @@ export const ShikiFallback: FC<ShikiProps> = (props) => {
       return bundledLanguagesKeysSet.has(lang)
     }, [lang]),
   )
-
-  if (!shikiSupported) {
-    return <HighLighterPrismCdn {...props} />
-  }
-  return <ShikiHighLighter {...props} />
+  return (
+    <ShikiHighLighter {...props} lang={shikiSupported ? props.lang : 'text'} />
+  )
 }

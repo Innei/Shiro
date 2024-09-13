@@ -1,6 +1,6 @@
-import { memo } from 'react'
 import type { UseQueryResult } from '@tanstack/react-query'
 import type { FC } from 'react'
+import { memo } from 'react'
 
 import { Loading } from '~/components/ui/loading'
 

@@ -1,7 +1,7 @@
 'use client'
 
-import React, { createElement, useMemo, useRef, useState } from 'react'
 import type { DetailedHTMLProps, FC, ImgHTMLAttributes, JSX } from 'react'
+import React, { createElement, useMemo, useRef, useState } from 'react'
 
 import { useIsDark } from '~/hooks/common/use-is-dark'
 import { getColorScheme, stringToHue } from '~/lib/color'
@@ -98,7 +98,7 @@ export const Avatar: FC<
             <img
               src={imageUrl}
               style={{
-                ...{ opacity: loaded ? 1 : 0 },
+                opacity: loaded ? 1 : 0,
                 ...(radius
                   ? { borderRadius: radius === 'full' ? '100%' : `${radius}px` }
                   : undefined),

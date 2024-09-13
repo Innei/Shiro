@@ -1,8 +1,8 @@
-import { memo } from 'react'
+import type { PostModel } from '@mx-space/api-client'
 import clsx from 'clsx'
 import Link from 'next/link'
+import { memo } from 'react'
 import RemoveMarkdown from 'remove-markdown'
-import type { PostModel } from '@mx-space/api-client'
 
 import { PostPinIcon } from '~/components/modules/post/PostPinIcon'
 

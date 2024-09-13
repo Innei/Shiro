@@ -2,6 +2,11 @@
 
 import * as Dialog from '@radix-ui/react-dialog'
 import { useQuery } from '@tanstack/react-query'
+import clsx from 'clsx'
+import { AnimatePresence, m } from 'framer-motion'
+import { atom, useAtomValue, useSetAtom } from 'jotai'
+import Link from 'next/link'
+import type { KeyboardEventHandler } from 'react'
 import {
   memo,
   startTransition,
@@ -10,11 +15,6 @@ import {
   useRef,
   useState,
 } from 'react'
-import clsx from 'clsx'
-import { AnimatePresence, m } from 'framer-motion'
-import { atom, useAtomValue, useSetAtom } from 'jotai'
-import Link from 'next/link'
-import type { KeyboardEventHandler } from 'react'
 
 import { useIsLogged } from '~/atoms/hooks'
 import { EmptyIcon } from '~/components/icons/empty'
@@ -138,27 +138,30 @@ const SearchPanelImpl = () => {
 
       const _list: SearchListType[] = data?.data.map((item: any) => {
         switch (item.type) {
-          case 'post':
+          case 'post': {
             return {
               title: item.title,
               subtitle: item.category.name,
               id: item.id,
               url: `/posts/${item.category.slug}/${item.slug}`,
             }
-          case 'note':
+          }
+          case 'note': {
             return {
               title: item.title,
               subtitle: '手记',
               id: item.id,
               url: `/notes/${item.nid}`,
             }
-          case 'page':
+          }
+          case 'page': {
             return {
               title: item.title,
               subtitle: '页面',
               id: item.id,
               url: `/pages/${item.slug}`,
             }
+          }
         }
       })
       setCurrentSelect(0)

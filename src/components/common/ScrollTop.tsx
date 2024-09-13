@@ -1,7 +1,7 @@
 'use client'
 
-import { memo, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
+import { memo, useEffect } from 'react'
 
 import { isDev } from '~/lib/env'
 import { springScrollToTop } from '~/lib/scroller'

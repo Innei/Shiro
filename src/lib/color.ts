@@ -51,7 +51,7 @@ export const getColorScheme = (hue?: number) => {
   }
 }
 export function addAlphaToHex(hex: string, alpha: number): string {
-  if (!/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+  if (!/^#([A-F0-9]{3}){1,2}$/i.test(hex)) {
     throw new Error('Invalid hex color value')
   }
 
@@ -60,17 +60,17 @@ export function addAlphaToHex(hex: string, alpha: number): string {
     color = `#${[1, 2, 3]
       .map(
         (index) =>
-          parseInt(hex.charAt(index), 16).toString(16) +
-          parseInt(hex.charAt(index), 16).toString(16),
+          Number.parseInt(hex.charAt(index), 16).toString(16) +
+          Number.parseInt(hex.charAt(index), 16).toString(16),
       )
       .join('')}`
   } else {
     color = hex
   }
 
-  const r = parseInt(color.substr(1, 2), 16)
-  const g = parseInt(color.substr(3, 2), 16)
-  const b = parseInt(color.substr(5, 2), 16)
+  const r = Number.parseInt(color.substr(1, 2), 16)
+  const g = Number.parseInt(color.substr(3, 2), 16)
+  const b = Number.parseInt(color.substr(5, 2), 16)
 
   return `rgba(${r},${g},${b},${alpha})`
 }
@@ -89,9 +89,9 @@ export function hexToHsl(hex: string) {
   hex = hex.replace('#', '')
 
   // Convert hex values to RGB
-  const r = parseInt(hex.substring(0, 2), 16) / 255
-  const g = parseInt(hex.substring(2, 4), 16) / 255
-  const b = parseInt(hex.substring(4, 6), 16) / 255
+  const r = Number.parseInt(hex.substring(0, 2), 16) / 255
+  const g = Number.parseInt(hex.substring(2, 4), 16) / 255
+  const b = Number.parseInt(hex.substring(4, 6), 16) / 255
 
   // Find the minimum and maximum values among R, G, and B
   const min = Math.min(r, g, b)
@@ -99,14 +99,25 @@ export function hexToHsl(hex: string) {
 
   // Calculate the hue
   let h = 0
-  if (max === min) {
-    h = 0 // No hue for achromatic colors
-  } else if (max === r) {
-    h = ((g - b) / (max - min)) % 6
-  } else if (max === g) {
-    h = (2 + (b - r) / (max - min)) % 6
-  } else {
-    h = (4 + (r - g) / (max - min)) % 6
+  switch (max) {
+    case min: {
+      h = 0 // No hue for achromatic colors
+
+      break
+    }
+    case r: {
+      h = ((g - b) / (max - min)) % 6
+
+      break
+    }
+    case g: {
+      h = (2 + (b - r) / (max - min)) % 6
+
+      break
+    }
+    default: {
+      h = (4 + (r - g) / (max - min)) % 6
+    }
   }
   h = Math.round(h * 60)
 
@@ -130,13 +141,13 @@ export function generateTransitionColors(
   step: number,
 ): string[] {
   // Convert startColor and targetColor to RGB values
-  const startRed = parseInt(startColor.substring(1, 3), 16)
-  const startGreen = parseInt(startColor.substring(3, 5), 16)
-  const startBlue = parseInt(startColor.substring(5, 7), 16)
+  const startRed = Number.parseInt(startColor.substring(1, 3), 16)
+  const startGreen = Number.parseInt(startColor.substring(3, 5), 16)
+  const startBlue = Number.parseInt(startColor.substring(5, 7), 16)
 
-  const targetRed = parseInt(targetColor.substring(1, 3), 16)
-  const targetGreen = parseInt(targetColor.substring(3, 5), 16)
-  const targetBlue = parseInt(targetColor.substring(5, 7), 16)
+  const targetRed = Number.parseInt(targetColor.substring(1, 3), 16)
+  const targetGreen = Number.parseInt(targetColor.substring(3, 5), 16)
+  const targetBlue = Number.parseInt(targetColor.substring(5, 7), 16)
 
   // Calculate increments for each color channel
   const redIncrement = (targetRed - startRed) / step

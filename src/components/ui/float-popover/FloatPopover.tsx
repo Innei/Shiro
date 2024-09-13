@@ -1,5 +1,6 @@
 'use client'
 
+import type { UseFloatingOptions } from '@floating-ui/react-dom'
 import {
   autoUpdate,
   flip,
@@ -7,6 +8,8 @@ import {
   shift,
   useFloating,
 } from '@floating-ui/react-dom'
+import { AnimatePresence, m } from 'framer-motion'
+import type { FC, PropsWithChildren, ReactElement } from 'react'
 import React, {
   createContext,
   createElement,
@@ -17,10 +20,6 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import { AnimatePresence, m } from 'framer-motion'
-import type { UseFloatingOptions } from '@floating-ui/react-dom'
-import type { FC, PropsWithChildren, ReactElement } from 'react'
-import type { PresentSheetProps } from '../sheet'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { microReboundPreset } from '~/constants/spring'
@@ -29,6 +28,7 @@ import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { clsxm } from '~/lib/helper'
 
 import { RootPortal } from '../portal'
+import type { PresentSheetProps } from '../sheet'
 import { PresentSheet } from '../sheet'
 
 export const FloatPopover = function <T extends {}>(
@@ -174,24 +174,27 @@ const RealFloatPopover = function FloatPopover<T extends {}>(
       // onBlur: doPopoverDisappear,
     }
     switch (trigger) {
-      case 'click':
+      case 'click': {
         return {
           ...baseListener,
           onClick: doPopoverShow,
         }
-      case 'hover':
+      }
+      case 'hover': {
         return {
           ...baseListener,
           onMouseOver: doPopoverShow,
           onMouseOut: doPopoverDisappear,
         }
-      case 'both':
+      }
+      case 'both': {
         return {
           ...baseListener,
           onClick: doPopoverShow,
           onMouseOver: doPopoverShow,
           onMouseOut: handleMouseOut,
         }
+      }
     }
   }, [doPopoverDisappear, doPopoverShow, handleMouseOut, trigger])
 
@@ -277,7 +280,7 @@ const RealFloatPopover = function FloatPopover<T extends {}>(
                   'relative z-[2]',
 
                   type === 'tooltip'
-                    ? `shadow-out-sm max-w-[25rem] break-all rounded-xl px-4 py-2`
+                    ? `max-w-[25rem] break-all rounded-xl px-4 py-2 shadow-out-sm`
                     : 'shadow-lg',
                   popoverClassNames,
                 )}

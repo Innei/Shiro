@@ -1,8 +1,8 @@
 'use client'
 
+import type { TopicModel } from '@mx-space/api-client'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
-import type { TopicModel } from '@mx-space/api-client'
 import type { FC } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'

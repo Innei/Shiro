@@ -1,7 +1,7 @@
 'use client'
 
-import { createModelDataProvider } from 'jojoo/react'
 import type { PageModel } from '@mx-space/api-client'
+import { createModelDataProvider } from 'jojoo/react'
 
 import { isClientSide, isDev } from '~/lib/env'
 
@@ -22,9 +22,9 @@ declare global {
 if (isDev && isClientSide) window.getCurrentPageData = getModelData
 
 export {
+  ModelDataAtomProvider as CurrentPageDataAtomProvider,
   ModelDataProvider as CurrentPageDataProvider,
   getModelData as getCurrentPageData,
   setModelData as setCurrentPageData,
   useModelDataSelector as useCurrentPageDataSelector,
-  ModelDataAtomProvider as CurrentPageDataAtomProvider,
 }

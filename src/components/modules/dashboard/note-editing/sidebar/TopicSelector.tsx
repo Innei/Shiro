@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
-import React from 'react'
 import { produce } from 'immer'
-import type { SelectValue } from '~/components/ui/select'
+import React from 'react'
 
+import type { SelectValue } from '~/components/ui/select'
 import { Select } from '~/components/ui/select'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { adminQueries } from '~/queries/definition'

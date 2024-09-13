@@ -1,19 +1,17 @@
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client'
 
-import { useEffect } from 'react'
+import type { Image } from '@mx-space/api-client'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
-import type { Image } from '@mx-space/api-client'
-import type { MarkdownToJSX } from '~/components/ui/markdown'
 import type { PropsWithChildren } from 'react'
+import { useEffect } from 'react'
 
 import { MdiClockOutline } from '~/components/icons/clock'
 import { useSetHeaderMetaInfo } from '~/components/layout/header/hooks'
 import { GoToAdminEditingButton } from '~/components/modules/shared/GoToAdminEditingButton'
 import { WithArticleSelectionAction } from '~/components/modules/shared/WithArticleSelectionAction'
 import { FloatPopover } from '~/components/ui/float-popover'
+import type { MarkdownToJSX } from '~/components/ui/markdown'
 import { MainMarkdown } from '~/components/ui/markdown'
 import { parseDate } from '~/lib/datetime'
 import { noopArr } from '~/lib/noop'
@@ -145,7 +143,7 @@ export const NoteHeaderMetaInfoSetting = () => {
 
   return null
 }
-const MarkdownRenderers: { [name: string]: Partial<MarkdownToJSX.Rule> } = {
+const MarkdownRenderers: Record<string, Partial<MarkdownToJSX.Rule>> = {
   text: {
     react(node, _, state) {
       return <span key={state?.key}>{node.content}</span>

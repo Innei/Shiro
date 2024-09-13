@@ -1,9 +1,9 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-import { memo, useCallback } from 'react'
-import Link from 'next/link'
 import type { TagModel } from '@mx-space/api-client'
+import { useQuery } from '@tanstack/react-query'
+import Link from 'next/link'
+import { memo, useCallback } from 'react'
 
 import { EmptyIcon } from '~/components/icons/empty'
 import { FABPortable } from '~/components/ui/fab'
@@ -80,12 +80,11 @@ export const TagDetailModal = (props: { name: string }) => {
       return (await apiClient.category.getTagByName(tagName)).data
     },
     staleTime: 1000 * 60 * 60 * 24,
-    meta: {},
   })
   const { dismissAll } = useModalStack()
   if (isLoading)
     return (
-      <div className="center flex h-24 w-full">
+      <div className="flex h-24 w-full center">
         <div className="loading loading-dots loading-md" />
       </div>
     )

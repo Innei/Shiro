@@ -1,9 +1,9 @@
 'use client'
 
 import * as RadixTabs from '@radix-ui/react-tabs'
-import React, { useId, useMemo, useState } from 'react'
 import { m } from 'framer-motion'
 import type { FC, PropsWithChildren } from 'react'
+import React, { useId, useMemo, useState } from 'react'
 
 import { clsxm } from '~/lib/helper'
 
@@ -23,7 +23,7 @@ export const Tabs: FC<PropsWithChildren> = ({ children }) => {
       if (!('type' in child)) continue
 
       if (child.type !== Tab) continue
-      const label = child.props.label
+      const { label } = child.props
       labels.push(label)
     }
     return labels

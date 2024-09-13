@@ -5,7 +5,7 @@ import { isServerSide } from './env'
 
 export const getCurrentPageId = () => {
   if (isServerSide) return
-  const pathname = window.location.pathname
+  const { pathname } = window.location
 
   if (pathname.startsWith('/notes/')) {
     const noteId = getCurrentNoteData()

@@ -1,5 +1,4 @@
 import type { ModalContentComponent } from '~/components/ui/modal'
-
 import { useCurrentModal } from '~/components/ui/modal'
 
 import { CommentsLazy } from '../comment'

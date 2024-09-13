@@ -1,6 +1,5 @@
-import { useSearchParams } from 'next/navigation'
-
 import { CommentState } from '@mx-space/api-client'
+import { useSearchParams } from 'next/navigation'
 
 import { RoundedIconButton, StyledButton } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
@@ -44,11 +43,12 @@ export const CommentBatchActionGroup = () => {
   }
   const search = useSearchParams()
   const tab =
-    (parseInt(search.get('tab')!) as any as CommentState) || CommentState.Unread
+    (Number.parseInt(search.get('tab')!) as any as CommentState) ||
+    CommentState.Unread
 
   const { present } = useModalStack()
 
-  if (!selectionKeys.size) return null
+  if (selectionKeys.size === 0) return null
   return (
     <OffsetHeaderLayout className="hidden gap-4 lg:flex">
       {tab !== CommentState.Read && (

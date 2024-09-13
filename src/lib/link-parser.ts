@@ -8,6 +8,10 @@ export const getTweetId = (url: URL) => {
 
 const GITHUB_HOST = 'github.com'
 
+export const isLeetCodeUrl = (url: URL) => {
+  return url.hostname === 'leetcode.cn' || url.hostname === 'leetcode.com'
+}
+
 export const isGithubRepoUrl = (url: URL) => {
   return (
     url.hostname === GITHUB_HOST &&

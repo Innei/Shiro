@@ -1,6 +1,5 @@
-import type { NoteDto, PostDto } from '~/models/writing'
-
 import { EmitKeyMap } from '~/constants/keys'
+import type { NoteDto, PostDto } from '~/models/writing'
 
 export class PublishEvent extends Event {
   static readonly type = EmitKeyMap.Publish

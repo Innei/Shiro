@@ -1,16 +1,15 @@
 'use client'
 
-import { useMemo } from 'react'
-import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
-import { atom, useAtomValue } from 'jotai'
 import type {
   NoteModel,
   NoteWrappedPayload,
   PageModel,
   PostModel,
 } from '@mx-space/api-client'
-
 import { simpleCamelcaseKeys } from '@mx-space/api-client'
+import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
+import { atom, useAtomValue } from 'jotai'
+import { useMemo } from 'react'
 
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { Paper } from '~/components/layout/container/Paper'
@@ -61,7 +60,7 @@ import {
 const safeParse = (value: string) => {
   try {
     return JSON.parse(value)
-  } catch (e) {
+  } catch {
     return null
   }
 }
@@ -69,7 +68,7 @@ const previewDataAtom = atom<PostModel | NoteModel | null>(null)
 export default function PreviewPage() {
   // handle preview by storage observer
   useIsomorphicLayoutEffect(() => {
-    const search = location.search
+    const { search } = location
     const searchParams = new URLSearchParams(search)
 
     const sameSite = searchParams.get('same-site')
@@ -109,7 +108,7 @@ export default function PreviewPage() {
   // handle preview by postMessage
 
   useIsomorphicLayoutEffect(() => {
-    const search = location.search
+    const { search } = location
     const searchParams = new URLSearchParams(search)
 
     let targetOrigin = searchParams.get('origin')
@@ -168,13 +167,16 @@ export default function PreviewPage() {
   }
 
   switch (true) {
-    case isNoteModel(previewData):
+    case isNoteModel(previewData): {
       return <NotePreview />
-    case isPostModel(previewData):
+    }
+    case isPostModel(previewData): {
       return <PostPreview />
+    }
 
-    case isPageModel(previewData):
+    case isPageModel(previewData): {
       return <PagePreview />
+    }
   }
 
   return null

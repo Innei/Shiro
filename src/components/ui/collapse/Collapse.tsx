@@ -1,9 +1,9 @@
 'use client'
 
-import * as React from 'react'
 import clsx from 'clsx'
-import { AnimatePresence, m } from 'framer-motion'
 import type { Variants } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
+import * as React from 'react'
 
 import { IonIosArrowDown } from '~/components/icons/arrow'
 import { microReboundPreset } from '~/constants/spring'
@@ -19,14 +19,9 @@ export const Collapse: Component<{
         className="flex w-full cursor-pointer items-center justify-between"
         onClick={() => setIsOpened((v) => !v)}
       >
-        <span className="w-0 shrink grow truncate">
-          {props.title}
-        </span>
+        <span className="w-0 shrink grow truncate">{props.title}</span>
         <div
-          className={clsx(
-            'shrink-0 text-gray-400',
-            isOpened && 'rotate-180',
-          )}
+          className={clsx('shrink-0 text-gray-400', isOpened && 'rotate-180')}
         >
           <IonIosArrowDown />
         </div>

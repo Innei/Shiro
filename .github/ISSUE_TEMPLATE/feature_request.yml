@@ -1,0 +1,27 @@
+name: 🚀 New feature proposal
+description: Propose a new feature
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your interest in the project and taking the time to fill out this feature report!
+
+        However, due to personal experience, feature requests of any kind are not accepted at this time unless you are able to sponsor me a certain amount of money to support the time I spend developing needed features.
+
+        Also, there will be no non-bug fixes or other routine maintenance updates in this open source project.
+
+        If, however, you would like to receive newer iterations of features, please get [Shiroi](https://github.com/innei-dev/Shiroi) through sponsorship
+  - type: textarea
+    attributes:
+      label: Feature description
+      description: You can offer your opinion, but odds are your advice won't be accepted.
+    id: na
+  - type: checkboxes
+    id: checkboxes
+    attributes:
+      label: Validations
+      description: Before submitting the issue, please make sure you do the following
+      options:
+        - label: You know your feature request won't be accepted.
+          required: true

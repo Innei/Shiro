@@ -1,10 +1,9 @@
 import 'server-only'
 
-import { createElement } from 'react'
+import { RequestError } from '@mx-space/api-client'
 import { notFound } from 'next/navigation'
 import type { FC, ReactNode } from 'react'
-
-import { RequestError } from '@mx-space/api-client'
+import { createElement } from 'react'
 
 import { BizErrorPage } from '~/components/common/BizErrorPage'
 import { NormalContainer } from '~/components/layout/container/Normal'
@@ -104,7 +103,7 @@ export const definePrerenderPage =
           )
         }
 
-        console.error('error in fetcher: ', error)
+        console.error('error in fetcher:', error)
         return errorRenderer(error, params) ?? defaultErrorRenderer(error)
       }
     }

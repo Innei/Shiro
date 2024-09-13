@@ -1,5 +1,5 @@
-import { useEffect, useId, useState } from 'react'
 import type { FC } from 'react'
+import { useEffect, useId, useState } from 'react'
 
 import { useIsDark } from '~/hooks/common/use-is-dark'
 import { useWrappedElementSize } from '~/providers/shared/WrappedElementProvider'
@@ -62,8 +62,8 @@ export const Mermaid: FC<{
 
         const match = result.svg.match(/viewBox="[^"]*\s([\d.]+)\s([\d.]+)"/)
         if (match?.[1] && match?.[2]) {
-          setWidth(parseInt(match?.[1]))
-          setHeight(parseInt(match?.[2]))
+          setWidth(Number.parseInt(match?.[1]))
+          setHeight(Number.parseInt(match?.[2]))
         }
         setError('')
       }

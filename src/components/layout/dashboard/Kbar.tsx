@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import type { Action, ActionId, ActionImpl } from 'kbar'
 import {
   KBarAnimator,
   KBarPortal,
@@ -11,8 +11,8 @@ import {
   useMatches,
 } from 'kbar'
 import { useRouter } from 'next/navigation'
-import type { Action, ActionId, ActionImpl } from 'kbar'
 import type { FC, PropsWithChildren } from 'react'
+import React from 'react'
 
 import { flattedRoutes } from '~/app/(dashboard)/routes'
 import { useRefValue } from '~/hooks/common/use-ref-value'

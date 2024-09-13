@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect } from 'react'
 import { cheatVueDevtools } from 'bypass-vue-devtools'
+import { useEffect } from 'react'
 
 import { init } from './init'
 

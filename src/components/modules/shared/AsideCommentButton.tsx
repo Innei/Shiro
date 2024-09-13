@@ -1,13 +1,11 @@
-import type { CommentModalProps } from './CommentModal'
-
 import { MotionButtonBase } from '~/components/ui/button'
 import { useModalStack } from '~/components/ui/modal'
 import { useIsClient } from '~/hooks/common/use-is-client'
 
 import { ActionAsideIcon } from './ActionAsideContainer'
+import type { CommentModalProps } from './CommentModal'
 import { CommentModal } from './CommentModal'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AsideCommentButtonProps {}
 
 export const AsideCommentButton = (

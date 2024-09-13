@@ -8,15 +8,18 @@ export const useCalculateNaturalSize = () => {
   const [state, dispatch] = useReducer(
     (state: typeof initialState, payload: Action) => {
       switch (payload.type) {
-        case 'set':
+        case 'set': {
           return {
             height: payload.height,
             width: payload.width,
           }
-        case 'reset':
+        }
+        case 'reset': {
           return initialState
-        default:
+        }
+        default: {
           return state
+        }
       }
     },
     initialState,

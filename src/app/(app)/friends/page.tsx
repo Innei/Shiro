@@ -1,21 +1,19 @@
-/* eslint-disable react/jsx-no-target-blank */
 'use client'
 
+import type { LinkModel } from '@mx-space/api-client'
+import { LinkState, LinkType, RequestError } from '@mx-space/api-client'
 import { useQuery } from '@tanstack/react-query'
-import { memo, useCallback, useRef, useState } from 'react'
 import { m } from 'framer-motion'
 import Markdown from 'markdown-to-jsx'
-import type { LinkModel } from '@mx-space/api-client'
-import type { FormContextType } from '~/components/ui/form'
 import type { FC } from 'react'
-
-import { LinkState, LinkType, RequestError } from '@mx-space/api-client'
+import { memo, useCallback, useRef, useState } from 'react'
 
 import { NotSupport } from '~/components/common/NotSupport'
 import { Avatar } from '~/components/ui/avatar'
 import { StyledButton } from '~/components/ui/button'
 import { Collapse } from '~/components/ui/collapse'
 import { BackToTopFAB } from '~/components/ui/fab'
+import type { FormContextType } from '~/components/ui/form'
 import { Form, FormInput } from '~/components/ui/form'
 import { FullPageLoading } from '~/components/ui/loading'
 import { useModalStack } from '~/components/ui/modal'
@@ -49,12 +47,14 @@ export default function Page() {
         }
 
         switch (link.state) {
-          case LinkState.Banned:
+          case LinkState.Banned: {
             banned.push(link)
             continue
-          case LinkState.Outdate:
+          }
+          case LinkState.Outdate: {
             outdated.push(link)
             continue
+          }
         }
 
         switch (link.type) {
@@ -85,13 +85,13 @@ export default function Page() {
       <main className="mt-10 flex w-full flex-col">
         {friends.length > 0 && (
           <>
-            {collections.length !== 0 && renderTitle('我的朋友')}
+            {collections.length > 0 && renderTitle('我的朋友')}
             <FriendSection data={friends} />
           </>
         )}
         {collections.length > 0 && (
           <>
-            {friends.length !== 0 && renderTitle('我的收藏')}
+            {friends.length > 0 && renderTitle('我的收藏')}
             <FavoriteSection data={collections} />
           </>
         )}

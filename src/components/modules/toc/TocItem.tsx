@@ -1,8 +1,8 @@
 'use client'
 
+import type { FC, MouseEvent } from 'react'
 import { memo, useCallback, useEffect, useMemo, useRef } from 'react'
 import { tv } from 'tailwind-variants'
-import type { FC, MouseEvent } from 'react'
 
 import { clsxm } from '~/lib/helper'
 

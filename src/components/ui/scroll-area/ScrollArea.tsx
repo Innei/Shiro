@@ -1,5 +1,3 @@
-/* eslint-disable tailwindcss/enforces-negative-arbitrary-values */
-/* eslint-disable tailwindcss/no-unnecessary-arbitrary-value */
 import * as ScrollAreaBase from '@radix-ui/react-scroll-area'
 import * as React from 'react'
 

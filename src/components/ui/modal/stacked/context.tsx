@@ -1,6 +1,7 @@
-import { createContext, useContext } from 'react'
 import { atom } from 'jotai'
 import type { FC, RefObject } from 'react'
+import { createContext, useContext } from 'react'
+
 import type { ModalProps } from './types'
 
 export const modalIdToPropsMap = {} as Record<string, ModalProps>

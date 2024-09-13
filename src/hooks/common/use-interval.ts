@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
+import { useEffect, useRef } from 'react'
 
 export function useAccurateInterval(
   callback: () => void,

@@ -1,9 +1,9 @@
 'use client'
 
-import { useMemo, useRef } from 'react'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 import type { FC, PropsWithChildren } from 'react'
+import { useMemo, useRef } from 'react'
 
 import { setIsInteractive } from '~/atoms/is-interactive'
 import { createAtomSelector } from '~/lib/atom'
@@ -42,7 +42,7 @@ const ScrollDetector = () => {
           const bodyStyle = document.body.style
           if (bodyStyle.position === 'fixed') {
             const bodyTop = bodyStyle.top
-            currentTop = Math.abs(parseInt(bodyTop, 10))
+            currentTop = Math.abs(Number.parseInt(bodyTop, 10))
           }
         }
         setPageScrollDirection(
@@ -91,9 +91,9 @@ const useIsScrollUpAndPageIsOver = (threshold: number) => {
   )
 }
 export {
-  usePageScrollDirection,
-  usePageScrollLocation,
   useIsScrollUpAndPageIsOver,
-  usePageScrollLocationSelector,
+  usePageScrollDirection,
   usePageScrollDirectionSelector,
+  usePageScrollLocation,
+  usePageScrollLocationSelector,
 }

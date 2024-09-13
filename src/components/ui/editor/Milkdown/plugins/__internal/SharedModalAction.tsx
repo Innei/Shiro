@@ -1,7 +1,6 @@
-import { useState } from 'react'
-import type { NodeViewContext } from '@prosemirror-adapter/react'
-
 import { schemaCtx } from '@milkdown/core'
+import type { NodeViewContext } from '@prosemirror-adapter/react'
+import { useState } from 'react'
 
 import { StyledButton } from '~/components/ui/button'
 import { useCurrentModal } from '~/components/ui/modal'
@@ -21,7 +20,7 @@ export const SharedModalAction: Component<{
   const deleteNode = () => {
     const pos = getPos()
 
-    if (typeof pos === 'undefined') return
+    if (pos === undefined) return
     view.dispatch(view.state.tr.delete(pos, pos + node.nodeSize))
     dismiss()
   }
@@ -47,8 +46,8 @@ export const SharedModalAction: Component<{
           }
           // set first firstChild text
           const pos = getPos()
-          if (typeof pos === 'undefined') return
-          const tr = view.state.tr
+          if (pos === undefined) return
+          const { tr } = view.state
 
           const nextValue = getValue()!
 

@@ -1,5 +1,5 @@
-import { isServer } from '@tanstack/react-query'
 import type { AggregateRoot } from '@mx-space/api-client'
+import { isServer } from '@tanstack/react-query'
 
 import { apiClient } from '~/lib/request'
 
@@ -17,9 +17,6 @@ export const aggregation = {
             },
         ),
       gcTime: 1000 * 60 * 10,
-      meta: {
-        forceHydration: true,
-      },
       staleTime: isServer ? 1000 * 60 * 10 : undefined,
     }),
 }

@@ -4,8 +4,8 @@ import { appStaticConfig } from '~/app.static.config'
 
 import { safeJsonParse } from './helper'
 
-const UPSTASH_TOKEN = process.env.UPSTASH_TOKEN
-const UPSTASH_URL = process.env.UPSTASH_URL
+const { UPSTASH_TOKEN } = process.env
+const { UPSTASH_URL } = process.env
 
 let redis: Redis
 const getRedis = () => {
@@ -99,7 +99,7 @@ export const invalidateCache = (key: string) => {
     return
   }
   return _redis.del(key).catch((err: any) => {
-    console.error(`invalidateCache error, key: ${key}. `, err)
+    console.error(`invalidateCache error, key: ${key}.`, err)
   })
 }
 
@@ -110,11 +110,11 @@ export const invalidateCacheWithPrefix = async (prefix: string) => {
   }
   const keys = await _redis.keys(`${prefix}*`)
 
-  if (keys.length < 1) {
+  if (keys.length === 0) {
     return
   }
 
   _redis.del(...keys).catch((err: any) => {
-    console.error(`invalidateCacheWithPrefix error, prefix: ${prefix}. `, err)
+    console.error(`invalidateCacheWithPrefix error, prefix: ${prefix}.`, err)
   })
 }

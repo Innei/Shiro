@@ -6,8 +6,6 @@ import { NumberSmoothTransition } from '~/components/ui/number-transition/Number
 import { mood2icon, weather2icon } from '~/lib/meta-icon'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 
-import { CurrentReadingCountingMetaBarItem } from '../shared/MetaBar'
-
 const dividerVertical = <DividerVertical className="!mx-2 scale-y-50" />
 
 const sectionBlockClassName = 'flex items-center space-x-1 flex-shrink-0'
@@ -106,8 +104,4 @@ export const NoteMetaCC = () => {
       </span>
     </>
   )
-}
-
-export const NoteMetaReadingCount = () => {
-  return <CurrentReadingCountingMetaBarItem leftElement={dividerVertical} />
 }

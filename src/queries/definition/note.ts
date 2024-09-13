@@ -1,17 +1,15 @@
-import { useMutation } from '@tanstack/react-query'
-import dayjs from 'dayjs'
 import type {
   NoteModel,
   NoteWrappedPayload,
   NoteWrappedWithLikedPayload,
 } from '@mx-space/api-client'
-import type { NoteDto } from '~/models/writing'
+import { useMutation } from '@tanstack/react-query'
 
 import { useResetAutoSaverData } from '~/components/modules/dashboard/writing/BaseWritingProvider'
 import { cloneDeep } from '~/lib/lodash'
 import { apiClient } from '~/lib/request'
-import { routeBuilder, Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
+import type { NoteDto } from '~/models/writing'
 
 import { defineQuery } from '../helper'
 
@@ -20,16 +18,7 @@ export const note = {
   byNid: (nid: string, password?: string | null, token?: string) =>
     defineQuery({
       queryKey: ['note', nid, token],
-      meta: {
-        hydrationRoutePath: routeBuilder(Routes.Note, { id: nid }),
-        shouldHydration: (data: NoteWrappedPayload) => {
-          const note = data?.data
-          const isSecret = note?.publicAt
-            ? dayjs(note?.publicAt).isAfter(new Date())
-            : false
-          return !isSecret && !data.data.hide
-        },
-      },
+
       queryFn: async ({ queryKey }) => {
         const [, id] = queryKey
 

@@ -35,7 +35,7 @@ const useDarkMode = (
       } else if (presentedDarkMode === 'false') {
         setDarkMode(false)
       }
-    } else if (typeof initialState === 'undefined') {
+    } else if (initialState === undefined) {
       setDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches)
     }
   }, [storageKey])
@@ -71,7 +71,7 @@ const useDarkMode = (
   }, [storageKey])
 
   useEffect(() => {
-    if (isServerSide() || typeof darkMode === 'undefined') {
+    if (isServerSide() || darkMode === undefined) {
       return
     }
 

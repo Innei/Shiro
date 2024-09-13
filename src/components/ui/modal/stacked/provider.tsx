@@ -1,14 +1,14 @@
-import { useCallback, useEffect, useId, useRef } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { useAtomValue } from 'jotai'
 import { usePathname } from 'next/navigation'
 import type { FC, PropsWithChildren } from 'react'
-import type { ModalProps } from './types'
+import { useCallback, useEffect, useId, useRef } from 'react'
 
 import { jotaiStore } from '~/lib/store'
 
 import { modalIdToPropsMap, modalStackAtom } from './context'
 import { Modal } from './modal'
+import type { ModalProps } from './types'
 
 const useDismissAllWhenRouterChange = () => {
   const pathname = usePathname()

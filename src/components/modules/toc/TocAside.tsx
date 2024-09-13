@@ -59,8 +59,8 @@ export const TocAside = forwardRef<
       getContainer: () => containerRef.current,
     }))
 
-    if (typeof $article === 'undefined') {
-      throw new Error('<Toc /> must be used in <WrappedElementProvider />')
+    if ($article === undefined) {
+      throw new TypeError('<Toc /> must be used in <WrappedElementProvider />')
     }
     const $headings = useMemo(() => {
       if (!$article) {

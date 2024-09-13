@@ -1,6 +1,5 @@
-import config from '@innei/prettier'
+import { factory } from '@innei/prettier'
 
-export default {
-  ...config,
-  importOrderParserPlugins: ['importAssertions', 'typescript', 'jsx'],
-}
+export default factory({
+  importSort: false,
+})

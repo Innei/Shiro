@@ -1,8 +1,8 @@
 /// useBeforeUnload.ts
 'use client'
 
-import { useEffect, useId } from 'react'
 import { useRouter } from 'next/navigation'
+import { useEffect, useId } from 'react'
 
 let isForceRouting = false
 const activeIds: string[] = []
@@ -103,7 +103,6 @@ const BeforeUnloadProvider = ({ children }: React.PropsWithChildren) => {
         nextjsPopStateHandler = args[1]
         window.addEventListener = originalAddEventListener
       } else {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         originalAddEventListener(...args)
       }

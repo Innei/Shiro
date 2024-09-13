@@ -1,8 +1,8 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { memo, useEffect } from 'react'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
+import { memo, useEffect } from 'react'
 
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { useAccurateInterval } from '~/hooks/common/use-interval'

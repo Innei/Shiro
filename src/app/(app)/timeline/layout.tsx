@@ -1,8 +1,6 @@
-/* eslint-disable react/display-name */
+import { TimelineType } from '@mx-space/api-client'
 import { dehydrate } from '@tanstack/react-query'
 import type { PropsWithChildren } from 'react'
-
-import { TimelineType } from '@mx-space/api-client'
 
 import { QueryHydrate } from '~/components/common/QueryHydrate'
 import { SearchFAB } from '~/components/modules/shared/SearchFAB'
@@ -26,8 +24,7 @@ export default definePrerenderPage<{
     }[type]
     const queryClient = getQueryClient()
     await queryClient.fetchQuery({
-      queryKey: ['timeline'],
-      meta: { nextType, year },
+      queryKey: ['timeline', nextType, year],
       queryFn: async () => {
         return await apiClient.aggregate
           .getTimeline({

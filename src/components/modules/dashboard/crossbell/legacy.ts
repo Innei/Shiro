@@ -1,10 +1,10 @@
+import type { Contract } from 'crossbell'
 import { createContract, Indexer } from 'crossbell'
 import Unidata from 'unidata.js'
-import type { NoteDto, PostDto } from '~/models/writing'
-import type { Contract } from 'crossbell'
 
 import { apiClient } from '~/lib/request'
 import { toast } from '~/lib/toast'
+import type { NoteDto, PostDto } from '~/models/writing'
 
 const unidata = new Unidata()
 
@@ -47,7 +47,7 @@ export class CrossBellConnector {
         return
       }
 
-      const SITE_ID = this.SITE_ID
+      const { SITE_ID } = this
 
       await this.prepare()
 
@@ -132,7 +132,7 @@ export class CrossBellConnector {
               ...(input.tags
                 ?.split(',')
                 .map((tag) => tag.trim())
-                .filter((tag) => tag) || []),
+                .filter(Boolean) || []),
             ],
             applications: ['xlog'],
             ...(input.slug && {
@@ -234,7 +234,7 @@ export class CrossBellConnector {
       metadata?: any
     },
   ) {
-    const id = data.id
+    const { id } = data
     const { cid, pageId, related_urls, metadata } = meta || {}
 
     // delete undefined value in meta object
@@ -273,7 +273,7 @@ export class CrossBellConnector {
   private static indexer = new Indexer()
 
   private static async getCharacterId() {
-    const indexer = this.indexer
+    const { indexer } = this
     const result = await indexer.character.getByHandle(this.SITE_ID)
 
     if (!result) {

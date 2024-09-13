@@ -1,9 +1,9 @@
-import { createContext, useContext, useEffect, useMemo, useRef } from 'react'
 import { atom, useAtom, useSetAtom } from 'jotai'
-import type { Suggestion } from '~/components/ui/auto-completion'
 import type { FC } from 'react'
+import { createContext, useContext, useEffect, useMemo, useRef } from 'react'
 
 import { CloseIcon } from '~/components/icons/close'
+import type { Suggestion } from '~/components/ui/auto-completion'
 import { Autocomplete } from '~/components/ui/auto-completion'
 import { MotionButtonBase } from '~/components/ui/button'
 import { clsxm } from '~/lib/helper'

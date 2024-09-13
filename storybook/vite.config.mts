@@ -1,13 +1,14 @@
 import { readFileSync } from 'node:fs'
 import path, { resolve } from 'node:path'
+
+import mdx from '@mdx-js/rollup'
 import react from '@vitejs/plugin-react'
 import { parse } from 'dotenv'
 import Macros from 'unplugin-macros'
 import { defineConfig } from 'vite'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import ViteRestart from 'vite-plugin-restart'
 import tsConfigPaths from 'vite-tsconfig-paths'
-
-import mdx from '@mdx-js/rollup'
 
 const __dirname = new URL('.', import.meta.url).pathname
 const env = parse(readFileSync(path.resolve(__dirname, '../.env')))
@@ -27,6 +28,14 @@ export default defineConfig({
     Macros.vite(),
     react(),
     tsConfigPaths(),
+    nodePolyfills({
+      include: ['events', 'crypto'],
+      globals: {
+        Buffer: false,
+        process: false,
+        global: false,
+      },
+    }),
     mdx(options),
     ViteRestart({
       restart: ['../**/index.demo.tsx', '../**/index.demo.mdx'],

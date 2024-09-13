@@ -14,7 +14,7 @@ export const PostRelated: FC<{
     return null
   }
 
-  if (!related.length) {
+  if (related.length === 0) {
     return null
   }
   return (

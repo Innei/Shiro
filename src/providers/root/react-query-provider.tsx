@@ -1,14 +1,13 @@
 'use client'
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
-import { useState } from 'react'
-import { createStore, del, get, set } from 'idb-keyval'
-import type { PersistQueryClientOptions } from '@tanstack/react-query-persist-client'
-import type { PropsWithChildren } from 'react'
-
 import { RequestError } from '@mx-space/api-client'
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import type { PersistQueryClientOptions } from '@tanstack/react-query-persist-client'
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
+import { createStore, del, get, set } from 'idb-keyval'
+import type { PropsWithChildren } from 'react'
+import { useState } from 'react'
 
 import { isServerSide } from '~/lib/env'
 
@@ -38,6 +37,14 @@ export const queryClient = new QueryClient({
     },
   },
 })
+
+declare module '@tanstack/react-query' {
+  interface Meta {
+    queryMeta: { persist?: boolean }
+  }
+
+  interface Register extends Meta {}
+}
 
 const persistOptions: Omit<PersistQueryClientOptions, 'queryClient'> = {
   persister: asyncStoragePersister,
@@ -78,9 +85,8 @@ export const getQueryClientForDashboard = () =>
         refetchIntervalInBackground: false,
         refetchOnMount: true,
         retry(failureCount, error) {
-          if (error instanceof RequestError) {
-            if (error.status === 401) return false
-          }
+          if (error instanceof RequestError && error.status === 401)
+            return false
           return failureCount < 3
         },
       },

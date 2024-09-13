@@ -5,9 +5,7 @@ export interface XLogMeta {
   metadata?: {
     network: string
     proof: string
-    raw?: {
-      [key: string]: any
-    }
+    raw?: Record<string, any>
     owner?: string
     transactions?: string[]
     [key: string]: any

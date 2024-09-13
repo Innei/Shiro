@@ -10,7 +10,7 @@ import { SidebarSection } from './SidebarBase'
 const isUrl = (url: string) => {
   try {
     return new URL(url).protocol.startsWith('http')
-  } catch (e) {
+  } catch {
     return false
   }
 }
@@ -34,7 +34,7 @@ export const CoverInput: FC<{
           className={clsx('w-full', !!value && 'pr-8')}
           value={value}
           onChange={(e) => {
-            const value = e.target.value
+            const { value } = e.target
 
             if (value === '') {
               reset()

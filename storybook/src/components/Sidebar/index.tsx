@@ -1,7 +1,7 @@
 import * as ScrollArea from '@radix-ui/react-scroll-area'
+import type { FC } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useDarkModeDetector } from 'src/hooks/use-dark'
-import type { FC } from 'react'
 
 import { routeKeys } from '../../router'
 
@@ -34,7 +34,7 @@ export const Sidebar: FC = () => {
                     {componentName.at(0)?.toUpperCase() +
                       componentName
                         .slice(1)
-                        .replace(/-\s*(\w)/g, (match, p1) => {
+                        .replaceAll(/-\s*(\w)/g, (match, p1) => {
                           return ` ${p1.toUpperCase()}`
                         })}
                   </Link>

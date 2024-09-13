@@ -23,19 +23,26 @@ export const UserAuthStrategyIcon: FC<{
 
 export const getStrategyIconComponent = (strategy: string) => {
   switch (strategy) {
-    case 'from_oauth_github':
+    case 'from_oauth_github': {
       return GitHubBrandIcon
-    case 'from_oauth_google':
+    }
+    case 'from_oauth_google': {
       return GoogleBrandIcon
-    case 'from_oauth_apple':
+    }
+    case 'from_oauth_apple': {
       return AppleIcon
-    case 'from_oauth_microsoft':
+    }
+    case 'from_oauth_microsoft': {
       return LogosMicrosoftIcon
-    case 'from_oauth_facebook':
+    }
+    case 'from_oauth_facebook': {
       return LogosFacebook
-    case 'from_oauth_twitter':
+    }
+    case 'from_oauth_twitter': {
       return TwitterIcon
-    default:
+    }
+    default: {
       return null
+    }
   }
 }

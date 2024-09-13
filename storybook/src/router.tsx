@@ -1,7 +1,7 @@
 import { createElement, Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { createHashRouter } from 'react-router-dom'
 import type { RouteObject } from 'react-router-dom'
+import { createHashRouter } from 'react-router-dom'
 
 import {
   componentsKeys,

@@ -1,10 +1,9 @@
 'use client'
 
-import { useRef } from 'react'
+import { useUser } from '@clerk/nextjs'
 import clsx from 'clsx'
 import type { FC } from 'react'
-
-import { useUser } from '@clerk/nextjs'
+import { useRef } from 'react'
 
 import { useIsLogged } from '~/atoms/hooks'
 import { MotionButtonBase } from '~/components/ui/button'

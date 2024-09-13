@@ -1,13 +1,12 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useMemo, useState } from 'react'
 import dayjs from 'dayjs'
 import { produce } from 'immer'
 import { atom, useStore } from 'jotai'
 import { useRouter, useSearchParams } from 'next/navigation'
-import type { PostDto } from '~/models/writing'
 import type { FC } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { PageLoading } from '~/components/layout/dashboard/PageLoading'
@@ -35,6 +34,7 @@ import { useRefetchData } from '~/hooks/biz/use-refetch-data'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { cloneDeep } from '~/lib/lodash'
 import { toast } from '~/lib/toast'
+import type { PostDto } from '~/models/writing'
 import { adminQueries } from '~/queries/definition'
 import { useCreatePost, useUpdatePost } from '~/queries/definition/post'
 
@@ -135,7 +135,7 @@ const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => {
           const nextData = data
           Reflect.deleteProperty(nextData, 'meta')
           Object.assign(draft, nextData)
-          const meta = data.meta
+          const { meta } = data
 
           if (data.text) {
             editorRef?.setMarkdown(data.text)

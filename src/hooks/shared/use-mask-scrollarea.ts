@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { useViewport } from '~/atoms/hooks'
 
@@ -79,6 +79,7 @@ export const useMaskScrollArea = <T extends HTMLElement = HTMLElement>({
     containerRef,
     canScroll
       ? clsx(
+          'scroller',
           isScrollToBottom && 'mask-t',
           isScrollToTop && 'mask-b',
           !isScrollToBottom && !isScrollToTop && 'mask-both',

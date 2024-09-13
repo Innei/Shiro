@@ -12,16 +12,16 @@ export const escapeHTMLTag = (html: string) => {
     ic = /"/g
   return html
     .toString()
-    .replace(lt, '&lt;')
-    .replace(gt, '&gt;')
-    .replace(ap, '&#39;')
-    .replace(ic, '&#34;')
+    .replaceAll(lt, '&lt;')
+    .replaceAll(gt, '&gt;')
+    .replaceAll(ap, '&#39;')
+    .replaceAll(ic, '&#34;')
 }
 
 export const safeJsonParse = (str: string) => {
   try {
     return JSON.parse(str)
-  } catch (e) {
+  } catch {
     return null
   }
 }

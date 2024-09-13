@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
+import { useEffect, useRef } from 'react'
 
 import { jotaiStore } from '~/lib/store'
 

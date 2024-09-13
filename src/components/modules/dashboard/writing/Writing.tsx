@@ -1,9 +1,3 @@
-import React, { isValidElement, useEffect, useRef } from 'react'
-import { produce } from 'immer'
-import { atom, useAtomValue, useSetAtom, useStore } from 'jotai'
-import type { FC } from 'react'
-import type { MilkdownRef } from '../../../ui/editor'
-
 import { editorViewCtx, schemaCtx } from '@milkdown/core'
 import { redoCommand, undoCommand } from '@milkdown/plugin-history'
 import {
@@ -14,6 +8,10 @@ import {
   wrapInOrderedListCommand,
 } from '@milkdown/preset-commonmark'
 import { callCommand } from '@milkdown/utils'
+import { produce } from 'immer'
+import { atom, useAtomValue, useSetAtom, useStore } from 'jotai'
+import type { FC } from 'react'
+import React, { isValidElement, useEffect, useRef } from 'react'
 
 import { SimpleIconsMermaid } from '~/components/icons/mermaid'
 import { useEditorCtx } from '~/components/ui/editor/Milkdown/ctx'
@@ -22,6 +20,7 @@ import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
 
+import type { MilkdownRef } from '../../../ui/editor'
 import { MilkdownEditor } from '../../../ui/editor'
 import { useBaseWritingContext } from './BaseWritingProvider'
 import { TitleInput } from './TitleInput'
@@ -109,13 +108,13 @@ const MenuBar = () => {
         if (!ctx) return
         const view = ctx.get(editorViewCtx)
         if (!view) return
-        const state = view.state
+        const { state } = view
 
         const currentCursorPosition = state.selection.from
 
         const schema = ctx.get(schemaCtx)
         const nextNode = schema.node(excalidrawSchema.type(ctx), {})
-        const tr = state.tr
+        const { tr } = state
         tr.replaceSelectionWith(nextNode)
         // 判断是否插入的 node 位于文档的末尾
         const isNewNodeIsEof =
@@ -132,7 +131,7 @@ const MenuBar = () => {
         if (!ctx) return
         const view = ctx.get(editorViewCtx)
         if (!view) return
-        const state = view.state
+        const { state } = view
 
         const currentCursorPosition = state.selection.from
         const schema = ctx.get(schemaCtx)
@@ -140,7 +139,7 @@ const MenuBar = () => {
           value: '<auto_open>',
         })
 
-        const tr = state.tr
+        const { tr } = state
         tr.replaceSelectionWith(nextNode)
         // 判断是否插入的 node 位于文档的末尾
         const isNewNodeIsEof =

@@ -1,13 +1,14 @@
 'use client'
 
-import { useCallback, useEffect, useRef } from 'react'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import dynamic from 'next/dynamic'
+import { useCallback, useEffect, useRef } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { TextArea } from '~/components/ui/input'
 import { useRefValue } from '~/hooks/common/use-ref-value'
+import { scrollTextareaToCursor } from '~/lib/dom'
 
 import { getRandomPlaceholder } from './constants'
 import {
@@ -26,29 +27,59 @@ export const UniversalTextArea: Component = ({ className }) => {
   const value = useCommentBoxTextValue()
 
   const taRef = useRef<HTMLTextAreaElement>(null)
-  const handleInsertEmoji = useCallback((emoji: string) => {
-    if (!taRef.current) {
-      return
-    }
+  const handleInsertEmoji = useCallback(
+    (emoji: string) => {
+      if (!taRef.current) {
+        return
+      }
 
-    const $ta = taRef.current
-    const start = $ta.selectionStart
-    const end = $ta.selectionEnd
+      const $ta = taRef.current
+      const start = $ta.selectionStart
+      const end = $ta.selectionEnd
 
-    $ta.value = `${$ta.value.substring(
-      0,
-      start,
-    )} ${emoji} ${$ta.value.substring(end, $ta.value.length)}`
+      $ta.value = `${$ta.value.substring(
+        0,
+        start,
+      )} ${emoji} ${$ta.value.substring(end, $ta.value.length)}`
 
-    setter('text', $ta.value)
-    requestAnimationFrame(() => {
-      const shouldMoveToPos = start + emoji.length + 2
-      $ta.selectionStart = shouldMoveToPos
-      $ta.selectionEnd = shouldMoveToPos
+      setter('text', $ta.value)
+      requestAnimationFrame(() => {
+        const shouldMoveToPos = start + emoji.length + 2
+        $ta.selectionStart = shouldMoveToPos
+        $ta.selectionEnd = shouldMoveToPos
 
-      $ta.focus()
-    })
-  }, [])
+        $ta.focus()
+      })
+    },
+    [setter],
+  )
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey) {
+        e.preventDefault()
+        const $ta = taRef.current
+        if ($ta) {
+          const start = $ta.selectionStart
+          const end = $ta.selectionEnd
+          const textBefore = $ta.value.substring(0, start)
+          const textAfter = $ta.value.substring(end)
+          $ta.value = `${textBefore}\n\n${textAfter}`
+          setter('text', $ta.value)
+
+          requestAnimationFrame(() => {
+            const shouldMoveToPos = start + 2
+            $ta.selectionStart = shouldMoveToPos
+            $ta.selectionEnd = shouldMoveToPos
+            $ta.focus()
+            // 上面设置的光标，可能不在可见区域内，因此 scroll 到光标所在位置
+            scrollTextareaToCursor(taRef)
+          })
+        }
+      }
+    },
+    [setter],
+  )
 
   useEffect(() => {
     const $ta = taRef.current
@@ -80,6 +111,7 @@ export const UniversalTextArea: Component = ({ className }) => {
       wrapperClassName={className}
       ref={taRef}
       defaultValue={value}
+      onKeyDown={handleKeyDown}
       onChange={(e) => setter('text', e.target.value)}
       placeholder={placeholder}
       onCmdEnter={(e) => {
@@ -95,6 +127,7 @@ export const UniversalTextArea: Component = ({ className }) => {
               trigger="click"
               TriggerComponent={EmojiButton}
               headless
+              popoverClassNames="pointer-events-auto"
             >
               <EmojiPicker onEmojiSelect={handleInsertEmoji} />
             </FloatPopover>

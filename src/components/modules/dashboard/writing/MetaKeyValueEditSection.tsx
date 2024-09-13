@@ -1,6 +1,6 @@
 import { Label } from '@radix-ui/react-label'
-import { useMemo, useRef } from 'react'
 import type { FC } from 'react'
+import { useMemo, useRef } from 'react'
 
 import { StyledButton } from '~/components/ui/button'
 import { CodeEditor } from '~/components/ui/code-editor'
@@ -18,7 +18,7 @@ interface MetaKeyValueEditSectionProps {
 const safeParse = (value: string) => {
   try {
     return JSON.parse(value)
-  } catch (e) {
+  } catch {
     return {}
   }
 }
@@ -67,7 +67,7 @@ const isValidJSONString = (value: string) => {
   try {
     JSON.parse(value)
     return true
-  } catch (e) {
+  } catch {
     return false
   }
 }

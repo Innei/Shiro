@@ -1,7 +1,7 @@
 'use client'
 
-import { createModelDataProvider } from 'jojoo/react'
 import type { PostModel } from '@mx-space/api-client'
+import { createModelDataProvider } from 'jojoo/react'
 
 import { isClientSide, isDev } from '~/lib/env'
 
@@ -21,8 +21,8 @@ declare global {
 if (isDev && isClientSide) window.getModelPostData = getGlobalModelData
 
 export {
-  ModelDataProvider as CurrentPostDataProvider,
   ModelDataAtomProvider as CurrentPostDataAtomProvider,
+  ModelDataProvider as CurrentPostDataProvider,
   getGlobalModelData as getGlobalCurrentPostData,
   setGlobalModelData as setGlobalCurrentPostData,
   useModelDataSelector as useCurrentPostDataSelector,

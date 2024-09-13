@@ -1,8 +1,8 @@
 'use client'
 
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
 import { clsx } from 'clsx'
 import type { ReactNode } from 'react'
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
 
 import { useMaskScrollArea } from '~/hooks/shared/use-mask-scrollarea'
 import { clsxm } from '~/lib/helper'
@@ -70,7 +70,7 @@ export function Card<T>(props: CardProps<T>) {
         )}
         <div
           className={clsx(
-            'mt-2 h-0 grow overflow-hidden text-sm text-neutral-500 scrollbar-none dark:text-neutral-400',
+            'scrollbar-none mt-2 h-0 grow overflow-hidden text-sm text-neutral-500 dark:text-neutral-400',
             scrollClassname,
           )}
           ref={scrollContainerRef}
