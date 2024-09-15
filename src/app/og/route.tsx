@@ -1,4 +1,3 @@
-
 import {
   AggregateController,
   createClient,
@@ -154,8 +153,8 @@ export const GET = async (req: NextRequest) => {
               display: 'flex',
 
               position: 'absolute',
-              left: '5rem',
-              top: '2rem',
+              right: '5rem',
+              bottom: '2rem',
               alignItems: 'center',
               justifyContent: 'center',
             }}
@@ -163,7 +162,7 @@ export const GET = async (req: NextRequest) => {
             <span
               style={{
                 color: '#ffffff',
-                fontSize: '2rem',
+                fontSize: '1.3rem',
                 fontWeight: 'bold',
               }}
             >
@@ -176,7 +175,7 @@ export const GET = async (req: NextRequest) => {
               position: 'absolute',
               left: '5rem',
               display: 'flex',
-              bottom: '2rem',
+              top: '2rem',
             }}
           >
             <img
@@ -195,6 +194,7 @@ export const GET = async (req: NextRequest) => {
               alignItems: 'flex-end',
               flexDirection: 'column',
               textAlign: 'right',
+              transform: 'translateY(-50px)',
             }}
           >
             <h1
@@ -213,6 +213,7 @@ export const GET = async (req: NextRequest) => {
                 color: 'rgba(255, 255, 255, 0.85)',
                 fontSize: '38px',
                 fontWeight: 'lighter',
+                transform: 'translateY(-20px)',
               }}
             >
               {subtitle}
