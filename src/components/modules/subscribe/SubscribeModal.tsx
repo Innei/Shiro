@@ -5,6 +5,7 @@ import type React from 'react'
 import type { FC } from 'react'
 import { useEffect, useReducer } from 'react'
 
+import { IcBaselineTelegram } from '~/components/icons/platform/Telegram'
 import { StyledButton } from '~/components/ui/button'
 import { Input } from '~/components/ui/input/Input'
 import { useStateToRef } from '~/hooks/common/use-state-ref'
@@ -12,7 +13,10 @@ import { preventDefault } from '~/lib/dom'
 import { registerPushWorker } from '~/lib/push-worker'
 import { apiClient } from '~/lib/request'
 import { toast } from '~/lib/toast'
-import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
+import {
+  useAggregationSelector,
+  useAppConfigSelector,
+} from '~/providers/root/aggregation-data-provider'
 
 import { useIsEnableSubscribe, useSubscribeStatusQuery } from './hooks'
 
@@ -113,10 +117,11 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
     onConfirm()
   }
   const title = useAggregationSelector((data) => data.seo.title)
+  const tg = useAppConfigSelector((data) => data.module.subscription.tg)
 
   return (
     <form onSubmit={handleSubList} className="flex flex-col gap-5">
-      <p className="text-gray-1 text-sm">
+      <p className="text-sm">
         欢迎订阅「{title}
         」，我会定期推送最新的内容到你的邮箱。
       </p>
@@ -155,21 +160,39 @@ export const SubscribeModal: FC<SubscribeModalProps> = ({
                 checked={state.types[name]}
                 id={name}
               />
-              <label htmlFor={name} className="text-shizuku">
-                {subscribeTextMap[name]}
-              </label>
+              <label htmlFor={name}>{subscribeTextMap[name]}</label>
             </fieldset>
           ))}
       </div>
 
-      <p className="text-gray-1 -mt-2 text-sm">
-        或者你也可以通过{' '}
-        <a href="/feed" className="text-green" target="_blank" rel="noreferrer">
+      <p className="-mt-2 text-sm">
+        你也可以通过{' '}
+        <a
+          href="/feed"
+          className="text-accent underline"
+          target="_blank"
+          rel="noreferrer"
+        >
           /feed
         </a>{' '}
         订阅「{title}」的 RSS 流。
       </p>
-      <StyledButton disabled={!state.email}>订阅</StyledButton>
+      {tg && (
+        <p className="flex items-center gap-2 text-sm">
+          也可以订阅 Telegram 频道{' '}
+          <a
+            href={`https://t.me/${tg.replace('@', '')}`}
+            className="center flex gap-1 text-accent underline"
+            target="_blank"
+          >
+            <IcBaselineTelegram className="text-lg text-[#2AABEE]" />
+            <span>{tg}</span>
+          </a>
+        </p>
+      )}
+      <div className="flex justify-end">
+        <StyledButton disabled={!state.email}>订阅</StyledButton>
+      </div>
     </form>
   )
 }

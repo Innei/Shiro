@@ -71,6 +71,9 @@ declare global {
 
   type RSSCustomElements = Array<Record<string, RSSCustomElements | string>>
   export interface Module {
+    subscription: {
+      tg?: string
+    }
     donate: Donate
     bilibili: Bilibili
     activity: {

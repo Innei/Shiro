@@ -9,6 +9,7 @@ import { useCallback, useEffect, useRef } from 'react'
 import { fetchAppUrl, setWebUrl } from '~/atoms'
 import { login } from '~/atoms/owner'
 import { useBeforeMounted } from '~/hooks/common/use-before-mounted'
+import { isDev } from '~/lib/env'
 import { jotaiStore } from '~/lib/store'
 
 export const aggregationDataAtom = atom<null | AggregateRoot>(null)
@@ -94,7 +95,8 @@ export const useAppConfigSelector = <T,>(
     selectAtom(
       appConfigAtom,
       useCallback(
-        (atomValue) => (!atomValue ? null : selector(atomValue)),
+        (atomValue) =>
+          !atomValue ? null : noThrowFnWrapper(selector)(atomValue),
         deps,
       ),
     ),
@@ -103,3 +105,16 @@ export const useAppConfigSelector = <T,>(
 export const getAggregationData = () => jotaiStore.get(aggregationDataAtom)
 
 export const getAppConfig = () => jotaiStore.get(appConfigAtom)
+
+const noThrowFnWrapper = <T extends (...args: any[]) => any>(fn: T): T => {
+  return ((...args: any[]) => {
+    try {
+      return fn(...args)
+    } catch (e: any) {
+      if (isDev) {
+        console.error(e)
+      }
+      return null
+    }
+  }) as T
+}
