@@ -1,4 +1,4 @@
-import type { AggregateRoot } from '@mx-space/api-client'
+
 import {
   AggregateController,
   createClient,
@@ -53,11 +53,8 @@ export const GET = async (req: NextRequest) => {
           slug: string
         }
 
-    const aggregation = await fetch(apiClient.aggregate.proxy.toString(true), {
-      next: {
-        revalidate: 3600,
-      },
-    }).then((res) => res.json() as Promise<AggregateRoot>)
+    const aggregation =
+      await apiClient.aggregate.getAggregateData<AppThemeConfig>('shiro')
 
     try {
       data = JSON.parse(decodeURIComponent(dataString))
@@ -95,9 +92,11 @@ export const GET = async (req: NextRequest) => {
     const { subtitle, title } = document
 
     const {
-      user: { avatar },
+      user: { avatar, name },
       seo,
+      theme,
     } = aggregation
+    const ogAvatar = theme?.config.module?.og?.avatar || avatar
 
     if (!title)
       return new Response(
@@ -142,9 +141,10 @@ export const GET = async (req: NextRequest) => {
             background: `linear-gradient(37deg, ${bgAccent} 27.82%, ${bgAccentLight} 79.68%, ${bgAccentUltraLight} 100%)`,
 
             // fontFamily: 'LXGWWenKai',
-            fontFamily: 'Inter, Noto Sans, Inter, "Material Icons"',
+            fontFamily: 'system-ui, Noto Sans, Inter, "Material Icons"',
 
-            padding: '80px',
+            padding: '5rem',
+
             alignItems: 'flex-end',
             justifyContent: 'flex-end',
           }}
@@ -155,29 +155,38 @@ export const GET = async (req: NextRequest) => {
 
               position: 'absolute',
               left: '5rem',
-              top: '5rem',
+              top: '2rem',
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
-            <img
-              src={avatar}
-              style={{
-                borderRadius: '50%',
-              }}
-              height={128}
-              width={128}
-            />
-
             <span
               style={{
-                marginLeft: '3rem',
-                color: '#ffffff99',
+                color: '#ffffff',
                 fontSize: '2rem',
+                fontWeight: 'bold',
               }}
             >
               <h3>{seo.title}</h3>
             </span>
+          </div>
+
+          <div
+            style={{
+              position: 'absolute',
+              left: '5rem',
+              display: 'flex',
+              bottom: '2rem',
+            }}
+          >
+            <img
+              src={ogAvatar}
+              style={{
+                borderRadius: '50%',
+              }}
+              height={50}
+              width={50}
+            />
           </div>
           <div
             style={{

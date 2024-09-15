@@ -74,6 +74,9 @@ declare global {
     subscription: {
       tg?: string
     }
+    og: {
+      avatar?: string
+    }
     donate: Donate
     bilibili: Bilibili
     activity: {
