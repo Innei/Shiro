@@ -162,7 +162,7 @@ export const GET = async (req: NextRequest) => {
             <span
               style={{
                 color: '#ffffff',
-                fontSize: '1.3rem',
+                fontSize: '30px',
                 fontWeight: 'bold',
               }}
             >
@@ -183,8 +183,8 @@ export const GET = async (req: NextRequest) => {
               style={{
                 borderRadius: '50%',
               }}
-              height={50}
-              width={50}
+              height={128}
+              width={128}
             />
           </div>
           <div
@@ -200,9 +200,9 @@ export const GET = async (req: NextRequest) => {
             <h1
               style={{
                 color: 'rgba(255, 255, 255, 0.92)',
-                fontSize: '50px',
+                fontSize: '60px',
                 overflow: 'hidden',
-                maxHeight: '150px',
+                maxHeight: '170px',
                 fontWeight: 'bold',
               }}
             >
@@ -211,7 +211,7 @@ export const GET = async (req: NextRequest) => {
             <h2
               style={{
                 color: 'rgba(255, 255, 255, 0.85)',
-                fontSize: '38px',
+                fontSize: '45px',
                 fontWeight: 'lighter',
                 transform: 'translateY(-20px)',
               }}
