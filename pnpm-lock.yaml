@@ -74,6 +74,9 @@ importers:
       '@mx-space/api-client':
         specifier: 1.16.1
         version: 1.16.1
+      '@openpanel/nextjs':
+        specifier: 1.0.3
+        version: 1.0.3(next@14.2.12(@babel/core@7.24.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@prosemirror-adapter/react':
         specifier: 0.2.6
         version: 0.2.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1513,6 +1516,19 @@ packages:
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
+
+  '@openpanel/nextjs@1.0.3':
+    resolution: {integrity: sha512-Fu6hG8rm4rT7IudYL/o7RSBzZZ3L2AWyxzba/eDDxaYjrPMsoGZl5CC/VOrp27WePua49bduS/mq+oIp4RgR5g==}
+    peerDependencies:
+      next: ^12.0.0 || ^13.0.0 || ^14.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+
+  '@openpanel/sdk@1.0.0':
+    resolution: {integrity: sha512-FNmmfjdXoC/VHEjA+WkrQ4lyM5lxEmV7xDd57uj4E+lIS0sU3DLG2mV/dpS8AscnZbUvuMn3kPhiLCqYzuv/gg==}
+
+  '@openpanel/web@1.0.0':
+    resolution: {integrity: sha512-ipY5hYWWrzPDwi1BtzyNn1d+Ly1gjujpmLvqO6oMKOhbNT8CwV9dIObZjyhzckaSMS8qYII9pLDIU1HCRysEDg==}
 
   '@panva/hkdf@1.2.1':
     resolution: {integrity: sha512-6oclG6Y3PiDFcoyk8srjLfVKyMfVCKJ27JwNPViuXziFpmdz+MZnZN/aKY0JGXgYuO/VghU0jcOAZgWXZ1Dmrw==}
@@ -7574,6 +7590,19 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
+
+  '@openpanel/nextjs@1.0.3(next@14.2.12(@babel/core@7.24.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@openpanel/web': 1.0.0
+      next: 14.2.12(@babel/core@7.24.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
+  '@openpanel/sdk@1.0.0': {}
+
+  '@openpanel/web@1.0.0':
+    dependencies:
+      '@openpanel/sdk': 1.0.0
 
   '@panva/hkdf@1.2.1': {}
 

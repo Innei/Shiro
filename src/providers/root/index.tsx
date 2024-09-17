@@ -38,9 +38,10 @@ const baseContexts: JSX.Element[] = [
   <AuthSessionProvider key="authSessionProvider" />,
 ]
 
-const webappContexts: JSX.Element[] = baseContexts.concat(
+const webappContexts: JSX.Element[] = [
   <ReactQueryProvider key="reactQueryProvider" />,
-)
+  ...baseContexts,
+]
 
 export function WebAppProviders({ children }: PropsWithChildren) {
   return (
@@ -50,7 +51,6 @@ export function WebAppProviders({ children }: PropsWithChildren) {
       <SocketContainer />
       <ModalStackProvider key="modalStackProvider" />
       <EventProvider key="viewportProvider" />
-      {/* <SentryProvider key="SentryProvider" /> */}
       <PageScrollInfoProvider key="PageScrollInfoProvider" />
       <DebugProvider key="debugProvider" />
 
@@ -58,11 +58,12 @@ export function WebAppProviders({ children }: PropsWithChildren) {
     </ProviderComposer>
   )
 }
-const dashboardContexts: JSX.Element[] = baseContexts.concat(
+const dashboardContexts: JSX.Element[] = [
   <ReactQueryProviderForDashboard key="reactQueryProvider" />,
   <AuthProvider key="auth" />,
-  <useBeforeUnload.Provider />,
-)
+  <useBeforeUnload.Provider key="useBeforeUnloadProvider" />,
+  ...baseContexts,
+]
 export function DashboardAppProviders({ children }: PropsWithChildren) {
   return (
     <ProviderComposer contexts={dashboardContexts}>
