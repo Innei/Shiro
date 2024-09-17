@@ -38,7 +38,7 @@ export const EditorLayer: FC<{
           mainClassName,
         )}
       >
-        <div className="flex grow flex-col overflow-auto">{ContentEl}</div>
+        <div className="flex grow flex-col overflow-hidden">{ContentEl}</div>
 
         {FooterEl}
       </main>

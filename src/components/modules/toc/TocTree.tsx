@@ -16,9 +16,7 @@ import React, {
 import { Divider } from '~/components/ui/divider'
 import { RightToLeftTransitionView } from '~/components/ui/transition'
 import { useStateToRef } from '~/hooks/common/use-state-ref'
-import {
-  useContainerCanScroll,
-} from '~/hooks/shared/use-mask-scrollarea'
+import { useContainerCanScroll } from '~/hooks/shared/use-mask-scrollarea'
 import { clsxm } from '~/lib/helper'
 import { springScrollToElement } from '~/lib/scroller'
 
@@ -157,7 +155,7 @@ export const TocTree: Component<
           <MemoedItem
             heading={heading}
             isActive={heading.anchorId === activeId}
-            key={heading.title}
+            key={`${heading.title}-${heading.index}`}
             rootDepth={rootDepth}
             onClick={handleScrollTo}
           />
