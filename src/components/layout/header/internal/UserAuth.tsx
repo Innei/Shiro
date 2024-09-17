@@ -85,7 +85,7 @@ export function UserAuth() {
               {session && (
                 <Fragment>
                   <DropdownMenuLabel className="text-xs text-base-content/60">
-                    Account
+                    账户
                   </DropdownMenuLabel>
                   <DropdownMenuLabel className="min-w-0">
                     <div className="-mt-1 flex min-w-0 items-center gap-2">
@@ -117,7 +117,7 @@ export function UserAuth() {
                       <i className="icon-[mingcute--dashboard-3-line] size-4" />
                     }
                   >
-                    Dashboard
+                    仪表盘
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                 </Fragment>

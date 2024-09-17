@@ -20,6 +20,11 @@
   .shiro-link--underline,
   .shiro-timeline a {
     color: currentColor;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
+    @apply decoration-zinc-900/20 dark:decoration-zinc-100/20 hover:no-underline;
+
     background-image: linear-gradient(
       theme(colors.accent),
       theme(colors.accent)
@@ -30,7 +35,7 @@
 
     transition: all 500ms ease;
 
-    @apply border-0 no-underline;
+    @apply border-0;
 
     background-position: left 1.2em;
 
