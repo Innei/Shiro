@@ -16,39 +16,11 @@ import { WsEvent } from '~/socket/util'
 import { LoadMoreIndicator } from '../shared/LoadMoreIndicator'
 import { Comment } from './Comment'
 import { CommentBoxProvider } from './CommentBox/providers'
-import { CommentProvider } from './CommentProvider'
+import { CommentProvider, useUpdateComment } from './CommentProvider'
 import { CommentSkeleton } from './CommentSkeleton'
 import type { CommentBaseProps } from './types'
 
-const useNewCommentObserver = (refId: string) => {
-  useEffect(() => {
-    const currentTitle = document.title
-
-    // 当标签页回复前台状态时，将标题重置
-    const onVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        document.title = currentTitle
-      }
-    }
-    document.addEventListener('visibilitychange', onVisibilityChange)
-
-    const cleaner = WsEvent.on(BusinessEvents.COMMENT_CREATE, (data: any) => {
-      if (
-        data.ref === refId && // 如果标签页在后台
-        document.visibilityState === 'hidden'
-      ) {
-        document.title = `新评论！${currentTitle}`
-      }
-    })
-    return () => {
-      cleaner()
-      document.removeEventListener('visibilitychange', onVisibilityChange)
-    }
-  }, [refId])
-}
 export const Comments: FC<CommentBaseProps> = ({ refId }) => {
-  useNewCommentObserver(refId)
-
   const key = useMemo(() => buildCommentsQueryKey(refId), [refId])
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: key,
@@ -72,6 +44,11 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
     initialPageParam: 1 as number | undefined,
   })
 
+  const comments = useMemo(() => {
+    if (!data) return []
+    return data?.pages.flatMap((page) => page.data)
+  }, [data])
+
   const readers = useMemo(() => {
     if (!data) return {}
     return data?.pages.reduce(
@@ -90,13 +67,13 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
     )
   return (
     <ErrorBoundary>
-      <CommentProvider readers={readers}>
+      <CommentProvider readers={readers} comments={comments}>
         <ul className="min-h-[400px] list-none space-y-4">
           {data?.pages.map((data, index) => (
             <BottomToUpSoftScaleTransitionView key={index}>
               {data.data.map((comment) => (
                 <CommentListItem
-                  comment={comment}
+                  commentId={comment.id}
                   key={comment.id}
                   refId={refId}
                 />
@@ -104,6 +81,8 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
             </BottomToUpSoftScaleTransitionView>
           ))}
         </ul>
+
+        <CommentEventHandler refId={refId} />
       </CommentProvider>
 
       {hasNextPage && (
@@ -115,12 +94,52 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
   )
 }
 
-const CommentListItem: FC<{ comment: any; refId: string }> = memo(
-  function CommentListItem({ comment, refId }) {
+const CommentListItem: FC<{ commentId: string; refId: string }> = memo(
+  function CommentListItem({ commentId, refId }) {
     return (
       <CommentBoxProvider refId={refId}>
-        <Comment comment={comment} />
+        <Comment commentId={commentId} />
       </CommentBoxProvider>
     )
   },
 )
+
+const CommentEventHandler = ({ refId }: { refId: string }) => {
+  useEffect(() => {
+    const currentTitle = document.title
+
+    // 当标签页回复前台状态时，将标题重置
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        document.title = currentTitle
+      }
+    }
+    document.addEventListener('visibilitychange', onVisibilityChange)
+
+    const cleaner = WsEvent.on(BusinessEvents.COMMENT_CREATE, (data) => {
+      if (
+        data.ref === refId && // 如果标签页在后台
+        document.visibilityState === 'hidden'
+      ) {
+        document.title = `新评论！${currentTitle}`
+      }
+    })
+    return () => {
+      cleaner()
+      document.removeEventListener('visibilitychange', onVisibilityChange)
+    }
+  }, [refId])
+  const updateCommentUI = useUpdateComment()
+  useEffect(() => {
+    const cleaner = WsEvent.on(BusinessEvents.COMMENT_UPDATE, (data) => {
+      updateCommentUI({
+        id: data.id,
+        text: data.text,
+      })
+    })
+    return () => {
+      cleaner()
+    }
+  }, [updateCommentUI])
+  return null
+}

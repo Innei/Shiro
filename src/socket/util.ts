@@ -1,4 +1,4 @@
-import type { BusinessEvents } from '@mx-space/webhook'
+import type { BusinessEvents, EventPayloadMapping } from '@mx-space/webhook'
 
 export const buildSocketEventType = (type: string) =>
   `ws_event:${type}` as const
@@ -11,10 +11,11 @@ export class WsEvent extends Event {
     super(buildSocketEventType(type))
   }
 
-  static on(
-    type: BusinessEvents,
-
-    cb: (data: unknown) => void,
+  static on<T extends BusinessEvents>(
+    type: T,
+    cb: (
+      data: EventPayloadMapping[Extract<T, keyof EventPayloadMapping>],
+    ) => void,
   ) {
     const _cb = (e: any) => {
       cb(e.data)

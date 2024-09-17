@@ -25,27 +25,38 @@ import { softSpringPreset } from '~/constants/spring'
 import { jotaiStore } from '~/lib/store'
 
 import styles from './Comment.module.css'
+import { CommentActionButtonGroup } from './CommentActionButtonGroup'
 import { CommentMarkdown } from './CommentMarkdown'
 import { CommentPinButton, OcticonGistSecret } from './CommentPinButton'
-import { useCommentReader } from './CommentProvider'
-import { CommentReplyButton } from './CommentReplyButton'
+import { useCommentById, useCommentReader } from './CommentProvider'
 
 export const Comment: Component<{
-  comment: CommentModel & { new?: boolean }
+  commentId: string
+  className?: string
 }> = memo(function Comment(props) {
+  const { commentId, className } = props
+  const comment = useCommentById(commentId)
+  if (!comment) return null
+  // FIXME 兜一下后端给的脏数据
+  if (typeof comment === 'string') return null
+  return <CommentRender comment={comment} className={className} />
+})
+const CommentRender: Component<{
+  comment: CommentModel & { new?: boolean }
+}> = memo(function CommentRender(props) {
   const { comment, className } = props
+
   const elAtom = useMemo(() => atom<HTMLDivElement | null>(null), [])
   const isSingleLinkContent = useMemo(() => {
-    const trimmedContent = comment?.text
+    const trimmedContent = comment.text
+    if (!trimmedContent) return false
     return (
       trimmedContent.startsWith('http') &&
       trimmedContent.split('\n').length === 1
     )
-  }, [comment?.text])
+  }, [comment.text])
   const reader = useCommentReader(comment.readerId)
 
-  // FIXME 兜一下后端给的脏数据
-  if (typeof comment === 'string') return null
   const {
     id: cid,
 
@@ -88,7 +99,7 @@ export const Comment: Component<{
     >
       <CommentMarkdown>{text}</CommentMarkdown>
 
-      <CommentReplyButton commentId={comment.id} />
+      <CommentActionButtonGroup commentId={comment.id} />
     </div>
   )
   return (
@@ -183,7 +194,7 @@ export const Comment: Component<{
                     href={text}
                     fallback={CommentNormalContent}
                   />
-                  <CommentReplyButton
+                  <CommentActionButtonGroup
                     commentId={comment.id}
                     className="bottom-4"
                   />
@@ -200,7 +211,7 @@ export const Comment: Component<{
       {comment.children && comment.children.length > 0 && (
         <ul className="my-2 space-y-2">
           {comment.children.map((child) => (
-            <Comment key={child.id} comment={child} className="ml-9" />
+            <Comment key={child.id} commentId={child.id} className="ml-9" />
           ))}
         </ul>
       )}
