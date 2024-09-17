@@ -1,95 +1,43 @@
 'use client'
 
-import type { ReaderModel } from '@mx-space/api-client'
 import { BusinessEvents } from '@mx-space/webhook'
-import { useInfiniteQuery } from '@tanstack/react-query'
 import type { FC } from 'react'
-import { memo, useEffect, useMemo } from 'react'
+import { memo, useEffect } from 'react'
 
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
-import { NotSupport } from '~/components/common/NotSupport'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition'
-import { apiClient } from '~/lib/request'
-import { buildCommentsQueryKey } from '~/queries/keys'
+import { useTypeScriptHappyCallback } from '~/hooks/common/use-callback'
 import { WsEvent } from '~/socket/util'
 
-import { LoadMoreIndicator } from '../shared/LoadMoreIndicator'
 import { Comment } from './Comment'
 import { CommentBoxProvider } from './CommentBox/providers'
 import { CommentProvider, useUpdateComment } from './CommentProvider'
-import { CommentSkeleton } from './CommentSkeleton'
 import type { CommentBaseProps } from './types'
 
 export const Comments: FC<CommentBaseProps> = ({ refId }) => {
-  const key = useMemo(() => buildCommentsQueryKey(refId), [refId])
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
-    queryKey: key,
-    queryFn: async ({ queryKey, pageParam }) => {
-      const page = pageParam
-      const [, refId] = queryKey as [string, string]
-      const data = await apiClient.comment.getByRefId(refId, {
-        page,
-      })
-      return data.$serialized
-    },
-
-    meta: {
-      persist: false,
-    },
-    getNextPageParam: (lastPage) =>
-      lastPage.pagination.hasNextPage
-        ? lastPage.pagination.currentPage + 1
-        : undefined,
-    getPreviousPageParam: (firstPage) => firstPage.pagination.currentPage - 1,
-    initialPageParam: 1 as number | undefined,
-  })
-
-  const comments = useMemo(() => {
-    if (!data) return []
-    return data?.pages.flatMap((page) => page.data)
-  }, [data])
-
-  const readers = useMemo(() => {
-    if (!data) return {}
-    return data?.pages.reduce(
-      (acc, curr) => ({ ...acc, ...curr.readers }),
-      {} as Record<string, ReaderModel>,
-    )
-  }, [data])
-  if (isLoading) {
-    return <CommentSkeleton />
-  }
-  if (!data || data.pages.length === 0 || data.pages[0].data.length === 0)
-    return (
-      <div className="center flex min-h-[400px]">
-        <NotSupport text="这里还没有评论呢" />
-      </div>
-    )
   return (
     <ErrorBoundary>
-      <CommentProvider readers={readers} comments={comments}>
-        <ul className="min-h-[400px] list-none space-y-4">
-          {data?.pages.map((data, index) => (
-            <BottomToUpSoftScaleTransitionView key={index}>
-              {data.data.map((comment) => (
-                <CommentListItem
-                  commentId={comment.id}
-                  key={comment.id}
-                  refId={refId}
-                />
+      <CommentProvider refId={refId}>
+        {useTypeScriptHappyCallback(
+          (data) => (
+            <ul className="min-h-[400px] list-none space-y-4">
+              {data?.pages.map((data, index) => (
+                <BottomToUpSoftScaleTransitionView key={index}>
+                  {data.data.map((comment) => (
+                    <CommentListItem
+                      commentId={comment.id}
+                      key={comment.id}
+                      refId={refId}
+                    />
+                  ))}
+                </BottomToUpSoftScaleTransitionView>
               ))}
-            </BottomToUpSoftScaleTransitionView>
-          ))}
-        </ul>
-
-        <CommentEventHandler refId={refId} />
+              <CommentEventHandler refId={refId} />
+            </ul>
+          ),
+          [refId],
+        )}
       </CommentProvider>
-
-      {hasNextPage && (
-        <LoadMoreIndicator onLoading={fetchNextPage}>
-          <CommentSkeleton />
-        </LoadMoreIndicator>
-      )}
     </ErrorBoundary>
   )
 }

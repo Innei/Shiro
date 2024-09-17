@@ -1,10 +1,14 @@
-import type { CommentModel, ReaderModel } from '@mx-space/api-client'
+import type {
+  CommentModel,
+  PaginateResult,
+  ReaderModel,
+} from '@mx-space/api-client'
+import type { InfiniteData } from '@tanstack/react-query'
 import { createContextState } from 'foxact/create-context-state'
-import { useLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import type { PrimitiveAtom } from 'jotai'
 import { atom, useAtomValue } from 'jotai'
 import { selectAtom } from 'jotai/utils'
-import type { FC, PropsWithChildren } from 'react'
+import type { FC, ReactNode } from 'react'
 import {
   createContext as createReactContext,
   useCallback,
@@ -13,8 +17,13 @@ import {
 } from 'react'
 import { createContext, useContextSelector } from 'use-context-selector'
 
+import { NotSupport } from '~/components/common/NotSupport'
 import { useRefValue } from '~/hooks/common/use-ref-value'
 import { jotaiStore } from '~/lib/store'
+
+import { LoadMoreIndicator } from '../shared/LoadMoreIndicator'
+import { CommentSkeleton } from './CommentSkeleton'
+import { useCommentsQuery } from './hooks'
 
 const CommentReaderMapContext = createContext<Record<string, ReaderModel>>({})
 const CommentListContext = createReactContext<
@@ -27,37 +36,72 @@ export const [
   useCommentMarkdownContainerRefSetter,
 ] = createContextState<HTMLDivElement | null>(null)
 
-export const CommentProvider: FC<
-  PropsWithChildren<{
-    readers: Record<string, ReaderModel>
-    comments: (CommentModel & { new?: boolean })[]
-  }>
-> = ({ children, readers, comments }) => {
+export const CommentProvider: FC<{
+  refId: string
+  children: (
+    data: InfiniteData<
+      PaginateResult<
+        CommentModel & {
+          ref: string
+        }
+      > & {
+        readers: Record<string, ReaderModel>
+      }
+    >,
+  ) => ReactNode
+}> = ({ children, refId }) => {
   const commentAtom = useRefValue(() =>
     atom({} as Record<string, CommentModel & { new?: boolean }>),
   )
 
-  useLayoutEffect(() => {
-    const commentsMap = {} as Record<string, CommentModel & { new?: boolean }>
-    function dts(comments: CommentModel[]) {
-      for (const comment of comments) {
-        commentsMap[comment.id] = comment
+  const { data, isLoading, fetchNextPage, hasNextPage } = useCommentsQuery(
+    refId,
+    ({ data: comments }) => {
+      const commentsMap = Object.assign({}, jotaiStore.get(commentAtom))
+      function dts(comments: CommentModel[]) {
+        for (const comment of comments) {
+          commentsMap[comment.id] = comment
 
-        if (comment.children) {
-          dts(comment.children)
+          if (comment.children) {
+            dts(comment.children)
+          }
         }
       }
-    }
 
-    dts(comments)
+      dts(comments)
 
-    jotaiStore.set(commentAtom, commentsMap)
-  }, [commentAtom, comments])
+      jotaiStore.set(commentAtom, commentsMap)
+    },
+  )
+
+  const readers = useMemo(() => {
+    if (!data) return {}
+    return data?.pages.reduce(
+      (acc, curr) => ({ ...acc, ...curr.readers }),
+      {} as Record<string, ReaderModel>,
+    )
+  }, [data])
+
+  if (isLoading) {
+    return <CommentSkeleton />
+  }
+  if (!data || data.pages.length === 0 || data.pages[0].data.length === 0)
+    return (
+      <div className="center flex min-h-[400px]">
+        <NotSupport text="这里还没有评论呢" />
+      </div>
+    )
 
   return (
     <CommentReaderMapContext.Provider value={readers}>
       <CommentListContext.Provider value={commentAtom}>
-        {children}
+        {children(data)}
+
+        {hasNextPage && (
+          <LoadMoreIndicator onLoading={fetchNextPage}>
+            <CommentSkeleton />
+          </LoadMoreIndicator>
+        )}
       </CommentListContext.Provider>
     </CommentReaderMapContext.Provider>
   )

@@ -53,7 +53,7 @@ export const CommentActionButtonGroup: FC<{
           )}
           onClick={() => {
             setReplyFormOpen(false)
-            setEditFormOpen(true)
+            setEditFormOpen((s) => !s)
           }}
         >
           <i className="icon-[mingcute--edit-2-line]" />
@@ -143,23 +143,36 @@ const EditCommentForm: FC<{
           defaultValue={commentText}
           wrapperClassName="bg-gray-200/50 dark:bg-zinc-800/50 rounded-xl h-[150px]"
         />
-
-        <SaveButton
-          isPending={isPending}
-          onClickSave={() => {
-            const text = textAreaRef.current?.value
-            if (!text) {
-              return
-            }
-            updateComment(text).then(() => {
+        <div className="absolute bottom-2 right-4 flex items-center gap-2">
+          <m.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            type="button"
+            className="flex items-center gap-1"
+            onClick={() => {
               onCompleted()
-              updateCommentUI({
-                id: commentId,
-                text,
+            }}
+          >
+            <i className="icon-[mingcute--close-line]" />
+            <span className="text-sm">取消</span>
+          </m.button>
+          <SaveButton
+            isPending={isPending}
+            onClickSave={() => {
+              const text = textAreaRef.current?.value
+              if (!text) {
+                return
+              }
+              updateComment(text).then(() => {
+                onCompleted()
+                updateCommentUI({
+                  id: commentId,
+                  text,
+                })
               })
-            })
-          }}
-        />
+            }}
+          />
+        </div>
       </div>
     </div>
   )
@@ -171,7 +184,7 @@ const SaveButton: FC<{
 }> = ({ isPending, onClickSave }) => {
   return (
     <m.button
-      className="absolute bottom-2 right-4 flex appearance-none items-center space-x-1 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+      className="flex appearance-none items-center space-x-1 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       type="button"
