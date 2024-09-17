@@ -9,6 +9,7 @@ interface Props {
 }
 export const GoToAdminEditingButton: Component<Props> = (props) => {
   const isLogin = useIsLogged()
+  console.log(isLogin)
   const resolveAdminUrl = useResolveAdminUrl()
   const { id, type, className } = props
   if (!isLogin) return null

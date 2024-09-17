@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid'
 import type { AdapterUser } from 'next-auth/adapters'
 import { useEffect } from 'react'
 
-import { isLoggedAtom } from '~/atoms'
+import { fetchAppUrl, isLoggedAtom } from '~/atoms'
 import { setSessionReader } from '~/atoms/hooks/reader'
 import { apiClient } from '~/lib/request'
 import { jotaiStore } from '~/lib/store'
@@ -30,7 +30,10 @@ export const AuthSessionProvider: Component = ({ children }) => {
     if (!session) return
     const transformedData = simpleCamelcaseKeys(session)
     setSessionReader(transformedData)
-    if (transformedData.isOwner) jotaiStore.set(isLoggedAtom, true)
+    if (transformedData.isOwner) {
+      jotaiStore.set(isLoggedAtom, true)
+      fetchAppUrl()
+    }
   }, [session])
   return children
 }
