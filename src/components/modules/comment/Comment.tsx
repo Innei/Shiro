@@ -27,6 +27,7 @@ import { jotaiStore } from '~/lib/store'
 import styles from './Comment.module.css'
 import { CommentMarkdown } from './CommentMarkdown'
 import { CommentPinButton, OcticonGistSecret } from './CommentPinButton'
+import { useCommentReader } from './CommentProvider'
 import { CommentReplyButton } from './CommentReplyButton'
 
 export const Comment: Component<{
@@ -41,13 +42,13 @@ export const Comment: Component<{
       trimmedContent.split('\n').length === 1
     )
   }, [comment?.text])
+  const reader = useCommentReader(comment.readerId)
 
   // FIXME 兜一下后端给的脏数据
   if (typeof comment === 'string') return null
   const {
     id: cid,
-    avatar,
-    author,
+
     text,
     key,
     location,
@@ -55,6 +56,9 @@ export const Comment: Component<{
     url,
     source,
   } = comment
+
+  const avatar = reader?.image || comment.avatar
+  const author = reader?.name || comment.author
   const parentId =
     typeof comment.parent === 'string' ? comment.parent : comment.parent?.id
   const authorElement = url ? (
@@ -107,6 +111,7 @@ export const Comment: Component<{
             scale: 1,
           }}
           data-comment-id={cid}
+          data-reader-id={comment.readerId}
           data-parent-id={parentId}
           className={clsx('relative my-2', className)}
         >
