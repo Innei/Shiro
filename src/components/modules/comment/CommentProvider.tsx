@@ -1,4 +1,5 @@
 import type { CommentModel, ReaderModel } from '@mx-space/api-client'
+import { createContextState } from 'foxact/create-context-state'
 import { useLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import type { PrimitiveAtom } from 'jotai'
 import { atom, useAtomValue } from 'jotai'
@@ -19,6 +20,13 @@ const CommentReaderMapContext = createContext<Record<string, ReaderModel>>({})
 const CommentListContext = createReactContext<
   PrimitiveAtom<Record<string, CommentModel & { new?: boolean }>>
 >(atom({}))
+
+export const [
+  CommentMarkdownContainerRefContext,
+  useCommentMarkdownContainerRef,
+  useCommentMarkdownContainerRefSetter,
+] = createContextState<HTMLDivElement | null>(null)
+
 export const CommentProvider: FC<
   PropsWithChildren<{
     readers: Record<string, ReaderModel>
@@ -94,7 +102,7 @@ export const useUpdateComment = () => {
           [comment.id]: {
             ...prev[comment.id],
             ...comment,
-            editedAt: new Date(),
+            editedAt: new Date().toISOString(),
           },
         }
         return newComments

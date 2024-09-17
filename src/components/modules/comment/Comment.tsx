@@ -3,10 +3,11 @@ import clsx from 'clsx'
 import { m } from 'framer-motion'
 import { atom, useAtomValue } from 'jotai'
 import type { BuiltInProviderType } from 'next-auth/providers/index'
-import type { PropsWithChildren } from 'react'
+import type { FC, PropsWithChildren } from 'react'
 import {
   createContext,
   memo,
+  useCallback,
   useContext,
   useLayoutEffect,
   useMemo,
@@ -15,6 +16,7 @@ import {
 import { createPortal } from 'react-dom'
 
 import { Avatar } from '~/components/ui/avatar'
+import { FloatPopover } from '~/components/ui/float-popover'
 import { BlockLinkRenderer } from '~/components/ui/markdown/renderers/LinkRenderer'
 import { RelativeTime } from '~/components/ui/relative-time'
 import {
@@ -28,7 +30,13 @@ import styles from './Comment.module.css'
 import { CommentActionButtonGroup } from './CommentActionButtonGroup'
 import { CommentMarkdown } from './CommentMarkdown'
 import { CommentPinButton, OcticonGistSecret } from './CommentPinButton'
-import { useCommentById, useCommentReader } from './CommentProvider'
+import {
+  CommentMarkdownContainerRefContext,
+  useCommentById,
+  useCommentByIdSelector,
+  useCommentMarkdownContainerRef,
+  useCommentReader,
+} from './CommentProvider'
 
 export const Comment: Component<{
   commentId: string
@@ -97,7 +105,11 @@ const CommentRender: Component<{
         // 'prose-ol:list-inside prose-ul:list-inside',
       )}
     >
-      <CommentMarkdown>{text}</CommentMarkdown>
+      <CommentMarkdownContainerRefContext>
+        <CommentMarkdown>{text}</CommentMarkdown>
+
+        <EditedCommentFooter commentId={comment.id} />
+      </CommentMarkdownContainerRefContext>
 
       <CommentActionButtonGroup commentId={comment.id} />
     </div>
@@ -242,4 +254,42 @@ export const CommentBoxHolderPortal = (props: PropsWithChildren) => {
   if (!portalElement) return null
 
   return createPortal(props.children, portalElement)
+}
+
+const EditedCommentFooter: FC<{
+  commentId: string
+}> = ({ commentId }) => {
+  const editedAt = useCommentByIdSelector(
+    commentId,
+    useCallback((comment) => comment?.editedAt, []),
+  )
+  const ref = useCommentMarkdownContainerRef()
+
+  const lastNode = useMemo(() => {
+    if (!ref) return null
+    return ref.lastChild
+  }, [ref])
+  const lastNodeIsParagraph = useMemo(() => {
+    if (!lastNode) return false
+    return lastNode.nodeName === 'P'
+  }, [lastNode])
+
+  if (!editedAt) return null
+
+  const InlineEl = (
+    <FloatPopover
+      type="tooltip"
+      triggerElement={
+        <span className="ml-2 text-xs text-zinc-500">(已编辑)</span>
+      }
+    >
+      <div>
+        <span>编辑于</span>
+        <RelativeTime date={editedAt} />
+      </div>
+    </FloatPopover>
+  )
+  if (!lastNodeIsParagraph) return <div className="[&_*]:!ml-0">{InlineEl}</div>
+
+  return createPortal(InlineEl, lastNode as HTMLDivElement)
 }
