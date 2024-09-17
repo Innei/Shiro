@@ -16,7 +16,9 @@
     width: 0 !important;
     height: 0 !important;
   }
-
+  .shiro-timeline a {
+    @apply !no-underline;
+  }
   .shiro-link--underline,
   .shiro-timeline a {
     color: currentColor;

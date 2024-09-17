@@ -52,7 +52,7 @@ export default definePrerenderPage<{ slug: string }>()({
                   >
                     {child.title}
                   </Link>
-                  <span className="meta ml-2">
+                  <span className="ml-2">
                     {(date.getMonth() + 1).toString().padStart(2, '0')}/
                     {date.getDate().toString().padStart(2, '0')}/
                     {date.getFullYear()}

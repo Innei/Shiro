@@ -91,7 +91,11 @@ export const useUpdateComment = () => {
       jotaiStore.set(commentsAtom, (prev) => {
         const newComments = {
           ...prev,
-          [comment.id]: { ...prev[comment.id], ...comment },
+          [comment.id]: {
+            ...prev[comment.id],
+            ...comment,
+            editedAt: new Date(),
+          },
         }
         return newComments
       })

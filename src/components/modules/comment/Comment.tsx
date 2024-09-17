@@ -43,17 +43,17 @@ export const Comment: Component<{
 })
 const CommentRender: Component<{
   comment: CommentModel & { new?: boolean }
-}> = memo(function CommentRender(props) {
+}> = (props) => {
   const { comment, className } = props
 
   const elAtom = useMemo(() => atom<HTMLDivElement | null>(null), [])
   const isSingleLinkContent = useMemo(() => {
     const trimmedContent = comment.text
     if (!trimmedContent) return false
-    return (
-      trimmedContent.startsWith('http') &&
-      trimmedContent.split('\n').length === 1
-    )
+    const isSingleLine = trimmedContent.split('\n').length === 1
+    const isURL = URL.canParse(trimmedContent)
+
+    return isSingleLine && isURL
   }, [comment.text])
   const reader = useCommentReader(comment.readerId)
 
@@ -192,11 +192,13 @@ const CommentRender: Component<{
                 <div className="relative inline-block">
                   <BlockLinkRenderer
                     href={text}
+                    accessory={
+                      <CommentActionButtonGroup
+                        commentId={comment.id}
+                        className="bottom-4"
+                      />
+                    }
                     fallback={CommentNormalContent}
-                  />
-                  <CommentActionButtonGroup
-                    commentId={comment.id}
-                    className="bottom-4"
                   />
                 </div>
               ) : (
@@ -217,7 +219,7 @@ const CommentRender: Component<{
       )}
     </>
   )
-})
+}
 
 const CommentHolderContext = createContext(atom(null as null | HTMLDivElement))
 
