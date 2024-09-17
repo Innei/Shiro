@@ -22,6 +22,7 @@ import { nextFrame, stopPropagation } from '~/lib/dom'
 import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
 
+import type { SheetRef } from '../../sheet'
 import { PresentSheet, sheetStackAtom } from '../../sheet'
 import { MODAL_STACK_Z_INDEX, modalMontionConfig } from './constants'
 import type {
@@ -145,7 +146,10 @@ export const ModalInternal: Component<{
   const modalContentRef = useRef<HTMLDivElement>(null)
   const ModalProps: ModalContentPropsInternal = useMemo(
     () => ({
-      dismiss: close,
+      dismiss: () => {
+        sheetRef.current?.dismiss()
+        close()
+      },
     }),
     [close],
   )
@@ -165,12 +169,15 @@ export const ModalInternal: Component<{
 
   const edgeElementRef = useRef<HTMLDivElement>(null)
 
+  const sheetRef = useRef<SheetRef>(null)
+
   if (isMobile) {
     const drawerLength = jotaiStore.get(sheetStackAtom).length
 
     return (
       <Wrapper>
         <PresentSheet
+          ref={sheetRef}
           title={title}
           defaultOpen
           zIndex={1000 + drawerLength}
