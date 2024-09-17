@@ -11,17 +11,15 @@ import { callCommand } from '@milkdown/utils'
 import { produce } from 'immer'
 import { atom, useAtomValue, useSetAtom, useStore } from 'jotai'
 import type { FC } from 'react'
-import React, { isValidElement, useEffect, useRef } from 'react'
+import React, { isValidElement } from 'react'
 
 import { SimpleIconsMermaid } from '~/components/icons/mermaid'
 import { useEditorCtx } from '~/components/ui/editor/Milkdown/ctx'
 import { excalidrawSchema } from '~/components/ui/editor/Milkdown/plugins/Excalidraw'
+import { TextArea } from '~/components/ui/input'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
-import { clsxm } from '~/lib/helper'
-import { jotaiStore } from '~/lib/store'
 
 import type { MilkdownRef } from '../../../ui/editor'
-import { MilkdownEditor } from '../../../ui/editor'
 import { useBaseWritingContext } from './BaseWritingProvider'
 import { TitleInput } from './TitleInput'
 
@@ -188,31 +186,23 @@ const Editor = () => {
     })
   })
   const store = useStore()
-  const handleMarkdownChange = useEventCallback(setText)
-  const milkdownRef = useRef<MilkdownRef>(null)
-
-  useEffect(() => {
-    jotaiStore.set(milkdownRefAtom, milkdownRef.current)
-    return () => {
-      jotaiStore.set(milkdownRefAtom, null)
-    }
-  }, [])
 
   return (
     <>
-      <MenuBar />
-      <div
-        className={clsxm(
-          'relative h-0 grow overflow-auto rounded-xl border p-3 duration-200 focus-within:border-accent',
-          'border-zinc-200 bg-white placeholder:text-slate-500 focus-visible:border-accent dark:border-neutral-800 dark:bg-zinc-900',
-        )}
-      >
-        <MilkdownEditor
+      {/* <MenuBar /> */}
+
+      {/* <MilkdownEditor
           ref={milkdownRef}
           onMarkdownChange={handleMarkdownChange}
           initialMarkdown={store.get(ctxAtom).text}
-        />
-      </div>
+        /> */}
+      <TextArea
+        className="bg-base-100"
+        defaultValue={store.get(ctxAtom).text}
+        onChange={(e) => {
+          setText(e.target.value)
+        }}
+      />
     </>
   )
 }
