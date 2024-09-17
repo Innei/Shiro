@@ -203,7 +203,10 @@ export const ModalInternal: Component<{
               <div
                 className={clsxm(
                   'fixed inset-0 z-20 overflow-auto',
-                  currentIsClosing && '!pointer-events-none',
+                  currentIsClosing
+                    ? '!pointer-events-none'
+                    : 'pointer-events-auto',
+
                   modalContainerClassName,
                 )}
                 onClick={clickOutsideToDismiss ? dismiss : undefined}
@@ -229,7 +232,9 @@ export const ModalInternal: Component<{
               ref={edgeElementRef}
               className={clsxm(
                 'center fixed inset-0 z-20 flex',
-                currentIsClosing && '!pointer-events-none',
+                currentIsClosing
+                  ? '!pointer-events-none'
+                  : 'pointer-events-auto',
                 modalContainerClassName,
               )}
               style={zIndexStyle}

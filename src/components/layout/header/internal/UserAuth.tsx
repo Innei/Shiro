@@ -146,7 +146,7 @@ export function UserAuth() {
                 }}
                 icon={<i className="icon-[mingcute--exit-line] size-4" />}
               >
-                Sign out
+                登出
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenuPortal>

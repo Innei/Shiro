@@ -65,6 +65,7 @@ export const ImportMarkdownButton: FC<{
         导入
       </StyledButton>
       <DeclarativeModal
+        modalClassName="z-[999] pointer-events-auto"
         clickOutsideToDismiss={false}
         open={isOpen}
         onOpenChange={onOpenChange}
