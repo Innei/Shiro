@@ -3,7 +3,9 @@ on:
     branches: [main]
 
 name: CI Build
-
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   build:
     name: Upload CI Build artifact
