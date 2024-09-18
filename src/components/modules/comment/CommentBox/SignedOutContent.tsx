@@ -1,13 +1,26 @@
 'use client'
 
+import clsx from 'clsx'
+import { useEffect } from 'react'
+
 import { useSessionReader } from '~/atoms/hooks/reader'
 import { StyledButton } from '~/components/ui/button'
-import { AuthProvidersRender } from '~/queries/hooks/authjs'
+import { AuthProvidersRender, useAuthProviders } from '~/queries/hooks/authjs'
 
 import { CommentBoxMode, setCommentMode } from './hooks'
 
 export function CommentBoxSignedOutContent() {
   const isReaderLogin = !!useSessionReader()
+  const providers = useAuthProviders()
+  const hasProviders = providers && Object.keys(providers).length > 0
+
+  useEffect(() => {
+    if (!providers) return
+    if (Object.keys(providers).length === 0) {
+      setCommentMode(CommentBoxMode.legacy)
+    }
+  }, [providers])
+
   if (isReaderLogin) return null
 
   return (
@@ -16,7 +29,7 @@ export function CommentBoxSignedOutContent() {
       <AuthProvidersRender />
 
       <StyledButton
-        className="mt-6"
+        className={clsx(hasProviders ? 'mt-6' : '')}
         variant="secondary"
         type="button"
         onClick={() => {
