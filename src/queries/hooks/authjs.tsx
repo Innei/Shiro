@@ -61,7 +61,7 @@ export const AuthProvidersRender: FC = () => {
                   })
                 }}
               >
-                <div className="flex size-10 items-center justify-center rounded-full border dark:border-neutral-700">
+                <div className="flex size-10 items-center justify-center rounded-full border bg-base-100 dark:border-neutral-700">
                   {!authProcessingLockSet.has(provider) ? (
                     <Fragment>
                       {provider === 'github' ? (
