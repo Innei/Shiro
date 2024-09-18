@@ -11,7 +11,7 @@ export const DebugProvider = ({
 }: PropsWithChildren): ReactElement => (
   <>
     <Suspense>
-      <div data-hide-print className="hidden md:static">
+      <div data-hide-print className="hidden md:contents">
         <ReactQueryDevtools buttonPosition="top-left" />
         <DevIndicator />
       </div>

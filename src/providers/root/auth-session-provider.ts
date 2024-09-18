@@ -17,6 +17,7 @@ declare module 'next-auth' {
 export const AuthSessionProvider: Component = ({ children }) => {
   const { data: session } = useQuery({
     queryKey: ['session'],
+    refetchOnMount: 'always',
     queryFn: () =>
       apiClient.proxy.auth.session.get<AdapterUser>({
         params: {
