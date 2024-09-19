@@ -48,6 +48,9 @@ export const CommentProvider: FC<{
         readers: Record<string, ReaderModel>
       }
     >,
+    commentAtom: PrimitiveAtom<
+      Record<string, CommentModel & { new?: boolean }>
+    >,
   ) => ReactNode
 }> = ({ children, refId }) => {
   const commentAtom = useRefValue(() =>
@@ -95,7 +98,7 @@ export const CommentProvider: FC<{
   return (
     <CommentReaderMapContext.Provider value={readers}>
       <CommentListContext.Provider value={commentAtom}>
-        {children(data)}
+        {children(data, commentAtom)}
 
         {hasNextPage && (
           <LoadMoreIndicator onLoading={fetchNextPage}>

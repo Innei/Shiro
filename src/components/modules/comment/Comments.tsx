@@ -19,22 +19,21 @@ export const Comments: FC<CommentBaseProps> = ({ refId }) => {
     <ErrorBoundary>
       <CommentProvider refId={refId}>
         {useTypeScriptHappyCallback(
-          (data) => (
-            <ul className="min-h-[400px] list-none space-y-4">
-              {data?.pages.map((data, index) => (
-                <BottomToUpSoftScaleTransitionView key={index}>
-                  {data.data.map((comment) => (
-                    <CommentListItem
-                      commentId={comment.id}
-                      key={comment.id}
-                      refId={refId}
-                    />
-                  ))}
-                </BottomToUpSoftScaleTransitionView>
-              ))}
-              <CommentEventHandler refId={refId} />
-            </ul>
-          ),
+          (data) => {
+            // sort by pin
+            const comments = data?.pages.flatMap((data) => data.data)
+
+            return (
+              <ul className="min-h-[400px] list-none space-y-4">
+                {comments.map((comment) => (
+                  <BottomToUpSoftScaleTransitionView key={comment.id}>
+                    <CommentListItem commentId={comment.id} refId={refId} />
+                  </BottomToUpSoftScaleTransitionView>
+                ))}
+                <CommentEventHandler refId={refId} />
+              </ul>
+            )
+          },
           [refId],
         )}
       </CommentProvider>

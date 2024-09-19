@@ -1,8 +1,5 @@
-import type { CommentModel, PaginateResult } from '@mx-space/api-client'
-import type { InfiniteData } from '@tanstack/react-query'
+import type { CommentModel } from '@mx-space/api-client'
 import { useQueryClient } from '@tanstack/react-query'
-import type { Draft } from 'immer'
-import { produce } from 'immer'
 import type { SVGProps } from 'react'
 
 import { apiClient } from '~/lib/request'
@@ -10,37 +7,34 @@ import { buildCommentsQueryKey } from '~/queries/keys'
 
 import { PinIconToggle } from '../shared/PinIconToggle'
 import { useCommentBoxRefIdValue } from './CommentBox/hooks'
+import { useUpdateComment } from './CommentProvider'
 
 export const CommentPinButton = ({ comment }: { comment: CommentModel }) => {
+  const updateCommentUI = useUpdateComment()
   const queryClient = useQueryClient()
   const refId = useCommentBoxRefIdValue()
-
+  if (comment.parent) return null
   return (
     <PinIconToggle
       pin={!!comment.pin}
       onPinChange={async (nextPin) => {
-        queryClient.setQueryData<InfiniteData<PaginateResult<CommentModel>>>(
-          buildCommentsQueryKey(refId),
-          (old) =>
-            produce(old, (draft) => {
-              if (!draft) return draft
-              let draftComment: Draft<CommentModel | null> = null
-              draft.pages.forEach((page) =>
-                page.data.forEach((c) => {
-                  if (comment.id === c.id) draftComment = c
-                }),
-              )
-
-              if (!draftComment) return draft
-              ;(draftComment as any as CommentModel).pin = nextPin
-              return draft
-            }),
-        )
-        await apiClient.comment.proxy(comment.id).patch({
-          data: {
-            pin: nextPin,
-          },
+        updateCommentUI({
+          id: comment.id,
+          pin: nextPin,
         })
+
+        await apiClient.comment
+          .proxy(comment.id)
+          .patch({
+            data: {
+              pin: nextPin,
+            },
+          })
+          .then(() => {
+            queryClient.invalidateQueries({
+              queryKey: buildCommentsQueryKey(refId),
+            })
+          })
       }}
     />
   )
