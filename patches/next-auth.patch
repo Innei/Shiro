@@ -1,0 +1,26 @@
+diff --git a/client/_utils.js b/client/_utils.js
+index de4e3c4eedfaffa561ff7ea80f109cbf3bb807e5..ea42a4893fbb67159663d21bd606f44eece0ebe1 100644
+--- a/client/_utils.js
++++ b/client/_utils.js
+@@ -57,6 +57,8 @@ function _fetchData() {
+               options.method = "POST";
+             }
+ 
++            options.credentials = "include";
++
+             _context.next = 7;
+             return fetch(url, options);
+ 
+diff --git a/src/client/_utils.ts b/src/client/_utils.ts
+index 1f3819e0db80661af241d9110aabe3e2f2520a1b..edf96089152f317a5eeb982acac3a3586f0ac3a9 100644
+--- a/src/client/_utils.ts
++++ b/src/client/_utils.ts
+@@ -54,7 +54,7 @@ export async function fetchData<T = any>(
+     if (!res.ok) throw data
+     return Object.keys(data).length > 0 ? data : null // Return null if data empty
+   } catch (error) {
+-    logger.error("CLIENT_FETCH_ERROR", { error: error as Error, url })
++    console.error("CLIENT_FETCH_ERROR", { error: error as Error, url })
+     return null
+   }
+ }

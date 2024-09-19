@@ -16,6 +16,10 @@ export const useAuthProviders = () => {
   const { data } = useQuery({
     queryKey: ['providers'],
     queryFn: getProviders,
+    refetchOnMount: 'always',
+    meta: {
+      persist: true,
+    },
   })
   return data
 }
