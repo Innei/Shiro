@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { memo } from 'react'
 import RemoveMarkdown from 'remove-markdown'
 
+import { useIsLogged } from '~/atoms/hooks'
 import { PostPinIcon } from '~/components/modules/post/PostPinIcon'
 
 import { PostItemHoverOverlay } from './PostItemHoverOverlay'
@@ -20,14 +21,19 @@ export const PostLooseItem = memo<{ data: PostModel }>(function PostLooseItem({
   const categorySlug = data.category?.slug
   const postLink = `/posts/${categorySlug}/${data.slug}`
 
+  const isLogged = useIsLogged()
   return (
     <Link
       href={postLink}
       className="relative flex flex-col py-8 focus-visible:!shadow-none"
     >
       <PostItemHoverOverlay />
-      <h2 className="relative text-balance break-words text-2xl font-medium">
-        {data.title}
+      <h2 className="relative break-words text-2xl font-medium">
+        <div
+          className={isLogged || data.pin ? 'w-[calc(100%-2rem)]' : 'w-full'}
+        >
+          {data.title}
+        </div>
 
         <PostPinIcon pin={!!data.pin} id={data.id} />
       </h2>
@@ -53,7 +59,7 @@ export const PostLooseItem = memo<{ data: PostModel }>(function PostLooseItem({
         </div>
       </div>
 
-      <div className="post-meta-bar mt-2 flex select-none flex-wrap items-center justify-end gap-4 text-base-content/60">
+      <div className="mt-2 flex select-none flex-wrap items-center justify-end gap-4 text-base-content/60">
         <PostMetaBar meta={data} />
         <span className="flex shrink-0 select-none items-center space-x-1 text-right text-accent hover:text-accent [&>svg]:hover:ml-2">
           <span>阅读全文</span>
@@ -69,14 +75,19 @@ export const PostCompactItem = memo<{ data: PostModel }>(
     const categorySlug = data.category?.slug
     const postLink = `/posts/${categorySlug}/${data.slug}`
 
+    const isLogged = useIsLogged()
     return (
       <Link
         href={postLink}
         className="relative flex flex-col py-8 focus-visible:!shadow-none"
       >
         <PostItemHoverOverlay />
-        <h2 className="relative text-balance break-words text-2xl font-medium">
-          {data.title}
+        <h2 className="relative break-words text-2xl font-medium">
+          <div
+            className={isLogged || data.pin ? 'w-[calc(100%-2rem)]' : 'w-full'}
+          >
+            {data.title}
+          </div>
 
           <PostPinIcon pin={!!data.pin} id={data.id} />
         </h2>
