@@ -44,6 +44,7 @@ export const Comment: Component<{
 }> = memo(function Comment(props) {
   const { commentId, className } = props
   const comment = useCommentById(commentId)
+
   if (!comment) return null
   // FIXME 兜一下后端给的脏数据
   if (typeof comment === 'string') return null

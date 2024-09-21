@@ -223,6 +223,7 @@ export const useSendComment = () => {
 
       toast.success(toastCopy)
       jotaiStore.set(textAtom, '')
+
       queryClient.setQueryData<
         InfiniteData<
           PaginateResult<

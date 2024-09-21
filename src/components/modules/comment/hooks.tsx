@@ -1,26 +1,12 @@
-import type {
-  CommentModel,
-  PaginateResult,
-  ReaderModel,
-} from '@mx-space/api-client'
+
+
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 
 import { apiClient } from '~/lib/request'
 import { buildCommentsQueryKey } from '~/queries/keys'
 
-export function useCommentsQuery(
-  refId: string,
-  onData: (
-    data: PaginateResult<
-      CommentModel & {
-        ref: string
-      }
-    > & {
-      readers: Record<string, ReaderModel>
-    },
-  ) => void,
-) {
+export function useCommentsQuery(refId: string) {
   const key = useMemo(() => buildCommentsQueryKey(refId), [refId])
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: key,
@@ -30,7 +16,7 @@ export function useCommentsQuery(
       const data = await apiClient.comment.getByRefId(refId, {
         page,
       })
-      onData(data.$serialized)
+
       return data.$serialized
     },
 

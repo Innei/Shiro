@@ -13,6 +13,7 @@ import {
   createContext as createReactContext,
   useCallback,
   useContext as useReactContext,
+  useEffect,
   useMemo,
 } from 'react'
 import { createContext, useContextSelector } from 'use-context-selector'
@@ -28,7 +29,7 @@ import { useCommentsQuery } from './hooks'
 const CommentReaderMapContext = createContext<Record<string, ReaderModel>>({})
 const CommentListContext = createReactContext<
   PrimitiveAtom<Record<string, CommentModel & { new?: boolean }>>
->(atom({}))
+>(null!)
 
 export const [
   CommentMarkdownContainerRefContext,
@@ -57,25 +58,26 @@ export const CommentProvider: FC<{
     atom({} as Record<string, CommentModel & { new?: boolean }>),
   )
 
-  const { data, isLoading, fetchNextPage, hasNextPage } = useCommentsQuery(
-    refId,
-    ({ data: comments }) => {
-      const commentsMap = Object.assign({}, jotaiStore.get(commentAtom))
-      function dts(comments: CommentModel[]) {
-        for (const comment of comments) {
-          commentsMap[comment.id] = comment
+  const { data, isLoading, fetchNextPage, hasNextPage } =
+    useCommentsQuery(refId)
 
-          if (comment.children) {
-            dts(comment.children)
-          }
+  useEffect(() => {
+    if (!data) return
+    const commentsMap = Object.assign({}, jotaiStore.get(commentAtom))
+    function dts(comments: CommentModel[]) {
+      for (const comment of comments) {
+        commentsMap[comment.id] = comment
+
+        if (comment.children) {
+          dts(comment.children)
         }
       }
+    }
 
-      dts(comments)
+    dts(data.pages.flatMap((page) => page.data))
 
-      jotaiStore.set(commentAtom, commentsMap)
-    },
-  )
+    jotaiStore.set(commentAtom, commentsMap)
+  }, [commentAtom, data])
 
   const readers = useMemo(() => {
     if (!data) return {}
@@ -152,6 +154,7 @@ export const useUpdateComment = () => {
             editedAt: new Date().toISOString(),
           },
         }
+
         return newComments
       })
     },
