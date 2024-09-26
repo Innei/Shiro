@@ -294,8 +294,8 @@ importers:
         specifier: 2.0.0
         version: 2.0.0(react@18.3.1)(scheduler@0.23.2)
       vaul:
-        specifier: 0.9.6
-        version: 0.9.6(@types/react-dom@18.3.0)(@types/react@18.3.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 1.0.0
+        version: 1.0.0(@types/react-dom@18.3.0)(@types/react@18.3.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       xss:
         specifier: 1.0.15
         version: 1.0.15
@@ -5849,8 +5849,8 @@ packages:
     resolution: {integrity: sha512-OljLrQ9SQdOUqTaQxqL5dEfZWrXExyyWsozYlAWFawPVNuD83igl7uJD2RTkNMbniIYgt8l81eCJGIdQF7avLQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  vaul@0.9.6:
-    resolution: {integrity: sha512-Ykk5FSu4ibeD6qfKQH/CkBRdSGWkxi35KMNei0z59kTPAlgzpE/Qf1gTx2sxih8Q05KBO/aFhcF/UkBW5iI1Ww==}
+  vaul@1.0.0:
+    resolution: {integrity: sha512-TegfMkwy86RSvSiIVREG6OqgRL7agqRsKYyWYacyVUAdpcIi34QoCOED476Mbf8J5d06e1hygSdvJhehlxEBhQ==}
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
       react-dom: ^16.8 || ^17.0 || ^18.0
@@ -12602,7 +12602,7 @@ snapshots:
 
   validate-npm-package-name@5.0.1: {}
 
-  vaul@0.9.6(@types/react-dom@18.3.0)(@types/react@18.3.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  vaul@1.0.0(@types/react-dom@18.3.0)(@types/react@18.3.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@radix-ui/react-dialog': 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
