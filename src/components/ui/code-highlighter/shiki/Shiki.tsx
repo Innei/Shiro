@@ -1,7 +1,12 @@
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import type { FC } from 'react'
 import { use, useMemo, useState } from 'react'
-import { createHighlighterCoreSync, createJavaScriptRegexEngine } from 'shiki'
+import type {BundledLanguage, LanguageInput, SpecialLanguage} from 'shiki';
+import {
+  createHighlighterCoreSync,
+  createJavaScriptRegexEngine
+} from 'shiki'
+import { bundledLanguages } from 'shiki/langs'
 import githubDark from 'shiki/themes/github-dark.mjs'
 import githubLight from 'shiki/themes/github-light.mjs'
 
@@ -38,18 +43,19 @@ export const ShikiHighLighter: FC<ShikiProps> = (props) => {
 
   use(
     useMemo(async () => {
-      async function loadShikiLanguage(language: string, languageModule: any) {
+      async function loadShikiLanguage(
+        language: string,
+        languageModule: LanguageInput | SpecialLanguage,
+      ) {
         const shiki = codeHighlighter?.codeHighlighter
         if (!shiki) return
         if (!shiki.getLoadedLanguages().includes(language)) {
-          await shiki.loadLanguage(await languageModule())
+          return shiki.loadLanguage(languageModule)
         }
       }
 
-      const { bundledLanguages } = await import('shiki/langs')
-
       if (!language) return
-      const importFn = (bundledLanguages as any)[language]
+      const importFn = bundledLanguages[language as BundledLanguage]
       if (!importFn) return
       return loadShikiLanguage(language || '', importFn)
     }, [language]),
