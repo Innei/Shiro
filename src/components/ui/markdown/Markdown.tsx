@@ -63,15 +63,15 @@ export interface MdProps {
 }
 
 const debugValue = isDev
-  ? [
-      '```component shadow with-styles\n' +
-        `import=https://cdn.jsdelivr.net/npm/@innei/react-cdn-components@0.0.33/dist/components/ShadowDOMTest.js
-name=MDX.ShadowDOMTest
-height=4 05` +
-        '\n' +
-        '```',
-    ].join('')
-  : null
+  ? ''
+  : //       '```component shadow with-styles\n' +
+    //         `import=https://cdn.jsdelivr.net/npm/@innei/react-cdn-components@0.0.33/dist/components/ShadowDOMTest.js
+    // name=MDX.ShadowDOMTest
+    // height=4 05` +
+    //         '\n' +
+    //         '```',
+    //     ].join('')
+    null
 export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
   memo((props) => {
     const {
