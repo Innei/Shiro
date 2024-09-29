@@ -10,7 +10,7 @@ import { useCallback } from 'react'
 
 import type { DashboardRoute } from '~/app/(dashboard)/routes'
 import { dashboardRoutes, useParentRouteObject } from '~/app/(dashboard)/routes'
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { Avatar } from '~/components/ui/avatar'
 import { MotionButtonBase } from '~/components/ui/button'
 import { BreadcrumbDivider } from '~/components/ui/divider'

@@ -5,7 +5,7 @@ import markdownEscape from 'markdown-escape'
 import type { FC, PropsWithChildren } from 'react'
 import { useEffect, useState } from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { MotionButtonBase } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { ScrollArea } from '~/components/ui/scroll-area'

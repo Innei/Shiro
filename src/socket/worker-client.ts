@@ -1,7 +1,7 @@
 import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { getSocketWebSessionId } from '~/atoms/hooks'
+import { getSocketWebSessionId } from '~/atoms/hooks/socket'
 import { setSocketIsConnect } from '~/atoms/socket'
 import { GATEWAY_URL } from '~/constants/env'
 import { SocketConnectedEvent, SocketDisconnectedEvent } from '~/events'

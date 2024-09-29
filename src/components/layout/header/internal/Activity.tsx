@@ -13,7 +13,7 @@ import React, {
 } from 'react'
 
 import { setActivityMediaInfo, setActivityProcessInfo } from '~/atoms/activity'
-import { useActivity } from '~/atoms/hooks'
+import { useActivity } from '~/atoms/hooks/activity'
 import { ImpressionView } from '~/components/common/ImpressionTracker'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { softBouncePreset } from '~/constants/spring'

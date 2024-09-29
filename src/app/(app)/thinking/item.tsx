@@ -12,7 +12,7 @@ import { produce } from 'immer'
 import type { FC } from 'react'
 import { memo, useMemo } from 'react'
 
-import { useIsLogged } from '~/atoms/hooks'
+import { useIsLogged } from '~/atoms/hooks/owner'
 import { CommentBoxRootLazy, CommentsLazy } from '~/components/modules/comment'
 import { PeekLink } from '~/components/modules/peek/PeekLink'
 import { StyledButton } from '~/components/ui/button'

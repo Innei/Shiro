@@ -5,7 +5,7 @@ import { getProviders } from 'next-auth/react'
 import type { FC } from 'react'
 import { Fragment, useCallback, useState } from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import { MotionButtonBase } from '~/components/ui/button'
 import { useModalStack } from '~/components/ui/modal'

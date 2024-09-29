@@ -4,7 +4,7 @@ import { m } from 'framer-motion'
 import type { FC } from 'react'
 import { useCallback, useRef, useState } from 'react'
 
-import { useIsLogged } from '~/atoms/hooks'
+import { useIsLogged } from '~/atoms/hooks/owner'
 import { useSessionReader } from '~/atoms/hooks/reader'
 import { TiltedSendIcon } from '~/components/icons/TiltedSendIcon'
 import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'

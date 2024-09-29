@@ -2,7 +2,7 @@
 
 import { m, useAnimationControls } from 'framer-motion'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { MotionButtonBase } from '~/components/ui/button'
 import { useModalStack } from '~/components/ui/modal'
 import { NumberSmoothTransition } from '~/components/ui/number-transition/NumberSmoothTransition'

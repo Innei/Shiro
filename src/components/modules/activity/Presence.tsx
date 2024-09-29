@@ -23,12 +23,11 @@ import { useDebouncedCallback } from 'use-debounce'
 import {
   useActivityPresenceByRoomName,
   useActivityPresenceBySessionId,
-  useIsLogged,
-  useIsMobile,
-  useOwner,
-  useSocketSessionId,
-} from '~/atoms/hooks'
+} from '~/atoms/hooks/activity'
+import { useIsLogged, useOwner } from '~/atoms/hooks/owner'
 import { useAuthReader, useSessionReader } from '~/atoms/hooks/reader'
+import { useSocketSessionId } from '~/atoms/hooks/socket'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { getServerTime } from '~/components/common/SyncServerTime'
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import { MotionButtonBase, StyledButton } from '~/components/ui/button'

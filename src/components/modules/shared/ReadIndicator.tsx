@@ -4,7 +4,7 @@ import type { ElementType } from 'react'
 import { useDeferredValue } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { MaterialSymbolsProgressActivity } from '~/components/icons/Progress'
 import { MotionButtonBase } from '~/components/ui/button'
 import { RootPortal } from '~/components/ui/portal'

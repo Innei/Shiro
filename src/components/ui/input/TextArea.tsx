@@ -9,7 +9,7 @@ import type {
 } from 'react'
 import { forwardRef, useCallback, useState } from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { useInputComposition } from '~/hooks/common/use-input-composition'
 import { clsxm } from '~/lib/helper'
 

@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import { useIsLogged } from '~/atoms/hooks'
+import { useIsLogged } from '~/atoms/hooks/owner'
 import { setOwnerStatus, useOwnerStatus } from '~/atoms/hooks/status'
 import type { OwnerStatus as TOwnerStatus } from '~/atoms/status'
 import { StyledButton } from '~/components/ui/button'

@@ -4,7 +4,7 @@ import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import dynamic from 'next/dynamic'
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { TextArea } from '~/components/ui/input'
 import { useRefValue } from '~/hooks/common/use-ref-value'

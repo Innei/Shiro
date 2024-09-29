@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { useLayoutEffect } from 'react'
 
-import { useResolveAdminUrl } from '~/atoms/hooks'
+import { useResolveAdminUrl } from '~/atoms/hooks/url'
 
 export default function Page() {
   const toAdminUrl = useResolveAdminUrl()

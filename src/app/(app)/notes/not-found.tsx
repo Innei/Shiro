@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from 'next/navigation'
 
-import { useIsLogged } from '~/atoms/hooks'
+import { useIsLogged } from '~/atoms/hooks/owner'
 import { StyledButton } from '~/components/ui/button'
 import { getToken } from '~/lib/cookie'
 

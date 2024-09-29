@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import type { FC } from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { MdiClockOutline } from '~/components/icons/clock'
 import { MdiFountainPenTip } from '~/components/icons/pen'
 import { Divider, DividerVertical } from '~/components/ui/divider'

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { memo } from 'react'
 import RemoveMarkdown from 'remove-markdown'
 
-import { useIsLogged } from '~/atoms/hooks'
+import { useIsLogged } from '~/atoms/hooks/owner'
 import { PostPinIcon } from '~/components/modules/post/PostPinIcon'
 
 import { PostItemHoverOverlay } from './PostItemHoverOverlay'

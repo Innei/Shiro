@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 
 import { deleteActivityPresence } from '~/atoms/activity'
-import { useSocketIsConnect, useSocketSessionId } from '~/atoms/hooks'
+import { useSocketIsConnect, useSocketSessionId } from '~/atoms/hooks/socket'
 import { usePageIsActive } from '~/hooks/common/use-is-active'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { SocketEmitEnum } from '~/types/events'

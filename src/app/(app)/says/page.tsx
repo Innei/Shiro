@@ -1,6 +1,6 @@
 'use client'
 
-import { useIsLogged } from '~/atoms/hooks'
+import { useIsLogged } from '~/atoms/hooks/owner'
 import { CreateSayButton } from '~/components/modules/say/Button'
 import { useSayListQuery } from '~/components/modules/say/hooks'
 import { SayMasonry } from '~/components/modules/say/SayMasonry'

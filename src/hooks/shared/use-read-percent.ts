@@ -1,4 +1,4 @@
-import { getViewport } from '~/atoms/hooks'
+import { getViewport } from '~/atoms/hooks/viewport'
 import { usePageScrollLocationSelector } from '~/providers/root/page-scroll-info-provider'
 import {
   useWrappedElementPosition,

@@ -14,7 +14,7 @@ import {
   useRef,
 } from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { CloseIcon } from '~/components/icons/close'
 import { Divider } from '~/components/ui/divider'
 import { useEventCallback } from '~/hooks/common/use-event-callback'

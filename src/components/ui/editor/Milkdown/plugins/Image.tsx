@@ -5,7 +5,7 @@ import { useNodeViewContext } from '@prosemirror-adapter/react'
 import type { FC } from 'react'
 import { useCallback, useRef, useState } from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { MotionButtonBase, StyledButton } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { Form, FormInput } from '~/components/ui/form'

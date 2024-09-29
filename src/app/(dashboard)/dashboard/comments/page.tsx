@@ -7,7 +7,7 @@ import clsx from 'clsx'
 import type { FC } from 'react'
 import { createElement, useEffect, useMemo } from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import {
   CommentBatchActionGroup,
   CommentDataContext,

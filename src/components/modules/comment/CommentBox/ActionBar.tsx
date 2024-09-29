@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import { AnimatePresence, m } from 'framer-motion'
 import { useAtomValue } from 'jotai'
 
-import { useIsLogged } from '~/atoms/hooks'
+import { useIsLogged } from '~/atoms/hooks/owner'
 import { TiltedSendIcon } from '~/components/icons/TiltedSendIcon'
 import { MLink } from '~/components/ui/link/MLink'
 import { clsxm } from '~/lib/helper'

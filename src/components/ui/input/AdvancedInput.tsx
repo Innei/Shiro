@@ -7,8 +7,7 @@ import { clsxm } from '~/lib/helper'
 import { isUndefined, merge } from '~/lib/lodash'
 
 import { MotionButtonBase } from '../button'
-import { ErrorLabelLine } from '../label'
-import { Label } from '../label/Label'
+import { ErrorLabelLine, Label } from '../label'
 
 const InputPropsContext = createContext<
   Pick<

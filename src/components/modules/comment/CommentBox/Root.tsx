@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 
-import { useIsLogged } from '~/atoms/hooks'
+import { useIsLogged } from '~/atoms/hooks/owner'
 import { useSessionReader } from '~/atoms/hooks/reader'
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'

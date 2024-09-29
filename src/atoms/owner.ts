@@ -6,7 +6,7 @@ import { jotaiStore } from '~/lib/store'
 import { toast } from '~/lib/toast'
 import { aggregationDataAtom } from '~/providers/root/aggregation-data-provider'
 
-import { refreshToken } from './hooks'
+import { refreshToken } from './hooks/owner'
 import { fetchAppUrl } from './url'
 
 export const ownerAtom = atom((get) => get(aggregationDataAtom)?.user)

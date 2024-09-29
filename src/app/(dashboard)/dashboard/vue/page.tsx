@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useLayoutEffect } from 'react'
 
 import { fetchAppUrl } from '~/atoms'
-import { useResolveAdminUrl } from '~/atoms/hooks'
+import { useResolveAdminUrl } from '~/atoms/hooks/url'
 import { FullPageLoading } from '~/components/ui/loading'
 
 export default function Page() {

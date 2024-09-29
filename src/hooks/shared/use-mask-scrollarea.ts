@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { useCallback, useRef, useState } from 'react'
 
-import { useViewport } from '~/atoms/hooks'
+import { useViewport } from '~/atoms/hooks/viewport'
 import { debounce } from '~/lib/lodash'
 
 import { useEventCallback } from '../common/use-event-callback'

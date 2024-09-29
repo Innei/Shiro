@@ -8,7 +8,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import type { FC } from 'react'
 import { useEffect, useMemo, useState } from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { PageLoading } from '~/components/layout/dashboard/PageLoading'
 import {
   PostEditorSidebar,

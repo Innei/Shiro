@@ -12,7 +12,7 @@ import {
   useState,
 } from 'react'
 
-import { getViewport } from '~/atoms/hooks'
+import { getViewport } from '~/atoms/hooks/viewport'
 import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
 import { useMaskScrollArea } from '~/hooks/shared/use-mask-scrollarea'
 import { stopPropagation } from '~/lib/dom'

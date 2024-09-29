@@ -4,7 +4,7 @@ import { AnimatePresence, m } from 'framer-motion'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 import { useState } from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { ImpressionView } from '~/components/common/ImpressionTracker'
 import { RiUserHeartLine } from '~/components/icons/user-heart'
 import { MotionButtonBase } from '~/components/ui/button'

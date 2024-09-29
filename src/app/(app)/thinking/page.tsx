@@ -11,7 +11,7 @@ import { stagger, useAnimate } from 'framer-motion'
 import { produce } from 'immer'
 import { useEffect, useState } from 'react'
 
-import { useIsLogged } from '~/atoms/hooks'
+import { useIsLogged } from '~/atoms/hooks/owner'
 import { TiltedSendIcon } from '~/components/icons/TiltedSendIcon'
 import { LoadMoreIndicator } from '~/components/modules/shared/LoadMoreIndicator'
 import { MotionButtonBase } from '~/components/ui/button'

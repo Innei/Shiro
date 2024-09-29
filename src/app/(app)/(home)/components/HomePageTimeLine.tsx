@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import { useEffect, useMemo, useRef } from 'react'
 
-import { useViewport } from '~/atoms/hooks'
+import { useViewport } from '~/atoms/hooks/viewport'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { apiClient } from '~/lib/request'
 import { routeBuilder, Routes } from '~/lib/route-builder'

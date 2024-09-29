@@ -1,6 +1,7 @@
 'use client'
 
-import { useIsLogged, useResolveAdminUrl } from '~/atoms/hooks'
+import { useIsLogged } from '~/atoms/hooks/owner'
+import { useResolveAdminUrl } from '~/atoms/hooks/url'
 import { clsxm } from '~/lib/helper'
 
 interface Props {

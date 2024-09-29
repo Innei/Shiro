@@ -3,7 +3,7 @@
 import type { FC } from 'react'
 import React from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 
 import { TocAside } from '../toc'
 import { ReadIndicator } from './ReadIndicator'

@@ -3,11 +3,8 @@
 import type { FC, PropsWithChildren } from 'react'
 import { createContext, useContext, useEffect, useMemo } from 'react'
 
-import {
-  useRemoveActivityPresenceBySessionId,
-  useSocketIsConnect,
-  useSocketSessionId,
-} from '~/atoms/hooks'
+import { useRemoveActivityPresenceBySessionId } from '~/atoms/hooks/activity'
+import { useSocketIsConnect, useSocketSessionId } from '~/atoms/hooks/socket'
 import { socketWorker } from '~/socket/worker-client'
 import { SocketEmitEnum } from '~/types/events'
 

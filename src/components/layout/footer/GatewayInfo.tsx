@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { sleep } from 'openai/core'
 
 import { useOnlineCount } from '~/atoms'
-import { useSocketIsConnect } from '~/atoms/hooks'
+import { useSocketIsConnect } from '~/atoms/hooks/socket'
 import { ImpressionView } from '~/components/common/ImpressionTracker'
 import { PeekLink } from '~/components/modules/peek/PeekLink'
 import { Divider } from '~/components/ui/divider'

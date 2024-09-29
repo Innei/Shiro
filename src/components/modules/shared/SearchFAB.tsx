@@ -16,7 +16,7 @@ import {
   useState,
 } from 'react'
 
-import { useIsLogged } from '~/atoms/hooks'
+import { useIsLogged } from '~/atoms/hooks/owner'
 import { EmptyIcon } from '~/components/icons/empty'
 import { MotionButtonBase } from '~/components/ui/button'
 import { FABPortable } from '~/components/ui/fab'

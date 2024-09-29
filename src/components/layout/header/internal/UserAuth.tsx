@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { Fragment } from 'react'
 
 import { getAdminUrl } from '~/atoms'
-import { useIsLogged } from '~/atoms/hooks'
+import { useIsLogged } from '~/atoms/hooks/owner'
 import { useSessionReader } from '~/atoms/hooks/reader'
 import { UserArrowLeftIcon } from '~/components/icons/user-arrow-left'
 import {

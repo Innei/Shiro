@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { RootPortal } from '~/components/ui/portal'
 import { clsxm } from '~/lib/helper'
 

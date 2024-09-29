@@ -3,7 +3,7 @@
 import clsx from 'clsx'
 import { cloneElement, isValidElement } from 'react'
 
-import { usePageScrollElement, useViewport } from '~/atoms/hooks'
+import { usePageScrollElement, useViewport } from '~/atoms/hooks/viewport'
 import { clsxm } from '~/lib/helper'
 import { usePageScrollLocationSelector } from '~/providers/root/page-scroll-info-provider'
 import { useIsEoFWrappedElement } from '~/providers/shared/WrappedElementProvider'

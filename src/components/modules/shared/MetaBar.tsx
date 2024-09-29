@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 
-import { useCurrentRoomCount } from '~/atoms/hooks'
+import { useCurrentRoomCount } from '~/atoms/hooks/activity'
 import { FloatPopover } from '~/components/ui/float-popover'
 
 import { useMaybeInRoomContext } from '../activity'

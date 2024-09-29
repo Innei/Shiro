@@ -21,7 +21,7 @@ import React, {
   useState,
 } from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { microReboundPreset } from '~/constants/spring'
 import useClickAway from '~/hooks/common/use-click-away'
 import { useEventCallback } from '~/hooks/common/use-event-callback'

@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import type { FC } from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { Avatar } from '~/components/ui/avatar'
 import { Divider } from '~/components/ui/divider'
 import { FloatPopover } from '~/components/ui/float-popover'

@@ -25,7 +25,7 @@ import {
 import { Blurhash } from 'react-blurhash'
 import { tv } from 'tailwind-variants'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { LazyLoad } from '~/components/common/Lazyload'
 import { useIsUnMounted } from '~/hooks/common/use-is-unmounted'
 import { isDev, isServerSide } from '~/lib/env'

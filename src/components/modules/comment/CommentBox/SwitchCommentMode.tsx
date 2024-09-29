@@ -2,7 +2,7 @@
 
 import clsx from 'clsx'
 
-import { useIsLogged } from '~/atoms/hooks'
+import { useIsLogged } from '~/atoms/hooks/owner'
 import { useSessionReader } from '~/atoms/hooks/reader'
 import { MotionButtonBase } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'

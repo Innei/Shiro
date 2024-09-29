@@ -7,7 +7,8 @@ import Markdown from 'markdown-to-jsx'
 import { memo, useMemo } from 'react'
 import Masonry from 'react-responsive-masonry'
 
-import { useIsLogged, useIsMobile } from '~/atoms/hooks'
+import { useIsLogged } from '~/atoms/hooks/owner'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { LoadMoreIndicator } from '~/components/modules/shared/LoadMoreIndicator'
 import { RelativeTime } from '~/components/ui/relative-time'
 import {

@@ -2,7 +2,7 @@
 
 import { m, useAnimationControls } from 'framer-motion'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { ThumbsupIcon } from '~/components/icons/thumbs-up'
 import { MotionButtonBase } from '~/components/ui/button'
 import { useModalStack } from '~/components/ui/modal'

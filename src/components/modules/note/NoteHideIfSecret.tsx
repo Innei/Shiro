@@ -3,7 +3,7 @@
 import dayjs from 'dayjs'
 import { useEffect, useMemo } from 'react'
 
-import { useIsLogged } from '~/atoms/hooks'
+import { useIsLogged } from '~/atoms/hooks/owner'
 import { toast } from '~/lib/toast'
 import { useCurrentNoteDataSelector } from '~/providers/note/CurrentNoteDataProvider'
 

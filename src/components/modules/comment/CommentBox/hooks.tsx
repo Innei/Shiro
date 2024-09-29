@@ -15,7 +15,7 @@ import { atomWithStorage, selectAtom } from 'jotai/utils'
 import type { PropsWithChildren } from 'react'
 import { useCallback, useContext } from 'react'
 
-import { useIsLogged } from '~/atoms/hooks'
+import { useIsLogged } from '~/atoms/hooks/owner'
 import { apiClient } from '~/lib/request'
 import { getErrorMessageFromRequestError } from '~/lib/request.shared'
 import { jotaiStore } from '~/lib/store'

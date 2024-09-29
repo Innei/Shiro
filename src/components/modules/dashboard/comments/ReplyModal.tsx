@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { atom, useStore } from 'jotai'
 import { useEffect, useState } from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { StyledButton } from '~/components/ui/button'
 import { TextArea } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'

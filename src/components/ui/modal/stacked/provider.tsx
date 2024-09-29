@@ -1,9 +1,9 @@
 import { AnimatePresence } from 'framer-motion'
 import { useAtomValue } from 'jotai'
 import type { FC, PropsWithChildren } from 'react'
-import { useCallback, useEffect, useId, useRef } from 'react'
+import { useCallback, useId, useRef } from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { jotaiStore } from '~/lib/store'
 
 import { MODAL_STACK_Z_INDEX } from './constants'

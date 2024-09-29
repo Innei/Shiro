@@ -12,7 +12,7 @@ import type {
 } from 'react'
 import { useId } from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { useTypeScriptHappyCallback } from '~/hooks/common/use-callback'
 import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'
