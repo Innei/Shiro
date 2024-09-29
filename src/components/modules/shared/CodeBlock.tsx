@@ -5,7 +5,11 @@ import { lazy, Suspense, useMemo, useState } from 'react'
 
 import { HighLighterPrismCdn } from '~/components/ui/code-highlighter'
 import { ShikiHighLighterWrapper } from '~/components/ui/code-highlighter/shiki/ShikiWrapper'
-import { parseShouldCollapsedFromAttrs } from '~/components/ui/code-highlighter/shiki/utils'
+import {
+  isRenderInShadowDOM,
+  parseShouldCollapsedFromAttrs,
+  shouldInjectHostStyles,
+} from '~/components/ui/code-highlighter/shiki/utils'
 import { ExcalidrawLoading } from '~/components/ui/excalidraw/ExcalidrawLoading'
 import { ReactComponentRender } from '~/components/ui/react-component-render'
 import { isClientSide } from '~/lib/env'
@@ -57,7 +61,11 @@ export const CodeBlockRender = (props: {
       case 'component': {
         return (
           <div className="not-prose my-4">
-            <ReactComponentRender dls={props.content} />
+            <ReactComponentRender
+              dls={props.content}
+              shadow={isRenderInShadowDOM(props.attrs || '')}
+              injectHostStyles={shouldInjectHostStyles(props.attrs || '')}
+            />
           </div>
         )
       }

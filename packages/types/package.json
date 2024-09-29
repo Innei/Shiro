@@ -1,0 +1,30 @@
+{
+  "name": "shiro-types",
+  "version": "1.0.1",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "scripts": {
+    "build": "tsup && cd ../.. && tailwindcss -i src/styles/index.css -o packages/types/dist/styles.css"
+  },
+  "devDependencies": {
+    "tsup": "8.3.0"
+  },
+  "bump": {
+    "before": [
+      "pnpm run build"
+    ],
+    "changelog": false,
+    "tag": false,
+    "publish": true,
+    "allowDirty": true,
+    "allowedBranches": [
+      "main",
+      "pro/dev"
+    ]
+  }
+}

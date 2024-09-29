@@ -1,4 +1,4 @@
-import type { Target } from 'framer-motion'
+import type { AnimationProps, Target } from 'framer-motion'
 
 import { microReboundPreset } from '~/constants/spring'
 
@@ -11,7 +11,7 @@ const initialStyle: Target = {
   opacity: 0,
 }
 
-export const modalMontionConfig = {
+export const modalMontionConfig: AnimationProps = {
   initial: initialStyle,
   animate: enterStyle,
   exit: initialStyle,

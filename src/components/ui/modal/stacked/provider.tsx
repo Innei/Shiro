@@ -1,6 +1,5 @@
 import { AnimatePresence } from 'framer-motion'
 import { useAtomValue } from 'jotai'
-import { usePathname } from 'next/navigation'
 import type { FC, PropsWithChildren } from 'react'
 import { useCallback, useEffect, useId, useRef } from 'react'
 
@@ -12,13 +11,6 @@ import { modalIdToPropsMap, modalStackAtom } from './context'
 import { ModalInternal } from './modal'
 import { ModalOverlay } from './overlay'
 import type { ModalProps } from './types'
-
-const useDismissAllWhenRouterChange = () => {
-  const pathname = usePathname()
-  useEffect(() => {
-    actions.dismissAll()
-  }, [pathname])
-}
 
 interface ModalStackOptions {
   wrapper?: FC
@@ -88,9 +80,6 @@ export const ModalStackProvider: FC<PropsWithChildren> = ({ children }) => (
 
 const ModalStack = () => {
   const stack = useAtomValue(modalStackAtom)
-
-  // Vite HMR issue
-  useDismissAllWhenRouterChange()
 
   const forceOverlay = stack.some((item) => item.overlay)
 

@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import Link from 'next/link'
 import type { FC, PropsWithChildren } from 'react'
 import { tv } from 'tailwind-variants'
 
@@ -26,13 +25,13 @@ const variantStyles = tv({
 type NativeButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   href?: string
 }
-type NativeLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>
+
 type SharedProps = {
   variant?: 'primary' | 'secondary'
   className?: string
   isLoading?: boolean
 }
-type ButtonProps = SharedProps & (NativeButtonProps | NativeLinkProps)
+type ButtonProps = SharedProps & NativeButtonProps
 
 export const StyledButton: FC<ButtonProps> = ({
   variant = 'primary',
@@ -45,24 +44,13 @@ export const StyledButton: FC<ButtonProps> = ({
   const Wrapper = isLoading ? LoadingButtonWrapper : 'div'
   return (
     <Wrapper>
-      {href ? (
-        <Link
-          href={href}
-          className={variantStyles({
-            variant,
-            className,
-          })}
-          {...(props as any)}
-        />
-      ) : (
-        <MotionButtonBase
-          className={variantStyles({
-            variant,
-            className,
-          })}
-          {...(props as any)}
-        />
-      )}
+      <MotionButtonBase
+        className={variantStyles({
+          variant,
+          className,
+        })}
+        {...(props as any)}
+      />
     </Wrapper>
   )
 }

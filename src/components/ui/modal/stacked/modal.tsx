@@ -1,4 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog'
+import type { AnimationDefinition } from 'framer-motion'
 import { m, useAnimationControls, useDragControls } from 'framer-motion'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { selectAtom } from 'jotai/utils'
@@ -105,7 +106,7 @@ export const ModalInternal: Component<{
   useEffect(() => {
     if (isMobile) return
     nextFrame(() => {
-      animateController.start(modalMontionConfig.animate)
+      animateController.start(modalMontionConfig.animate as AnimationDefinition)
     })
   }, [animateController, isMobile])
   const noticeModal = useCallback(() => {

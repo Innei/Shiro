@@ -278,6 +278,9 @@ importers:
       react-responsive-masonry:
         specifier: 2.3.0
         version: 2.3.0
+      react-shadow:
+        specifier: 20.5.0
+        version: 20.5.0(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-toastify:
         specifier: 10.0.5
         version: 10.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -3898,6 +3901,9 @@ packages:
   humanize-ms@1.2.1:
     resolution: {integrity: sha512-Fl70vYtsAFb/C06PTS9dZBo7ihau+Tu/DNCk/OyHhea07S+aeMWpFFkUaXRa8fI+ScZbEI8dfSxwY7gxZ9SAVQ==}
 
+  humps@2.0.1:
+    resolution: {integrity: sha512-E0eIbrFWUhwfXJmsbdjRQFQPrl5pTEoKlz163j1mTqqUnU9PgR4AgB8AIITzuB3vLBdxZXyZ9TDIrwB2OASz4g==}
+
   iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
@@ -5356,6 +5362,13 @@ packages:
 
   react-responsive-masonry@2.3.0:
     resolution: {integrity: sha512-ttb71B75qAfZ5q2CRLKRnCRO9V6p1Vkgw1C9wIeNaD2JpAxwCb1hUBI4Drqea9hNlvxxLpUkO0TRE5CLxqLY0A==}
+
+  react-shadow@20.5.0:
+    resolution: {integrity: sha512-DHukRfWpJrFtZMcZrKrqU3ZwuHjTpTbrjnJdTGZQE3lqtC5ivBDVWqAVVW6lR3Lq6bhphjAbqaJU8NOoTRSCsg==}
+    peerDependencies:
+      prop-types: ^15.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
 
   react-style-singleton@2.2.1:
     resolution: {integrity: sha512-ZWj0fHEMyWkHzKYUr2Bs/4zU6XLmq9HsgBURm7g5pAVfyn49DgUiNgY2d4lXRlYSiCif9YBGpQleewkcqddc7g==}
@@ -10420,6 +10433,8 @@ snapshots:
     dependencies:
       ms: 2.1.3
 
+  humps@2.0.1: {}
+
   iconv-lite@0.6.3:
     dependencies:
       safer-buffer: 2.1.2
@@ -12202,6 +12217,13 @@ snapshots:
       '@types/react': 18.3.10
 
   react-responsive-masonry@2.3.0: {}
+
+  react-shadow@20.5.0(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      humps: 2.0.1
+      prop-types: 15.8.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   react-style-singleton@2.2.1(@types/react@18.3.10)(react@18.3.1):
     dependencies:

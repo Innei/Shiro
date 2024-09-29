@@ -7,10 +7,22 @@ import { BlockLoading } from '~/components/modules/shared/BlockLoading'
 import { loadScript } from '~/lib/load-script'
 import { get } from '~/lib/lodash'
 
+import { ShadowDOM } from './ShadowDOM'
+
 const StyleContext = createContext<React.CSSProperties>({})
 
 export interface ReactComponentRenderProps {
   dls: string
+
+  /**
+   * use shadow dom to render the component
+   */
+  shadow?: boolean
+
+  /**
+   * inject host styles into the shadow dom
+   */
+  injectHostStyles?: boolean
 }
 
 /**
@@ -25,7 +37,7 @@ export interface ReactComponentRenderProps {
  *
  */
 export const ReactComponentRender: FC<ReactComponentRenderProps> = (props) => {
-  const { dls } = props
+  const { dls, shadow, injectHostStyles } = props
   const dlsProps = parseDlsContent(dls)
   const style: React.CSSProperties = useMemo(() => {
     if (!dlsProps.height) return {}
@@ -37,7 +49,11 @@ export const ReactComponentRender: FC<ReactComponentRenderProps> = (props) => {
   return (
     <ErrorBoundary fallback={<ComponentBlockError style={style} />}>
       <StyleContext.Provider value={style}>
-        <ReactComponentRenderImpl {...dlsProps} />
+        <ReactComponentRenderImpl
+          {...dlsProps}
+          injectHostStyles={injectHostStyles}
+          shadow={shadow}
+        />
       </StyleContext.Provider>
     </ErrorBoundary>
   )
@@ -56,12 +72,18 @@ const ReactComponentRenderImpl: FC<DlsProps> = (dlsProps) => {
       setComponent({ component: Component })
     })
   }, [dlsProps])
-
+  const { injectHostStyles = false, shadow = false } = dlsProps
   return (
     <ErrorBoundary fallback={<ComponentBlockError style={style} />}>
       <Suspense fallback={<ComponentBlockLoading style={style} />}>
         <div style={style} className="overflow-hidden">
-          <Component.component />
+          {shadow ? (
+            <ShadowDOM injectHostStyles={injectHostStyles}>
+              <Component.component />
+            </ShadowDOM>
+          ) : (
+            <Component.component />
+          )}
         </div>
       </Suspense>
     </ErrorBoundary>
@@ -85,7 +107,7 @@ type DlsProps = {
   name: string
   import: string
   height?: string
-}
+} & Pick<ReactComponentRenderProps, 'injectHostStyles' | 'shadow'>
 function parseDlsContent(dls: string) {
   const parsedProps = {} as DlsProps
   dls.split('\n').forEach((line) => {

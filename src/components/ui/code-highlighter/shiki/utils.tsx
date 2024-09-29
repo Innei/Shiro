@@ -20,3 +20,8 @@ export const isSupportedShikiLang = (lang: string) =>
   // @see https://github.com/vercel/next.js/issues/64434
   // return  shikiSupportLangSet.has(lang)
   true
+
+export const isRenderInShadowDOM = (attrs: string) => attrs.includes('shadow')
+
+export const shouldInjectHostStyles = (attrs: string) =>
+  attrs.includes('with-styles')
