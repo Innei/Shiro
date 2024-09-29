@@ -1,13 +1,13 @@
 {
   "name": "shiro-types",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "exports": {
     ".": {
       "import": "./dist/index.mjs"
     },
     "./styles": "./dist/styles.css",
-    "./types": {
-      "import": "./dist/index.d.mts"
+    "./sandbox": {
+      "import": "./dist/sandbox.mjs"
     }
   },
   "main": "./dist/index.mjs",
