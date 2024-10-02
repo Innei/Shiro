@@ -14,8 +14,5 @@
   "types": "./dist/index.d.mts",
   "scripts": {
     "build": "tsup && cd ../.. && tailwindcss -i src/styles/index.css -o packages/types/dist/styles.css"
-  },
-  "devDependencies": {
-    "tsup": "8.3.0"
   }
 }
