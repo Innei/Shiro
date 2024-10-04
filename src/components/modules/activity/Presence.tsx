@@ -255,20 +255,22 @@ export const DisplayNameHelper = ({ displayName }: { displayName: string }) => {
   if (displayName) return null
 
   return (
-    <MotionButtonBase
-      onClick={() => {
-        present({
-          title: '告诉我你的名字吧',
-          content: NameModalContent,
-        })
-      }}
-      className={clsx(
-        'border-border center fixed bottom-5 left-5 z-10 flex size-5 rounded-full border bg-base-100/80 text-2xl backdrop-blur',
-        'animation-wave',
-      )}
-    >
-      👋🏻
-    </MotionButtonBase>
+    <RootPortal>
+      <MotionButtonBase
+        onClick={() => {
+          present({
+            title: '告诉我你的名字吧',
+            content: NameModalContent,
+          })
+        }}
+        className={clsx(
+          'border-border center fixed bottom-5 left-5 z-10 flex size-5 rounded-full border bg-base-100/80 text-2xl',
+          'animation-wave',
+        )}
+      >
+        👋🏻
+      </MotionButtonBase>
+    </RootPortal>
   )
 }
 
