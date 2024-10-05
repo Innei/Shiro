@@ -135,7 +135,7 @@ const Item = memo<{
               'center flex size-6 rounded-full text-accent opacity-0 ring-1 ring-slate-200 duration-200 group-hover:opacity-100 dark:ring-neutral-800',
             )}
           >
-            <i className="icon-[mingcute--quill-pen-line]" />
+            <i className="i-mingcute-quill-pen-line" />
             <span className="sr-only">编辑</span>
           </button>
         )}

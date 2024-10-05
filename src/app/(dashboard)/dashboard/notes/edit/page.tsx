@@ -142,8 +142,8 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
           Object.assign(draft, nextData)
           const { meta } = data
 
-          if (data.text) {
-            editorRef?.setMarkdown(data.text)
+          if (data.text && editorRef) {
+            editorRef.value = data.text
           }
 
           if (meta) {

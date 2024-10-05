@@ -102,7 +102,7 @@ const MobileMenuDrawerButton = () => {
           setIsDrawerOpen(!isDrawerOpen)
         }}
       >
-        <i className="icon-[mingcute--menu-line]" />
+        <i className="i-mingcute-menu-line" />
       </MotionButtonBase>
     </PresentSheet>
   )

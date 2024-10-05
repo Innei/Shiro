@@ -78,7 +78,7 @@ export const OwnerStatus = () => {
       )}
     >
       {isLogged && mouseEnter ? (
-        <i className="icon-[mingcute--emoji-line]" />
+        <i className="i-mingcute-emoji-line" />
       ) : (
         ownerStatus?.emoji
       )}
@@ -228,7 +228,7 @@ const SettingStatusModalContent = () => {
               role="button"
               className="center absolute right-2 top-3 flex"
             >
-              <i className="icon-[mingcute--emoji-line]" />
+              <i className="i-mingcute-emoji-line" />
               <span className="sr-only">表情</span>
             </div>
           }

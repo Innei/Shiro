@@ -233,7 +233,7 @@ const ExcalidrawImpl = forwardRef<InternelExcalidrawRefObject, ExcalidrawProps>(
               'dark:border-neutral-800 dark:text-zinc-500',
             )}
           >
-            <i className="icon-[mingcute--external-link-line]" />
+            <i className="i-mingcute-external-link-line" />
           </MotionButtonBase>
         )}
       </div>

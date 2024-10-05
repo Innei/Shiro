@@ -38,7 +38,7 @@ export default function Page() {
             className="center flex size-8 select-none text-[#EE802F]"
             rel="noreferrer"
           >
-            <i className="icon-[mingcute--rss-fill]" />
+            <i className="i-mingcute-rss-fill" />
           </a>
         </h1>
         <h3>谢谢你听我诉说</h3>

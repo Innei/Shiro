@@ -47,7 +47,7 @@ export const XLogSummaryAsync = async (
       )}
     >
       <div className="flex items-center">
-        <i className="icon-[mingcute--sparkles-line] mr-2 text-lg" />
+        <i className="i-mingcute-sparkles-line mr-2 text-lg" />
         AI 生成的摘要
       </div>
 

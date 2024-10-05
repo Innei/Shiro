@@ -55,7 +55,7 @@ export const ComposedKBarProvider: FC<PropsWithChildren> = ({ children }) => {
 
       <KBarPortal>
         <KBarPositioner>
-          <KBarAnimator className="shadow-base w-full max-w-[600px] overflow-hidden rounded-lg bg-base-100/60 text-base-content shadow-xl backdrop-blur-md">
+          <KBarAnimator className="w-full max-w-[600px] overflow-hidden rounded-lg bg-base-100/60 text-base-content shadow-xl backdrop-blur-md">
             <KBarSearch className="w-full border-none bg-base-200/30 p-3 text-lg text-base-content outline-none backdrop-blur-md" />
             <RenderResults />
           </KBarAnimator>

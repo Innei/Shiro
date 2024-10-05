@@ -27,7 +27,7 @@ export const AsideCommentButton = (
         })
       }}
     >
-      <ActionAsideIcon className="icon-[mingcute--comment-line] hover:text-uk-pink-dark" />
+      <ActionAsideIcon className="i-mingcute-comment-line hover:text-uk-pink-dark" />
     </MotionButtonBase>
   )
 }

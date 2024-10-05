@@ -87,7 +87,7 @@ export const KaomojiPanel: FC<
 
   const KaomojiButton = children ?? (
     <MotionButtonBase>
-      <i className="icon-[mingcute--emoji-line]" />
+      <i className="i-mingcute-emoji-line" />
     </MotionButtonBase>
   )
 

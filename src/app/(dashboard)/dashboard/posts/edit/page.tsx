@@ -138,7 +138,7 @@ const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => {
           const { meta } = data
 
           if (data.text) {
-            editorRef?.setMarkdown(data.text)
+            editorRef!.value = data.text
           }
 
           if (meta) {

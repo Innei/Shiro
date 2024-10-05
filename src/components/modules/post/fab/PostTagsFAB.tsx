@@ -27,7 +27,7 @@ export const PostTagsFAB = () => {
         })
       }}
     >
-      <i className="icon-[mingcute--hashtag-line]" />
+      <i className="i-mingcute-hashtag-line" />
     </FABPortable>
   )
 }
@@ -52,7 +52,7 @@ const TagsModal = () => {
               aria-label={`Go to ${tag.name} tag detail`}
               rel="noreferrer"
             >
-              <i className="icon-[mingcute--arrow-right-up-line] translate-y-[2px] opacity-70" />
+              <i className="i-mingcute-arrow-right-up-line translate-y-[2px] opacity-70" />
             </a>
           </div>
         ),

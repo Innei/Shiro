@@ -114,9 +114,7 @@ export function UserAuth() {
                     onClick={() => {
                       window.open('/dashboard', '_blank')
                     }}
-                    icon={
-                      <i className="icon-[mingcute--dashboard-3-line] size-4" />
-                    }
+                    icon={<i className="i-mingcute-dashboard-3-line size-4" />}
                   >
                     轻管理
                   </DropdownMenuItem>
@@ -127,9 +125,7 @@ export function UserAuth() {
                         window.open(adminUrl, '_blank')
                       }
                     }}
-                    icon={
-                      <i className="icon-[mingcute--dashboard-2-line] size-4" />
-                    }
+                    icon={<i className="i-mingcute-dashboard-2-line size-4" />}
                   >
                     控制台
                   </DropdownMenuItem>
@@ -144,7 +140,7 @@ export function UserAuth() {
                   ])
                   removeToken()
                 }}
-                icon={<i className="icon-[mingcute--exit-line] size-4" />}
+                icon={<i className="i-mingcute-exit-line size-4" />}
               >
                 登出
               </DropdownMenuItem>

@@ -8,13 +8,11 @@ import type { TypeOptions } from 'react-toastify'
 import { MotionButtonBase } from '../../ui/button'
 
 const typeMap: Record<TypeOptions, JSX.Element> = {
-  success: <i className="icon-[mingcute--check-fill] text-uk-green-light" />,
-  error: <i className="icon-[mingcute--close-fill] text-uk-red-light" />,
-  info: <i className="icon-[mingcute--information-fill] text-uk-blue-light" />,
-  warning: <i className="icon-[mingcute--alert-fill] text-uk-orange-light" />,
-  default: (
-    <i className="icon-[mingcute--information-fill] text-uk-blue-light" />
-  ),
+  success: <i className="i-mingcute-check-fill text-uk-green-light" />,
+  error: <i className="i-mingcute-close-fill text-uk-red-light" />,
+  info: <i className="i-mingcute-information-fill text-uk-blue-light" />,
+  warning: <i className="i-mingcute-alert-fill text-uk-orange-light" />,
+  default: <i className="i-mingcute-information-fill text-uk-blue-light" />,
 }
 
 export const ToastCard: FC<{
@@ -57,7 +55,7 @@ export const ToastCard: FC<{
           closeToast?.()
         }}
       >
-        <i className="icon-[mingcute--close-fill] p-2" />
+        <i className="i-mingcute-close-fill p-2" />
       </MotionButtonBase>
     </MotionTag>
   )

@@ -138,7 +138,7 @@ export const Windsock = () => {
             toast('谢谢你！', undefined, {
               iconElement: (
                 <m.i
-                  className="icon-[mingcute--heart-fill] text-uk-red-light"
+                  className="i-mingcute-heart-fill text-uk-red-light"
                   initial={{
                     scale: 0.96,
                   }}
@@ -156,7 +156,7 @@ export const Windsock = () => {
             })
           }}
         >
-          喜欢本站 <i className="icon-[mingcute--heart-fill]" />{' '}
+          喜欢本站 <i className="i-mingcute-heart-fill" />{' '}
           <NumberSmoothTransition>
             {count as any as string}
           </NumberSmoothTransition>
@@ -169,7 +169,7 @@ export const Windsock = () => {
           }}
         >
           订阅
-          <i className="icon-[material-symbols--notifications-active]" />
+          <i className="i-material-symbols-notifications-active" />
         </StyledButton>
       </div>
     </>

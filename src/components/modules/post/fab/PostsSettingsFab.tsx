@@ -135,7 +135,7 @@ export const PostsSettingFab = () => {
       placement="left-end"
       triggerElement={
         <FABPortable onClick={Noop}>
-          <i className="icon-[mingcute--settings-5-line]" />
+          <i className="i-mingcute-settings-5-line" />
         </FABPortable>
       }
     >

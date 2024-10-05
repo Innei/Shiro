@@ -1,3 +1,3 @@
 export function ThumbsupIcon() {
-  return <i className="icon-[mingcute--thumb-up-line]" />
+  return <i className="i-mingcute-thumb-up-line" />
 }

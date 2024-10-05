@@ -22,7 +22,7 @@ export default function Page() {
         onClick={() => present()}
         className="center ml-auto flex duration-200"
       >
-        <i className="icon-[mingcute--add-circle-line]" />
+        <i className="i-mingcute-add-circle-line" />
         新建
       </StyledButton>
 

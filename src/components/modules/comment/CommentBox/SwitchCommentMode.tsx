@@ -26,8 +26,8 @@ const SwitchCommentModeButton = () => {
       <i
         className={clsx(
           mode === CommentBoxMode.legacy
-            ? 'icon-[mingcute--user-4-line]'
-            : 'icon-[material-symbols--dynamic-form-outline]',
+            ? 'i-mingcute-user-4-line'
+            : 'i-material-symbols-dynamic-form-outline',
         )}
       />
       <span className="sr-only">{copy}</span>

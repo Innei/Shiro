@@ -8,13 +8,13 @@ export const ThemeToggle = () => {
   const currentThemeIcon = useMemo(() => {
     switch (theme) {
       case 'light': {
-        return <i className="icon-[mingcute--sun-line]" />
+        return <i className="i-mingcute-sun-line" />
       }
       case 'dark': {
-        return <i className="icon-[mingcute--moon-line]" />
+        return <i className="i-mingcute-moon-line" />
       }
       default: {
-        return <i className="icon-[mingcute--computer-line]" />
+        return <i className="i-mingcute-computer-line" />
       }
     }
   }, [theme])

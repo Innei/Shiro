@@ -48,7 +48,7 @@ export const TocFAB = () => {
 
   return (
     <FABPortable aria-label="Show ToC" onClick={presentToc}>
-      <i className="icon-[mingcute--list-expansion-line]" />
+      <i className="i-mingcute-list-expansion-line" />
     </FABPortable>
   )
 }

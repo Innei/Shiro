@@ -296,7 +296,7 @@ const ColorPicker: FC<{
   return (
     <MotionButtonBase
       id="color-picker"
-      className="ring-default-200 size-6 rounded-full bg-current ring"
+      className="size-6 rounded-full bg-current ring"
       style={{
         backgroundColor: currentColor || '',
       }}

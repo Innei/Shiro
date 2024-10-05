@@ -56,7 +56,7 @@ export const CommentActionButtonGroup: FC<{
             setEditFormOpen((s) => !s)
           }}
         >
-          <i className="icon-[mingcute--edit-2-line]" />
+          <i className="i-mingcute-edit-2-line" />
         </button>
       )}
       {isButtonGroup && (
@@ -81,7 +81,7 @@ export const CommentActionButtonGroup: FC<{
           setReplyFormOpen((o) => !o)
         }}
       >
-        <i className="icon-[mingcute--comment-line]" />
+        <i className="i-mingcute-comment-line" />
       </button>
       <CommentBoxHolderPortal>
         <CommentIsReplyProvider
@@ -153,7 +153,7 @@ const EditCommentForm: FC<{
               onCompleted()
             }}
           >
-            <i className="icon-[mingcute--close-line]" />
+            <i className="i-mingcute-close-line" />
             <span className="text-sm">取消</span>
           </m.button>
           <SaveButton

@@ -13,7 +13,7 @@ export const CreateSayButton: Component = ({ className }) => {
         className,
       )}
     >
-      <i className="icon-[mingcute--add-circle-line]" />
+      <i className="i-mingcute-add-circle-line" />
     </MotionButtonBase>
   )
 }

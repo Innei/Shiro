@@ -29,7 +29,7 @@ export default function Page() {
           className="center flex size-8 text-[#EE802F]"
           rel="noreferrer"
         >
-          <i className="icon-[mingcute--rss-fill]" />
+          <i className="i-mingcute-rss-fill" />
         </a>
         {isLogged && <CreateSayButton />}
       </header>

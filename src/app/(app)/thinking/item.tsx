@@ -131,7 +131,7 @@ export const ThinkingItem: FC<{
               })
             }}
           >
-            <i className="icon-[mingcute--comment-line]" />
+            <i className="i-mingcute-comment-line" />
 
             <span className="sr-only">评论</span>
             <span>
@@ -145,7 +145,7 @@ export const ThinkingItem: FC<{
               handleUp(item.id)
             }}
           >
-            <i className="icon-[mingcute--heart-line]" />
+            <i className="i-mingcute-heart-line" />
             <span className="sr-only">喜欢</span>
             <span>{item.up}</span>
           </button>
@@ -155,7 +155,7 @@ export const ThinkingItem: FC<{
               handleDown(item.id)
             }}
           >
-            <i className="icon-[mingcute--heart-crack-line]" />
+            <i className="i-mingcute-heart-crack-line" />
             <span className="sr-only">不喜欢</span>
             <span>{item.down}</span>
           </button>
@@ -182,7 +182,7 @@ const RefPreview: FC<{ refModel: any }> = (props) => {
     <>
       <Divider className="my-4 w-12 bg-current opacity-50" />
       <p className="flex items-center space-x-2 opacity-80">
-        发表于： <i className="icon-[mingcute--link-3-line]" />
+        发表于： <i className="i-mingcute-link-3-line" />
         <PeekLink href={url} className="shiro-link--underline">
           {title}
         </PeekLink>
@@ -248,7 +248,7 @@ const DeleteButton = (props: { id: string }) => {
         })
       }}
     >
-      <i className="icon-[mingcute--delete-line]" />
+      <i className="i-mingcute-delete-line" />
       <span className="sr-only">删除</span>
     </button>
   )

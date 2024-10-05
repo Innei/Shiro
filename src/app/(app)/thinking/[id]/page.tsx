@@ -27,7 +27,7 @@ export default async function Page({
             className="center flex size-8 select-none text-[#EE802F]"
             rel="noreferrer"
           >
-            <i className="icon-[mingcute--rss-fill]" />
+            <i className="i-mingcute-rss-fill" />
           </a>
         </h1>
         <h3>谢谢你听我诉说</h3>
@@ -40,7 +40,7 @@ export default async function Page({
             className="flex items-center gap-2"
             data-event="Say back click"
           >
-            <i className="icon-[mingcute--arrow-left-circle-line]" />
+            <i className="i-mingcute-arrow-left-circle-line" />
             返回
           </Link>
         </MotionButtonBase>

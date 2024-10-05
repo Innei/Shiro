@@ -156,7 +156,7 @@ export const ShikiHighLighter: DocumentComponent = () => {
                 'opacity-0 group-hover:opacity-60',
               )}
             >
-              <i className="icon-[mingcute--copy-2-fill] h-4 w-4" />
+              <i className="i-mingcute-copy-2-fill h-4 w-4" />
             </MotionButtonBase>
             <div
               ref={setCodeBlockRef}
@@ -186,7 +186,7 @@ export const ShikiHighLighter: DocumentComponent = () => {
                   aria-hidden
                   className="flex items-center justify-center text-xs"
                 >
-                  <i className="icon-[mingcute--arrow-to-down-line]" />
+                  <i className="i-mingcute-arrow-to-down-line" />
                   <span className="ml-2">展开</span>
                 </button>
               </div>

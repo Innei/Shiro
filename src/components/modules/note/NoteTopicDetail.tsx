@@ -48,7 +48,7 @@ export const NoteTopicDetail: FC<{ topic: TopicModel }> = (props) => {
           {topic.name}
         </h1>
         {isMobile && (
-          <i className="icon-[mingcute--arrow-right-up-line] ml-2 translate-y-[2px] opacity-70" />
+          <i className="i-mingcute-arrow-right-up-line ml-2 translate-y-[2px] opacity-70" />
         )}
       </Link>
 
@@ -58,7 +58,7 @@ export const NoteTopicDetail: FC<{ topic: TopicModel }> = (props) => {
       {topic.description && (
         <>
           <Divider />
-          <div className="text-gray-1 leading-8">
+          <div className="leading-8 opacity-90">
             <NoteTopicMarkdownRender>
               {topic.description}
             </NoteTopicMarkdownRender>

@@ -122,7 +122,7 @@ export const Hero = () => {
         >
           <FootHitokoto />
           <span className="mt-8 animate-bounce">
-            <i className="icon-[mingcute--right-line] rotate-90 text-2xl" />
+            <i className="i-mingcute-right-line rotate-90 text-2xl" />
           </span>
         </m.div>
       </TwoColumnLayout>
@@ -199,7 +199,7 @@ const RemoteHitokoto = () => {
         disabled={isRefetching}
         onClick={() => refetch()}
       >
-        <i className="icon-[mingcute--refresh-2-line]" />
+        <i className="i-mingcute-refresh-2-line" />
       </MotionButtonBase>
     </m.small>
   )

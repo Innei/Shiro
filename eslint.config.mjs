@@ -51,6 +51,7 @@ export default defineConfig(
       'unicorn/no-anonymous-default-export': 0,
       'unicorn/no-magic-array-flat-depth': 1,
       'react-refresh/only-export-components': 0,
+      '@eslint-react/no-clone-element': 0,
     },
   },
 
