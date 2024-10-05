@@ -5,9 +5,13 @@ import { useDeferredValue } from 'react'
 import { useInView } from 'react-intersection-observer'
 
 import { useIsMobile } from '~/atoms/hooks/viewport'
-import { MaterialSymbolsProgressActivity } from '~/components/icons/Progress'
+import {
+  CircleProgress,
+  MaterialSymbolsProgressActivity,
+} from '~/components/icons/Progress'
 import { MotionButtonBase } from '~/components/ui/button'
 import { RootPortal } from '~/components/ui/portal'
+import { IconTransition } from '~/components/ui/transition'
 import { useReadPercent } from '~/hooks/shared/use-read-percent'
 import { clsxm } from '~/lib/helper'
 import { springScrollToTop } from '~/lib/scroller'
@@ -27,7 +31,13 @@ export const ReadIndicator: Component<{
       ref={ref}
     >
       <div className="flex items-center gap-2">
-        <MaterialSymbolsProgressActivity />
+        <IconTransition
+          solidIcon={<MaterialSymbolsProgressActivity />}
+          regularIcon={
+            <CircleProgress percent={readPercent} size={14} strokeWidth={2} />
+          }
+          currentState={readPercent !== 0 ? 'regular' : 'solid'}
+        />
         {readPercent}%<br />
       </div>
       <MotionButtonBase

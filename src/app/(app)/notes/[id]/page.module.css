@@ -17,13 +17,6 @@
     ul span,
     .paragraph span {
       border-bottom: 1px solid;
-
-      /* @apply border-accent/20 dark:border-accent/20; */
-      @apply border-accent/10;
-
-      @media print {
-        @apply border-none;
-      }
     }
 
     blockquote:not(:where([class~='not-prose'], [class~='not-prose'] *)) {

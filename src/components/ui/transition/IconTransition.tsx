@@ -12,23 +12,26 @@ interface IconTransitionProps {
   currentState: 'solid' | 'regular'
 }
 export const IconTransition: FC<IconTransitionProps> = (props) => {
-  const { currentState, regularIcon, solidIcon } = props
+  const { currentState: _currentState, regularIcon, solidIcon } = props
 
   const map = {
     solid: solidIcon,
     regular: regularIcon,
   }
-  const [currentIcon, setCurrentIcon] = useState(map[currentState])
+
+  const [currentState, setCurrentState] = useState<'solid' | 'regular'>(
+    _currentState,
+  )
   const controls = useAnimationControls()
 
   useEffect(() => {
     controls.start({ opacity: 0.001 }).then(() => {
-      setCurrentIcon(map[currentState])
+      setCurrentState(_currentState)
       requestAnimationFrame(() => {
         controls.start({ opacity: 1 })
       })
     })
-  }, [currentState])
+  }, [_currentState])
 
   return (
     <FadeInOutTransitionView
@@ -37,7 +40,7 @@ export const IconTransition: FC<IconTransitionProps> = (props) => {
       transition={{ duration: 0.2 }}
       key={currentState}
     >
-      {currentIcon}
+      {map[currentState]}
     </FadeInOutTransitionView>
   )
 }
