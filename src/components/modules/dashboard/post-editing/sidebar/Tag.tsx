@@ -62,7 +62,7 @@ export const AddTag: Component<TagCompletionProp> = ({ ...props }) => {
           setIsEditing(true)
         }}
       >
-        <i className="icon-[mingcute--add-line] size-3" />
+        <i className="i-mingcute-add-line size-3" />
       </div>
       {isEditing && <TagCompletion {...props} />}
     </TagEditingContext.Provider>

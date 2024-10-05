@@ -61,7 +61,7 @@ const SubscribeButton = () => {
   const { present } = usePresentSubscribeModal(['post_c'])
   return (
     <MotionButtonBase className="flex flex-col space-y-2" onClick={present}>
-      <ActionAsideIcon className="icon-[material-symbols--notifications-active-outline] hover:text-accent" />
+      <ActionAsideIcon className="i-material-symbols-notifications-active-outline hover:text-accent" />
     </MotionButtonBase>
   )
 }
@@ -199,7 +199,7 @@ const ShareButton = () => {
         }
       }}
     >
-      <ActionAsideIcon className="icon-[mingcute--share-forward-line] hover:text-uk-cyan-light" />
+      <ActionAsideIcon className="i-mingcute-share-forward-line hover:text-uk-cyan-light" />
     </MotionButtonBase>
   )
 }

@@ -54,7 +54,7 @@ export const NoteTimelineItem = memo<{
           as="span"
           className="inline-flex items-center"
         >
-          <i className="icon-[material-symbols--arrow-circle-right-outline-rounded] duration-200" />
+          <i className="i-material-symbols-arrow-circle-right-outline-rounded duration-200" />
         </LeftToRightTransitionView>
       )}
       <Link

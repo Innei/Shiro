@@ -20,9 +20,7 @@ const Help = () => {
     <FloatPopover
       mobileAsSheet
       as="span"
-      triggerElement={
-        <i className="icon-[mingcute--question-line] cursor-help" />
-      }
+      triggerElement={<i className="i-mingcute-question-line cursor-help" />}
       type="tooltip"
       asChild
       sheet={{
@@ -31,7 +29,7 @@ const Help = () => {
     >
       <div className="space-y-2 leading-relaxed">
         <p className="flex items-center space-x-1 opacity-80">
-          <i className="icon-[mingcute--question-line]" />
+          <i className="i-mingcute-question-line" />
           <span className="font-medium">这是如何实现的？</span>
         </p>
         <p>
@@ -165,7 +163,7 @@ const RoomsInfo = () => {
 
   if (!data)
     return (
-      <div className="flex size-6 center">
+      <div className="center flex size-6">
         <div className="loading loading-spinner" />
       </div>
     )
@@ -182,8 +180,7 @@ const RoomsInfo = () => {
             </PeekLink>
             {!!room.count && (
               <span className="ml-5 inline-flex items-center text-sm text-gray-500">
-                <i className="icon-[mingcute--user-visible-line]" />{' '}
-                {room.count}
+                <i className="i-mingcute-user-visible-line" /> {room.count}
               </span>
             )}
           </li>

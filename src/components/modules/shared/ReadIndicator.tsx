@@ -37,7 +37,7 @@ export const ReadIndicator: Component<{
           readPercent > 10 ? '' : 'pointer-events-none opacity-0',
         )}
       >
-        <i className="icon-[mingcute--arrow-up-circle-line]" />
+        <i className="i-mingcute-arrow-up-circle-line" />
         <span className="whitespace-nowrap">回到顶部</span>
       </MotionButtonBase>
       {!inView && <ReadIndicatorVertical className="right-px" />}

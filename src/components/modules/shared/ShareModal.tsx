@@ -35,7 +35,7 @@ const shareList = [
 
   {
     name: '复制链接',
-    icon: <i className="icon-[mingcute--copy-fill]" />,
+    icon: <i className="i-mingcute-copy-fill" />,
     onClick: (data: ShareData) => {
       navigator.clipboard.writeText(data.url)
       toast('已复制到剪贴板')

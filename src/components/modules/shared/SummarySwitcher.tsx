@@ -63,7 +63,7 @@ const ManualSummary: Component<{
       )}
     >
       <div className="flex items-center">
-        <i className="icon-[mingcute--sparkles-line] mr-2 text-lg" />
+        <i className="i-mingcute-sparkles-line mr-2 text-lg" />
         摘要
       </div>
       <div className="!m-0 text-sm leading-loose text-base-content/85">

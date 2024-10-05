@@ -1,10 +1,10 @@
-import { addDynamicIconSelectors } from '@iconify/tailwind'
+import './plugins/tw-css-plugin'
+
+import { getIconCollections, iconsPlugin } from '@egoist/tailwindcss-icons'
 import typography from '@tailwindcss/typography'
 import daisyui from 'daisyui'
 import { withTV } from 'tailwind-variants/transformer'
 import type { Config } from 'tailwindcss'
-
-require('./cssAsPlugin')
 
 const UIKitColors = {
   red: {
@@ -238,11 +238,8 @@ const twConfig: Config = {
           'color-scheme': 'light',
           // 浅葱
           primary: '#33A6B8',
-
           secondary: '#A8D8B9',
-
           accent: '#33A6B8',
-
           'accent-content': '#fafafa',
 
           neutral: UIKitColors.grey3.light,
@@ -289,7 +286,11 @@ const twConfig: Config = {
   },
 
   plugins: [
-    addDynamicIconSelectors(),
+    iconsPlugin({
+      collections: {
+        ...getIconCollections(['mingcute', 'material-symbols']),
+      },
+    }),
 
     typography,
     daisyui,

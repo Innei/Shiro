@@ -40,7 +40,7 @@ export const Hitokoto = () => {
       <span className="leading-normal">{hitokoto}</span>
       <div className="ml-0 flex items-center space-x-2">
         <MotionButtonBase onClick={() => refetch()}>
-          <i className="icon-[mingcute--refresh-2-line]" />
+          <i className="i-mingcute-refresh-2-line" />
         </MotionButtonBase>
 
         <MotionButtonBase
@@ -50,7 +50,7 @@ export const Hitokoto = () => {
             toast.info(hitokoto)
           }}
         >
-          <i className="icon-[mingcute--copy-line]" />
+          <i className="i-mingcute-copy-line" />
         </MotionButtonBase>
       </div>
     </div>

@@ -10,7 +10,7 @@ export const PresentComponentFab: FC<{
   return (
     <PresentSheet content={Component}>
       <FABPortable onlyShowInMobile onClick={Noop}>
-        <i className="icon-[mingcute--settings-6-line]" />
+        <i className="i-mingcute-settings-6-line" />
       </FABPortable>
     </PresentSheet>
   )

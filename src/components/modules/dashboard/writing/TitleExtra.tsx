@@ -20,7 +20,7 @@ export const TitleExtra = <T extends RequiredField & OptionalField>(props: {
   return (
     <div className={clsxm('relative flex w-[300px] items-center', className)}>
       <div className="relative flex w-0 min-w-0 grow flex-row items-center space-x-2 [&_i]:opacity-60 [&_svg]:opacity-60">
-        {pin && <i className="icon-[mingcute--pin-line] !text-warning" />}
+        {pin && <i className="i-mingcute-pin-line !text-warning" />}
         <div className="relative flex min-w-0 shrink items-center">
           <EllipsisHorizontalTextWithTooltip wrapperClassName="inline-block !w-auto max-w-full">
             {title}
@@ -39,7 +39,7 @@ export const TitleExtra = <T extends RequiredField & OptionalField>(props: {
                 window.open(url?.data, '_blank')
               }}
             >
-              <i className="icon-[mingcute--arrow-right-up-line]" />
+              <i className="i-mingcute-arrow-right-up-line" />
             </MotionButtonBase>
           </div>
         </div>

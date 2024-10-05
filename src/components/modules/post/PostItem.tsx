@@ -55,7 +55,7 @@ export const PostItem = memo<{ data: PostModel }>(function PostItem({ data }) {
         <PostMetaBar meta={data} />
         <span className="flex shrink-0 select-none items-center space-x-1 text-right text-accent hover:text-accent [&>svg]:hover:ml-2">
           <span>阅读全文</span>
-          <i className="icon-[mingcute--arrow-right-line] text-lg transition-[margin]" />
+          <i className="i-mingcute-arrow-right-line text-lg transition-[margin]" />
         </span>
       </div>
     </Link>

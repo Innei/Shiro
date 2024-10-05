@@ -53,16 +53,16 @@ export const Select = function Select<T>(
         <SelectImpl.Value placeholder={placeholder} />
         <SelectImpl.Icon className="flex items-center">
           {isLoading ? (
-            <i className="icon-[mingcute--loading-line] animate-spin" />
+            <i className="i-mingcute-loading-line animate-spin" />
           ) : (
-            <i className="icon-[mingcute--down-line]" />
+            <i className="i-mingcute-down-line" />
           )}
         </SelectImpl.Icon>
       </SelectImpl.Trigger>
       <SelectImpl.Portal>
         <SelectImpl.Content className="z-[990] rounded-lg border border-zinc-200 bg-zinc-50/80 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/60">
           <SelectImpl.ScrollUpButton className="flex h-3 items-center justify-center">
-            <i className="icon-[mingcute--up-line]" />
+            <i className="i-mingcute-up-line" />
           </SelectImpl.ScrollUpButton>
           <SelectImpl.Viewport>
             {values.map((item) => (
@@ -77,7 +77,7 @@ export const Select = function Select<T>(
             ))}
           </SelectImpl.Viewport>
           <SelectImpl.ScrollDownButton className="flex h-3 items-center justify-center">
-            <i className="icon-[mingcute--down-line]" />
+            <i className="i-mingcute-down-line" />
           </SelectImpl.ScrollDownButton>
         </SelectImpl.Content>
       </SelectImpl.Portal>
@@ -102,7 +102,7 @@ const SelectItem = React.forwardRef<
       </SelectImpl.ItemText>
 
       <SelectImpl.ItemIndicator className="shrink-0">
-        <i className="icon-[mingcute--check-line]" />
+        <i className="i-mingcute-check-line" />
       </SelectImpl.ItemIndicator>
     </SelectImpl.Item>
   )

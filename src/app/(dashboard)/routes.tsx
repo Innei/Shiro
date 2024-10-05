@@ -22,47 +22,47 @@ export const dashboardRoutes = {
   children: [
     {
       title: '仪表盘',
-      icon: <i className="icon-[mingcute--dashboard-line]" />,
+      icon: <i className="i-mingcute-dashboard-line" />,
 
       path: '',
     },
     {
       title: '文稿',
-      icon: <i className="icon-[mingcute--code-line]" />,
+      icon: <i className="i-mingcute-code-line" />,
       redirect: '/dashboard/posts/list',
       path: '/posts',
       children: [
         {
           title: '列表',
-          icon: <i className="icon-[mingcute--table-2-line]" />,
+          icon: <i className="i-mingcute-table-2-line" />,
           path: '/list',
         },
         {
           title: '编辑',
-          icon: <i className="icon-[mingcute--pen-line]" />,
+          icon: <i className="i-mingcute-pen-line" />,
           path: '/edit',
         },
         {
           title: '分类/标签',
-          icon: <i className="icon-[mingcute--pen-line]" />,
+          icon: <i className="i-mingcute-pen-line" />,
           path: '/category',
         },
       ],
     },
     {
       title: '手记',
-      icon: <i className="icon-[mingcute--quill-pen-line]" />,
+      icon: <i className="i-mingcute-quill-pen-line" />,
       redirect: '/dashboard/notes/list',
       path: '/notes',
       children: [
         {
           title: '列表',
-          icon: <i className="icon-[mingcute--table-2-line]" />,
+          icon: <i className="i-mingcute-table-2-line" />,
           path: '/list',
         },
         {
           title: '编辑',
-          icon: <i className="icon-[mingcute--pen-line]" />,
+          icon: <i className="i-mingcute-pen-line" />,
           path: '/edit',
         },
         {
@@ -74,17 +74,17 @@ export const dashboardRoutes = {
     },
     {
       title: '评论',
-      icon: <i className="icon-[mingcute--comment-line]" />,
+      icon: <i className="i-mingcute-comment-line" />,
       path: '/comments',
     },
     {
       title: '页面',
-      icon: <i className="icon-[mingcute--file-line]" />,
+      icon: <i className="i-mingcute-file-line" />,
       path: '/pages',
     },
     {
       title: '完整功能与其他设置',
-      icon: <i className="icon-[mingcute--settings-1-line]" />,
+      icon: <i className="i-mingcute-settings-1-line" />,
       path: '/vue',
     },
   ],

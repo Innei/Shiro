@@ -35,7 +35,7 @@ export const CommentReplyButton: FC<{
           setReplyFormOpen((o) => !o)
         }}
       >
-        <i className="icon-[mingcute--comment-line]" />
+        <i className="i-mingcute-comment-line" />
       </button>
       <CommentBoxHolderPortal>
         <CommentIsReplyProvider

@@ -111,7 +111,7 @@ const LikeButton = () => {
         toast('谢谢你！', undefined, {
           iconElement: (
             <m.i
-              className="icon-[mingcute--heart-fill] text-uk-red-light"
+              className="i-mingcute-heart-fill text-uk-red-light"
               initial={{
                 scale: 0.96,
               }}
@@ -133,8 +133,8 @@ const LikeButton = () => {
         className={clsxm(
           'duration-200 hover:text-uk-red-light',
           asideButtonStyles.base,
-          !isLiked && 'icon-[mingcute--heart-line]',
-          isLiked && 'icon-[mingcute--heart-fill] text-uk-red-light',
+          !isLiked && 'i-mingcute-heart-line',
+          isLiked && 'i-mingcute-heart-fill text-uk-red-light',
         )}
         animate={control}
         variants={{
@@ -159,7 +159,7 @@ const SubscribeButton = () => {
   const { present } = usePresentSubscribeModal(['note_c'])
   return (
     <MotionButtonBase className="flex flex-col space-y-2" onClick={present}>
-      <ActionAsideIcon className="icon-[material-symbols--notifications-active-outline] hover:text-accent" />
+      <ActionAsideIcon className="i-material-symbols-notifications-active-outline hover:text-accent" />
     </MotionButtonBase>
   )
 }
@@ -205,7 +205,7 @@ const ShareButton = () => {
         }
       }}
     >
-      <ActionAsideIcon className="icon-[mingcute--share-forward-line] hover:text-uk-cyan-light" />
+      <ActionAsideIcon className="i-mingcute-share-forward-line hover:text-uk-cyan-light" />
     </MotionButtonBase>
   )
 }

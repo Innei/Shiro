@@ -99,7 +99,7 @@ const PostBox = () => {
           handleSend()
         }}
       >
-        <div className="absolute bottom-2 right-2 flex size-5 center">
+        <div className="center absolute bottom-2 right-2 flex size-5">
           <MotionButtonBase
             onClick={() => handleSend()}
             disabled={value.length === 0 || isPending}
@@ -250,7 +250,7 @@ const List = () => {
                 <div
                   className={clsx(
                     'mt-4 space-x-8 opacity-50 duration-200 hover:opacity-100',
-                    '[&_button:hover]:text-accent [&_button]:inline-flex [&_button]:space-x-1 [&_button]:text-sm [&_button]:center',
+                    '[&_button]:center [&_button:hover]:text-accent [&_button]:inline-flex [&_button]:space-x-1 [&_button]:text-sm',
                     '[&_button]:-my-5 [&_button]:-ml-5 [&_button]:p-5',
                   )}
                 >
@@ -262,7 +262,7 @@ const List = () => {
                       })
                     }}
                   >
-                    <i className="icon-[mingcute--comment-line]" />
+                    <i className="i-mingcute-comment-line" />
 
                     <span className="sr-only">评论</span>
                     <span>
@@ -276,7 +276,7 @@ const List = () => {
                       handleUp(item.id)
                     }}
                   >
-                    <i className="icon-[mingcute--heart-line]" />
+                    <i className="i-mingcute-heart-line" />
                     <span className="sr-only">喜欢</span>
                     <span>{item.up}</span>
                   </button>
@@ -286,7 +286,7 @@ const List = () => {
                       handleDown(item.id)
                     }}
                   >
-                    <i className="icon-[mingcute--heart-crack-line]" />
+                    <i className="i-mingcute-heart-crack-line" />
                     <span className="sr-only">不喜欢</span>
                     <span>{item.down}</span>
                   </button>
@@ -368,7 +368,7 @@ const DeleteButton = (props: { id: string }) => {
         })
       }}
     >
-      <i className="icon-[mingcute--delete-line]" />
+      <i className="i-mingcute-delete-line" />
       <span className="sr-only">删除</span>
     </button>
   )
@@ -407,7 +407,7 @@ const RefPreview: FC<{ refModel: any }> = (props) => {
     <>
       <Divider className="my-4 w-12 bg-current opacity-50" />
       <p className="flex items-center space-x-2 opacity-80">
-        发表于： <i className="icon-[mingcute--link-3-line]" />
+        发表于： <i className="i-mingcute-link-3-line" />
         <PeekLink href={url} className="shiro-link--underline">
           {title}
         </PeekLink>

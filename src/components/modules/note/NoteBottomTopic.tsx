@@ -30,7 +30,7 @@ export const NoteBottomTopic: FC = () => {
 
   return (
     <div data-hide-print>
-      <div className="text-md">
+      <div>
         <strong>文章被专栏收录：</strong>
       </div>
       <Divider />
@@ -45,7 +45,7 @@ export const NoteBottomTopic: FC = () => {
           alt={`专栏 ${name} 的头像`}
         />
         <div className="flex grow flex-col self-start">
-          <span className="text-md mb-2 font-medium">
+          <span className=" mb-2 font-medium">
             <FloatPopover
               strategy="absolute"
               mobileAsSheet

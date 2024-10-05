@@ -112,7 +112,7 @@ export const PostMetaBar: Component<{
 
       {!!meta.count?.read && (
         <div className="flex min-w-0 items-center space-x-1">
-          <i className="icon-[mingcute--eye-2-line]" />
+          <i className="i-mingcute-eye-2-line" />
           <span className="min-w-0 truncate">
             <NumberSmoothTransition>{meta.count.read}</NumberSmoothTransition>
           </span>

@@ -52,7 +52,7 @@ export const ActivityPostList = () => {
         className="flex items-center justify-end opacity-70 duration-200 hover:text-accent"
         href={routeBuilder(Routes.Posts, {})}
       >
-        <i className="icon-[mingcute--arrow-right-circle-line]" />
+        <i className="i-mingcute-arrow-right-circle-line" />
         <span className="ml-2">还有更多</span>
       </Link>
 
@@ -85,7 +85,7 @@ export const ActivityPostList = () => {
         className="flex items-center justify-end opacity-70 duration-200 hover:text-accent"
         href={routeBuilder(Routes.Timelime, { type: 'note' })}
       >
-        <i className="icon-[mingcute--arrow-right-circle-line]" />
+        <i className="i-mingcute-arrow-right-circle-line" />
         <span className="ml-2">还有更多</span>
       </Link>
     </m.section>

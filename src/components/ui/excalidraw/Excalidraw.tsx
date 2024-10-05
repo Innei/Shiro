@@ -168,7 +168,7 @@ const ExcalidrawImpl = forwardRef<InternelExcalidrawRefObject, ExcalidrawProps>(
         className={clsxm('relative h-[500px] w-full', className)}
       >
         {isLoading && (
-          <div className="absolute inset-0 z-10 flex center">
+          <div className="center absolute inset-0 z-10 flex">
             <div className="loading loading-spinner" />
           </div>
         )}
@@ -235,7 +235,7 @@ const ExcalidrawImpl = forwardRef<InternelExcalidrawRefObject, ExcalidrawProps>(
               'dark:border-neutral-800 dark:text-zinc-500',
             )}
           >
-            <i className="icon-[mingcute--external-link-line]" />
+            <i className="i-mingcute-external-link-line" />
           </MotionButtonBase>
         )}
       </div>

@@ -32,7 +32,7 @@ export const MHeader = (props: HeadingProps) => {
       <span>{children}</span>
       {isClient && (
         <span
-          className="ml-2 inline-flex cursor-pointer select-none text-accent opacity-0 transition-opacity duration-200 center group-hover:opacity-100"
+          className="center ml-2 inline-flex cursor-pointer select-none text-accent opacity-0 transition-opacity duration-200 group-hover:opacity-100"
           role="button"
           tabIndex={0}
           aria-hidden
@@ -42,7 +42,7 @@ export const MHeader = (props: HeadingProps) => {
             springScrollToElement(document.getElementById(nextId)!, -100)
           }}
         >
-          <i className="icon-[mingcute--hashtag-line]" />
+          <i className="i-mingcute-hashtag-line" />
         </span>
       )}
     </>,

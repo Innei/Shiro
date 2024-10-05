@@ -130,7 +130,7 @@ export const UniversalTextArea: Component = ({ className }) => {
                 role="button"
                 tabIndex={0}
               >
-                <i className="icon-[mingcute--emoji-2-line]" />
+                <i className="i-mingcute-emoji-2-line" />
                 <span className="sr-only">表情</span>
               </div>
             }

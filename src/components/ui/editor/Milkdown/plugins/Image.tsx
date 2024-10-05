@@ -61,7 +61,7 @@ const Image = () => {
 
   const modal = useModalStack()
   return (
-    <div className="my-4 flex center">
+    <div className="center my-4 flex">
       <div className="group relative inline-block">
         <FixedZoomedImage
           className="max-h-[80vh]"
@@ -87,9 +87,9 @@ const Image = () => {
               })
             }}
             variant="secondary"
-            className="box-content flex size-6 rounded-full p-2 center"
+            className="center box-content flex size-6 rounded-full p-2"
           >
-            <i className="icon-[mingcute--edit-line] text-[16px]" />
+            <i className="i-mingcute-edit-line text-[16px]" />
           </StyledButton>
         </div>
         {!isOnline && (
@@ -99,9 +99,9 @@ const Image = () => {
             triggerElement={
               <MotionButtonBase
                 onClick={handleUploadImage}
-                className="absolute bottom-1 right-1 box-content flex rounded-full bg-base-100 text-red-500 center"
+                className="center absolute bottom-1 right-1 box-content flex rounded-full bg-base-100 text-red-500"
               >
-                <i className="icon-[mingcute--warning-line] text-[24px]" />
+                <i className="i-mingcute-warning-line text-[24px]" />
               </MotionButtonBase>
             }
           >

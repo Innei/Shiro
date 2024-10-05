@@ -110,7 +110,7 @@ export const ReplyModal = (props: { comment: CommentModel }) => {
   const [kaomojiPanelOpen, setKaomojiPanelOpen] = useState(false)
   const KaomojiButton = (
     <MotionButtonBase>
-      <i className="icon-[mingcute--emoji-line]" />
+      <i className="i-mingcute-emoji-line" />
     </MotionButtonBase>
   )
   const isMobile = useIsMobile()

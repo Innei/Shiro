@@ -85,7 +85,7 @@ export const PostsSortingFab = () => {
       triggerElement={useMemo(
         () => (
           <FABPortable onClick={Noop}>
-            <i className="icon-[mingcute--sort-descending-line]" />
+            <i className="i-mingcute-sort-descending-line" />
           </FABPortable>
         ),
         [],

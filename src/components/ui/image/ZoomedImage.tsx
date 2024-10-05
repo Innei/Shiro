@@ -165,8 +165,8 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
           </span>
           {/* <div className="absolute top-0 opacity-30">{placeholder}</div> */}
           {imageLoadStatus === ImageLoadStatus.Error && (
-            <div className="absolute inset-0 z-[1] flex flex-col gap-8 center">
-              <i className="icon-[mingcute--close-line] text-4xl text-red-500" />
+            <div className="center absolute inset-0 z-[1] flex flex-col gap-8">
+              <i className="i-mingcute-close-line text-4xl text-red-500" />
               <span>图片加载失败</span>
 
               <Divider className="w-[80px] opacity-80" />

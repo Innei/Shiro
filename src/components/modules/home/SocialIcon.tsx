@@ -20,26 +20,26 @@ const iconSet: Record<
 > = {
   github: [
     'Github',
-    <i className="icon-[mingcute--github-line]" />,
+    <i className="i-mingcute-github-line" />,
     '#181717',
     (id) => `https://github.com/${id}`,
   ],
   twitter: [
     'Twitter',
-    <i className="icon-[mingcute--twitter-line]" />,
+    <i className="i-mingcute-twitter-line" />,
     '#1DA1F2',
     (id) => `https://twitter.com/${id}`,
   ],
   x: ['x', <XIcon />, 'rgba(36,46,54,1.00)', (id) => `https://x.com/${id}`],
   telegram: [
     'Telegram',
-    <i className="icon-[mingcute--telegram-line]" />,
+    <i className="i-mingcute-telegram-line" />,
     '#0088cc',
     (id) => `https://t.me/${id}`,
   ],
   mail: [
     'Email',
-    <i className="icon-[mingcute--mail-line]" />,
+    <i className="i-mingcute-mail-line" />,
     '#D44638',
     (id) => `mailto:${id}`,
   ],
@@ -49,12 +49,7 @@ const iconSet: Record<
   get feed() {
     return this.rss
   },
-  rss: [
-    'RSS',
-    <i className="icon-[mingcute--rss-line]" />,
-    '#FFA500',
-    (id) => id,
-  ],
+  rss: ['RSS', <i className="i-mingcute-rss-line" />, '#FFA500', (id) => id],
   bilibili: [
     '哔哩哔哩',
     <BilibiliIcon />,
@@ -69,25 +64,25 @@ const iconSet: Record<
   ],
   qq: [
     'QQ',
-    <i className="icon-[mingcute--qq-fill]" />,
+    <i className="i-mingcute-qq-fill" />,
     '#1e6fff',
     (id) => `https://wpa.qq.com/msgrd?v=3&uin=${id}&site=qq&menu=yes`,
   ],
   wechat: [
     '微信',
-    <i className="icon-[mingcute--wechat-fill]" />,
+    <i className="i-mingcute-wechat-fill" />,
     '#2DC100',
     (id) => id,
   ],
   weibo: [
     '微博',
-    <i className="icon-[mingcute--weibo-line]" />,
+    <i className="i-mingcute-weibo-line" />,
     '#E6162D',
     (id) => `https://weibo.com/${id}`,
   ],
   discord: [
     'Discord',
-    <i className="icon-[mingcute--discord-fill]" />,
+    <i className="i-mingcute-discord-fill" />,
     '#7289DA',
     (id) => `https://discord.gg/${id}`,
   ],
@@ -117,7 +112,7 @@ export const SocialIcon = memo((props: SocialIconProps) => {
       type="tooltip"
       triggerElement={
         <MotionButtonBase
-          className="flex aspect-square size-10 rounded-full text-2xl text-white center"
+          className="center flex aspect-square size-10 rounded-full text-2xl text-white"
           style={{
             background: iconBg,
           }}
@@ -125,7 +120,7 @@ export const SocialIcon = memo((props: SocialIconProps) => {
           <a
             target="_blank"
             href={href}
-            className="flex center"
+            className="center flex"
             rel="noreferrer"
           >
             {Icon}

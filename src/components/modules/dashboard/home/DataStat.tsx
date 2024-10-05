@@ -93,7 +93,7 @@ export const DataStat = () => {
       {
         label: '手记',
         value: stat.notes,
-        icon: <i className="icon-[mingcute--quill-pen-line]" />,
+        icon: <i className="i-mingcute-quill-pen-line" />,
         actions: [
           {
             name: '撰写',
@@ -114,7 +114,7 @@ export const DataStat = () => {
       {
         label: '页面',
         value: stat.pages,
-        icon: <i className="icon-[mingcute--file-line]" />,
+        icon: <i className="i-mingcute-file-line" />,
         actions: [
           {
             primary: true,
@@ -129,7 +129,7 @@ export const DataStat = () => {
       {
         label: '分类',
         value: stat.categories,
-        icon: <i className="icon-[mingcute--pen-line]" />,
+        icon: <i className="i-mingcute-pen-line" />,
         actions: [
           {
             primary: true,
@@ -144,7 +144,7 @@ export const DataStat = () => {
       {
         label: '未读评论',
         value: stat.unreadComments,
-        icon: <i className="icon-[mingcute--comment-line]" />,
+        icon: <i className="i-mingcute-comment-line" />,
         highlight: stat.unreadComments > 0,
         actions: [
           {
@@ -258,7 +258,7 @@ export const DataStat = () => {
                 {formatNumber(stat.value)}
               </div>
 
-              <div className="absolute right-4 top-1/2 flex -translate-y-1/2 text-[30px] center">
+              <div className="center absolute right-4 top-1/2 flex -translate-y-1/2 text-[30px]">
                 {stat.icon}
               </div>
 

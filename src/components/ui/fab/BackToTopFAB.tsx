@@ -17,7 +17,7 @@ export const BackToTopFAB = () => {
 
   return (
     <FABPortable onClick={springScrollToTop} show={shouldShow}>
-      <i className="icon-[mingcute--arow-to-up-line]" />
+      <i className="i-mingcute-arow-to-up-line" />
     </FABPortable>
   )
 }

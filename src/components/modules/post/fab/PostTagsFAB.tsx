@@ -27,7 +27,7 @@ export const PostTagsFAB = () => {
         })
       }}
     >
-      <i className="icon-[mingcute--hashtag-line]" />
+      <i className="i-mingcute-hashtag-line" />
     </FABPortable>
   )
 }
@@ -84,7 +84,7 @@ export const TagDetailModal = (props: { name: string }) => {
   const { dismissAll } = useModalStack()
   if (isLoading)
     return (
-      <div className="flex h-24 w-full center">
+      <div className="center flex h-24 w-full">
         <div className="loading loading-dots loading-md" />
       </div>
     )

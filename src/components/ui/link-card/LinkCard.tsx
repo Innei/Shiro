@@ -281,7 +281,7 @@ const fetchGitHubRepoData: FetchObject = {
             <span className="shrink-0 self-end justify-self-end">
               {data.stargazersCount > 0 && (
                 <span className="inline-flex shrink-0 items-center gap-1 self-center text-sm text-orange-400 dark:text-yellow-500">
-                  <i className="icon-[mingcute--star-line]" />
+                  <i className="i-mingcute-star-line" />
                   <span className="font-sans font-medium">
                     {data.stargazersCount}
                   </span>
@@ -550,7 +550,7 @@ const fetchLeetCodeQuestionData: FetchObject = {
               <span className="shrink-0 self-end justify-self-end">
                 {questionTitleData.likes > 0 && (
                   <span className="inline-flex shrink-0 items-center gap-1 self-center text-sm text-orange-400 dark:text-yellow-500">
-                    <i className="icon-[mingcute--thumb-up-line]" />
+                    <i className="i-mingcute-thumb-up-line" />
                     <span className="font-sans font-medium">
                       {questionTitleData.likes}
                     </span>

@@ -38,10 +38,7 @@ export const AlertIcon: FC<{
 
   return (
     <span
-      className={clsx(
-        'text-semibold mb-1 inline-flex items-center',
-        textColorMap[finalType],
-      )}
+      className={clsx('mb-1 inline-flex items-center', textColorMap[finalType])}
     >
       <Icon
         className={clsx(

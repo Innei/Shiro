@@ -177,8 +177,8 @@ export const AdvancedInput = React.forwardRef<
                   'text-lg text-gray-500',
 
                   isPasswordVisible
-                    ? 'icon-[mingcute--eye-line]'
-                    : 'icon-[mingcute--eye-close-line]',
+                    ? 'i-mingcute-eye-line'
+                    : 'i-mingcute-eye-close-line',
                 )}
               />
             </MotionButtonBase>

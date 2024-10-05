@@ -78,7 +78,7 @@ export const RelatedPostSelector = () => {
                   )
                 }}
               >
-                <i className="icon-[mingcute--delete-2-line] text-base" />
+                <i className="i-mingcute-delete-2-line text-base" />
                 <span className="sr-only">删除</span>
               </MotionButtonBase>
             </MotionButtonBase>
