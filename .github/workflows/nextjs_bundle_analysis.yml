@@ -31,7 +31,6 @@ jobs:
         name: Install pnpm
         id: pnpm-install
         with:
-          version: 8
           run_install: true
 
       - name: Restore next build
