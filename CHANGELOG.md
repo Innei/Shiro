@@ -1,5 +1,32 @@
 # CHANGELOG
 
+## [1.2.1](https://github.com/Innei/sprightly/compare/v1.2.0...v1.2.1) (2024-10-05)
+
+
+### Bug Fixes
+
+* auto switch legacy comment if no providers ([3fcad20](https://github.com/Innei/sprightly/commit/3fcad2042d16e30040cea04935f5950a92240e33))
+* ci ([243886f](https://github.com/Innei/sprightly/commit/243886fc41593a44e1128bfe47ad02b8493dd168))
+* **deps:** update all non-major dependencies ([f02f45b](https://github.com/Innei/sprightly/commit/f02f45b2041622c88a8dcdfcf07b53f5a60729c4))
+* **deps:** update all non-major dependencies (minor) ([#455](https://github.com/Innei/sprightly/issues/455)) ([79a507b](https://github.com/Innei/sprightly/commit/79a507b4f9b1decd7c3eab196cf7f59e834c4f66))
+* **deps:** update all non-major dependencies (minor) ([#460](https://github.com/Innei/sprightly/issues/460)) ([e2e4756](https://github.com/Innei/sprightly/commit/e2e47567c95c8caa5ceef7e25080c8414f45d9a2))
+* **deps:** update all non-major dependencies (minor) ([#464](https://github.com/Innei/sprightly/issues/464)) ([c566a33](https://github.com/Innei/sprightly/commit/c566a3387625a44bd08745c7f5a60d9421bd4be7))
+* **deps:** update dependency vaul to v1 ([#463](https://github.com/Innei/sprightly/issues/463)) ([36295b4](https://github.com/Innei/sprightly/commit/36295b488f171a3e20c828e03b939cd701086bb4))
+* **deps:** update dependency vite to v5.4.6 [security] ([f0037a3](https://github.com/Innei/sprightly/commit/f0037a37c3799425ec864118adcbf0def8bad210))
+* import markdown modal ([5b7431f](https://github.com/Innei/sprightly/commit/5b7431fe0bee3b002ca85d71613c565736ef9cd0))
+* katex parser ([86c114a](https://github.com/Innei/sprightly/commit/86c114a680bbdbdf1408f74c8d8185d98d73778a))
+* next-auth ([715fcc0](https://github.com/Innei/sprightly/commit/715fcc05efc174f9dce836bc2b1d6f15a5217b4e))
+* next-auth ([19a28c8](https://github.com/Innei/sprightly/commit/19a28c8bc52bfef8239dec86d8159cf062db7799))
+
+
+### Features
+
+* add admin url ([a7b9cd7](https://github.com/Innei/sprightly/commit/a7b9cd7375752dc24fa221a47f1b8519d9fe0e2c))
+* comment info get from reader ([22492bf](https://github.com/Innei/sprightly/commit/22492bf19a70c534e318fc0239227b606236c95f))
+* fetch app url after login ([32a21b4](https://github.com/Innei/sprightly/commit/32a21b44ae0f4f468c0e75741782b9258a694070))
+
+
+
 # [1.2.0](https://github.com/Innei/sprightly/compare/v1.1.5...v1.2.0) (2024-09-17)
 
 
