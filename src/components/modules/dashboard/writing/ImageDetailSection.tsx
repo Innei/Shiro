@@ -52,11 +52,10 @@ export const ImageDetailSection: FC<ImageDetailSectionProps> = (props) => {
     return map
   }, [images])
 
-  const fromText = useMemo(() => {
-    return pickImagesFromMarkdown(text).filter((src) => {
-      return src.startsWith('http')
-    })
-  }, [text])
+  const fromText = useMemo(
+    () => pickImagesFromMarkdown(text).filter((src) => src.startsWith('http')),
+    [text],
+  )
 
   const hasTopDivider = withDivider === 'top' || withDivider === 'both'
   const hasBottomDivider = withDivider === 'bottom' || withDivider === 'both'
@@ -111,34 +110,35 @@ export const ImageDetailSection: FC<ImageDetailSectionProps> = (props) => {
     setLoading(true)
 
     const fetchImageTasks = await Promise.allSettled(
-      images.map((item) => {
-        return new Promise<ArticleImage>((resolve, reject) => {
-          const $image = new Image()
-          $image.src = item.src
-          $image.crossOrigin = 'Anonymous'
-          $image.onload = () => {
-            resolve({
-              width: $image.naturalWidth,
-              height: $image.naturalHeight,
-              src: item.src,
-              type: $image.src.split('.').pop() || '',
-              accent: getDominantColor($image),
-            })
-          }
-          $image.onerror = (err) => {
-            reject({
-              err,
-              src: item.src,
-            })
-          }
-        })
-      }),
+      images.map(
+        (item) =>
+          new Promise<ArticleImage>((resolve, reject) => {
+            const $image = new Image()
+            $image.src = item.src
+            $image.crossOrigin = 'Anonymous'
+            $image.onload = () => {
+              resolve({
+                width: $image.naturalWidth,
+                height: $image.naturalHeight,
+                src: item.src,
+                type: $image.src.split('.').pop() || '',
+                accent: getDominantColor($image),
+              })
+            }
+            $image.onerror = (err) => {
+              reject({
+                err,
+                src: item.src,
+              })
+            }
+          }),
+      ),
     )
 
     setLoading(false)
 
     const nextImageDimensions = [] as ArticleImage[]
-    fetchImageTasks.map((task) => {
+    fetchImageTasks.forEach((task) => {
       if (task.status === 'fulfilled') nextImageDimensions.push(task.value)
       else {
         toast.error(`获取图片信息失败：${task.reason.src}: ${task.reason.err}`)
@@ -157,11 +157,7 @@ export const ImageDetailSection: FC<ImageDetailSectionProps> = (props) => {
       value: ArticleImage[T],
     ) => {
       if (key == 'src' && value === '') {
-        onChange(
-          nextImages.filter((item) => {
-            return item.src !== src
-          }),
-        )
+        onChange(nextImages.filter((item) => item.src !== src))
         return
       }
       onChange(
@@ -197,13 +193,11 @@ export const ImageDetailSection: FC<ImageDetailSectionProps> = (props) => {
           </StyledButton>
         </div>
         <div className="my-2 flex flex-col gap-2">
-          {nextImages.map((image) => {
-            return (
-              <Collapse key={image.src} title={image.src} className="mt-4">
-                <Item {...image} handleOnChange={handleOnChange} />
-              </Collapse>
-            )
-          })}
+          {nextImages.map((image) => (
+            <Collapse key={image.src} title={image.src} className="mt-4">
+              <Item {...image} handleOnChange={handleOnChange} />
+            </Collapse>
+          ))}
         </div>
       </div>
       {hasBottomDivider && <Divider />}
@@ -219,76 +213,74 @@ const Item: FC<
       value: ArticleImage[T],
     ) => void
   }
-> = memo(({ handleOnChange, ...image }) => {
-  return (
-    <div className="my-6 flex flex-col space-y-3">
-      <LabelProvider className="mr-4 w-20 font-normal">
-        <AdvancedInputProvider labelPlacement="left">
-          <AdvancedInput
-            label="高度"
-            value={image.height?.toString() || ''}
-            onChange={(e) => {
-              const validValue = Number.parseInt(e.target.value)
-              if (Number.isNaN(validValue)) return
-              handleOnChange(image.src, 'height', validValue)
-            }}
-          />
-          <AdvancedInput
-            label="宽度"
-            value={image.width?.toString() || ''}
-            onChange={(e) => {
-              const validValue = Number.parseInt(e.target.value)
-              if (Number.isNaN(validValue)) return
-              handleOnChange(image.src, 'width', validValue)
-            }}
-          />
-          <AdvancedInput
-            label="类型"
-            value={image.type?.toString() || ''}
-            onChange={(e) => {
-              handleOnChange(image.src, 'type', e.target.value)
-            }}
-          />
-        </AdvancedInputProvider>
+> = memo(({ handleOnChange, ...image }) => (
+  <div className="my-6 flex flex-col space-y-3">
+    <LabelProvider className="mr-4 w-20 font-normal">
+      <AdvancedInputProvider labelPlacement="left">
+        <AdvancedInput
+          label="高度"
+          value={image.height?.toString() || ''}
+          onChange={(e) => {
+            const validValue = Number.parseInt(e.target.value)
+            if (Number.isNaN(validValue)) return
+            handleOnChange(image.src, 'height', validValue)
+          }}
+        />
+        <AdvancedInput
+          label="宽度"
+          value={image.width?.toString() || ''}
+          onChange={(e) => {
+            const validValue = Number.parseInt(e.target.value)
+            if (Number.isNaN(validValue)) return
+            handleOnChange(image.src, 'width', validValue)
+          }}
+        />
+        <AdvancedInput
+          label="类型"
+          value={image.type?.toString() || ''}
+          onChange={(e) => {
+            handleOnChange(image.src, 'type', e.target.value)
+          }}
+        />
+      </AdvancedInputProvider>
 
-        <div className="flex items-center gap-1">
-          <Label htmlFor="color-picker">色调</Label>
-          <ColorPicker
-            accent={image.accent || '#fff'}
-            onChange={(hex) => {
-              handleOnChange(image.src, 'accent', hex)
+      <div className="flex items-center gap-1">
+        <Label htmlFor="color-picker">色调</Label>
+        <ColorPicker
+          accent={image.accent || '#fff'}
+          onChange={(hex) => {
+            handleOnChange(image.src, 'accent', hex)
+          }}
+        />
+      </div>
+
+      <div className="flex items-center gap-1">
+        <Label>操作</Label>
+
+        <div>
+          <StyledButton
+            className="rounded-r-none border-r-0"
+            variant="secondary"
+            onClick={() => {
+              window.open(image.src)
             }}
-          />
+          >
+            查看
+          </StyledButton>
+          <StyledButton
+            variant="secondary"
+            className="rounded-l-none border-l-0 text-red-400"
+            onClick={() => {
+              handleOnChange(image.src, 'src', '')
+            }}
+          >
+            重置
+          </StyledButton>
         </div>
-
-        <div className="flex items-center gap-1">
-          <Label>操作</Label>
-
-          <div>
-            <StyledButton
-              className="rounded-r-none border-r-0"
-              variant="secondary"
-              onClick={() => {
-                window.open(image.src)
-              }}
-            >
-              查看
-            </StyledButton>
-            <StyledButton
-              variant="secondary"
-              className="rounded-l-none border-l-0 text-red-400"
-              onClick={() => {
-                handleOnChange(image.src, 'src', '')
-              }}
-            >
-              重置
-            </StyledButton>
-          </div>
-        </div>
-      </LabelProvider>
-    </div>
-  )
-})
+      </div>
+    </LabelProvider>
+  </div>
+))
 
 Item.displayName = 'AccordionItem'
 
@@ -304,7 +296,7 @@ const ColorPicker: FC<{
   return (
     <MotionButtonBase
       id="color-picker"
-      className="ring-default-200 size-6 rounded-full bg-current ring"
+      className="size-6 rounded-full bg-current ring"
       style={{
         backgroundColor: currentColor || '',
       }}

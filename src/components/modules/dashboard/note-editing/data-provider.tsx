@@ -26,22 +26,24 @@ export const useNoteModelSingleFieldAtom = <
       'useNoteModelSingleFieldAtom must be used inside NoteModelDataAtomProvider',
     )
   return useAtom(
-    useMemo(() => {
-      return atom(
-        (get) => {
-          const data = get(ctxAtom)
+    useMemo(
+      () =>
+        atom(
+          (get) => {
+            const data = get(ctxAtom)
 
-          return data?.[key]
-        },
-        (get, set, update: any) => {
-          set(ctxAtom, (prev) => {
-            return produce(prev, (draft) => {
-              ;(draft as any)[key as any] = update
-            })
-          })
-        },
-      )
-    }, [ctxAtom, key]),
+            return data?.[key]
+          },
+          (get, set, update: any) => {
+            set(ctxAtom, (prev) =>
+              produce(prev, (draft) => {
+                ;(draft as any)[key as any] = update
+              }),
+            )
+          },
+        ),
+      [ctxAtom, key],
+    ),
   ) as any as [
     NonNullable<NoteDto[T]>,
 

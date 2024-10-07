@@ -1,23 +1,17 @@
 import type { CommentModel } from '@mx-space/api-client'
 import clsx from 'clsx'
 import { atom, useStore } from 'jotai'
-import markdownEscape from 'markdown-escape'
 import { useEffect, useState } from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
-import { MotionButtonBase, StyledButton } from '~/components/ui/button'
-import { FloatPopover } from '~/components/ui/float-popover'
+import { useIsMobile } from '~/atoms/hooks/viewport'
+import { StyledButton } from '~/components/ui/button'
 import { TextArea } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
 import { useCurrentModal } from '~/components/ui/modal'
-import { ScrollArea } from '~/components/ui/scroll-area'
-import { PresentSheet } from '~/components/ui/sheet'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { useUncontrolledInput } from '~/hooks/common/use-uncontrolled-input'
 import { toast } from '~/lib/toast'
 import { useReplyCommentMutation } from '~/queries/hooks/comment'
-
-import { KAOMOJI_LIST } from './kaomoji'
 
 const replyTextAtom = atom('')
 export const ReplyModal = (props: { comment: CommentModel }) => {
@@ -59,60 +53,6 @@ export const ReplyModal = (props: { comment: CommentModel }) => {
     }
   })
 
-  const KaomojiContentEl = (
-    <ScrollArea.Root className="pointer-events-auto h-[250px] w-auto overflow-scroll lg:h-[200px] lg:w-[400px]">
-      <ScrollArea.Viewport
-        onWheel={(e) => {
-          e.stopPropagation()
-        }}
-      >
-        <div className="grid grid-cols-4 gap-4">
-          {KAOMOJI_LIST.map((kamoji) => {
-            return (
-              <MotionButtonBase
-                key={kamoji}
-                onClick={() => {
-                  const $ta = ref.current!
-                  $ta.focus()
-
-                  requestAnimationFrame(() => {
-                    const start = $ta.selectionStart as number
-                    const end = $ta.selectionEnd as number
-                    const escapeKaomoji = markdownEscape(kamoji)
-                    $ta.value = `${$ta.value.substring(
-                      0,
-                      start,
-                    )} ${escapeKaomoji} ${$ta.value.substring(
-                      end,
-                      $ta.value.length,
-                    )}`
-
-                    requestAnimationFrame(() => {
-                      const shouldMoveToPos = start + escapeKaomoji.length + 2
-                      $ta.selectionStart = shouldMoveToPos
-                      $ta.selectionEnd = shouldMoveToPos
-
-                      $ta.focus()
-                    })
-                  })
-                }}
-              >
-                {kamoji}
-              </MotionButtonBase>
-            )
-          })}
-        </div>
-      </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar />
-    </ScrollArea.Root>
-  )
-
-  const [kaomojiPanelOpen, setKaomojiPanelOpen] = useState(false)
-  const KaomojiButton = (
-    <MotionButtonBase>
-      <i className="i-mingcute-emoji-line" />
-    </MotionButtonBase>
-  )
   const isMobile = useIsMobile()
 
   useEffect(() => {
@@ -122,6 +62,8 @@ export const ReplyModal = (props: { comment: CommentModel }) => {
       store.set(replyTextAtom, $.value)
     }
   }, [store, ref])
+
+  const [kaomojiPanelOpen, setKaomojiPanelOpen] = useState(false)
 
   return (
     <form
@@ -165,32 +107,7 @@ export const ReplyModal = (props: { comment: CommentModel }) => {
         />
       )}
 
-      <div className="mt-4 flex justify-between gap-2">
-        {isMobile ? (
-          <PresentSheet
-            onOpenChange={setKaomojiPanelOpen}
-            content={KaomojiContentEl}
-            zIndex={1002}
-          >
-            {KaomojiButton}
-          </PresentSheet>
-        ) : (
-          <FloatPopover
-            onClose={() => {
-              setKaomojiPanelOpen(false)
-            }}
-            onOpen={() => {
-              setKaomojiPanelOpen(true)
-            }}
-            placement="left-end"
-            trigger="click"
-            to={modalElRef.current!}
-            triggerElement={KaomojiButton}
-          >
-            {KaomojiContentEl}
-          </FloatPopover>
-        )}
-
+      <div className="mt-4 flex justify-end gap-2">
         <StyledButton onClick={handleReply} type="submit">
           回复
         </StyledButton>

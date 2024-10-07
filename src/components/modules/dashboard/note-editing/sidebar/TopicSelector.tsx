@@ -20,11 +20,11 @@ export const TopicSelector = () => {
   const handleSelectionChange = useEventCallback((newCategoryId: string) => {
     if (newCategoryId === categoryId) return
 
-    setter((prev) => {
-      return produce(prev, (draft) => {
+    setter((prev) =>
+      produce(prev, (draft) => {
         draft.topicId = newCategoryId
-      })
-    })
+      }),
+    )
   })
 
   const selectValues: SelectValue<string>[] = (data || []).map((item) => ({

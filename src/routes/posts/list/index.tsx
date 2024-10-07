@@ -1,15 +1,13 @@
-'use client'
-
 import type { PostModel } from '@mx-space/api-client'
 import { useInfiniteQuery } from '@tanstack/react-query'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { Link, useNavigate } from 'react-router-dom'
 import RemoveMarkdown from 'remove-markdown'
 
 import { MdiClockOutline } from '~/components/icons/clock'
 import { FeHash } from '~/components/icons/fa-hash'
 import { PageLoading } from '~/components/layout/dashboard/PageLoading'
 import { OffsetHeaderLayout } from '~/components/modules/dashboard/layouts'
+import { defineRouteConfig } from '~/components/modules/dashboard/utils/helper'
 import type { CardProps } from '~/components/modules/dashboard/writing/CardMasonry'
 import {
   Card,
@@ -23,7 +21,12 @@ import { RelativeTime } from '~/components/ui/relative-time'
 import { Tag } from '~/components/ui/tag/Tag'
 import { adminQueries } from '~/queries/definition'
 
-export default (function Page() {
+export const config = defineRouteConfig({
+  priority: 1,
+  title: '列表',
+  icon: <i className="i-mingcute-list-collapse-line" />,
+})
+export function Component() {
   const {
     data: result,
     isLoading,
@@ -39,7 +42,7 @@ export default (function Page() {
         : undefined,
   })
 
-  const router = useRouter()
+  const navigate = useNavigate()
   if (isLoading) return <PageLoading />
 
   const data = result?.pages.flatMap((page) => page.data) ?? []
@@ -74,7 +77,7 @@ export default (function Page() {
       <OffsetHeaderLayout>
         <RoundedIconButton
           onClick={() => {
-            router.push('/dashboard/posts/edit')
+            navigate('/dashboard/posts/edit')
           }}
           className="card-shadow"
         >
@@ -83,7 +86,7 @@ export default (function Page() {
       </OffsetHeaderLayout>
     </div>
   )
-})
+}
 
 const cardSlot: CardProps<PostModel>['slots'] = {
   footer(data) {
@@ -141,7 +144,7 @@ const cardSlot: CardProps<PostModel>['slots'] = {
         )}
         <Link
           className="absolute inset-0 bottom-8 z-[1]"
-          href={`/dashboard/posts/edit?id=${data.id}`}
+          to={`/dashboard/posts/edit?id=${data.id}`}
         />
       </>
     )

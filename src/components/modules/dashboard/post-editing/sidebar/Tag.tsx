@@ -18,29 +18,27 @@ export const PostTag: Component<TagProps> = ({
   children,
   canClose,
   onClose,
-}) => {
-  return (
-    <div
-      className={clsxm(
-        'rounded-full border border-gray-400/80 px-2 py-1 dark:border-zinc-600',
-        'relative inline-flex items-center gap-2',
-        canClose && 'pr-1',
-        className,
-      )}
-    >
-      <span className="relative bottom-px">{children}</span>
-      {canClose && (
-        <MotionButtonBase
-          type="button"
-          className="inline-flex size-4 items-center justify-center"
-          onClick={onClose}
-        >
-          <CloseIcon />
-        </MotionButtonBase>
-      )}
-    </div>
-  )
-}
+}) => (
+  <div
+    className={clsxm(
+      'rounded-full border border-gray-400/80 px-2 py-1 dark:border-zinc-600',
+      'relative inline-flex items-center gap-2',
+      canClose && 'pr-1',
+      className,
+    )}
+  >
+    <span className="relative bottom-px">{children}</span>
+    {canClose && (
+      <MotionButtonBase
+        type="button"
+        className="inline-flex size-4 items-center justify-center"
+        onClick={onClose}
+      >
+        <CloseIcon />
+      </MotionButtonBase>
+    )}
+  </div>
+)
 const createTagEditingContextValue = () => ({
   isEditing: atom(false),
 })

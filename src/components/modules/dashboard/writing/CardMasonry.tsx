@@ -1,5 +1,3 @@
-'use client'
-
 import { clsx } from 'clsx'
 import type { ReactNode } from 'react'
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
@@ -34,17 +32,15 @@ export interface CardMasonryProps<T> {
 
   children: (data: T) => ReactNode
 }
-export const CardMasonry = <T,>(props: CardMasonryProps<T>) => {
-  return (
-    <div className="m-auto max-w-[1200px]">
-      <ResponsiveMasonry columnsCountBreakPoints={columnsCountBreakPoints}>
-        <Masonry gutter="24px">
-          {props.data.map((data) => props.children(data))}
-        </Masonry>
-      </ResponsiveMasonry>
-    </div>
-  )
-}
+export const CardMasonry = <T,>(props: CardMasonryProps<T>) => (
+  <div className="m-auto max-w-[1200px]">
+    <ResponsiveMasonry columnsCountBreakPoints={columnsCountBreakPoints}>
+      <Masonry gutter="24px">
+        {props.data.map((data) => props.children(data))}
+      </Masonry>
+    </ResponsiveMasonry>
+  </div>
+)
 
 export function Card<T>(props: CardProps<T>) {
   const [scrollContainerRef, scrollClassname] =
@@ -55,7 +51,7 @@ export function Card<T>(props: CardProps<T>) {
   return (
     <div
       className={clsxm(
-        'relative flex h-[176px] flex-col rounded-md bg-white px-4 py-5 duration-200 card-shadow dark:bg-neutral-950 dark:hover:ring-1 dark:hover:ring-zinc-300',
+        'card-shadow relative flex h-[176px] flex-col rounded-md bg-white px-4 py-5 duration-200 dark:bg-neutral-950 dark:hover:ring-1 dark:hover:ring-zinc-300',
         className,
       )}
     >

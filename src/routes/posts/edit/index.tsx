@@ -1,14 +1,12 @@
-'use client'
-
 import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import { produce } from 'immer'
 import { atom, useStore } from 'jotai'
-import { useRouter, useSearchParams } from 'next/navigation'
 import type { FC } from 'react'
 import { useEffect, useMemo, useState } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { PageLoading } from '~/components/layout/dashboard/PageLoading'
 import {
   PostEditorSidebar,
@@ -17,6 +15,7 @@ import {
   usePostModelGetModelData,
   usePostModelSetModelData,
 } from '~/components/modules/dashboard/post-editing'
+import { defineRouteConfig } from '~/components/modules/dashboard/utils/helper'
 import {
   BaseWritingProvider,
   useAutoSaver,
@@ -38,8 +37,13 @@ import type { PostDto } from '~/models/writing'
 import { adminQueries } from '~/queries/definition'
 import { useCreatePost, useUpdatePost } from '~/queries/definition/post'
 
-export default function Page() {
-  const search = useSearchParams()
+export const config = defineRouteConfig({
+  priority: 2,
+  title: '编辑',
+  icon: <i className="i-mingcute-pen-line" />,
+})
+export function Component() {
+  const [search] = useSearchParams()
   const id = search.get('id')
 
   const { data, isLoading, refetch } = useQuery({
@@ -57,29 +61,27 @@ export default function Page() {
   return <EditPage />
 }
 
-const createInitialEditingData = (): PostDto => {
-  return {
-    title: '',
-    allowComment: true,
+const createInitialEditingData = (): PostDto => ({
+  title: '',
+  allowComment: true,
 
-    copyright: true,
+  copyright: true,
 
-    categoryId: '',
-    id: '',
-    images: [],
+  categoryId: '',
+  id: '',
+  images: [],
 
-    pin: null,
-    pinOrder: 0,
-    relatedId: [],
-    slug: '',
-    tags: [],
-    text: '',
-    meta: {},
-    related: [],
+  pin: null,
+  pinOrder: 0,
+  relatedId: [],
+  slug: '',
+  tags: [],
+  text: '',
+  meta: {},
+  related: [],
 
-    summary: '',
-  }
-}
+  summary: '',
+})
 
 const EditPage: FC<{
   initialData?: PostDto
@@ -93,11 +95,13 @@ const EditPage: FC<{
   const [forceUpdateKey] = useAutoSaver([editingData, setEditingData])
   const editingAtom = useMemo(() => atom(editingData), [editingData])
   const store = useStore()
-  useEffect(() => {
-    return store.sub(editingAtom, () => {
-      window.dispatchEvent(new WriteEditEvent(store.get(editingAtom)))
-    })
-  }, [editingAtom, store])
+  useEffect(
+    () =>
+      store.sub(editingAtom, () => {
+        globalThis.dispatchEvent(new WriteEditEvent(store.get(editingAtom)))
+      }),
+    [editingAtom, store],
+  )
 
   const isMobile = useIsMobile()
   return (
@@ -130,15 +134,15 @@ const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => {
       text: string
       meta?: Record<string, any> | undefined
     }): void => {
-      setData((prev) => {
-        return produce(prev, (draft) => {
+      setData((prev) =>
+        produce(prev, (draft) => {
           const nextData = data
           Reflect.deleteProperty(nextData, 'meta')
           Object.assign(draft, nextData)
           const { meta } = data
 
           if (data.text) {
-            editorRef?.setMarkdown(data.text)
+            editorRef!.value = data.text
           }
 
           if (meta) {
@@ -151,8 +155,8 @@ const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => {
 
             draft.meta = meta
           }
-        })
-      })
+        }),
+      )
     },
   )
 
@@ -160,7 +164,7 @@ const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => {
   const { mutateAsync: updatePost, isPending: p2 } = useUpdatePost()
   const isPending = p1 || p2
 
-  const router = useRouter()
+  const navigate = useNavigate()
   return (
     <>
       <div className="shrink grow" />
@@ -168,12 +172,10 @@ const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => {
         <div className="flex gap-2">
           <ImportMarkdownButton onParsedValue={handleParsed} />
           <PreviewButton
-            getData={() => {
-              return {
-                ...getData(),
-                id: 'preview',
-              }
-            }}
+            getData={() => ({
+              ...getData(),
+              id: 'preview',
+            })}
           />
         </div>
 
@@ -202,13 +204,15 @@ const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => {
             const isCreate = !currentData.id
             const promise = isCreate
               ? createPost(payload).then((res) => {
-                  router.replace(`/dashboard/posts/edit?id=${res.id}`)
+                  navigate(`/dashboard/posts/edit?id=${res.id}`, {
+                    replace: true,
+                  })
                   return res
                 })
               : updatePost(payload)
 
             promise.then((res) => {
-              window.dispatchEvent(
+              globalThis.dispatchEvent(
                 new PublishEvent({
                   ...payload,
                   id: res.id,

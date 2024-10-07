@@ -4,12 +4,11 @@ export const CommentUrlRender = ({
 }: {
   url: string | null | undefined
   author: string
-}) => {
-  return url ? (
+}) =>
+  url ? (
     <a className="truncate text-sm text-accent" href={url}>
       {author}
     </a>
   ) : (
     <span>{author}</span>
   )
-}

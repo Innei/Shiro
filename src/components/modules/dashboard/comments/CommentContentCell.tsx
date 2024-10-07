@@ -29,9 +29,9 @@ export const CommentContentCell: Component<{ comment: CommentModel }> = (
   const ref = ctx.refModelMap.get(id)
 
   const TitleEl = useMemo(() => {
-    if (!ref) return <span className="text-foreground/60">已删除</span>
+    if (!ref) return <span className="opacity-60">已删除</span>
     if (refType === CollectionRefTypes.Recently)
-      return `${ref.text.slice(0, 20)}...`
+      return `${ref.text?.slice(0, 20)}...`
     return (
       <div className="flex w-0 grow items-center">
         <a
