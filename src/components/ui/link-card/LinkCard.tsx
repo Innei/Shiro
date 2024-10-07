@@ -96,6 +96,7 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
         [LinkCardSource.Self]: fetchMxSpaceData,
         [LinkCardSource.LEETCODE]: fetchLeetCodeQuestionData,
         [LinkCardSource.QQMusicSong]: fetchQQMusicSongData,
+        [LinkCardSource.NeteaseMusicSong]: fetchNeteaseMusicSongData,
       } as Record<LinkCardSource, FetchObject>
       if (tmdbEnabled)
         fetchDataFunctions[LinkCardSource.TMDB] = fetchTheMovieDBData
@@ -654,6 +655,48 @@ const fetchQQMusicSongData: FetchObject = {
       })
     } catch (err) {
       console.error('Error fetching QQMusic song data:', err)
+      throw err
+    }
+  },
+}
+
+const fetchNeteaseMusicSongData: FetchObject = {
+  isValid: (id) => {
+    return id.length > 0
+  },
+  fetch: async (id, setCardInfo, _setFullUrl) => {
+    try {
+      const songData = await fetch(`/api/music/netease`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ songId: id }),
+      }).then(async (res) => {
+        if (!res.ok) {
+          throw new Error('Failed to fetch NeteaseMusic song title')
+        }
+        return res.json()
+      })
+      const songInfo = songData.songs[0]
+      const albumInfo = songInfo.al
+      const singerInfo = songInfo.ar
+      setCardInfo({
+        title: songInfo.name + (songInfo.tns ? ` - ${songInfo.tns[0]}` : ''),
+        desc: (
+          <>
+            <span className="block">
+              歌手：
+              {singerInfo.map((person: any) => person.name).join(' / ')}
+            </span>
+            <span className="block">专辑：{albumInfo.name}</span>
+          </>
+        ),
+        image: albumInfo.picUrl,
+        color: '#e72d2c',
+      })
+    } catch (err) {
+      console.error('Error fetching NeteaseMusic song data:', err)
       throw err
     }
   },

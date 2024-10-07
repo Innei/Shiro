@@ -17,6 +17,7 @@ import {
   isGithubRepoUrl,
   isGithubUrl,
   isLeetCodeUrl,
+  isNeteaseMusicSongUrl,
   isQQMusicSongUrl,
   isSelfArticleUrl,
   isTMDBUrl,
@@ -149,6 +150,19 @@ export const BlockLinkRenderer = ({
           fallbackUrl={url.toString()}
           source={LinkCardSource.LEETCODE}
           id={url.pathname.split('/')[2]}
+        />
+      )
+    }
+
+    case isNeteaseMusicSongUrl(url): {
+      const urlString = url.toString().replaceAll('/#/', '/')
+      const _url = new URL(urlString)
+      const id = _url.searchParams.get('id') ?? ''
+      return (
+        <LinkCard
+          fallbackUrl={url.toString()}
+          source={LinkCardSource.NeteaseMusicSong}
+          id={id}
         />
       )
     }
