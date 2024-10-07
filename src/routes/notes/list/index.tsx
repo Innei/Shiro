@@ -1,14 +1,12 @@
-'use client'
-
 import type { NoteModel } from '@mx-space/api-client'
 import { useInfiniteQuery } from '@tanstack/react-query'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { Link, useNavigate } from 'react-router-dom'
 import RemoveMarkdown from 'remove-markdown'
 
 import { MdiClockOutline } from '~/components/icons/clock'
 import { PageLoading } from '~/components/layout/dashboard/PageLoading'
 import { OffsetHeaderLayout } from '~/components/modules/dashboard/layouts'
+import { defineRouteConfig } from '~/components/modules/dashboard/utils/helper'
 import type { CardProps } from '~/components/modules/dashboard/writing/CardMasonry'
 import {
   Card,
@@ -20,7 +18,7 @@ import { FloatPopover } from '~/components/ui/float-popover'
 import { RelativeTime } from '~/components/ui/relative-time'
 import { adminQueries } from '~/queries/definition'
 
-export default (function Page() {
+export const Component = function Page() {
   const {
     data: result,
     isLoading,
@@ -36,24 +34,22 @@ export default (function Page() {
         : undefined,
   })
 
-  const router = useRouter()
+  const navigation = useNavigate()
   if (isLoading) return <PageLoading />
 
   const data = result?.pages.flatMap((page) => page.data) ?? []
   return (
     <div className="relative mt-8">
       <CardMasonry data={data}>
-        {(data) => {
-          return (
-            <Card
-              data={data}
-              key={data.id}
-              title={data.title}
-              description={RemoveMarkdown(data.text)}
-              slots={cardSlot}
-            />
-          )
-        }}
+        {(data) => (
+          <Card
+            data={data}
+            key={data.id}
+            title={data.title}
+            description={RemoveMarkdown(data.text)}
+            slots={cardSlot}
+          />
+        )}
       </CardMasonry>
 
       {hasNextPage && (
@@ -67,7 +63,7 @@ export default (function Page() {
       <OffsetHeaderLayout>
         <RoundedIconButton
           onClick={() => {
-            router.push('/dashboard/notes/edit')
+            navigation('/dashboard/notes/edit')
           }}
           className="card-shadow"
         >
@@ -76,7 +72,7 @@ export default (function Page() {
       </OffsetHeaderLayout>
     </div>
   )
-})
+}
 
 const cardSlot: CardProps<NoteModel>['slots'] = {
   footer(data) {
@@ -125,9 +121,15 @@ const cardSlot: CardProps<NoteModel>['slots'] = {
       <>
         <Link
           className="absolute inset-0 bottom-8 z-[1]"
-          href={`/dashboard/notes/edit?id=${data.id}`}
+          to={`/dashboard/notes/edit?id=${data.id}`}
         />
       </>
     )
   },
 }
+
+export const config = defineRouteConfig({
+  title: '列表',
+  icon: <i className="i-mingcute-pen-line" />,
+  priority: 1,
+})

@@ -98,9 +98,8 @@ export const range = (start: number, end: number): number[] => {
   return result
 }
 
-export const sample = <T>(arr: T[]): T => {
-  return arr[Math.floor(Math.random() * arr.length)]
-}
+export const sample = <T>(arr: T[]): T =>
+  arr[Math.floor(Math.random() * arr.length)]
 
 export const shuffle = <T>(arr: T[]): T[] => {
   const result = [...arr]
@@ -165,6 +164,15 @@ export function get(target: object, path: string) {
   return result
 }
 
-export const uniq = <T>(arr: T[]): T[] => {
-  return Array.from(new Set(arr))
+export const uniq = <T>(arr: T[]): T[] => Array.from(new Set(arr))
+
+export const omit = <T extends object, K extends keyof T>(
+  obj: T,
+  ...keys: K[]
+): Omit<T, K> => {
+  const result = { ...obj }
+  for (const key of keys) {
+    delete result[key]
+  }
+  return result
 }

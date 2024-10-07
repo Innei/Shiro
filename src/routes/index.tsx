@@ -1,16 +1,21 @@
-'use client'
-
 import { useQuery } from '@tanstack/react-query'
 
-import { Hitokoto } from '~/components/modules/dashboard/home'
 import { DataStat } from '~/components/modules/dashboard/home/DataStat'
 import { ShiJu } from '~/components/modules/dashboard/home/Shiju'
 import { Version } from '~/components/modules/dashboard/home/Version'
 import { IpInfoPopover } from '~/components/modules/dashboard/ip'
+import { defineRouteConfig } from '~/components/modules/dashboard/utils/helper'
+import { Hitokoto } from '~/components/modules/shared/Hitokoto'
 import { parseDate } from '~/lib/datetime'
 import { apiClient } from '~/lib/request'
 
-export default function Page() {
+export const config = defineRouteConfig({
+  title: '首页',
+  icon: <i className="i-mingcute-dashboard-line" />,
+  priority: 1,
+})
+
+export function Component() {
   return (
     <div className="mx-auto w-full max-w-[1500px] p-4">
       <h1 className="text-3xl font-light">欢迎回来</h1>

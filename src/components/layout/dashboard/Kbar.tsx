@@ -12,37 +12,38 @@ import {
 } from 'kbar'
 import { useRouter } from 'next/navigation'
 import type { FC, PropsWithChildren } from 'react'
-import React from 'react'
+import React, { useContext } from 'react'
 
-import { flattedRoutes } from '~/app/(dashboard)/routes'
+import { DashboardLayoutContext } from '~/components/modules/dashboard/utils/context'
 import { useRefValue } from '~/hooks/common/use-ref-value'
 import { clsxm } from '~/lib/helper'
 
 export const ComposedKBarProvider: FC<PropsWithChildren> = ({ children }) => {
   const router = useRouter()
+  const routes = useContext(DashboardLayoutContext)
   const actions: Action[] = useRefValue(
     () =>
-      flattedRoutes
-        .map<Action | null>(([fullpath, route]) => {
-          if (route.redirect) return null
+      routes
+        .map<Action | null>(({ path, config: { title } }) => {
+          // if (route.redirect) return null
 
           let name = ''
 
-          if (route.parent) {
-            name = route.parent.title || ''
-          }
-          if (route?.title) {
+          // if (route.parent) {
+          //   name = route.parent.title || ''
+          // }
+          if (title) {
             if (name) name += ' > '
-            name += route.title
+            name += title
           }
 
           if (!name) return null
 
           return {
-            id: route.path!,
+            id: path,
             name,
             perform: () => {
-              router.push(fullpath)
+              router.push(path)
             },
           }
         })
@@ -55,7 +56,7 @@ export const ComposedKBarProvider: FC<PropsWithChildren> = ({ children }) => {
 
       <KBarPortal>
         <KBarPositioner>
-          <KBarAnimator className="shadow-base w-full max-w-[600px] overflow-hidden rounded-lg bg-base-100/60 text-base-content shadow-xl backdrop-blur-md">
+          <KBarAnimator className="w-full max-w-[600px] overflow-hidden rounded-lg bg-base-100/60 text-base-content shadow-xl backdrop-blur-md">
             <KBarSearch className="w-full border-none bg-base-200/30 p-3 text-lg text-base-content outline-none backdrop-blur-md" />
             <RenderResults />
           </KBarAnimator>

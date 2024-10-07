@@ -1,13 +1,12 @@
-'use client'
-
 import { useRouter } from 'next/navigation'
 import { useLayoutEffect } from 'react'
 
 import { fetchAppUrl } from '~/atoms'
-import { useResolveAdminUrl } from '~/atoms/hooks'
+import { useResolveAdminUrl } from '~/atoms/hooks/url'
+import { defineRouteConfig } from '~/components/modules/dashboard/utils/helper'
 import { FullPageLoading } from '~/components/ui/loading'
 
-export default function Page() {
+export const Component = () => {
   const toAdminUrl = useResolveAdminUrl()
   const router = useRouter()
 
@@ -26,3 +25,9 @@ export default function Page() {
   }, [router, toAdminUrl])
   return <FullPageLoading />
 }
+
+export const config = defineRouteConfig({
+  title: '完整功能与其他设置',
+  icon: <i className="i-mingcute-settings-1-line" />,
+  priority: 10e2,
+})

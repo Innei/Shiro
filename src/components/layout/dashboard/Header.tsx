@@ -3,14 +3,15 @@
 import { m } from 'framer-motion'
 import { atom, useAtom, useSetAtom } from 'jotai'
 import Image from 'next/image'
-import Link from 'next/link'
+import NextLink from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import type { MouseEventHandler, ReactNode } from 'react'
-import { useCallback } from 'react'
+import { useCallback, useContext } from 'react'
+import { Link } from 'react-router-dom'
 
-import type { DashboardRoute } from '~/app/(dashboard)/routes'
-import { dashboardRoutes, useParentRouteObject } from '~/app/(dashboard)/routes'
-import { useIsMobile } from '~/atoms/hooks'
+import type { RouteItem } from '~/app/(dashboard)/dashboard/[[...catch_all]]/router'
+import { useIsMobile } from '~/atoms/hooks/viewport'
+import { DashboardLayoutContext } from '~/components/modules/dashboard/utils/context'
 import { Avatar } from '~/components/ui/avatar'
 import { MotionButtonBase } from '~/components/ui/button'
 import { BreadcrumbDivider } from '~/components/ui/divider'
@@ -49,9 +50,9 @@ export const LayoutHeader = () => {
             )}
           </MotionButtonBase>
           <BreadcrumbDivider className="opacity-20" />
-          <Link href="/" className="font-bold opacity-90 md:text-base">
+          <NextLink href="/" className="font-bold opacity-90 md:text-base">
             {title}
-          </Link>
+          </NextLink>
           <BreadcrumbDivider className="opacity-0 lg:opacity-20" />
         </div>
 
@@ -111,17 +112,17 @@ const MobileMenuDrawerButton = () => {
 const HeaderMenu: Component = ({ className }) => {
   const setHeaderDrawer = useSetAtom(headerDrawerAtom)
 
-  const firstLevelMenu = dashboardRoutes
-    .children!.map((route) => {
-      const { title } = route
+  const routes = useContext(DashboardLayoutContext)
+  const firstLevelMenu = routes
+    .map((route) => {
+      const { title, icon, redirect } = route.config
       if (!title) return null
 
       return {
         title,
         path: route.path,
-        icon: route?.icon,
-
-        redirect: route.redirect,
+        icon,
+        redirect,
       }
     })
     .filter(Boolean) as {
@@ -142,16 +143,17 @@ const HeaderMenu: Component = ({ className }) => {
       className={clsxm('ml-2 items-center gap-2 [&_*]:text-[14px]', className)}
     >
       {firstLevelMenu.map((menu) => {
-        const dashboardPath = `/dashboard${menu.path}`
+        const dashboardPath = `/dashboard${menu.redirect || menu.path}`
+
         const isActive =
-          menu.path === ''
-            ? pathname === '/dashboard'
+          menu.path === '/'
+            ? pathname === '/dashboard/' || pathname === '/dashboard'
             : pathname.startsWith(dashboardPath)
 
         return (
           <li key={dashboardPath}>
             <Link
-              href={menu.redirect ?? dashboardPath}
+              to={dashboardPath}
               onClick={isActive ? preventDefault : onNav}
               className="relative flex items-center gap-1 rounded-xl p-2 duration-200 hover:bg-accent/40"
             >
@@ -172,29 +174,28 @@ const HeaderMenu: Component = ({ className }) => {
 }
 
 const SecondaryNavLine = () => {
-  const pathname = usePathname()
-  const parent = useParentRouteObject(pathname)
+  const pathname = usePathname().replace('/dashboard', '')
+
+  const routes = useContext(DashboardLayoutContext)
+
+  const parent = routes.findLast((route) => {
+    return pathname.startsWith(route.path)
+  })
 
   if (!parent?.children?.length) return null
   return (
     <nav className="flex h-12 items-center justify-between overflow-auto lg:overflow-visible">
       <SecondaryLevelMenu menus={parent.children} />
-
-      {/* <div className="hidden flex-shrink-0 text-xs lg:flex">
-        <Breadcrumb />
-      </div> */}
     </nav>
   )
 }
 
-const SecondaryLevelMenu = ({ menus }: { menus: DashboardRoute[] }) => {
+const SecondaryLevelMenu = ({ menus }: { menus: RouteItem[] }) => {
   const pathname = usePathname()
-  const parent = useParentRouteObject(pathname)
-  if (!parent?.children?.length) return null
   return (
     <ul className="flex w-full space-x-4">
       {menus.map((route) => {
-        const fullPath = `/dashboard${parent.path}${route.path!}`
+        const fullPath = `/dashboard${route.path!}`
 
         const isActive = pathname.startsWith(fullPath)
 
@@ -202,7 +203,7 @@ const SecondaryLevelMenu = ({ menus }: { menus: DashboardRoute[] }) => {
           <li key={route.path}>
             <Link
               onClick={isActive ? preventDefault : undefined}
-              href={`${fullPath}`}
+              to={fullPath}
               className="relative flex items-center gap-1 rounded-lg px-2 py-1 duration-200 hover:bg-accent/40"
             >
               {isActive && (
@@ -211,8 +212,8 @@ const SecondaryLevelMenu = ({ menus }: { menus: DashboardRoute[] }) => {
                   className="absolute inset-0 z-[-1] rounded-xl bg-accent/20"
                 />
               )}
-              {route.icon}
-              <span>{route.title}</span>
+              {route.config.icon}
+              <span>{route.config.title}</span>
             </Link>
           </li>
         )
@@ -220,29 +221,3 @@ const SecondaryLevelMenu = ({ menus }: { menus: DashboardRoute[] }) => {
     </ul>
   )
 }
-
-// const Breadcrumb = () => {
-//   const routeObject = useParentRouteObject(usePathname())
-//   if (!routeObject) return null
-//   const routes = [routeObject]
-//   let parent = routeObject?.parent
-//   while (parent) {
-//     routes.unshift(parent)
-//     parent = parent.parent
-//   }
-
-//   return (
-//     <>
-//       {routes.map((route, index) => {
-//         const isLast = index === routes.length - 1
-
-//         return (
-//           <span key={route.path} className={clsx('flex items-center py-1')}>
-//             <span>{route.title}</span>
-//             {!isLast && <BreadcrumbDivider className="opacity-20" />}
-//           </span>
-//         )
-//       })}
-//     </>
-//   )
-// }

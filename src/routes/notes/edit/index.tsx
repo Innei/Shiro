@@ -1,5 +1,3 @@
-'use client'
-
 import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import { produce } from 'immer'
@@ -8,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import type { FC } from 'react'
 import { useEffect, useMemo, useState } from 'react'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { PageLoading } from '~/components/layout/dashboard/PageLoading'
 import {
   NoteEditorSidebar,
@@ -17,6 +15,7 @@ import {
   useNoteModelSetModelData,
 } from '~/components/modules/dashboard/note-editing'
 import { NoteNid } from '~/components/modules/dashboard/note-editing/NoteNid'
+import { defineRouteConfig } from '~/components/modules/dashboard/utils/helper'
 import {
   BaseWritingProvider,
   useAutoSaver,
@@ -39,7 +38,12 @@ import type { NoteDto } from '~/models/writing'
 import { adminQueries } from '~/queries/definition'
 import { useCreateNote, useUpdateNote } from '~/queries/definition/note'
 
-export default function Page() {
+export const config = defineRouteConfig({
+  title: '编辑',
+  icon: <i className="i-mingcute-edit-line" />,
+  priority: 2,
+})
+export function Component() {
   const search = useSearchParams()
   const id = search.get('id')
 
@@ -58,24 +62,22 @@ export default function Page() {
   return <EditPage />
 }
 
-const createInitialEditingData = (): NoteDto => {
-  return {
-    title: '',
-    allowComment: true,
+const createInitialEditingData = (): NoteDto => ({
+  title: '',
+  allowComment: true,
 
-    id: '',
-    nid: 0,
-    location: null,
-    coordinates: null,
-    images: [],
-    mood: null,
-    password: '',
-    topicId: null,
-    weather: null,
-    text: '',
-    meta: {},
-  }
-}
+  id: '',
+  nid: 0,
+  location: null,
+  coordinates: null,
+  images: [],
+  mood: null,
+  password: '',
+  topicId: null,
+  weather: null,
+  text: '',
+  meta: {},
+})
 
 const EditPage: FC<{
   initialData?: NoteDto
@@ -91,11 +93,13 @@ const EditPage: FC<{
   const created = editingData.created ? new Date(editingData.created) : null
 
   const store = useStore()
-  useEffect(() => {
-    return store.sub(editingAtom, () => {
-      window.dispatchEvent(new WriteEditEvent(store.get(editingAtom)))
-    })
-  }, [editingAtom, store])
+  useEffect(
+    () =>
+      store.sub(editingAtom, () => {
+        globalThis.dispatchEvent(new WriteEditEvent(store.get(editingAtom)))
+      }),
+    [editingAtom, store],
+  )
 
   const isMobile = useIsMobile()
   return (
@@ -135,15 +139,15 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
       text: string
       meta?: Record<string, any> | undefined
     }): void => {
-      setData((prev) => {
-        return produce(prev, (draft) => {
+      setData((prev) =>
+        produce(prev, (draft) => {
           const nextData = data
           Reflect.deleteProperty(nextData, 'meta')
           Object.assign(draft, nextData)
           const { meta } = data
 
-          if (data.text) {
-            editorRef?.setMarkdown(data.text)
+          if (data.text && editorRef) {
+            editorRef.value = data.text
           }
 
           if (meta) {
@@ -156,8 +160,8 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
 
             draft.meta = meta
           }
-        })
-      })
+        }),
+      )
     },
   )
 
@@ -174,12 +178,10 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
         <div className="flex gap-2">
           <ImportMarkdownButton onParsedValue={handleParsed} />
           <PreviewButton
-            getData={() => {
-              return {
-                ...getData(),
-                id: 'preview',
-              }
-            }}
+            getData={() => ({
+              ...getData(),
+              id: 'preview',
+            })}
           />
         </div>
 
@@ -215,7 +217,7 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
               : updateNote(payload)
             promise
               .then((res) => {
-                window.dispatchEvent(
+                globalThis.dispatchEvent(
                   new PublishEvent({
                     ...payload,
                     id: res.id,

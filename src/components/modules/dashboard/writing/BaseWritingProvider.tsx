@@ -1,5 +1,4 @@
 'use client'
-
 import { produce } from 'immer'
 import type { PrimitiveAtom } from 'jotai'
 import { atom, useAtom } from 'jotai'
@@ -33,10 +32,10 @@ export const BaseWritingProvider = <T extends BaseModelType>(
     const handler = () => {
       setIsDirty(true)
     }
-    window.addEventListener(EmitKeyMap.EditDataUpdate, handler)
+    globalThis.addEventListener(EmitKeyMap.EditDataUpdate, handler)
 
     return () => {
-      window.removeEventListener(EmitKeyMap.EditDataUpdate, handler)
+      globalThis.removeEventListener(EmitKeyMap.EditDataUpdate, handler)
     }
   }, [])
   useBeforeUnload(isFormDirty)
@@ -65,24 +64,25 @@ const AutoSaverProvider: FC<PropsWithChildren> = ({ children }) => {
 
       localStorage.setItem(nsKey, JSON.stringify(dto))
     }, 300)
-    window.addEventListener(EmitKeyMap.EditDataUpdate, handler)
+    globalThis.addEventListener(EmitKeyMap.EditDataUpdate, handler)
 
     return () => {
-      window.removeEventListener(EmitKeyMap.EditDataUpdate, handler)
+      globalThis.removeEventListener(EmitKeyMap.EditDataUpdate, handler)
     }
   }, [])
 
   return (
     <AutoSaverContext.Provider
-      value={useMemo(() => {
-        return {
+      value={useMemo(
+        () => ({
           reset(type, nsKey?: string) {
             const id = nsKey || (type === 'note' ? 'new-note' : 'new-post')
             nsKey = buildNSKey(`auto-save-${id}`)
             localStorage.removeItem(nsKey)
           },
-        }
-      }, [])}
+        }),
+        [],
+      )}
     >
       {children}
     </AutoSaverContext.Provider>
@@ -133,9 +133,7 @@ export const useAutoSaver = <T extends { id: string }>([
   return [forceUpdateKey]
 }
 
-export const useBaseWritingContext = () => {
-  return useContext(BaseWritingContext)
-}
+export const useBaseWritingContext = () => useContext(BaseWritingContext)
 
 export const useBaseWritingAtom = (key: keyof BaseModelType) => {
   const ctxAtom = useBaseWritingContext()
@@ -145,11 +143,11 @@ export const useBaseWritingAtom = (key: keyof BaseModelType) => {
         atom(
           (get) => get(ctxAtom)[key],
           (get, set, newValue) => {
-            set(ctxAtom, (prev) => {
-              return produce(prev, (draft) => {
+            set(ctxAtom, (prev) =>
+              produce(prev, (draft) => {
                 ;(draft as any)[key] = newValue
-              })
-            })
+              }),
+            )
           },
         ),
       [ctxAtom, key],

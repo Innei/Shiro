@@ -6,9 +6,7 @@ import { apiClient } from '~/lib/request'
 export const Version = () => {
   const { data: version, isLoading } = useQuery({
     queryKey: ['version'],
-    queryFn: () => {
-      return apiClient.proxy.info.get<AppInfo>()
-    },
+    queryFn: () => apiClient.proxy.info.get<AppInfo>(),
     refetchInterval: 1000 * 60 * 60 * 24,
   })
   if (isLoading)

@@ -1,8 +1,7 @@
 import { lazy, Suspense, useMemo } from 'react'
 
-export const XLogEnable = () => {
-  return 'ethereum' in window ? <XlogSwitchLazy /> : null
-}
+export const XLogEnable = () =>
+  'ethereum' in globalThis ? <XlogSwitchLazy /> : null
 
 const XlogSwitchLazy = () => {
   const Component = useMemo(

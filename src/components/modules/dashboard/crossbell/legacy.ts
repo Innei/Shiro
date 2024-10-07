@@ -23,7 +23,7 @@ export class CrossBellConnector {
       return this.contract
     }
 
-    const metamask = (window as any).ethereum
+    const metamask = (globalThis as any).ethereum
     const contract = createContract(metamask)
 
     await contract.walletClient.requestAddresses()
@@ -38,7 +38,7 @@ export class CrossBellConnector {
   static createOrUpdate(data: NoteDto | PostDto) {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve) => {
-      if (!('ethereum' in window)) {
+      if (!('ethereum' in globalThis)) {
         resolve(null)
         return
       }
@@ -325,28 +325,29 @@ export class CrossBellConnector {
       credentials: 'omit',
     })
       .then((res) => res.json())
-      .then((data) => {
-        return data.data?.note as {
-          blockNumber: number
-          characterId: string
-          createdAt: string
-          metadata: {
-            content: {
-              external_urls: string[]
-              type: string
+      .then(
+        (data) =>
+          data.data?.note as {
+            blockNumber: number
+            characterId: string
+            createdAt: string
+            metadata: {
+              content: {
+                external_urls: string[]
+                type: string
+              }
+              uri: string
             }
+            noteId: string
+            owner: string
+            publishedAt: string
+            transactionHash: string
+            updatedAt: string
+            updatedBlockNumber: number
+            updatedTransactionHash: string
             uri: string
-          }
-          noteId: string
-          owner: string
-          publishedAt: string
-          transactionHash: string
-          updatedAt: string
-          updatedBlockNumber: number
-          updatedTransactionHash: string
-          uri: string
-        }
-      })
+          },
+      )
   }
 
   private static async getCrossbellNotePageIdBySlug(slug?: string) {

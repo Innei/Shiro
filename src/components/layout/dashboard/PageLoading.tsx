@@ -4,10 +4,8 @@ interface Props {
   loadingText?: string
 }
 
-export const PageLoading: Component<Props> = (props) => {
-  return (
-    <AbsoluteCenterSpinner className="!fixed">
-      <span>{props.loadingText}</span>
-    </AbsoluteCenterSpinner>
-  )
-}
+export const PageLoading: Component<Props> = (props) => (
+  <AbsoluteCenterSpinner className="!fixed">
+    <span>{props.loadingText}</span>
+  </AbsoluteCenterSpinner>
+)

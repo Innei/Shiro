@@ -96,20 +96,18 @@ export const CommentBatchActionGroup = () => {
             onClick={() => {
               present({
                 title: `删除 ${selectionKeys.size} 条评论`,
-                content: ({ dismiss }) => {
-                  return (
-                    <div className="w-[400px] text-right">
-                      <StyledButton
-                        onClick={() => {
-                          batchDelete()
-                          dismiss()
-                        }}
-                      >
-                        删除
-                      </StyledButton>
-                    </div>
-                  )
-                },
+                content: ({ dismiss }) => (
+                  <div className="w-[400px] text-right">
+                    <StyledButton
+                      onClick={() => {
+                        batchDelete()
+                        dismiss()
+                      }}
+                    >
+                      删除
+                    </StyledButton>
+                  </div>
+                ),
               })
             }}
           >

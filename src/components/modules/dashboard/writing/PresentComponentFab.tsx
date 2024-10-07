@@ -6,12 +6,10 @@ import { Noop } from '~/lib/noop'
 
 export const PresentComponentFab: FC<{
   Component: FC
-}> = ({ Component }) => {
-  return (
-    <PresentSheet content={Component}>
-      <FABPortable onlyShowInMobile onClick={Noop}>
-        <i className="i-mingcute-settings-6-line" />
-      </FABPortable>
-    </PresentSheet>
-  )
-}
+}> = ({ Component }) => (
+  <PresentSheet content={Component}>
+    <FABPortable onlyShowInMobile onClick={Noop}>
+      <i className="i-mingcute-settings-6-line" />
+    </FABPortable>
+  </PresentSheet>
+)

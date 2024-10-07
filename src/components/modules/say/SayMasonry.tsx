@@ -7,7 +7,8 @@ import Markdown from 'markdown-to-jsx'
 import { memo, useMemo } from 'react'
 import Masonry from 'react-responsive-masonry'
 
-import { useIsMobile } from '~/atoms/hooks'
+import { useIsLogged } from '~/atoms/hooks/owner'
+import { useIsMobile } from '~/atoms/hooks/viewport'
 import { LoadMoreIndicator } from '~/components/modules/shared/LoadMoreIndicator'
 import { RelativeTime } from '~/components/ui/relative-time'
 import {
@@ -16,8 +17,9 @@ import {
 } from '~/components/ui/transition'
 import { useIsDark } from '~/hooks/common/use-is-dark'
 import { addAlphaToHSL, getColorScheme, stringToHue } from '~/lib/color'
+import { clsxm } from '~/lib/helper'
 
-import { useSayListQuery } from './hooks'
+import { useSayListQuery, useSayModal } from './hooks'
 
 export const SayMasonry = () => {
   const { fetchNextPage, hasNextPage, data } = useSayListQuery()
@@ -28,13 +30,11 @@ export const SayMasonry = () => {
 
   const list = data.pages
     .flatMap((page) => page.data)
-    .map((say) => {
-      return {
-        text: say.text,
-        item: say,
-        id: say.id,
-      }
-    })
+    .map((say) => ({
+      text: say.text,
+      item: say,
+      id: say.id,
+    }))
 
   return (
     <>
@@ -64,19 +64,17 @@ const placeholderData = Array.from({ length: 10 }).map((_, index) => ({
   id: index.toFixed(0),
   item: {} as SayModel,
 }))
-const SaySkeleton = memo(() => {
-  return (
-    <div className="relative border-l-[3px] border-l-slate-500 bg-slate-200/50 px-4 py-3 dark:bg-neutral-800">
-      <div className="mb-2 h-6 w-full rounded bg-slate-300/80 dark:bg-neutral-700" />
-      <div className="flex text-sm text-base-content/60 md:justify-between">
-        <div className="mb-2 h-4 w-14 rounded bg-slate-300/80 dark:bg-neutral-700 md:mb-0" />
-        <div className="ml-auto text-right">
-          <div className="h-4 w-1/4 rounded bg-slate-300/80 dark:bg-neutral-700" />
-        </div>
+const SaySkeleton = memo(() => (
+  <div className="relative border-l-[3px] border-l-slate-500 bg-slate-200/50 px-4 py-3 dark:bg-neutral-800">
+    <div className="mb-2 h-6 w-full rounded bg-slate-300/80 dark:bg-neutral-700" />
+    <div className="flex text-sm text-base-content/60 md:justify-between">
+      <div className="mb-2 h-4 w-14 rounded bg-slate-300/80 dark:bg-neutral-700 md:mb-0" />
+      <div className="ml-auto text-right">
+        <div className="h-4 w-1/4 rounded bg-slate-300/80 dark:bg-neutral-700" />
       </div>
     </div>
-  )
-})
+  </div>
+))
 SaySkeleton.displayName = 'SaySkeleton'
 
 const options = {
@@ -97,12 +95,15 @@ const Item = memo<{
   )
   const isDark = useIsDark()
 
+  const isLogged = useIsLogged()
+  const present = useSayModal()
+
   return (
     <BottomToUpTransitionView delay={i * 50} key={say.id}>
       <m.blockquote
         layout
         key={say.id}
-        className="border-l-[3px] px-4 py-3"
+        className="group relative border-l-[3px] px-4 py-3"
         style={{
           borderLeftColor: isDark ? darkColors.accent : lightColors.accent,
           backgroundColor: addAlphaToHSL(
@@ -126,6 +127,18 @@ const Item = memo<{
             </div>
           </div>
         </div>
+        {isLogged && (
+          <button
+            onClick={() => present(say)}
+            className={clsxm(
+              'absolute right-0 top-0 -translate-y-1/3 translate-x-1/3 bg-base-100',
+              'center flex size-6 rounded-full text-accent opacity-0 ring-1 ring-slate-200 duration-200 group-hover:opacity-100 dark:ring-neutral-800',
+            )}
+          >
+            <i className="i-mingcute-quill-pen-line" />
+            <span className="sr-only">编辑</span>
+          </button>
+        )}
       </m.blockquote>
     </BottomToUpTransitionView>
   )

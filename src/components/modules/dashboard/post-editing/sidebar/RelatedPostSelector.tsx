@@ -93,9 +93,7 @@ const RealtedPostList: FC = () => {
   const relatedIds = usePostModelDataSelector((state) => state?.relatedId)
 
   const currentId = usePostModelDataSelector((state) => state?.id)
-  const selection = useMemo(() => {
-    return new Set(relatedIds)
-  }, [relatedIds])
+  const selection = useMemo(() => new Set(relatedIds), [relatedIds])
 
   const setter = usePostModelSetModelData()
 
@@ -140,8 +138,8 @@ const RealtedPostList: FC = () => {
 
   return (
     <ul className="h-full overflow-auto lg:max-h-full" ref={scrollerRef}>
-      {data?.pages.map((page) => {
-        return page.data.map((post) => {
+      {data?.pages.map((page) =>
+        page.data.map((post) => {
           if (post.id === currentId) return
           const labelFor = `related-${post.id}`
           return (
@@ -194,8 +192,8 @@ const RealtedPostList: FC = () => {
               </label>
             </li>
           )
-        })
-      })}
+        }),
+      )}
 
       {isLoading && isFetching && (
         <div className="flex justify-center">

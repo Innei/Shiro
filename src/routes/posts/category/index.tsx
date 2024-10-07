@@ -1,11 +1,15 @@
-'use client'
-
 import { useRouter } from 'next/navigation'
 import { useLayoutEffect } from 'react'
 
-import { useResolveAdminUrl } from '~/atoms/hooks'
+import { useResolveAdminUrl } from '~/atoms/hooks/url'
+import { defineRouteConfig } from '~/components/modules/dashboard/utils/helper'
 
-export default function Page() {
+export const config = defineRouteConfig({
+  priority: 3,
+  title: '分类',
+  icon: <i className="i-mingcute-cat-line" />,
+})
+export function Component() {
   const toAdminUrl = useResolveAdminUrl()
   const router = useRouter()
   useLayoutEffect(() => {
