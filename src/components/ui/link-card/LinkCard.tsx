@@ -639,15 +639,28 @@ const fetchQQMusicSongData: FetchObject = {
       const songInfo = songData.data[0]
       const albumId = songInfo.album.mid
       setCardInfo({
-        title:
-          songInfo.title + (songInfo.subtitle ? ` - ${songInfo.subtitle}` : ''),
+        title: (
+          <>
+            <span>{songInfo.title}</span>
+            {songInfo.subtitle && (
+              <span className="ml-2 text-sm text-gray-400">
+                {songInfo.subtitle}
+              </span>
+            )}
+          </>
+        ),
         desc: (
           <>
             <span className="block">
-              歌手：
-              {songInfo.singer.map((person: any) => person.name).join(' / ')}
+              <span className="font-bold">歌手：</span>
+              <span>
+                {songInfo.singer.map((person: any) => person.name).join(' / ')}
+              </span>
             </span>
-            <span className="block">专辑：{songInfo.album.name}</span>
+            <span className="block">
+              <span className="font-bold">专辑：</span>
+              <span>{songInfo.album.name}</span>
+            </span>
           </>
         ),
         image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${albumId}.jpg?max_age=2592000`,
@@ -682,14 +695,28 @@ const fetchNeteaseMusicSongData: FetchObject = {
       const albumInfo = songInfo.al
       const singerInfo = songInfo.ar
       setCardInfo({
-        title: songInfo.name + (songInfo.tns ? ` - ${songInfo.tns[0]}` : ''),
+        title: (
+          <>
+            <span>{songInfo.name}</span>
+            {songInfo.tns && (
+              <span className="ml-2 text-sm text-gray-400">
+                {songInfo.tns[0]}
+              </span>
+            )}
+          </>
+        ),
         desc: (
           <>
             <span className="block">
-              歌手：
-              {singerInfo.map((person: any) => person.name).join(' / ')}
+              <span className="font-bold">歌手：</span>
+              <span>
+                {singerInfo.map((person: any) => person.name).join(' / ')}
+              </span>
             </span>
-            <span className="block">专辑：{albumInfo.name}</span>
+            <span className="block">
+              <span className="font-bold">专辑：</span>
+              <span>{albumInfo.name}</span>
+            </span>
           </>
         ),
         image: albumInfo.picUrl,
