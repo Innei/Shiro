@@ -71,8 +71,8 @@ export const SayModalForm: FC<{
         defaultValue={editingData?.author}
       />
 
-      <div className="flex justify-center">
-        <StyledButton className="w-[80px]" type="submit">
+      <div className="flex justify-end">
+        <StyledButton type="submit">
           {editingData ? '更新' : '发布'}
         </StyledButton>
       </div>
