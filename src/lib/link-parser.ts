@@ -17,8 +17,10 @@ export const isQQMusicSongUrl = (url: URL) => {
 }
 
 export const isNeteaseMusicSongUrl = (url: URL) => {
-  return url.hostname === 'music.163.com'
-  //  && (url.pathname.includes('/song') || url.hash.includes('/song'))
+  return (
+    url.hostname === 'music.163.com' &&
+    (url.pathname.includes('/song') || url.hash.includes('/song'))
+  )
 }
 
 export const isGithubRepoUrl = (url: URL) => {

@@ -16,9 +16,6 @@ export const POST = async (req: NextRequest) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'User-Agent':
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.2535.67',
-      Referer: 'https://music.163.com/',
     },
     body: bodyString,
   })
