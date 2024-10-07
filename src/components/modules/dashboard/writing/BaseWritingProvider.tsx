@@ -1,3 +1,4 @@
+'use client'
 import { produce } from 'immer'
 import type { PrimitiveAtom } from 'jotai'
 import { atom, useAtom } from 'jotai'
