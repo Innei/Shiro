@@ -1,5 +1,3 @@
-'use client'
-
 import { clsx } from 'clsx'
 import type { ReactNode } from 'react'
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'

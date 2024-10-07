@@ -1,11 +1,10 @@
-'use client'
-
 import type { NoteModel, PostModel } from '@mx-space/api-client'
 import { CommentState } from '@mx-space/api-client'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
 import type { FC } from 'react'
-import { createElement, useEffect, useMemo } from 'react'
+import { createElement, useCallback, useEffect, useMemo } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 import { useIsMobile } from '~/atoms/hooks/viewport'
 import {
@@ -20,10 +19,15 @@ import {
 } from '~/components/modules/dashboard/comments'
 import { LoadMoreIndicator } from '~/components/modules/shared/LoadMoreIndicator'
 import { Tabs } from '~/components/ui/tabs'
-import { useRouterQueryState } from '~/hooks/biz/use-router-query-state'
 import { adminQueries } from '~/queries/definition'
 
-export default function Page() {
+export const config = {
+  title: '评论',
+  icon: <i className="i-mingcute-comment-line" />,
+  priority: 3,
+}
+
+export function Component() {
   const TABS = useMemo(
     () => [
       {
@@ -48,7 +52,17 @@ export default function Page() {
     [],
   )
 
-  const [tab, setTab] = useRouterQueryState('tab', TABS[0].key)
+  const [search, setSearch] = useSearchParams()
+  const tab: CommentState = (search.get('tab') as any) || CommentState.Unread
+  const setTab = useCallback(
+    (tab: CommentState) => {
+      setSearch((prev) => {
+        prev.set('tab', tab.toString())
+        return new URLSearchParams(prev)
+      })
+    },
+    [setSearch],
+  )
 
   const currentTab = tab.toString() || TABS[0].key.toString()
   return (

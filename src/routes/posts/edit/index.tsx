@@ -1,22 +1,21 @@
-'use client'
-
 import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import { produce } from 'immer'
 import { atom, useStore } from 'jotai'
-import { useRouter, useSearchParams } from 'next/navigation'
 import type { FC } from 'react'
 import { useEffect, useMemo, useState } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { useIsMobile } from '~/atoms/hooks/viewport'
 import { PageLoading } from '~/components/layout/dashboard/PageLoading'
 import {
-  NoteEditorSidebar,
-  NoteModelDataAtomProvider,
-  useNoteModelGetModelData,
-  useNoteModelSetModelData,
-} from '~/components/modules/dashboard/note-editing'
-import { NoteNid } from '~/components/modules/dashboard/note-editing/NoteNid'
+  PostEditorSidebar,
+  PostModelDataAtomProvider,
+  SlugInput,
+  usePostModelGetModelData,
+  usePostModelSetModelData,
+} from '~/components/modules/dashboard/post-editing'
+import { defineRouteConfig } from '~/components/modules/dashboard/utils/helper'
 import {
   BaseWritingProvider,
   useAutoSaver,
@@ -32,19 +31,23 @@ import { StyledButton } from '~/components/ui/button'
 import { PublishEvent, WriteEditEvent } from '~/events'
 import { useRefetchData } from '~/hooks/biz/use-refetch-data'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
-import { dayOfYear } from '~/lib/datetime'
 import { cloneDeep } from '~/lib/lodash'
 import { toast } from '~/lib/toast'
-import type { NoteDto } from '~/models/writing'
+import type { PostDto } from '~/models/writing'
 import { adminQueries } from '~/queries/definition'
-import { useCreateNote, useUpdateNote } from '~/queries/definition/note'
+import { useCreatePost, useUpdatePost } from '~/queries/definition/post'
 
-export default function Page() {
-  const search = useSearchParams()
+export const config = defineRouteConfig({
+  priority: 2,
+  title: '编辑',
+  icon: <i className="i-mingcute-pen-line" />,
+})
+export function Component() {
+  const [search] = useSearchParams()
   const id = search.get('id')
 
   const { data, isLoading, refetch } = useQuery({
-    ...adminQueries.note.getNote(id!),
+    ...adminQueries.post.getPost(id!),
     enabled: !!id,
   })
 
@@ -58,48 +61,51 @@ export default function Page() {
   return <EditPage />
 }
 
-const createInitialEditingData = (): NoteDto => ({
+const createInitialEditingData = (): PostDto => ({
   title: '',
   allowComment: true,
 
+  copyright: true,
+
+  categoryId: '',
   id: '',
-  nid: 0,
-  location: null,
-  coordinates: null,
   images: [],
-  mood: null,
-  password: '',
-  topicId: null,
-  weather: null,
+
+  pin: null,
+  pinOrder: 0,
+  relatedId: [],
+  slug: '',
+  tags: [],
   text: '',
   meta: {},
+  related: [],
+
+  summary: '',
 })
 
 const EditPage: FC<{
-  initialData?: NoteDto
+  initialData?: PostDto
 }> = (props) => {
-  const [editingData, setEditingData] = useState<NoteDto>(() =>
+  const [editingData, setEditingData] = useState<PostDto>(() =>
     props.initialData
       ? cloneDeep(props.initialData)
       : createInitialEditingData(),
   )
+
   const [forceUpdateKey] = useAutoSaver([editingData, setEditingData])
-
   const editingAtom = useMemo(() => atom(editingData), [editingData])
-  const created = editingData.created ? new Date(editingData.created) : null
-
   const store = useStore()
   useEffect(
     () =>
       store.sub(editingAtom, () => {
-        window.dispatchEvent(new WriteEditEvent(store.get(editingAtom)))
+        globalThis.dispatchEvent(new WriteEditEvent(store.get(editingAtom)))
       }),
     [editingAtom, store],
   )
 
   const isMobile = useIsMobile()
   return (
-    <NoteModelDataAtomProvider overrideAtom={editingAtom} key={forceUpdateKey}>
+    <PostModelDataAtomProvider overrideAtom={editingAtom} key={forceUpdateKey}>
       <BaseWritingProvider atom={editingAtom}>
         <EditorLayer>
           {isMobile ? (
@@ -110,24 +116,17 @@ const EditPage: FC<{
             </span>
           )}
           <ActionButtonGroup initialData={props.initialData} />
-          <Writing
-            middleSlot={NoteNid}
-            titleLabel={
-              created
-                ? `记录 ${created.getFullYear()} 年第 ${dayOfYear()} 天`
-                : undefined
-            }
-          />
-          <NoteEditorSidebar />
+          <Writing middleSlot={SlugInput} />
+          <PostEditorSidebar />
         </EditorLayer>
       </BaseWritingProvider>
-    </NoteModelDataAtomProvider>
+    </PostModelDataAtomProvider>
   )
 }
 
-const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
-  const getData = useNoteModelGetModelData()
-  const setData = useNoteModelSetModelData()
+const ActionButtonGroup = ({ initialData }: { initialData?: PostDto }) => {
+  const getData = usePostModelGetModelData()
+  const setData = usePostModelSetModelData()
   const editorRef = useEditorRef()
   const handleParsed = useEventCallback(
     (data: {
@@ -142,8 +141,8 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
           Object.assign(draft, nextData)
           const { meta } = data
 
-          if (data.text && editorRef) {
-            editorRef.value = data.text
+          if (data.text) {
+            editorRef!.value = data.text
           }
 
           if (meta) {
@@ -161,12 +160,11 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
     },
   )
 
-  const { mutateAsync: createNote, isPending: p1 } = useCreateNote()
-  const { mutateAsync: updateNote, isPending: p2 } = useUpdateNote()
-
+  const { mutateAsync: createPost, isPending: p1 } = useCreatePost()
+  const { mutateAsync: updatePost, isPending: p2 } = useUpdatePost()
   const isPending = p1 || p2
-  const router = useRouter()
 
+  const navigate = useNavigate()
   return (
     <>
       <div className="shrink grow" />
@@ -188,7 +186,7 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
               ...getData(),
             }
 
-            const payload: NoteDto & {
+            const payload: PostDto & {
               id?: string
             } = {
               ...currentData,
@@ -205,24 +203,25 @@ const ActionButtonGroup = ({ initialData }: { initialData?: NoteDto }) => {
 
             const isCreate = !currentData.id
             const promise = isCreate
-              ? createNote(payload).then((res) => {
-                  router.replace(`/dashboard/notes/edit?id=${res.id}`)
-
+              ? createPost(payload).then((res) => {
+                  navigate(`/dashboard/posts/edit?id=${res.id}`, {
+                    replace: true,
+                  })
                   return res
                 })
-              : updateNote(payload)
-            promise
-              .then((res) => {
-                window.dispatchEvent(
-                  new PublishEvent({
-                    ...payload,
-                    id: res.id,
-                  }),
-                )
-              })
-              .catch((err) => {
-                toast.error(err.message)
-              })
+              : updatePost(payload)
+
+            promise.then((res) => {
+              globalThis.dispatchEvent(
+                new PublishEvent({
+                  ...payload,
+                  id: res.id,
+                }),
+              )
+            })
+            promise.catch((err) => {
+              toast.error(err.message)
+            })
           }}
         >
           {initialData ? '保存' : '发布'}

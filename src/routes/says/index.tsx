@@ -1,12 +1,11 @@
-'use client'
-
+import { defineRouteConfig } from '~/components/modules/dashboard/utils/helper'
 import { useSayListQuery, useSayModal } from '~/components/modules/say/hooks'
 import { SayMasonry } from '~/components/modules/say/SayMasonry'
 import { NothingFound } from '~/components/modules/shared/NothingFound'
 import { StyledButton } from '~/components/ui/button'
 import { FullPageLoading } from '~/components/ui/loading'
 
-export default function Page() {
+export const Component = () => {
   const { data, isLoading, status } = useSayListQuery()
   const present = useSayModal()
 
@@ -32,3 +31,9 @@ export default function Page() {
     </div>
   )
 }
+
+export const config = defineRouteConfig({
+  title: '一言',
+  icon: <i className="i-mingcute-comment-2-line" />,
+  priority: 5,
+})

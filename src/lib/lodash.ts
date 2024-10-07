@@ -165,3 +165,14 @@ export function get(target: object, path: string) {
 }
 
 export const uniq = <T>(arr: T[]): T[] => Array.from(new Set(arr))
+
+export const omit = <T extends object, K extends keyof T>(
+  obj: T,
+  ...keys: K[]
+): Omit<T, K> => {
+  const result = { ...obj }
+  for (const key of keys) {
+    delete result[key]
+  }
+  return result
+}

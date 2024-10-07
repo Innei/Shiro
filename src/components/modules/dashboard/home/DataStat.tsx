@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
-import { useRouter } from 'next/navigation'
 import type { ReactNode } from 'react'
 import { useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { StyledButton } from '~/components/ui/button'
 import { RelativeTime } from '~/components/ui/relative-time'
@@ -64,7 +64,7 @@ export const DataStat = () => {
     },
   })
   const { readAndLikeCounts } = counts || {}
-  const router = useRouter()
+  const navigate = useNavigate()
 
   const dataStat = useMemo<CardProps[]>(() => {
     if (!stat) return []
@@ -78,13 +78,13 @@ export const DataStat = () => {
             name: '撰写',
             primary: true,
             onClick() {
-              router.push('/dashboard/posts/edit')
+              navigate('/dashboard/posts/edit')
             },
           },
           {
             name: '管理',
             onClick() {
-              router.push('/dashboard/posts/list')
+              navigate('/dashboard/posts/list')
             },
           },
         ],
@@ -99,13 +99,13 @@ export const DataStat = () => {
             name: '撰写',
             primary: true,
             onClick() {
-              router.push('/dashboard/notes/edit')
+              navigate('/dashboard/notes/edit')
             },
           },
           {
             name: '管理',
             onClick() {
-              router.push('/dashboard/notes/list')
+              navigate('/dashboard/notes/list')
             },
           },
         ],
@@ -120,7 +120,7 @@ export const DataStat = () => {
             primary: true,
             name: '管理',
             onClick() {
-              router.push('/dashboard/pages')
+              navigate('/dashboard/pages')
             },
           },
         ],
@@ -135,7 +135,7 @@ export const DataStat = () => {
             primary: true,
             name: '管理',
             onClick() {
-              router.push('/dashboard/posts/category')
+              navigate('/dashboard/posts/category')
             },
           },
         ],
@@ -151,7 +151,7 @@ export const DataStat = () => {
             primary: true,
             name: '管理',
             onClick() {
-              router.push('/dashboard/comments')
+              navigate('/dashboard/comments')
             },
           },
         ],
@@ -227,9 +227,9 @@ export const DataStat = () => {
       },
     ]
   }, [
+    navigate,
     readAndLikeCounts?.totalLikes,
     readAndLikeCounts?.totalReads,
-    router,
     siteWordCount,
     stat,
   ])

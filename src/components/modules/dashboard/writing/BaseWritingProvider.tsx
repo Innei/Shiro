@@ -1,5 +1,3 @@
-'use client'
-
 import { produce } from 'immer'
 import type { PrimitiveAtom } from 'jotai'
 import { atom, useAtom } from 'jotai'
@@ -33,10 +31,10 @@ export const BaseWritingProvider = <T extends BaseModelType>(
     const handler = () => {
       setIsDirty(true)
     }
-    window.addEventListener(EmitKeyMap.EditDataUpdate, handler)
+    globalThis.addEventListener(EmitKeyMap.EditDataUpdate, handler)
 
     return () => {
-      window.removeEventListener(EmitKeyMap.EditDataUpdate, handler)
+      globalThis.removeEventListener(EmitKeyMap.EditDataUpdate, handler)
     }
   }, [])
   useBeforeUnload(isFormDirty)
@@ -65,10 +63,10 @@ const AutoSaverProvider: FC<PropsWithChildren> = ({ children }) => {
 
       localStorage.setItem(nsKey, JSON.stringify(dto))
     }, 300)
-    window.addEventListener(EmitKeyMap.EditDataUpdate, handler)
+    globalThis.addEventListener(EmitKeyMap.EditDataUpdate, handler)
 
     return () => {
-      window.removeEventListener(EmitKeyMap.EditDataUpdate, handler)
+      globalThis.removeEventListener(EmitKeyMap.EditDataUpdate, handler)
     }
   }, [])
 
