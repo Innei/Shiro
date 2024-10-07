@@ -17,6 +17,7 @@ import {
   isGithubRepoUrl,
   isGithubUrl,
   isLeetCodeUrl,
+  isQQMusicSongUrl,
   isSelfArticleUrl,
   isTMDBUrl,
   isTweetUrl,
@@ -148,6 +149,16 @@ export const BlockLinkRenderer = ({
           fallbackUrl={url.toString()}
           source={LinkCardSource.LEETCODE}
           id={url.pathname.split('/')[2]}
+        />
+      )
+    }
+
+    case isQQMusicSongUrl(url): {
+      return (
+        <LinkCard
+          fallbackUrl={url.toString()}
+          source={LinkCardSource.QQMusicSong}
+          id={url.pathname.split('/')[4]}
         />
       )
     }
