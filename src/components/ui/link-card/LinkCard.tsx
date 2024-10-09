@@ -95,6 +95,8 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
         [LinkCardSource.GHPr]: fetchGitHubPRData,
         [LinkCardSource.Self]: fetchMxSpaceData,
         [LinkCardSource.LEETCODE]: fetchLeetCodeQuestionData,
+        [LinkCardSource.QQMusicSong]: fetchQQMusicSongData,
+        [LinkCardSource.NeteaseMusicSong]: fetchNeteaseMusicSongData,
       } as Record<LinkCardSource, FetchObject>
       if (tmdbEnabled)
         fetchDataFunctions[LinkCardSource.TMDB] = fetchTheMovieDBData
@@ -612,6 +614,117 @@ const fetchLeetCodeQuestionData: FetchObject = {
         default:
           return 'text-gray-500'
       }
+    }
+  },
+}
+
+const fetchQQMusicSongData: FetchObject = {
+  isValid: (id) => {
+    return typeof id === 'string' && id.length > 0
+  },
+  fetch: async (id, setCardInfo, _setFullUrl) => {
+    try {
+      const songData = await fetch(`/api/music/tencent`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ songId: id }),
+      }).then(async (res) => {
+        if (!res.ok) {
+          throw new Error('Failed to fetch QQMusic song title')
+        }
+        return res.json()
+      })
+      const songInfo = songData.data[0]
+      const albumId = songInfo.album.mid
+      setCardInfo({
+        title: (
+          <>
+            <span>{songInfo.title}</span>
+            {songInfo.subtitle && (
+              <span className="ml-2 text-sm text-gray-400">
+                {songInfo.subtitle}
+              </span>
+            )}
+          </>
+        ),
+        desc: (
+          <>
+            <span className="block">
+              <span className="font-bold">歌手：</span>
+              <span>
+                {songInfo.singer.map((person: any) => person.name).join(' / ')}
+              </span>
+            </span>
+            <span className="block">
+              <span className="font-bold">专辑：</span>
+              <span>{songInfo.album.name}</span>
+            </span>
+          </>
+        ),
+        image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${albumId}.jpg?max_age=2592000`,
+        color: '#31c27c',
+      })
+    } catch (err) {
+      console.error('Error fetching QQMusic song data:', err)
+      throw err
+    }
+  },
+}
+
+const fetchNeteaseMusicSongData: FetchObject = {
+  isValid: (id) => {
+    return id.length > 0
+  },
+  fetch: async (id, setCardInfo, _setFullUrl) => {
+    try {
+      const songData = await fetch(`/api/music/netease`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ songId: id }),
+      }).then(async (res) => {
+        if (!res.ok) {
+          throw new Error('Failed to fetch NeteaseMusic song title')
+        }
+        return res.json()
+      })
+      const songInfo = songData.songs[0]
+      const albumInfo = songInfo.al
+      const singerInfo = songInfo.ar
+      setCardInfo({
+        title: (
+          <>
+            <span>{songInfo.name}</span>
+            {songInfo.tns && (
+              <span className="ml-2 text-sm text-gray-400">
+                {songInfo.tns[0]}
+              </span>
+            )}
+          </>
+        ),
+        desc: (
+          <>
+            <span className="block">
+              <span className="font-bold">歌手：</span>
+              <span>
+                {singerInfo.map((person: any) => person.name).join(' / ')}
+              </span>
+            </span>
+            <span className="block">
+              <span className="font-bold">专辑：</span>
+              <span>{albumInfo.name}</span>
+            </span>
+          </>
+        ),
+        image: albumInfo.picUrl,
+        color: '#e72d2c',
+      })
+    } catch (err) {
+      console.error('Error fetching NeteaseMusic song data:', err)
+      throw err
     }
   },
 }
