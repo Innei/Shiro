@@ -47,6 +47,7 @@ html body {
 * {
   tab-size: 2;
 
+  @apply border-border;
   &:hover {
     scrollbar-color: auto;
   }
