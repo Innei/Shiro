@@ -8,6 +8,17 @@ const GITHUB_HOST = 'github.com'
 export const isLeetCodeUrl = (url: URL) => {
   return url.hostname === 'leetcode.cn' || url.hostname === 'leetcode.com'
 }
+
+export const isQQMusicSongUrl = (url: URL) => {
+  return url.hostname === 'y.qq.com' && url.pathname.includes('/songDetail/')
+}
+
+export const isNeteaseMusicSongUrl = (url: URL) => {
+  return (
+    url.hostname === 'music.163.com' &&
+    (url.pathname.includes('/song') || url.hash.includes('/song'))
+  )
+}
 export const isGithubRepoUrl = (url: URL) =>
   url.hostname === GITHUB_HOST &&
   url.pathname.startsWith('/') &&

@@ -9,4 +9,6 @@ export enum LinkCardSource {
   TMDB = 'tmdb',
   LEETCODE = 'leetcode',
   Arxiv = 'arxiv',
+  QQMusicSong = 'qq-music-song',
+  NeteaseMusicSong = 'netease-music-song',
 }

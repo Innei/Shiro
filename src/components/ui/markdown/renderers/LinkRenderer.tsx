@@ -20,6 +20,8 @@ import {
   isGithubRepoUrl,
   isGithubUrl,
   isLeetCodeUrl,
+  isNeteaseMusicSongUrl,
+  isQQMusicSongUrl,
   isSelfArticleUrl,
   isSelfThinkingUrl,
   isTMDBUrl,
@@ -194,6 +196,29 @@ export const BlockLinkRenderer = ({
               </ClientOnly>
             </FixedRatioContainer>
           </div>
+        )
+      }
+
+      case isNeteaseMusicSongUrl(url): {
+        const urlString = url.toString().replaceAll('/#/', '/')
+        const _url = new URL(urlString)
+        const id = _url.searchParams.get('id') ?? ''
+        return (
+          <LinkCard
+            fallbackUrl={url.toString()}
+            source={LinkCardSource.NeteaseMusicSong}
+            id={id}
+          />
+        )
+      }
+
+      case isQQMusicSongUrl(url): {
+        return (
+          <LinkCard
+            fallbackUrl={url.toString()}
+            source={LinkCardSource.QQMusicSong}
+            id={url.pathname.split('/')[4]}
+          />
         )
       }
     }
