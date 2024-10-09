@@ -299,6 +299,7 @@ const twConfig: Config = {
     require('@tailwindcss/container-queries'),
     require('tailwindcss-animated'),
     require('tailwindcss-animate'),
+    require('tailwindcss-motion'),
 
     require('./src/styles/theme.css'),
     require('./src/styles/layer.css'),

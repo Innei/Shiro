@@ -129,10 +129,10 @@ const PresenceImpl = () => {
       refetch()
       updateWithPercent()
     }
-    window.addEventListener(EmitKeyMap.SocketConnected, handler)
+    globalThis.addEventListener(EmitKeyMap.SocketConnected, handler)
 
     return () => {
-      window.removeEventListener(EmitKeyMap.SocketConnected, handler)
+      globalThis.removeEventListener(EmitKeyMap.SocketConnected, handler)
     }
   }, [refetch, updateWithPercent])
 
@@ -252,7 +252,7 @@ const NameModalContent = () => {
 }
 export const DisplayNameHelper = ({ displayName }: { displayName: string }) => {
   const { present } = useModalStack()
-  if (displayName) return null
+  // if (displayName) return null
 
   return (
     <RootPortal>
@@ -265,7 +265,7 @@ export const DisplayNameHelper = ({ displayName }: { displayName: string }) => {
         }}
         className={clsx(
           'border-border center fixed bottom-5 left-5 z-10 flex size-5 rounded-full border bg-base-100/80 text-2xl',
-          'animation-wave',
+          'animation-wave hover:motion-preset-shake',
         )}
       >
         👋🏻
