@@ -252,7 +252,7 @@ const NameModalContent = () => {
 }
 export const DisplayNameHelper = ({ displayName }: { displayName: string }) => {
   const { present } = useModalStack()
-  // if (displayName) return null
+  if (displayName) return null
 
   return (
     <RootPortal>
