@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@radix-ui/react-scroll-area':
-        specifier: 1.1.0
-        version: 1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.11)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: 1.2.0
+        version: 1.2.0(@types/react-dom@18.3.0)(@types/react@18.3.11)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       marked:
         specifier: ^14.1.2
         version: 14.1.2
@@ -355,8 +355,8 @@ packages:
       '@types/react':
         optional: true
 
-  '@radix-ui/react-context@1.1.0':
-    resolution: {integrity: sha512-OKrckBy+sMEgYM/sMmqmErVn0kZqrHPJze+Ql3DzYsDDp0hl0L62nx/2122/Bvps1qz645jlcu2tD9lrRSdf8A==}
+  '@radix-ui/react-context@1.1.1':
+    resolution: {integrity: sha512-UASk9zi+crv9WteK/NU4PLvOoL3OuE6BWVKNF6hPRBtYBDXQ2u5iu3O59zUlJiTVvkyuycnqrztsHVJwcK9K+Q==}
     peerDependencies:
       '@types/react': '*'
       react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
@@ -373,8 +373,8 @@ packages:
       '@types/react':
         optional: true
 
-  '@radix-ui/react-presence@1.1.0':
-    resolution: {integrity: sha512-Gq6wuRN/asf9H/E/VzdKoUtT8GC9PQc9z40/vEr0VCJ4u5XvvhWIrSsCB6vD2/cH7ugTdSfYq9fLJCcM00acrQ==}
+  '@radix-ui/react-presence@1.1.1':
+    resolution: {integrity: sha512-IeFXVi4YS1K0wVZzXNrbaaUvIJ3qdY+/Ih4eHFhWA9SwGR9UDX7Ck8abvL57C4cv3wwMvUE0OG69Qc3NCcTe/A==}
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
@@ -399,8 +399,8 @@ packages:
       '@types/react-dom':
         optional: true
 
-  '@radix-ui/react-scroll-area@1.1.0':
-    resolution: {integrity: sha512-9ArIZ9HWhsrfqS765h+GZuLoxaRHD/j0ZWOWilsCvYTpYJp8XwCqNG7Dt9Nu/TItKOdgLGkOPCodQvDc+UMwYg==}
+  '@radix-ui/react-scroll-area@1.2.0':
+    resolution: {integrity: sha512-q2jMBdsJ9zB7QG6ngQNzNwlvxLQqONyL58QbEGwuyRZZb/ARQwk3uQVbCF7GvQVOtV6EU/pDxAw3zRzJZI3rpQ==}
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
@@ -2055,7 +2055,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.11
 
-  '@radix-ui/react-context@1.1.0(@types/react@18.3.11)(react@18.2.0)':
+  '@radix-ui/react-context@1.1.1(@types/react@18.3.11)(react@18.2.0)':
     dependencies:
       react: 18.2.0
     optionalDependencies:
@@ -2067,7 +2067,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.11
 
-  '@radix-ui/react-presence@1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.11)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@radix-ui/react-presence@1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.11)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@radix-ui/react-compose-refs': 1.1.0(@types/react@18.3.11)(react@18.2.0)
       '@radix-ui/react-use-layout-effect': 1.1.0(@types/react@18.3.11)(react@18.2.0)
@@ -2086,14 +2086,14 @@ snapshots:
       '@types/react': 18.3.11
       '@types/react-dom': 18.3.0
 
-  '@radix-ui/react-scroll-area@1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.11)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@radix-ui/react-scroll-area@1.2.0(@types/react-dom@18.3.0)(@types/react@18.3.11)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@radix-ui/number': 1.1.0
       '@radix-ui/primitive': 1.1.0
       '@radix-ui/react-compose-refs': 1.1.0(@types/react@18.3.11)(react@18.2.0)
-      '@radix-ui/react-context': 1.1.0(@types/react@18.3.11)(react@18.2.0)
+      '@radix-ui/react-context': 1.1.1(@types/react@18.3.11)(react@18.2.0)
       '@radix-ui/react-direction': 1.1.0(@types/react@18.3.11)(react@18.2.0)
-      '@radix-ui/react-presence': 1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.11)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@radix-ui/react-presence': 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.11)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-primitive': 2.0.0(@types/react-dom@18.3.0)(@types/react@18.3.11)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-use-callback-ref': 1.1.0(@types/react@18.3.11)(react@18.2.0)
       '@radix-ui/react-use-layout-effect': 1.1.0(@types/react@18.3.11)(react@18.2.0)
