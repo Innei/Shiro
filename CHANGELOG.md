@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## [1.2.2](https://github.com/Innei/sprightly/compare/v1.2.1...v1.2.2) (2024-10-10)
+
+
+### Bug Fixes
+
+* build ([0d8b053](https://github.com/Innei/sprightly/commit/0d8b053484ddeed054099de9853bb678fbe554a7))
+* **deps:** update all non-major dependencies ([434a47b](https://github.com/Innei/sprightly/commit/434a47b029aa504a574e4ee90d5e1fce21a511c0))
+* **deps:** update all non-major dependencies ([#467](https://github.com/Innei/sprightly/issues/467)) ([4c96297](https://github.com/Innei/sprightly/commit/4c962978d19bc6fc11f7f58f46399a20ad0cef87))
+* **deps:** update dependency qrcode.react to v4 ([#444](https://github.com/Innei/sprightly/issues/444)) ([a1f96fb](https://github.com/Innei/sprightly/commit/a1f96fb495a80876102c8f3e15ec7bf1a629e81f))
+
+
+### Features
+
+* add music card to LinkCard (netease/tencent) ([#470](https://github.com/Innei/sprightly/issues/470)) ([2165b6a](https://github.com/Innei/sprightly/commit/2165b6a598a6b464bb85fe0a54f87e939f0e8efb))
+
+
+
 ## [1.2.1](https://github.com/Innei/sprightly/compare/v1.2.0...v1.2.1) (2024-10-05)
 
 
