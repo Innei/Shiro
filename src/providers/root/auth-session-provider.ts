@@ -1,4 +1,5 @@
 import { simpleCamelcaseKeys } from '@mx-space/api-client'
+import { useOpenPanel } from '@openpanel/nextjs'
 import { useQuery } from '@tanstack/react-query'
 import { nanoid } from 'nanoid'
 import type { AdapterUser } from 'next-auth/adapters'
@@ -25,7 +26,7 @@ export const AuthSessionProvider: Component = ({ children }) => {
         },
       }),
   })
-
+  const { identify } = useOpenPanel()
   useEffect(() => {
     if (!session) return
     const transformedData = simpleCamelcaseKeys(session)
@@ -34,6 +35,12 @@ export const AuthSessionProvider: Component = ({ children }) => {
       jotaiStore.set(isLoggedAtom, true)
       fetchAppUrl()
     }
+    identify({
+      profileId: transformedData.id,
+      email: transformedData.email,
+      lastName: transformedData.name,
+      avatar: transformedData.avatar,
+    })
   }, [session])
   return children
 }

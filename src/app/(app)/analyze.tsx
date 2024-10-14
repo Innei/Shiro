@@ -4,6 +4,7 @@ import { useOpenPanel } from '@openpanel/nextjs'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { useRef } from 'react'
 
+import PKG from '~/../package.json'
 import type { TrackerAction } from '~/constants/tracker'
 
 declare global {
@@ -15,11 +16,18 @@ declare global {
 }
 export const Analyze = () => {
   const onceRef = useRef(false)
-  const { track } = useOpenPanel()
+  const { track, setGlobalProperties } = useOpenPanel()
+  // eslint-disable-next-line react-compiler/react-compiler
   useIsomorphicLayoutEffect(() => {
     if (onceRef.current) {
       return
     }
+
+    setGlobalProperties({
+      version: PKG.version,
+      commit: process.env.COMMIT_HASH,
+      app: 'shiroi',
+    })
 
     onceRef.current = true
 
