@@ -26,11 +26,6 @@ if (repoInfo) {
 /** @type {import('next').NextConfig} */
 
 let nextConfig = {
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
-  },
   env: {
     COMMIT_HASH: commitHash,
     COMMIT_URL: commitUrl,

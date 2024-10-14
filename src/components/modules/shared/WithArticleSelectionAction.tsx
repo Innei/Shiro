@@ -1,3 +1,4 @@
+'use client'
 import clsx from 'clsx'
 import { AnimatePresence, m } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
