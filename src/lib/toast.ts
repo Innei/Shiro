@@ -55,7 +55,3 @@ export const toast: ToastCustom = (
     options?: ToastOptions & CustomToastOptions,
   ) => toast(message, type as TypeOptions, options)
 })
-
-Object.assign(toast, {
-  dismiss: Toast.dismiss,
-})
