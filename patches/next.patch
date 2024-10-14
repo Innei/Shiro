@@ -1,8 +1,8 @@
 diff --git a/dist/compiled/@vercel/og/index.edge.js b/dist/compiled/@vercel/og/index.edge.js
-index 1f7fc5b22388f95e2b6570f2c1fc0ccbd66754ba..52a52a5ad89c078587a6eef4ac24b40f6f990bb0 100644
+index 089354ce4b62dde0fed3482e028ffade3d34b750..3a2f17f0356e815023b9054b52dc1706fa05b2b6 100644
 --- a/dist/compiled/@vercel/og/index.edge.js
 +++ b/dist/compiled/@vercel/og/index.edge.js
-@@ -18779,7 +18779,11 @@ async function render(satori, resvg, opts, defaultFonts, element) {
+@@ -18784,7 +18784,11 @@ async function render(satori, resvg, opts, defaultFonts, element) {
        value: options.width
      }
    });
@@ -14,12 +14,12 @@ index 1f7fc5b22388f95e2b6570f2c1fc0ccbd66754ba..52a52a5ad89c078587a6eef4ac24b40f
 +  return pngBuffer;
  }
  
- // src/index.edge.ts
+ // src/figma/index.tsx
 diff --git a/dist/compiled/@vercel/og/index.node.js b/dist/compiled/@vercel/og/index.node.js
-index 55c7d94015b8ef43244fa1a45c7c479fd65bc06b..93a936c83bbfd956082074ea42405d991178a89b 100644
+index c92983c67cbcc73d197d1ccd2a6f22345a2f7590..a516f4fec131f1a103605bdab0bf1b03d0f8a053 100644
 --- a/dist/compiled/@vercel/og/index.node.js
 +++ b/dist/compiled/@vercel/og/index.node.js
-@@ -18781,7 +18781,11 @@ async function render(satori2, resvg, opts, defaultFonts, element) {
+@@ -18786,7 +18786,11 @@ async function render(satori2, resvg, opts, defaultFonts, element) {
        value: options.width
      }
    });
@@ -31,4 +31,4 @@ index 55c7d94015b8ef43244fa1a45c7c479fd65bc06b..93a936c83bbfd956082074ea42405d99
 +  return pngBuffer;
  }
  
- // src/index.node.ts
+ // src/figma/index.tsx
