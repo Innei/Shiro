@@ -1,0 +1,34 @@
+diff --git a/dist/compiled/@vercel/og/index.edge.js b/dist/compiled/@vercel/og/index.edge.js
+index 089354ce4b62dde0fed3482e028ffade3d34b750..3a2f17f0356e815023b9054b52dc1706fa05b2b6 100644
+--- a/dist/compiled/@vercel/og/index.edge.js
++++ b/dist/compiled/@vercel/og/index.edge.js
+@@ -18784,7 +18784,11 @@ async function render(satori, resvg, opts, defaultFonts, element) {
+       value: options.width
+     }
+   });
+-  return resvgJS.render().asPng();
++  const pngData = resvgJS.render();
++  const pngBuffer = pngData.asPng();
++  pngData.free();
++  resvgJS.free();
++  return pngBuffer;
+ }
+ 
+ // src/figma/index.tsx
+diff --git a/dist/compiled/@vercel/og/index.node.js b/dist/compiled/@vercel/og/index.node.js
+index c92983c67cbcc73d197d1ccd2a6f22345a2f7590..a516f4fec131f1a103605bdab0bf1b03d0f8a053 100644
+--- a/dist/compiled/@vercel/og/index.node.js
++++ b/dist/compiled/@vercel/og/index.node.js
+@@ -18786,7 +18786,11 @@ async function render(satori2, resvg, opts, defaultFonts, element) {
+       value: options.width
+     }
+   });
+-  return resvgJS.render().asPng();
++  const pngData = resvgJS.render();
++  const pngBuffer = pngData.asPng();
++  pngData.free();
++  resvgJS.free();
++  return pngBuffer;
+ }
+ 
+ // src/figma/index.tsx

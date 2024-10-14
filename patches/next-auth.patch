@@ -1,15 +1,15 @@
 diff --git a/client/_utils.js b/client/_utils.js
-index 25bd573915c9bd9251ed6ce241889e0d6f13ba55..13a0976921eee51ecaab15ec062ba3ce6e8b47ce 100644
+index 25bd573915c9bd9251ed6ce241889e0d6f13ba55..0c7e9e06fec0a9c00cd8e733d2222afb4b4d4670 100644
 --- a/client/_utils.js
 +++ b/client/_utils.js
-@@ -46,6 +46,7 @@ function _fetchData() {
+@@ -45,6 +45,7 @@ function _fetchData() {
+             options.body = JSON.stringify(req.body);
              options.method = "POST";
            }
-           _context.next = 7;
 +          options.credentials = "include";
+           _context.next = 7;
            return fetch(url, options);
          case 7:
-           res = _context.sent;
 @@ -63,7 +64,7 @@ function _fetchData() {
          case 16:
            _context.prev = 16;
