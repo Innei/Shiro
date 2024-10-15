@@ -5,7 +5,7 @@ import { AnimatePresence, m } from 'framer-motion'
 import type { FC, PropsWithChildren } from 'react'
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 
-import { isLogged } from '~/atoms'
+import { isLogged } from '~/atoms/hooks/owner'
 import { ModalOverlay } from '~/components/ui/modal/stacked/overlay'
 
 const BanCopyContext = createContext(false)

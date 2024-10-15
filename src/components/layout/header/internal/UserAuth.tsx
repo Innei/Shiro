@@ -133,12 +133,13 @@ export function UserAuth() {
                 </Fragment>
               )}
               <DropdownMenuItem
-                onClick={() => {
-                  Promise.allSettled([
-                    getToken() && apiClient.user.proxy('logout').post(),
-                    signOut(),
-                  ])
+                onClick={async () => {
+                  const token = getToken()
+                  if (token) {
+                    await apiClient.user.proxy('logout').post()
+                  }
                   removeToken()
+                  await signOut()
                 }}
                 icon={<i className="i-mingcute-exit-line size-4" />}
               >
@@ -154,6 +155,7 @@ export function UserAuth() {
 
 const ReaderAvatar = () => {
   const session = useSessionReader()!
+
   return (
     <div className="pointer-events-auto relative flex items-center justify-center">
       <Image

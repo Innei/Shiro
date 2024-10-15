@@ -5,7 +5,7 @@ import { AnimatePresence, m } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 
-import { isLogged } from '~/atoms'
+import { isLogged } from '~/atoms/hooks/owner'
 import { useResolveAdminUrl } from '~/atoms/hooks/url'
 import { useViewport } from '~/atoms/hooks/viewport'
 import { useIsClient } from '~/hooks/common/use-is-client'

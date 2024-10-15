@@ -1,12 +1,11 @@
 'use client'
 
-import { isLoggedAtom } from '~/atoms'
+import { setIsLogged } from '~/atoms/hooks/owner'
 import { isClientSide } from '~/lib/env'
-import { jotaiStore } from '~/lib/store'
 
 export const HydrateuserAuthProvider = (props: { isLogged: boolean }) => {
   if (props.isLogged && isClientSide) {
-    jotaiStore.set(isLoggedAtom, true)
+    setIsLogged(true)
   }
   return null
 }

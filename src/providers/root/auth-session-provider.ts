@@ -5,10 +5,10 @@ import { nanoid } from 'nanoid'
 import type { AdapterUser } from 'next-auth/adapters'
 import { useEffect } from 'react'
 
-import { fetchAppUrl, isLoggedAtom } from '~/atoms'
+import { fetchAppUrl } from '~/atoms'
+import { setIsLogged } from '~/atoms/hooks/owner'
 import { setSessionReader } from '~/atoms/hooks/reader'
 import { apiClient } from '~/lib/request'
-import { jotaiStore } from '~/lib/store'
 import type { SessionReader } from '~/models/session'
 
 declare module 'next-auth' {
@@ -28,11 +28,15 @@ export const AuthSessionProvider: Component = ({ children }) => {
   })
   const { identify } = useOpenPanel()
   useEffect(() => {
-    if (!session) return
+    if (!session) {
+      setIsLogged(false)
+      setSessionReader(null)
+      return
+    }
     const transformedData = simpleCamelcaseKeys(session)
     setSessionReader(transformedData)
     if (transformedData.isOwner) {
-      jotaiStore.set(isLoggedAtom, true)
+      setIsLogged(true)
       fetchAppUrl()
     }
     identify({
@@ -41,6 +45,6 @@ export const AuthSessionProvider: Component = ({ children }) => {
       lastName: transformedData.name,
       avatar: transformedData.avatar,
     })
-  }, [session])
+  }, [identify, session])
   return children
 }
