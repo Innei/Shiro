@@ -5,13 +5,11 @@ import RSS from 'rss'
 import xss from 'xss'
 
 import { CDN_HOST } from '~/app.static.config'
-import { AlertsRule as __AlertsRule } from '~/components/ui/markdown/parsers/alert'
+import {
+  AlertsRule as __AlertsRule,
+} from '~/components/ui/markdown/parsers/alert'
 import { ContainerRule as __ContainerRule } from '~/components/ui/markdown/parsers/container'
 import { InsertRule } from '~/components/ui/markdown/parsers/ins'
-import {
-  KateXBlockRule as __KateXBlockRule,
-  KateXRule as __KateXRule,
-} from '~/components/ui/markdown/parsers/katex'
 import { MarkRule } from '~/components/ui/markdown/parsers/mark'
 import { MentionRule } from '~/components/ui/markdown/parsers/mention'
 import { SpoilerRule } from '~/components/ui/markdown/parsers/spoiler'
@@ -160,8 +158,8 @@ export async function GET() {
                 mark: MarkRule,
                 ins: InsertRule,
 
-                kateX: KateXRule,
-                kateXBlock: KateXBlockRule,
+                // kateX: KateXRule,
+                // kateXBlock: KateXBlockRule,
                 container: ContainerRule,
                 alerts: AlertsRule,
               },
@@ -205,26 +203,42 @@ export async function GET() {
 }
 
 const NotSupportRender = () => {
-  throw new Error('Not support render in RSS')
+  // throw new Error('Not support render in RSS')
+  return (
+    <p
+      style={{
+        padding: '6px 12px',
+        borderLeft: '2px solid #33A6B8',
+        background: '#33A6B850',
+        fontStyle: 'italic',
+        fontWeight: 500,
+      }}
+    >
+      Not support render this content in RSS render
+    </p>
+  )
 }
 
-const KateXRule: MarkdownToJSX.Rule = {
-  ...__KateXRule,
-  react(node, _, state?) {
-    return <NotSupportRender key={state?.key} />
-  },
-}
-const KateXBlockRule: MarkdownToJSX.Rule = {
-  ...__KateXBlockRule,
-  react(node, _, state?) {
-    return <NotSupportRender key={state?.key} />
-  },
-}
+// const KateXRule: MarkdownToJSX.Rule = {
+//   ...__KateXRule,
+//   react(node, _, state?) {
+//     return node
+//   },
+// }
+// const KateXBlockRule: MarkdownToJSX.Rule = {
+//   ...__KateXBlockRule,
+//   react(node, _, state?) {
+//     return <NotSupportRender key={state?.key} />
+//   },
+// }
 
 const AlertsRule: MarkdownToJSX.Rule = {
   ...__AlertsRule,
   react(node, output, state) {
-    return <NotSupportRender key={state?.key} />
+    const { body } = node.parsed
+    const bodyClean = body.replaceAll(/^> */gm, '').trim()
+
+    return <blockquote key={state.key}>{compiler(bodyClean)}</blockquote>
   },
 }
 
