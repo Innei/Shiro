@@ -14,7 +14,9 @@ class AuthnUtilsStatic {
     let attResp: RegistrationResponseJSON
     try {
       // Pass the options to the authenticator and wait for a response
-      attResp = await startRegistration(registrationOptions)
+      attResp = await startRegistration({
+        optionsJSON: registrationOptions,
+      })
     } catch (error: any) {
       // Some basic error handling
       if (error.name === 'InvalidStateError') {
@@ -22,6 +24,7 @@ class AuthnUtilsStatic {
           'Error: Authenticator was probably already registered by user',
         )
       } else {
+        console.error(error)
         toast.error(error.message)
       }
 
@@ -52,10 +55,10 @@ class AuthnUtilsStatic {
     let attResp: AuthenticationResponseJSON
     try {
       // Pass the options to the authenticator and wait for a response
-      attResp = await startAuthentication(registrationOptions)
+      attResp = await startAuthentication({ optionsJSON: registrationOptions })
     } catch (error: any) {
       // Some basic error handling
-
+      console.error(error)
       toast.error(error.message)
 
       return
@@ -79,6 +82,7 @@ class AuthnUtilsStatic {
       }
       return verificationResp
     } catch (error: any) {
+      console.error(error)
       toast.error(error.message)
     }
   }
