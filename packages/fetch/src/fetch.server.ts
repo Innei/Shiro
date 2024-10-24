@@ -18,7 +18,13 @@ export const $fetch = createFetch({
 
       const token = cookie.get(TokenKey)?.value
 
-      const headers: any = context.options.headers ?? {}
+      // eslint-disable-next-line prefer-destructuring
+      let headers: any = context.options.headers
+      if (headers && headers instanceof Headers) {
+        headers = Object.fromEntries(headers.entries())
+      } else {
+        headers = {}
+      }
       if (token) {
         headers['Authorization'] = `bearer ${token}`
       }

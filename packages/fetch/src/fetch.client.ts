@@ -26,12 +26,19 @@ export const $fetch = createFetch({
     headers: globalConfigureHeader,
     onRequest(context) {
       const token = getToken()
-      const headers: any = context.options.headers ?? {}
-      if (token) {
-        headers['Authorization'] = `bearer ${token}`
+      // eslint-disable-next-line prefer-destructuring
+      let headers: any = context.options.headers
+      if (headers && headers instanceof Headers) {
+        headers = Object.fromEntries(headers.entries())
+      } else {
+        headers = {}
       }
 
-      headers['x-session-uuid'] =
+      if (token) {
+        headers.Authorization = `bearer ${token}`
+      }
+
+      headers['X-Session-Uuid'] =
         globalThis?.sessionStorage?.getItem(uuidStorageKey) ?? uuid
 
       context.options.params ??= {}
