@@ -327,8 +327,8 @@ importers:
         specifier: 0.5.0
         version: 0.5.0
       '@next/bundle-analyzer':
-        specifier: 14.2.15
-        version: 14.2.15(bufferutil@4.0.8)
+        specifier: 15.0.1
+        version: 15.0.1(bufferutil@4.0.8)
       '@tailwindcss/container-queries':
         specifier: 0.1.1
         version: 0.1.1(tailwindcss@3.4.14)
@@ -1538,8 +1538,8 @@ packages:
   '@neondatabase/serverless@0.9.4':
     resolution: {integrity: sha512-D0AXgJh6xkf+XTlsO7iwE2Q1w8981E1cLCPAALMU2YKtkF/1SF6BiAzYARZFYo175ON+b1RNIy9TdSFHm5nteg==}
 
-  '@next/bundle-analyzer@14.2.15':
-    resolution: {integrity: sha512-W6iyrp/3G7WbIztDcNt+owYX1iv37m9f4RJs0fa/Ayw4EDdjNPX6qKQrC7gBrESHV3FuchED+8R+CNiw1i78eQ==}
+  '@next/bundle-analyzer@15.0.1':
+    resolution: {integrity: sha512-i/nCRBGBEkESPDpXJc+6SPLFDItnvTTJSaxiOvuNqHmQjQognRl3BANkKb3nWYy0V5rgzygxu++X349Z4dhs4Q==}
 
   '@next/env@14.2.8':
     resolution: {integrity: sha512-L44a+ynqkolyNBnYfF8VoCiSrjSZWgEHYKkKLGcs/a80qh7AkfVUD/MduVPgdsWZ31tgROR+yJRA0PZjSVBXWQ==}
@@ -7866,7 +7866,7 @@ snapshots:
     dependencies:
       '@types/pg': 8.11.6
 
-  '@next/bundle-analyzer@14.2.15(bufferutil@4.0.8)':
+  '@next/bundle-analyzer@15.0.1(bufferutil@4.0.8)':
     dependencies:
       webpack-bundle-analyzer: 4.10.1(bufferutil@4.0.8)
     transitivePeerDependencies:
