@@ -27,9 +27,6 @@ patchedDependencies:
   next-auth:
     hash: bypl5vvk4pupso5gu43wjzlen4
     path: patches/next-auth.patch
-  qrcode.react:
-    hash: leaylgokugcq44lmpc2ue4gozu
-    path: patches/qrcode.react.patch
 
 importers:
 
@@ -226,7 +223,7 @@ importers:
         version: 15.8.1
       qrcode.react:
         specifier: 4.1.0
-        version: 4.1.0(patch_hash=leaylgokugcq44lmpc2ue4gozu)(react@18.3.1)
+        version: 4.1.0(react@18.3.1)
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -11700,7 +11697,7 @@ snapshots:
 
   punycode@2.3.1: {}
 
-  qrcode.react@4.1.0(patch_hash=leaylgokugcq44lmpc2ue4gozu)(react@18.3.1):
+  qrcode.react@4.1.0(react@18.3.1):
     dependencies:
       react: 18.3.1
 
