@@ -6,7 +6,6 @@ import { ToastContainer } from 'react-toastify'
 import { ClientOnly } from '~/components/common/ClientOnly'
 import { HydrationEndDetector } from '~/components/common/HydrationEndDetector'
 import { MainLayout } from '~/components/modules/dashboard/layouts'
-import { AccentColorStyleInjector } from '~/components/modules/shared/AccentColorStyleInjector'
 import { FABContainer } from '~/components/ui/fab'
 import { sansFont, serifFont } from '~/lib/fonts'
 import { getQueryClient } from '~/lib/query-client.server'
@@ -43,7 +42,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
       <head>
         <title>Shiro · Light Dashboard | Powered by Mix Space</title>
         <HydrationEndDetector />
-        <AccentColorStyleInjector />
+        {/* <AccentColorStyleInjector /> */}
 
         <link
           rel="shortcut icon"
