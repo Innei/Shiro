@@ -53,7 +53,7 @@ const PasskeyModal = () => {
       <label className="text-sm" htmlFor="name">
         Name
       </label>
-      <Input ref={ref} id="name" type="text" />
+      <Input autoFocus ref={ref} id="name" type="text" />
       <div className="flex justify-end">
         <StyledButton type="submit">Create</StyledButton>
       </div>
