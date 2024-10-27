@@ -21,7 +21,7 @@ overrides:
 
 patchedDependencies:
   next-auth:
-    hash: bypl5vvk4pupso5gu43wjzlen4
+    hash: jmmidbo4bm42gqum755ladfpji
     path: patches/next-auth.patch
 
 importers:
@@ -224,8 +224,8 @@ importers:
         specifier: 14.2.8
         version: 14.2.8(@babel/core@7.25.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-auth:
-        specifier: 4.24.10
-        version: 4.24.10(patch_hash=bypl5vvk4pupso5gu43wjzlen4)(next@14.2.8(@babel/core@7.25.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 4.24.7
+        version: 4.24.7(patch_hash=jmmidbo4bm42gqum755ladfpji)(next@14.2.8(@babel/core@7.25.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-runtime-env:
         specifier: 3.2.2
         version: 3.2.2(next@14.2.8(@babel/core@7.25.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
@@ -3031,8 +3031,8 @@ packages:
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
 
-  cookie@0.7.2:
-    resolution: {integrity: sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==}
+  cookie@0.5.0:
+    resolution: {integrity: sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==}
     engines: {node: '>= 0.6'}
 
   cookie@1.0.1:
@@ -4642,17 +4642,14 @@ packages:
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
-  next-auth@4.24.10:
-    resolution: {integrity: sha512-8NGqiRO1GXBcVfV8tbbGcUgQkAGsX4GRzzXXea4lDikAsJtD5KiEY34bfhUOjHLvr6rT6afpcxw2H8EZqOV6aQ==}
+  next-auth@4.24.7:
+    resolution: {integrity: sha512-iChjE8ov/1K/z98gdKbn2Jw+2vLgJtVV39X+rCP5SGnVQuco7QOr19FRNGMIrD8d3LYhHWV9j9sKLzq1aDWWQQ==}
     peerDependencies:
-      '@auth/core': 0.34.2
-      next: ^12.2.5 || ^13 || ^14 || ^15
+      next: ^12.2.5 || ^13 || ^14
       nodemailer: ^6.6.5
       react: ^17.0.2 || ^18
       react-dom: ^17.0.2 || ^18
     peerDependenciesMeta:
-      '@auth/core':
-        optional: true
       nodemailer:
         optional: true
 
@@ -9524,7 +9521,7 @@ snapshots:
 
   convert-source-map@2.0.0: {}
 
-  cookie@0.7.2: {}
+  cookie@0.5.0: {}
 
   cookie@1.0.1: {}
 
@@ -11551,11 +11548,11 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next-auth@4.24.10(patch_hash=bypl5vvk4pupso5gu43wjzlen4)(next@14.2.8(@babel/core@7.25.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  next-auth@4.24.7(patch_hash=jmmidbo4bm42gqum755ladfpji)(next@14.2.8(@babel/core@7.25.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.24.1
       '@panva/hkdf': 1.2.1
-      cookie: 0.7.2
+      cookie: 0.5.0
       jose: 4.15.9
       next: 14.2.8(@babel/core@7.25.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       oauth: 0.9.15
