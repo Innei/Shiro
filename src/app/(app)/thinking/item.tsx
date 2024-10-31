@@ -95,7 +95,9 @@ export const ThinkingItem: FC<{
         />
 
         <div className="flex flex-col items-center self-start md:flex-row md:gap-2">
-          <span className="text-lg font-medium">{owner.name}</span>
+          <span className="self-start text-lg font-medium md:self-auto">
+            {owner.name}
+          </span>
 
           <span className="text-xs opacity-80 md:-translate-y-1 md:self-end">
             <RelativeTime date={item.created} />
