@@ -9,6 +9,8 @@ import type { InfiniteData } from '@tanstack/react-query'
 import { useQueryClient } from '@tanstack/react-query'
 import clsx from 'clsx'
 import { produce } from 'immer'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import type { FC } from 'react'
 import { memo, useMemo } from 'react'
 
@@ -24,6 +26,7 @@ import { RelativeTime } from '~/components/ui/relative-time'
 import { clsxm } from '~/lib/helper'
 import { sample } from '~/lib/lodash'
 import { apiClient } from '~/lib/request'
+import { routeBuilder, Routes } from '~/lib/route-builder'
 import { toast } from '~/lib/toast'
 import { urlBuilder } from '~/lib/url-builder'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
@@ -86,8 +89,10 @@ export const ThinkingItem: FC<{
       )}
     </div>
   )
+  const pathname = usePathname()
+  const isInThinkingDetailRoute = pathname.includes(Routes.ThinkingItem)
   return (
-    <li key={item.id} className="mb-8 mt-[50px] flex flex-col gap-2">
+    <li key={item.id} className="group mb-8 mt-[50px] flex flex-col gap-2">
       <div className="flex gap-4">
         <img
           src={owner.avatar}
@@ -125,23 +130,24 @@ export const ThinkingItem: FC<{
             '[&_button]:-my-5 [&_button]:-ml-5 [&_button]:p-5',
           )}
         >
-          <button
-            onClick={() => {
-              present({
-                title: '评论',
-                content: () => <CommentModal {...item} />,
-              })
-            }}
-          >
-            <i className="i-mingcute-comment-line" />
+          {item.allowComment && !isInThinkingDetailRoute && (
+            <button
+              onClick={() => {
+                present({
+                  title: '评论',
+                  content: () => <CommentModal {...item} />,
+                })
+              }}
+            >
+              <i className="i-mingcute-comment-line" />
 
-            <span className="sr-only">评论</span>
-            <span>
-              {/* @ts-expect-error */}
-              {item.comments}
-            </span>
-          </button>
-
+              <span className="sr-only">评论</span>
+              <span>
+                {/* @ts-expect-error */}
+                {item.comments}
+              </span>
+            </button>
+          )}
           <button
             onClick={() => {
               handleUp(item.id)
@@ -163,6 +169,16 @@ export const ThinkingItem: FC<{
           </button>
 
           <DeleteButton id={item.id} />
+
+          {!isInThinkingDetailRoute && (
+            <Link
+              href={routeBuilder(Routes.ThinkingItem, { id: item.id })}
+              className="center absolute bottom-0 right-0 flex gap-1 text-sm opacity-0 duration-200 group-hover:opacity-100"
+            >
+              <i className="i-mingcute-arrow-right-circle-line" />
+              <span>查看</span>
+            </Link>
+          )}
         </div>
       </div>
     </li>

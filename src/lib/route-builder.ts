@@ -24,6 +24,7 @@ export const enum Routes {
   Says = '/says',
   Friends = '/friends',
   Thinking = '/thinking',
+  ThinkingItem = '/thinking/',
   Tag = '/posts/tag',
 
   PageDeletd = '/common/deleted',
@@ -90,7 +91,9 @@ export type RouteParams<T extends Routes> = T extends Routes.Home
                       ? OnlyId
                       : T extends Routes.Tag
                         ? Tag
-                        : {}
+                        : T extends Routes.ThinkingItem
+                          ? OnlyId
+                          : {}
 
 export function routeBuilder<T extends Routes>(
   route: T,
@@ -141,6 +144,11 @@ export function routeBuilder<T extends Routes>(
     case Routes.Project: {
       const p = params as OnlyId
       href += p.id
+      break
+    }
+    case Routes.ThinkingItem: {
+      const p = params as OnlyId
+      href += `${p.id}`
       break
     }
   }

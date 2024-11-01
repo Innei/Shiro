@@ -1,5 +1,7 @@
 import Link from 'next/link'
+import { Suspense } from 'react'
 
+import { CommentBoxRootLazy, CommentsLazy } from '~/components/modules/comment'
 import { MotionButtonBase } from '~/components/ui/button'
 import { apiClient } from '~/lib/request'
 
@@ -45,6 +47,13 @@ export default async function Page({
           </Link>
         </MotionButtonBase>
         <ThinkingItem item={data.$serialized} />
+
+        {data.allowComment && (
+          <Suspense>
+            <CommentBoxRootLazy className="mb-12 mt-6" refId={data.id} />
+            <CommentsLazy refId={data.id} />
+          </Suspense>
+        )}
       </main>
     </div>
   )
