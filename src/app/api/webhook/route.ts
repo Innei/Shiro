@@ -6,8 +6,6 @@ import {
 } from '@mx-space/webhook'
 import type { NextRequest } from 'next/server'
 
-import { CacheKeyMap } from '~/constants/keys'
-import { invalidateCache, invalidateCacheWithPrefix } from '~/lib/cache'
 import { NextServerResponse } from '~/lib/edge-function.server'
 
 export const POST = async (nextreq: NextRequest) => {
@@ -37,22 +35,16 @@ export const POST = async (nextreq: NextRequest) => {
       case BusinessEvents.NOTE_CREATE:
       case BusinessEvents.NOTE_DELETE:
       case BusinessEvents.NOTE_UPDATE: {
-        await invalidateCache(CacheKeyMap.AggregateTop)
         return res.status(200).send('OK')
       }
       case BusinessEvents.POST_CREATE:
       case BusinessEvents.POST_UPDATE:
       case BusinessEvents.POST_DELETE: {
-        await Promise.all([
-          invalidateCacheWithPrefix(CacheKeyMap.PostList),
-          invalidateCache(CacheKeyMap.AggregateTop),
-        ])
         return res.status(200).send('OK')
       }
       case BusinessEvents.PAGE_CREATE:
       case BusinessEvents.PAGE_UPDATE:
       case BusinessEvents.SAY_CREATE: {
-        await invalidateCache(CacheKeyMap.AggregateTop)
         return res.status(200).send('OK')
       }
 
