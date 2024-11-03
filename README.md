@@ -64,7 +64,7 @@
 
 ## :rocket: 部署
 
-[看这里](https://mx-space.js.org/themes/shiro).
+[看这里](https://mx-space.js.org/docs/themes/shiro).
 
 ## :whale: 运行
 
