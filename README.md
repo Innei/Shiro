@@ -33,7 +33,7 @@
 
 ## 📄 使用文档
 
-前往：https://mx-space.js.org/themes/shiro
+前往：https://mx-space.js.org/docs/themes/shiro
 
 感谢 @wibus-wee 和 @wuhang2003 等其他社区贡献者编写。
 
