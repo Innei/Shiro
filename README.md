@@ -33,7 +33,7 @@
 
 ## 📄 使用文档
 
-前往：https://mx-space.js.org/themes/shiro
+前往：https://mx-space.js.org/docs/themes/shiro/deploy
 
 感谢 @wibus-wee 和 @wuhang2003 等其他社区贡献者编写。
 
@@ -64,7 +64,7 @@
 
 ## :rocket: 部署
 
-[看这里](https://mx-space.js.org/themes/shiro).
+[看这里](https://mx-space.js.org/docs/themes/shiro/deploy).
 
 ## :whale: 运行
 
