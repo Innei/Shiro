@@ -1,6 +1,7 @@
 import { atom, useStore } from 'jotai'
 import type { FC, PropsWithChildren, ReactNode } from 'react'
-import React, {
+import * as React from 'react'
+import {
   forwardRef,
   useEffect,
   useImperativeHandle,
@@ -98,7 +99,9 @@ export const PresentSheet = forwardRef<
 
   return (
     <Root dismissible={dismissible} {...nextRootProps}>
-      <Drawer.Trigger asChild={triggerAsChild}>{children}</Drawer.Trigger>
+      {!!children && (
+        <Drawer.Trigger asChild={triggerAsChild}>{children}</Drawer.Trigger>
+      )}
       <Drawer.Portal>
         <Drawer.Content
           style={{
