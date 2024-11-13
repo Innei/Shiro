@@ -2,8 +2,9 @@
 
 import { useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
-import { AnimatePresence, m } from 'framer-motion'
-import React, {
+import { AnimatePresence, m } from 'motion/react'
+import * as React from 'react'
+import {
   createContext,
   memo,
   useContext,
