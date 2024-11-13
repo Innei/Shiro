@@ -166,9 +166,6 @@ importers:
       foxact:
         specifier: 0.2.40
         version: 0.2.40(react@18.3.1)
-      framer-motion:
-        specifier: 11.11.1
-        version: 11.11.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       fuse.js:
         specifier: 7.0.0
         version: 7.0.0
@@ -217,6 +214,9 @@ importers:
       mermaid:
         specifier: 11.4.0
         version: 11.4.0
+      motion:
+        specifier: 11.11.14
+        version: 11.11.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       nanoid:
         specifier: ^5.0.7
         version: 5.0.7
@@ -3887,8 +3887,8 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  framer-motion@11.11.1:
-    resolution: {integrity: sha512-Ucr9eHSrk0d+l6vyl9fvq6omh/PAWHjS+PlczpsoUdhJo1TuF3ULWJNuAMnpWQ1dGyPOyoUVuYlUKjE/s8dyCA==}
+  framer-motion@11.11.13:
+    resolution: {integrity: sha512-aoEA83gsqRRsnh4TN7S9YNcKVLrg+GtPNnxNMd9bGn23+pLmuKGQeccPnqffEKzlkgmy2MkMo0jRkK41S2LzWw==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0
@@ -4714,6 +4714,20 @@ packages:
 
   mnemonist@0.39.8:
     resolution: {integrity: sha512-vyWo2K3fjrUw8YeeZ1zF0fy6Mu59RHokURlld8ymdUPjMlD9EC9ov1/YPqTgqRvUN9nTr3Gqfz29LYAmu0PHPQ==}
+
+  motion@11.11.14:
+    resolution: {integrity: sha512-WABtM4t3+SQ4jQ/5TDkRsH9VD6jakGeOrnzra4tnDma0JUT21/n113yCyn889yJSq0bEJnfFphFXo0gOVRICXg==}
+    peerDependencies:
+      '@emotion/is-prop-valid': '*'
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/is-prop-valid':
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
 
   mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
@@ -10672,7 +10686,7 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion@11.11.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  framer-motion@11.11.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       tslib: 2.7.0
     optionalDependencies:
@@ -11772,6 +11786,14 @@ snapshots:
   mnemonist@0.39.8:
     dependencies:
       obliterator: 2.0.4
+
+  motion@11.11.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      framer-motion: 11.11.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      tslib: 2.7.0
+    optionalDependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   mri@1.2.0: {}
 

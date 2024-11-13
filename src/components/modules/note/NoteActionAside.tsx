@@ -1,6 +1,6 @@
 'use client'
 
-import { m, useAnimationControls } from 'framer-motion'
+import { m, useAnimationControls } from 'motion/react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { MotionButtonBase } from '~/components/ui/button'

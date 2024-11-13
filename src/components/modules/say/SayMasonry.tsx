@@ -1,9 +1,9 @@
 'use client'
 
 import type { SayModel } from '@mx-space/api-client'
-import { m } from 'framer-motion'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import Markdown from 'markdown-to-jsx'
+import { m } from 'motion/react'
 import { memo, useMemo } from 'react'
 import Masonry from 'react-responsive-masonry'
 

@@ -12,8 +12,8 @@ import {
   useQueryClient,
 } from '@tanstack/react-query'
 import clsx from 'clsx'
-import { stagger, useAnimate } from 'framer-motion'
 import { produce } from 'immer'
+import { stagger, useAnimate } from 'motion/react'
 import type { FC } from 'react'
 import { useEffect, useMemo, useState } from 'react'
 

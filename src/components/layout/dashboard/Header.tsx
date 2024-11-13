@@ -1,7 +1,7 @@
 'use client'
 
-import { m } from 'framer-motion'
 import { atom, useAtom, useSetAtom } from 'jotai'
+import { m } from 'motion/react'
 import Image from 'next/image'
 import NextLink from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'

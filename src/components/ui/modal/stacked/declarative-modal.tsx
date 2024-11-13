@@ -1,6 +1,7 @@
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence } from 'motion/react'
 import type { FC, ReactNode } from 'react'
-import React, { useId, useMemo } from 'react'
+import * as React from 'react'
+import { useId, useMemo } from 'react'
 
 import { clsxm } from '~/lib/helper'
 import { jotaiStore } from '~/lib/store'

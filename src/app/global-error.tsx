@@ -1,6 +1,6 @@
 'use client'
 
-import { domAnimation, LazyMotion } from 'framer-motion'
+import { domAnimation, LazyMotion } from 'motion/react'
 import { useEffect } from 'react'
 
 // import { captureException } from '@sentry/nextjs'

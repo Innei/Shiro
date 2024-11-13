@@ -1,6 +1,6 @@
 'use client'
 
-import { AnimatePresence, m } from 'framer-motion'
+import { AnimatePresence, m } from 'motion/react'
 
 import { microReboundPreset } from '~/constants/spring'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'

@@ -1,8 +1,8 @@
 'use client'
 
 import clsx from 'clsx'
-import { AnimatePresence, m } from 'framer-motion'
 import { useAtomValue } from 'jotai'
+import { AnimatePresence, m } from 'motion/react'
 
 import { useIsLogged } from '~/atoms/hooks'
 import { TiltedSendIcon } from '~/components/icons/TiltedSendIcon'

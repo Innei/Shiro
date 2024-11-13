@@ -1,8 +1,8 @@
 /* eslint-disable unicorn/switch-case-braces */
 import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
-import { m, useMotionTemplate, useMotionValue } from 'framer-motion'
+import { m, useMotionTemplate, useMotionValue } from 'motion/react'
 import Link from 'next/link'
-import type React from 'react'
+import type * as React from 'react'
 import type { FC, ReactNode, SyntheticEvent } from 'react'
 import { useCallback, useMemo, useState } from 'react'
 import { useInView } from 'react-intersection-observer'

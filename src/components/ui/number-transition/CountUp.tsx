@@ -1,6 +1,6 @@
 'use client'
 
-import { animate } from 'framer-motion'
+import { animate } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 
 import { useStateToRef } from '~/hooks/common/use-state-ref'

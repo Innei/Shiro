@@ -1,8 +1,8 @@
 'use client'
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import type { TargetAndTransition } from 'framer-motion'
-import { AnimatePresence, m } from 'framer-motion'
+import type { TargetAndTransition } from 'motion/react'
+import { AnimatePresence, m } from 'motion/react'
 import { memo } from 'react'
 
 import { apiClient } from '~/lib/request'

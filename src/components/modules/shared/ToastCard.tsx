@@ -1,7 +1,7 @@
 'use client'
 
 import clsx from 'clsx'
-import { m } from 'framer-motion'
+import { m } from 'motion/react'
 import type { FC, JSX } from 'react'
 import type { TypeOptions } from 'react-toastify'
 

@@ -1,9 +1,10 @@
 'use client'
 
 import * as RadixTabs from '@radix-ui/react-tabs'
-import { m } from 'framer-motion'
+import { m } from 'motion/react'
 import type { FC, PropsWithChildren } from 'react'
-import React, { useId, useMemo, useState } from 'react'
+import * as React from 'react'
+import { useId, useMemo, useState } from 'react'
 
 import { clsxm } from '~/lib/helper'
 

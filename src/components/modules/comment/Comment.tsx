@@ -1,7 +1,7 @@
 import type { CommentModel } from '@mx-space/api-client'
 import clsx from 'clsx'
-import { m } from 'framer-motion'
 import { atom, useAtomValue } from 'jotai'
+import { m } from 'motion/react'
 import type { BuiltInProviderType } from 'next-auth/providers/index'
 import type { PropsWithChildren } from 'react'
 import {

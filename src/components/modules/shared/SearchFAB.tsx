@@ -3,8 +3,8 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
-import { AnimatePresence, m } from 'framer-motion'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
+import { AnimatePresence, m } from 'motion/react'
 import Link from 'next/link'
 import type { KeyboardEventHandler } from 'react'
 import {

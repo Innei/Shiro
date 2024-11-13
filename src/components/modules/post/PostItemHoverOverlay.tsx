@@ -1,7 +1,7 @@
 'use client'
 
 import clsx from 'clsx'
-import { AnimatePresence, m } from 'framer-motion'
+import { AnimatePresence, m } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 
 export const PostItemHoverOverlay = () => {

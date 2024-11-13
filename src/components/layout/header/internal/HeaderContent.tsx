@@ -7,10 +7,11 @@ import {
   m,
   useMotionTemplate,
   useMotionValue,
-} from 'framer-motion'
+} from 'motion/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React, { memo } from 'react'
+import * as React from 'react'
+import { memo } from 'react'
 
 import { RootPortal } from '~/components/ui/portal'
 import useDebounceValue from '~/hooks/common/use-debounce-value'

@@ -2,9 +2,9 @@
 
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import clsx from 'clsx'
-import { m } from 'framer-motion'
+import { m } from 'motion/react'
 import Image from 'next/image'
-import type React from 'react'
+import type * as React from 'react'
 import { createElement } from 'react'
 
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'

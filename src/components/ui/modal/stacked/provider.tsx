@@ -1,5 +1,5 @@
-import { AnimatePresence } from 'framer-motion'
 import { useAtomValue } from 'jotai'
+import { AnimatePresence } from 'motion/react'
 import { usePathname } from 'next/navigation'
 import type { FC, PropsWithChildren } from 'react'
 import { useCallback, useEffect, useId, useRef } from 'react'
