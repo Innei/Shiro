@@ -1,8 +1,8 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import type { AnimationDefinition } from 'framer-motion'
-import { m, useAnimationControls, useDragControls } from 'framer-motion'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { selectAtom } from 'jotai/utils'
+import type { AnimationDefinition } from 'motion/react'
+import { m, useAnimationControls, useDragControls } from 'motion/react'
 import type { SyntheticEvent } from 'react'
 import {
   createElement,

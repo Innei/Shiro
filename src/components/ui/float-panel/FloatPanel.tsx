@@ -1,6 +1,6 @@
 import type { Placement, Strategy } from '@floating-ui/react-dom'
 import { flip, offset, shift, useFloating } from '@floating-ui/react-dom'
-import { AnimatePresence, m } from 'framer-motion'
+import { AnimatePresence, m } from 'motion/react'
 import type { FC, PropsWithChildren } from 'react'
 import { cloneElement, useMemo, useRef, useState } from 'react'
 

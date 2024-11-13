@@ -1,8 +1,8 @@
 import * as TabsPrimitive from '@radix-ui/react-tabs'
-import type { MotionProps } from 'framer-motion'
-import { LayoutGroup, m } from 'framer-motion'
+import type { MotionProps } from 'motion/react'
+import { LayoutGroup, m } from 'motion/react'
 import type { ReactNode } from 'react'
-import React from 'react'
+import * as React from 'react'
 
 import { clsxm } from '~/lib/helper'
 

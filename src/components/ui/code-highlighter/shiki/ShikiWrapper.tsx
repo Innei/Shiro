@@ -1,6 +1,6 @@
 import clsx from 'clsx'
-import type { Variants } from 'framer-motion'
-import { AnimatePresence, m } from 'framer-motion'
+import type { Variants } from 'motion/react'
+import { AnimatePresence, m } from 'motion/react'
 import type { PropsWithChildren } from 'react'
 import {
   forwardRef,

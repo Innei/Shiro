@@ -1,4 +1,4 @@
-import type { HTMLMotionProps, m, TargetAndTransition } from 'framer-motion'
+import type { HTMLMotionProps, m, TargetAndTransition } from 'motion/react'
 
 export interface BaseTransitionProps extends HTMLMotionProps<'div'> {
   duration?: number

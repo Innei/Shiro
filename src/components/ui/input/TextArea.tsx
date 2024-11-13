@@ -1,7 +1,7 @@
 'use client'
 
 import clsx from 'clsx'
-import { m, useMotionTemplate, useMotionValue } from 'framer-motion'
+import { m, useMotionTemplate, useMotionValue } from 'motion/react'
 import type {
   DetailedHTMLProps,
   PropsWithChildren,

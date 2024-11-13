@@ -1,6 +1,6 @@
 'use client'
 
-import { AnimatePresence, m } from 'framer-motion'
+import { AnimatePresence, m } from 'motion/react'
 
 import { microDampingPreset } from '~/constants/spring'
 import useDebounceValue from '~/hooks/common/use-debounce-value'

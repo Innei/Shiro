@@ -3,8 +3,8 @@
 import type { LinkModel } from '@mx-space/api-client'
 import { LinkState, LinkType, RequestError } from '@mx-space/api-client'
 import { useQuery } from '@tanstack/react-query'
-import { m } from 'framer-motion'
 import Markdown from 'markdown-to-jsx'
+import { m } from 'motion/react'
 import type { FC } from 'react'
 import { memo, useCallback, useRef, useState } from 'react'
 

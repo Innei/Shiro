@@ -8,9 +8,10 @@ import {
   shift,
   useFloating,
 } from '@floating-ui/react-dom'
-import { AnimatePresence, m } from 'framer-motion'
+import { AnimatePresence, m } from 'motion/react'
 import type { FC, PropsWithChildren, ReactElement } from 'react'
-import React, {
+import * as React from 'react'
+import {
   createContext,
   createElement,
   useCallback,

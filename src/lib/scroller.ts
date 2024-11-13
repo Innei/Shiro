@@ -1,7 +1,7 @@
 'use client'
 
-import type { Spring } from 'framer-motion'
-import { animateValue } from 'framer-motion'
+import type { Spring } from 'motion/react'
+import { animateValue } from 'motion/react'
 
 const spring: Spring = {
   type: 'spring',

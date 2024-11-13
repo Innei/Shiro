@@ -7,8 +7,8 @@ import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
-import { stagger, useAnimate } from 'framer-motion'
 import { produce } from 'immer'
+import { stagger, useAnimate } from 'motion/react'
 import { useEffect, useState } from 'react'
 
 import { useIsLogged } from '~/atoms/hooks/owner'

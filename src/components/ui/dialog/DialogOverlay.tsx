@@ -1,5 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { m } from 'framer-motion'
+import { m } from 'motion/react'
 
 export const DialogOverlay = ({
   onClick,

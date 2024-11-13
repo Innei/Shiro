@@ -19,6 +19,6 @@ export default defineConfig(() => [
     splitting: false,
     sourcemap: true,
     treeshake: true,
-    external: ['react', 'react-dom', 'framer-motion'],
+    external: ['react', 'react-dom', 'motion'],
   },
 ])

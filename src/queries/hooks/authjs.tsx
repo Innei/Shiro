@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { m } from 'framer-motion'
+import { m } from 'motion/react'
 import Image from 'next/image'
 import { getProviders } from 'next-auth/react'
 import type { FC } from 'react'

@@ -1,6 +1,6 @@
 'use client'
 
-import { m } from 'framer-motion'
+import { m } from 'motion/react'
 import Link from 'next/link'
 import type { PropsWithChildren } from 'react'
 import { useEffect } from 'react'

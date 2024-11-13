@@ -1,10 +1,11 @@
 'use client'
 
 import clsx from 'clsx'
-import { m } from 'framer-motion'
 import { atom, useAtom } from 'jotai'
+import { m } from 'motion/react'
 import type { FC } from 'react'
-import React, {
+import * as React from 'react'
+import {
   memo,
   startTransition,
   useCallback,

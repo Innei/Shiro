@@ -1,7 +1,7 @@
 'use client'
 
-import type { Target, TargetAndTransition } from 'framer-motion'
-import { m } from 'framer-motion'
+import type { Target, TargetAndTransition } from 'motion/react'
+import { m } from 'motion/react'
 import Link from 'next/link'
 import { memo } from 'react'
 import { tv } from 'tailwind-variants'

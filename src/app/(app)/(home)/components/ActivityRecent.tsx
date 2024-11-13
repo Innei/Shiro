@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
-import { m } from 'framer-motion'
+import { m } from 'motion/react'
 import { useMemo } from 'react'
 
 import { ScrollArea } from '~/components/ui/scroll-area'

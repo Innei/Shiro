@@ -1,5 +1,5 @@
-import { domMax, LazyMotion } from 'framer-motion'
-import React from 'react'
+import { domMax, LazyMotion } from 'motion/react'
+import * as React from 'react'
 import type { DocumentComponent } from 'storybook/typings'
 
 import { StyledButton } from '../button'

@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import clsx from 'clsx'
-import { m } from 'framer-motion'
+import { m } from 'motion/react'
 import type { FC } from 'react'
 import { useCallback, useRef, useState } from 'react'
 

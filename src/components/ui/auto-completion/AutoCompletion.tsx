@@ -1,6 +1,6 @@
 import clsx from 'clsx'
-import { AnimatePresence } from 'framer-motion'
 import Fuse from 'fuse.js'
+import { AnimatePresence } from 'motion/react'
 import type { KeyboardEvent } from 'react'
 import {
   forwardRef,

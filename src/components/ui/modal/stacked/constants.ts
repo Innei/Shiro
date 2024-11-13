@@ -1,4 +1,4 @@
-import type { AnimationProps, Target } from 'framer-motion'
+import type { AnimationProps, Target } from 'motion/react'
 
 import { microReboundPreset } from '~/constants/spring'
 

@@ -1,5 +1,5 @@
-import { AnimatePresence } from 'framer-motion'
 import { useAtomValue } from 'jotai'
+import { AnimatePresence } from 'motion/react'
 import type { FC, PropsWithChildren } from 'react'
 import { useCallback, useId, useRef } from 'react'
 

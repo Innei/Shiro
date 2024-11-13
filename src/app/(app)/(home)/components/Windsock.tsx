@@ -1,7 +1,7 @@
 'use client'
 
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { m } from 'framer-motion'
+import { m } from 'motion/react'
 import Link from 'next/link'
 import { createElement } from 'react'
 

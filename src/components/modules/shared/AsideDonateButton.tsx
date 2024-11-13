@@ -1,7 +1,7 @@
 import { DialogContent, DialogPortal, Root } from '@radix-ui/react-dialog'
-import type { HTMLMotionProps } from 'framer-motion'
-import { AnimatePresence, m } from 'framer-motion'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
+import type { HTMLMotionProps } from 'motion/react'
+import { AnimatePresence, m } from 'motion/react'
 import { useState } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks/viewport'

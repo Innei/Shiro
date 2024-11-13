@@ -1,8 +1,8 @@
 'use client'
 
 import clsx from 'clsx'
-import type { Variants } from 'framer-motion'
-import { AnimatePresence, m } from 'framer-motion'
+import type { Variants } from 'motion/react'
+import { AnimatePresence, m } from 'motion/react'
 import * as React from 'react'
 
 import { IonIosArrowDown } from '~/components/icons/arrow'
