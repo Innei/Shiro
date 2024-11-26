@@ -19,7 +19,7 @@ import {
 } from '~/components/ui/dropdown-menu'
 import { EllipsisHorizontalTextWithTooltip } from '~/components/ui/typography'
 import { useIsClient } from '~/hooks/common/use-is-client'
-import { signOut } from '~/lib/authjs'
+import { authClient } from '~/lib/authjs'
 import { getToken, removeToken } from '~/lib/cookie'
 import { apiClient } from '~/lib/request'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
@@ -139,7 +139,7 @@ export function UserAuth() {
                     await apiClient.user.proxy('logout').post()
                   }
                   removeToken()
-                  await signOut()
+                  await authClient.signOut()
                 }}
                 icon={<i className="i-mingcute-exit-line size-4" />}
               >

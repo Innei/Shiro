@@ -41,7 +41,8 @@ import { useEventCallback } from '~/hooks/common/use-event-callback'
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { useIsDark } from '~/hooks/common/use-is-dark'
 import { useReadPercent } from '~/hooks/shared/use-read-percent'
-import { getUserUrl, signIn } from '~/lib/authjs'
+import type { AuthSocialProviders } from '~/lib/authjs'
+import { authClient, getUserUrl } from '~/lib/authjs'
 import { getColorScheme, stringToHue } from '~/lib/color'
 import { formatSeconds } from '~/lib/datetime'
 import { safeJsonParse } from '~/lib/helper'
@@ -230,7 +231,11 @@ const NameModalContent = () => {
             {Object.keys(providers).map((provider) => (
               <li key={provider}>
                 <MotionButtonBase
-                  onClick={() => signIn(provider)}
+                  onClick={() =>
+                    authClient.signIn.social({
+                      provider: provider as AuthSocialProviders,
+                    })
+                  }
                   className="flex size-10 items-center justify-center rounded-full border border-base-content/10"
                 >
                   {provider === 'github' ? (
@@ -335,7 +340,7 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
                 className="center flex size-full"
                 rel="noopener noreferrer"
                 href={getUserUrl({
-                  provider: reader.provider,
+                  provider: reader.provider as AuthSocialProviders,
                   handle: reader.handle,
                 })}
               >

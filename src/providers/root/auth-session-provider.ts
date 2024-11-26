@@ -2,19 +2,15 @@ import { simpleCamelcaseKeys } from '@mx-space/api-client'
 import { useOpenPanel } from '@openpanel/nextjs'
 import { useQuery } from '@tanstack/react-query'
 import { nanoid } from 'nanoid'
-import type { AdapterUser } from 'next-auth/adapters'
 import { useEffect } from 'react'
 
 import { fetchAppUrl } from '~/atoms'
 import { setIsLogged } from '~/atoms/hooks/owner'
 import { setSessionReader } from '~/atoms/hooks/reader'
+import type { authClient } from '~/lib/authjs'
 import { apiClient } from '~/lib/request'
-import type { SessionReader } from '~/models/session'
 
-declare module 'next-auth' {
-  export interface Session extends SessionReader {}
-}
-
+type AdapterUser = typeof authClient.$Infer.Session
 export const AuthSessionProvider: Component = ({ children }) => {
   const { data: session } = useQuery({
     queryKey: ['session'],
