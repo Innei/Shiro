@@ -8,7 +8,7 @@ export default defineConfig(
     ignores: [],
     preferESM: false,
     react: 'next',
-    tailwindCSS:true
+    tailwindCSS: true,
   },
   {
     settings: {
@@ -17,6 +17,7 @@ export default defineConfig(
       },
     },
     rules: {
+      'unicorn/expiring-todo-comments': 'off',
       'package-json/valid-package-def': 'off',
       '@eslint-react/no-missing-key': 'warn',
       'no-restricted-syntax': 'off',

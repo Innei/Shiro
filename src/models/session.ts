@@ -1,4 +1,4 @@
-import type { BuiltInProviderType } from 'next-auth/providers/index'
+import type { AuthSocialProviders } from '~/lib/authjs'
 
 export interface SessionReader {
   id: string
@@ -10,7 +10,7 @@ export interface SessionReader {
   scope: string
   tokenType: string
   providerAccountId: string
-  provider: BuiltInProviderType
+  provider: AuthSocialProviders
   type: string
 
   handle?: string

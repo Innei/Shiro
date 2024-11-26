@@ -1,13 +1,11 @@
 'use client'
 
 import { LazyMotion } from 'motion/react'
-import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
 import type { JSX, PropsWithChildren } from 'react'
 
 import { PeekPortal } from '~/components/modules/peek/PeekPortal'
 import { ModalStackProvider } from '~/components/ui/modal'
-import { API_URL } from '~/constants/env'
 import { useBeforeUnload } from '~/hooks/common/use-before-unload'
 
 import { ProviderComposer } from '../../components/common/ProviderComposer'
@@ -31,9 +29,6 @@ const baseContexts: JSX.Element[] = [
   <JotaiStoreProvider key="jotaiStoreProvider" />,
 
   <LazyMotion features={loadFeatures} strict key="framer" />,
-  // @ts-expect-error
-  <SessionProvider basePath={`${API_URL}/auth`} key="sessionProvider" />,
-
   <AuthSessionProvider key="authSessionProvider" />,
 ]
 

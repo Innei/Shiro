@@ -22,7 +22,7 @@
     "start": "npm run dev"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.693.0",
+    "@aws-sdk/client-s3": "3.700.0",
     "@excalidraw/excalidraw": "0.17.6",
     "@floating-ui/react-dom": "2.1.2",
     "@milkdown/core": "7.5.0",
@@ -51,13 +51,17 @@
     "@radix-ui/react-tabs": "1.1.1",
     "@shikijs/transformers": "1.23.1",
     "@shiro/fetch": "link:./packages/fetch",
+    "@simplewebauthn/browser": "12.0.0",
+    "@simplewebauthn/types": "12.0.0",
     "@tanstack/query-async-storage-persister": "5.60.6",
-    "@tanstack/react-query": "5.60.6",
-    "@tanstack/react-query-devtools": "5.60.6",
-    "@tanstack/react-query-persist-client": "5.60.6",
+    "@tanstack/react-query": "5.61.3",
+    "@tanstack/react-query-devtools": "5.61.3",
+    "@tanstack/react-query-persist-client": "5.61.3",
     "@upstash/redis": "1.34.3",
     "@vercel/analytics": "1.4.1",
     "@vercel/postgres": "0.10.0",
+    "better-auth": "1.0.4",
+    "blurhash": "2.0.5",
     "bypass-vue-devtools": "0.0.6",
     "chroma-js": "3.1.2",
     "clsx": "2.1.1",
@@ -67,7 +71,7 @@
     "dayjs": "1.11.13",
     "emoji-mart": "5.6.0",
     "emoji-picker-react": "4.12.0",
-    "foxact": "0.2.41",
+    "foxact": "0.2.42",
     "fuse.js": "7.0.0",
     "idb-keyval": "6.2.1",
     "immer": "^10.1.1",
@@ -87,7 +91,6 @@
     "motion": "11.11.17",
     "nanoid": "^5.0.8",
     "next": "14.2.8",
-    "next-auth": "4.24.10",
     "next-runtime-env": "3.2.2",
     "next-themes": "0.4.3",
     "ofetch": "1.4.1",
@@ -108,7 +111,7 @@
     "rss": "1.2.2",
     "server-only": "^0.0.1",
     "socket.io-client": "4.8.1",
-    "tailwind-merge": "2.5.4",
+    "tailwind-merge": "2.5.5",
     "unidata.js": "0.8.0",
     "unified": "^11.0.5",
     "uniqolor": "1.1.1",
@@ -152,7 +155,7 @@
     "postcss-nested": "7.0.2",
     "postcss-preset-env": "10.1.1",
     "postcss-prune-var": "1.1.2",
-    "prettier": "3.3.3",
+    "prettier": "3.4.0",
     "rimraf": "6.0.1",
     "shiki": "1.23.1",
     "simple-git-hooks": "2.11.1",
@@ -161,7 +164,7 @@
     "tailwindcss": "^3.4.15",
     "tailwindcss-animate": "1.0.7",
     "tailwindcss-animated": "1.1.2",
-    "typescript": "5.6.3",
+    "typescript": "5.7.2",
     "zx": "8.2.2"
   },
   "pnpm": {
@@ -181,7 +184,7 @@
       "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@latest"
     },
     "patchedDependencies": {
-      "next-auth": "patches/next-auth.patch"
+      "next": "patches/next.patch"
     }
   },
   "simple-git-hooks": {

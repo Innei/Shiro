@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { m } from 'motion/react'
 import Image from 'next/image'
-import { getProviders } from 'next-auth/react'
 import type { FC } from 'react'
 import { Fragment, useCallback, useState } from 'react'
 
@@ -9,13 +8,20 @@ import { useIsMobile } from '~/atoms/hooks'
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import { MotionButtonBase } from '~/components/ui/button'
 import { useModalStack } from '~/components/ui/modal'
-import { signIn } from '~/lib/authjs'
+import type { AuthSocialProviders } from '~/lib/authjs'
+import { authClient } from '~/lib/authjs'
+import { apiClient } from '~/lib/request'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
 
 export const useAuthProviders = () => {
   const { data } = useQuery({
     queryKey: ['providers'],
-    queryFn: getProviders,
+    queryFn: () =>
+      apiClient.proxy.auth.providers
+        .get<{
+          data: AuthSocialProviders[]
+        }>()
+        .then((res) => res.data),
     refetchOnMount: 'always',
     meta: {
       persist: true,
@@ -25,7 +31,7 @@ export const useAuthProviders = () => {
 }
 export const useHasProviders = () => {
   const providers = useAuthProviders()
-  return providers && Object.keys(providers).length > 0
+  return !!providers?.length
 }
 
 export const useOauthLoginModal = () => {
@@ -45,19 +51,21 @@ export const useOauthLoginModal = () => {
 export const AuthProvidersRender: FC = () => {
   const providers = useAuthProviders()
   const [authProcessingLockSet, setAuthProcessingLockSet] = useState(
-    () => new Set<string>(),
+    () => new Set<AuthSocialProviders>(),
   )
   return (
     <>
       {providers && (
         <ul className="flex items-center justify-center gap-3">
-          {Object.keys(providers).map((provider) => (
+          {providers.map((provider) => (
             <li key={provider}>
               <MotionButtonBase
                 disabled={authProcessingLockSet.has(provider)}
                 onClick={() => {
                   if (authProcessingLockSet.has(provider)) return
-                  signIn(provider)
+                  authClient.signIn.social({
+                    provider,
+                  })
 
                   setAuthProcessingLockSet((prev) => {
                     prev.add(provider)

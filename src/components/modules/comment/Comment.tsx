@@ -2,7 +2,6 @@ import type { CommentModel } from '@mx-space/api-client'
 import clsx from 'clsx'
 import { atom, useAtomValue } from 'jotai'
 import { m } from 'motion/react'
-import type { BuiltInProviderType } from 'next-auth/providers/index'
 import type { PropsWithChildren } from 'react'
 import {
   createContext,
@@ -22,6 +21,7 @@ import {
   UserAuthStrategyIcon,
 } from '~/components/ui/user/UserAuthStrategyIcon'
 import { softSpringPreset } from '~/constants/spring'
+import type { AuthSocialProviders } from '~/lib/authjs'
 import { jotaiStore } from '~/lib/store'
 
 import styles from './Comment.module.css'
@@ -129,10 +129,10 @@ export const Comment: Component<{
                 className="size-6 select-none rounded-full bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800 dark:ring-zinc-800 md:size-9"
               />
               {source &&
-                !!getStrategyIconComponent(source as BuiltInProviderType) && (
+                !!getStrategyIconComponent(source as AuthSocialProviders) && (
                   <div className="center absolute -right-1.5 bottom-1 flex size-3.5 rounded-full bg-white ring-[1.5px] ring-zinc-200 dark:bg-zinc-800 dark:ring-black">
                     <UserAuthStrategyIcon
-                      strategy={source as BuiltInProviderType}
+                      strategy={source as AuthSocialProviders}
                       className="size-3"
                     />
                   </div>

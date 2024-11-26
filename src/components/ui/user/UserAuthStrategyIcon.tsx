@@ -6,9 +6,10 @@ import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import { GoogleBrandIcon } from '~/components/icons/platform/GoogleBrandIcon'
 import { LogosMicrosoftIcon } from '~/components/icons/platform/MicrosoftIcon'
 import { TwitterIcon } from '~/components/icons/platform/Twitter'
+import type { AuthSocialProviders } from '~/lib/authjs'
 
 export const UserAuthStrategyIcon: FC<{
-  strategy: string
+  strategy: AuthSocialProviders | null
   className?: string
 }> = ({ strategy, className }) => {
   const Icon = getStrategyIconComponent(strategy)
@@ -21,24 +22,26 @@ export const UserAuthStrategyIcon: FC<{
   return <Icon className={className} />
 }
 
-export const getStrategyIconComponent = (strategy: string) => {
+export const getStrategyIconComponent = (
+  strategy: AuthSocialProviders | null,
+) => {
   switch (strategy) {
-    case 'from_oauth_github': {
+    case 'github': {
       return GitHubBrandIcon
     }
-    case 'from_oauth_google': {
+    case 'google': {
       return GoogleBrandIcon
     }
-    case 'from_oauth_apple': {
+    case 'apple': {
       return AppleIcon
     }
-    case 'from_oauth_microsoft': {
+    case 'microsoft': {
       return LogosMicrosoftIcon
     }
-    case 'from_oauth_facebook': {
+    case 'facebook': {
       return LogosFacebook
     }
-    case 'from_oauth_twitter': {
+    case 'twitter': {
       return TwitterIcon
     }
     default: {

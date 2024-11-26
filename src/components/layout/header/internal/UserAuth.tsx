@@ -19,7 +19,7 @@ import {
 } from '~/components/ui/dropdown-menu'
 import { EllipsisHorizontalTextWithTooltip } from '~/components/ui/typography'
 import { useIsClient } from '~/hooks/common/use-is-client'
-import { signOut } from '~/lib/authjs'
+import { authClient } from '~/lib/authjs'
 import { getToken, removeToken } from '~/lib/cookie'
 import { apiClient } from '~/lib/request'
 import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
@@ -133,12 +133,14 @@ export function UserAuth() {
                 </Fragment>
               )}
               <DropdownMenuItem
-                onClick={() => {
-                  Promise.allSettled([
-                    getToken() && apiClient.user.proxy('logout').post(),
-                    signOut(),
-                  ])
+                onClick={async () => {
+                  getToken() && apiClient.user.proxy('logout').post()
                   removeToken()
+                  await authClient.signOut().then((res) => {
+                    if (res.data?.success) {
+                      window.location.reload()
+                    }
+                  })
                 }}
                 icon={<i className="i-mingcute-exit-line size-4" />}
               >
