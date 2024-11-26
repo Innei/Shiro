@@ -139,7 +139,9 @@ export function UserAuth() {
                     await apiClient.user.proxy('logout').post()
                   }
                   removeToken()
-                  await authClient.signOut()
+                  await authClient.signOut().then((res) => {
+                    if (res.data?.success) window.location.reload()
+                  })
                 }}
                 icon={<i className="i-mingcute-exit-line size-4" />}
               >
