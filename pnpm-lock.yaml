@@ -116,8 +116,8 @@ importers:
         specifier: link:./packages/fetch
         version: link:packages/fetch
       '@simplewebauthn/browser':
-        specifier: 12.0.0
-        version: 12.0.0
+        specifier: 13.0.0
+        version: 13.0.0
       '@simplewebauthn/types':
         specifier: 12.0.0
         version: 12.0.0
@@ -2351,8 +2351,8 @@ packages:
   '@simplewebauthn/browser@10.0.0':
     resolution: {integrity: sha512-hG0JMZD+LiLUbpQcAjS4d+t4gbprE/dLYop/CkE01ugU/9sKXflxV5s0DRjdz3uNMFecatRfb4ZLG3XvF8m5zg==}
 
-  '@simplewebauthn/browser@12.0.0':
-    resolution: {integrity: sha512-0w6W8qkACycyaRMb2XnHfpA9kkgs5e2Aw2Ul9ObBYmvFBbtzipyWu9u2+WP1wy98chM+GIlQFnPheUbiMBQr8w==}
+  '@simplewebauthn/browser@13.0.0':
+    resolution: {integrity: sha512-7d/+gxoFoDQxq2EkLl/PuTIQ/rnSrA3bmr8L2Ij7bRyicJoCJX/NDGUNExyctB9nSDrEkkcrJMDkwpCYOGU3Lg==}
 
   '@simplewebauthn/server@10.0.1':
     resolution: {integrity: sha512-djNWcRn+H+6zvihBFJSpG3fzb0NQS9c/Mw5dYOtZ9H+oDw8qn9Htqxt4cpqRvSOAfwqP7rOvE9rwqVaoGGc3hg==}
@@ -9055,9 +9055,7 @@ snapshots:
     dependencies:
       '@simplewebauthn/types': 10.0.0
 
-  '@simplewebauthn/browser@12.0.0':
-    dependencies:
-      '@simplewebauthn/types': 12.0.0
+  '@simplewebauthn/browser@13.0.0': {}
 
   '@simplewebauthn/server@10.0.1':
     dependencies:
