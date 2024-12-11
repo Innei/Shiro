@@ -4,13 +4,13 @@
     "dev": "vite"
   },
   "dependencies": {
-    "@radix-ui/react-scroll-area": "1.2.0",
-    "marked": "^12.0.2",
+    "@radix-ui/react-scroll-area": "1.2.1",
+    "marked": "^15.0.3",
     "postcss-import": "^16.1.0",
     "react-error-boundary": "4.1.2",
-    "react-router-dom": "6.27.0",
-    "vite": "5.4.10",
-    "vite-plugin-restart": "0.4.1"
+    "react-router-dom": "7.0.2",
+    "vite": "6.0.3",
+    "vite-plugin-restart": "0.4.2"
   },
   "devDependencies": {
     "@mdx-js/react": "3.1.0",
@@ -20,8 +20,8 @@
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.3",
     "buffer": "6.0.3",
-    "concurrently": "^8.2.2",
-    "unplugin-macros": "0.11.0",
+    "concurrently": "^9.1.0",
+    "unplugin-macros": "0.13.6",
     "vite-tsconfig-paths": "^4.3.2"
   }
 }

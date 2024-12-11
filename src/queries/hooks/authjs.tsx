@@ -99,6 +99,7 @@ export const AuthProvidersRender: FC = () => {
     </>
   )
 }
+
 const AuthjsLoginModalContent = () => {
   const title = useAggregationSelector((s) => s.seo.title)
   const ownerAvatar = useAggregationSelector((s) => s.user.avatar)!
