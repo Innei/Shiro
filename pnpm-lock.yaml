@@ -143,8 +143,8 @@ importers:
         specifier: 0.10.0
         version: 0.10.0
       better-auth:
-        specifier: 1.0.15
-        version: 1.0.15
+        specifier: 1.0.18
+        version: 1.0.18
       blurhash:
         specifier: 2.0.5
         version: 2.0.5
@@ -164,8 +164,8 @@ importers:
         specifier: 1.12.1
         version: 1.12.1(bufferutil@4.0.8)(typescript@5.7.2)(zod@3.23.8)
       daisyui:
-        specifier: 4.12.20
-        version: 4.12.20(postcss@8.4.49)
+        specifier: 4.12.21
+        version: 4.12.21(postcss@8.4.49)
       dayjs:
         specifier: 1.11.13
         version: 1.11.13
@@ -387,8 +387,8 @@ importers:
         specifier: 0.0.1
         version: 0.0.1
       code-inspector-plugin:
-        specifier: 0.18.2
-        version: 0.18.2
+        specifier: 0.18.3
+        version: 0.18.3
       cross-env:
         specifier: 7.0.3
         version: 7.0.3
@@ -3202,8 +3202,8 @@ packages:
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
-  better-auth@1.0.15:
-    resolution: {integrity: sha512-hBP4huYOZWrKQsb7PId9a/bvNPJhTDaZWT7Q9gBFEwbHVvqhs7WBy4GT2+oELFOPClUP7fYtGDUut07lDtNG9Q==}
+  better-auth@1.0.18:
+    resolution: {integrity: sha512-5zn34/cB+1/F2lzULImTMBAdlC0AGETSRun/RX+CCl2SVXF+V47IQkQ8jm2G0ilZ3W6YHVoi6G6MDqY7+7PQ1Q==}
 
   better-call@0.3.3-beta.4:
     resolution: {integrity: sha512-txigUTFsjOlE4dfkfhDhu6Gk0I1Xo3S4Nye+nfMKJXknb+WsymcWtqoRUSUGdhOMumM3LT9R3QttTUxwny9lWQ==}
@@ -3349,11 +3349,11 @@ packages:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
     engines: {node: '>=6'}
 
-  code-inspector-core@0.18.2:
-    resolution: {integrity: sha512-2fnBXAF5apwrhvih6mseoklbcveMRulAByZiO2BNdfK77LjaBnbLZAxZqUVdgZhXmewkMBrVrPRQVRoldhdpIQ==}
+  code-inspector-core@0.18.3:
+    resolution: {integrity: sha512-60pT2cPoguMTUYdN1MMpjoPUnuF0ud/u7M2y+Vqit/bniLEit9dySEWAVxLU/Ukc5ILrDeLKEttc6fCMl9RUrA==}
 
-  code-inspector-plugin@0.18.2:
-    resolution: {integrity: sha512-LKOhA4YsoUZ6Dq4OQKP7G+kPcfeYGLoIQz7EDG4yoL5mqSu+uWR+0QvzoDc4HGXQ0jpkzEwlatbH6fBlbPiwKQ==}
+  code-inspector-plugin@0.18.3:
+    resolution: {integrity: sha512-d9oJXZUsnvfTaQDwFmDNA2F+AR/TXIxWg1rr8KGcEskltR2prbZsfuu1z70EAn4khpx0smfi/PvIIwNJQ7FAMw==}
 
   color-convert@1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}
@@ -3665,8 +3665,8 @@ packages:
   dagre-d3-es@7.0.11:
     resolution: {integrity: sha512-tvlJLyQf834SylNKax8Wkzco/1ias1OPw8DcUMDE7oUIoSEW25riQVuiu/0OWEFqT0cxHT3Pa9/D82Jr47IONw==}
 
-  daisyui@4.12.20:
-    resolution: {integrity: sha512-uHr3SQsd2yTjRdVuswTiqGFvZTxX0sGSBRa8JJdbKgmZCk/kRFh4B7Z2jg9vLIdwsHTHPyPgCkZadQo1ce0tAw==}
+  daisyui@4.12.21:
+    resolution: {integrity: sha512-dKfJoGTf5b7D75pVYdNcbhBQd73IOUh9wuXeWHm0qXus4FYvFJJpS9/EX41hAyhojE6s09/ow6wGgPGERzD5wg==}
     engines: {node: '>=16.9.0'}
 
   dayjs@1.11.13:
@@ -3831,8 +3831,8 @@ packages:
   error-ex@1.3.2:
     resolution: {integrity: sha512-7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g==}
 
-  esbuild-code-inspector-plugin@0.18.2:
-    resolution: {integrity: sha512-q9Qh1xfUhHEtnmYt8eXCAzdbFLaBMgC6wrwmGH7JI2nztYlcpVD4HeAnheQ9ZTaoRGu+2L+qkpM5XQMd6xhUcQ==}
+  esbuild-code-inspector-plugin@0.18.3:
+    resolution: {integrity: sha512-FaPt5eFMtW1oXMWqAcqfAJByNagP1V/R9dwDDLQO29JmryMF35+frskTqy+G53whmTaVi19+TCrFqhNbMZH5ZQ==}
 
   esbuild@0.23.1:
     resolution: {integrity: sha512-VVNz/9Sa0bs5SELtn3f7qhJCDPCF5oMEl5cO9/SSinpE9hbPVvxbd572HH5AKiP7WD8INO53GgfDDhRjkylHEg==}
@@ -4647,8 +4647,8 @@ packages:
     resolution: {integrity: sha512-+Ez9EoiByeoTu/2BXmEaZ06iPNXM6thWJp02KfBO/raSMyCJ4jw7AkWWa+zBCTm0+Tw1Fj9FOxdqSskyN5nAwg==}
     engines: {node: '>=16.0.0'}
 
-  launch-ide@1.0.0:
-    resolution: {integrity: sha512-VnVnFZK97DySVgidvlHlbPYOgf0hWjYowdqPu5P9iw1vyA+JUPu7ldJdL3cQm0ILC+4Wf1jtOv/x2f/67ePIfQ==}
+  launch-ide@1.0.1:
+    resolution: {integrity: sha512-U7qBxSNk774PxWq4XbmRe0ThiIstPoa4sMH/OGSYxrFVvg8x3biXcF1fsH6wasDpEmEXMdINUrQhBdwsSgKyMg==}
 
   layout-base@1.0.2:
     resolution: {integrity: sha512-8h2oVEZNktL4BH2JCOI90iD1yXwL6iNW7KcCKT2QZgQJR2vbqDsldCTPRU9NifTCqHZci57XvQQ15YTu+sTYPg==}
@@ -6498,8 +6498,8 @@ packages:
       typescript:
         optional: true
 
-  vite-code-inspector-plugin@0.18.2:
-    resolution: {integrity: sha512-MfHvere+71vL0BOposwgbHKZ8o973mYnMhGmU4uzOMt+gsmIjqHxcUkak9K2RMkRB1mG7/Gehvyy28SkUuhg3A==}
+  vite-code-inspector-plugin@0.18.3:
+    resolution: {integrity: sha512-178H73vbDUHE+JpvfAfioUHlUr7qXCYIEa2YNXtzenFQGOjtae59P1jjcxGfa6pPHEnOoaitb13K+0qxwhi/WA==}
 
   vscode-jsonrpc@8.2.0:
     resolution: {integrity: sha512-C+r0eKJUIfiDIfwJhria30+TYWPtuHJXHtI7J0YlOmKAo7ogxP20T0zxB7HZQIFhIyvoBPwWskjxrvAtfjyZfA==}
@@ -6542,8 +6542,8 @@ packages:
     engines: {node: '>= 10.13.0'}
     hasBin: true
 
-  webpack-code-inspector-plugin@0.18.2:
-    resolution: {integrity: sha512-sSUgrISb8KqKGiX+AvKA5FAdiOh41nEX/EU+c/d1ChYQmwLDdWXxsMyAs494R3r+ihVUchhLalb9V6TvDKTOCA==}
+  webpack-code-inspector-plugin@0.18.3:
+    resolution: {integrity: sha512-3782rsJhBnRiw0IpR6EqnyGDQoiSq0CcGeLJ52rZXlszYCe8igXtcujq7OhI0byaivWQ1LW7sXKyMEoVpBhq0w==}
 
   whatwg-url@5.0.0:
     resolution: {integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==}
@@ -7514,7 +7514,7 @@ snapshots:
       '@babel/parser': 7.25.7
       '@babel/template': 7.25.7
       '@babel/types': 7.25.7
-      debug: 4.3.7
+      debug: 4.4.0
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -7526,7 +7526,7 @@ snapshots:
       '@babel/parser': 7.26.3
       '@babel/template': 7.25.9
       '@babel/types': 7.26.3
-      debug: 4.3.7
+      debug: 4.4.0
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -9854,7 +9854,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.15.0
       '@typescript-eslint/visitor-keys': 8.15.0
-      debug: 4.3.7
+      debug: 4.4.0
       fast-glob: 3.3.2
       is-glob: 4.0.3
       minimatch: 9.0.5
@@ -9869,7 +9869,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.18.0
       '@typescript-eslint/visitor-keys': 8.18.0
-      debug: 4.3.7
+      debug: 4.4.0
       fast-glob: 3.3.2
       is-glob: 4.0.3
       minimatch: 9.0.5
@@ -9969,7 +9969,7 @@ snapshots:
 
   '@vue/compiler-core@3.4.31':
     dependencies:
-      '@babel/parser': 7.25.7
+      '@babel/parser': 7.26.3
       '@vue/shared': 3.4.31
       entities: 4.5.0
       estree-walker: 2.0.2
@@ -10128,7 +10128,7 @@ snapshots:
 
   balanced-match@1.0.2: {}
 
-  better-auth@1.0.15:
+  better-auth@1.0.18:
     dependencies:
       '@better-fetch/fetch': 1.1.12
       '@noble/ciphers': 0.6.0
@@ -10297,24 +10297,24 @@ snapshots:
 
   clsx@2.1.1: {}
 
-  code-inspector-core@0.18.2:
+  code-inspector-core@0.18.3:
     dependencies:
       '@vue/compiler-dom': 3.4.31
       chalk: 4.1.2
       dotenv: 16.4.7
-      launch-ide: 1.0.0
+      launch-ide: 1.0.1
       portfinder: 1.0.32
     transitivePeerDependencies:
       - supports-color
 
-  code-inspector-plugin@0.18.2:
+  code-inspector-plugin@0.18.3:
     dependencies:
       chalk: 4.1.1
-      code-inspector-core: 0.18.2
+      code-inspector-core: 0.18.3
       dotenv: 16.4.7
-      esbuild-code-inspector-plugin: 0.18.2
-      vite-code-inspector-plugin: 0.18.2
-      webpack-code-inspector-plugin: 0.18.2
+      esbuild-code-inspector-plugin: 0.18.3
+      vite-code-inspector-plugin: 0.18.3
+      webpack-code-inspector-plugin: 0.18.3
     transitivePeerDependencies:
       - supports-color
 
@@ -10652,7 +10652,7 @@ snapshots:
       d3: 7.9.0
       lodash-es: 4.17.21
 
-  daisyui@4.12.20(postcss@8.4.49):
+  daisyui@4.12.21(postcss@8.4.49):
     dependencies:
       css-selector-tokenizer: 0.8.0
       culori: 3.3.0
@@ -10778,9 +10778,9 @@ snapshots:
     dependencies:
       is-arrayish: 0.2.1
 
-  esbuild-code-inspector-plugin@0.18.2:
+  esbuild-code-inspector-plugin@0.18.3:
     dependencies:
-      code-inspector-core: 0.18.2
+      code-inspector-core: 0.18.3
     transitivePeerDependencies:
       - supports-color
 
@@ -11488,7 +11488,7 @@ snapshots:
   importx@0.4.4:
     dependencies:
       bundle-require: 5.0.0(esbuild@0.23.1)
-      debug: 4.3.7
+      debug: 4.4.0
       esbuild: 0.23.1
       jiti: 2.0.0-beta.3
       jiti-v1: jiti@1.21.6
@@ -11707,7 +11707,7 @@ snapshots:
       vscode-languageserver-textdocument: 1.0.12
       vscode-uri: 3.0.8
 
-  launch-ide@1.0.0:
+  launch-ide@1.0.1:
     dependencies:
       chalk: 4.1.2
       dotenv: 16.4.7
@@ -12329,7 +12329,7 @@ snapshots:
   micromark@3.2.0:
     dependencies:
       '@types/debug': 4.1.12
-      debug: 4.3.7
+      debug: 4.4.0
       decode-named-character-reference: 1.0.2
       micromark-core-commonmark: 1.1.0
       micromark-factory-space: 1.1.0
@@ -12351,7 +12351,7 @@ snapshots:
   micromark@4.0.0:
     dependencies:
       '@types/debug': 4.1.12
-      debug: 4.3.7
+      debug: 4.4.0
       decode-named-character-reference: 1.0.2
       devlop: 1.1.0
       micromark-core-commonmark: 2.0.0
@@ -13990,9 +13990,9 @@ snapshots:
       - utf-8-validate
       - zod
 
-  vite-code-inspector-plugin@0.18.2:
+  vite-code-inspector-plugin@0.18.3:
     dependencies:
-      code-inspector-core: 0.18.2
+      code-inspector-core: 0.18.3
     transitivePeerDependencies:
       - supports-color
 
@@ -14022,7 +14022,7 @@ snapshots:
   webauthn-p256@0.0.10:
     dependencies:
       '@noble/curves': 1.6.0
-      '@noble/hashes': 1.5.0
+      '@noble/hashes': 1.6.1
 
   webidl-conversions@3.0.1: {}
 
@@ -14045,9 +14045,9 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  webpack-code-inspector-plugin@0.18.2:
+  webpack-code-inspector-plugin@0.18.3:
     dependencies:
-      code-inspector-core: 0.18.2
+      code-inspector-core: 0.18.3
     transitivePeerDependencies:
       - supports-color
 
