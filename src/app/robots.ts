@@ -5,11 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        disallow: ['/login/', '/preview/', '/dashboard'],
-      },
-      {
-        userAgent: 'Googlebot',
-        disallow: ['/login/', '/preview/', '/dashboard', '/og'],
+        disallow: ['/login/', '/preview/', '/dashboard', '/_next'],
       },
     ],
   }
