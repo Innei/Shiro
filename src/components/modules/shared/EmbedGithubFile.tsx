@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query'
 import * as React from 'react'
 import { memo } from 'react'
@@ -121,13 +120,21 @@ export const EmbedGithubFile = memo(
     if (endLineNumber - startLineNumber > 20) {
       return (
         <div className="h-[50vh] w-full overflow-auto">
-          <HighLighterPrismCdn content={newData} lang={fileType} />
+          <HighLighterPrismCdn
+            content={newData}
+            lang={fileType}
+            startLineNumber={startLineNumber + 1}
+          />
         </div>
       )
     } else {
       return (
         <div className="w-full overflow-auto">
-          <HighLighterPrismCdn content={newData} lang={fileType} />
+          <HighLighterPrismCdn
+            content={newData}
+            lang={fileType}
+            startLineNumber={startLineNumber + 1}
+          />
         </div>
       )
     }
