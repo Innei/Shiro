@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import React, { memo } from 'react'
+import * as React from 'react'
+import { memo } from 'react'
 
 import { HighLighterPrismCdn } from '../../ui/code-highlighter'
 import { Loading } from '../../ui/loading'
@@ -61,11 +62,15 @@ export const EmbedGithubFile = memo(
     owner,
     path,
     repo,
+    startLineNumber,
+    endLineNumber,
     refType,
   }: {
     owner: string
     repo: string
     path: string
+    startLineNumber: number
+    endLineNumber?: number
     refType?: string
   }) => {
     const ext = path.slice(path.lastIndexOf('.'))
@@ -94,7 +99,7 @@ export const EmbedGithubFile = memo(
 
     if (isError) {
       return (
-        <pre className="flex h-[50vh] flex-wrap rounded-md border border-uk-orange-light center">
+        <pre className="center flex h-[50vh] flex-wrap rounded-md border border-uk-orange-light">
           <code>Loading GitHub File Preview Failed:</code>
           <br />
           <code>
@@ -106,11 +111,33 @@ export const EmbedGithubFile = memo(
 
     if (!data) return null
 
-    return (
-      <div className="h-[50vh] w-full overflow-auto">
-        <HighLighterPrismCdn content={data} lang={fileType} />
-      </div>
-    )
+    const splitData = data.split('\n')
+    if (!endLineNumber) {
+      endLineNumber = splitData.length
+    }
+    const newData = splitData.slice(startLineNumber, endLineNumber).join('\n')
+
+    if (endLineNumber - startLineNumber > 20) {
+      return (
+        <div className="h-[50vh] w-full overflow-auto">
+          <HighLighterPrismCdn
+            content={newData}
+            lang={fileType}
+            startLineNumber={startLineNumber + 1}
+          />
+        </div>
+      )
+    } else {
+      return (
+        <div className="w-full overflow-auto">
+          <HighLighterPrismCdn
+            content={newData}
+            lang={fileType}
+            startLineNumber={startLineNumber + 1}
+          />
+        </div>
+      )
+    }
   },
 )
 EmbedGithubFile.displayName = 'EmbedGithubFile'

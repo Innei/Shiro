@@ -1,5 +1,6 @@
+
 import dynamic from 'next/dynamic'
-import type React from 'react'
+import type * as React from 'react'
 import type { FC, PropsWithChildren, ReactNode } from 'react'
 import { Suspense, useMemo } from 'react'
 
@@ -291,12 +292,27 @@ const GithubUrlRenderL: FC<{
       const splitString = afterTypeString.split('/')
       const ref = splitString[0]
       const path = ref ? splitString.slice(1).join('/') : afterTypeString
+      const matchResult = url.hash.match(/L\d+/g)
+      let startLineNumber = 0
+      let endLineNumber
+      if (!matchResult) {
+        startLineNumber = 0
+        endLineNumber = undefined
+      } else if (matchResult.length === 1) {
+        startLineNumber = Number.parseInt(matchResult[0].slice(1)) - 1
+        endLineNumber = startLineNumber + 1
+      } else {
+        startLineNumber = Number.parseInt(matchResult[0].slice(1)) - 1
+        endLineNumber = Number.parseInt(matchResult[1].slice(1))
+      }
       return (
         <div className="flex w-full flex-col items-center">
           <EmbedGithubFile
             owner={owner}
             repo={repo}
             path={path}
+            startLineNumber={startLineNumber}
+            endLineNumber={endLineNumber}
             refType={ref}
           />
           <div className="mt-4">
