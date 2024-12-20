@@ -24,7 +24,7 @@ export const ReplyModal = (props: { comment: CommentModel }) => {
     store.get(replyTextAtom),
   )
 
-  const { dismiss, ref: modalElRef } = useCurrentModal()
+  const { dismiss, ref: modalContentRef } = useCurrentModal()
 
   const { mutateAsync: reply } = useReplyCommentMutation()
   const handleReply = useEventCallback(async () => {
@@ -111,7 +111,7 @@ export const ReplyModal = (props: { comment: CommentModel }) => {
 
       <div className="mt-4 flex justify-between gap-2">
         <KaomojiPanel
-          to={modalElRef.current!}
+          to={modalContentRef}
           inputRef={ref}
           open={kaomojiPanelOpen}
           onOpenChange={setKaomojiPanelOpen}

@@ -15,7 +15,7 @@ import { KAOMOJI_LIST } from '../dashboard/comments/kaomoji'
 
 export const KaomojiPanel: FC<
   {
-    to?: HTMLElement
+    to?: HTMLElement | null
     inputRef:
       | React.RefObject<HTMLTextAreaElement>
       | React.RefObject<HTMLInputElement>
@@ -114,7 +114,7 @@ export const KaomojiPanel: FC<
           }}
           placement={placement || 'left-end'}
           trigger="click"
-          to={to}
+          to={to || void 0}
           triggerElement={KaomojiButton as any}
         >
           {KaomojiContentEl}

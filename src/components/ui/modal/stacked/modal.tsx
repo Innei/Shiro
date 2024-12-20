@@ -12,6 +12,7 @@ import {
   useEffect,
   useMemo,
   useRef,
+  useState,
 } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks/viewport'
@@ -144,7 +145,9 @@ export const ModalInternal: Component<{
     }
   }, [isTop])
 
-  const modalContentRef = useRef<HTMLDivElement>(null)
+  const [modalContentRef, setModalContentRef] = useState<HTMLDivElement | null>(
+    null,
+  )
   const ModalProps: ModalContentPropsInternal = useMemo(
     () => ({
       dismiss: () => {
@@ -202,6 +205,7 @@ export const ModalInternal: Component<{
           <Dialog.Portal>
             <Dialog.Content asChild>
               <div
+                ref={setModalContentRef}
                 className={clsxm(
                   'fixed inset-0 z-20 overflow-auto',
                   currentIsClosing
@@ -243,6 +247,7 @@ export const ModalInternal: Component<{
             >
               <m.div
                 style={zIndexStyle}
+                ref={setModalContentRef}
                 {...modalMontionConfig}
                 animate={animateController}
                 className={clsxm(
