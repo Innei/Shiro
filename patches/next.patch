@@ -95,3 +95,16 @@ index d45ca001c5e8c2f94319448a0b642daac1334bd4..1f7f9c947581fd95bd82a792a345e4c9
                      }
                  ] : [],
                  // TODO: FIXME: do NOT webpack 5 support with this
+diff --git a/dist/server/app-render/create-component-tree.js b/dist/server/app-render/create-component-tree.js
+index 3034149cc16843ef5e26972e374062a707cf4ddc..e4817e6a6f56f12aac0fab77a4e6872ae8453fab 100644
+--- a/dist/server/app-render/create-component-tree.js
++++ b/dist/server/app-render/create-component-tree.js
+@@ -145,7 +145,7 @@ async function createComponentTreeInternal({ createSegmentPath, loaderTree: tree
+     if (staticGenerationStore.dynamicUsageErr) {
+         throw staticGenerationStore.dynamicUsageErr;
+     }
+-    const LayoutOrPage = layoutOrPageMod ? await (0, _interopdefault.interopDefault)(layoutOrPageMod) : undefined;
++    const LayoutOrPage = layoutOrPageMod ?  _interopdefault.interopDefault(layoutOrPageMod) : undefined;
+     /**
+    * The React Component to render.
+    */ let Component = LayoutOrPage;
