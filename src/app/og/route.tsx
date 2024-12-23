@@ -10,7 +10,7 @@ import { ImageResponse } from 'next/og'
 import type { ImageResponseOptions, NextRequest } from 'next/server'
 
 import { API_URL } from '~/constants/env'
-import { getBackgroundGradient } from '~/lib/helper.server'
+import { getBackgroundGradientBySeed } from '~/lib/helper.server'
 
 const apiClient = createClient(fetchAdaptor)(API_URL, {
   controllers: [
@@ -103,9 +103,8 @@ export const GET = async (req: NextRequest) => {
         { status: 400 },
       )
 
-    const [bgAccent, bgAccentLight, bgAccentUltraLight] = getBackgroundGradient(
-      title + subtitle,
-    )
+    const [bgAccent, bgAccentLight, bgAccentUltraLight] =
+      getBackgroundGradientBySeed(title + subtitle)
 
     // let canShownTitle = ''
 

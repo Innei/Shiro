@@ -1,5 +1,6 @@
 import 'server-only'
 
+import chroma from 'chroma-js'
 import { headers } from 'next/headers'
 import uniqolor from 'uniqolor'
 
@@ -43,7 +44,7 @@ export const getOgUrl = (type: 'post' | 'note' | 'page', data: any) => {
   return ogUrl
 }
 
-export const getBackgroundGradient = (seed: string) => {
+export const getBackgroundGradientBySeed = (seed: string) => {
   const bgAccent = uniqolor(seed, {
     saturation: [30, 35],
     lightness: [60, 70],
@@ -58,6 +59,14 @@ export const getBackgroundGradient = (seed: string) => {
     saturation: [30, 35],
     lightness: [95, 96],
   }).color
+
+  return [bgAccent, bgAccentLight, bgAccentUltraLight]
+}
+
+export const getBackgroundGradientByBaseColor = (baseColor: string) => {
+  const bgAccent = chroma(baseColor).darken(0.1).hex()
+  const bgAccentLight = chroma(baseColor).darken(0.05).hex()
+  const bgAccentUltraLight = chroma(baseColor).darken(0.01).hex()
 
   return [bgAccent, bgAccentLight, bgAccentUltraLight]
 }

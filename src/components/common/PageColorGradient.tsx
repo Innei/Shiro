@@ -5,7 +5,10 @@ import Color from 'colorjs.io'
 import type { FC } from 'react'
 
 import { hexToRgbString } from '~/lib/color'
-import { getBackgroundGradient } from '~/lib/helper.server'
+import {
+  getBackgroundGradientByBaseColor,
+  getBackgroundGradientBySeed,
+} from '~/lib/helper.server'
 import { createPngNoiseBackground } from '~/lib/noise'
 
 import { RootPortal } from '../ui/portal'
@@ -14,9 +17,12 @@ const hexToOklchString = (hex: string) => new Color(hex).oklch
 const lightBg = 'rgb(250, 250, 250)'
 const darkBg = 'rgb(0, 2, 18)'
 export const PageColorGradient: FC<{
-  seed: string
-}> = async ({ seed }) => {
-  const [bgAccent, bgAccentLight] = getBackgroundGradient(seed)
+  seed?: string
+  baseColor?: string
+}> = async ({ seed, baseColor }) => {
+  const [bgAccent, bgAccentLight] = baseColor
+    ? getBackgroundGradientByBaseColor(baseColor)
+    : getBackgroundGradientBySeed(seed!)
 
   const oklch = hexToOklchString(bgAccent)
 

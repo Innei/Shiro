@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 import type { ImageResponseOptions } from 'next/server'
 
-import { getBackgroundGradient } from '~/lib/helper.server'
+import { getBackgroundGradientBySeed } from '~/lib/helper.server'
 import { apiClient } from '~/lib/request'
 
 export const revalidate = 86400 // 24 hours
@@ -24,7 +24,7 @@ export const GET = async () => {
   const aggregateData = await apiClient.aggregate.getAggregateData()
   const seed = Math.random().toString(36).slice(7)
   const [bgAccent, bgAccentLight, bgAccentUltraLight] =
-    getBackgroundGradient(seed)
+    getBackgroundGradientBySeed(seed)
 
   const {
     seo,

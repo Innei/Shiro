@@ -4,6 +4,7 @@ import { headers } from 'next/headers'
 
 import { AckRead } from '~/components/common/AckRead'
 import { ClientOnly } from '~/components/common/ClientOnly'
+import { PageColorGradient } from '~/components/common/PageColorGradient'
 import {
   buildRoomName,
   Presence,
@@ -90,12 +91,16 @@ const Summary = async ({ data }: { data: NoteModel }) => {
   )
 }
 function PageInner({ data }: { data: NoteModel }) {
+  const coverImage = data.images?.find((i) => i.src === data.meta?.cover)
   return (
     <>
       <AckRead id={data.id} type="note" />
 
       <NoteHeadCover image={data.meta?.cover} />
       <NoteHeaderMetaInfoSetting />
+      {!!data.meta?.cover && !!coverImage?.accent && (
+        <PageColorGradient baseColor={coverImage.accent} />
+      )}
       <div>
         <NoteTitle />
         <span className="flex flex-wrap items-center text-sm text-neutral-content/60">
