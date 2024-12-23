@@ -95,26 +95,3 @@ index d45ca001c5e8c2f94319448a0b642daac1334bd4..1f7f9c947581fd95bd82a792a345e4c9
                      }
                  ] : [],
                  // TODO: FIXME: do NOT webpack 5 support with this
-diff --git a/node_modules/.bin/next b/node_modules/.bin/next
-new file mode 100755
-index 0000000000000000000000000000000000000000..e6438979a95e3f72353d5771f46120b78292618a
---- /dev/null
-+++ b/node_modules/.bin/next
-@@ -0,0 +1,17 @@
-+#!/bin/sh
-+basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
-+
-+case `uname` in
-+    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;
-+esac
-+
-+if [ -z "$NODE_PATH" ]; then
-+  export NODE_PATH="/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/next@14.2.21_patch_hash=hv7cjd3jjfkpcreppvzn54iibm_@babel+core@7.26.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/bin/node_modules:/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/next@14.2.21_patch_hash=hv7cjd3jjfkpcreppvzn54iibm_@babel+core@7.26.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/node_modules:/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/next@14.2.21_patch_hash=hv7cjd3jjfkpcreppvzn54iibm_@babel+core@7.26.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/node_modules:/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/next@14.2.21_patch_hash=hv7cjd3jjfkpcreppvzn54iibm_@babel+core@7.26.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules:/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/node_modules"
-+else
-+  export NODE_PATH="/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/next@14.2.21_patch_hash=hv7cjd3jjfkpcreppvzn54iibm_@babel+core@7.26.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/bin/node_modules:/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/next@14.2.21_patch_hash=hv7cjd3jjfkpcreppvzn54iibm_@babel+core@7.26.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/node_modules:/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/next@14.2.21_patch_hash=hv7cjd3jjfkpcreppvzn54iibm_@babel+core@7.26.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/node_modules:/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/next@14.2.21_patch_hash=hv7cjd3jjfkpcreppvzn54iibm_@babel+core@7.26.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules:/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/node_modules:$NODE_PATH"
-+fi
-+if [ -x "$basedir/node" ]; then
-+  exec "$basedir/node"  "$basedir/../../dist/bin/next" "$@"
-+else
-+  exec node  "$basedir/../../dist/bin/next" "$@"
-+fi
