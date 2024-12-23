@@ -64,9 +64,18 @@ export const getBackgroundGradientBySeed = (seed: string) => {
 }
 
 export const getBackgroundGradientByBaseColor = (baseColor: string) => {
-  const bgAccent = chroma(baseColor).darken(0.1).hex()
-  const bgAccentLight = chroma(baseColor).darken(0.05).hex()
-  const bgAccentUltraLight = chroma(baseColor).darken(0.01).hex()
+  const bgAccent = chroma(baseColor)
+    .set('hsl.s', 0.325)
+    .set('hsl.l', 0.65)
+    .hex()
+  const bgAccentLight = chroma(baseColor)
+    .set('hsl.s', 0.325)
+    .set('hsl.l', 0.85)
+    .hex()
+  const bgAccentUltraLight = chroma(baseColor)
+    .set('hsl.s', 0.325)
+    .set('hsl.l', 0.955)
+    .hex()
 
   return [bgAccent, bgAccentLight, bgAccentUltraLight]
 }

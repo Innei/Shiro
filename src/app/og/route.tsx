@@ -1,3 +1,4 @@
+import type { Image } from '@mx-space/api-client'
 import {
   AggregateController,
   createClient,
@@ -10,7 +11,10 @@ import { ImageResponse } from 'next/og'
 import type { ImageResponseOptions, NextRequest } from 'next/server'
 
 import { API_URL } from '~/constants/env'
-import { getBackgroundGradientBySeed } from '~/lib/helper.server'
+import {
+  getBackgroundGradientByBaseColor,
+  getBackgroundGradientBySeed,
+} from '~/lib/helper.server'
 
 const apiClient = createClient(fetchAdaptor)(API_URL, {
   controllers: [
@@ -61,22 +65,33 @@ export const GET = async (req: NextRequest) => {
       return new Response('Failed to parse the data.', { status: 400 })
     }
 
-    let document: { title: string; subtitle: string }
+    let document: {
+      title: string
+      subtitle: string
+      meta: any
+      images: Image[] | undefined
+    }
 
     switch (data.type) {
       case 'post': {
         const { category, slug } = data
-        document = await apiClient.post
-          .getPost(category, slug)
-          .then((r) => ({ title: r.title, subtitle: r.category.name }))
+        document = await apiClient.post.getPost(category, slug).then((r) => ({
+          title: r.title,
+          subtitle: r.category.name,
+          meta: r.meta,
+          images: r.images,
+        }))
         break
       }
 
       case 'note': {
         const { nid } = data
-        document = await apiClient.note
-          .getNoteById(+nid)
-          .then((r) => ({ title: r.data.title, subtitle: '手记' }))
+        document = await apiClient.note.getNoteById(+nid).then((r) => ({
+          title: r.data.title,
+          subtitle: '手记',
+          meta: r.data.meta,
+          images: r.data.images,
+        }))
         break
       }
       case 'page': {
@@ -84,6 +99,8 @@ export const GET = async (req: NextRequest) => {
         document = await apiClient.page.getBySlug(slug).then((data) => ({
           title: data.title,
           subtitle: data.subtitle || '',
+          meta: data.meta,
+          images: data.images,
         }))
         break
       }
@@ -91,7 +108,7 @@ export const GET = async (req: NextRequest) => {
     const { subtitle, title } = document
 
     const {
-      user: { avatar, name },
+      user: { avatar },
       seo,
       theme,
     } = aggregation
@@ -103,8 +120,11 @@ export const GET = async (req: NextRequest) => {
         { status: 400 },
       )
 
-    const [bgAccent, bgAccentLight, bgAccentUltraLight] =
-      getBackgroundGradientBySeed(title + subtitle)
+    const cover = document.meta?.cover
+    const coverAccent = document.images?.find((i) => i.src === cover)?.accent
+    const [bgAccent, bgAccentLight, bgAccentUltraLight] = coverAccent
+      ? getBackgroundGradientByBaseColor(coverAccent)
+      : getBackgroundGradientBySeed(title + subtitle)
 
     // let canShownTitle = ''
 
