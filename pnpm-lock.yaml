@@ -22,7 +22,7 @@ overrides:
 
 patchedDependencies:
   next:
-    hash: r75l5tl7pd52fwn64mvnxzaitu
+    hash: ailt3pda4z5xwjkefjbk3jayqq
     path: patches/next.patch
 
 importers:
@@ -40,7 +40,7 @@ importers:
         version: 1.16.1
       '@openpanel/nextjs':
         specifier: 1.0.7
-        version: 1.0.7(next@14.2.21(patch_hash=r75l5tl7pd52fwn64mvnxzaitu)(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 1.0.7(next@14.2.21(patch_hash=ailt3pda4z5xwjkefjbk3jayqq)(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@prosemirror-adapter/react':
         specifier: 0.2.6
         version: 0.2.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -184,10 +184,10 @@ importers:
         version: 5.0.9
       next:
         specifier: 14.2.21
-        version: 14.2.21(patch_hash=r75l5tl7pd52fwn64mvnxzaitu)(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 14.2.21(patch_hash=ailt3pda4z5xwjkefjbk3jayqq)(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-runtime-env:
         specifier: 3.2.2
-        version: 3.2.2(next@14.2.21(patch_hash=r75l5tl7pd52fwn64mvnxzaitu)(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+        version: 3.2.2(next@14.2.21(patch_hash=ailt3pda4z5xwjkefjbk3jayqq)(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       next-themes:
         specifier: 0.4.4
         version: 0.4.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -7548,10 +7548,10 @@ snapshots:
 
   '@nolyfill/is-core-module@1.0.39': {}
 
-  '@openpanel/nextjs@1.0.7(next@14.2.21(patch_hash=r75l5tl7pd52fwn64mvnxzaitu)(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@openpanel/nextjs@1.0.7(next@14.2.21(patch_hash=ailt3pda4z5xwjkefjbk3jayqq)(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@openpanel/web': 1.0.1
-      next: 14.2.21(patch_hash=r75l5tl7pd52fwn64mvnxzaitu)(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      next: 14.2.21(patch_hash=ailt3pda4z5xwjkefjbk3jayqq)(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
@@ -10803,9 +10803,9 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next-runtime-env@3.2.2(next@14.2.21(patch_hash=r75l5tl7pd52fwn64mvnxzaitu)(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
+  next-runtime-env@3.2.2(next@14.2.21(patch_hash=ailt3pda4z5xwjkefjbk3jayqq)(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
     dependencies:
-      next: 14.2.21(patch_hash=r75l5tl7pd52fwn64mvnxzaitu)(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      next: 14.2.21(patch_hash=ailt3pda4z5xwjkefjbk3jayqq)(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
 
   next-themes@0.4.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
@@ -10813,7 +10813,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  next@14.2.21(patch_hash=r75l5tl7pd52fwn64mvnxzaitu)(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  next@14.2.21(patch_hash=ailt3pda4z5xwjkefjbk3jayqq)(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@next/env': 14.2.21
       '@swc/helpers': 0.5.5
