@@ -76,17 +76,16 @@ export const NoteDateMeta = () => {
   return (
     <span className="inline-flex items-center space-x-1">
       <MdiClockOutline />
-      <time className="font-medium" suppressHydrationWarning>
-        {dateFormat}
-      </time>
+      <span className="font-medium">{dateFormat}</span>
     </span>
   )
 }
-export const NoteHeaderDate = () => {
+export const NoteHeaderDate = withClientOnly(() => {
   const date = useCurrentNoteDataSelector((data) => ({
     created: data?.data.created,
     modified: data?.data.modified,
   }))
+
   if (!date?.created) return null
 
   const tips = `创建于 ${parseDate(date.created, 'YYYY 年 M 月 D 日 dddd')}${
@@ -108,7 +107,7 @@ export const NoteHeaderDate = () => {
       {tips}
     </FloatPopover>
   )
-}
+})
 export const NoteMarkdown = () => {
   const text = useCurrentNoteDataSelector((data) => data?.data.text)!
 

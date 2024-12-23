@@ -1,34 +1,120 @@
-diff --git a/dist/compiled/@vercel/og/index.edge.js b/dist/compiled/@vercel/og/index.edge.js
-index 089354ce4b62dde0fed3482e028ffade3d34b750..3a2f17f0356e815023b9054b52dc1706fa05b2b6 100644
---- a/dist/compiled/@vercel/og/index.edge.js
-+++ b/dist/compiled/@vercel/og/index.edge.js
-@@ -18784,7 +18784,11 @@ async function render(satori, resvg, opts, defaultFonts, element) {
-       value: options.width
+diff --git a/dist/build/webpack/loaders/next-flight-loader/index.js b/dist/build/webpack/loaders/next-flight-loader/index.js
+index 34d196104da9e95a5d6d6202cc4739b10b3922e3..1c2d9faa02c8de84d0a18fa800ac6c6a1f69c174 100644
+--- a/dist/build/webpack/loaders/next-flight-loader/index.js
++++ b/dist/build/webpack/loaders/next-flight-loader/index.js
+@@ -57,6 +57,8 @@ function transformSource(source, sourceMap) {
+     if (typeof source !== "string") {
+         throw new Error("Expected source to have been transformed to a string.");
      }
-   });
--  return resvgJS.render().asPng();
-+  const pngData = resvgJS.render();
-+  const pngBuffer = pngData.asPng();
-+  pngData.free();
-+  resvgJS.free();
-+  return pngBuffer;
- }
- 
- // src/figma/index.tsx
-diff --git a/dist/compiled/@vercel/og/index.node.js b/dist/compiled/@vercel/og/index.node.js
-index c92983c67cbcc73d197d1ccd2a6f22345a2f7590..a516f4fec131f1a103605bdab0bf1b03d0f8a053 100644
---- a/dist/compiled/@vercel/og/index.node.js
-+++ b/dist/compiled/@vercel/og/index.node.js
-@@ -18786,7 +18786,11 @@ async function render(satori2, resvg, opts, defaultFonts, element) {
-       value: options.width
-     }
-   });
--  return resvgJS.render().asPng();
-+  const pngData = resvgJS.render();
-+  const pngBuffer = pngData.asPng();
-+  pngData.free();
-+  resvgJS.free();
-+  return pngBuffer;
- }
- 
- // src/figma/index.tsx
++    const options = this.getOptions()
++    const { isEdgeServer } = options
+     // Assign the RSC meta information to buildInfo.
+     // Exclude next internal files which are not marked as client files
+     const buildInfo = (0, _getmodulebuildinfo.getModuleBuildInfo)(this._module);
+@@ -88,22 +90,22 @@ function transformSource(source, sourceMap) {
+                 return;
+             }
+             let esmSource = `\
+-import { createProxy } from "${MODULE_PROXY_PATH}"
+-`;
+-            let cnt = 0;
+-            for (const ref of clientRefs){
+-                if (ref === "") {
+-                    esmSource += `\nexports[''] = createProxy(String.raw\`${resourceKey}#\`);`;
+-                } else if (ref === "default") {
+-                    esmSource += `\
+-export default createProxy(String.raw\`${resourceKey}#default\`);
+-`;
+-                } else {
+-                    esmSource += `
+-const e${cnt} = createProxy(String.raw\`${resourceKey}#${ref}\`);
+-export { e${cnt++} as ${ref} };`;
+-                }
+-            }
++            import { createProxy } from "${MODULE_PROXY_PATH}"
++            const proxy = ${
++                    isEdgeServer ? '' : 'await'
++                  } createProxy(String.raw\`${resourceKey}\`)
++            `
++                  let cnt = 0
++                  for (const ref of clientRefs) {
++                    if (ref === '') {
++                      esmSource += `exports[''] = proxy['']\n`
++                    } else if (ref === 'default') {
++                      esmSource += `export default proxy.default;\n`
++                    } else {
++                      esmSource += `const e${cnt} = proxy["${ref}"];\n`
++                      esmSource += `export { e${cnt++} as ${ref} };\n`
++                    }
++                  }
+             this.callback(null, esmSource, sourceMap);
+             return;
+         }
+diff --git a/dist/build/webpack-config.js b/dist/build/webpack-config.js
+index d45ca001c5e8c2f94319448a0b642daac1334bd4..1f7f9c947581fd95bd82a792a345e4c99bfb59d1 100644
+--- a/dist/build/webpack-config.js
++++ b/dist/build/webpack-config.js
+@@ -417,6 +417,12 @@ async function getBaseWebpackConfig(dir, { buildId, encryptionKey, config, compi
+     const defaultLoaders = {
+         babel: useSWCLoader ? swcDefaultLoader : babelLoader
+     };
++    const nextFlightLoader = {
++        loader: 'next-flight-loader',
++        options: {
++          isEdgeServer,
++        },
++      }
+     const appServerLayerLoaders = hasAppDir ? [
+         // When using Babel, we will have to add the SWC loader
+         // as an additional pass to handle RSC correctly.
+@@ -426,6 +432,7 @@ async function getBaseWebpackConfig(dir, { buildId, encryptionKey, config, compi
+         babelLoader
+     ].filter(Boolean) : [];
+     const instrumentLayerLoaders = [
++        nextFlightLoader,
+         // When using Babel, we will have to add the SWC loader
+         // as an additional pass to handle RSC correctly.
+         // This will cause some performance overhead but
+@@ -433,7 +440,7 @@ async function getBaseWebpackConfig(dir, { buildId, encryptionKey, config, compi
+         swcServerLayerLoader,
+         babelLoader
+     ].filter(Boolean);
+-    const middlewareLayerLoaders = [
++    const middlewareLayerLoaders = [nextFlightLoader,
+         // When using Babel, we will have to use SWC to do the optimization
+         // for middleware to tree shake the unused default optimized imports like "next/server".
+         // This will cause some performance overhead but
+@@ -1095,9 +1102,7 @@ async function getBaseWebpackConfig(dir, { buildId, encryptionKey, config, compi
+                                 isEdgeServer
+                             })
+                         },
+-                        use: {
+-                            loader: "next-flight-loader"
+-                        }
++                        use: nextFlightLoader,
+                     }
+                 ] : [],
+                 // TODO: FIXME: do NOT webpack 5 support with this
+diff --git a/node_modules/.bin/next b/node_modules/.bin/next
+new file mode 100755
+index 0000000000000000000000000000000000000000..e6438979a95e3f72353d5771f46120b78292618a
+--- /dev/null
++++ b/node_modules/.bin/next
+@@ -0,0 +1,17 @@
++#!/bin/sh
++basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
++
++case `uname` in
++    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;
++esac
++
++if [ -z "$NODE_PATH" ]; then
++  export NODE_PATH="/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/next@14.2.21_patch_hash=hv7cjd3jjfkpcreppvzn54iibm_@babel+core@7.26.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/bin/node_modules:/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/next@14.2.21_patch_hash=hv7cjd3jjfkpcreppvzn54iibm_@babel+core@7.26.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/node_modules:/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/next@14.2.21_patch_hash=hv7cjd3jjfkpcreppvzn54iibm_@babel+core@7.26.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/node_modules:/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/next@14.2.21_patch_hash=hv7cjd3jjfkpcreppvzn54iibm_@babel+core@7.26.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules:/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/node_modules"
++else
++  export NODE_PATH="/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/next@14.2.21_patch_hash=hv7cjd3jjfkpcreppvzn54iibm_@babel+core@7.26.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/bin/node_modules:/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/next@14.2.21_patch_hash=hv7cjd3jjfkpcreppvzn54iibm_@babel+core@7.26.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/node_modules:/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/next@14.2.21_patch_hash=hv7cjd3jjfkpcreppvzn54iibm_@babel+core@7.26.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/node_modules:/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/next@14.2.21_patch_hash=hv7cjd3jjfkpcreppvzn54iibm_@babel+core@7.26.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules:/Users/innei/git/innei-repo/mx-space/sprightly/node_modules/.pnpm/node_modules:$NODE_PATH"
++fi
++if [ -x "$basedir/node" ]; then
++  exec "$basedir/node"  "$basedir/../../dist/bin/next" "$@"
++else
++  exec node  "$basedir/../../dist/bin/next" "$@"
++fi
