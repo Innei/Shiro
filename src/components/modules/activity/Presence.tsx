@@ -234,6 +234,7 @@ const NameModalContent = () => {
                   onClick={() =>
                     authClient.signIn.social({
                       provider: provider as AuthSocialProviders,
+                      callbackURL: window.location.href,
                     })
                   }
                   className="flex size-10 items-center justify-center rounded-full border border-base-content/10"

@@ -65,6 +65,7 @@ export const AuthProvidersRender: FC = () => {
                   if (authProcessingLockSet.has(provider)) return
                   authClient.signIn.social({
                     provider,
+                    callbackURL: window.location.href,
                   })
 
                   setAuthProcessingLockSet((prev) => {
