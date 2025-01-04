@@ -87,6 +87,7 @@ export const MLink: FC<{
       as="span"
       wrapperClassName="!inline"
       type="tooltip"
+      offset={0}
       triggerElement={el}
     >
       <a href={href} target="_blank" rel="noreferrer">

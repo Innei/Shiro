@@ -133,6 +133,7 @@ const RealFloatPopover = function FloatPopover<T extends {}>(
       offset(offsetValue ?? 10),
       shift(),
     ],
+
     strategy: floatingProps.strategy,
     placement: floatingProps.placement ?? 'bottom-start',
     whileElementsMounted: floatingProps.whileElementsMounted,
@@ -288,7 +289,11 @@ const RealFloatPopover = function FloatPopover<T extends {}>(
                 ref={refs.setFloating}
                 initial={{ translateY: '10px', opacity: 0 }}
                 animate={{ translateY: '0px', opacity: 1 }}
-                exit={{ translateY: '10px', opacity: 0 }}
+                exit={{
+                  translateY: '10px',
+                  opacity: 0,
+                  transition: { type: 'tween', duration: 0.2 },
+                }}
                 transition={microReboundPreset}
                 style={{
                   position: strategy,
