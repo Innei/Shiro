@@ -1,5 +1,39 @@
 # CHANGELOG
 
+## [1.2.4](https://github.com/Innei/sprightly/compare/v1.2.3...v1.2.4) (2025-01-04)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#492](https://github.com/Innei/sprightly/issues/492)) ([8ed7b74](https://github.com/Innei/sprightly/commit/8ed7b74e2c10c2dfa9a0bb316b63ebd3b722d0b3))
+* **deps:** update all non-major dependencies ([#497](https://github.com/Innei/sprightly/issues/497)) ([0040c37](https://github.com/Innei/sprightly/commit/0040c3719441c4988533e1e160e9057cb56a2b71))
+* **deps:** update all non-major dependencies ([#510](https://github.com/Innei/sprightly/issues/510)) ([8efa115](https://github.com/Innei/sprightly/commit/8efa11521a76dd01ba0bd0aab8205de05bbc603c))
+* **deps:** update all non-major dependencies ([#511](https://github.com/Innei/sprightly/issues/511)) ([f25e34b](https://github.com/Innei/sprightly/commit/f25e34ba027a87ae19c685fa526b0cbabfcd2f16))
+* **deps:** update all non-major dependencies ([#512](https://github.com/Innei/sprightly/issues/512)) ([5b58d6a](https://github.com/Innei/sprightly/commit/5b58d6ab0916dd5a04310308e0fff099bed2391c))
+* **deps:** update all non-major dependencies (minor) ([#483](https://github.com/Innei/sprightly/issues/483)) ([50301db](https://github.com/Innei/sprightly/commit/50301dbfc262f00e3e96e7b46db9651ef984f351))
+* **deps:** update all non-major dependencies (minor) ([#487](https://github.com/Innei/sprightly/issues/487)) ([589cfb1](https://github.com/Innei/sprightly/commit/589cfb11a98c4fa3652d98a66168c86526a0c863))
+* **deps:** update dependency @simplewebauthn/browser to v13 ([#506](https://github.com/Innei/sprightly/issues/506)) ([60589cd](https://github.com/Innei/sprightly/commit/60589cd89525e8a614bf4616b6af4a1ede2b7f32))
+* **deps:** update dependency better-auth to v1.1.6 [security] ([#517](https://github.com/Innei/sprightly/issues/517)) ([5edae6f](https://github.com/Innei/sprightly/commit/5edae6fd74c3998424ee77b2c63c7e97e9c28832))
+* **deps:** update dependency marked to v15 ([#490](https://github.com/Innei/sprightly/issues/490)) ([e3ce4a8](https://github.com/Innei/sprightly/commit/e3ce4a8f5bec4dc844d2ddccddfaf260ef445fe8))
+* **deps:** update dependency nanoid to v5.0.9 [security] ([#508](https://github.com/Innei/sprightly/issues/508)) ([9d23979](https://github.com/Innei/sprightly/commit/9d239798705d641c4033b479d13e13ea3e557802))
+* **deps:** update dependency react-error-boundary to v5 ([#515](https://github.com/Innei/sprightly/issues/515)) ([2126042](https://github.com/Innei/sprightly/commit/212604281fad6c24984b9b31a0e9c9d79b626fc6))
+* **deps:** update dependency react-router-dom to v7 ([#494](https://github.com/Innei/sprightly/issues/494)) ([04b53f0](https://github.com/Innei/sprightly/commit/04b53f01fde033901042c2cddfa00cc5a98b0e98))
+* **deps:** update dependency react-toastify to v11 ([#514](https://github.com/Innei/sprightly/issues/514)) ([1ac4f2f](https://github.com/Innei/sprightly/commit/1ac4f2f038e0ebf27119b8415b65c5063af9e1d0))
+* **deps:** update dependency vite to v6 ([#498](https://github.com/Innei/sprightly/issues/498)) ([f754c63](https://github.com/Innei/sprightly/commit/f754c634ffb9ce970a8cac7fc9b9a8d32875ae00))
+* link popover transition ([77cb460](https://github.com/Innei/sprightly/commit/77cb4601b03fc4037d0a79dd4d91bcfb4f5098f7))
+* provider account id ([b6d777b](https://github.com/Innei/sprightly/commit/b6d777be75c48a5b9e1f0836be2ded286868934a))
+* reduce rss cache time, resolves [#516](https://github.com/Innei/sprightly/issues/516) ([80b4460](https://github.com/Innei/sprightly/commit/80b4460f4bd036fd27b2bc0f27dd7d45ed6da78b))
+* **sheet:** trigger only in has children ([c3dd574](https://github.com/Innei/sprightly/commit/c3dd574efe4832c8ebd07a968de43e6b463875c8))
+* ts types ([b36fda0](https://github.com/Innei/sprightly/commit/b36fda0b0f954fb4e35c7195a06e5247eec6a564))
+* update disallow rules in robots metadata ([8a88d2b](https://github.com/Innei/sprightly/commit/8a88d2ba35905efa8ca547047d99594220d4504f))
+
+
+### Features
+
+* support hash in github link ([#513](https://github.com/Innei/sprightly/issues/513)) ([7cffc4a](https://github.com/Innei/sprightly/commit/7cffc4adf1d3624189000fe74f7798fc3edb2abb))
+
+
+
 ## [1.2.3](https://github.com/Innei/sprightly/compare/v1.2.2...v1.2.3) (2024-10-27)
 
 
