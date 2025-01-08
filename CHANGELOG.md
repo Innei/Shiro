@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [1.2.5](https://github.com/Innei/sprightly/compare/v1.2.4...v1.2.5) (2025-01-08)
+
+
+### Bug Fixes
+
+* type error ([5d01a4d](https://github.com/Innei/sprightly/commit/5d01a4df3db0730563fbf9f1e1f39b715db25732))
+
+
+
 ## [1.2.4](https://github.com/Innei/sprightly/compare/v1.2.3...v1.2.4) (2025-01-04)
 
 
