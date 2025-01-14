@@ -7,6 +7,7 @@ export enum LinkCardSource {
   GHCommit = 'gh-commit',
   GHPr = 'gh-pr',
   TMDB = 'tmdb',
+  Bangumi = 'bangumi',
   LEETCODE = 'leetcode',
   QQMusicSong = 'qq-music-song',
   NeteaseMusicSong = 'netease-music-song',

@@ -15,6 +15,7 @@ import { usePeek } from '~/components/modules/peek/usePeek'
 import { LanguageToColorMap } from '~/constants/language'
 import { useIsClientTransition } from '~/hooks/common/use-is-client'
 import useIsCommandOrControlPressed from '~/hooks/common/use-is-command-or-control-pressed'
+import { allowedBangumiTypes } from '~/lib/bangumi'
 import { preventDefault } from '~/lib/dom'
 import { fetchGitHubApi } from '~/lib/github'
 import { clsxm } from '~/lib/helper'
@@ -97,6 +98,7 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
         [LinkCardSource.LEETCODE]: fetchLeetCodeQuestionData,
         [LinkCardSource.QQMusicSong]: fetchQQMusicSongData,
         [LinkCardSource.NeteaseMusicSong]: fetchNeteaseMusicSongData,
+        [LinkCardSource.Bangumi]: fetchBangumiData,
       } as Record<LinkCardSource, FetchObject>
       if (tmdbEnabled)
         fetchDataFunctions[LinkCardSource.TMDB] = fetchTheMovieDBData
@@ -512,6 +514,92 @@ const fetchTheMovieDBData: FetchObject = {
       },
     })
     json.homepage && setFullUrl(json.homepage)
+  },
+}
+
+const fetchBangumiData: FetchObject = {
+  isValid(id) {
+    const [type, realId] = id.split('/')
+    return allowedBangumiTypes.includes(type) && realId.length > 0
+  },
+  async fetch(id, setCardInfo, _setFullUrl) {
+    const [type, realId] = id.split('/')
+
+    setCardInfo({
+      classNames: { cardRoot: '!w-full' },
+    })
+    const json = await fetch(`/api/bangumi/${type}/${realId}`)
+      .then((r) => r.json())
+      .catch((err) => {
+        console.error('Error fetching Bangumi data:', err)
+        throw err
+      })
+
+    let title = ''
+    let originalTitle = ''
+    if (type === 'subject') {
+      if (json.name_cn && json.name_cn !== json.name && json.name_cn !== '') {
+        title = json.name_cn
+        originalTitle = json.name
+      } else {
+        title = json.name
+        originalTitle = json.name
+      }
+    } else if (type === 'character' || type === 'person') {
+      const {infobox} = json
+      infobox.forEach(
+        (item: { key: string; value: string | { v: string }[] }) => {
+          if (item.key === '简体中文名') {
+            title =
+              typeof item.value === 'string' ? item.value : item.value[0].v
+          } else if (item.key === '别名') {
+            const aliases: { v: string }[] = item.value as { v: string }[]
+            aliases.forEach((alias: { v: string }) => {
+              originalTitle += `${alias.v  } / `
+            })
+            originalTitle = originalTitle.slice(0, -3)
+          }
+        },
+      )
+    } else {
+      throw new Error('Unknown bangumi type')
+    }
+    setCardInfo({
+      title: (
+        <span className="flex flex-wrap items-end gap-2">
+          <span>{title}</span>
+          {title !== originalTitle && (
+            <span className="text-sm opacity-70">({originalTitle})</span>
+          )}
+          {type === 'subject' && (
+            <span className="inline-flex shrink-0 items-center gap-1 self-center text-xs text-orange-400 dark:text-yellow-500">
+              <MingcuteStarHalfFill />
+              <span className="font-sans font-medium">
+                {json.rating.score > 0 && json.rating.score.toFixed(1)}
+              </span>
+            </span>
+          )}
+        </span>
+      ),
+      desc: (
+        <span className="line-clamp-none overflow-visible whitespace-pre-wrap">
+          {json.summary}
+        </span>
+      ),
+      image: json.images.grid,
+      color: uniqolor(title, {
+        saturation: [30, 35],
+        lightness: [60, 70],
+      }).color,
+
+      classNames: {
+        image:
+          type === 'subject'
+            ? 'self-start !h-[70px] !w-[50px]'
+            : 'self-start !h-[50px] !w-[50px]',
+        cardRoot: '!w-full !flex-row-reverse',
+      },
+    })
   },
 }
 
