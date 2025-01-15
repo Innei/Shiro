@@ -472,7 +472,10 @@ const fetchTheMovieDBData: FetchObject = {
     setCardInfo({
       classNames: { cardRoot: '!w-full' },
     })
-    const json = await fetch(`/api/tmdb/${type}/${realId}?language=zh-CN`)
+    const userLanguage = navigator.language || 'en-US'
+    const json = await fetch(
+      `/api/tmdb/${type}/${realId}?language=${userLanguage}`,
+    )
       .then((r) => r.json())
       .catch((err) => {
         console.error('Error fetching TMDB data:', err)
@@ -546,7 +549,7 @@ const fetchBangumiData: FetchObject = {
         originalTitle = json.name
       }
     } else if (type === 'character' || type === 'person') {
-      const {infobox} = json
+      const { infobox } = json
       infobox.forEach(
         (item: { key: string; value: string | { v: string }[] }) => {
           if (item.key === '简体中文名') {
@@ -555,7 +558,7 @@ const fetchBangumiData: FetchObject = {
           } else if (item.key === '别名') {
             const aliases: { v: string }[] = item.value as { v: string }[]
             aliases.forEach((alias: { v: string }) => {
-              originalTitle += `${alias.v  } / `
+              originalTitle += `${alias.v} / `
             })
             originalTitle = originalTitle.slice(0, -3)
           }
