@@ -1,4 +1,5 @@
 import { getWebUrl } from '~/atoms'
+import { allowedBangumiTypes } from '~/lib/bangumi'
 
 import { isClientSide, isDev } from './env'
 
@@ -113,6 +114,13 @@ export const isWikipediaUrl = (url: URL) =>
   url.hostname.includes('wikipedia.org')
 
 export const isTMDBUrl = (url: URL) => url.hostname.includes('themoviedb.org')
+export const isBangumiUrl = (url: URL) => {
+  const pathname = url.pathname.split('/').slice(1)
+  return (
+    (url.hostname === 'bgm.tv' || url.hostname === 'bangumi.tv') &&
+    allowedBangumiTypes.includes(pathname[0])
+  )
+}
 
 export const isNpmUrl = (url: URL) => url.hostname.includes('npmjs.com')
 
