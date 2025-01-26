@@ -1,4 +1,5 @@
 import { BilibiliIcon } from '~/components/icons/platform/BilibiliIcon'
+import { SimpleIconsFigma } from '~/components/icons/platform/FigmaIcon'
 import { GitHubBrandIcon } from '~/components/icons/platform/GitHubBrandIcon'
 import { CibMozilla } from '~/components/icons/platform/Moz'
 import { VscodeIconsFileTypeNpm } from '~/components/icons/platform/NpmIcon'
@@ -10,6 +11,7 @@ import { SimpleIconsZhihu } from '~/components/icons/platform/ZhihuIcon'
 import { clsxm } from '~/lib/helper'
 import {
   isBilibiliUrl,
+  isFigmaUrl,
   isGithubUrl,
   isMozillaUrl,
   isNpmUrl,
@@ -67,6 +69,11 @@ const map = [
     type: 'Npm',
     icon: <VscodeIconsFileTypeNpm />,
     test: isNpmUrl,
+  },
+  {
+    type: 'Figma',
+    icon: <SimpleIconsFigma className="text-[#A259FF]" />,
+    test: isFigmaUrl,
   },
 ] as const
 

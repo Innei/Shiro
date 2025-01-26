@@ -122,7 +122,13 @@ export const isBangumiUrl = (url: URL) => {
   )
 }
 
-export const isNpmUrl = (url: URL) => url.hostname.includes('npmjs.com')
+export const isFigmaUrl = (url: URL) => {
+  return url.hostname.includes('figma.com')
+}
+
+export const isNpmUrl = (url: URL) => {
+  return url.hostname.includes('npmjs.com')
+}
 
 export const isMozillaUrl = (url: URL) => url.hostname.includes('mozilla.org')
 
