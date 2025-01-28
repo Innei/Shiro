@@ -447,8 +447,8 @@ importers:
         specifier: 1.0.7
         version: 1.0.7(tailwindcss@3.4.17)
       tailwindcss-animated:
-        specifier: 1.1.2
-        version: 1.1.2(tailwindcss@3.4.17)
+        specifier: 2.0.0
+        version: 2.0.0(tailwindcss@3.4.17)
       typescript:
         specifier: 5.7.3
         version: 5.7.3
@@ -728,6 +728,7 @@ packages:
   '@aws-sdk/middleware-flexible-checksums@3.732.0':
     resolution: {integrity: sha512-MIbF6cYWg5noRO1kRZNC0vewj6qzSYL/BGNlPxRQcqb6egUiGrhPEi8Y/qqweB7MlBHsqSO5YNPwH/Py8ToSVw==}
     engines: {node: '>=18.0.0'}
+    deprecated: Please upgrade to >=3.735.0, which contains fixes for checksum validation in S3 getObject calls. Details https://github.com/aws/aws-sdk-js-v3/issues/6827
 
   '@aws-sdk/middleware-host-header@3.731.0':
     resolution: {integrity: sha512-ndAJsm5uWPPJRZowLKpB1zuL17qWlWVtCJP4I/ynBkq1PU1DijDXBul2UZaG6Mpvsgms1NXo/h9noHuK7T3v8w==}
@@ -6172,10 +6173,10 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
 
-  tailwindcss-animated@1.1.2:
-    resolution: {integrity: sha512-SI4owS5ojserhgEYIZA/uFVdNjU2GMB2P3sjtjmFA52VxoUi+Hht6oR5+RdT+CxrX9cNNYEa+vbTWHvN9zbj3w==}
+  tailwindcss-animated@2.0.0:
+    resolution: {integrity: sha512-anNNGpxNgjydD8p1lcJjxxH+XbjW6KR8Xs29owTrbcf3tOJ6IRblpyFob43HBkfxFJJTAfFQqugoEG2b1EsR0A==}
     peerDependencies:
-      tailwindcss: '>=3.1.0'
+      tailwindcss: '>=3.1.0 || >=4.0.0'
 
   tailwindcss@3.4.17:
     resolution: {integrity: sha512-w33E2aCvSDP0tW9RZuNXadXlkHXqFzSkQew/aIa2i/Sj8fThxwovwlXHSPXTbAHwEIhBFXAedUhP2tueAKP8Og==}
@@ -13495,7 +13496,7 @@ snapshots:
     dependencies:
       tailwindcss: 3.4.17
 
-  tailwindcss-animated@1.1.2(tailwindcss@3.4.17):
+  tailwindcss-animated@2.0.0(tailwindcss@3.4.17):
     dependencies:
       tailwindcss: 3.4.17
 
