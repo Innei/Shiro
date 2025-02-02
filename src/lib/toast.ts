@@ -33,6 +33,7 @@ const toast = {} as {
   info: (message: string, options?: ExternalToast & CustomToastOptions) => void
   warn: (message: string, options?: ExternalToast & CustomToastOptions) => void
   error: (message: string, options?: ExternalToast & CustomToastOptions) => void
+  dismiss: (id?: string) => void
 }
 ;['success', 'info', 'warn', 'error'].forEach((type) => {
   // @ts-ignore
@@ -67,5 +68,7 @@ const toast = {} as {
     })
   }
 })
+
+toast.dismiss = sonnerToast.dismiss
 
 export { toast }
