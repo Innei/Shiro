@@ -257,7 +257,7 @@ const Item: FC<
       <div className="flex items-center gap-1">
         <Label>操作</Label>
 
-        <div>
+        <div className="flex">
           <StyledButton
             className="rounded-r-none border-r-0"
             variant="secondary"
