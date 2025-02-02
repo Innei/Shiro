@@ -10,13 +10,10 @@ import type { BusinessEvents } from '@mx-space/webhook'
 import type { InfiniteData } from '@tanstack/react-query'
 import { produce } from 'immer'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
-import React from 'react'
+import * as React from 'react'
 
 import { setOnlineCount } from '~/atoms'
-import {
-  setActivityMediaInfo,
-  setActivityProcessInfo,
-} from '~/atoms/activity'
+import { setActivityMediaInfo, setActivityProcessInfo } from '~/atoms/activity'
 import {
   FaSolidFeatherAlt,
   IcTwotoneSignpost,
@@ -84,7 +81,7 @@ export const eventHandler = (
         Reflect.deleteProperty(nextPost, 'category')
         Object.assign(draft, nextPost)
       })
-      toast('文章已更新')
+      toast.info('文章已更新')
       trackerRealtimeEvent()
 
       if (currentData.text !== post.text) {
@@ -124,7 +121,7 @@ export const eventHandler = (
       setCurrentNoteData((draft) => {
         Object.assign(draft.data, note)
       })
-      toast('手记已更新')
+      toast.info('手记已更新')
       trackerRealtimeEvent()
 
       if (currentData.text !== note.text) {
@@ -158,7 +155,7 @@ export const eventHandler = (
         setCurrentPageData((draft) => {
           Object.assign(draft, data)
         })
-        toast('页面已更新')
+        toast.info('页面已更新')
         trackerRealtimeEvent()
       }
       break

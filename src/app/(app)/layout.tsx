@@ -3,12 +3,10 @@
 import type { Metadata, Viewport } from 'next'
 import { PublicEnvScript } from 'next-runtime-env'
 import type { PropsWithChildren } from 'react'
-import { ToastContainer } from 'react-toastify'
 
 import PKG from '~/../package.json'
 import { Global } from '~/components/common/Global'
 import { HydrationEndDetector } from '~/components/common/HydrationEndDetector'
-import { ScrollTop } from '~/components/common/ScrollTop'
 import { SyncServerTime } from '~/components/common/SyncServerTime'
 import { Root } from '~/components/layout/root/Root'
 import { AccentColorStyleInjector } from '~/components/modules/shared/AccentColorStyleInjector'
@@ -192,8 +190,8 @@ export default async function RootLayout(props: PropsWithChildren) {
             <SearchPanelWithHotKey />
             <Analyze />
             <SyncServerTime />
-            <ToastContainer />
-            <ScrollTop />
+
+            {/* <ScrollTop /> */}
             <div className="fixed inset-y-0 right-0 w-[var(--removed-body-scroll-bar-size)]" />
           </WebAppProviders>
         </body>

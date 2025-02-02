@@ -2,9 +2,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import { ThemeProvider } from 'next-themes'
 import type { ReactNode } from 'react'
-import React, { lazy, Suspense, useMemo, useState } from 'react'
+import * as React from 'react'
+import { lazy, Suspense, useMemo, useState } from 'react'
 import ReactDOM from 'react-dom'
-import { ToastContainer } from 'react-toastify'
 import type { DocumentComponent } from 'storybook/typings'
 
 import { BlockLoading } from '~/components/modules/shared/BlockLoading'
@@ -13,6 +13,7 @@ import { ExcalidrawLoading } from '~/components/ui/excalidraw/ExcalidrawLoading'
 import { ReactComponentRender } from '~/components/ui/react-component-render/ComponentRender'
 
 import { HighLighterPrismCdn } from '../code-highlighter'
+import { Toaster } from '../toast'
 // @ts-expect-error
 import customize from './customize.md?raw'
 import { Markdown } from './Markdown'
@@ -96,7 +97,7 @@ export const MarkdownCustomize: DocumentComponent = () => {
           />
         </main>
 
-        <ToastContainer />
+        <Toaster />
       </ThemeProvider>
     </QueryClientProvider>
   )

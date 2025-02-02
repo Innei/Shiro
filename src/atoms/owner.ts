@@ -27,7 +27,7 @@ export const login = async (username?: string, password?: string) => {
       jotaiStore.set(isLoggedAtom, true)
 
       await fetchAppUrl()
-      toast(`欢迎回来，${jotaiStore.get(ownerAtom)?.name}`, 'success')
+      toast.success(`欢迎回来，${jotaiStore.get(ownerAtom)?.name}`)
     }
 
     return true

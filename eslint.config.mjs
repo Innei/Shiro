@@ -59,6 +59,7 @@ export default defineConfig(
     rules: {
       'package-json/valid-package-def': 0,
       'package-json/valid-name': 0,
+      'package-json/valid-package-definition': 0,
     },
   },
 )

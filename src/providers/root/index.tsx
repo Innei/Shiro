@@ -6,6 +6,7 @@ import type { JSX, PropsWithChildren } from 'react'
 
 import { PeekPortal } from '~/components/modules/peek/PeekPortal'
 import { ModalStackProvider } from '~/components/ui/modal'
+import { Toaster } from '~/components/ui/toast'
 import { useBeforeUnload } from '~/hooks/common/use-before-unload'
 
 import { ProviderComposer } from '../../components/common/ProviderComposer'
@@ -47,7 +48,7 @@ export function WebAppProviders({ children }: PropsWithChildren) {
       <EventProvider key="viewportProvider" />
       <PageScrollInfoProvider key="PageScrollInfoProvider" />
       <DebugProvider key="debugProvider" />
-
+      <Toaster />
       <PeekPortal />
     </ProviderComposer>
   )
@@ -66,6 +67,7 @@ export function DashboardAppProviders({ children }: PropsWithChildren) {
       <ModalStackProvider key="modalStackProvider" />
       <EventProvider key="viewportProvider" />
       <PeekPortal />
+      <Toaster />
       {/* <DebugProvider key="debugProvider" /> */}
     </ProviderComposer>
   )
