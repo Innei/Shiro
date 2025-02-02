@@ -5,7 +5,6 @@ import { PublicEnvScript } from 'next-runtime-env'
 import { fetch } from 'ofetch'
 import { TokenKey } from 'packages/fetch/src/shared'
 import type { PropsWithChildren } from 'react'
-import { ToastContainer } from 'react-toastify'
 
 import PKG from '~/../package.json'
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
@@ -242,7 +241,7 @@ export default async function RootLayout(props: PropsWithChildren) {
                 <SearchPanelWithHotKey />
                 <Analyze />
                 <SyncServerTime />
-                <ToastContainer />
+
                 {/* <ScrollTop /> */}
                 <div className="fixed inset-y-0 right-0 w-[var(--removed-body-scroll-bar-size)]" />
               </WebAppProviders>

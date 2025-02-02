@@ -11,7 +11,7 @@ import type { BusinessEvents } from '@mx-space/webhook'
 import type { InfiniteData } from '@tanstack/react-query'
 import { produce } from 'immer'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
-import React from 'react'
+import * as React from 'react'
 
 import { setOnlineCount } from '~/atoms'
 import {
@@ -93,7 +93,7 @@ export const eventHandler = (
         Reflect.deleteProperty(nextPost, 'category')
         Object.assign(draft, nextPost)
       })
-      toast(updateMessage)
+      toast.info(updateMessage)
       trackerRealtimeEvent()
 
       if (currentData.text !== post.text) {
@@ -133,7 +133,7 @@ export const eventHandler = (
       setCurrentNoteData((draft) => {
         Object.assign(draft.data, note)
       })
-      toast(updateMessage)
+      toast.info(updateMessage)
       trackerRealtimeEvent()
 
       if (currentData.text !== note.text) {
@@ -167,7 +167,7 @@ export const eventHandler = (
         setCurrentPageData((draft) => {
           Object.assign(draft, data)
         })
-        toast(updateMessage)
+        toast.info(updateMessage)
         trackerRealtimeEvent()
       }
       break

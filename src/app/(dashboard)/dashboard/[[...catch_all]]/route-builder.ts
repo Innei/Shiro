@@ -1,5 +1,4 @@
-// @ts-expect-error
-import get from 'lodash.get'
+import { get } from 'es-toolkit/compat'
 import { Fragment } from 'react/jsx-runtime'
 import type { RouteObject } from 'react-router-dom'
 
