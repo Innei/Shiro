@@ -2,7 +2,8 @@
 
 import * as RadixAvatar from '@radix-ui/react-avatar'
 import type { DetailedHTMLProps, FC, ImgHTMLAttributes, JSX } from 'react'
-import React, { createElement, useMemo, useRef, useState } from 'react'
+import * as React from 'react'
+import { createElement, useMemo, useRef, useState } from 'react'
 
 import { useIsDark } from '~/hooks/common/use-is-dark'
 import { getColorScheme, stringToHue } from '~/lib/color'
@@ -126,9 +127,10 @@ export const Avatar: FC<
                 style={{
                   height: `${size}px`,
                   width: `${size}px`,
+                  borderRadius: radius === 'full' ? '100%' : `${radius}px`,
                 }}
                 className={clsxm(
-                  'rounded-full size-full block shrink-0',
+                  'size-full block shrink-0',
                   imageProps.className,
                 )}
               />
