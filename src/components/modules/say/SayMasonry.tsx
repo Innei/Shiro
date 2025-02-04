@@ -99,7 +99,7 @@ const Item = memo<{
   const present = useSayModal()
 
   return (
-    <BottomToUpTransitionView delay={i * 50} key={say.id}>
+    <BottomToUpTransitionView className="w-full" delay={i * 50} key={say.id}>
       <m.blockquote
         layout
         key={say.id}
