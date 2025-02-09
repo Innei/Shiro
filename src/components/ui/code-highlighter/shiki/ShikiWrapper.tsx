@@ -3,6 +3,7 @@ import type { Variants } from 'motion/react'
 import { AnimatePresence, m } from 'motion/react'
 import type { PropsWithChildren } from 'react'
 import {
+  cloneElement,
   forwardRef,
   useCallback,
   useEffect,
@@ -15,10 +16,12 @@ import {
 import { getViewport } from '~/atoms/hooks/viewport'
 import { AutoResizeHeight } from '~/components/modules/shared/AutoResizeHeight'
 import { useMaskScrollArea } from '~/hooks/shared/use-mask-scrollarea'
+import { withOpacity } from '~/lib/color'
 import { stopPropagation } from '~/lib/dom'
 import { clsxm } from '~/lib/helper'
 
 import { MotionButtonBase } from '../../button'
+import { languageToColorMap, languageToIconMap } from '../constants'
 import styles from './Shiki.module.css'
 import { parseFilenameFromAttrs } from './utils'
 
@@ -44,7 +47,7 @@ const copyIconVariants: Variants = {
     scale: 0,
   },
 }
- 
+
 export const ShikiHighLighterWrapper = forwardRef<
   HTMLDivElement,
   PropsWithChildren<
@@ -120,6 +123,11 @@ export const ShikiHighLighterWrapper = forwardRef<
 
   const hasHeader = !!filename
 
+  const languageIcon =
+    languageToIconMap[language as keyof typeof languageToIconMap]
+  const languageColor =
+    languageToColorMap[language as keyof typeof languageToColorMap]
+
   return (
     <div
       className={clsx(styles['code-card'], 'shiki-block group')}
@@ -128,8 +136,11 @@ export const ShikiHighLighterWrapper = forwardRef<
       {!!filename && (
         <div className="z-10 flex w-full items-center justify-between rounded-t-xl bg-accent/20 px-5 py-2 text-sm">
           <span className="shrink-0 grow truncate">{filename}</span>
-          <span className="pointer-events-none shrink-0 grow-0" aria-hidden>
-            {language?.toUpperCase()}
+          <span
+            className="pointer-events-none flex shrink-0 grow-0 items-center gap-1"
+            aria-hidden
+          >
+            {languageIcon} {language?.toUpperCase()}
           </span>
         </div>
       )}
@@ -139,10 +150,19 @@ export const ShikiHighLighterWrapper = forwardRef<
           aria-hidden
           className="pointer-events-none absolute bottom-3 right-3 z-[2] text-sm opacity-60"
         >
-          {language.toUpperCase()}
+          {languageIcon
+            ? cloneElement(languageIcon, { className: 'size-4' })
+            : language.toUpperCase()}
         </div>
       )}
-      <div className="bg-accent/5 py-4">
+      <div
+        className="bg-accent/5 py-4"
+        style={{
+          backgroundColor: languageColor
+            ? withOpacity(languageColor, 0.05)
+            : undefined,
+        }}
+      >
         <MotionButtonBase
           onClick={handleCopy}
           className={clsx(
@@ -151,6 +171,12 @@ export const ShikiHighLighterWrapper = forwardRef<
             'opacity-0 group-hover:opacity-100',
             filename && '!top-12',
           )}
+          style={{
+            backgroundColor: languageColor,
+            borderColor: languageColor
+              ? withOpacity(languageColor, 0.05)
+              : undefined,
+          }}
         >
           <AnimatePresence mode="wait">
             {copied ? (

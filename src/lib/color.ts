@@ -189,3 +189,51 @@ export const hexToRgbString = (hex: string) => {
   const [r, g, b] = match.map((x) => Number.parseInt(x, 16))
   return `${r} ${g} ${b}`
 }
+
+export const isHexColor = (color: string) => {
+  return /^#[0-9a-f]{6}$/i.test(color)
+}
+
+export const isRGBColor = (color: string) => {
+  return /^rgb\(\d{1,3},\s*\d{1,3},\s*\d{1,3}\)$/.test(color)
+}
+export const isRGBAColor = (color: string) => {
+  return /^rgba\(\d{1,3},\s*\d{1,3},\s*\d{1,3},\s*(?:0?\.\d+|1(?:\.0+)?)\)$/.test(
+    color,
+  )
+}
+
+export const withOpacity = (color: string, opacity: number) => {
+  switch (true) {
+    case isHexColor(color): {
+      // Convert decimal opacity to hex (0-255)
+      const alpha = Math.round(opacity * 255)
+        .toString(16)
+        .padStart(2, '0')
+      return `${color}${alpha}`
+    }
+    case isRGBColor(color): {
+      const [r, g, b] = color.match(/\d+/g)!.map(Number)
+      return `rgba(${r}, ${g}, ${b}, ${opacity})`
+    }
+    case isRGBAColor(color): {
+      const [r, g, b] = color.match(/\d+/g)!.map(Number)
+      return `rgba(${r}, ${g}, ${b}, ${opacity})`
+    }
+    default: {
+      return color
+    }
+  }
+}
+export const rgbStringToRgb = (hex: string) => {
+  const [r, g, b, a] = hex.split(' ').map((s) => Number.parseFloat(s))
+  return `rgba(${r}, ${g}, ${b}, ${a || 1})`
+}
+
+export const getLuminance = (hexColor: string) => {
+  const rgb = Number.parseInt(hexColor.replace('#', ''), 16)
+  const r = (rgb >> 16) & 0xff
+  const g = (rgb >> 8) & 0xff
+  const b = (rgb >> 0) & 0xff
+  return (0.299 * r + 0.587 * g + 0.114 * b) / 255
+}
