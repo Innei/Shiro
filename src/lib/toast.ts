@@ -78,6 +78,6 @@ const toast = {} as {
   }
 })
 
-toast.dismiss = sonnerToast.dismiss
+toast.dismiss = (id?: string | number) => sonnerToast.dismiss(id)
 
 export { toast }
