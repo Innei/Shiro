@@ -73,7 +73,9 @@ export const CodeBlockRender = (props: {
         const { lang } = props
         const nextProps = { ...props }
         nextProps.content = formatCode(props.content)
-        if (lang) {
+
+        const shikiNotSupports = ['swift']
+        if (lang && !shikiNotSupports.includes(lang)) {
           const ShikiHighLighter =
             shikiImport ??
             lazy(() =>

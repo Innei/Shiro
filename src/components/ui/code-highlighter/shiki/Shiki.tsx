@@ -1,11 +1,8 @@
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import type { FC } from 'react'
 import { use, useMemo, useState } from 'react'
-import type {BundledLanguage, LanguageInput, SpecialLanguage} from 'shiki';
-import {
-  createHighlighterCoreSync,
-  createJavaScriptRegexEngine
-} from 'shiki'
+import type { BundledLanguage, LanguageInput, SpecialLanguage } from 'shiki'
+import { createHighlighterCoreSync, createJavaScriptRegexEngine } from 'shiki'
 import { bundledLanguages } from 'shiki/langs'
 import githubDark from 'shiki/themes/github-dark.mjs'
 import githubLight from 'shiki/themes/github-light.mjs'

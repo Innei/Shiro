@@ -44,6 +44,7 @@ const copyIconVariants: Variants = {
     scale: 0,
   },
 }
+ 
 export const ShikiHighLighterWrapper = forwardRef<
   HTMLDivElement,
   PropsWithChildren<
