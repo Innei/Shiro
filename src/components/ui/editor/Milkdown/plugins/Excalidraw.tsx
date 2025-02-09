@@ -196,6 +196,7 @@ const ExcalidrawBoard: FC = () => {
   )
 
   const handleEdit = () => {
+    // eslint-disable-next-line @eslint-react/no-nested-components
     const Content: FC<ModalContentPropsInternal> = () => {
       const valueRef = useRef<string | undefined>(content)
       const valueGetterRef = useRef(() => valueRef.current)

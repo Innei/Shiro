@@ -29,11 +29,20 @@ const toast = {} as {
   success: (
     message: string,
     options?: ExternalToast & CustomToastOptions,
-  ) => void
-  info: (message: string, options?: ExternalToast & CustomToastOptions) => void
-  warn: (message: string, options?: ExternalToast & CustomToastOptions) => void
-  error: (message: string, options?: ExternalToast & CustomToastOptions) => void
-  dismiss: (id?: string) => void
+  ) => ReturnType<typeof sonnerToast.success>
+  info: (
+    message: string,
+    options?: ExternalToast & CustomToastOptions,
+  ) => ReturnType<typeof sonnerToast.info>
+  warn: (
+    message: string,
+    options?: ExternalToast & CustomToastOptions,
+  ) => ReturnType<typeof sonnerToast.warning>
+  error: (
+    message: string,
+    options?: ExternalToast & CustomToastOptions,
+  ) => ReturnType<typeof sonnerToast.error>
+  dismiss: (id?: string | number) => void
 }
 ;['success', 'info', 'warn', 'error'].forEach((type) => {
   // @ts-ignore
