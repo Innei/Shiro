@@ -1,3 +1,4 @@
+'use client'
 import type { JSX } from 'react'
 import { jsx } from 'react/jsx-runtime'
 import type { ExternalToast } from 'sonner'
