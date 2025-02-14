@@ -9,7 +9,7 @@ html {
 }
 
 html.dark {
-  scrollbar-color: theme(colors.neutral-500);
+  scrollbar-color: theme(colors.muted.500);
 }
 
 body {
@@ -19,11 +19,11 @@ body {
 
 [data-theme='dark'] {
   *::-webkit-scrollbar-thumb {
-    border: 3px solid theme(colors.neutral-500);
+    border: 3px solid theme(colors.muted.500);
   }
 
   *::-webkit-scrollbar-thumb:hover {
-    background: theme(colors.neutral-400/0.5);
+    background: theme(colors.muted.500/0.5);
   }
 }
 
@@ -34,7 +34,7 @@ body {
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  border-color: theme(colors.neutral-400/0.8);
+  border-color: theme(colors.muted.500/0.8);
 }
 
 *::-webkit-scrollbar {
@@ -44,11 +44,11 @@ body {
 }
 
 *::-webkit-scrollbar-thumb {
-  background: theme(colors.neutral);
+  background: theme(colors.muted.500);
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: theme(colors.neutral/80);
+  background: theme(colors.muted.500/0.8);
 }
 
 *::-webkit-scrollbar-corner {
