@@ -1,5 +1,5 @@
 import type { SVGProps } from 'react'
-import React from 'react'
+import * as React from 'react'
 
 export function FluentWarning28Regular(props: SVGProps<SVGSVGElement>) {
   return (

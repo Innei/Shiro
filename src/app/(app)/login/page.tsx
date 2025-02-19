@@ -25,7 +25,7 @@ export default function LoginPage() {
     }
   }
   return (
-    <div className="flex min-h-[calc(100vh-7rem)] center">
+    <div className="center flex min-h-[calc(100vh-7rem)]">
       <form className="flex flex-col space-y-5" onSubmit={handleLogin}>
         <Input
           autoFocus
@@ -41,7 +41,7 @@ export default function LoginPage() {
           placeholder="Password"
         />
 
-        <div className="flex center">
+        <div className="center flex">
           <StyledButton disabled={!username || !password} onClick={handleLogin}>
             Login
           </StyledButton>

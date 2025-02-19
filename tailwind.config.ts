@@ -5,6 +5,7 @@ import typography from '@tailwindcss/typography'
 import daisyui from 'daisyui'
 import { withTV } from 'tailwind-variants/transformer'
 import type { Config } from 'tailwindcss'
+import { neutral } from 'tailwindcss/colors'
 
 const UIKitColors = {
   red: {
@@ -222,6 +223,7 @@ const twConfig: Config = {
 
       colors: {
         uk: UIKitColors,
+        muted: neutral,
 
         themed: {
           bg_opacity: 'var(--bg-opacity)',
@@ -299,6 +301,7 @@ const twConfig: Config = {
     require('@tailwindcss/container-queries'),
     require('tailwindcss-animated'),
     require('tailwindcss-animate'),
+    require('tailwindcss-motion'),
 
     require('./src/styles/theme.css'),
     require('./src/styles/layer.css'),

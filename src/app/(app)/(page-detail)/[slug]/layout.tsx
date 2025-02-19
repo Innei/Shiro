@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import React, { cache } from 'react'
+import * as React from 'react'
+import { cache } from 'react'
 
 import { CommentAreaRootLazy } from '~/components/modules/comment'
 import { TocFAB } from '~/components/modules/toc/TocFAB'

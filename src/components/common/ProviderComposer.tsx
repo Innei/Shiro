@@ -1,7 +1,7 @@
 'use client'
 
 import type { JSX } from 'react'
-import React from 'react'
+import * as React from 'react'
 
 export const ProviderComposer: Component<{
   contexts: JSX.Element[]

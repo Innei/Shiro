@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import React, { memo } from 'react'
+import * as React from 'react'
+import { memo } from 'react'
 
 import { FloatPopover } from '~/components/ui/float-popover'
 import { clsxm } from '~/lib/helper'

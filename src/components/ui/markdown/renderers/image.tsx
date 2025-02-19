@@ -4,7 +4,8 @@ import clsx from 'clsx'
 import mediumZoom from 'medium-zoom'
 import Image from 'next/image'
 import type { FC } from 'react'
-import React, { memo, useRef } from 'react'
+import * as React from 'react'
+import { memo, useRef } from 'react'
 
 import { LazyLoad } from '~/components/common/Lazyload'
 import { addImageUrlResizeQuery } from '~/lib/image'
@@ -86,7 +87,7 @@ const GridZoomImage: FC<{ src: string }> = memo(({ src }) => {
 
   return (
     <div
-      className="relative flex size-full overflow-hidden rounded-md bg-cover bg-center center"
+      className="center relative flex size-full overflow-hidden rounded-md bg-cover bg-center"
       style={{
         backgroundColor: accent,
       }}

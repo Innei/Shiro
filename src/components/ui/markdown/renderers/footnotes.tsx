@@ -1,5 +1,5 @@
 import type { FC, PropsWithChildren } from 'react'
-import React from 'react'
+import * as React from 'react'
 
 import { KeyboardReturnRounded } from '~/components/icons/return'
 import { springScrollToElement } from '~/lib/scroller'

@@ -4,7 +4,7 @@ import {
   Priority,
   simpleInlineRegex,
 } from 'markdown-to-jsx'
-import React from 'react'
+import * as React from 'react'
 
 // ||Spoiler||
 export const SpoilerRule: MarkdownToJSX.Rule = {

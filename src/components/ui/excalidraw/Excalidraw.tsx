@@ -8,7 +8,8 @@ import type {
 import { useQuery } from '@tanstack/react-query'
 import type { Delta } from 'jsondiffpatch'
 import { patch } from 'jsondiffpatch'
-import React, { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
+import * as React from 'react'
+import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks'
 import { API_URL } from '~/constants/env'

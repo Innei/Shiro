@@ -1,4 +1,4 @@
-import type React from 'react'
+import type * as React from 'react'
 import type { JSX } from 'react'
 import { useEffect, useState } from 'react'
 

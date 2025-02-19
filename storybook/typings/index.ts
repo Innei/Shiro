@@ -1,4 +1,4 @@
-import type React from 'react'
+import type * as React from 'react'
 
 export interface DocumentComponent<T = unknown> extends React.FC<T> {
   meta?: Partial<{

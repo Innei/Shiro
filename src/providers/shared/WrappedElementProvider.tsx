@@ -2,7 +2,7 @@
 
 import { createContextState } from 'foxact/create-context-state'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
-import type React from 'react'
+import type * as React from 'react'
 import { memo, useEffect, useRef } from 'react'
 
 import { ProviderComposer } from '~/components/common/ProviderComposer'

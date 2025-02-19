@@ -4,12 +4,12 @@ body::-webkit-scrollbar {
 
 html {
   /*  for firefox */
-  scrollbar-color: theme(colors.zinc.100);
+  scrollbar-color: theme(colors.gray.300);
   scrollbar-width: thin;
 }
 
 html.dark {
-  scrollbar-color: theme(colors.zinc.800);
+  scrollbar-color: theme(colors.muted.500);
 }
 
 body {
@@ -18,39 +18,37 @@ body {
 }
 
 [data-theme='dark'] {
-  *::-webkit-scrollbar-thumb,
+  *::-webkit-scrollbar-thumb {
+    border: 3px solid theme(colors.muted.500);
+  }
+
   *::-webkit-scrollbar-thumb:hover {
-    border: 3px solid theme(colors.zinc.700/20);
+    background: theme(colors.muted.500/0.5);
   }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: theme(colors.zinc.800/96);
-  }
-
-  *::-webkit-scrollbar {
-    background: theme(colors.zinc.800);
-  }
-}
-
-*::-webkit-scrollbar-thumb,
-*::-webkit-scrollbar-thumb:hover {
-  background-color: transparent;
-  border: 3px solid theme(colors.zinc.300/40);
-  border-radius: 5px;
-}
-
-*::-webkit-scrollbar {
-  width: 5px !important;
-  height: 5px !important;
-  background: theme(colors.zinc.100);
 }
 
 *::-webkit-scrollbar-thumb {
-  background: theme(colors.neutral);
+  background-color: transparent;
+  border: 3px solid theme(colors.gray.300);
+  @apply rounded-xl;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: theme(colors.neutral/80);
+  border-color: theme(colors.muted.500/0.8);
+}
+
+*::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: theme(colors.muted.500);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: theme(colors.muted.500/0.8);
 }
 
 *::-webkit-scrollbar-corner {

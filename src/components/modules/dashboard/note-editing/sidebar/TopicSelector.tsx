@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { produce } from 'immer'
-import React from 'react'
+import * as React from 'react'
 
 import type { SelectValue } from '~/components/ui/select'
 import { Select } from '~/components/ui/select'

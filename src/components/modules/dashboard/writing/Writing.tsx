@@ -1,7 +1,7 @@
 import { produce } from 'immer'
 import { atom, useAtomValue, useSetAtom, useStore } from 'jotai'
 import type { FC } from 'react'
-import React from 'react'
+import * as React from 'react'
 
 import { TextArea } from '~/components/ui/input'
 import { useEventCallback } from '~/hooks/common/use-event-callback'
@@ -49,16 +49,14 @@ const Editor = () => {
 
   const setEditorRef = useSetAtom(editorRefAtom)
   return (
-    <>
-      <TextArea
-        ref={setEditorRef}
-        className="bg-base-100"
-        defaultValue={store.get(ctxAtom).text}
-        onChange={(e) => {
-          setText(e.target.value)
-        }}
-      />
-    </>
+    <TextArea
+      ref={setEditorRef}
+      className="bg-base-100"
+      defaultValue={store.get(ctxAtom).text}
+      onChange={(e) => {
+        setText(e.target.value)
+      }}
+    />
   )
 }
 

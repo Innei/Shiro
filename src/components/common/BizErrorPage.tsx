@@ -5,7 +5,7 @@ export const BizErrorPage: FC<{
   status: number
 }> = ({ bizMessage, status }) => {
   return (
-    <div className="flex min-h-[calc(100vh-10rem)] flex-col center">
+    <div className="center flex min-h-[calc(100vh-10rem)] flex-col">
       <h2 className="mb-5 flex flex-col gap-2 text-center">
         <p>数据接口请求出现错误</p>
         <p>

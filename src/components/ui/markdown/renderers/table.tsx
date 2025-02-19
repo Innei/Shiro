@@ -1,5 +1,5 @@
 import type { FC, JSX } from 'react'
-import React from 'react'
+import * as React from 'react'
 
 import { clsxm } from '~/lib/helper'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'

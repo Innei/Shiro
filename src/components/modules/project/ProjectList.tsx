@@ -23,7 +23,7 @@ export const ProjectList: FC<{ projects: Project[] }> = (props) => {
               className="group flex shrink-0 grid-cols-[60px_2fr] flex-col items-center gap-4 md:grid"
             >
               <ProjectIcon
-                className="size-16 group-hover:-translate-y-2 group-hover:shadow-out-sm md:size-auto"
+                className="size-16 group-hover:shadow-out-sm group-hover:-translate-y-2 md:size-auto"
                 avatar={project.avatar}
                 name={project.name}
               />

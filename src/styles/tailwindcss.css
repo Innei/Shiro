@@ -41,12 +41,13 @@ html body {
 }
 
 *:not(input):not(textarea):not([contenteditable='true']):focus-visible {
-  outline: 0 !important;
-  box-shadow: theme(colors.accent) 0px 0px 0px 1px;
+  /* outline: 0 !important; */
+  /* box-shadow: theme(colors.accent) 0px 0px 0px 1px; */
 }
 * {
   tab-size: 2;
 
+  @apply border-border;
   &:hover {
     scrollbar-color: auto;
   }

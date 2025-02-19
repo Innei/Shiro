@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import React from 'react'
+import * as React from 'react'
 
 import { adminQueries } from '~/queries/definition'
 
