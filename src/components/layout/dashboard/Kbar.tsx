@@ -12,7 +12,8 @@ import {
 } from 'kbar'
 import { useRouter } from 'next/navigation'
 import type { FC, PropsWithChildren } from 'react'
-import React, { useContext } from 'react'
+import * as React from 'react'
+import { useContext } from 'react'
 
 import { DashboardLayoutContext } from '~/components/modules/dashboard/utils/context'
 import { useRefValue } from '~/hooks/common/use-ref-value'

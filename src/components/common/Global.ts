@@ -1,7 +1,8 @@
 'use client'
 
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
-import React, { use } from 'react'
+import * as React from 'react'
+import { use } from 'react'
 import ReactDOM from 'react-dom'
 
 import { MotionButtonBase, StyledButton } from '../ui/button'

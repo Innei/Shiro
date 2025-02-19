@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import type { ContextType, FC, PropsWithChildren } from 'react'
-import React, { createContext, useContext, useEffect, useId } from 'react'
+import * as React from 'react'
+import { createContext, useContext, useEffect, useId } from 'react'
 import { tv } from 'tailwind-variants'
 
 import { clsxm } from '~/lib/helper'

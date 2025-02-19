@@ -281,7 +281,7 @@ const fetchGitHubRepoData: FetchObject = {
         title: (
           <span className="flex items-center gap-2">
             <span className="flex-1">{data.name}</span>
-            <span className="shrink-0 self-end justify-self-end">
+            <span className="shrink-0 place-self-end">
               {data.stargazersCount > 0 && (
                 <span className="inline-flex shrink-0 items-center gap-1 self-center text-sm text-orange-400 dark:text-yellow-500">
                   <i className="i-mingcute-star-line" />
@@ -334,7 +334,7 @@ const fetchArxivData: FetchObject = {
         title: (
           <span className="flex items-center gap-2">
             <span className="flex-1">{title}</span>
-            <span className="shrink-0 self-end justify-self-end">
+            <span className="shrink-0 place-self-end">
               <span className="inline-flex shrink-0 items-center gap-1 self-center text-sm text-orange-400 dark:text-yellow-500">
                 <span className="font-sans font-medium">{id}</span>
               </span>
@@ -686,7 +686,7 @@ const fetchLeetCodeQuestionData: FetchObject = {
               <span className="flex-1">
                 {questionTitleData.translatedTitle}
               </span>
-              <span className="shrink-0 self-end justify-self-end">
+              <span className="shrink-0 place-self-end">
                 {questionTitleData.likes > 0 && (
                   <span className="inline-flex shrink-0 items-center gap-1 self-center text-sm text-orange-400 dark:text-yellow-500">
                     <i className="i-mingcute-thumb-up-line" />

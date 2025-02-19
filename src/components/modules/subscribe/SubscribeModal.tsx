@@ -1,7 +1,7 @@
 'use client'
 
 import type { SubscribeTypeToBitMap } from '@mx-space/api-client'
-import type React from 'react'
+import type * as React from 'react'
 import type { FC } from 'react'
 import { useEffect, useReducer } from 'react'
 

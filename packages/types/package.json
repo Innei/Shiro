@@ -5,10 +5,10 @@
     ".": {
       "import": "./dist/index.mjs"
     },
-    "./styles": "./dist/styles.css",
     "./sandbox": {
       "import": "./dist/sandbox.mjs"
-    }
+    },
+    "./styles": "./dist/styles.css"
   },
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",

@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import * as React from 'react'
 
 import { useSessionReader } from '~/atoms/hooks/reader'
 import { getStrategyIconComponent } from '~/components/ui/user/UserAuthStrategyIcon'

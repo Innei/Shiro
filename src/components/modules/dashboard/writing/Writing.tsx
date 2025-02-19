@@ -1,7 +1,7 @@
 import { produce } from 'immer'
 import { atom, useAtomValue, useSetAtom, useStore } from 'jotai'
 import type { FC } from 'react'
-import React from 'react'
+import * as React from 'react'
 
 import { TextArea } from '~/components/ui/input'
 import { useEventCallback } from '~/hooks/common/use-event-callback'

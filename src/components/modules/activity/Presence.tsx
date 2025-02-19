@@ -325,7 +325,7 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
           position={position}
           data-identity={presence?.identity}
         >
-          <div className="absolute left-5 top-full mt-1 whitespace-nowrap text-xs duration-200 group-hover:visible group-hover:left-5 group-hover:opacity-80 hover:!left-3">
+          <div className="absolute left-5 top-full mt-1 whitespace-nowrap text-xs duration-200 hover:!left-3 group-hover:visible group-hover:left-5 group-hover:opacity-80">
             {presence?.displayName && (
               <>
                 {presence.displayName} <br />
@@ -428,7 +428,7 @@ const MoitonBar = forwardRef<
       aria-label={isCurrent ? '你在这里' : `读者在这里 - ${position}%`}
       ref={elRef}
       className={clsx(
-        'absolute h-2 -translate-x-4 rounded-full bg-accent duration-200 group-hover:w-10 group-hover:opacity-80 hover:-translate-x-2 hover:opacity-100',
+        'absolute h-2 -translate-x-4 rounded-full bg-accent duration-200 hover:-translate-x-2 hover:opacity-100 group-hover:w-10 group-hover:opacity-80',
         isCurrent ? 'w-9 opacity-40 group-hover:opacity-100' : 'w-8 opacity-20',
       )}
       style={{

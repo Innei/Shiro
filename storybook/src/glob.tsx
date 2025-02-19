@@ -1,5 +1,6 @@
 import type { FC, ReactNode } from 'react'
-import React, { createElement, Fragment } from 'react'
+import * as React from 'react'
+import { createElement, Fragment } from 'react'
 
 import { GLOB_PATH } from '../config' with { type: 'macro' }
 import type { DocumentComponent, DocumentPageMeta } from '../typings'

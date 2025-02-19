@@ -17,7 +17,7 @@ declare global {
 export const Analyze = () => {
   const onceRef = useRef(false)
   const { track, setGlobalProperties } = useOpenPanel()
-  // eslint-disable-next-line react-compiler/react-compiler
+
   useIsomorphicLayoutEffect(() => {
     if (onceRef.current) {
       return

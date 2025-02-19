@@ -2,7 +2,7 @@
 
 import * as SelectImpl from '@radix-ui/react-select'
 import type { PropsWithChildren } from 'react'
-import React from 'react'
+import * as React from 'react'
 
 import { clsxm } from '~/lib/helper'
 

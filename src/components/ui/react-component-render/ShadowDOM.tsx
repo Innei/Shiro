@@ -1,12 +1,7 @@
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import type { FC, PropsWithChildren, ReactNode } from 'react'
-import React, {
-  createContext,
-  createElement,
-  memo,
-  useMemo,
-  useState,
-} from 'react'
+import * as React from 'react'
+import { createContext, createElement, memo, useMemo, useState } from 'react'
 import root from 'react-shadow'
 
 import { useIsDark } from '~/hooks/common/use-is-dark'
