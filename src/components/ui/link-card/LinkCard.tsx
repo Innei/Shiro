@@ -582,6 +582,14 @@ const fetchBangumiData: FetchObject = {
               </span>
             </span>
           )}
+          {(type === 'character' || type === 'person') && (
+            <span className="inline-flex shrink-0 items-center gap-1 self-center text-xs text-orange-400 dark:text-yellow-500">
+              <i className="i-mingcute-star-line" />
+              <span className="font-sans font-medium">
+                {json.stat.collects > 0 && json.stat.collects}
+              </span>
+            </span>
+          )}
         </span>
       ),
       desc: (
