@@ -102,7 +102,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
       const mdElement = compiler(mdContent, {
         doNotProcessHtmlElements: ['tab', 'style', 'script'] as any[],
         wrapper: null,
-        // @ts-ignore
+
         overrides: {
           p: MParagraph,
 
@@ -126,7 +126,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
 
           LinkCard,
           Gallery,
-          script: allowsScript ? Script : undefined,
+          script: allowsScript ? Script : undefined!,
 
           ...overrides,
         },
