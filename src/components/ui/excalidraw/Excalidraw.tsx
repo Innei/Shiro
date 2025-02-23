@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query'
 import type { Delta } from 'jsondiffpatch'
 import { patch } from 'jsondiffpatch'
 import * as React from 'react'
-import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
+import { useImperativeHandle, useMemo, useRef } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks/viewport'
 import { API_URL } from '~/constants/env'
@@ -44,12 +44,9 @@ export interface ExcalidrawRefObject {
   getRefData: () => ExcalidrawElement | null | undefined
   getDiffDelta: () => Delta | null | undefined
 }
-export const Excalidraw = forwardRef<
-  ExcalidrawRefObject,
-  Omit<ExcalidrawProps, 'refUrl' | 'patchDiffDelta' | 'data'> & {
+export const Excalidraw = ({ ref, ...props }: Omit<ExcalidrawProps, 'refUrl' | 'patchDiffDelta' | 'data'> & {
     data: string
-  }
->((props, ref) => {
+  } & { ref?: React.RefObject<ExcalidrawRefObject | null> }) => {
   const { data, ...rest } = props
   const transformedProps: {
     data?: ExcalidrawElement
@@ -100,7 +97,7 @@ export const Excalidraw = forwardRef<
   }))
 
   return <ExcalidrawImpl ref={internalRef} {...rest} {...transformedProps} />
-})
+}
 
 Excalidraw.displayName = 'Excalidraw'
 
@@ -108,23 +105,10 @@ interface InternelExcalidrawRefObject {
   getRemoteData: () => ExcalidrawElement | null | undefined
 }
 
-const ExcalidrawImpl = forwardRef<InternelExcalidrawRefObject, ExcalidrawProps>(
-  (
-    {
-      data,
-
-      refUrl,
-      patchDiffDelta,
-      viewModeEnabled = true,
-      zenModeEnabled = true,
-      onChange,
-      className,
-      showExtendButton = true,
-      onReady,
-    },
-    ref,
+const ExcalidrawImpl = (
+    { ref, data, refUrl, patchDiffDelta, viewModeEnabled = true, zenModeEnabled = true, onChange, className, showExtendButton = true, onReady }: ExcalidrawProps & { ref?: React.RefObject<InternelExcalidrawRefObject | null> },
   ) => {
-    const excalidrawAPIRef = React.useRef<ExcalidrawImperativeAPI>()
+    const excalidrawAPIRef = React.useRef<ExcalidrawImperativeAPI>(undefined)
     const modal = useModalStack()
     const isMobile = useIsMobile()
 
@@ -239,6 +223,5 @@ const ExcalidrawImpl = forwardRef<InternelExcalidrawRefObject, ExcalidrawProps>(
         )}
       </div>
     )
-  },
-)
+  }
 ExcalidrawImpl.displayName = 'ExcalidrawImpl'

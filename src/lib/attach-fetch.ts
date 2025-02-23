@@ -1,13 +1,17 @@
 import 'server-only'
 
+import type {
+  UnsafeUnwrappedCookies,
+  UnsafeUnwrappedHeaders,
+} from 'next/headers'
 import { cookies, headers } from 'next/headers'
 
 import PKG from '../../package.json'
 import { AuthKeyNames } from './cookie'
 import { attachFetchHeader } from './request'
 
-export const attachServerFetch = () => {
-  const { get } = headers()
+export const attachServerFetch = async () => {
+  const { get } = await headers()
 
   const ua = get('user-agent')
   const ip =
@@ -26,8 +30,8 @@ export const attachServerFetch = () => {
   )
 }
 
-export const getAuthFromCookie = () => {
-  const cookie = cookies()
+export const getAuthFromCookie = async () => {
+  const cookie = await cookies()
   const jwt = cookie.get(AuthKeyNames[0])
 
   return jwt?.value || ''

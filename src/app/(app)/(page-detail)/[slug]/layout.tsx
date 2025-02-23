@@ -33,19 +33,18 @@ import {
 
 export const dynamic = 'force-dynamic'
 
-const getData = cache(async (params: PageParams) => {
-  attachServerFetch()
+const getData = async (params: PageParams) => {
+  await attachServerFetch()
   const data = await apiClient.page
     .getBySlug(params.slug)
     .catch(requestErrorHandler)
   return data.$serialized
-})
+}
 
-export const generateMetadata = async ({
-  params,
-}: {
-  params: PageParams
+export const generateMetadata = async (props: {
+  params: Promise<PageParams>
 }): Promise<Metadata> => {
+  const params = await props.params
   const { slug } = params
   try {
     const data = await getData(params)
@@ -53,7 +52,7 @@ export const generateMetadata = async ({
     const { title, text } = data
     const description = getSummaryFromMd(text ?? '')
 
-    const ogImage = getOgUrl('page', {
+    const ogImage = await getOgUrl('page', {
       slug,
     })
 

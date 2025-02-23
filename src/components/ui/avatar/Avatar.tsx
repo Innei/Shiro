@@ -95,9 +95,12 @@ export const Avatar: FC<
         imageUrl && !loadError ? (
           <div
             className={clsxm(
-              'size-full bg-cover bg-center bg-no-repeat transition-opacity duration-300',
+              'bg-cover bg-center bg-no-repeat transition-opacity duration-300',
               className,
             )}
+            style={{
+              borderRadius: radius === 'full' ? '100%' : `${radius}px`,
+            }}
           >
             <RadixAvatar.Root>
               <RadixAvatar.Image

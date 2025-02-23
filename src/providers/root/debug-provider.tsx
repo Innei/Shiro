@@ -8,7 +8,7 @@ import { DevIndicator } from '~/components/common/DevIndicator'
 
 export const DebugProvider = ({
   children,
-}: PropsWithChildren): ReactElement => (
+}: PropsWithChildren): ReactElement<any> => (
   <>
     <Suspense>
       <div data-hide-print className="hidden md:contents">

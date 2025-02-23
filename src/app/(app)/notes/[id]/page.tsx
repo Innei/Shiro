@@ -26,7 +26,6 @@ import {
 } from '~/components/modules/note/NoteBanner'
 import { NoteFontSettingFab } from '~/components/modules/note/NoteFontFab'
 import { NoteMainContainer } from '~/components/modules/note/NoteMainContainer'
-import { ArticleRightAside } from '~/components/modules/shared/ArticleRightAside'
 import { BanCopyWrapper } from '~/components/modules/shared/BanCopyWrapper'
 import { ReadIndicatorForMobile } from '~/components/modules/shared/ReadIndicator'
 import { Signature } from '~/components/modules/shared/Signature'
@@ -67,7 +66,7 @@ import { Transition } from './Transition'
 export const dynamic = 'force-dynamic'
 
 const Summary = async ({ data }: { data: NoteModel }) => {
-  const acceptLang = headers().get('accept-language')
+  const acceptLang = (await headers()).get('accept-language')
   const { summary } = await apiClient.ai
     .getSummary({
       articleId: data.id,
@@ -137,9 +136,7 @@ function PageInner({ data }: { data: NoteModel }) {
           </NoteMarkdownImageRecordProvider>
 
           <LayoutRightSidePortal>
-            <ArticleRightAside>
-              <NoteActionAside />
-            </ArticleRightAside>
+            <NoteActionAside />
           </LayoutRightSidePortal>
         </WrappedElementProvider>
       </NoteHideIfSecret>
@@ -162,11 +159,10 @@ type NoteDetailPageParams = {
   password?: string
   token?: string
 }
-export const generateMetadata = async ({
-  params,
-}: {
-  params: NoteDetailPageParams
+export const generateMetadata = async (props: {
+  params: Promise<NoteDetailPageParams>
 }): Promise<Metadata> => {
+  const params = await props.params
   try {
     const res = await getData(params)
 
@@ -174,7 +170,7 @@ export const generateMetadata = async ({
     const { title, text } = data
     const description = getSummaryFromMd(text ?? '')
 
-    const ogUrl = getOgUrl('note', {
+    const ogUrl = await getOgUrl('note', {
       nid: params.id,
     })
 

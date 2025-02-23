@@ -7,7 +7,6 @@ import { useAtomValue, useSetAtom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 import type { FC, PropsWithChildren } from 'react'
 import {
-  forwardRef,
   Fragment,
   memo,
   useDeferredValue,
@@ -378,14 +377,11 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
 
 TimelineItem.displayName = 'TimelineItem'
 
-const MoitonBar = forwardRef<
-  HTMLDivElement,
-  {
+const MoitonBar = ({ ref, bgColor, isCurrent, position, children, ...rest }: {
     position: number
     bgColor: string
     isCurrent: boolean
-  } & PropsWithChildren
->(({ bgColor, isCurrent, position, children, ...rest }, ref) => {
+  } & PropsWithChildren & { ref?: React.RefObject<HTMLDivElement | null> }) => {
   const elRef = useRef<HTMLDivElement>(null)
 
   const [memoedPosition] = useState(position)
@@ -440,7 +436,7 @@ const MoitonBar = forwardRef<
       {children}
     </div>
   )
-})
+}
 
 MoitonBar.displayName = 'MoitonBar'
 

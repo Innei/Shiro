@@ -97,7 +97,7 @@ export const BaseCodeHighlighter: Component<
 }
 
 const useLoadHighlighter = (ref: React.RefObject<HTMLElement | null>) => {
-  const prevThemeCSS = useRef<ReturnType<typeof loadStyleSheet>>()
+  const prevThemeCSS = useRef<ReturnType<typeof loadStyleSheet>>(undefined)
   const isPrintMode = useIsPrintMode()
   const isDark = useIsDark()
 

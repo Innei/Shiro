@@ -8,7 +8,8 @@ import { clsxm } from '~/lib/helper'
 import { usePageScrollLocationSelector } from '~/providers/root/page-scroll-info-provider'
 import { useIsEoFWrappedElement } from '~/providers/shared/WrappedElementProvider'
 
-export const asideButtonStyles = {
+// import { asideButtonStyles } from './styles'
+const asideButtonStyles = {
   base: 'text-[24px] opacity-80 duration-200 hover:opacity-100 relative',
 }
 

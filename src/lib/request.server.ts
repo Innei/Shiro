@@ -1,7 +1,7 @@
 import 'server-only'
 
 import { RequestError } from '@mx-space/api-client'
-import { notFound } from 'next/navigation'
+import { notFound, useParams } from 'next/navigation'
 import type { FC, ReactNode } from 'react'
 import { createElement } from 'react'
 
@@ -49,8 +49,13 @@ export const definePrerenderPage =
       params: Params,
     ) => ReactNode | void
     Component: FC<
-      NextPageParams<Params> & { data: T; fetchedAt: string; searchParams: any }
+      NextPageExtractedParams<Params> & {
+        data: T
+        fetchedAt: string
+        searchParams: any
+      }
     >
+
     handleNotFound?: boolean
   }) => {
     const {
@@ -60,17 +65,20 @@ export const definePrerenderPage =
       handleNotFound = true,
     } = options
     return async (props: any) => {
-      const { params, searchParams } = props as NextPageParams<Params, any>
+      const { params: params_, searchParams: searchParams_ } =
+        props as NextPageParams<Params, any>
+      const params = await params_
+      const searchParams = await searchParams_
 
       try {
-        attachServerFetch()
+        await attachServerFetch()
         const data = await fetcher({
           ...params,
           ...searchParams,
         })
 
         return createElement(
-          Component,
+          await Component,
           {
             data,
             fetchedAt: new Date().toISOString(),

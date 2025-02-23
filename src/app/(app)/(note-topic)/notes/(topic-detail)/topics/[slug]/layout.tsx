@@ -17,10 +17,10 @@ export const generateMetadata = async (
     slug: string
   }>,
 ) => {
-  attachServerFetch()
+  await attachServerFetch()
   const queryClient = getQueryClient()
 
-  const query = getTopicQuery(props.params.slug)
+  const query = getTopicQuery((await props.params).slug)
 
   const data = await queryClient.fetchQuery(query)
 

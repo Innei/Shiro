@@ -24,7 +24,7 @@ export const Tabs: FC<PropsWithChildren> = ({ children }) => {
       if (!('type' in child)) continue
 
       if (child.type !== Tab) continue
-      const { label } = child.props
+      const { label } = child.props as any as { label: string }
       labels.push(label)
     }
     return labels

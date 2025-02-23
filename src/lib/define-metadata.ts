@@ -16,7 +16,7 @@ export const defineMetadata = <T extends Record<string, string>>(
   const handler = async ({ params }: { params: T }): Promise<Metadata> => {
     const getData = async () => {
       const queryClient = getQueryClient()
-      attachServerFetch()
+      await attachServerFetch()
       return await queryClient.fetchQuery({
         ...queries.aggregation.root(),
       })

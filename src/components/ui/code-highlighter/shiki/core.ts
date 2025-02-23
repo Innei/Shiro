@@ -2,6 +2,7 @@ import {
   transformerMetaHighlight,
   transformerNotationDiff,
   transformerNotationHighlight,
+  transformerNotationWordHighlight,
 } from '@shikijs/transformers'
 import type { BundledLanguage } from 'shiki/langs'
 import type { BundledTheme } from 'shiki/themes'
@@ -34,8 +35,10 @@ export function codeHighlighter(
     ...codeOptions,
     transformers: [
       ...(codeOptions.transformers || []),
+
       transformerNotationDiff({ matchAlgorithm: 'v3' }),
       transformerNotationHighlight({ matchAlgorithm: 'v3' }),
+      transformerNotationWordHighlight({ matchAlgorithm: 'v3' }),
       transformerMetaHighlight(),
     ],
   })

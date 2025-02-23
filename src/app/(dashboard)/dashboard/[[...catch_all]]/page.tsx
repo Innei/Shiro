@@ -6,7 +6,7 @@ import type { ClientRouter } from './router'
 
 export default function Page() {
   const [isReady, setIsReady] = useState(false)
-  const RouterRef = useRef<typeof ClientRouter>()
+  const RouterRef = useRef<typeof ClientRouter>(undefined)
 
   useEffect(() => {
     import('./router').then(({ ClientRouter }) => {

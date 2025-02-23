@@ -36,7 +36,7 @@ export const textareaStyles = [
   'letterSpacing',
 ] as const
 export const scrollTextareaToCursor = (
-  taRef: RefObject<HTMLTextAreaElement>,
+  taRef: RefObject<HTMLTextAreaElement | null>,
 ) => {
   const $ta = taRef.current
   if ($ta) {

@@ -1,6 +1,6 @@
 'use client'
 
-import type { Action, ActionId, ActionImpl } from 'kbar'
+import type { Action } from 'kbar'
 import {
   KBarAnimator,
   KBarPortal,
@@ -13,7 +13,7 @@ import {
 import { useRouter } from 'next/navigation'
 import type { FC, PropsWithChildren } from 'react'
 import * as React from 'react'
-import { useContext } from 'react'
+import { use } from 'react'
 
 import { DashboardLayoutContext } from '~/components/modules/dashboard/utils/context'
 import { useRefValue } from '~/hooks/common/use-ref-value'
@@ -21,7 +21,7 @@ import { clsxm } from '~/lib/helper'
 
 export const ComposedKBarProvider: FC<PropsWithChildren> = ({ children }) => {
   const router = useRouter()
-  const routes = useContext(DashboardLayoutContext)
+  const routes = use(DashboardLayoutContext)
   const actions: Action[] = useRefValue(
     () =>
       routes
@@ -88,18 +88,8 @@ function RenderResults() {
   )
 }
 
-const ResultItem = React.forwardRef(
-  (
-    {
-      action,
-      active,
-      currentRootActionId,
-    }: {
-      action: ActionImpl
-      active: boolean
-      currentRootActionId: ActionId
-    },
-    ref: React.Ref<HTMLDivElement>,
+const ResultItem = (
+    { ref, action, active, currentRootActionId },
   ) => {
     const ancestors = React.useMemo(() => {
       if (!currentRootActionId) return action.ancestors
@@ -150,7 +140,6 @@ const ResultItem = React.forwardRef(
         ) : null}
       </div>
     )
-  },
-)
+  }
 
 ResultItem.displayName = 'ResultItem'

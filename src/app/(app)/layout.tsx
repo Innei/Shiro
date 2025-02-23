@@ -158,7 +158,7 @@ export default async function RootLayout(props: PropsWithChildren) {
 
   const { openpanel } = themeConfig.config?.module || {}
 
-  const token = cookies().get(TokenKey)?.value
+  const token = (await cookies()).get(TokenKey)?.value
 
   let userAuth = false
 
@@ -166,7 +166,7 @@ export default async function RootLayout(props: PropsWithChildren) {
 
   headers.append(
     'cookie',
-    cookies()
+    (await cookies())
       .getAll()
       .map((cookie) => `${cookie.name}=${cookie.value}`)
       .join('; '),

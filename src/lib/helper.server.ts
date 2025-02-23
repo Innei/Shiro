@@ -1,6 +1,7 @@
 import 'server-only'
 
 import chroma from 'chroma-js'
+import type { UnsafeUnwrappedHeaders } from 'next/headers'
 import { headers } from 'next/headers'
 import uniqolor from 'uniqolor'
 
@@ -29,8 +30,8 @@ export function escapeXml(unsafe: string) {
   })
 }
 
-export const getOgUrl = (type: 'post' | 'note' | 'page', data: any) => {
-  const host = headers().get('host')
+export const getOgUrl = async (type: 'post' | 'note' | 'page', data: any) => {
+  const host = (await headers())?.get('host')
   const ogUrl = new URL(`${isDev ? 'http' : 'https'}://${host}/og`)
   ogUrl.searchParams.set(
     'data',

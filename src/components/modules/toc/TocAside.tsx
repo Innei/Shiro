@@ -2,7 +2,6 @@
 
 import type * as React from 'react'
 import {
-  forwardRef,
   startTransition,
   useEffect,
   useImperativeHandle,
@@ -30,13 +29,8 @@ export interface TocSharedProps {
 export interface TocAsideRef {
   getContainer: () => HTMLUListElement | null
 }
-export const TocAside = forwardRef<
-  TocAsideRef,
-  TocAsideProps & TocSharedProps & ComponentType
->(
-  (
-    { className, children, treeClassName, accessory, as: As = 'aside' },
-    ref,
+export const TocAside = (
+    { ref, className, children, treeClassName, accessory, as: As = 'aside' }: TocAsideProps & TocSharedProps & ComponentType & { ref?: React.RefObject<TocAsideRef | null> },
   ) => {
     const containerRef = useRef<HTMLUListElement>(null)
     const $article = useWrappedElement()
@@ -104,6 +98,5 @@ export const TocAside = forwardRef<
         {children}
       </As>
     )
-  },
-)
+  }
 TocAside.displayName = 'TocAside'

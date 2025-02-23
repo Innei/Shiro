@@ -113,12 +113,12 @@ export const ShadowDOM: FC<
   const [ref, setRef] = useState<HTMLElement | null>(null)
   return (
     <root.div {...rest} ref={setRef}>
-      <ShadowDOMContext.Provider value={ref?.shadowRoot ?? null}>
+      <ShadowDOMContext value={ref?.shadowRoot ?? null}>
         <div id="shadow-html" data-theme={dark ? 'dark' : 'light'}>
           {stylesElements}
           {props.children}
         </div>
-      </ShadowDOMContext.Provider>
+      </ShadowDOMContext>
     </root.div>
   )
 }

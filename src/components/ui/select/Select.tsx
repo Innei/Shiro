@@ -85,10 +85,7 @@ export const Select = function Select<T>(
   )
 }
 
-const SelectItem = React.forwardRef<
-  HTMLDivElement,
-  PropsWithChildren<SelectImpl.SelectItemProps>
->(({ children, ...props }, forwardedRef) => (
+const SelectItem = ({ ref: forwardedRef, children, ...props }: PropsWithChildren<SelectImpl.SelectItemProps> & { ref?: React.RefObject<HTMLDivElement | null> }) => (
   <SelectImpl.Item
     className="flex cursor-auto items-center justify-between rounded-sm px-3 py-1 hover:bg-zinc-200 dark:hover:bg-neutral-800"
     {...props}
@@ -104,6 +101,6 @@ const SelectItem = React.forwardRef<
       <i className="i-mingcute-check-line" />
     </SelectImpl.ItemIndicator>
   </SelectImpl.Item>
-))
+)
 
 SelectItem.displayName = 'SelectItem'

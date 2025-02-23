@@ -19,7 +19,6 @@ import {
   PostOutdate,
   PostRelated,
 } from '~/components/modules/post'
-import { ArticleRightAside } from '~/components/modules/shared/ArticleRightAside'
 import { GoToAdminEditingButton } from '~/components/modules/shared/GoToAdminEditingButton'
 import { ReadIndicatorForMobile } from '~/components/modules/shared/ReadIndicator'
 import { SummarySwitcher } from '~/components/modules/shared/SummarySwitcher'
@@ -58,11 +57,10 @@ import {
 
 export const dynamic = 'force-dynamic'
 
-export const generateMetadata = async ({
-  params,
-}: {
-  params: PageParams
+export const generateMetadata = async (props: {
+  params: Promise<PageParams>
 }): Promise<Metadata> => {
+  const params = await props.params
   const { slug } = params
   try {
     const data = await getData(params)
@@ -74,7 +72,7 @@ export const generateMetadata = async ({
     } = data
     const description = getSummaryFromMd(text ?? '')
 
-    const ogImage = getOgUrl('post', {
+    const ogImage = await getOgUrl('post', {
       category: categorySlug,
       slug,
     })
@@ -103,7 +101,7 @@ export const generateMetadata = async ({
 }
 
 const Summary = async ({ data }: { data: ModelWithLiked<PostModel> }) => {
-  const acceptLang = headers().get('accept-language')
+  const acceptLang = (await headers()).get('accept-language')
 
   const { id } = data
   const { summary } = await apiClient.ai
@@ -167,9 +165,7 @@ const PostPage = ({ data }: { data: ModelWithLiked<PostModel> }) => {
           </PostMarkdownImageRecordProvider>
 
           <LayoutRightSidePortal>
-            <ArticleRightAside>
-              <PostActionAside />
-            </ArticleRightAside>
+            <PostActionAside />
           </LayoutRightSidePortal>
         </WrappedElementProvider>
       </div>

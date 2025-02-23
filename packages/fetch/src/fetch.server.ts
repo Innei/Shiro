@@ -1,6 +1,10 @@
 import 'server-only'
 
 import { nanoid } from 'nanoid'
+import type {
+  UnsafeUnwrappedCookies,
+  UnsafeUnwrappedHeaders,
+} from 'next/headers'
 import { cookies, headers as nextHeaders } from 'next/headers'
 import { createFetch } from 'ofetch'
 
@@ -10,8 +14,8 @@ import { createApiClient, createFetchAdapter, TokenKey } from './shared'
 
 const isDev = process.env.NODE_ENV === 'development'
 
-export const getAuthToken = () => {
-  const cookie = cookies()
+export const getAuthToken = async () => {
+  const cookie = await cookies()
 
   const token = cookie.get(TokenKey)?.value
 
@@ -21,8 +25,8 @@ export const $fetch = createFetch({
   defaults: {
     timeout: 8000,
     credentials: 'include',
-    onRequest(context) {
-      const cookie = cookies()
+    async onRequest(context) {
+      const cookie = await cookies()
 
       const token = cookie.get(TokenKey)?.value
 
@@ -50,7 +54,7 @@ export const $fetch = createFetch({
         console.info(`[Request/Server]: ${context.request}`)
       }
 
-      const { get } = nextHeaders()
+      const { get } = await nextHeaders()
 
       const ua = get('user-agent')
       const ip =

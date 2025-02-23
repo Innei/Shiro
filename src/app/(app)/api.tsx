@@ -1,7 +1,6 @@
 import type { AggregateRoot } from '@mx-space/api-client'
 import { simpleCamelcaseKeys } from '@mx-space/api-client'
 import { $fetch } from 'ofetch'
-import { cache } from 'react'
 
 import { appStaticConfig } from '~/app.static.config'
 import { attachServerFetch } from '~/lib/attach-fetch'
@@ -11,8 +10,8 @@ import { apiClient } from '~/lib/request'
 const cacheTime = appStaticConfig.cache.enabled
   ? appStaticConfig.cache.ttl.aggregation
   : 1
-export const fetchAggregationData = cache(async () => {
-  attachServerFetch()
+export const fetchAggregationData = async () => {
+  await attachServerFetch()
   const queryClient = getQueryClient()
   const fetcher = async () =>
     (await $fetch<
@@ -37,4 +36,4 @@ export const fetchAggregationData = cache(async () => {
     staleTime: cacheTime,
     gcTime: cacheTime,
   })
-})
+}

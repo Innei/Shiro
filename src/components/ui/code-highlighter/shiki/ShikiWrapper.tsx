@@ -4,7 +4,6 @@ import { AnimatePresence, m } from 'motion/react'
 import type { PropsWithChildren } from 'react'
 import {
   cloneElement,
-  forwardRef,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -48,14 +47,11 @@ const copyIconVariants: Variants = {
   },
 }
 
-export const ShikiHighLighterWrapper = forwardRef<
-  HTMLDivElement,
-  PropsWithChildren<
+export const ShikiHighLighterWrapper = ({ ref, ...props }: PropsWithChildren<
     Props & {
       shouldCollapsed?: boolean
     }
-  >
->((props, ref) => {
+  > & { ref?: React.RefObject<HTMLDivElement | null> }) => {
   const {
     shouldCollapsed = true,
     lang: language,
@@ -64,7 +60,7 @@ export const ShikiHighLighterWrapper = forwardRef<
   } = props
 
   const [copied, setCopied] = useState(false)
-  const copiedTimerRef = useRef<any>()
+  const copiedTimerRef = useRef<any>(undefined)
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(value)
     setCopied(true)
@@ -246,6 +242,6 @@ export const ShikiHighLighterWrapper = forwardRef<
       </div>
     </div>
   )
-})
+}
 
 ShikiHighLighterWrapper.displayName = 'ShikiHighLighterWrapper'

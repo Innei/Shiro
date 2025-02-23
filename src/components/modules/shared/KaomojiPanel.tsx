@@ -17,8 +17,8 @@ export const KaomojiPanel: FC<
   {
     to?: HTMLElement | null
     inputRef:
-      | React.RefObject<HTMLTextAreaElement>
-      | React.RefObject<HTMLInputElement>
+      | React.RefObject<HTMLTextAreaElement | null>
+      | React.RefObject<HTMLInputElement | null>
 
     open?: boolean
     onOpenChange?: (open: boolean) => void

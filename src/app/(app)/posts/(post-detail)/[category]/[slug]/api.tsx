@@ -1,5 +1,3 @@
-import { cache } from 'react'
-
 import { attachServerFetch } from '~/lib/attach-fetch'
 import { getQueryClient } from '~/lib/query-client.server'
 import { requestErrorHandler } from '~/lib/request.server'
@@ -9,11 +7,12 @@ export interface PageParams {
   category: string
   slug: string
 }
-export const getData = cache(async (params: PageParams) => {
+
+export const getData = async (params: PageParams) => {
   const { category, slug } = params
-  attachServerFetch()
+  await attachServerFetch()
   const data = await getQueryClient()
     .fetchQuery(queries.post.bySlug(category, slug))
     .catch(requestErrorHandler)
   return data
-})
+}

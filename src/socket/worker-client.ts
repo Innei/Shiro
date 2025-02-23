@@ -9,7 +9,7 @@ import { isDev, isServerSide } from '~/lib/env'
 import type { EventTypes, SocketEmitEnum } from '~/types/events'
 
 import { eventHandler } from './handler'
-import { SharedWorkerPolyfill as SharedWorker } from './worker-polyfill'
+// import { SharedWorkerPolyfill as SharedWorker } from './worker-polyfill'
 
 interface WorkerSocket {
   sid: string
@@ -48,13 +48,13 @@ class SocketWorker {
     }
   }
   bindMessageHandler = (worker: SharedWorker) => {
-    worker.onmessage = (event: MessageEvent) => {
+    worker.port.onmessage = (event: MessageEvent) => {
       const { data } = event
       const { type, payload } = data
 
       switch (type) {
         case 'ping': {
-          worker?.postMessage({
+          worker.port.postMessage({
             type: 'pong',
           })
           console.info('[ws worker] pong')
@@ -99,7 +99,7 @@ class SocketWorker {
   prepare(worker: SharedWorker) {
     const gatewayUrlWithoutTrailingSlash = GATEWAY_URL.replace(/\/$/, '')
     this.bindMessageHandler(worker)
-    worker.postMessage({
+    worker.port.postMessage({
       type: 'config',
 
       payload: {
@@ -108,9 +108,9 @@ class SocketWorker {
       },
     })
 
-    worker.start()
+    worker.port.start()
 
-    worker.postMessage({
+    worker.port.postMessage({
       type: 'init',
     })
   }
@@ -125,14 +125,14 @@ class SocketWorker {
   }
 
   emit(event: SocketEmitEnum, payload: any) {
-    this.worker?.postMessage({
+    this.worker?.port.postMessage({
       type: 'emit',
       payload: { type: event, payload },
     })
   }
 
   reconnect() {
-    this.worker?.postMessage({
+    this.worker?.port.postMessage({
       type: 'reconnect',
     })
   }

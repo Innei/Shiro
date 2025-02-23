@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import type { ContextType, FC, PropsWithChildren } from 'react'
 import * as React from 'react'
-import { createContext, useContext, useEffect, useId } from 'react'
+import { createContext, use, useEffect, useId } from 'react'
 import { tv } from 'tailwind-variants'
 
 import { clsxm } from '~/lib/helper'
@@ -17,14 +17,14 @@ const InputPropsContext = createContext<
   >
 >({})
 
-const useAdvancedInputPropsContext = () => useContext(InputPropsContext)
+const useAdvancedInputPropsContext = () => use(InputPropsContext)
 
 export const AdvancedInputProvider: FC<
   ContextType<typeof InputPropsContext> & PropsWithChildren
 > = ({ children, ...props }) => (
-  <InputPropsContext.Provider value={props}>
+  <InputPropsContext value={props}>
     {children}
-  </InputPropsContext.Provider>
+  </InputPropsContext>
 )
 
 export interface AdvancedInputProps
@@ -42,10 +42,7 @@ export interface AdvancedInputProps
   bindValue?: string
 }
 
-export const AdvancedInput = React.forwardRef<
-  HTMLInputElement,
-  AdvancedInputProps
->((props, ref) => {
+export const AdvancedInput = ({ ref, ...props }: AdvancedInputProps & { ref?: React.RefObject<HTMLInputElement | null> }) => {
   const {
     className,
     type,
@@ -208,7 +205,7 @@ export const AdvancedInput = React.forwardRef<
       )}
     </div>
   )
-})
+}
 
 const rightContentVariants = tv({
   base: 'absolute right-2',

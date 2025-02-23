@@ -73,7 +73,7 @@ export const ImportMarkdownButton: FC<{
       >
         <TextArea
           ref={(el) => {
-            // @ts-expect-error
+            // @ts-ignore
             ref.current = el
             setTextAreaEl(el)
           }}

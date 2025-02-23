@@ -1,3 +1,4 @@
+import { geolocation, ipAddress } from '@vercel/functions'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
@@ -11,9 +12,10 @@ import {
 
 export default async function middleware(req: NextRequest) {
   const { pathname, search } = req.nextUrl
-  let { geo } = req
+
+  let geo = geolocation(req)
   const { headers } = req
-  let ip = req.ip ?? headers.get('x-real-ip')
+  let ip = ipAddress(req) ?? headers.get('x-real-ip')
   const forwardedFor = headers.get('x-forwarded-for')
   if (!ip && forwardedFor) {
     ip = forwardedFor.split(',').at(0) ?? ''

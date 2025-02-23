@@ -30,7 +30,7 @@ export const FloatPanel: FC<FloatPanelProps & PropsWithChildren> = (props) => {
     middleware: [flip({ padding: 20 }), offset(10), shift()],
   })
 
-  const floatingRef = useRef<HTMLElement>()
+  const floatingRef = useRef<HTMLElement>(undefined)
   floatingRef.current = elements.floating || undefined
   // @ts-ignore
   // useClickAway(floatingRef, (e) => {

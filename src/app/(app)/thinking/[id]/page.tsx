@@ -7,13 +7,14 @@ import { apiClient } from '~/lib/request'
 
 import { ThinkingItem } from '../item'
 
-export default async function Page({
-  params,
-}: {
-  params: {
-    id: string
+export default async function Page(
+  props: {
+    params: Promise<{
+      id: string
+    }>
   }
-}) {
+) {
+  const params = await props.params;
   const data = await apiClient.recently.getById(params.id)
 
   return (

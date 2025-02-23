@@ -25,11 +25,12 @@ import { useIsEoFWrappedElement } from '~/providers/shared/WrappedElementProvide
 import {
   ActionAsideContainer,
   ActionAsideIcon,
-  asideButtonStyles,
 } from '../shared/ActionAsideContainer'
+import { ArticleRightAside } from '../shared/ArticleRightAside'
 import { AsideCommentButton } from '../shared/AsideCommentButton'
 import { AsideDonateButton } from '../shared/AsideDonateButton'
 import { ShareModal } from '../shared/ShareModal'
+import { asideButtonStyles } from '../shared/styles'
 import { usePresentSubscribeModal } from '../subscribe'
 
 export const PostBottomBarAction: Component = () => {
@@ -46,13 +47,15 @@ export const PostBottomBarAction: Component = () => {
 }
 
 export const PostActionAside: Component = ({ className }) => (
-  <ActionAsideContainer className={className}>
-    <LikeButton />
-    <ShareButton />
-    <SubscribeButton />
-    <AsideDonateButton />
-    <PostAsideCommentButton />
-  </ActionAsideContainer>
+  <ArticleRightAside>
+    <ActionAsideContainer className={className}>
+      <LikeButton />
+      <ShareButton />
+      <SubscribeButton />
+      <AsideDonateButton />
+      <PostAsideCommentButton />
+    </ActionAsideContainer>
+  </ArticleRightAside>
 )
 
 const SubscribeButton = () => {

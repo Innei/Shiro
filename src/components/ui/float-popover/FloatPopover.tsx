@@ -59,7 +59,7 @@ export const FloatPopover = function <T extends {}>(
 }
 
 type FloatPopoverProps<T> = PropsWithChildren<{
-  triggerElement?: string | ReactElement
+  triggerElement?: string | ReactElement<any>
   TriggerComponent?: FC<T>
 
   headless?: boolean
