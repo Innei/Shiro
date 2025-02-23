@@ -91,6 +91,9 @@ importers:
       '@tanstack/react-query-persist-client':
         specifier: 5.66.7
         version: 5.66.7(@tanstack/react-query@5.66.7(react@19.0.0))(react@19.0.0)
+      '@vercel/functions':
+        specifier: 2.0.0
+        version: 2.0.0
       better-auth:
         specifier: 1.1.18
         version: 1.1.18
@@ -2643,6 +2646,15 @@ packages:
 
   '@urql/core@4.2.2':
     resolution: {integrity: sha512-TP1kheq9bnrEdnVbJqh0g0ZY/wfdpPeAzjiiDK+Tm+Pbi0O1Xdu6+fUJ/wJo5QpHZzkIyya4/AecG63e6scFqQ==}
+
+  '@vercel/functions@2.0.0':
+    resolution: {integrity: sha512-BSwIihLHoV18gerKZJyGuqd3rtaYM6rJvET1kOwKktshucyaHXTJel7Cxegs+sdX0NZqsX4LO2MFnMU2jG01Cw==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@aws-sdk/credential-provider-web-identity': '*'
+    peerDependenciesMeta:
+      '@aws-sdk/credential-provider-web-identity':
+        optional: true
 
   '@vue/compiler-core@3.5.13':
     resolution: {integrity: sha512-oOdAkwqUfW1WqpwSYJce06wvt6HljgY3fGeM9NcVA1HaYOij3mZG9Rkysn0OHuyUAGMbEbARIpsG+LPVlBJ5/Q==}
@@ -8517,6 +8529,8 @@ snapshots:
       wonka: 6.3.4
     transitivePeerDependencies:
       - graphql
+
+  '@vercel/functions@2.0.0': {}
 
   '@vue/compiler-core@3.5.13':
     dependencies:
