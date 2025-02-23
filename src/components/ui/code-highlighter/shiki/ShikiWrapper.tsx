@@ -47,11 +47,14 @@ const copyIconVariants: Variants = {
   },
 }
 
-export const ShikiHighLighterWrapper = ({ ref, ...props }: PropsWithChildren<
-    Props & {
-      shouldCollapsed?: boolean
-    }
-  > & { ref?: React.RefObject<HTMLDivElement | null> }) => {
+export const ShikiHighLighterWrapper = ({
+  ref,
+  ...props
+}: PropsWithChildren<
+  Props & {
+    shouldCollapsed?: boolean
+  }
+> & { ref?: React.Ref<HTMLDivElement | null> }) => {
   const {
     shouldCollapsed = true,
     lang: language,

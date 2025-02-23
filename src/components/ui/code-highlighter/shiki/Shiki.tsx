@@ -91,7 +91,6 @@ export const ShikiHighLighter: FC<ShikiProps> = (props) => {
       shouldCollapsed={parseShouldCollapsedFromAttrs(attrs || '')}
       {...props}
       renderedHTML={highlightedHtml}
-      // @ts-ignore
       ref={setCodeBlockRef}
     />
   )
