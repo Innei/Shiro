@@ -575,10 +575,23 @@ const fetchBangumiData: FetchObject = {
             <span className="text-sm opacity-70">({originalTitle})</span>
           )}
           {type === 'subject' && (
-            <span className="inline-flex shrink-0 items-center gap-1 self-center text-xs text-orange-400 dark:text-yellow-500">
-              <MingcuteStarHalfFill />
-              <span className="font-sans font-medium">
-                {json.rating.score > 0 && json.rating.score.toFixed(1)}
+            <span className="inline-flex shrink-0 items-center gap-3 self-center">
+              <span className="inline-flex shrink-0 items-center gap-1 self-center text-xs text-orange-400 dark:text-yellow-500">
+                <MingcuteStarHalfFill />
+                <span className="font-sans font-medium">
+                  {json.rating.score > 0 && json.rating.score.toFixed(1)}
+                </span>
+              </span>
+              <span className="inline-flex shrink-0 items-center gap-1 self-center text-xs text-orange-400 dark:text-yellow-500">
+                <i className="i-mingcute-star-line" />
+                <span className="font-sans font-medium">
+                  {json.collection &&
+                    json.collection.on_hold +
+                      json.collection.dropped +
+                      json.collection.wish +
+                      json.collection.collect +
+                      json.collection.doing}
+                </span>
               </span>
             </span>
           )}
