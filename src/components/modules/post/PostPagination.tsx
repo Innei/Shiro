@@ -11,16 +11,20 @@ export const PostPagination: FC<{ pagination: Pager }> = ({ pagination }) => {
   return (
     <section className="mt-4 flex justify-between">
       {pagination.hasPrevPage ? (
-        <MotionButtonBase tabIndex={-1} className={className}>
-          <Link href={`/posts?page=${pagination.currentPage - 1}`}>上一页</Link>
-        </MotionButtonBase>
+        <Link href={`/posts?page=${pagination.currentPage - 1}`}>
+          <MotionButtonBase tabIndex={-1} className={className}>
+            上一页
+          </MotionButtonBase>
+        </Link>
       ) : (
         <div />
       )}
       {pagination.hasNextPage && (
-        <MotionButtonBase tabIndex={-1} className={className}>
-          <Link href={`/posts?page=${pagination.currentPage + 1}`}>下一页</Link>
-        </MotionButtonBase>
+        <Link href={`/posts?page=${pagination.currentPage + 1}`}>
+          <MotionButtonBase tabIndex={-1} className={className}>
+            下一页
+          </MotionButtonBase>
+        </Link>
       )}
     </section>
   )
