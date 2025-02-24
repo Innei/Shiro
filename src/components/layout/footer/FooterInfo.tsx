@@ -179,7 +179,7 @@ const FooterBottom = async () => {
 
   return (
     <div className="mt-12 space-y-3 text-center md:mt-6 md:text-left">
-      <p>
+      <div>
         <span>© {date.replace('{{now}}', currentYear)} </span>
         <a href="/">
           <OwnerName />
@@ -203,7 +203,7 @@ const FooterBottom = async () => {
         <span className="mt-3 block md:mt-0 md:inline">
           Stay hungry. Stay foolish.
         </span>
-      </p>
+      </div>
       <div>
         <PoweredBy className="my-3 block md:my-0 md:inline" />
         {icp && (
