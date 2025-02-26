@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 import type { ReactNode } from 'react'
 import { lazy, Suspense, useMemo, useState } from 'react'
 
+import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { HighLighterPrismCdn } from '~/components/ui/code-highlighter'
 import { ShikiHighLighterWrapper } from '~/components/ui/code-highlighter/shiki/ShikiWrapper'
 import {
@@ -30,9 +31,11 @@ const ExcalidrawLazy = ({ data }: any) => {
   }, [data])
 
   return (
-    <Suspense fallback={<ExcalidrawLoading />}>
-      {Excalidraw ?? <ExcalidrawLoading />}
-    </Suspense>
+    <ErrorBoundary>
+      <Suspense fallback={<ExcalidrawLoading />}>
+        {Excalidraw ?? <ExcalidrawLoading />}
+      </Suspense>
+    </ErrorBoundary>
   )
 }
 
