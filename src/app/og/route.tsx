@@ -226,7 +226,7 @@ export const GET = async (req: NextRequest) => {
               <h1
                 style={{
                   color: 'rgba(255, 255, 255, 0.92)',
-                  fontSize: '58px',
+                  fontSize: '64px',
                   lineHeight: 2,
 
                   fontWeight: 'bold',
