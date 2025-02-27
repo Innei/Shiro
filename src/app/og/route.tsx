@@ -181,7 +181,7 @@ export const GET = async (req: NextRequest) => {
             <span
               style={{
                 color: '#ffffff',
-                fontSize: '30px',
+                fontSize: '24px',
                 fontWeight: 'bold',
               }}
             >
@@ -213,24 +213,32 @@ export const GET = async (req: NextRequest) => {
               alignItems: 'flex-end',
               flexDirection: 'column',
               textAlign: 'right',
-              transform: 'translateY(-50px)',
+              transform: 'translateY(-20px)',
             }}
           >
-            <h1
+            <div
               style={{
-                color: 'rgba(255, 255, 255, 0.92)',
-                fontSize: '60px',
-                overflow: 'hidden',
-                maxHeight: '170px',
-                fontWeight: 'bold',
+                display: 'flex',
+                height: '180px',
+                alignItems: 'flex-end',
               }}
             >
-              {title}
-            </h1>
+              <h1
+                style={{
+                  color: 'rgba(255, 255, 255, 0.92)',
+                  fontSize: '58px',
+                  lineHeight: 2,
+
+                  fontWeight: 'bold',
+                }}
+              >
+                {title}
+              </h1>
+            </div>
             <h2
               style={{
                 color: 'rgba(255, 255, 255, 0.85)',
-                fontSize: '45px',
+                fontSize: '40px',
                 fontWeight: 'lighter',
                 transform: 'translateY(-20px)',
               }}
