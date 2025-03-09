@@ -13,6 +13,9 @@ import { AckRead } from '~/components/common/AckRead'
 import { Paper } from '~/components/layout/container/Paper'
 import { Loading } from '~/components/ui/loading'
 import {
+  BottomToUpSmoothTransitionView,
+} from '~/components/ui/transition'
+import {
   CurrentPostDataAtomProvider,
   CurrentPostDataProvider,
 } from '~/providers/post/CurrentPostDataProvider'
@@ -40,21 +43,23 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
     <CurrentPostDataAtomProvider overrideAtom={overrideAtom}>
       <CurrentPostDataProvider data={data} />
       {!!data.id && <AckRead id={data.id} type="post" />}
-      <Paper>
-        <article className="prose relative w-full min-w-0">
-          <header className="mb-8">
-            <h1 className="mt-8 text-balance text-center">{data.title}</h1>
-            <PostMetaBarInternal className="mb-8 justify-center" />
-            <XLogSummary cid={getCidForBaseModel(data)} />
-            <PostOutdate />
-          </header>
-          <WrappedElementProvider eoaDetect>
-            <PostMarkdownImageRecordProvider>
-              <PostMarkdown />
-            </PostMarkdownImageRecordProvider>
-          </WrappedElementProvider>
-        </article>
-      </Paper>
+      <BottomToUpSmoothTransitionView>
+        <Paper>
+          <article className="prose relative w-full min-w-0">
+            <header className="mb-8">
+              <h1 className="mt-8 text-balance text-center">{data.title}</h1>
+              <PostMetaBarInternal className="mb-8 justify-center" />
+              <XLogSummary cid={getCidForBaseModel(data)} />
+              <PostOutdate />
+            </header>
+            <WrappedElementProvider eoaDetect>
+              <PostMarkdownImageRecordProvider>
+                <PostMarkdown />
+              </PostMarkdownImageRecordProvider>
+            </WrappedElementProvider>
+          </article>
+        </Paper>
+      </BottomToUpSmoothTransitionView>
     </CurrentPostDataAtomProvider>
   )
 }

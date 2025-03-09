@@ -26,7 +26,7 @@ export const PeekModal = (
     }
   }, [to])
   return (
-    <div className="scrollbar-none relative mx-auto mt-[10vh] max-w-full overflow-auto px-2 lg:max-w-[65rem] lg:p-0">
+    <div className="scrollbar-none relative mx-auto mt-[10vh] max-w-full px-2 lg:max-w-[65rem] lg:p-0">
       <ImpressionView
         action={TrackerAction.Impression}
         trackerMessage="Peek Modal"

@@ -16,6 +16,9 @@ import { ClientOnly } from '~/components/common/ClientOnly'
 import { Paper } from '~/components/layout/container/Paper'
 import { Loading } from '~/components/ui/loading'
 import {
+  BottomToUpSmoothTransitionView,
+} from '~/components/ui/transition'
+import {
   CurrentNoteDataAtomProvider,
   CurrentNoteDataProvider,
 } from '~/providers/note/CurrentNoteDataProvider'
@@ -44,33 +47,35 @@ export const NotePreview: FC<NotePreviewProps> = (props) => {
     <CurrentNoteDataAtomProvider overrideAtom={overrideAtom}>
       <CurrentNoteDataProvider data={data} />
       {!!note.id && <AckRead id={note.id} type="note" />}
-      <Paper>
-        <NoteHeadCover image={note.meta?.cover} />
-        <IndentArticleContainer>
-          <header>
-            <NoteTitle />
-            <span className="flex flex-wrap items-center text-sm text-neutral-content/60">
-              <NoteHeaderDate />
+      <BottomToUpSmoothTransitionView>
+        <Paper>
+          <NoteHeadCover image={note.meta?.cover} />
+          <IndentArticleContainer>
+            <header>
+              <NoteTitle />
+              <span className="flex flex-wrap items-center text-sm text-neutral-content/60">
+                <NoteHeaderDate />
 
-              <ClientOnly>
-                <NoteMetaBar />
-              </ClientOnly>
-            </span>
-            <NoteRootBanner />
-          </header>
+                <ClientOnly>
+                  <NoteMetaBar />
+                </ClientOnly>
+              </span>
+              <NoteRootBanner />
+            </header>
 
-          <NoteHideIfSecret>
-            <XLogSummary cid={getCidForBaseModel(data)} />
-            <WrappedElementProvider eoaDetect>
-              <BanCopyWrapper>
-                <NoteMarkdownImageRecordProvider>
-                  <NoteMarkdown />
-                </NoteMarkdownImageRecordProvider>
-              </BanCopyWrapper>
-            </WrappedElementProvider>
-          </NoteHideIfSecret>
-        </IndentArticleContainer>
-      </Paper>
+            <NoteHideIfSecret>
+              <XLogSummary cid={getCidForBaseModel(data)} />
+              <WrappedElementProvider eoaDetect>
+                <BanCopyWrapper>
+                  <NoteMarkdownImageRecordProvider>
+                    <NoteMarkdown />
+                  </NoteMarkdownImageRecordProvider>
+                </BanCopyWrapper>
+              </WrappedElementProvider>
+            </NoteHideIfSecret>
+          </IndentArticleContainer>
+        </Paper>
+      </BottomToUpSmoothTransitionView>
     </CurrentNoteDataAtomProvider>
   )
 }
