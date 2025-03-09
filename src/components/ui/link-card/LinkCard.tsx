@@ -170,6 +170,7 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
   if (loading) {
     return (
       <a
+        data-hide-print
         ref={ref}
         href={fullUrl}
         target={source !== 'self' ? '_blank' : '_self'}
@@ -181,6 +182,7 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
   }
   return (
     <LinkComponent
+      data-hide-print
       href={fullUrl}
       target={source !== 'self' ? '_blank' : '_self'}
       className={clsxm(
@@ -243,7 +245,10 @@ const LinkCardImpl: FC<LinkCardProps> = (props) => {
 const LinkCardSkeleton: FC<{
   className?: string
 }> = ({ className }) => (
-  <span className={clsxm(styles['card-grid'], styles['skeleton'], className)}>
+  <span
+    data-hide-print
+    className={clsxm(styles['card-grid'], styles['skeleton'], className)}
+  >
     <span className={styles['contents']}>
       <span className={styles['title']} />
       <span className={styles['desc']} />

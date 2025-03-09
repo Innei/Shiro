@@ -78,7 +78,10 @@ export const MLink: FC<{
         {children}
       </a>
 
-      <i className="i-mingcute-arrow-right-up-line translate-y-[2px] opacity-70" />
+      <i
+        className="i-mingcute-arrow-right-up-line translate-y-[2px] opacity-70"
+        data-hide-print
+      />
     </span>
   )
   if (!popper) return el

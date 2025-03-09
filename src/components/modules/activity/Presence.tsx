@@ -268,6 +268,7 @@ export const DisplayNameHelper = ({ displayName }: { displayName: string }) => {
             content: NameModalContent,
           })
         }}
+        data-hide-print
         className={clsx(
           'border-border center fixed bottom-5 left-5 z-10 flex size-5 rounded-full border bg-base-100/80 text-2xl',
           'animation-wave hover:motion-preset-shake',
@@ -377,11 +378,18 @@ const TimelineItem: FC<TimelineItemProps> = memo(({ type, identity }) => {
 
 TimelineItem.displayName = 'TimelineItem'
 
-const MoitonBar = ({ ref, bgColor, isCurrent, position, children, ...rest }: {
-    position: number
-    bgColor: string
-    isCurrent: boolean
-  } & PropsWithChildren & { ref?: React.RefObject<HTMLDivElement | null> }) => {
+const MoitonBar = ({
+  ref,
+  bgColor,
+  isCurrent,
+  position,
+  children,
+  ...rest
+}: {
+  position: number
+  bgColor: string
+  isCurrent: boolean
+} & PropsWithChildren & { ref?: React.RefObject<HTMLDivElement | null> }) => {
   const elRef = useRef<HTMLDivElement>(null)
 
   const [memoedPosition] = useState(position)
