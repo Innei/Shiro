@@ -166,9 +166,9 @@ export const ModalInternal: Component<{
     [ModalProps],
   )
   const finalChildren = (
-    <CurrentModalContext.Provider value={ModalContextProps}>
+    <CurrentModalContext value={ModalContextProps}>
       {children ?? createElement(content, ModalProps)}
-    </CurrentModalContext.Provider>
+    </CurrentModalContext>
   )
 
   const edgeElementRef = useRef<HTMLDivElement>(null)

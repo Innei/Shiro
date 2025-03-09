@@ -12,7 +12,6 @@ import type { FC, ReactNode } from 'react'
 import {
   createContext as createReactContext,
   useCallback,
-  useContext as useReactContext,
   useEffect,
   useMemo,
 } from 'react'
@@ -98,8 +97,8 @@ export const CommentProvider: FC<{
     )
 
   return (
-    <CommentReaderMapContext.Provider value={readers}>
-      <CommentListContext.Provider value={commentAtom}>
+    <CommentReaderMapContext value={readers}>
+      <CommentListContext value={commentAtom}>
         {children(data, commentAtom)}
 
         {hasNextPage && (
@@ -107,8 +106,8 @@ export const CommentProvider: FC<{
             <CommentSkeleton />
           </LoadMoreIndicator>
         )}
-      </CommentListContext.Provider>
-    </CommentReaderMapContext.Provider>
+      </CommentListContext>
+    </CommentReaderMapContext>
   )
 }
 
@@ -122,7 +121,7 @@ export const useCommentByIdSelector = <T,>(
   commentId: string,
   selector: (comment?: CommentModel) => T,
 ): T => {
-  const commentsAtom = useReactContext(CommentListContext)
+  const commentsAtom = use(CommentListContext)
   return useAtomValue(
     useMemo(
       () => selectAtom(commentsAtom, (v) => selector(v[commentId])),
@@ -132,7 +131,7 @@ export const useCommentByIdSelector = <T,>(
 }
 
 export const useCommentById = (commentId: string) => {
-  const commentsAtom = useReactContext(CommentListContext)
+  const commentsAtom = use(CommentListContext)
   return useAtomValue(
     useMemo(
       () => selectAtom(commentsAtom, (v) => v[commentId]),
@@ -142,7 +141,7 @@ export const useCommentById = (commentId: string) => {
 }
 
 export const useUpdateComment = () => {
-  const commentsAtom = useReactContext(CommentListContext)
+  const commentsAtom = use(CommentListContext)
   return useCallback(
     (comment: Partial<CommentModel> & { id: string }) => {
       jotaiStore.set(commentsAtom, (prev) => {

@@ -2,7 +2,6 @@ import { atom, useStore } from 'jotai'
 import type { FC, PropsWithChildren, ReactNode } from 'react'
 import * as React from 'react'
 import {
-  forwardRef,
   useEffect,
   useImperativeHandle,
   useMemo,
@@ -30,10 +29,7 @@ export type SheetRef = {
   dismiss: () => void
 }
 
-export const PresentSheet = forwardRef<
-  SheetRef,
-  PropsWithChildren<PresentSheetProps>
->((props, ref) => {
+export const PresentSheet = ({ ref, ...props }: PropsWithChildren<PresentSheetProps> & { ref?: React.RefObject<SheetRef | null> }) => {
   const {
     content,
     children,
@@ -115,7 +111,7 @@ export const PresentSheet = forwardRef<
             </Drawer.Title>
           )}
 
-          <SheetContext.Provider
+          <SheetContext
             value={useMemo(
               () => ({
                 dismiss() {
@@ -128,7 +124,7 @@ export const PresentSheet = forwardRef<
             {typeof content === 'function'
               ? React.createElement(content)
               : content}
-          </SheetContext.Provider>
+          </SheetContext>
           <div ref={setHolderRef} />
         </Drawer.Content>
         <Drawer.Overlay
@@ -140,4 +136,4 @@ export const PresentSheet = forwardRef<
       </Drawer.Portal>
     </Root>
   )
-})
+}

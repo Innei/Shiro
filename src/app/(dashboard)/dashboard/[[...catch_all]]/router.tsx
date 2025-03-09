@@ -134,12 +134,12 @@ export const ClientRouter = () => {
 const DashboardLayout = () => {
   return (
     <div className="flex size-full grow flex-col">
-      <DashboardLayoutContext.Provider value={nestedRouteMap}>
+      <DashboardLayoutContext value={nestedRouteMap}>
         <ComposedKBarProvider>
           <LayoutHeader />
           <Outlet />
         </ComposedKBarProvider>
-      </DashboardLayoutContext.Provider>
+      </DashboardLayoutContext>
     </div>
   )
 }

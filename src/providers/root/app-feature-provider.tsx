@@ -11,9 +11,9 @@ export const AppFeatureProvider: FC<PropsWithChildren & typeof appFeatures> = ({
   children,
   ...features
 }) => (
-  <AppFeatureContext.Provider value={features}>
+  <AppFeatureContext value={features}>
     {children}
-  </AppFeatureContext.Provider>
+  </AppFeatureContext>
 )
 
 export const useFeatureEnabled = (feature: keyof typeof appFeatures) =>

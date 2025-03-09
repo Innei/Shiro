@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, use, useEffect, useMemo, useState } from 'react'
 
 import { cloneDeep } from '~/lib/lodash'
 import {
@@ -14,7 +14,7 @@ const HeaderMenuConfigContext = createContext({
   config: baseHeaderMenuConfig,
 })
 
-export const useHeaderConfig = () => useContext(HeaderMenuConfigContext)
+export const useHeaderConfig = () => use(HeaderMenuConfigContext)
 export const HeaderDataConfigureProvider: Component = ({ children }) => {
   const pageMeta = useAggregationSelector(
     (aggregationData) => aggregationData.pageMeta,
@@ -79,10 +79,10 @@ export const HeaderDataConfigureProvider: Component = ({ children }) => {
   }, [postListViewMode])
 
   return (
-    <HeaderMenuConfigContext.Provider
+    <HeaderMenuConfigContext
       value={useMemo(() => ({ config: headerMenuConfig }), [headerMenuConfig])}
     >
       {children}
-    </HeaderMenuConfigContext.Provider>
+    </HeaderMenuConfigContext>
   )
 }

@@ -60,13 +60,13 @@ export const CommentBoxProvider = (
     }
   })
   return (
-    <CommentBoxContext.Provider key={refId} value={ctxValue}>
-      <CommentBoxLifeCycleContext.Provider
+    <CommentBoxContext key={refId} value={ctxValue}>
+      <CommentBoxLifeCycleContext
         value={useMemo(() => ({ afterSubmit }), [afterSubmit])}
       >
         {children}
-      </CommentBoxLifeCycleContext.Provider>
-    </CommentBoxContext.Provider>
+      </CommentBoxLifeCycleContext>
+    </CommentBoxContext>
   )
 }
 
@@ -84,13 +84,13 @@ export const CommentIsReplyProvider = (
 ) => {
   const { isReply, originalRefId, onCompleted, children } = props
   return (
-    <CommentOriginalRefIdContext.Provider value={originalRefId}>
-      <CommentIsReplyContext.Provider value={isReply}>
-        <CommentCompletedCallbackContext.Provider value={onCompleted || null}>
+    <CommentOriginalRefIdContext value={originalRefId}>
+      <CommentIsReplyContext value={isReply}>
+        <CommentCompletedCallbackContext value={onCompleted || null}>
           {children}
-        </CommentCompletedCallbackContext.Provider>
-      </CommentIsReplyContext.Provider>
-    </CommentOriginalRefIdContext.Provider>
+        </CommentCompletedCallbackContext>
+      </CommentIsReplyContext>
+    </CommentOriginalRefIdContext>
   )
 }
 

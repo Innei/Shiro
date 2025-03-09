@@ -141,8 +141,8 @@ const CommentTable = (props: { state: CommentState }) => {
   const isMobile = useIsMobile()
 
   return (
-    <CommentStateContext.Provider value={props.state}>
-      <CommentDataContext.Provider
+    <CommentStateContext value={props.state}>
+      <CommentDataContext
         value={useMemo(
           () => ({
             refModelMap,
@@ -150,7 +150,7 @@ const CommentTable = (props: { state: CommentState }) => {
           [refModelMap],
         )}
       >
-        <CommentDataSourceContext.Provider
+        <CommentDataSourceContext
           value={useMemo(
             () => ({
               isLoading,
@@ -169,8 +169,8 @@ const CommentTable = (props: { state: CommentState }) => {
 
             {hasNextPage && <LoadMoreIndicator onLoading={fetchNextPage} />}
           </div>
-        </CommentDataSourceContext.Provider>
-      </CommentDataContext.Provider>
-    </CommentStateContext.Provider>
+        </CommentDataSourceContext>
+      </CommentDataContext>
+    </CommentStateContext>
   )
 }

@@ -1,6 +1,6 @@
 import { atom, useAtom, useSetAtom } from 'jotai'
 import type { FC } from 'react'
-import { createContext, useContext, useEffect, useMemo, useRef } from 'react'
+import { createContext, use, useEffect, useMemo, useRef } from 'react'
 
 import { CloseIcon } from '~/components/icons/close'
 import type { Suggestion } from '~/components/ui/auto-completion'
@@ -50,7 +50,7 @@ export const AddTag: Component<TagCompletionProp> = ({ ...props }) => {
   const ctxValue = useMemo(createTagEditingContextValue, [])
   const [isEditing, setIsEditing] = useAtom(ctxValue.isEditing)
   return (
-    <TagEditingContext.Provider value={ctxValue}>
+    <TagEditingContext value={ctxValue}>
       <div
         className={clsxm(
           'border-foreground-400/80 flex size-6 items-center justify-center rounded-full border border-dashed',
@@ -63,7 +63,7 @@ export const AddTag: Component<TagCompletionProp> = ({ ...props }) => {
         <i className="i-mingcute-add-line size-3" />
       </div>
       {isEditing && <TagCompletion {...props} />}
-    </TagEditingContext.Provider>
+    </TagEditingContext>
   )
 }
 
@@ -81,7 +81,7 @@ interface TagCompletionProp {
 
 const TagCompletion: FC<TagCompletionProp> = (props) => {
   const { allTags, existsTags, onEnter, onSelected } = props
-  const { isEditing } = useContext(TagEditingContext)
+  const { isEditing } = use(TagEditingContext)
   const setIsEditing = useSetAtom(isEditing)
   const filteredSuggestions = useMemo<Suggestion[]>(() => {
     if (!allTags || !existsTags) return []

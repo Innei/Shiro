@@ -1,6 +1,6 @@
 import { useIsomorphicLayoutEffect } from 'motion/react'
 import type { FC } from 'react'
-import { createContext, Suspense, useContext, useMemo, useState } from 'react'
+import { createContext, Suspense, use, useMemo, useState } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import { BlockLoading } from '~/components/modules/shared/BlockLoading'
@@ -48,13 +48,13 @@ export const ReactComponentRender: FC<ReactComponentRenderProps> = (props) => {
   }, [dlsProps.height])
   return (
     <ErrorBoundary fallback={<ComponentBlockError style={style} />}>
-      <StyleContext.Provider value={style}>
+      <StyleContext value={style}>
         <ReactComponentRenderImpl
           {...dlsProps}
           injectHostStyles={injectHostStyles}
           shadow={shadow}
         />
-      </StyleContext.Provider>
+      </StyleContext>
     </ErrorBoundary>
   )
 }
@@ -63,7 +63,7 @@ const ReactComponentRenderImpl: FC<DlsProps> = (dlsProps) => {
     component: ComponentBlockLoading,
   })
 
-  const style = useContext(StyleContext)
+  const style = use(StyleContext)
   useIsomorphicLayoutEffect(() => {
     loadScript(dlsProps.import).then(() => {
       const Component =

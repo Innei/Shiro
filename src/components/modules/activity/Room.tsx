@@ -1,7 +1,7 @@
 'use client'
 
 import type { FC, PropsWithChildren } from 'react'
-import { createContext, useContext, useEffect, useMemo } from 'react'
+import { createContext, use, useEffect, useMemo } from 'react'
 
 import { useRemoveActivityPresenceBySessionId } from '~/atoms/hooks/activity'
 import { useSocketIsConnect, useSocketSessionId } from '~/atoms/hooks/socket'
@@ -36,13 +36,11 @@ export const RoomProvider: FC<
     }
   }, [roomName, socketIsConnect, identity, removeSession])
 
-  return (
-    <RoomContext.Provider value={ctxValue}>{children}</RoomContext.Provider>
-  )
+  return <RoomContext value={ctxValue}>{children}</RoomContext>
 }
 
 export const useRoomContext = () => {
-  const ctx = useContext(RoomContext)
+  const ctx = use(RoomContext)
 
   if (!ctx) {
     throw new Error('useRoomContext must be used within RoomProvider')
@@ -50,4 +48,4 @@ export const useRoomContext = () => {
   return ctx
 }
 
-export const useMaybeInRoomContext = () => useContext(RoomContext)
+export const useMaybeInRoomContext = () => use(RoomContext)

@@ -6,8 +6,8 @@ import type { FC, PropsWithChildren } from 'react'
 import {
   createContext,
   memo,
+  use,
   useCallback,
-  useContext,
   useLayoutEffect,
   useMemo,
   useRef,
@@ -117,7 +117,7 @@ const CommentRender: Component<{
   )
   return (
     <>
-      <CommentHolderContext.Provider value={elAtom}>
+      <CommentHolderContext value={elAtom}>
         <m.li
           initial={
             comment['new']
@@ -222,7 +222,7 @@ const CommentRender: Component<{
         </m.li>
 
         <CommentBoxHolderProvider />
-      </CommentHolderContext.Provider>
+      </CommentHolderContext>
       {comment.children && comment.children.length > 0 && (
         <ul className="my-2 space-y-2">
           {comment.children.map((child) => (
@@ -238,7 +238,7 @@ const CommentHolderContext = createContext(atom(null as null | HTMLDivElement))
 
 const CommentBoxHolderProvider = () => {
   const ref = useRef<HTMLDivElement>(null)
-  const commentBoxHolderElementAtom = useContext(CommentHolderContext)
+  const commentBoxHolderElementAtom = use(CommentHolderContext)
   useLayoutEffect(() => {
     jotaiStore.set(commentBoxHolderElementAtom, ref.current)
 
@@ -250,7 +250,7 @@ const CommentBoxHolderProvider = () => {
 }
 
 export const CommentBoxHolderPortal = (props: PropsWithChildren) => {
-  const portalElement = useAtomValue(useContext(CommentHolderContext))
+  const portalElement = useAtomValue(use(CommentHolderContext))
 
   if (!portalElement) return null
 

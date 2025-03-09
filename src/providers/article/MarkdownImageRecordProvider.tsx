@@ -1,7 +1,7 @@
 import type { Image } from '@mx-space/api-client'
 import { atom, useAtomValue } from 'jotai'
 import { selectAtom } from 'jotai/utils'
-import { createContext, useCallback, useContext, useEffect } from 'react'
+import { createContext, use, useCallback, useEffect } from 'react'
 
 import { useRefValue } from '~/hooks/common/use-ref-value'
 import { jotaiStore } from '~/lib/store'
@@ -18,16 +18,16 @@ export const MarkdownImageRecordProvider: Component<{
   }, [images])
 
   return (
-    <MarkdownImageRecordProviderInternal.Provider value={atomRef}>
+    <MarkdownImageRecordProviderInternal value={atomRef}>
       {children}
-    </MarkdownImageRecordProviderInternal.Provider>
+    </MarkdownImageRecordProviderInternal>
   )
 }
 
 export const useMarkdownImageRecord = (src: string) =>
   useAtomValue(
     selectAtom(
-      useContext(MarkdownImageRecordProviderInternal),
+      use(MarkdownImageRecordProviderInternal),
       useCallback(
         (value: Image[]) => value.find((image) => image.src === src),
         [src],

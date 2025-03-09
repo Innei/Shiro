@@ -5,7 +5,7 @@ import type {
   FormHTMLAttributes,
   PropsWithChildren,
 } from 'react'
-import { forwardRef, useCallback, useImperativeHandle, useMemo } from 'react'
+import { useCallback, useImperativeHandle, useMemo } from 'react'
 
 import { useRefValue } from '~/hooks/common/use-ref-value'
 import { jotaiStore } from '~/lib/store'
@@ -14,14 +14,11 @@ import type { FormContextType } from './FormContext'
 import { FormConfigContext, FormContext, useForm } from './FormContext'
 import type { Field } from './types'
 
-export const Form = forwardRef<
-  FormContextType,
-  PropsWithChildren<
+export const Form = ({ ref, ...props }: PropsWithChildren<
     DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement> & {
       showErrorMessage?: boolean
     }
-  >
->((props, ref) => {
+  > & { ref?: React.RefObject<FormContextType | null> }) => {
   const { showErrorMessage = true, ...formProps } = props
   const fieldsAtom = useRefValue(() => atom({}))
   const ctxValue: FormContextType = useRefValue(() => ({
@@ -65,15 +62,15 @@ export const Form = forwardRef<
   useImperativeHandle(ref, () => ctxValue, [ctxValue])
 
   return (
-    <FormContext.Provider value={ctxValue}>
-      <FormConfigContext.Provider
+    <FormContext value={ctxValue}>
+      <FormConfigContext
         value={useMemo(() => ({ showErrorMessage }), [showErrorMessage])}
       >
         <FormInternal {...formProps} />
-      </FormConfigContext.Provider>
-    </FormContext.Provider>
+      </FormConfigContext>
+    </FormContext>
   )
-})
+}
 Form.displayName = 'Form'
 
 const FormInternal = (

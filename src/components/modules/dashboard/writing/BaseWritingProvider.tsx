@@ -4,7 +4,7 @@ import { produce } from 'immer'
 import type { PrimitiveAtom } from 'jotai'
 import { atom, useAtom } from 'jotai'
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react'
-import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, use, useEffect, useMemo, useState } from 'react'
 
 import { StyledButton } from '~/components/ui/button'
 import { useModalStack } from '~/components/ui/modal'
@@ -43,9 +43,9 @@ export const BaseWritingProvider = <T extends BaseModelType>(
 
   return (
     <AutoSaverProvider>
-      <BaseWritingContext.Provider value={props.atom as any}>
+      <BaseWritingContext value={props.atom as any}>
         {props.children}
-      </BaseWritingContext.Provider>
+      </BaseWritingContext>
     </AutoSaverProvider>
   )
 }
@@ -73,7 +73,7 @@ const AutoSaverProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [])
 
   return (
-    <AutoSaverContext.Provider
+    <AutoSaverContext
       value={useMemo(
         () => ({
           reset(type, nsKey?: string) {
@@ -86,11 +86,11 @@ const AutoSaverProvider: FC<PropsWithChildren> = ({ children }) => {
       )}
     >
       {children}
-    </AutoSaverContext.Provider>
+    </AutoSaverContext>
   )
 }
 
-export const useResetAutoSaverData = () => useContext(AutoSaverContext).reset
+export const useResetAutoSaverData = () => use(AutoSaverContext).reset
 
 export const useAutoSaver = <T extends { id: string }>([
   editingData,
@@ -134,7 +134,7 @@ export const useAutoSaver = <T extends { id: string }>([
   return [forceUpdateKey]
 }
 
-export const useBaseWritingContext = () => useContext(BaseWritingContext)
+export const useBaseWritingContext = () => use(BaseWritingContext)
 
 export const useBaseWritingAtom = (key: keyof BaseModelType) => {
   const ctxAtom = useBaseWritingContext()

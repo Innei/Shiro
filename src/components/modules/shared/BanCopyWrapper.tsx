@@ -3,14 +3,14 @@
 import { DialogContent, DialogPortal, Root } from '@radix-ui/react-dialog'
 import { AnimatePresence, m } from 'motion/react'
 import type { FC, PropsWithChildren } from 'react'
-import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { createContext, use, useEffect, useRef, useState } from 'react'
 
 import { isLogged } from '~/atoms/hooks/owner'
 import { ModalOverlay } from '~/components/ui/modal/stacked/overlay'
 
 const BanCopyContext = createContext(false)
 
-export const useIsInBanCopyContext = () => useContext(BanCopyContext)
+export const useIsInBanCopyContext = () => use(BanCopyContext)
 
 export const BanCopyWrapper: FC<PropsWithChildren> = (props) => {
   const [showCopyWarn, setShowCopyWarn] = useState(false)
@@ -45,7 +45,7 @@ export const BanCopyWrapper: FC<PropsWithChildren> = (props) => {
     }
   }, [showCopyWarn])
   return (
-    <BanCopyContext.Provider value={true}>
+    <BanCopyContext value={true}>
       <div ref={ref}>{props.children}</div>
       <Root open>
         <AnimatePresence>
@@ -74,6 +74,6 @@ export const BanCopyWrapper: FC<PropsWithChildren> = (props) => {
           )}
         </AnimatePresence>
       </Root>
-    </BanCopyContext.Provider>
+    </BanCopyContext>
   )
 }

@@ -52,7 +52,7 @@ export const ListSortAndFilterProvider: FC<
     props
 
   return (
-    <ListSortAndFilterContext.Provider
+    <ListSortAndFilterContext
       value={useMemo(
         () => ({
           filterAtom,
@@ -61,7 +61,7 @@ export const ListSortAndFilterProvider: FC<
         [filterAtom, sortingAtom],
       )}
     >
-      <ListSortAndFilterListContext.Provider
+      <ListSortAndFilterListContext
         value={useMemo(
           () => ({
             sortingKeyMap: sortingKeyMap ?? defaultSortingKeyMap,
@@ -71,7 +71,7 @@ export const ListSortAndFilterProvider: FC<
         )}
       >
         {children}
-      </ListSortAndFilterListContext.Provider>
-    </ListSortAndFilterContext.Provider>
+      </ListSortAndFilterListContext>
+    </ListSortAndFilterContext>
   )
 }
