@@ -11,6 +11,7 @@ import { selectAtom } from 'jotai/utils'
 import type { FC, ReactNode } from 'react'
 import {
   createContext as createReactContext,
+  use,
   useCallback,
   useEffect,
   useMemo,
@@ -97,7 +98,7 @@ export const CommentProvider: FC<{
     )
 
   return (
-    <CommentReaderMapContext value={readers}>
+    <CommentReaderMapContext.Provider value={readers}>
       <CommentListContext value={commentAtom}>
         {children(data, commentAtom)}
 
@@ -107,7 +108,7 @@ export const CommentProvider: FC<{
           </LoadMoreIndicator>
         )}
       </CommentListContext>
-    </CommentReaderMapContext>
+    </CommentReaderMapContext.Provider>
   )
 }
 

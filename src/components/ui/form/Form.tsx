@@ -14,11 +14,17 @@ import type { FormContextType } from './FormContext'
 import { FormConfigContext, FormContext, useForm } from './FormContext'
 import type { Field } from './types'
 
-export const Form = ({ ref, ...props }: PropsWithChildren<
-    DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement> & {
-      showErrorMessage?: boolean
-    }
-  > & { ref?: React.RefObject<FormContextType | null> }) => {
+export const Form = ({
+  ref,
+  ...props
+}: PropsWithChildren<
+  Omit<
+    DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>,
+    'ref'
+  > & {
+    showErrorMessage?: boolean
+  }
+> & { ref?: React.RefObject<FormContextType | null> }) => {
   const { showErrorMessage = true, ...formProps } = props
   const fieldsAtom = useRefValue(() => atom({}))
   const ctxValue: FormContextType = useRefValue(() => ({
