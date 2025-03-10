@@ -1,4 +1,5 @@
 import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
+import { SharedWorkerPolyfill as SharedWorker } from '@okikio/sharedworker'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { getSocketWebSessionId } from '~/atoms/hooks/socket'
@@ -9,7 +10,6 @@ import { isDev, isServerSide } from '~/lib/env'
 import type { EventTypes, SocketEmitEnum } from '~/types/events'
 
 import { eventHandler } from './handler'
-// import { SharedWorkerPolyfill as SharedWorker } from './worker-polyfill'
 
 interface WorkerSocket {
   sid: string
