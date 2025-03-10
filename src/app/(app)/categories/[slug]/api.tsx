@@ -1,5 +1,3 @@
-import { cache } from 'react'
-
 import { attachServerFetch } from '~/lib/attach-fetch'
 import { apiClient } from '~/lib/request'
 import { requestErrorHandler } from '~/lib/request.server'

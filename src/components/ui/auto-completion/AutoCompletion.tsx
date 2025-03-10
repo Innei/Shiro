@@ -3,7 +3,6 @@ import Fuse from 'fuse.js'
 import { AnimatePresence } from 'motion/react'
 import type { KeyboardEvent } from 'react'
 import {
-  forwardRef,
   useEffect,
   useImperativeHandle,
   useLayoutEffect,
@@ -39,167 +38,162 @@ export interface AutocompleteProps extends AdvancedInputProps {
   wrapperClassName?: string
 }
 
-export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
-  (
-    {
-      suggestions,
-      renderSuggestion = (suggestion) => suggestion.name,
-      onSuggestionSelected,
-      onConfirm,
-      onEndReached,
-      onChange,
-      portal,
-      wrapperClassName,
+export const Autocomplete = ({
+  ref: forwardedRef,
+  suggestions,
+  renderSuggestion = (suggestion) => suggestion.name,
+  onSuggestionSelected,
+  onConfirm,
+  onEndReached,
+  onChange,
+  portal,
+  wrapperClassName,
+  ...inputProps
+}: AutocompleteProps & { ref?: React.RefObject<HTMLInputElement | null> }) => {
+  const [filterableSuggestions, setFilterableSuggestions] =
+    useState(suggestions)
+  const [inputValue, setInputValue] = useState(
+    inputProps.value || inputProps.defaultValue || '',
+  )
 
-      ...inputProps
-    },
-    forwardedRef,
-  ) => {
-    const [filterableSuggestions, setFilterableSuggestions] =
-      useState(suggestions)
-    const [inputValue, setInputValue] = useState(
-      inputProps.value || inputProps.defaultValue || '',
-    )
-
-    const doFilter = useEventCallback(() => {
-      const fuse = new Fuse(suggestions, {
-        keys: ['name', 'value'],
-      })
-      const trimInputValue = (inputValue as string).trim()
-
-      if (!trimInputValue) return setFilterableSuggestions(suggestions)
-
-      const results = fuse.search(trimInputValue)
-      setFilterableSuggestions(results.map((result) => result.item))
+  const doFilter = useEventCallback(() => {
+    const fuse = new Fuse(suggestions, {
+      keys: ['name', 'value'],
     })
-    useEffect(() => {
-      doFilter()
-    }, [inputValue, suggestions])
+    const trimInputValue = (inputValue as string).trim()
 
-    const [isOpen, setIsOpen] = useState(false)
+    if (!trimInputValue) return setFilterableSuggestions(suggestions)
 
-    const ref = useRef<HTMLDivElement>(null)
-    const onBlur = useEventCallback((e: any) => {
-      if (ref?.current?.contains(e.relatedTarget)) {
-        return
-      }
+    const results = fuse.search(trimInputValue)
+    setFilterableSuggestions(results.map((result) => result.item))
+  })
+  useEffect(() => {
+    doFilter()
+  }, [inputValue, suggestions])
+
+  const [isOpen, setIsOpen] = useState(false)
+
+  const ref = useRef<HTMLDivElement>(null)
+  const onBlur = useEventCallback((e: any) => {
+    if (ref?.current?.contains(e.relatedTarget)) {
+      return
+    }
+    setIsOpen(false)
+  })
+
+  const handleInputKeyDown = useEventCallback((e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      onConfirm?.((e.target as HTMLInputElement).value)
       setIsOpen(false)
-    })
+    }
+  })
+  const inputRef = useRef<HTMLInputElement>(null)
+  useImperativeHandle(forwardedRef, () => inputRef.current!)
 
-    const handleInputKeyDown = useEventCallback((e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
-        e.preventDefault()
-        onConfirm?.((e.target as HTMLInputElement).value)
-        setIsOpen(false)
+  const [inputWidth, setInputWidth] = useState(0)
+  const [inputPos, setInputPos] = useState(() => ({ x: 0, y: 0 }))
+
+  useLayoutEffect(() => {
+    const $input = inputRef.current
+    if (!$input) return
+
+    const handler = () => {
+      const rect = $input.getBoundingClientRect()
+      setInputWidth(rect.width)
+      setInputPos({ x: rect.x, y: rect.y + rect.height + 6 })
+    }
+    handler()
+
+    const resizeObserver = new ResizeObserver(handler)
+    resizeObserver.observe($input)
+    return () => {
+      resizeObserver.disconnect()
+    }
+  }, [])
+
+  const handleScroll = useEventCallback(
+    throttle(() => {
+      const { scrollHeight, scrollTop, clientHeight } = ref.current!
+      // gap 50px
+      if (scrollHeight - scrollTop - clientHeight < 50) {
+        onEndReached?.()
       }
-    })
-    const inputRef = useRef<HTMLInputElement>(null)
-    useImperativeHandle(forwardedRef, () => inputRef.current!)
+    }, 30),
+  )
 
-    const [inputWidth, setInputWidth] = useState(0)
-    const [inputPos, setInputPos] = useState(() => ({ x: 0, y: 0 }))
+  const handleChange = useEventCallback((e: any) => {
+    setInputValue(e.target.value)
+    onChange?.(e)
+  })
 
-    useLayoutEffect(() => {
-      const $input = inputRef.current
-      if (!$input) return
-
-      const handler = () => {
-        const rect = $input.getBoundingClientRect()
-        setInputWidth(rect.width)
-        setInputPos({ x: rect.x, y: rect.y + rect.height + 6 })
-      }
-      handler()
-
-      const resizeObserver = new ResizeObserver(handler)
-      resizeObserver.observe($input)
-      return () => {
-        resizeObserver.disconnect()
-      }
-    }, [])
-
-    const handleScroll = useEventCallback(
-      throttle(() => {
-        const { scrollHeight, scrollTop, clientHeight } = ref.current!
-        // gap 50px
-        if (scrollHeight - scrollTop - clientHeight < 50) {
-          onEndReached?.()
-        }
-      }, 30),
-    )
-
-    const handleChange = useEventCallback((e: any) => {
-      setInputValue(e.target.value)
-      onChange?.(e)
-    })
-
-    const ListElement = (
-      <div
-        className={clsx(
-          'pointer-events-auto z-[101] mt-1',
-          portal ? 'absolute flex flex-col' : 'absolute w-full',
-        )}
-        ref={ref}
-        style={merge(
-          {},
-          portal
-            ? {
-                width: `${inputWidth}px`,
-                left: `${inputPos.x}px`,
-                top: `${inputPos.y}px`,
-              }
-            : {},
-        )}
-      >
-        {/* FIXME: https://github.com/radix-ui/primitives/issues/2125 */}
-        <ul
-          className={clsx(
-            'pointer-events-auto max-h-48 grow',
-            'overflow-hidden rounded-md border border-zinc-200 bg-zinc-50/90 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/90',
-          )}
-          onWheel={stopPropagation}
-          onScroll={handleScroll}
-        >
-          {filterableSuggestions.map((suggestion) => {
-            const handleClick = () => {
-              onSuggestionSelected(suggestion)
-              setIsOpen(false)
-
-              setInputValue(suggestion.name)
+  const ListElement = (
+    <div
+      className={clsx(
+        'pointer-events-auto z-[101] mt-1',
+        portal ? 'absolute flex flex-col' : 'absolute w-full',
+      )}
+      ref={ref}
+      style={merge(
+        {},
+        portal
+          ? {
+              width: `${inputWidth}px`,
+              left: `${inputPos.x}px`,
+              top: `${inputPos.y}px`,
             }
-            return (
-              <li
-                className="cursor-default px-4 py-3 text-sm hover:bg-zinc-200 dark:hover:bg-neutral-800"
-                key={suggestion.value}
-                onMouseDown={handleClick}
-                onClick={handleClick}
-              >
-                {renderSuggestion(suggestion)}
-              </li>
-            )
-          })}
-        </ul>
-      </div>
-    )
+          : {},
+      )}
+    >
+      {/* FIXME: https://github.com/radix-ui/primitives/issues/2125 */}
+      <ul
+        className={clsx(
+          'pointer-events-auto max-h-48 grow',
+          'overflow-hidden rounded-md border border-zinc-200 bg-zinc-50/90 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/90',
+        )}
+        onWheel={stopPropagation}
+        onScroll={handleScroll}
+      >
+        {filterableSuggestions.map((suggestion) => {
+          const handleClick = () => {
+            onSuggestionSelected(suggestion)
+            setIsOpen(false)
 
-    return (
-      <div className={clsxm('pointer-events-auto relative', wrapperClassName)}>
-        <Input
-          value={inputValue}
-          ref={inputRef}
-          onFocus={() => setIsOpen(true)}
-          onBlur={onBlur}
-          onKeyDown={handleInputKeyDown}
-          onChange={handleChange}
-          {...inputProps}
-        />
-        <AnimatePresence>
-          {isOpen &&
-            filterableSuggestions.length > 0 &&
-            (portal ? <RootPortal>{ListElement}</RootPortal> : ListElement)}
-        </AnimatePresence>
-      </div>
-    )
-  },
-)
+            setInputValue(suggestion.name)
+          }
+          return (
+            <li
+              className="cursor-default px-4 py-3 text-sm hover:bg-zinc-200 dark:hover:bg-neutral-800"
+              key={suggestion.value}
+              onMouseDown={handleClick}
+              onClick={handleClick}
+            >
+              {renderSuggestion(suggestion)}
+            </li>
+          )
+        })}
+      </ul>
+    </div>
+  )
+
+  return (
+    <div className={clsxm('pointer-events-auto relative', wrapperClassName)}>
+      <Input
+        value={inputValue}
+        ref={inputRef}
+        onFocus={() => setIsOpen(true)}
+        onBlur={onBlur}
+        onKeyDown={handleInputKeyDown}
+        onChange={handleChange}
+        {...inputProps}
+      />
+      <AnimatePresence>
+        {isOpen &&
+          filterableSuggestions.length > 0 &&
+          (portal ? <RootPortal>{ListElement}</RootPortal> : ListElement)}
+      </AnimatePresence>
+    </div>
+  )
+}
 
 Autocomplete.displayName = 'Autocomplete'

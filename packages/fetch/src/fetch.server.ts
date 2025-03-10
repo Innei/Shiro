@@ -1,10 +1,6 @@
 import 'server-only'
 
 import { nanoid } from 'nanoid'
-import type {
-  UnsafeUnwrappedCookies,
-  UnsafeUnwrappedHeaders,
-} from 'next/headers'
 import { cookies, headers as nextHeaders } from 'next/headers'
 import { createFetch } from 'ofetch'
 

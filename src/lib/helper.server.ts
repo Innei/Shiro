@@ -1,7 +1,6 @@
 import 'server-only'
 
 import chroma from 'chroma-js'
-import type { UnsafeUnwrappedHeaders } from 'next/headers'
 import { headers } from 'next/headers'
 import uniqolor from 'uniqolor'
 

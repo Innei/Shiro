@@ -1,7 +1,7 @@
 import 'server-only'
 
 import { RequestError } from '@mx-space/api-client'
-import { notFound, useParams } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import type { FC, ReactNode } from 'react'
 import { createElement } from 'react'
 

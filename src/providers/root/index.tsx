@@ -7,7 +7,7 @@ import type { JSX, PropsWithChildren } from 'react'
 import { PeekPortal } from '~/components/modules/peek/PeekPortal'
 import { ModalStackProvider } from '~/components/ui/modal'
 import { Toaster } from '~/components/ui/toast'
-import { useBeforeUnload } from '~/hooks/common/use-before-unload'
+import { BeforeUnloadProvider } from '~/hooks/common/use-before-unload'
 import { isDev } from '~/lib/env'
 
 import { ProviderComposer } from '../../components/common/ProviderComposer'
@@ -58,7 +58,7 @@ export function WebAppProviders({ children }: PropsWithChildren) {
 const dashboardContexts: JSX.Element[] = [
   <ReactQueryProviderForDashboard key="reactQueryProvider" />,
   <AuthProvider key="auth" />,
-  <useBeforeUnload.Provider key="useBeforeUnloadProvider" />,
+  <BeforeUnloadProvider key="useBeforeUnloadProvider" />,
   ...baseContexts,
 ]
 export function DashboardAppProviders({ children }: PropsWithChildren) {

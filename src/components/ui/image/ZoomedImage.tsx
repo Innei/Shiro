@@ -14,7 +14,6 @@ import type {
 } from 'react'
 import {
   cloneElement,
-  forwardRef,
   memo,
   useCallback,
   useImperativeHandle,
@@ -302,10 +301,15 @@ const NoFixedPlaceholder = ({ accent }: { accent?: string }) => (
 )
 
 const OptimizedImage = memo(
-  forwardRef<
-    HTMLImageElement,
-    DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>
-  >(({ src, alt, ...rest }, ref) => {
+  ({
+    ref,
+    src,
+    alt,
+    ...rest
+  }: DetailedHTMLProps<
+    ImgHTMLAttributes<HTMLImageElement>,
+    HTMLImageElement
+  > & { ref?: React.RefObject<HTMLImageElement | null> }) => {
     const { height, width } = useMarkdownImageRecord(src!) || rest
 
     const isGif = src!.endsWith('.gif')
@@ -358,7 +362,7 @@ const OptimizedImage = memo(
         )}
       </>
     )
-  }),
+  },
 )
 
 OptimizedImage.displayName = 'OptimizedImage'

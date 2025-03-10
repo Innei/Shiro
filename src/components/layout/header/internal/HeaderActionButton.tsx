@@ -1,11 +1,13 @@
 import clsx from 'clsx'
 import type { JSX } from 'react'
-import { forwardRef } from 'react'
 
-export const HeaderActionButton = forwardRef<
-  HTMLDivElement,
-  JSX.IntrinsicElements['div']
->(({ children, ...rest }, ref) => (
+export const HeaderActionButton = ({
+  ref,
+  children,
+  ...rest
+}: JSX.IntrinsicElements['div'] & {
+  ref?: React.RefObject<HTMLDivElement | null>
+}) => (
   <div
     role="button"
     tabIndex={1}
@@ -21,6 +23,6 @@ export const HeaderActionButton = forwardRef<
   >
     {children}
   </div>
-))
+)
 
 HeaderActionButton.displayName = 'HeaderActionButton'

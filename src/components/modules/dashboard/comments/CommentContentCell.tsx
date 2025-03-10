@@ -1,6 +1,6 @@
 import type { CommentModel } from '@mx-space/api-client'
 import { CollectionRefTypes } from '@mx-space/api-client'
-import { useContext, useMemo } from 'react'
+import { use, useMemo } from 'react'
 
 import { RelativeTime } from '~/components/ui/relative-time'
 import { EllipsisHorizontalTextWithTooltip } from '~/components/ui/typography'
@@ -25,7 +25,7 @@ export const CommentContentCell: Component<{ comment: CommentModel }> = (
 
     isWhispers,
   } = comment
-  const ctx = useContext(CommentDataContext)
+  const ctx = use(CommentDataContext)
   const ref = ctx.refModelMap.get(id)
 
   const TitleEl = useMemo(() => {

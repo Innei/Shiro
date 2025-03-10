@@ -1,6 +1,6 @@
 import type { CommentModel } from '@mx-space/api-client'
 import { CommentState } from '@mx-space/api-client'
-import { useContext } from 'react'
+import { use } from 'react'
 
 import { MotionButtonBase } from '~/components/ui/button'
 import { useModalStack } from '~/components/ui/modal'
@@ -17,7 +17,7 @@ import {
 import { ReplyModal } from './ReplyModal'
 
 export const CommentAction = (props: { comment: CommentModel }) => {
-  const currentState = useContext(CommentStateContext)
+  const currentState = use(CommentStateContext)
 
   const { id, author } = props.comment
 

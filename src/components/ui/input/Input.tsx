@@ -1,18 +1,18 @@
 import type { DetailedHTMLProps, InputHTMLAttributes } from 'react'
-import { forwardRef } from 'react'
 
 import { useInputComposition } from '~/hooks/common/use-input-composition'
 import { clsxm } from '~/lib/helper'
 
 // This composition handler is not perfect
 // @see https://foxact.skk.moe/use-composition-input
-export const Input = forwardRef<
-  HTMLInputElement,
-  Omit<
-    DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
-    'ref'
-  >
->(({ className, ...props }, ref) => {
+export const Input = ({
+  ref,
+  className,
+  ...props
+}: DetailedHTMLProps<
+  InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+>) => {
   const inputProps = useInputComposition(props)
   return (
     <input
@@ -31,5 +31,5 @@ export const Input = forwardRef<
       {...inputProps}
     />
   )
-})
+}
 Input.displayName = 'Input'

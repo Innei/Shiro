@@ -5,10 +5,13 @@ import { clsxm } from '~/lib/helper'
 
 import { useLabelPropsContext } from './LabelContext'
 
-export const Label = React.forwardRef<
-  React.ElementRef<typeof LabelPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
->(({ className, ...props }, ref) => {
+export const Label = ({
+  ref,
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> & {
+  ref?: React.RefObject<React.ElementRef<typeof LabelPrimitive.Root> | null>
+}) => {
   const propsCtx = useLabelPropsContext()
 
   return (
@@ -22,5 +25,5 @@ export const Label = React.forwardRef<
       {...props}
     />
   )
-})
+}
 Label.displayName = LabelPrimitive.Root.displayName

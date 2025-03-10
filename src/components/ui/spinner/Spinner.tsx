@@ -1,13 +1,13 @@
 import clsx from 'clsx'
-import { forwardRef } from 'react'
 
-export const Spinner = forwardRef<
-  HTMLDivElement,
-  {
-    size?: number
-    className?: string
-  }
->(({ className, size }, ref) => (
+export const Spinner = ({
+  ref,
+  className,
+  size,
+}: {
+  size?: number
+  className?: string
+} & { ref?: React.RefObject<HTMLDivElement | null> }) => (
   <div className={className} ref={ref}>
     <div
       className="loading loading-dots"
@@ -17,7 +17,7 @@ export const Spinner = forwardRef<
       }}
     />
   </div>
-))
+)
 
 Spinner.displayName = 'Spinner'
 

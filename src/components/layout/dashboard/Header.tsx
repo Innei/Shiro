@@ -6,7 +6,7 @@ import Image from 'next/image'
 import NextLink from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import type { MouseEventHandler, ReactNode } from 'react'
-import { useCallback, useContext } from 'react'
+import { use, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 
 import type { RouteItem } from '~/app/(dashboard)/dashboard/[[...catch_all]]/router'
@@ -112,7 +112,7 @@ const MobileMenuDrawerButton = () => {
 const HeaderMenu: Component = ({ className }) => {
   const setHeaderDrawer = useSetAtom(headerDrawerAtom)
 
-  const routes = useContext(DashboardLayoutContext)
+  const routes = use(DashboardLayoutContext)
   const firstLevelMenu = routes
     .map((route) => {
       const { title, icon, redirect } = route.config
@@ -176,7 +176,7 @@ const HeaderMenu: Component = ({ className }) => {
 const SecondaryNavLine = () => {
   const pathname = usePathname().replace('/dashboard', '')
 
-  const routes = useContext(DashboardLayoutContext)
+  const routes = use(DashboardLayoutContext)
 
   const parent = routes.findLast((route) => {
     return pathname.startsWith(route.path)

@@ -17,6 +17,7 @@ export default defineConfig(
       },
     },
     rules: {
+      '@eslint-react/no-context-provider': 'off',
       'package-json/valid-package-def': 'off',
       '@eslint-react/no-missing-key': 'warn',
       'no-restricted-syntax': 'off',

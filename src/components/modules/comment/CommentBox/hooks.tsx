@@ -13,7 +13,7 @@ import type { ExtractAtomValue } from 'jotai'
 import { atom, useAtomValue } from 'jotai'
 import { atomWithStorage, selectAtom } from 'jotai/utils'
 import type { PropsWithChildren } from 'react'
-import { useCallback, useContext } from 'react'
+import { use, useCallback } from 'react'
 
 import { useIsLogged } from '~/atoms/hooks/owner'
 import { apiClient } from '~/lib/request'
@@ -32,25 +32,24 @@ import {
   CommentOriginalRefIdContext,
 } from './providers'
 
-export const useUseCommentReply = () => useContext(CommentIsReplyContext)
+export const useUseCommentReply = () => use(CommentIsReplyContext)
 
 export const useCommentOriginalRefId = () => {
-  const fallbackRefId = useAtomValue(useContext(CommentBoxContext).refId)
-  return useContext(CommentOriginalRefIdContext) || fallbackRefId
+  const fallbackRefId = useAtomValue(use(CommentBoxContext).refId)
+  return use(CommentOriginalRefIdContext) || fallbackRefId
 }
 
 export const useCommentCompletedCallback = () =>
-  useContext(CommentCompletedCallbackContext)
+  use(CommentCompletedCallbackContext)
 
 export const useCommentBoxTextValue = () =>
-  useAtomValue(useContext(CommentBoxContext).text)
+  useAtomValue(use(CommentBoxContext).text)
 
 export const useCommentBoxRefIdValue = () =>
-  useAtomValue(useContext(CommentBoxContext).refId)
+  useAtomValue(use(CommentBoxContext).refId)
 
-export const useGetCommentBoxAtomValues = () => useContext(CommentBoxContext)
-export const useCommentBoxLifeCycle = () =>
-  useContext(CommentBoxLifeCycleContext)
+export const useGetCommentBoxAtomValues = () => use(CommentBoxContext)
+export const useCommentBoxLifeCycle = () => use(CommentBoxLifeCycleContext)
 
 // ReactNode 导致 tsx 无法推断，过于复杂
 const commentActionLeftSlotAtom = atom(null as PropsWithChildren['children'])
@@ -63,7 +62,7 @@ export const setCommentActionLeftSlot = (slot: PropsWithChildren['children']) =>
 export const useCommentBoxHasText = () =>
   useAtomValue(
     selectAtom(
-      useContext(CommentBoxContext).text,
+      use(CommentBoxContext).text,
       useCallback((v) => v.length > 0, []),
     ),
   )
@@ -71,7 +70,7 @@ export const useCommentBoxHasText = () =>
 export const useCommentBoxTextIsOversize = () =>
   useAtomValue(
     selectAtom(
-      useContext(CommentBoxContext).text,
+      use(CommentBoxContext).text,
       useCallback((v) => v.length > MAX_COMMENT_TEXT_LENGTH, []),
     ),
   )
@@ -80,7 +79,7 @@ type CommentContextValue = ReturnType<typeof createInitialValue>
 export const useSetCommentBoxValues = <
   T extends keyof CommentContextValue,
 >() => {
-  const ctx = useContext(CommentBoxContext)
+  const ctx = use(CommentBoxContext)
   return useCallback(
     (key: T, value: ExtractAtomValue<CommentContextValue[T]>) => {
       const atom = ctx[key]

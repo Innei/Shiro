@@ -1,5 +1,5 @@
 import { atom } from 'jotai'
-import { createContext, useContext } from 'react'
+import { createContext, use } from 'react'
 
 import type { Field } from './types'
 
@@ -18,5 +18,5 @@ export const FormContext = createContext<FormContextType>(null!)
 export const FormConfigContext = createContext<{
   showErrorMessage?: boolean
 }>(null!)
-export const useForm = () => useContext(FormContext)
-export const useFormConfig = () => useContext(FormConfigContext)
+export const useForm = () => use(FormContext)
+export const useFormConfig = () => use(FormConfigContext)

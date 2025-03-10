@@ -1,9 +1,5 @@
 import 'server-only'
 
-import type {
-  UnsafeUnwrappedCookies,
-  UnsafeUnwrappedHeaders,
-} from 'next/headers'
 import { cookies, headers } from 'next/headers'
 
 import PKG from '../../package.json'

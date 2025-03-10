@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { cache } from 'react'
 
 import { PageColorGradient } from '~/components/common/PageColorGradient'
 import {

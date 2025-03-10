@@ -1,22 +1,27 @@
-import { forwardRef, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { stopPropagation } from '~/lib/dom'
 import { clsxm } from '~/lib/helper'
 
 import { BaseCodeHighlighter } from '../code-highlighter'
 
-export const CodeEditor = forwardRef<
-  HTMLTextAreaElement,
-  {
-    content: string
-    language: string
+export const CodeEditor = ({
+  ref,
+  content,
+  language,
+  onChange,
+  minHeight,
+  className,
+  padding = 0,
+}: {
+  content: string
+  language: string
 
-    onChange?: (value: string) => void
-    minHeight?: string
-    className?: string
-    padding?: number
-  }
->(({ content, language, onChange, minHeight, className, padding = 0 }, ref) => {
+  onChange?: (value: string) => void
+  minHeight?: string
+  className?: string
+  padding?: number
+} & { ref?: React.RefObject<HTMLTextAreaElement | null> }) => {
   const [highlighterValue, setHighlighterValue] = useState(content)
 
   useEffect(() => {
@@ -62,6 +67,6 @@ export const CodeEditor = forwardRef<
       />
     </div>
   )
-})
+}
 
 CodeEditor.displayName = 'CodeEditor'

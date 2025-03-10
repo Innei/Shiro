@@ -1,7 +1,7 @@
 import { produce } from 'immer'
 import { createModelDataProvider } from 'jojoo/react'
 import { atom, useAtom } from 'jotai'
-import { useContext, useMemo } from 'react'
+import { use, useMemo } from 'react'
 
 import type { NoteDto } from '~/models/writing'
 
@@ -20,7 +20,7 @@ export const useNoteModelSingleFieldAtom = <
 >(
   key: T,
 ) => {
-  const ctxAtom = useContext(ModelDataAtomContext)
+  const ctxAtom = use(ModelDataAtomContext)
   if (!ctxAtom)
     throw new Error(
       'useNoteModelSingleFieldAtom must be used inside NoteModelDataAtomProvider',

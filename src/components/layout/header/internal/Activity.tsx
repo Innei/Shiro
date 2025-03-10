@@ -7,7 +7,7 @@ import * as React from 'react'
 import {
   createContext,
   memo,
-  useContext,
+  use,
   useDeferredValue,
   useEffect,
   useMemo,
@@ -50,11 +50,9 @@ export const Activity = () => {
   if (shouldShowMeta) return null
   const [appLabels, appDescription] = data
   return (
-    <ActivityIconContext.Provider
-      value={{ appIcon: appLabels, appDescription }}
-    >
+    <ActivityIconContext value={{ appIcon: appLabels, appDescription }}>
       <ActivityIcon />
-    </ActivityIconContext.Provider>
+    </ActivityIconContext>
   )
 }
 
@@ -123,7 +121,7 @@ const ActivityIcon = memo(() => {
   const processName = deferredProcess?.name || ''
   const processIcon = deferredProcess?.iconBase64 || deferredProcess?.iconUrl
 
-  const { appDescription } = useContext(ActivityIconContext)
+  const { appDescription } = use(ActivityIconContext)
   const renderDescription =
     deferredProcess?.description || appDescription[deferredProcess?.name || '']
 
@@ -201,7 +199,7 @@ const TriggerComponent = memo<{
   processName: string
   icon?: string
 }>(({ processName, icon }) => {
-  const { appIcon } = useContext(ActivityIconContext)
+  const { appIcon } = use(ActivityIconContext)
   const isBuiltIn = !!appIcon[processName]
 
   const src =

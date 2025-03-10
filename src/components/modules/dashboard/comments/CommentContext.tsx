@@ -7,7 +7,7 @@ import type {
 } from '@mx-space/api-client'
 import type { InfiniteData } from '@tanstack/react-query'
 import { createContextState } from 'foxact/create-context-state'
-import { createContext, useContext } from 'react'
+import { createContext, use } from 'react'
 
 export const CommentStateContext = createContext<CommentState>(null!)
 interface CommentDataSourceContextType {
@@ -20,7 +20,7 @@ export const CommentDataSourceContext =
 export const CommentDataContext = createContext<{
   refModelMap: Map<string, PostModel | NoteModel>
 }>(null!)
-export const useCommentDataSource = () => useContext(CommentDataSourceContext)
+export const useCommentDataSource = () => use(CommentDataSourceContext)
 
 export const [
   CommentSelectionKeysProvider,

@@ -1,5 +1,3 @@
-import { cache } from 'react'
-
 import { attachServerFetch, getAuthFromCookie } from '~/lib/attach-fetch'
 import { getQueryClient } from '~/lib/query-client.server'
 import { requestErrorHandler } from '~/lib/request.server'

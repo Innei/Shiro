@@ -2,12 +2,12 @@
 
 import type { HTMLMotionProps } from 'motion/react'
 import { m } from 'motion/react'
-import { forwardRef } from 'react'
 
-export const MotionButtonBase = forwardRef<
-  HTMLButtonElement,
-  HTMLMotionProps<'button'>
->(({ children, ...rest }, ref) => (
+export const MotionButtonBase = ({
+  ref,
+  children,
+  ...rest
+}: HTMLMotionProps<'button'>) => (
   <m.button
     initial={true}
     whileFocus={{ scale: 1.02 }}
@@ -18,6 +18,6 @@ export const MotionButtonBase = forwardRef<
   >
     {children}
   </m.button>
-))
+)
 
 MotionButtonBase.displayName = 'MotionButtonBase'

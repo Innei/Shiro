@@ -6,23 +6,29 @@ import * as React from 'react'
 import { stopPropagation } from '~/lib/dom'
 import { clsxm } from '~/lib/helper'
 
-const Corner = React.forwardRef<
-  React.ElementRef<typeof ScrollAreaBase.Corner>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaBase.Corner>
->(({ className, ...rest }, forwardedRef) => (
+const Corner = ({
+  ref: forwardedRef,
+  className,
+  ...rest
+}: React.ComponentPropsWithoutRef<typeof ScrollAreaBase.Corner> & {
+  ref?: React.RefObject<React.ElementRef<typeof ScrollAreaBase.Corner> | null>
+}) => (
   <ScrollAreaBase.Corner
     {...rest}
     ref={forwardedRef}
     className={clsxm('bg-primary', className)}
   />
-))
+)
 
 Corner.displayName = 'ScrollArea.Corner'
 
-const Thumb = React.forwardRef<
-  React.ElementRef<typeof ScrollAreaBase.Thumb>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaBase.Thumb>
->(({ className, ...rest }, forwardedRef) => (
+const Thumb = ({
+  ref: forwardedRef,
+  className,
+  ...rest
+}: React.ComponentPropsWithoutRef<typeof ScrollAreaBase.Thumb> & {
+  ref?: React.RefObject<React.ElementRef<typeof ScrollAreaBase.Thumb> | null>
+}) => (
   <ScrollAreaBase.Thumb
     {...rest}
     ref={forwardedRef}
@@ -37,13 +43,19 @@ const Thumb = React.forwardRef<
       className,
     )}
   />
-))
+)
 Thumb.displayName = 'ScrollArea.Thumb'
 
-const Scrollbar = React.forwardRef<
-  React.ElementRef<typeof ScrollAreaBase.Scrollbar>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaBase.Scrollbar>
->(({ className, children, ...rest }, forwardedRef) => {
+const Scrollbar = ({
+  ref: forwardedRef,
+  className,
+  children,
+  ...rest
+}: React.ComponentPropsWithoutRef<typeof ScrollAreaBase.Scrollbar> & {
+  ref?: React.RefObject<React.ElementRef<
+    typeof ScrollAreaBase.Scrollbar
+  > | null>
+}) => {
   const { orientation = 'vertical' } = rest
   return (
     <ScrollAreaBase.Scrollbar
@@ -62,15 +74,19 @@ const Scrollbar = React.forwardRef<
       <Thumb />
     </ScrollAreaBase.Scrollbar>
   )
-})
+}
 Scrollbar.displayName = 'ScrollArea.Scrollbar'
 
-const Viewport = React.forwardRef<
-  React.ElementRef<typeof ScrollAreaBase.Viewport>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaBase.Viewport> & {
-    mask?: boolean
-  }
->(({ className, mask, ...rest }, forwardedRef) => {
+const Viewport = ({
+  ref: forwardedRef,
+  className,
+  mask,
+  ...rest
+}: React.ComponentPropsWithoutRef<typeof ScrollAreaBase.Viewport> & {
+  mask?: boolean
+} & {
+  ref?: React.RefObject<React.ElementRef<typeof ScrollAreaBase.Viewport> | null>
+}) => {
   const ref = React.useRef<HTMLDivElement>(null)
 
   React.useImperativeHandle(forwardedRef, () => ref.current as HTMLDivElement)
@@ -81,13 +97,17 @@ const Viewport = React.forwardRef<
       className={clsxm('block size-full', mask && 'mask-scroller', className)}
     />
   )
-})
+}
 Viewport.displayName = 'ScrollArea.Viewport'
 
-const Root = React.forwardRef<
-  React.ElementRef<typeof ScrollAreaBase.Root>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaBase.Root>
->(({ className, children, ...rest }, forwardedRef) => (
+const Root = ({
+  ref: forwardedRef,
+  className,
+  children,
+  ...rest
+}: React.ComponentPropsWithoutRef<typeof ScrollAreaBase.Root> & {
+  ref?: React.RefObject<React.ElementRef<typeof ScrollAreaBase.Root> | null>
+}) => (
   <ScrollAreaBase.Root
     {...rest}
     scrollHideDelay={0}
@@ -97,44 +117,37 @@ const Root = React.forwardRef<
     {children}
     <Corner />
   </ScrollAreaBase.Root>
-))
+)
 
 Root.displayName = 'ScrollArea.Root'
 
-export const ScrollArea = React.forwardRef<
-  HTMLDivElement,
-  React.PropsWithChildren & {
-    rootClassName?: string
-    viewportClassName?: string
-    scrollbarClassName?: string
-    flex?: boolean
-    mask?: boolean
-  }
->(
-  (
-    {
-      flex,
-      children,
-      mask,
-      rootClassName,
-      viewportClassName,
-      scrollbarClassName,
-    },
-    ref,
-  ) => (
-    <Root className={rootClassName}>
-      <Viewport
-        mask={mask}
-        ref={ref}
-        onWheel={stopPropagation}
-        className={clsxm(
-          flex ? '[&>div]:!flex [&>div]:!flex-col' : '',
-          viewportClassName,
-        )}
-      >
-        {children}
-      </Viewport>
-      <Scrollbar className={scrollbarClassName} />
-    </Root>
-  ),
+export const ScrollArea = ({
+  ref,
+  flex,
+  children,
+  mask,
+  rootClassName,
+  viewportClassName,
+  scrollbarClassName,
+}: React.PropsWithChildren & {
+  rootClassName?: string
+  viewportClassName?: string
+  scrollbarClassName?: string
+  flex?: boolean
+  mask?: boolean
+} & { ref?: React.RefObject<HTMLDivElement | null> }) => (
+  <Root className={rootClassName}>
+    <Viewport
+      mask={mask}
+      ref={ref}
+      onWheel={stopPropagation}
+      className={clsxm(
+        flex ? '[&>div]:!flex [&>div]:!flex-col' : '',
+        viewportClassName,
+      )}
+    >
+      {children}
+    </Viewport>
+    <Scrollbar className={scrollbarClassName} />
+  </Root>
 )

@@ -48,10 +48,10 @@ export const useBeforeUnload = (isActive = true) => {
 
     const mutationObserver = new MutationObserver(handleMutation)
     mutationObserver.observe(document.body, { childList: true, subtree: true })
-    addEventListener('beforeunload', beforeUnloadFn)
+    window.addEventListener('beforeunload', beforeUnloadFn)
 
     return () => {
-      removeEventListener('beforeunload', beforeUnloadFn)
+      window.removeEventListener('beforeunload', beforeUnloadFn)
       disconnectAnchors()
       mutationObserver.disconnect()
 
@@ -96,7 +96,7 @@ const BeforeUnloadProvider = ({ children }: React.PropsWithChildren) => {
       )
     }
 
-    addEventListener('popstate', popStateHandler)
+    window.addEventListener('popstate', popStateHandler)
     const originalAddEventListener = window.addEventListener
     window.addEventListener = (...args: any[]) => {
       if (args[0] === 'popstate') {
@@ -117,14 +117,14 @@ const BeforeUnloadProvider = ({ children }: React.PropsWithChildren) => {
     // })
     return () => {
       window.addEventListener = originalAddEventListener
-      removeEventListener('popstate', popStateHandler)
+      window.removeEventListener('popstate', popStateHandler)
     }
   }, [])
 
   return children
 }
 
-useBeforeUnload.Provider = BeforeUnloadProvider
+export { BeforeUnloadProvider }
 
 useBeforeUnload.forceRoute = async (cb: () => void | Promise<void>) => {
   try {
