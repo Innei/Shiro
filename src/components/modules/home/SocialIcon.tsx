@@ -5,6 +5,7 @@ import { memo, useMemo } from 'react'
 import { BilibiliIcon } from '~/components/icons/platform/BilibiliIcon'
 import { BlueskyIcon } from '~/components/icons/platform/BlueskyIcon'
 import { NeteaseCloudMusicIcon } from '~/components/icons/platform/NeteaseIcon'
+import { SteamIcon } from '~/components/icons/platform/SteamIcon'
 import { XIcon } from '~/components/icons/platform/XIcon'
 import { MotionButtonBase } from '~/components/ui/button'
 import { FloatPopover } from '~/components/ui/float-popover'
@@ -91,6 +92,12 @@ const iconSet: Record<
     <BlueskyIcon />,
     '#0085FF',
     (id) => `https://bsky.app/profile/${id}`,
+  ],
+  steam: [
+    'Steam',
+    <SteamIcon />,
+    '#0F1C30',
+    (id) => `https://steamcommunity.com/id/${id}`,
   ],
 }
 const icons = Object.keys(iconSet)
