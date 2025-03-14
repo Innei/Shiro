@@ -1,5 +1,4 @@
 import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
-import { SharedWorkerPolyfill as SharedWorker } from '@okikio/sharedworker'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { getSocketWebSessionId } from '~/atoms/hooks/socket'
@@ -10,6 +9,7 @@ import { isDev, isServerSide } from '~/lib/env'
 import type { EventTypes, SocketEmitEnum } from '~/types/events'
 
 import { eventHandler } from './handler'
+import { SharedWorkerPolyfill as SharedWorker } from './worker-polyfill'
 
 interface WorkerSocket {
   sid: string
@@ -48,13 +48,13 @@ class SocketWorker {
     }
   }
   bindMessageHandler = (worker: SharedWorker) => {
-    worker.port.onmessage = (event: MessageEvent) => {
+    worker.onmessage = (event: MessageEvent) => {
       const { data } = event
       const { type, payload } = data
 
       switch (type) {
         case 'ping': {
-          worker.port.postMessage({
+          worker?.postMessage({
             type: 'pong',
           })
           console.info('[ws worker] pong')
@@ -99,7 +99,7 @@ class SocketWorker {
   prepare(worker: SharedWorker) {
     const gatewayUrlWithoutTrailingSlash = GATEWAY_URL.replace(/\/$/, '')
     this.bindMessageHandler(worker)
-    worker.port.postMessage({
+    worker.postMessage({
       type: 'config',
 
       payload: {
@@ -108,9 +108,9 @@ class SocketWorker {
       },
     })
 
-    worker.port.start()
+    worker.start()
 
-    worker.port.postMessage({
+    worker.postMessage({
       type: 'init',
     })
   }
@@ -125,14 +125,14 @@ class SocketWorker {
   }
 
   emit(event: SocketEmitEnum, payload: any) {
-    this.worker?.port.postMessage({
+    this.worker?.postMessage({
       type: 'emit',
       payload: { type: event, payload },
     })
   }
 
   reconnect() {
-    this.worker?.port.postMessage({
+    this.worker?.postMessage({
       type: 'reconnect',
     })
   }

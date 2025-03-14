@@ -21,12 +21,10 @@ const SocketContainerImpl: Component = () => {
   const router = useRouter()
   useEffect(() => {
     if (connectOnce.current) return
-    import('../../socket/worker-client').then(({ socketWorker }) => {
-      socketWorker.setRouter(router)
 
-      connectOnce.current = true
-    })
-  }, [])
+    socketWorker.setRouter(router)
+    connectOnce.current = true
+  }, [router])
 
   const webSocketSessionId = useSocketSessionId()
   const previousWebSocketSessionIdRef = useRef(webSocketSessionId)
