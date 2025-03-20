@@ -10,7 +10,6 @@ import {
 } from 'react'
 
 import { useIsPrintMode } from '~/atoms/css-media'
-import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { useIsDark } from '~/hooks/common/use-is-dark'
 import { stopPropagation } from '~/lib/dom'
 import { clsxm } from '~/lib/helper'
@@ -170,11 +169,6 @@ export const ShikiFallback: FC<ShikiProps> = (props) => {
     }, [lang]),
   )
   return (
-    <ErrorBoundary>
-      <ShikiHighLighter
-        {...props}
-        lang={shikiSupported ? props.lang : 'text'}
-      />
-    </ErrorBoundary>
+    <ShikiHighLighter {...props} lang={shikiSupported ? props.lang : 'text'} />
   )
 }
