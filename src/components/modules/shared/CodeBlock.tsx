@@ -5,10 +5,8 @@ import { lazy, Suspense, useMemo, useState } from 'react'
 
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { HighLighterPrismCdn } from '~/components/ui/code-highlighter'
-import { ShikiHighLighterWrapper } from '~/components/ui/code-highlighter/shiki/ShikiWrapper'
 import {
   isRenderInShadowDOM,
-  parseShouldCollapsedFromAttrs,
   shouldInjectHostStyles,
 } from '~/components/ui/code-highlighter/shiki/utils'
 import { ExcalidrawLoading } from '~/components/ui/excalidraw/ExcalidrawLoading'
@@ -73,42 +71,42 @@ export const CodeBlockRender = (props: {
         )
       }
       default: {
-        const { lang } = props
+        // const { lang } = props
         const nextProps = { ...props }
         nextProps.content = formatCode(props.content)
 
-        const shikiNotSupports = ['swift']
-        if (lang && !shikiNotSupports.includes(lang)) {
-          const ShikiHighLighter =
-            shikiImport ??
-            lazy(() =>
-              import('~/components/ui/code-highlighter').then((mod) => ({
-                default: mod.ShikiFallback,
-              })),
-            )
-          if (isClientSide) {
-            shikiImport = ShikiHighLighter
-          }
+        // const shikiNotSupports = ['swift']
+        // if (lang && !shikiNotSupports.includes(lang)) {
+        //   const ShikiHighLighter =
+        //     shikiImport ??
+        //     lazy(() =>
+        //       import('~/components/ui/code-highlighter').then((mod) => ({
+        //         default: mod.ShikiFallback,
+        //       })),
+        //     )
+        //   if (isClientSide) {
+        //     shikiImport = ShikiHighLighter
+        //   }
 
-          const fallback = (
-            <ShikiHighLighterWrapper
-              {...nextProps}
-              shouldCollapsed={parseShouldCollapsedFromAttrs(props.attrs || '')}
-            >
-              <pre className="bg-transparent px-5">
-                <code className="!px-5 !text-base-content">
-                  {nextProps.content}
-                </code>
-              </pre>
-            </ShikiHighLighterWrapper>
-          )
-          if (!isClientSide) return fallback
-          return (
-            <Suspense fallback={fallback}>
-              <ShikiHighLighter {...nextProps} />
-            </Suspense>
-          )
-        }
+        //   const fallback = (
+        //     <ShikiHighLighterWrapper
+        //       {...nextProps}
+        //       shouldCollapsed={parseShouldCollapsedFromAttrs(props.attrs || '')}
+        //     >
+        //       <pre className="bg-transparent px-5">
+        //         <code className="!px-5 !text-base-content">
+        //           {nextProps.content}
+        //         </code>
+        //       </pre>
+        //     </ShikiHighLighterWrapper>
+        //   )
+        //   if (!isClientSide) return fallback
+        //   return (
+        //     <Suspense fallback={fallback}>
+        //       <ShikiHighLighter {...nextProps} />
+        //     </Suspense>
+        //   )
+        // }
 
         return <HighLighterPrismCdn {...nextProps} />
       }
