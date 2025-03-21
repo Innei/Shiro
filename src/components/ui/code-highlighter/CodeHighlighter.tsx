@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/no-custom-classname */
 import type * as React from 'react'
 import type { FC } from 'react'
 import {
@@ -19,6 +20,7 @@ import { toast } from '~/lib/toast'
 import styles from './CodeHighlighter.module.css'
 import type { ShikiProps } from './shiki/Shiki'
 import { ShikiHighLighter } from './shiki/Shiki'
+import { ShikiHighLighterWrapper } from './shiki/ShikiWrapper'
 
 declare global {
   interface Window {
@@ -32,6 +34,27 @@ interface Props {
   startLineNumber?: number
 }
 
+/**
+ * Style Fallback for Shiki render error
+ */
+export const PrismHighLighter: FC<Props> = (props) => {
+  const { lang: language, content: value } = props
+
+  const ref = useRef<HTMLElement>(null)
+  useLoadHighlighter(ref)
+  return (
+    <ShikiHighLighterWrapper content={props.content} lang={props.lang}>
+      <pre className="!bg-transparent !font-mono">
+        <code
+          className={`language-${language ?? 'markup'} !block !bg-transparent !px-5 !font-[inherit] !text-[14px] !leading-[24px]`}
+          ref={ref}
+        >
+          {value}
+        </code>
+      </pre>
+    </ShikiHighLighterWrapper>
+  )
+}
 export const HighLighterPrismCdn: FC<Props> = (props) => {
   const { lang: language, content: value, startLineNumber = 1 } = props
 
@@ -118,19 +141,19 @@ const useLoadHighlighter = (ref: React.RefObject<HTMLElement | null>) => {
   }, [isDark, isPrintMode])
   useInsertionEffect(() => {
     loadStyleSheet(
-      'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.css',
+      'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.27.0/plugins/line-numbers/prism-line-numbers.min.css',
     )
 
     loadScript(
-      'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/components/prism-core.min.js',
+      'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.27.0/components/prism-core.min.js',
     )
       .then(() =>
         Promise.all([
           loadScript(
-            'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js',
+            'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.27.0/plugins/autoloader/prism-autoloader.min.js',
           ),
           loadScript(
-            'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.js',
+            'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/prism/1.27.0/plugins/line-numbers/prism-line-numbers.min.js',
           ),
         ]),
       )

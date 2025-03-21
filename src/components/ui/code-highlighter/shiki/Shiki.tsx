@@ -2,7 +2,7 @@ import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
 import type { FC } from 'react'
 import { use, useMemo, useState } from 'react'
 import type { BundledLanguage, LanguageInput, SpecialLanguage } from 'shiki'
-import { createHighlighterCoreSync, createJavaScriptRegexEngine } from 'shiki'
+import { createHighlighterCore, createOnigurumaEngine } from 'shiki'
 import { bundledLanguages } from 'shiki/langs'
 import githubDark from 'shiki/themes/github-dark.mjs'
 import githubLight from 'shiki/themes/github-light.mjs'
@@ -19,53 +19,51 @@ export interface ShikiProps {
   attrs?: string
 }
 
-const codeHighlighter = (() => {
-  if (isServerSide) return
+const codeHighlighterPromise = (() => {
+  if (isServerSide) return Promise.resolve(null)
 
-  const js = createJavaScriptRegexEngine()
-  const core = createHighlighterCoreSync({
+  return createHighlighterCore({
     themes: [githubDark, githubLight],
     langs: [],
-    engine: js,
+    engine: createOnigurumaEngine(() => import('shiki/wasm')),
   })
-
-  return {
-    codeHighlighter: core,
-    fn: (o: { lang: string; attrs: string; code: string }) => shiki(core, o),
-  }
 })()
 
-export const ShikiHighLighter: FC<ShikiProps> = (props) => {
-  const { lang: language, content: value, attrs } = props
+interface ShikiHighLighterImplProps extends ShikiProps {
+  highlighter: NonNullable<Awaited<typeof codeHighlighterPromise>>
+}
+
+const ShikiHighLighterImpl: FC<ShikiHighLighterImplProps> = (props) => {
+  const { lang: language, content: value, attrs, highlighter } = props
 
   use(
+    // eslint-disable-next-line react-compiler/react-compiler
     useMemo(async () => {
       async function loadShikiLanguage(
         language: string,
         languageModule: LanguageInput | SpecialLanguage,
       ) {
-        const shiki = codeHighlighter?.codeHighlighter
-        if (!shiki) return
-        if (!shiki.getLoadedLanguages().includes(language)) {
-          return shiki.loadLanguage(languageModule)
+        if (!highlighter) return
+        if (!highlighter.getLoadedLanguages().includes(language)) {
+          return highlighter.loadLanguage(languageModule)
         }
       }
-
       if (!language) return
       const importFn = bundledLanguages[language as BundledLanguage]
       if (!importFn) return
       return loadShikiLanguage(language || '', importFn)
-    }, [language]),
+    }, [highlighter, language]),
   )
   const highlightedHtml = useMemo(
     () =>
-      codeHighlighter?.fn?.({
+      shiki(highlighter, {
         attrs: attrs || '',
+
         // code: `${value.split('\n')[0].repeat(10)} // [!code highlight]\n${value}`,
         code: value,
         lang: language ? language.toLowerCase() : '',
       }),
-    [attrs, language, value],
+    [attrs, highlighter, language, value],
   )
 
   // const [renderedHtml, setRenderedHtml] = useState(highlightedHtml)
@@ -94,4 +92,12 @@ export const ShikiHighLighter: FC<ShikiProps> = (props) => {
       ref={setCodeBlockRef}
     />
   )
+}
+
+export const ShikiHighLighter: FC<ShikiProps> = (props) => {
+  const highlighter = use(codeHighlighterPromise)
+
+  if (!highlighter) return null
+
+  return <ShikiHighLighterImpl {...props} highlighter={highlighter} />
 }

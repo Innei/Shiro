@@ -4,7 +4,9 @@ import type { ReactNode } from 'react'
 import { lazy, Suspense, useMemo, useState } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 
-import { HighLighterPrismCdn } from '~/components/ui/code-highlighter'
+import {
+  PrismHighLighter,
+} from '~/components/ui/code-highlighter'
 import { ShikiHighLighterWrapper } from '~/components/ui/code-highlighter/shiki/ShikiWrapper'
 import {
   isRenderInShadowDOM,
@@ -83,7 +85,7 @@ export const CodeBlockRender = (props: {
         const nextProps = { ...props }
         nextProps.content = formatCode(props.content)
 
-        const shikiNotSupports = ['swift']
+        const shikiNotSupports: string[] = []
         if (lang && !shikiNotSupports.includes(lang)) {
           const ShikiHighLighter =
             shikiImport ??
@@ -109,8 +111,9 @@ export const CodeBlockRender = (props: {
             </ShikiHighLighterWrapper>
           )
           if (!isClientSide) return fallback
+
           return (
-            <ErrorBoundary fallback={<HighLighterPrismCdn {...nextProps} />}>
+            <ErrorBoundary fallback={<PrismHighLighter {...nextProps} />}>
               <Suspense fallback={fallback}>
                 <ShikiHighLighter {...nextProps} />
               </Suspense>
@@ -118,7 +121,7 @@ export const CodeBlockRender = (props: {
           )
         }
 
-        return <HighLighterPrismCdn {...nextProps} />
+        return <PrismHighLighter {...nextProps} />
       }
     }
   }, [props])
