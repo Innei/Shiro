@@ -1,41 +1,20 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
-import { useCallback } from 'react'
 
 import { useOwnerStatus } from '~/atoms/hooks/status'
 import { clsxm } from '~/lib/helper'
 import {
   useAggregationSelector,
-  useAppConfigSelector,
 } from '~/providers/root/aggregation-data-provider'
 
 import { OwnerStatus } from './OwnerStatus'
+import { useLiveQuery } from './useLiveQuery'
 
 export const SiteOwnerAvatar: Component = ({ className }) => {
   const avatar = useAggregationSelector((data) => data.user.avatar)
-  const liveId = useAppConfigSelector(
-    (config) => config.module?.bilibili?.liveId,
-  )
 
-  const { data: isLiving } = useQuery({
-    queryKey: ['live-check'],
-    queryFn: () =>
-      fetch(`/api/bilibili/check_live?liveId=${liveId}`, {
-        next: {
-          revalidate: 1,
-        },
-      })
-        .then((res) => res.json())
-        .catch(() => null),
-    select: useCallback((data: any) => !!data, []),
-    refetchInterval: 1000 * 60,
-    enabled: !!liveId,
-    meta: {
-      persist: false,
-    },
-  })
+  const { data: isLiving } = useLiveQuery()
 
   const ownerStatus = useOwnerStatus()
   if (!avatar) return

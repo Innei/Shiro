@@ -12,7 +12,7 @@ interface IconTransitionProps {
   regularIcon: JSX.Element
   currentState: 'solid' | 'regular'
 }
-export const IconTransition: FC<IconTransitionProps> = (props) => {
+export const IconSmoothTransition: FC<IconTransitionProps> = (props) => {
   const { currentState: _currentState, regularIcon, solidIcon } = props
 
   const map = {

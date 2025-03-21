@@ -1,6 +1,5 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
 import { AnimatePresence, m } from 'motion/react'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
@@ -17,14 +16,12 @@ import { useAppConfigSelector } from '~/providers/root/aggregation-data-provider
 import { Activity } from './Activity'
 import { useHeaderMetaShouldShow } from './hooks'
 import { SiteOwnerAvatar } from './SiteOwnerAvatar'
+import { useLiveQuery } from './useLiveQuery'
 
 const TapableLogo = () => {
   const router = useRouter()
 
-  const { data: isLiving } = useQuery({
-    queryKey: ['live-check'],
-    enabled: false,
-  })
+  const { data: isLiving } = useLiveQuery()
 
   const { liveId } = (useAppConfigSelector(
     (config) => config.module?.bilibili,

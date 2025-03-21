@@ -11,7 +11,7 @@ import {
 } from '~/components/icons/Progress'
 import { MotionButtonBase } from '~/components/ui/button'
 import { RootPortal } from '~/components/ui/portal'
-import { IconTransition } from '~/components/ui/transition'
+import { IconSmoothTransition } from '~/components/ui/transition'
 import { useReadPercent } from '~/hooks/shared/use-read-percent'
 import { clsxm } from '~/lib/helper'
 import { springScrollToTop } from '~/lib/scroller'
@@ -31,7 +31,7 @@ export const ReadIndicator: Component<{
       ref={ref}
     >
       <div className="flex items-center gap-2">
-        <IconTransition
+        <IconSmoothTransition
           solidIcon={<MaterialSymbolsProgressActivity />}
           regularIcon={
             <CircleProgress percent={readPercent} size={14} strokeWidth={2} />

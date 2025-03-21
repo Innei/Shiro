@@ -41,6 +41,7 @@ import { MHeader } from './renderers/heading'
 import { MarkdownImage } from './renderers/image'
 import { Tab, Tabs } from './renderers/tabs'
 import { MTag } from './renderers/tag'
+import { Video } from './renderers/video'
 import { getFootNoteDomId, getFootNoteRefDomId } from './utils/get-id'
 import { redHighlight } from './utils/redHighlight'
 
@@ -120,6 +121,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           Tabs,
 
           tab: Tab,
+          video: Video,
 
           // for custom react component
           // Tag: MTag,

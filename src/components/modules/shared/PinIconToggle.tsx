@@ -4,7 +4,7 @@ import type { MouseEventHandler, SVGProps } from 'react'
 
 import { useIsLogged } from '~/atoms/hooks/owner'
 import { MotionButtonBase } from '~/components/ui/button'
-import { IconTransition } from '~/components/ui/transition/IconTransition'
+import { IconSmoothTransition } from '~/components/ui/transition/IconSmoothTransition'
 import { clsxm } from '~/lib/helper'
 
 export const PinIconToggle: Component<{
@@ -33,7 +33,7 @@ export const PinIconToggle: Component<{
       )}
       onClick={handlePin}
     >
-      <IconTransition
+      <IconSmoothTransition
         currentState={pin ? 'solid' : 'regular'}
         regularIcon={<PhPushPin />}
         solidIcon={<PhPushPinFill />}
