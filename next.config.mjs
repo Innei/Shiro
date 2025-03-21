@@ -88,6 +88,12 @@ let nextConfig = {
       codeInspectorPlugin({ bundler: 'webpack', hotKeys: ['altKey'] }),
     )
 
+    config.module.rules.push({
+      test: /\.svg$/i,
+
+      type: 'asset/source',
+    })
+
     return config
   },
 }

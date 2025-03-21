@@ -1,0 +1,54 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="background" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="{{ bgAccent }}" />
+      <stop offset="50%" stop-color="{{ bgAccentLight }}" />
+      <stop offset="100%" stop-color="{{ bgAccentUltraLight }}" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background rectangle with gradient -->
+  <rect width="1200" height="600" fill="url(#background)" />
+  
+  <!-- Avatar circle -->
+  <g transform="translate(80, 80)">
+    <circle cx="64" cy="64" r="64" fill="url(#avatar)" />
+    <defs>
+      <pattern id="avatar" patternUnits="userSpaceOnUse" width="128" height="128">
+        <image href="data:image/png;base64,{{ avatar }}" width="128" height="128" />
+      </pattern>
+    </defs>
+  </g>
+  
+  <!-- Site name at bottom right -->
+  <text 
+    x="1120" 
+    y="560" 
+    font-family="system-ui, 'Noto Sans', Inter" 
+    font-size="24" 
+    font-weight="bold" 
+    fill="rgba(255, 255, 255, 0.95)" 
+    text-anchor="end"
+  >
+    {{ siteName }}
+  </text>
+  
+  <!-- Title and subtitle container -->
+  <g transform="translate(1120, 300)">
+    <!-- Title -->
+   {{ title }}
+    
+    <!-- Subtitle -->
+    <text 
+      x="0" 
+      y="140" 
+      font-family="system-ui, 'Noto Sans', Inter" 
+      font-size="40" 
+      fill="rgba(255, 255, 255, 0.9)" 
+      text-anchor="end"
+    >
+      {{ subtitle }}
+    </text>
+  </g>
+</svg>
