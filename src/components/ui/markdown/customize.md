@@ -280,10 +280,10 @@ https://trpc.io/docs/client/react/useInfiniteQuery
 ## LinkCard
 
 ```
-<LinkCard source="gh" id="mx-space/kami">
+<LinkCard source="gh-repo" id="mx-space/kami">
 ```
 
-<LinkCard source="gh" id="mx-space/kami">
+<LinkCard source="gh-repo" id="mx-space/kami">
 
 ```
 <LinkCard source="gh-commit" id="mx-space/kami/commit/e1eee4136c21ab03ab5690e17025777984c362a0">
