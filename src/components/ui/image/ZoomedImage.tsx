@@ -48,6 +48,8 @@ type BaseImageProps = {
 
   height?: number
   width?: number
+
+  onClick?: () => void
 }
 
 export enum ImageLoadStatus {
@@ -69,7 +71,12 @@ const styles = tv({
 
 let zoomer: Zoom
 
-export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
+export const ImageLazy: Component<
+  TImageProps &
+    BaseImageProps & {
+      ref?: React.RefObject<HTMLImageElement | null>
+    }
+> = ({
   alt,
   src,
   title,
@@ -79,6 +86,9 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
   height,
   width,
   className,
+  onClick,
+
+  ref,
 }) => {
   const [zoomer_] = useState(() => {
     if (isServerSide) return null!
@@ -102,6 +112,7 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
     [isUnmount],
   )
   const imageRef = useRef<HTMLImageElement>(null)
+  useImperativeHandle(ref, () => imageRef.current!)
   const isMobile = useIsMobile()
   useIsomorphicLayoutEffect(() => {
     if (imageLoadStatus !== ImageLoadStatus.Loaded) {
@@ -113,6 +124,8 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
     const $image = imageRef.current
 
     if (!$image) return
+
+    if (onClick) return
     if (isMobile) {
       $image.onclick = () => {
         // NOTE: document 上的 click 可以用 stopImmediatePropagation 阻止
@@ -131,7 +144,7 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
         zoomer_.detach($image)
       }
     }
-  }, [zoom, zoomer_, imageLoadStatus, isMobile])
+  }, [zoom, zoomer_, imageLoadStatus, isMobile, onClick])
 
   const handleOnLoad = useCallback(() => {
     setImageLoadStatusSafe(ImageLoadStatus.Loaded)
@@ -176,6 +189,7 @@ export const ImageLazy: Component<TImageProps & BaseImageProps> = ({
             </div>
           )}
           <OptimizedImage
+            onClick={onClick}
             height={height}
             width={width}
             src={src}
@@ -207,12 +221,17 @@ interface FixedImageProps extends TImageProps {
 
   height?: number
   width?: number
-}
-export const FixedZoomedImage: Component<FixedImageProps> = (props) => {
-  const placeholder = useMemo(() => <Placeholder {...props} />, [props])
-  return <ImageLazy zoom placeholder={placeholder} {...props} />
-}
 
+  onClick?: () => void
+}
+export const FixedZoomedImage: Component<
+  FixedImageProps & {
+    ref?: React.RefObject<HTMLImageElement | null>
+  }
+> = ({ ref, ...props }) => {
+  const placeholder = useMemo(() => <Placeholder {...props} />, [props])
+  return <ImageLazy zoom placeholder={placeholder} {...props} ref={ref} />
+}
 const Placeholder: FC<
   Pick<
     FixedImageProps,
@@ -305,6 +324,7 @@ const OptimizedImage = memo(
     ref,
     src,
     alt,
+    onClick,
     ...rest
   }: DetailedHTMLProps<
     ImgHTMLAttributes<HTMLImageElement>,
@@ -318,6 +338,7 @@ const OptimizedImage = memo(
     const placeholderImageRef = useRef<HTMLImageElement>(null)
     const ImageEl = (
       <img
+        onClick={onClick}
         data-zoom-src={src}
         alt={alt}
         src={src}

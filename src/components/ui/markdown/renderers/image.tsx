@@ -1,12 +1,10 @@
 'use client'
-
 import clsx from 'clsx'
-import mediumZoom from 'medium-zoom'
 import Image from 'next/image'
 import type { FC } from 'react'
-import * as React from 'react'
 import { memo, useRef } from 'react'
 import { Blurhash } from 'react-blurhash'
+import { PhotoProvider, PhotoView } from 'react-photo-view'
 
 import { LazyLoad } from '~/components/common/Lazyload'
 import { addImageUrlResizeQuery } from '~/lib/image'
@@ -81,11 +79,13 @@ export const GridMarkdownImages: FC<{
       paddingBottom: `${height * 100}%`,
     }}
   >
-    <Wrapper className="absolute inset-0">
-      {imagesSrc.map((src) => (
-        <GridZoomImage key={src} src={src} />
-      ))}
-    </Wrapper>
+    <PhotoProvider photoClosable>
+      <Wrapper className="absolute inset-0">
+        {imagesSrc.map((src) => (
+          <GridZoomImage key={src} src={src} />
+        ))}
+      </Wrapper>
+    </PhotoProvider>
   </div>
 )
 
@@ -113,23 +113,20 @@ const GridZoomImage: FC<{ src: string }> = memo(({ src }) => {
         />
       )}
       <LazyLoad offset={30}>
-        <ImageComponent
-          loading="lazy"
-          alt=""
-          height={height}
-          width={width}
-          src={cropUrl}
-          ref={imageEl}
-          className={clsx(
-            '!m-0 max-w-max object-cover',
-            wGreaterThanH ? 'h-full' : 'w-full',
-          )}
-          data-zoom-src={src}
-          onClick={() => {
-            if (!imageEl.current) return
-            mediumZoom(imageEl.current).open()
-          }}
-        />
+        <PhotoView src={src}>
+          <ImageComponent
+            loading="lazy"
+            alt=""
+            height={height}
+            width={width}
+            src={cropUrl}
+            ref={imageEl}
+            className={clsx(
+              '!m-0 max-w-max object-cover',
+              wGreaterThanH ? 'h-full' : 'w-full',
+            )}
+          />
+        </PhotoView>
       </LazyLoad>
     </div>
   )

@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import type { FC, UIEventHandler } from 'react'
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
+import { PhotoProvider, PhotoView } from 'react-photo-view'
 
 import { useStateToRef } from '~/hooks/common/use-state-ref'
 import { throttle } from '~/lib/lodash'
@@ -142,7 +143,6 @@ export const Gallery: FC<GalleryProps> = (props) => {
     [],
   )
 
-  const [fullScreen, setFullScreen] = useState(false)
   if (images.length === 0) {
     return null
   }
@@ -152,76 +152,78 @@ export const Gallery: FC<GalleryProps> = (props) => {
   }
 
   return (
-    <div
-      className={clsx('w-full', 'relative', styles['root'])}
-      ref={ref}
-      onTouchMove={handleCancelAutoplay}
-      onWheel={handleCancelAutoplay}
-    >
+    <PhotoProvider>
       <div
-        className={clsx(
-          'w-full overflow-auto whitespace-nowrap',
-          styles['container'],
-        )}
-        onTouchStart={handleCancelAutoplay}
-        onScroll={handleOnScroll}
-        ref={setContainerRef}
+        className={clsx('w-full', 'relative', styles['root'])}
+        ref={ref}
         onTouchMove={handleCancelAutoplay}
         onWheel={handleCancelAutoplay}
       >
-        {images.map((image) => (
-          <GalleryItem key={image.url} image={image} />
-        ))}
-      </div>
-
-      {currentIndex > 0 && (
-        <div className="pointer-events-none absolute inset-y-0 left-2 flex items-center [&_*]:duration-200">
-          <MotionButtonBase
-            onClick={() => {
-              if (!containerRef) {
-                return
-              }
-              const index = currentIndex - 1
-              handleScrollTo(index)
-            }}
-            className="border-border center pointer-events-auto flex size-8 rounded-full border bg-base-100 p-1 opacity-80 hover:opacity-100"
-          >
-            <i className="i-mingcute-left-fill" />
-          </MotionButtonBase>
+        <div
+          className={clsx(
+            'w-full overflow-auto whitespace-nowrap',
+            styles['container'],
+          )}
+          onTouchStart={handleCancelAutoplay}
+          onScroll={handleOnScroll}
+          ref={setContainerRef}
+          onTouchMove={handleCancelAutoplay}
+          onWheel={handleCancelAutoplay}
+        >
+          {images.map((image) => (
+            <GalleryItem key={image.url} image={image} />
+          ))}
         </div>
-      )}
-      {currentIndex < images.length - 1 && (
-        <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center [&_*]:duration-200">
-          <MotionButtonBase
-            onClick={() => {
-              if (!containerRef) {
-                return
-              }
-              const index = currentIndex + 1
-              handleScrollTo(index)
-            }}
-            className="border-border center pointer-events-auto flex size-8 rounded-full border bg-base-100 p-1 opacity-80 hover:opacity-100"
-          >
-            <i className="i-mingcute-right-fill" />
-          </MotionButtonBase>
-        </div>
-      )}
 
-      <div className={clsx(styles['indicator'], 'space-x-2')}>
-        {Array.from({
-          length: images.length,
-        }).map((_, i) => (
-          <div
-            className={clsx(
-              'size-[6px] cursor-pointer rounded-full bg-stone-600 opacity-50 transition-opacity duration-200 ease-in-out',
-              currentIndex == i && '!opacity-100',
-            )}
-            key={i}
-            onClick={handleScrollTo.bind(null, i)}
-          />
-        ))}
+        {currentIndex > 0 && (
+          <div className="pointer-events-none absolute inset-y-0 left-2 flex items-center [&_*]:duration-200">
+            <MotionButtonBase
+              onClick={() => {
+                if (!containerRef) {
+                  return
+                }
+                const index = currentIndex - 1
+                handleScrollTo(index)
+              }}
+              className="border-border center pointer-events-auto flex size-8 rounded-full border bg-base-100 p-1 opacity-80 hover:opacity-100"
+            >
+              <i className="i-mingcute-left-fill" />
+            </MotionButtonBase>
+          </div>
+        )}
+        {currentIndex < images.length - 1 && (
+          <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center [&_*]:duration-200">
+            <MotionButtonBase
+              onClick={() => {
+                if (!containerRef) {
+                  return
+                }
+                const index = currentIndex + 1
+                handleScrollTo(index)
+              }}
+              className="border-border center pointer-events-auto flex size-8 rounded-full border bg-base-100 p-1 opacity-80 hover:opacity-100"
+            >
+              <i className="i-mingcute-right-fill" />
+            </MotionButtonBase>
+          </div>
+        )}
+
+        <div className={clsx(styles['indicator'], 'space-x-2')}>
+          {Array.from({
+            length: images.length,
+          }).map((_, i) => (
+            <div
+              className={clsx(
+                'size-[6px] cursor-pointer rounded-full bg-stone-600 opacity-50 transition-opacity duration-200 ease-in-out',
+                currentIndex == i && '!opacity-100',
+              )}
+              key={i}
+              onClick={handleScrollTo.bind(null, i)}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </PhotoProvider>
   )
 }
 const childStyle = {
@@ -247,12 +249,14 @@ const GalleryItem: FC<{
       className={clsx(styles['child'], 'inline-block self-center')}
       key={`${image.url}-${image.name || ''}`}
     >
-      <FixedZoomedImage
-        accent={info?.accent}
-        src={image.url}
-        alt={imageCaption}
-        containerWidth={w - IMAGE_CONTAINER_MARGIN_INSET}
-      />
+      <PhotoView src={image.url}>
+        <FixedZoomedImage
+          accent={info?.accent}
+          src={image.url}
+          alt={imageCaption}
+          containerWidth={w - IMAGE_CONTAINER_MARGIN_INSET}
+        />
+      </PhotoView>
     </div>
   )
 })
