@@ -12,29 +12,16 @@ import { clsxm } from '~/lib/helper'
 
 import type { FooterConfig } from './config'
 import { defaultLinkSections } from './config'
-// import { footerConfig } from './config'
 import { GatewayInfo } from './GatewayInfo'
 import { OwnerName } from './OwnerName'
 
-// const isVercelEnv = !!process.env.NEXT_PUBLIC_VERCEL_ENV
 export const FooterInfo = () => (
   <>
     <div className="relative">
       <FooterLinkSection />
-      {/* {isVercelEnv && (
-          <div className="absolute top-0 hidden lg:-right-8 lg:block">
-            <VercelPoweredBy />
-          </div>
-        )} */}
     </div>
 
     <FooterBottom />
-
-    {/* {isVercelEnv && (
-        <div className="mt-6 flex justify-center lg:hidden">
-          <VercelPoweredBy />
-        </div>
-      )} */}
   </>
 )
 
@@ -146,35 +133,19 @@ const PoweredBy: Component = ({ className }) => (
             </MLink>
           </p>
         )}
+        {process.env.BUILD_TIME && (
+          <p>
+            构建时间：
+            {new Date(process.env.BUILD_TIME).toLocaleDateString('zh-CN')}
+          </p>
+        )}
       </div>
     </FloatPopover>
     .
   </span>
 )
 
-// type VisitorGeolocation = {
-//   country: string
-//   city?: string
-//   flag: string
-// }
 const FooterBottom = async () => {
-  // let lastVisitor: VisitorGeolocation | undefined = undefined
-  // if (process.env.VERCEL_ENV === 'production') {
-  //   const [lv, cv] = await redis.mget<VisitorGeolocation[]>(
-  //     kvKeys.lastVisitor,
-  //     kvKeys.currentVisitor,
-  //   )
-  //   lastVisitor = lv
-  //   await redis.set(kvKeys.lastVisitor, cv)
-  // }
-
-  // if (isDev) {
-  //   lastVisitor = {
-  //     country: 'US',
-  //     flag: '🇺🇸',
-  //   }
-  // }
-
   const data = await fetchAggregationData()
   const { footer } = data.theme
   const footerConfig = footer || {}

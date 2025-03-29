@@ -29,6 +29,7 @@ let nextConfig = {
   env: {
     COMMIT_HASH: commitHash,
     COMMIT_URL: commitUrl,
+    BUILD_TIME: new Date().toISOString(),
   },
   eslint: {
     ignoreDuringBuilds: true,

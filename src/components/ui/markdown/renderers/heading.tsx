@@ -1,5 +1,5 @@
 import type { DOMAttributes } from 'react'
-import { createElement, useMemo } from 'react'
+import { createElement, useMemo, useRef } from 'react'
 
 import { useIsClient } from '~/hooks/common/use-is-client'
 import { springScrollToElement } from '~/lib/scroller'
@@ -14,7 +14,15 @@ interface HeadingProps {
 export const createMarkdownHeadingComponent = () => {
   let index = 0
   return (props: HeadingProps) => {
-    return <MHeader index={useMemo(() => index++, [])} {...props} />
+    const ref = useRef<boolean | number>(false)
+    const memoizedIndex = useMemo(() => {
+      if (typeof ref.current === 'number') {
+        return ref.current
+      }
+      ref.current = index++
+      return ref.current
+    }, [])
+    return <MHeader index={memoizedIndex} {...props} />
   }
 }
 
