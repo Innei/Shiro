@@ -150,3 +150,89 @@ export function SimpleIconsJson(props: SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
+
+export function VscodeIconsFileTypeObjectivecpp(
+  props: SVGProps<SVGSVGElement>,
+) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 32 32"
+      {...props}
+    >
+      {/* Icon from VSCode Icons by Roberto Huertas - https://github.com/vscode-icons/vscode-icons/blob/master/LICENSE */}
+      <path
+        fill="#c2c2c2"
+        d="M19.5 24.833a11.24 11.24 0 0 1-5.13 1.009a8.37 8.37 0 0 1-6.492-2.576A9.75 9.75 0 0 1 5.512 16.4a10.4 10.4 0 0 1 2.659-7.406a9.02 9.02 0 0 1 6.9-2.841a12.2 12.2 0 0 1 4.43.7v4.129a7.5 7.5 0 0 0-4.108-1.142a5.28 5.28 0 0 0-4.075 1.685A6.48 6.48 0 0 0 9.766 16.1a6.37 6.37 0 0 0 1.464 4.4a5.02 5.02 0 0 0 3.941 1.639a8.03 8.03 0 0 0 4.329-1.223Z"
+      />
+      <path
+        fill="#c2c2c2"
+        d="M16.572 15.081V13.24h1.841v1.841h1.84v1.84h-1.84v1.841h-1.841v-1.841h-1.839V15.08zm6.44 0V13.24h1.841v1.841h1.84v1.84h-1.84v1.841h-1.841v-1.841h-1.839V15.08zM2.035 30V2.001h5.933v2.227H4.725v23.545h3.243V30z"
+      />
+      <path
+        fill="#c2c2c2"
+        d="M29.965 29.999h-5.933v-2.228h3.243V4.227h-3.243V2h5.933z"
+      />
+    </svg>
+  )
+}
+
+export function VscodeIconsFileTypeObjectivec(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 32 32"
+      {...props}
+    >
+      {/* Icon from VSCode Icons by Roberto Huertas - https://github.com/vscode-icons/vscode-icons/blob/master/LICENSE */}
+      <path
+        fill="#c2c2c2"
+        d="M11.29 15.976a8.9 8.9 0 0 0 1.039 4.557a4.82 4.82 0 0 0 5.579 2.13a3.79 3.79 0 0 0 2.734-3.181c.095-.535.1-.54.1-.54c1.537.222 4.014.582 5.55.8l-.1.389A9.96 9.96 0 0 1 23.8 24.9a8.35 8.35 0 0 1-4.747 2.378a12.93 12.93 0 0 1-7.322-.725a8.98 8.98 0 0 1-5.106-5.524A14.35 14.35 0 0 1 6.642 10.9a9.32 9.32 0 0 1 7.929-6.24a11.8 11.8 0 0 1 5.9.491a8.47 8.47 0 0 1 5.456 6.1c.083.311.1.369.1.369c-1.709.311-3.821.705-5.518 1.075c-.323-1.695-1.122-3.029-2.831-3.445a4.656 4.656 0 0 0-5.853 3.158a9 9 0 0 0-.341 1.273a11 11 0 0 0-.194 2.295"
+      />
+      <path
+        fill="#c2c2c2"
+        d="M2.033 30V2h5.934v2.227H4.723v23.546h3.244V30zm27.934-.001h-5.934v-2.228h3.244V4.226h-3.244V1.999h5.934z"
+      />
+    </svg>
+  )
+}
+
+export function SimpleIconsCplusplus(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      {/* Icon from Simple Icons by Simple Icons Collaborators - https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md */}
+      <path
+        fill="currentColor"
+        d="M22.394 6c-.167-.29-.398-.543-.652-.69L12.926.22c-.509-.294-1.34-.294-1.848 0L2.26 5.31c-.508.293-.923 1.013-.923 1.6v10.18c0 .294.104.62.271.91s.398.543.652.69l8.816 5.09c.508.293 1.34.293 1.848 0l8.816-5.09c.254-.147.485-.4.652-.69s.27-.616.27-.91V6.91c.003-.294-.1-.62-.268-.91M12 19.11c-3.92 0-7.109-3.19-7.109-7.11s3.19-7.11 7.11-7.11a7.13 7.13 0 0 1 6.156 3.553l-3.076 1.78a3.57 3.57 0 0 0-3.08-1.78A3.56 3.56 0 0 0 8.444 12A3.56 3.56 0 0 0 12 15.555a3.57 3.57 0 0 0 3.08-1.778l3.078 1.78A7.14 7.14 0 0 1 12 19.11m7.11-6.715h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79zm2.962 0h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79z"
+      />
+    </svg>
+  )
+}
+
+export function SimpleIconsC(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      {/* Icon from Simple Icons by Simple Icons Collaborators - https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md */}
+      <path
+        fill="currentColor"
+        d="M16.592 9.196s-.354-3.298-3.627-3.39c-3.274-.09-4.955 2.474-4.955 6.14s1.858 6.597 5.045 6.597c3.184 0 3.538-3.665 3.538-3.665l6.104.365s.36 3.31-2.196 5.836c-2.552 2.524-5.69 2.937-7.876 2.92c-2.19-.016-5.226.035-8.16-2.97c-2.938-3.01-3.436-5.93-3.436-8.8s.556-6.67 4.047-9.55C7.444.72 9.849 0 12.254 0c10.042 0 10.717 9.26 10.717 9.26z"
+      />
+    </svg>
+  )
+}

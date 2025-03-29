@@ -3,7 +3,7 @@ import type { Variants } from 'motion/react'
 import { AnimatePresence, m } from 'motion/react'
 import type { PropsWithChildren } from 'react'
 import {
-  cloneElement,
+  createElement,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -133,13 +133,22 @@ export const ShikiHighLighterWrapper = ({
       onCopy={stopPropagation}
     >
       {!!filename && (
-        <div className="z-10 flex w-full items-center justify-between rounded-t-xl bg-accent/20 px-5 py-2 text-sm">
+        <div
+          className="z-10 flex w-full items-center justify-between rounded-t-xl bg-accent/20 px-5 py-2 text-sm"
+          style={{
+            backgroundColor: languageColor
+              ? withOpacity(languageColor, 0.2)
+              : undefined,
+          }}
+        >
           <span className="shrink-0 grow truncate">{filename}</span>
           <span
             className="pointer-events-none flex shrink-0 grow-0 items-center gap-1"
             aria-hidden
           >
-            {languageIcon} {language?.toUpperCase()}
+            {languageIcon
+              ? createElement(languageIcon, { className: 'size-4' })
+              : language?.toUpperCase()}
           </span>
         </div>
       )}
@@ -150,7 +159,7 @@ export const ShikiHighLighterWrapper = ({
           className="pointer-events-none absolute bottom-3 right-3 z-[2] text-sm opacity-60"
         >
           {languageIcon
-            ? cloneElement(languageIcon, { className: 'size-4' })
+            ? createElement(languageIcon, { className: 'size-4' })
             : language.toUpperCase()}
         </div>
       )}
