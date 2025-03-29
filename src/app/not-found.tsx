@@ -4,7 +4,10 @@ import { sansFont } from '~/lib/fonts'
 
 export default () => (
   <html>
-    <body className={`${sansFont.variable} m-0 h-full p-0 font-sans`}>
+    <body
+      suppressHydrationWarning
+      className={`${sansFont.variable} m-0 h-full p-0 font-sans`}
+    >
       <div data-theme>
         <NotFound404>
           <StyledButton>

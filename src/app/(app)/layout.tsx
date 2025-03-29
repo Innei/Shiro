@@ -141,6 +141,7 @@ export default async function RootLayout(props: PropsWithChildren) {
           <SayHi />
         </head>
         <body
+          suppressHydrationWarning
           className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
         >
           <div className="center flex h-screen">
@@ -225,6 +226,7 @@ export default async function RootLayout(props: PropsWithChildren) {
             <ScriptInjectProvider />
           </head>
           <body
+            suppressHydrationWarning
             className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
           >
             <ErrorBoundary>

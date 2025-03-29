@@ -37,7 +37,7 @@ import {
 } from './renderers'
 import { MDetails } from './renderers/collapse'
 import { MFootNote } from './renderers/footnotes'
-import { MHeader } from './renderers/heading'
+import { createMarkdownHeadingComponent } from './renderers/heading'
 import { MarkdownImage } from './renderers/image'
 import { Tab, Tabs } from './renderers/tabs'
 import { MTag } from './renderers/tag'
@@ -94,6 +94,8 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
 
     const ref = useRef<HTMLDivElement>(null)
 
+    const MHeader = useMemo(() => createMarkdownHeadingComponent(), [])
+
     const node = useMemo(() => {
       const mdContent = debugValue || value || props.children
 
@@ -101,6 +103,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
       if (typeof mdContent != 'string') return null
 
       const mdElement = compiler(mdContent, {
+        slugify,
         doNotProcessHtmlElements: ['tab', 'style', 'script'] as any[],
         wrapper: null,
 
@@ -373,5 +376,28 @@ export const MainMarkdown: FC<
         [wrapperProps],
       )}
     />
+  )
+}
+
+// not complete, but probably good enough
+function slugify(str: string) {
+  return (
+    str
+      .replaceAll(/[ÀÁÂÃÄÅæ]/gi, 'a')
+      .replaceAll(/ç/gi, 'c')
+      .replaceAll(/ð/gi, 'd')
+      .replaceAll(/[ÈÉÊË]/gi, 'e')
+      .replaceAll(/[ÏÎÍÌ]/gi, 'i')
+      .replaceAll(/Ñ/gi, 'n')
+      .replaceAll(/[øœÕÔÓÒ]/gi, 'o')
+      .replaceAll(/[ÜÛÚÙ]/gi, 'u')
+      .replaceAll(/[ŸÝ]/gi, 'y')
+      // remove non-chinese, non-latin, non-number, non-space
+      .replaceAll(
+        /[^\u4E00-\u9FFF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AFa-z0-9- ]/gi,
+        '',
+      )
+      .replaceAll(' ', '-')
+      .toLowerCase()
   )
 }
