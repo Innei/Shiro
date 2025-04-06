@@ -131,43 +131,46 @@ const SearchPanelImpl = () => {
         },
       })
     },
-    select: useCallback((data: any) => {
-      if (!data?.data) {
-        return
-      }
-
-      const _list: SearchListType[] = data?.data.map((item: any) => {
-        switch (item.type) {
-          case 'post': {
-            return {
-              title: item.title,
-              subtitle: item.category.name,
-              id: item.id,
-              url: `/posts/${item.category.slug}/${item.slug}`,
-            }
-          }
-          case 'note': {
-            return {
-              title: item.title,
-              subtitle: '手记',
-              id: item.id,
-              url: `/notes/${item.nid}`,
-            }
-          }
-          case 'page': {
-            return {
-              title: item.title,
-              subtitle: '页面',
-              id: item.id,
-              url: `/pages/${item.slug}`,
-            }
-          }
+    select: useCallback(
+      (data: any) => {
+        if (!data?.data) {
+          return
         }
-      })
-      setCurrentSelect(0)
 
-      return _list
-    }, []),
+        const _list: SearchListType[] = data?.data.map((item: any) => {
+          switch (item.type) {
+            case 'post': {
+              return {
+                title: item.title,
+                subtitle: item.category.name,
+                id: item.id,
+                url: `/posts/${item.category.slug}/${item.slug}`,
+              }
+            }
+            case 'note': {
+              return {
+                title: item.title,
+                subtitle: '手记',
+                id: item.id,
+                url: `/notes/${item.nid}`,
+              }
+            }
+            case 'page': {
+              return {
+                title: item.title,
+                subtitle: '页面',
+                id: item.id,
+                url: `/${item.slug}`,
+              }
+            }
+          }
+        })
+        setCurrentSelect(0)
+
+        return _list
+      },
+      [setCurrentSelect],
+    ),
   })
   const data = _data || noopArr
   const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = useCallback(
