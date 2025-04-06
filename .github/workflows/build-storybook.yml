@@ -33,7 +33,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
 
-      - uses: pnpm/action-setup@v4.0.0
+      - uses: pnpm/action-setup@v4.1.0
         with:
           run_install: true
       - name: Build project
