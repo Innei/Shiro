@@ -37,7 +37,7 @@ import { apiClient } from '~/lib/request'
 import { useFeatureEnabled } from '~/providers/root/app-feature-provider'
 
 import { EmbedGithubFile } from '../../../modules/shared/EmbedGithubFile'
-import { MLink } from '../../link/MLink'
+import { MarkdownLink } from '../../link/MarkdownLink'
 import { LinkCard, LinkCardSource } from '../../link-card'
 
 const Tweet = dynamic(() => import('~/components/modules/shared/Tweet'), {
@@ -69,7 +69,9 @@ export const BlockLinkRenderer = ({
     () =>
       fallback ?? (
         <p>
-          <MLink href={href}>{children ?? <span>{href}</span>}</MLink>
+          <MarkdownLink href={href}>
+            {children ?? <span>{href}</span>}
+          </MarkdownLink>
         </p>
       ),
     [children, fallback, href],
@@ -336,7 +338,7 @@ const GithubUrlRenderL: FC<{
       return (
         <>
           <p>
-            <MLink href={href}>{href}</MLink>
+            <MarkdownLink href={href}>{href}</MarkdownLink>
           </p>
           <LinkCard
             fallbackUrl={url.toString()}
@@ -375,7 +377,7 @@ const GithubUrlRenderL: FC<{
             refType={ref}
           />
           <div className="mt-4">
-            <MLink href={href}>{href}</MLink>
+            <MarkdownLink href={href}>{href}</MarkdownLink>
           </div>
         </div>
       )

@@ -17,7 +17,7 @@ import { noopObj } from '~/lib/noop'
 import { springScrollToElement } from '~/lib/scroller'
 
 import { Gallery } from '../gallery'
-import { MLink } from '../link/MLink'
+import { MarkdownLink } from '../link/MarkdownLink'
 import { LinkCard, LinkCardSource } from '../link-card'
 import styles from './markdown.module.css'
 import { AlertsRule } from './parsers/alert'
@@ -173,14 +173,14 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
               }
 
               return (
-                <MLink
+                <MarkdownLink
                   href={sanitizeUrl(target)!}
                   title={title}
                   key={state?.key}
                   text={realText}
                 >
                   {output(node.content, state!)}
-                </MLink>
+                </MarkdownLink>
               )
             },
           },

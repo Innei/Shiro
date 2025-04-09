@@ -1,1 +1,1 @@
-export * from './MLink'
+export * from './MarkdownLink'

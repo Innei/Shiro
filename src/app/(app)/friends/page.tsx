@@ -4,14 +4,14 @@ import type { LinkModel } from '@mx-space/api-client'
 import { LinkState, LinkType, RequestError } from '@mx-space/api-client'
 import { useQuery } from '@tanstack/react-query'
 import Markdown from 'markdown-to-jsx'
-import { m } from 'motion/react'
 import type { FC } from 'react'
-import { memo, useCallback, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
 import { NotSupport } from '~/components/common/NotSupport'
 import { Avatar } from '~/components/ui/avatar'
 import { StyledButton } from '~/components/ui/button'
 import { Collapse } from '~/components/ui/collapse'
+import { MagneticHoverEffect } from '~/components/ui/effect/MagneticHoverEffect'
 import { BackToTopFAB } from '~/components/ui/fab'
 import type { FormContextType } from '~/components/ui/form'
 import { Form, FormInput } from '~/components/ui/form'
@@ -130,7 +130,7 @@ type FriendSectionProps = {
 }
 
 const FriendSection: FC<FriendSectionProps> = ({ data }) => (
-  <section className="grid grid-cols-2 gap-6 md:grid-cols-3 2xl:grid-cols-3">
+  <section className="grid cursor-none grid-cols-2 gap-6 md:grid-cols-3 2xl:grid-cols-3">
     {data.map((link) => (
       <BottomToUpTransitionView key={link.id} duration={50}>
         <Card link={link} />
@@ -139,34 +139,17 @@ const FriendSection: FC<FriendSectionProps> = ({ data }) => (
   </section>
 )
 
-const LayoutBg = memo(() => (
-  <m.span
-    layoutId="bg"
-    className="absolute -inset-2 z-[-1] rounded-md bg-slate-200/80 dark:bg-neutral-600/80"
-    initial={{ opacity: 0.8, scale: 0.8 }}
-    animate={{ opacity: 1, scale: 1 }}
-    exit={{ opacity: 0, scale: 0.8, transition: { delay: 0.2 } }}
-  />
-))
-LayoutBg.displayName = 'LayoutBg'
-
 const Card: FC<{ link: LinkModel }> = ({ link }) => {
-  const [enter, setEnter] = useState(false)
-
   return (
-    <m.a
-      layoutId={link.id}
+    <MagneticHoverEffect
+      as="a"
       href={link.url}
       target="_blank"
       role="link"
       aria-label={`Go to ${link.name}'s website`}
-      className="relative flex flex-col items-center justify-center"
-      onMouseEnter={() => setEnter(true)}
-      onMouseLeave={() => setEnter(false)}
+      className="relative flex flex-col items-center justify-center before:-top-3"
       rel="noreferrer"
     >
-      {enter && <LayoutBg />}
-
       <Avatar
         randomColor
         imageUrl={link.avatar}
@@ -183,7 +166,7 @@ const Card: FC<{ link: LinkModel }> = ({ link }) => {
           {link.description}
         </span>
       </span>
-    </m.a>
+    </MagneticHoverEffect>
   )
 }
 

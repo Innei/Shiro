@@ -7,10 +7,11 @@ import { memo, useCallback, useMemo } from 'react'
 import { isServerSide } from '~/lib/env'
 import { useAppConfigSelector } from '~/providers/root/aggregation-data-provider'
 
+import { MagneticHoverEffect } from '../effect/MagneticHoverEffect'
 import { FloatPopover } from '../float-popover'
 import { Favicon } from '../rich-link/Favicon'
 
-export const MLink: FC<{
+export const MarkdownLink: FC<{
   href: string
   title?: string
   children?: ReactNode
@@ -67,21 +68,22 @@ export const MLink: FC<{
   const el = (
     <span className="inline items-center font-sans">
       {isSelfUrl ? <BizSelfFavicon /> : <Favicon href={href} />}
-      <a
-        className="shiro-link--underline"
+      <MagneticHoverEffect
+        as="a"
+        variant="accent"
         href={href}
+        className="decoration-accent/60 hover:decoration-transparent"
         target="_blank"
         onClick={handleRedirect}
         title={title}
         rel="noreferrer"
       >
         {children}
-      </a>
-
-      <i
-        className="i-mingcute-arrow-right-up-line translate-y-[2px] opacity-70"
-        data-hide-print
-      />
+        <i
+          className="i-mingcute-arrow-right-up-line translate-y-[2px] opacity-70"
+          data-hide-print
+        />
+      </MagneticHoverEffect>
     </span>
   )
   if (!popper) return el
@@ -93,13 +95,20 @@ export const MLink: FC<{
       offset={0}
       triggerElement={el}
     >
-      <a href={href} target="_blank" rel="noreferrer">
+      <MagneticHoverEffect
+        variant="accent"
+        as="a"
+        className="decoration-accent/60 hover:decoration-transparent"
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+      >
         <span>{href}</span>
-      </a>
+      </MagneticHoverEffect>
     </FloatPopover>
   )
 })
-MLink.displayName = 'MLink'
+MarkdownLink.displayName = 'MarkdownLink'
 
 const BizSelfFavicon = () => {
   const { favicon, faviconDark } = useAppConfigSelector((a) => a.site) || {}

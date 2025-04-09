@@ -6,7 +6,7 @@ import { AnimatePresence, m } from 'motion/react'
 
 import { useIsLogged } from '~/atoms/hooks/owner'
 import { TiltedSendIcon } from '~/components/icons/TiltedSendIcon'
-import { MLink } from '~/components/ui/link/MLink'
+import { MarkdownLink } from '~/components/ui/link/MarkdownLink'
 import { clsxm } from '~/lib/helper'
 
 import { MAX_COMMENT_TEXT_LENGTH } from './constants'
@@ -101,9 +101,9 @@ export const CommentBoxActionBar: Component = ({ className }) => {
       >
         <span className="hidden md:inline">
           支持 <b>Markdown</b> 与{' '}
-          <MLink href="https://docs.github.com/zh/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax">
+          <MarkdownLink href="https://docs.github.com/zh/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax">
             GFM
-          </MLink>
+          </MarkdownLink>
         </span>
         <CommentBoxSlotProvider />
       </span>

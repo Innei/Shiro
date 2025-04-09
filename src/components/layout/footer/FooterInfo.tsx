@@ -7,7 +7,7 @@ import { fetchAggregationData } from '~/app/(app)/api'
 import { IonIosArrowDown } from '~/components/icons/arrow'
 import { SubscribeTextButton } from '~/components/modules/subscribe/SubscribeTextButton'
 import { FloatPopover } from '~/components/ui/float-popover'
-import { MLink } from '~/components/ui/link'
+import { MarkdownLink } from '~/components/ui/link'
 import { clsxm } from '~/lib/helper'
 
 import type { FooterConfig } from './config'
@@ -121,16 +121,16 @@ const PoweredBy: Component = ({ className }) => (
         </p>
         <p>
           可以通过{' '}
-          <MLink popper={false} href="https://github.com/sponsors/Innei">
+          <MarkdownLink popper={false} href="https://github.com/sponsors/Innei">
             Sponsor
-          </MLink>{' '}
+          </MarkdownLink>{' '}
           获取
         </p>
         {process.env.COMMIT_HASH && process.env.COMMIT_URL && (
           <p>
-            <MLink popper={false} href={process.env.COMMIT_URL}>
+            <MarkdownLink popper={false} href={process.env.COMMIT_URL}>
               版本哈希：{process.env.COMMIT_HASH.slice(0, 8)}
-            </MLink>
+            </MarkdownLink>
           </p>
         )}
         {process.env.BUILD_TIME && (

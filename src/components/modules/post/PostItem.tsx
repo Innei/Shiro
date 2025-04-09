@@ -6,8 +6,8 @@ import RemoveMarkdown from 'remove-markdown'
 
 import { useIsLogged } from '~/atoms/hooks/owner'
 import { PostPinIcon } from '~/components/modules/post/PostPinIcon'
+import { MagneticHoverEffect } from '~/components/ui/effect/MagneticHoverEffect'
 
-import { PostItemHoverOverlay } from './PostItemHoverOverlay'
 import { PostMetaBar } from './PostMetaBar'
 
 export const PostLooseItem = memo<{ data: PostModel }>(function PostLooseItem({
@@ -23,11 +23,11 @@ export const PostLooseItem = memo<{ data: PostModel }>(function PostLooseItem({
 
   const isLogged = useIsLogged()
   return (
-    <Link
+    <MagneticHoverEffect
+      as={Link}
       href={postLink}
-      className="relative flex flex-col py-8 focus-visible:!shadow-none"
+      className="relative flex !cursor-pointer flex-col py-8 before:-inset-x-6 focus-visible:!shadow-none"
     >
-      <PostItemHoverOverlay />
       <h2 className="relative break-words text-2xl font-medium">
         <div
           className={isLogged || data.pin ? 'w-[calc(100%-2rem)]' : 'w-full'}
@@ -66,7 +66,7 @@ export const PostLooseItem = memo<{ data: PostModel }>(function PostLooseItem({
           <i className="i-mingcute-arrow-right-line text-lg transition-[margin]" />
         </span>
       </div>
-    </Link>
+    </MagneticHoverEffect>
   )
 })
 
@@ -77,11 +77,11 @@ export const PostCompactItem = memo<{ data: PostModel }>(
 
     const isLogged = useIsLogged()
     return (
-      <Link
+      <MagneticHoverEffect
+        as={Link}
         href={postLink}
-        className="relative flex flex-col py-8 focus-visible:!shadow-none"
+        className="relative flex !cursor-pointer flex-col py-8 before:-inset-x-6 focus-visible:!shadow-none"
       >
-        <PostItemHoverOverlay />
         <h2 className="relative break-words text-2xl font-medium">
           <div
             className={isLogged || data.pin ? 'w-[calc(100%-2rem)]' : 'w-full'}
@@ -104,7 +104,7 @@ export const PostCompactItem = memo<{ data: PostModel }>(
         <div className="post-meta-bar flex select-none flex-wrap items-center justify-end gap-4 text-base-content/60">
           <PostMetaBar meta={data} />
         </div>
-      </Link>
+      </MagneticHoverEffect>
     )
   },
 )
