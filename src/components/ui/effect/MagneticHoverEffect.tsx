@@ -1,4 +1,5 @@
 'use client'
+
 import * as React from 'react'
 import { useCallback, useRef } from 'react'
 
@@ -7,23 +8,28 @@ import { clsxm } from '~/lib/helper'
 type MagneticHoverEffectProps<T extends React.ElementType> = {
   as?: T
   children: React.ReactNode
-  variant?: 'default' | 'accent'
 } & Omit<React.ComponentPropsWithoutRef<T>, 'as' | 'children'>
 
 export const MagneticHoverEffect = <T extends React.ElementType = 'div'>({
   as,
   children,
-  variant = 'default',
   ...rest
 }: MagneticHoverEffectProps<T>) => {
   const Component = as || 'div'
 
   const itemRef = useRef<HTMLElement>(null)
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
     if (!itemRef.current) return
+    const rect = itemRef.current.getBoundingClientRect()
+
+    const x = ((e.clientX - rect.left) / rect.width) * 100
+    const y = ((e.clientY - rect.top) / rect.height) * 100
+
     itemRef.current.style.transition =
       'transform 0.2s cubic-bezier(0.33, 1, 0.68, 1)'
+    itemRef.current.style.setProperty('--origin-x', `${x}%`)
+    itemRef.current.style.setProperty('--origin-y', `${y}%`)
   }
 
   const handleMouseLeave = () => {
@@ -56,11 +62,7 @@ export const MagneticHoverEffect = <T extends React.ElementType = 'div'>({
       className={clsxm(
         'relative !cursor-none',
         'inline-block transition-all duration-200 ease-out',
-        'before:absolute before:-inset-x-2 before:inset-y-0 before:z-[-1] before:origin-center before:scale-[0.92] before:rounded-xl before:opacity-0 before:backdrop-blur before:transition-all before:duration-200 hover:before:scale-100 hover:before:opacity-100',
-        variant === 'accent'
-          ? 'before:bg-accent/50'
-          : 'before:bg-black/[0.03] dark:before:bg-white/10',
-
+        'before:absolute before:-inset-x-2 before:inset-y-0 before:z-[-1] before:scale-0 before:rounded-xl before:bg-black/[0.03] before:opacity-0 before:backdrop-blur before:transition-all before:duration-200 before:[transform-origin:var(--origin-x)_var(--origin-y)] hover:before:scale-100 hover:before:opacity-100 dark:before:bg-white/[0.10]',
         rest.className,
       )}
     >
