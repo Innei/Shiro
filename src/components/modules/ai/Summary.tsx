@@ -37,10 +37,15 @@ export const AISummary: FC<AiSummaryProps> = memo((props) => {
 })
 
 const SummaryLoadingSkeleton = (
-  <div className="space-y-2">
-    <span className="block h-5 w-full animate-pulse rounded-xl bg-zinc-200 dark:bg-neutral-800" />
-    <span className="block h-5 w-full animate-pulse rounded-xl bg-zinc-200 dark:bg-neutral-800" />
-    <span className="block h-5 w-full animate-pulse rounded-xl bg-zinc-200 dark:bg-neutral-800" />
+  <div className="space-y-3">
+    <div className="flex items-center space-x-1">
+      <span className="inline-block size-2 animate-pulse rounded-full bg-purple-400/70 dark:bg-purple-500/70" />
+      <span className="inline-block size-2 animate-pulse rounded-full bg-purple-400/40 delay-150 dark:bg-purple-500/40" />
+      <span className="inline-block size-2 animate-pulse rounded-full bg-purple-400/20 delay-300 dark:bg-purple-500/20" />
+    </div>
+    <span className="block h-4 w-full animate-pulse rounded-md bg-gradient-to-r from-zinc-200 via-purple-100/30 to-zinc-100 dark:from-neutral-800 dark:via-purple-900/30 dark:to-neutral-700" />
+    <span className="block h-4 w-11/12 animate-pulse rounded-md bg-gradient-to-r from-zinc-200 via-purple-100/30 to-zinc-100 dark:from-neutral-800 dark:via-purple-900/30 dark:to-neutral-700" />
+    <span className="block h-4 w-10/12 animate-pulse rounded-md bg-gradient-to-r from-zinc-200 via-purple-100/30 to-zinc-100 dark:from-neutral-800 dark:via-purple-900/30 dark:to-neutral-700" />
   </div>
 )
 
@@ -54,17 +59,34 @@ const SummaryContainer: Component<{
     <div
       data-hide-print
       className={clsxm(
-        `space-y-2 rounded-xl border border-slate-200 p-4 dark:border-neutral-800`,
+        `overflow-hidden rounded-xl border border-purple-200/80 bg-gradient-to-b from-white to-purple-50/50 p-4 shadow-sm transition-all dark:border-purple-800/80 dark:from-neutral-900 dark:to-purple-950/30`,
         className,
       )}
     >
-      <div className="flex items-center">
-        <LogosOpenaiIcon className="mr-2" />
-        <span>AI 生成的摘要</span>
+      <div className="mb-3 flex items-center">
+        <div className="mr-2 flex size-6 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 shadow-sm shadow-purple-200 dark:from-purple-600 dark:to-indigo-600 dark:shadow-purple-900/20">
+          <LogosOpenaiIcon className="size-4 text-white" />
+        </div>
+        <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-sm font-medium text-transparent dark:from-purple-400 dark:to-indigo-400">
+          AI 生成的摘要
+        </span>
+        {!isLoading && (
+          <div className="ml-auto flex items-center text-xs text-slate-400 dark:text-neutral-500">
+            <span className="mr-1.5 size-1.5 animate-pulse rounded-full bg-purple-400 dark:bg-purple-500" />
+            <span>由 Open AI 提供支持</span>
+          </div>
+        )}
       </div>
 
       <AutoResizeHeight spring>
-        <div className="!m-0 text-sm leading-loose text-base-content/85">
+        <div
+          className={clsxm(
+            '!m-0 text-sm leading-relaxed text-base-content/85',
+            isLoading
+              ? ''
+              : 'border-l-2 border-purple-400/30 dark:border-purple-500/30 pl-3',
+          )}
+        >
           {isLoading ? (
             SummaryLoadingSkeleton
           ) : (
@@ -84,16 +106,20 @@ export const SummaryLoadingSkeletonContainer: FC<{ className?: string }> = ({
   <div
     data-hide-print
     className={clsxm(
-      `space-y-2 rounded-xl border border-slate-200 p-4 dark:border-neutral-800`,
+      `overflow-hidden rounded-xl border border-purple-200/80 bg-gradient-to-b from-white to-purple-50/50 p-4 shadow-sm transition-all dark:border-purple-800/80 dark:from-neutral-900 dark:to-purple-950/30`,
       className,
     )}
   >
-    <div className="flex items-center">
-      <LogosOpenaiIcon className="mr-2" />
-      <span>AI 生成的摘要</span>
+    <div className="mb-3 flex items-center">
+      <div className="mr-2 flex size-6 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 shadow-sm shadow-purple-200 dark:from-purple-600 dark:to-indigo-600 dark:shadow-purple-900/20">
+        <LogosOpenaiIcon className="size-4 text-white" />
+      </div>
+      <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-sm font-medium text-transparent dark:from-purple-400 dark:to-indigo-400">
+        AI 生成的摘要
+      </span>
     </div>
 
-    <div className="!m-0 text-sm leading-loose text-base-content/85">
+    <div className="!m-0 text-sm leading-relaxed text-base-content/85">
       {SummaryLoadingSkeleton}
     </div>
   </div>
