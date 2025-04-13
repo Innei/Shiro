@@ -106,7 +106,7 @@ const ActivityIcon = memo(() => {
 
   useEffect(() => {
     if (!data) return
-    if (data.mediaInfo) {
+    if (data.mediaInfo && data.mediaInfo.title) {
       setActivityMediaInfo(data.mediaInfo)
     } else {
       setActivityMediaInfo(null)
@@ -145,6 +145,7 @@ const ActivityIcon = memo(() => {
 
   const mediaVerb = media?.verb || '听'
   const processVerb = process?.verb || '使用'
+
   return (
     <>
       {!!media && (
@@ -155,14 +156,20 @@ const ActivityIcon = memo(() => {
             type="tooltip"
             strategy="fixed"
           >
-            <p>
+            <p className="text-[13px]">
               {ownerName} 正在
               {media.processName
-                ? `${processVerb} ${media.processName} ${mediaVerb}`
-                : mediaVerb}{' '}
+                ? `使用 ${media.processName} ${mediaVerb}`
+                : mediaVerb}
+              ：
             </p>
-            <p className="font-bold">
-              {media.title} - {media.artist}
+            <p>
+              <span className="font-bold">
+                {media.title} - {media.artist}
+              </span>
+              <span className="ml-4">
+                {media.duration ? formatDuration(media.duration) : ''}
+              </span>
             </p>
           </FloatPopover>
         </m.div>
@@ -198,9 +205,11 @@ const ActivityIcon = memo(() => {
                   action={TrackerAction.Impression}
                   trackerMessage="Activity"
                 >
-                  <p>{ownerName} 正在使用</p>
-                  <p className="font-bold">
-                    {processName}
+                  <p className="text-[13px]">
+                    {ownerName} 正在{processVerb}：
+                  </p>
+                  <p>
+                    <span className="font-bold">{processName}</span>
                     {renderDescription ? ` ${renderDescription}` : ''}
                   </p>
                 </ImpressionView>
@@ -256,3 +265,9 @@ const TriggerComponent = memo<{
 })
 
 TriggerComponent.displayName = 'ActivityIcon'
+
+const formatDuration = (duration: number) => {
+  const minutes = Math.floor(duration / 60)
+  const seconds = duration % 60
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`
+}
