@@ -10,10 +10,15 @@ type Activity = {
     iconBase64?: string
     iconUrl?: string
     description?: string
+    verb?: string
   } | null
   media: {
     title: string
     artist: string
+    processName?: string
+    duration?: number
+
+    verb?: string
   } | null
 }
 
