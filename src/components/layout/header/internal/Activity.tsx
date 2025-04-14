@@ -210,7 +210,9 @@ const ActivityIcon = memo(() => {
                   </p>
                   <p>
                     <span className="font-bold">{processName}</span>
-                    {renderDescription ? ` ${renderDescription}` : ''}
+                    <span className="whitespace-pre">
+                      {renderDescription ? ` ${renderDescription}` : ''}
+                    </span>
                   </p>
                 </ImpressionView>
               </FloatPopover>
