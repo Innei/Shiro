@@ -149,7 +149,7 @@ const ActivityIcon = memo(() => {
   return (
     <>
       {!!media && (
-        <m.div className="absolute inset-y-0 left-0 z-[11] flex items-center lg:left-auto lg:right-[-50px] lg:translate-y-1">
+        <m.div className="absolute inset-y-0 left-0 z-[11] flex items-center lg:left-auto lg:right-[-55px] lg:translate-y-1">
           <FloatPopover
             TriggerComponent={TriggerComponent}
             triggerComponentProps={cMusicProps}
@@ -179,7 +179,7 @@ const ActivityIcon = memo(() => {
           {processName && (
             <m.div
               key={processName}
-              className="pointer-events-auto absolute inset-y-0 right-3 z-10 flex items-center overflow-hidden lg:right-[-25px]"
+              className="pointer-events-auto absolute inset-y-0 right-3 z-10 flex items-center overflow-hidden lg:right-[-30px]"
               initial={{
                 opacity: 0.0001,
                 y: 15,
