@@ -1,10 +1,10 @@
 import { Excalidraw as Board, exportToBlob } from '@excalidraw/excalidraw'
-import type { ExcalidrawElement } from '@excalidraw/excalidraw/types/element/types'
+import type { ExcalidrawElement } from '@excalidraw/excalidraw/element/types'
 import type {
   AppState,
   BinaryFiles,
   ExcalidrawImperativeAPI,
-} from '@excalidraw/excalidraw/types/types'
+} from '@excalidraw/excalidraw/types'
 import { useQuery } from '@tanstack/react-query'
 import type { Delta } from 'jsondiffpatch'
 import { patch } from 'jsondiffpatch'
@@ -211,7 +211,7 @@ const ExcalidrawImpl = forwardRef<InternelExcalidrawRefObject, ExcalidrawProps>(
                   elements,
                   files: null,
                 })
-                blob.then((blob) => {
+                blob.then((blob: Blob) => {
                   win?.location.replace(URL.createObjectURL(blob))
                 })
               } else {
