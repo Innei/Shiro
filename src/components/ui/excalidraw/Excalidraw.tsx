@@ -211,7 +211,7 @@ const ExcalidrawImpl = forwardRef<InternelExcalidrawRefObject, ExcalidrawProps>(
                   elements,
                   files: null,
                 })
-                blob.then((blob: Blob | MediaSource) => {
+                blob.then((blob: Blob) => {
                   win?.location.replace(URL.createObjectURL(blob))
                 })
               } else {
