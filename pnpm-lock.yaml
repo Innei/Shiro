@@ -21,7 +21,7 @@ overrides:
 
 patchedDependencies:
   next:
-    hash: hv7cjd3jjfkpcreppvzn54iibm
+    hash: adb834072c35e3f57652b815e0b3938643377ae603a83601537fb93855e582f2
     path: patches/next.patch
 
 importers:
@@ -42,7 +42,7 @@ importers:
         version: 1.16.1
       '@openpanel/nextjs':
         specifier: 1.0.7
-        version: 1.0.7(next@14.2.8(patch_hash=hv7cjd3jjfkpcreppvzn54iibm)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 1.0.7(next@14.2.8(patch_hash=adb834072c35e3f57652b815e0b3938643377ae603a83601537fb93855e582f2)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@prosemirror-adapter/react':
         specifier: 0.4.1
         version: 0.4.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -99,7 +99,7 @@ importers:
         version: 1.34.6
       '@vercel/analytics':
         specifier: 1.5.0
-        version: 1.5.0(next@14.2.8(patch_hash=hv7cjd3jjfkpcreppvzn54iibm)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0))(react@18.3.1)
+        version: 1.5.0(next@14.2.8(patch_hash=adb834072c35e3f57652b815e0b3938643377ae603a83601537fb93855e582f2)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0))(react@18.3.1)
       '@vercel/postgres':
         specifier: 0.10.0
         version: 0.10.0
@@ -195,10 +195,10 @@ importers:
         version: 5.1.5
       next:
         specifier: 14.2.8
-        version: 14.2.8(patch_hash=hv7cjd3jjfkpcreppvzn54iibm)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0)
+        version: 14.2.8(patch_hash=adb834072c35e3f57652b815e0b3938643377ae603a83601537fb93855e582f2)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0)
       next-runtime-env:
         specifier: 3.3.0
-        version: 3.3.0(next@14.2.8(patch_hash=hv7cjd3jjfkpcreppvzn54iibm)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0))(react@18.3.1)
+        version: 3.3.0(next@14.2.8(patch_hash=adb834072c35e3f57652b815e0b3938643377ae603a83601537fb93855e582f2)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0))(react@18.3.1)
       next-themes:
         specifier: 0.4.6
         version: 0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -4477,6 +4477,7 @@ packages:
 
   mvdan-sh@0.10.1:
     resolution: {integrity: sha512-kMbrH0EObaKmK3nVRKUIIya1dpASHIEusM13S4V1ViHFuxuNxCo+arxoa6j/dbV22YBGjl7UKJm9QQKJ2Crzhg==}
+    deprecated: See https://github.com/mvdan/sh/issues/1145
 
   mz@2.7.0:
     resolution: {integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==}
@@ -7455,10 +7456,10 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
-  '@openpanel/nextjs@1.0.7(next@14.2.8(patch_hash=hv7cjd3jjfkpcreppvzn54iibm)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@openpanel/nextjs@1.0.7(next@14.2.8(patch_hash=adb834072c35e3f57652b815e0b3938643377ae603a83601537fb93855e582f2)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@openpanel/web': 1.0.1
-      next: 14.2.8(patch_hash=hv7cjd3jjfkpcreppvzn54iibm)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0)
+      next: 14.2.8(patch_hash=adb834072c35e3f57652b815e0b3938643377ae603a83601537fb93855e582f2)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
@@ -8833,9 +8834,9 @@ snapshots:
     transitivePeerDependencies:
       - graphql
 
-  '@vercel/analytics@1.5.0(next@14.2.8(patch_hash=hv7cjd3jjfkpcreppvzn54iibm)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0))(react@18.3.1)':
+  '@vercel/analytics@1.5.0(next@14.2.8(patch_hash=adb834072c35e3f57652b815e0b3938643377ae603a83601537fb93855e582f2)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0))(react@18.3.1)':
     optionalDependencies:
-      next: 14.2.8(patch_hash=hv7cjd3jjfkpcreppvzn54iibm)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0)
+      next: 14.2.8(patch_hash=adb834072c35e3f57652b815e0b3938643377ae603a83601537fb93855e582f2)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0)
       react: 18.3.1
 
   '@vercel/postgres@0.10.0':
@@ -11201,9 +11202,9 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next-runtime-env@3.3.0(next@14.2.8(patch_hash=hv7cjd3jjfkpcreppvzn54iibm)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0))(react@18.3.1):
+  next-runtime-env@3.3.0(next@14.2.8(patch_hash=adb834072c35e3f57652b815e0b3938643377ae603a83601537fb93855e582f2)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0))(react@18.3.1):
     dependencies:
-      next: 14.2.8(patch_hash=hv7cjd3jjfkpcreppvzn54iibm)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0)
+      next: 14.2.8(patch_hash=adb834072c35e3f57652b815e0b3938643377ae603a83601537fb93855e582f2)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0)
       react: 18.3.1
 
   next-themes@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
@@ -11211,7 +11212,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  next@14.2.8(patch_hash=hv7cjd3jjfkpcreppvzn54iibm)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0):
+  next@14.2.8(patch_hash=adb834072c35e3f57652b815e0b3938643377ae603a83601537fb93855e582f2)(@babel/core@7.26.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.51.0):
     dependencies:
       '@next/env': 14.2.8
       '@swc/helpers': 0.5.5
