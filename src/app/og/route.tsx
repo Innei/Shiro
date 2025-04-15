@@ -186,6 +186,7 @@ export const GET = async (req: NextRequest) => {
         'Cache-Control':
           'max-age=3600, s-maxage=3600, stale-while-revalidate=600',
         'CDN-Cache-Control': 'max-age=3600, stale-while-revalidate=600',
+        'Cache-Tag': 'og-image',
       },
     })
   } catch (e: any) {
