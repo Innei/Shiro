@@ -163,11 +163,11 @@ export const GET = async (req: NextRequest) => {
           .map(
             (line, index) => `<text 
       x="0"
-      y="${index * 64}" 
-      font-family="'Noto Sans', Inter, system-ui" 
-      font-size="64" 
-      font-weight="bold" 
-      fill="rgba(255, 255, 255, 0.98)" 
+      y="${index * 72}" 
+      font-family="LXGW WenKai, Noto Sans CJK SC, WenQuanYi Micro Hei"
+      font-size="64"
+      font-weight="bold"
+      fill="rgba(255, 255, 255, 0.98)"
       text-anchor="end"
     >
      ${line}
