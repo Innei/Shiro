@@ -63,6 +63,7 @@ export const GET = async (req: NextRequest) => {
       subtitle: string
       meta: any
       images: Image[] | undefined
+      id: string
     }
 
     switch (data.type) {
@@ -73,6 +74,7 @@ export const GET = async (req: NextRequest) => {
           subtitle: r.category.name,
           meta: r.meta,
           images: r.images,
+          id: r.id,
         }))
         break
       }
@@ -84,6 +86,7 @@ export const GET = async (req: NextRequest) => {
           subtitle: '手记',
           meta: r.data.meta,
           images: r.data.images,
+          id: r.data.id,
         }))
         break
       }
@@ -94,6 +97,7 @@ export const GET = async (req: NextRequest) => {
           subtitle: data.subtitle || '',
           meta: data.meta,
           images: data.images,
+          id: data.id,
         }))
         break
       }
@@ -166,7 +170,6 @@ export const GET = async (req: NextRequest) => {
       y="${index * 72}" 
       font-family="LXGW WenKai, Noto Sans CJK SC, WenQuanYi Micro Hei"
       font-size="64"
-      font-weight="bold"
       fill="rgba(255, 255, 255, 0.98)"
       text-anchor="end"
     >

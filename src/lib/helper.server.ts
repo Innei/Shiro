@@ -43,26 +43,24 @@ export const getOgUrl = async (type: 'post' | 'note' | 'page', data: any) => {
   )
   return ogUrl
 }
-
 export const getBackgroundGradientBySeed = (seed: string) => {
   const bgAccent = uniqolor(seed, {
-    saturation: [30, 35],
-    lightness: [60, 70],
+    saturation: [30, 40],
+    lightness: [50, 60],
   }).color
 
   const bgAccentLight = uniqolor(seed, {
-    saturation: [30, 35],
-    lightness: [80, 90],
+    saturation: [30, 40],
+    lightness: [70, 80],
   }).color
 
   const bgAccentUltraLight = uniqolor(seed, {
-    saturation: [30, 35],
-    lightness: [95, 96],
+    saturation: [30, 40],
+    lightness: [85, 90],
   }).color
 
   return [bgAccent, bgAccentLight, bgAccentUltraLight]
 }
-
 export const getBackgroundGradientByBaseColor = (baseColor: string) => {
   const bgAccent = chroma(baseColor)
     .set('hsl.s', 0.325)
