@@ -8,6 +8,7 @@ import type { PropsWithChildren } from 'react'
 
 import PKG from '~/../package.json'
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
+import { FireflyBackground } from '~/components/common/FireflyBackground'
 import { Global } from '~/components/common/Global'
 import { HydrationEndDetector } from '~/components/common/HydrationEndDetector'
 import { SyncServerTime } from '~/components/common/SyncServerTime'
@@ -15,6 +16,7 @@ import { Root } from '~/components/layout/root/Root'
 import { AccentColorStyleInjector } from '~/components/modules/shared/AccentColorStyleInjector'
 import { SearchPanelWithHotKey } from '~/components/modules/shared/SearchFAB'
 import { TocAutoScroll } from '~/components/modules/toc/TocAutoScroll'
+import { RootPortal } from '~/components/ui/portal'
 import { PreRenderError } from '~/lib/error-factory'
 import { sansFont, serifFont } from '~/lib/fonts'
 import { apiClient } from '~/lib/request'
@@ -246,6 +248,9 @@ export default async function RootLayout(props: PropsWithChildren) {
 
                 {/* <ScrollTop /> */}
                 <div className="fixed inset-y-0 right-0 w-[var(--removed-body-scroll-bar-size)]" />
+                <RootPortal>
+                  <FireflyBackground />
+                </RootPortal>
               </WebAppProviders>
             </ErrorBoundary>
           </body>
