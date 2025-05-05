@@ -52,7 +52,7 @@ export const XlogSwitch = () => {
 const PublishEventSubscriber = () => {
   const store = useStore()
   useEffect(() => {
-    window.addEventListener(PublishEvent.type, (e: Event) => {
+    const handler = (e: Event) => {
       const ev = e as PublishEvent
 
       const enabled = store.get(syncToXlogAtom)
@@ -61,7 +61,11 @@ const PublishEventSubscriber = () => {
       CrossBellConnector.createOrUpdate(ev.data).then(() => {
         window.dispatchEvent(new RefetchEvent())
       })
-    })
+    }
+    window.addEventListener(PublishEvent.type, handler)
+    return () => {
+      window.removeEventListener(PublishEvent.type, handler)
+    }
   }, [store])
 
   return null

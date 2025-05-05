@@ -1,12 +1,9 @@
 import type { Contract } from 'crossbell'
 import { createContract, Indexer } from 'crossbell'
-import Unidata from 'unidata.js'
 
 import { apiClient } from '~/lib/request'
 import { toast } from '~/lib/toast'
 import type { NoteDto, PostDto } from '~/models/writing'
-
-const unidata = new Unidata()
 
 const crossbellGQLEndpoint = 'https://indexer.crossbell.io/v1/graphql'
 
@@ -105,46 +102,24 @@ export class CrossBellConnector {
                 : '',
           publishedAt: data.created,
         }
+        await this.contract?.note.post({
+          metadataOrUri: {
+            content: input.content,
+            title: input.title,
+            attachments: [],
+            date_published: input.publishedAt,
+            external_urls: [input.externalUrl],
+            type: 'note',
 
-        return unidata.notes.set(
-          {
-            source: 'Crossbell Note',
-            identity: input.siteId,
-            platform: 'Crossbell',
-            action: input.pageId ? 'update' : 'add',
-          },
-          {
-            ...(input.externalUrl && { related_urls: [input.externalUrl] }),
-            ...(input.pageId && { id: input.pageId }),
-            ...(input.title && { title: input.title }),
-            ...(input.content && {
-              body: {
-                content: input.content,
-                mime_type: 'text/markdown',
-              },
-            }),
-            ...(input.publishedAt && {
-              date_published: input.publishedAt,
-            }),
-
+            attributes: [],
+            sources: ['xlog'],
             tags: [
               input.isPost ? 'post' : 'page',
-              ...(input.tags
-                ?.split(',')
-                .map((tag) => tag.trim())
-                .filter(Boolean) || []),
+              ...(input.tags?.split(',').map((tag) => tag.trim()) || []),
             ],
-            applications: ['xlog'],
-            ...(input.slug && {
-              attributes: [
-                {
-                  trait_type: 'xlog_slug',
-                  value: input.slug,
-                },
-              ],
-            }),
           },
-        )
+          characterId: SITE_ID,
+        })
       }
 
       await post().catch((err) => {
