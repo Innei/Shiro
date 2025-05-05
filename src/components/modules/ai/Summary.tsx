@@ -65,7 +65,25 @@ const SummaryContainer: Component<{
     >
       <div className="mb-3 flex items-center">
         <div className="mr-2 flex size-6 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 shadow-sm shadow-purple-200 dark:from-purple-600 dark:to-indigo-600 dark:shadow-purple-900/20">
-          <LogosOpenaiIcon className="size-4 text-white" />
+          <svg
+            className="size-4 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <g
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1.5"
+              color="currentColor"
+            >
+              <path d="M4 16.5a3 3 0 0 0 3 3a2.5 2.5 0 0 0 5 0a2.5 2.5 0 1 0 5 0a3 3 0 0 0 2.567-4.553a3.001 3.001 0 0 0 0-5.893A3 3 0 0 0 17 4.5a2.5 2.5 0 1 0-5 0a2.5 2.5 0 0 0-5 0a3 3 0 0 0-2.567 4.553a3.001 3.001 0 0 0 0 5.893A3 3 0 0 0 4 16.5" />
+              <path d="m7.5 14.5l1.842-5.526a.694.694 0 0 1 1.316 0L12.5 14.5m3-6v6m-7-2h3" />
+            </g>
+          </svg>
         </div>
         <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-sm font-medium text-transparent dark:from-purple-400 dark:to-indigo-400">
           AI 生成的摘要
@@ -73,7 +91,7 @@ const SummaryContainer: Component<{
         {!isLoading && (
           <div className="ml-auto flex items-center text-xs text-slate-400 dark:text-neutral-500">
             <span className="mr-1.5 size-1.5 animate-pulse rounded-full bg-purple-400 dark:bg-purple-500" />
-            <span>由 Open AI 提供支持</span>
+            <span>此内容由 AI 生成</span>
           </div>
         )}
       </div>
