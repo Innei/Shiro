@@ -4,6 +4,7 @@ import { useLayoutEffect, useState } from 'react'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { apiClient } from '~/lib/request'
 
+
 interface IpInfoPopoverProps {
   ip: string
 }
@@ -51,7 +52,11 @@ export const IpInfoPopover: Component<IpInfoPopoverProps> = (props) => {
       onOpen={() => {
         refetch()
       }}
-      triggerElement={<span className={className}>{ip}</span>}
+      triggerElement={
+        <p className="flex items-center justify-start gap-1">
+          <span className={className}>{ip}</span>
+        </p>
+      }
     >
       {isLoading ? (
         '...'

@@ -1,7 +1,7 @@
 import type { CommentModel } from '@mx-space/api-client'
 import clsx from 'clsx'
 import { atom, useStore } from 'jotai'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks/viewport'
 import { StyledButton } from '~/components/ui/button'
@@ -27,6 +27,8 @@ export const ReplyModal = (props: { comment: CommentModel }) => {
   const { dismiss, ref: modalContentRef } = useCurrentModal()
 
   const { mutateAsync: reply } = useReplyCommentMutation()
+
+  const isSubmittedRef = useRef(false)
   const handleReply = useEventCallback(async () => {
     const text = getValue()
     if (!text) {
@@ -38,6 +40,7 @@ export const ReplyModal = (props: { comment: CommentModel }) => {
       id,
       content: text,
     })
+    isSubmittedRef.current = true
 
     dismiss()
 
@@ -61,6 +64,7 @@ export const ReplyModal = (props: { comment: CommentModel }) => {
     const $ = ref.current
     return () => {
       if (!$) return
+      if (isSubmittedRef.current) return
       store.set(replyTextAtom, $.value)
     }
   }, [store, ref])
