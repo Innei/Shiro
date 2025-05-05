@@ -72,7 +72,7 @@ export const MarkdownLink: FC<{
         as="a"
         variant="accent"
         href={href}
-        className="decoration-accent/60 hover:decoration-transparent"
+        className="indent-0 decoration-accent/60 hover:decoration-transparent"
         target="_blank"
         onClick={handleRedirect}
         title={title}
@@ -98,7 +98,7 @@ export const MarkdownLink: FC<{
       <MagneticHoverEffect
         variant="accent"
         as="a"
-        className="decoration-accent/60 hover:decoration-transparent"
+        className="indent-0 decoration-accent/60 hover:decoration-transparent"
         href={href}
         target="_blank"
         rel="noreferrer"

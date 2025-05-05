@@ -7,6 +7,7 @@ import { IcBaselineTelegram } from '~/components/icons/platform/Telegram'
 import { SimpleIconsThemoviedatabase } from '~/components/icons/platform/TheMovieDB'
 import { TwitterIcon } from '~/components/icons/platform/Twitter'
 import { WikipediaIcon } from '~/components/icons/platform/WikipediaIcon'
+import { SimpleIconsXiaohongshu } from '~/components/icons/platform/XiaoHongShuIcon'
 import { SimpleIconsZhihu } from '~/components/icons/platform/ZhihuIcon'
 import { clsxm } from '~/lib/helper'
 import {
@@ -19,6 +20,7 @@ import {
   isTMDBUrl,
   isTwitterUrl,
   isWikipediaUrl,
+  isXiaoHongShuUrl,
   isZhihuUrl,
 } from '~/lib/link-parser'
 
@@ -74,6 +76,11 @@ const map = [
     type: 'Figma',
     icon: <SimpleIconsFigma className="text-[#A259FF]" />,
     test: isFigmaUrl,
+  },
+  {
+    type: 'XHS',
+    icon: <SimpleIconsXiaohongshu className="text-[#FE2442]" />,
+    test: isXiaoHongShuUrl,
   },
 ] as const
 

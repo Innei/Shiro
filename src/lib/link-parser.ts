@@ -32,6 +32,9 @@ export const isArxivUrl = (url: URL) =>
   url.pathname.startsWith('/') &&
   /(abs|pdf)\/\d{4}\.\d+(?:v\d+)?/i.test(url.pathname)
 
+export const isXiaoHongShuUrl = (url: URL) =>
+  url.hostname.includes('xiaohongshu.com')
+
 export const isGithubPrUrl = (url: URL) =>
   url.hostname === GITHUB_HOST && url.pathname.includes('/pull/')
 
