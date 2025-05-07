@@ -1,7 +1,7 @@
 'use client'
 
 import type { ElementType } from 'react'
-import { useDeferredValue } from 'react'
+import { use, useDeferredValue } from 'react'
 import { useInView } from 'react-intersection-observer'
 
 import { useIsMobile } from '~/atoms/hooks/viewport'
@@ -14,7 +14,10 @@ import { RootPortal } from '~/components/ui/portal'
 import { IconSmoothTransition } from '~/components/ui/transition'
 import { useReadPercent } from '~/hooks/shared/use-read-percent'
 import { clsxm } from '~/lib/helper'
+import { apiClient } from '~/lib/request'
 import { springScrollToTop } from '~/lib/scroller'
+import { PageArticleIdContext } from '~/providers/article/PageArticleIdProvider'
+import { useCurrentPostDataSelector } from '~/providers/post/CurrentPostDataProvider'
 import { useIsEoFWrappedElement } from '~/providers/shared/WrappedElementProvider'
 
 export const ReadIndicator: Component<{
@@ -24,6 +27,8 @@ export const ReadIndicator: Component<{
   const As = as || 'span'
 
   const { ref, inView } = useInView()
+  const id = use(PageArticleIdContext)
+  const isPost = useCurrentPostDataSelector((post) => post && post.id === id)
 
   return (
     <As
@@ -40,7 +45,24 @@ export const ReadIndicator: Component<{
         />
         {readPercent}%<br />
       </div>
+
+      {isPost && id && (
+        <MotionButtonBase
+          whileHover={void 0}
+          onClick={() => {
+            apiClient.ai.getDeepReading(id)
+          }}
+          className={
+            'mt-1 flex flex-nowrap items-center gap-2 opacity-50 transition-all duration-500 hover:opacity-100'
+          }
+        >
+          <i className="i-mingcute-brain-line" />
+          <span className="whitespace-nowrap">AI 精读</span>
+        </MotionButtonBase>
+      )}
+
       <MotionButtonBase
+        whileHover={void 0}
         onClick={springScrollToTop}
         className={clsxm(
           'mt-1 flex flex-nowrap items-center gap-2 opacity-50 transition-all duration-500 hover:opacity-100',

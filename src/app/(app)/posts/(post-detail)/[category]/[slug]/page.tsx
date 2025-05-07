@@ -34,6 +34,9 @@ import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
 import { apiClient } from '~/lib/request'
 import { definePrerenderPage } from '~/lib/request.server'
+import {
+  PageArticleIdProvider,
+} from '~/providers/article/PageArticleIdProvider'
 import { CurrentPostDataProvider } from '~/providers/post/CurrentPostDataProvider'
 import {
   LayoutRightSidePortal,
@@ -203,7 +206,7 @@ export default definePrerenderPage<PageParams>()({
     }
 
     return (
-      <>
+      <PageArticleIdProvider id={data.id}>
         {currentPath !== fullPath && <SlugReplacer to={fullPath} />}
         <LdJsonWithAuthor baseLdJson={jsonLd} />
 
@@ -233,7 +236,7 @@ export default definePrerenderPage<PageParams>()({
         <OnlyMobile>
           <TocFAB />
         </OnlyMobile>
-      </>
+      </PageArticleIdProvider>
     )
   },
 })

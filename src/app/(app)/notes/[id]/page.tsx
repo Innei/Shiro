@@ -40,6 +40,9 @@ import { getSummaryFromMd } from '~/lib/markdown'
 import { apiClient } from '~/lib/request'
 import { definePrerenderPage } from '~/lib/request.server'
 import {
+  PageArticleIdProvider,
+} from '~/providers/article/PageArticleIdProvider'
+import {
   CurrentNoteDataProvider,
   SyncNoteDataAfterLoggedIn,
 } from '~/providers/note/CurrentNoteDataProvider'
@@ -211,7 +214,7 @@ export default definePrerenderPage<NoteDetailPageParams>()({
   },
   Component({ data, params: { id: nid }, fetchedAt }) {
     return (
-      <>
+      <PageArticleIdProvider id={data.data.id}>
         <CurrentNoteNidProvider nid={nid} />
         <CurrentNoteDataProvider data={data} />
         <NoteDataReValidate fetchedAt={fetchedAt} />
@@ -235,7 +238,7 @@ export default definePrerenderPage<NoteDetailPageParams>()({
         <OnlyMobile>
           <TocFAB />
         </OnlyMobile>
-      </>
+      </PageArticleIdProvider>
     )
   },
 })

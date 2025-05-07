@@ -18,6 +18,9 @@ import { getOgUrl } from '~/lib/helper.server'
 import { getSummaryFromMd } from '~/lib/markdown'
 import { apiClient } from '~/lib/request'
 import { definePrerenderPage, requestErrorHandler } from '~/lib/request.server'
+import {
+  PageArticleIdProvider,
+} from '~/providers/article/PageArticleIdProvider'
 import { CurrentPageDataProvider } from '~/providers/page/CurrentPageDataProvider'
 import { LayoutRightSideProvider } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
@@ -86,7 +89,7 @@ export default definePrerenderPage<PageParams>()({
   },
 
   Component: ({ data, children }) => (
-    <>
+    <PageArticleIdProvider id={data.id}>
       <PageColorGradient seed={data.title + data.subtitle} />
       <CurrentPageDataProvider data={data} />
       <div className="relative flex min-h-[120px] w-full">
@@ -136,6 +139,6 @@ export default definePrerenderPage<PageParams>()({
       <OnlyMobile>
         <TocFAB />
       </OnlyMobile>
-    </>
+    </PageArticleIdProvider>
   ),
 })
