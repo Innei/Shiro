@@ -51,9 +51,12 @@ export const WithArticleSelectionAction: Component<{
 
   useEffect(() => {
     // wait for toc listener to be registered
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       document.dispatchEvent(new CustomEvent(DOMCustomEvents.RefreshToc))
     }, 1000)
+    return () => {
+      clearTimeout(timer)
+    }
   }, [])
 
   const canCopy = !useIsInBanCopyContext()

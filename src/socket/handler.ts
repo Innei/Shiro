@@ -97,7 +97,9 @@ export const eventHandler = (
       trackerRealtimeEvent()
 
       if (currentData.text !== post.text) {
-        document.dispatchEvent(new CustomEvent(DOMCustomEvents.RefreshToc))
+        setTimeout(() => {
+          document.dispatchEvent(new CustomEvent(DOMCustomEvents.RefreshToc))
+        }, 100)
       }
 
       break
@@ -137,7 +139,9 @@ export const eventHandler = (
       trackerRealtimeEvent()
 
       if (currentData.text !== note.text) {
-        document.dispatchEvent(new CustomEvent(DOMCustomEvents.RefreshToc))
+        setTimeout(() => {
+          document.dispatchEvent(new CustomEvent(DOMCustomEvents.RefreshToc))
+        }, 100)
       }
 
       break
