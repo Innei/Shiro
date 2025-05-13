@@ -1,11 +1,10 @@
 'use client'
-
 import clsx from 'clsx'
-import mediumZoom from 'medium-zoom'
 import Image from 'next/image'
 import type { FC } from 'react'
-import * as React from 'react'
 import { memo, useRef } from 'react'
+import { Blurhash } from 'react-blurhash'
+import { PhotoProvider, PhotoView } from 'react-photo-view'
 
 import { LazyLoad } from '~/components/common/Lazyload'
 import { addImageUrlResizeQuery } from '~/lib/image'
@@ -28,11 +27,26 @@ export const MarkdownImage = (props: { src: string; alt?: string }) => {
   const { w } = useWrappedElementSize()
 
   const ext = src.split('.').pop()!
+  const mediaInfo = useMarkdownImageRecord(src)
+
   if (isVideoExt(ext)) {
     const figcaption = alt?.replace(/^[¡!]/, '')
     return (
       <div className="flex flex-col items-center">
-        <video src={src} controls playsInline autoPlay={false} />
+        <video
+          src={src}
+          className={mediaInfo && 'fit'}
+          style={
+            {
+              '--video-height': mediaInfo?.height,
+              '--video-width': mediaInfo?.width,
+            } as any
+          }
+          controls
+          playsInline
+          autoPlay={false}
+        />
+
         {figcaption && (
           <p className="mt-1 flex flex-col items-center justify-center text-sm">
             <Divider className="w-[80px] opacity-80" />
@@ -46,39 +60,37 @@ export const MarkdownImage = (props: { src: string; alt?: string }) => {
   return <FixedZoomedImage {...nextProps} containerWidth={w} />
 }
 
-export const GridMarkdownImage = (props: any) => {
-  return (
-    <WrappedElementProvider>
-      <div className="relative flex min-w-0 grow">
-        <MarkdownImage {...props} />
-      </div>
-    </WrappedElementProvider>
-  )
-}
+export const GridMarkdownImage = (props: any) => (
+  <WrappedElementProvider>
+    <div className="relative flex min-w-0 grow">
+      <MarkdownImage {...props} />
+    </div>
+  </WrappedElementProvider>
+)
 
 export const GridMarkdownImages: FC<{
   imagesSrc: string[]
   Wrapper: Component
   height: number
-}> = ({ imagesSrc, Wrapper, height = 1 }) => {
-  return (
-    <div
-      className="relative"
-      style={{
-        paddingBottom: `${height * 100}%`,
-      }}
-    >
+}> = ({ imagesSrc, Wrapper, height = 1 }) => (
+  <div
+    className="relative"
+    style={{
+      paddingBottom: `${height * 100}%`,
+    }}
+  >
+    <PhotoProvider photoClosable>
       <Wrapper className="absolute inset-0">
-        {imagesSrc.map((src) => {
-          return <GridZoomImage key={src} src={src} />
-        })}
+        {imagesSrc.map((src) => (
+          <GridZoomImage key={src} src={src} />
+        ))}
       </Wrapper>
-    </div>
-  )
-}
+    </PhotoProvider>
+  </div>
+)
 
 const GridZoomImage: FC<{ src: string }> = memo(({ src }) => {
-  const { accent, height, width } = useMarkdownImageRecord(src) || {}
+  const { accent, height, width, blurHash } = useMarkdownImageRecord(src) || {}
   const cropUrl = addImageUrlResizeQuery(src, 600)
   const imageEl = useRef<HTMLImageElement>(null)
   const wGreaterThanH = width && height ? width > height : true
@@ -92,24 +104,29 @@ const GridZoomImage: FC<{ src: string }> = memo(({ src }) => {
         backgroundColor: accent,
       }}
     >
-      <LazyLoad offset={30}>
-        <ImageComponent
-          loading="lazy"
-          alt=""
-          height={height}
-          width={width}
-          src={cropUrl}
-          ref={imageEl}
-          className={clsx(
-            '!m-0 max-w-max object-cover',
-            wGreaterThanH ? 'h-full' : 'w-full',
-          )}
-          data-zoom-src={src}
-          onClick={() => {
-            if (!imageEl.current) return
-            mediumZoom(imageEl.current).open()
-          }}
+      {!!blurHash && (
+        <Blurhash
+          hash={blurHash}
+          resolutionX={32}
+          resolutionY={32}
+          className="!size-full"
         />
+      )}
+      <LazyLoad offset={30}>
+        <PhotoView src={src}>
+          <ImageComponent
+            loading="lazy"
+            alt=""
+            height={height}
+            width={width}
+            src={cropUrl}
+            ref={imageEl}
+            className={clsx(
+              '!m-0 max-w-max object-cover',
+              wGreaterThanH ? 'h-full' : 'w-full',
+            )}
+          />
+        </PhotoView>
       </LazyLoad>
     </div>
   )

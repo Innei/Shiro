@@ -280,10 +280,10 @@ https://trpc.io/docs/client/react/useInfiniteQuery
 ## LinkCard
 
 ```
-<LinkCard source="gh-repo" id="mx-space/kami">
+<LinkCard source="gh" id="mx-space/kami">
 ```
 
-<LinkCard source="gh-repo" id="mx-space/kami">
+<LinkCard source="gh" id="mx-space/kami">
 
 ```
 <LinkCard source="gh-commit" id="mx-space/kami/commit/e1eee4136c21ab03ab5690e17025777984c362a0">
@@ -327,25 +327,54 @@ Inline https://github.com/Innei
 
 ## Alerts
 
-```
+```markdown
 > [!NOTE]
-> Highlights information that users should take into account, even when skimming.
+> Useful information that users should know, even when skimming content.
+
+<div />
+
+> [!TIP]
+> Helpful advice for doing things better or more easily.
+
+<div />
 
 > [!IMPORTANT]
-> Crucial information necessary for users to succeed.
+> Key information users need to know to achieve their goal.
+
+<div />
 
 > [!WARNING]
-> Critical content demanding immediate user attention due to potential risks.
+> Urgent info that needs immediate user attention to avoid problems.
+
+<div />
+
+> [!CAUTION]
+> Advises about risks or negative outcomes of certain actions.
+
 ```
 
 > [!NOTE]
-> Highlights information that users should take into account, even when skimming.
+> Useful information that users should know, even when skimming content.
+
+<div />
+
+> [!TIP]
+> Helpful advice for doing things better or more easily.
+
+<div />
 
 > [!IMPORTANT]
-> Crucial information necessary for users to succeed.
+> Key information users need to know to achieve their goal.
+
+<div />
 
 > [!WARNING]
-> Critical content demanding immediate user attention due to potential risks.
+> Urgent info that needs immediate user attention to avoid problems.
+
+<div />
+
+> [!CAUTION]
+> Advises about risks or negative outcomes of certain actions.
 
 ## KateX
 

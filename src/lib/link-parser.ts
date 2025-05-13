@@ -3,12 +3,9 @@ import { allowedBangumiTypes } from '~/lib/bangumi'
 
 import { isClientSide, isDev } from './env'
 
-export const getTweetId = (url: URL) => {
-  return url.pathname.split('/').pop()!
-}
+export const getTweetId = (url: URL) => url.pathname.split('/').pop()!
 
 const GITHUB_HOST = 'github.com'
-
 export const isLeetCodeUrl = (url: URL) => {
   return url.hostname === 'leetcode.cn' || url.hostname === 'leetcode.com'
 }
@@ -23,35 +20,36 @@ export const isNeteaseMusicSongUrl = (url: URL) => {
     (url.pathname.includes('/song') || url.hash.includes('/song'))
   )
 }
+export const isGithubRepoUrl = (url: URL) =>
+  url.hostname === GITHUB_HOST &&
+  url.pathname.startsWith('/') &&
+  url.pathname.split('/').length === 3
 
-export const isGithubRepoUrl = (url: URL) => {
-  return (
-    url.hostname === GITHUB_HOST &&
-    url.pathname.startsWith('/') &&
-    url.pathname.split('/').length === 3
-  )
-}
+const ARXIV_HOST = 'arxiv.org'
 
-export const isGithubPrUrl = (url: URL) => {
-  return url.hostname === GITHUB_HOST && url.pathname.includes('/pull/')
-}
+export const isArxivUrl = (url: URL) =>
+  url.hostname === ARXIV_HOST &&
+  url.pathname.startsWith('/') &&
+  /(abs|pdf)\/\d{4}\.\d+(?:v\d+)?/i.test(url.pathname)
 
-export const isYoutubeUrl = (url: URL) => {
-  return url.hostname === 'www.youtube.com' && url.pathname.startsWith('/watch')
-}
+export const isXiaoHongShuUrl = (url: URL) =>
+  url.hostname.includes('xiaohongshu.com')
 
-export const isGistUrl = (url: URL) => {
-  return url.hostname === 'gist.github.com'
-}
+export const isGithubPrUrl = (url: URL) =>
+  url.hostname === GITHUB_HOST && url.pathname.includes('/pull/')
+
+export const isYoutubeUrl = (url: URL) =>
+  url.hostname === 'www.youtube.com' && url.pathname.startsWith('/watch')
+
+export const isGistUrl = (url: URL) => url.hostname === 'gist.github.com'
 
 export const isGithubCommitUrl = (url: URL) => {
   const [_, , , type] = url.pathname.split('/')
   return url.hostname === GITHUB_HOST && type === 'commit'
 }
 
-export const isGithubProfileUrl = (url: URL) => {
-  return url.hostname === GITHUB_HOST && url.pathname.split('/').length === 2
-}
+export const isGithubProfileUrl = (url: URL) =>
+  url.hostname === GITHUB_HOST && url.pathname.split('/').length === 2
 
 export const isGithubFilePreviewUrl = (url: URL) => {
   // https://github.com/Innei/sprightly/blob/14234594f44956e6f56f1f92952ce82db37ef4df/src/socket/handler.ts
@@ -59,40 +57,27 @@ export const isGithubFilePreviewUrl = (url: URL) => {
   return url.hostname === GITHUB_HOST && type === 'blob'
 }
 
-export const isTweetUrl = (url: URL) => {
-  return isTwitterUrl(url) && url.pathname.startsWith('/')
-}
+export const isTweetUrl = (url: URL) =>
+  isTwitterUrl(url) && url.pathname.startsWith('/')
 
-export const isTwitterProfileUrl = (url: URL) => {
-  return isTwitterUrl(url) && url.pathname.split('/').length === 2
-}
+export const isTwitterProfileUrl = (url: URL) =>
+  isTwitterUrl(url) && url.pathname.split('/').length === 2
 
-export const isGithubUrl = (url: URL) => {
-  return url.hostname === GITHUB_HOST
-}
+export const isGithubUrl = (url: URL) => url.hostname === GITHUB_HOST
 
-export const isTwitterUrl = (url: URL) => {
-  return url.hostname === 'twitter.com' || url.hostname === 'x.com'
-}
+export const isTwitterUrl = (url: URL) =>
+  url.hostname === 'twitter.com' || url.hostname === 'x.com'
 
-export const isTelegramUrl = (url: URL) => {
-  return url.hostname === 't.me'
-}
+export const isTelegramUrl = (url: URL) => url.hostname === 't.me'
 
-export const isCodesandboxUrl = (url: URL) => {
+export const isCodesandboxUrl = (url: URL) =>
   // https://codesandbox.io/s/framer-motion-layoutroot-prop-forked-p39g96
-  return (
-    url.hostname === 'codesandbox.io' && url.pathname.split('/').length === 3
-  )
-}
+  url.hostname === 'codesandbox.io' && url.pathname.split('/').length === 3
 
-export const isBilibiliUrl = (url: URL) => {
-  return url.hostname.includes('bilibili.com')
-}
+export const isBilibiliUrl = (url: URL) => url.hostname.includes('bilibili.com')
 
-export const isBilibiliVideoUrl = (url: URL) => {
-  return isBilibiliUrl(url) && url.pathname.startsWith('/video/BV')
-}
+export const isBilibiliVideoUrl = (url: URL) =>
+  isBilibiliUrl(url) && url.pathname.startsWith('/video/BV')
 
 export const isSelfArticleUrl = (url: URL) => {
   if (!isClientSide) return false
@@ -100,29 +85,38 @@ export const isSelfArticleUrl = (url: URL) => {
   const webUrl = getWebUrl()
   const webHost = webUrl ? new URL(webUrl).hostname : ''
 
-  if (isDev && url.hostname === 'innei.in') return true
   return (
-    (url.hostname === location.hostname || webHost === url.hostname) &&
+    ((isDev && url.hostname === 'innei.in') ||
+      url.hostname === location.hostname ||
+      webHost === url.hostname) &&
     ['/posts/', '/notes/'].some((path) => url.pathname.startsWith(path))
   )
 }
 
-export const isZhihuUrl = (url: URL) => {
-  return url.hostname === 'www.zhihu.com'
+export const isSelfThinkingUrl = (url: URL) => {
+  if (!isClientSide) return false
+
+  const webUrl = getWebUrl()
+  const webHost = webUrl ? new URL(webUrl).hostname : ''
+
+  return (
+    ((isDev && url.hostname === 'innei.in') ||
+      url.hostname === location.hostname ||
+      webHost === url.hostname) &&
+    // /thinking/66166aa7f7410b48581cb36f
+    url.pathname.startsWith('/thinking/')
+  )
 }
 
-export const isZhihuProfileUrl = (url: URL) => {
-  return isZhihuUrl(url) && url.pathname.startsWith('/people/')
-}
+export const isZhihuUrl = (url: URL) => url.hostname === 'www.zhihu.com'
 
-export const isWikipediaUrl = (url: URL) => {
-  return url.hostname.includes('wikipedia.org')
-}
+export const isZhihuProfileUrl = (url: URL) =>
+  isZhihuUrl(url) && url.pathname.startsWith('/people/')
 
-export const isTMDBUrl = (url: URL) => {
-  return url.hostname.includes('themoviedb.org')
-}
+export const isWikipediaUrl = (url: URL) =>
+  url.hostname.includes('wikipedia.org')
 
+export const isTMDBUrl = (url: URL) => url.hostname.includes('themoviedb.org')
 export const isBangumiUrl = (url: URL) => {
   const pathname = url.pathname.split('/').slice(1)
   return (
@@ -131,13 +125,15 @@ export const isBangumiUrl = (url: URL) => {
   )
 }
 
+export const isFigmaUrl = (url: URL) => {
+  return url.hostname.includes('figma.com')
+}
+
 export const isNpmUrl = (url: URL) => {
   return url.hostname.includes('npmjs.com')
 }
 
-export const isMozillaUrl = (url: URL) => {
-  return url.hostname.includes('mozilla.org')
-}
+export const isMozillaUrl = (url: URL) => url.hostname.includes('mozilla.org')
 
 export const parseSelfArticleUrl = (url: URL) => {
   const [_, type, ...rest] = url.pathname.split('/')

@@ -1,6 +1,14 @@
 .md {
   @apply relative;
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    scroll-margin-top: 100px;
+  }
+
   :global {
     kbd {
       @apply kbd kbd-sm bg-base-100 text-base-content;

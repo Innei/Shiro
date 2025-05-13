@@ -15,18 +15,24 @@ const textColorMap = {
   NOTE: 'text-blue-500 dark:text-blue-400',
   IMPORTANT: 'text-accent',
   WARNING: 'text-amber-500 dark:text-amber-400',
+  TIP: 'text-green-500 dark:text-green-400',
+  CAUTION: 'text-red-500 dark:text-red-400',
 } as any
 
 const borderColorMap = {
   NOTE: 'before:bg-blue-500 before:bg-blue-400',
   IMPORTANT: 'before:bg-accent',
   WARNING: 'before:bg-amber-500 dark:before:bg-amber-400',
+  TIP: 'before:bg-green-500 dark:before:bg-green-400',
+  CAUTION: 'before:bg-red-500 dark:before:bg-red-400',
 } as any
 
 const typedIconMap = {
   NOTE: IonInformation,
   IMPORTANT: FluentWarning28Regular,
   WARNING: FluentShieldError20Regular,
+  TIP: IonInformation,
+  CAUTION: FluentShieldError20Regular,
 }
 
 export const AlertIcon: FC<{
@@ -58,7 +64,7 @@ export const AlertIcon: FC<{
  * > Highlights information that users should take into account, even when skimming.
  */
 const ALERT_BLOCKQUOTE_R =
-  /^(> \[!(?<type>NOTE|IMPORTANT|WARNING)\].*)(?<body>(?:\n *>.*)*)(?=\n{2,}|$)/
+  /^(> \[!(?<type>NOTE|IMPORTANT|WARNING|TIP|CAUTION)\].*)(?<body>(?:\n *>.*)*)(?=\n{2,}|$)/
 
 export const AlertsRule: MarkdownToJSX.Rule = {
   match: blockRegex(ALERT_BLOCKQUOTE_R),
@@ -69,11 +75,11 @@ export const AlertsRule: MarkdownToJSX.Rule = {
       parsed: {
         ...capture.groups,
       },
-    }
+    } as any
   },
   react(node, output, state) {
     const { type, body } = node.parsed
-    const bodyClean = body.replaceAll(/^> */gm, '')
+    const bodyClean = body.replaceAll(/^> */gm, '').trim()
 
     return (
       <blockquote

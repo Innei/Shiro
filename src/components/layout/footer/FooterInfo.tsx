@@ -5,7 +5,7 @@ import { fetchAggregationData } from '~/app/(app)/api'
 import { IonIosArrowDown } from '~/components/icons/arrow'
 import { SubscribeTextButton } from '~/components/modules/subscribe/SubscribeTextButton'
 import { FloatPopover } from '~/components/ui/float-popover'
-import { MLink } from '~/components/ui/link'
+import { MarkdownLink } from '~/components/ui/link'
 import { clsxm } from '~/lib/helper'
 import { getQueryClient } from '~/lib/query-client.server'
 import { queries } from '~/queries/definition'
@@ -136,9 +136,9 @@ const PoweredBy: Component = ({ className }) => {
         </StyledLink>{' '}
         的开源版本。
         {process.env.COMMIT_HASH && process.env.COMMIT_URL && (
-          <MLink popper={false} href={process.env.COMMIT_URL}>
+          <MarkdownLink popper={false} href={process.env.COMMIT_URL}>
             版本哈希：{process.env.COMMIT_HASH.slice(0, 8)}
-          </MLink>
+          </MarkdownLink>
         )}
       </FloatPopover>
       .

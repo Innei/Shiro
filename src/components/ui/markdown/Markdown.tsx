@@ -8,6 +8,7 @@ import type * as React from 'react'
 import type { FC, PropsWithChildren } from 'react'
 import { Fragment, memo, Suspense, useMemo, useRef } from 'react'
 
+import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { CodeBlockRender } from '~/components/modules/shared/CodeBlock'
 import { FloatPopover } from '~/components/ui/float-popover'
 import { MAIN_MARKDOWN_ID } from '~/constants/dom-id'
@@ -16,7 +17,7 @@ import { noopObj } from '~/lib/noop'
 import { springScrollToElement } from '~/lib/scroller'
 
 import { Gallery } from '../gallery'
-import { MLink } from '../link/MLink'
+import { MarkdownLink } from '../link/MarkdownLink'
 import { LinkCard, LinkCardSource } from '../link-card'
 import styles from './markdown.module.css'
 import { AlertsRule } from './parsers/alert'
@@ -36,7 +37,7 @@ import {
 } from './renderers'
 import { MDetails } from './renderers/collapse'
 import { MFootNote } from './renderers/footnotes'
-import { MHeader } from './renderers/heading'
+import { createMarkdownHeadingComponent } from './renderers/heading'
 import { MarkdownImage } from './renderers/image'
 import { Tab, Tabs } from './renderers/tabs'
 import { MTag } from './renderers/tag'
@@ -61,6 +62,16 @@ export interface MdProps {
   removeWrapper?: boolean
 }
 
+const debugValue = isDev
+  ? ''
+  : //       '```component shadow with-styles\n' +
+    //         `import=https://cdn.jsdelivr.net/npm/@innei/react-cdn-components@0.0.33/dist/components/ShadowDOMTest.js
+    // name=MDX.ShadowDOMTest
+    // height=4 05` +
+    //         '\n' +
+    //         '```',
+    //     ].join('')
+    null
 export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
   memo((props) => {
     const {
@@ -82,16 +93,19 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
 
     const ref = useRef<HTMLDivElement>(null)
 
+    const MHeader = useMemo(() => createMarkdownHeadingComponent(), [])
+
     const node = useMemo(() => {
-      const mdContent = value || props.children
+      const mdContent = debugValue || value || props.children
 
       if (!mdContent) return null
       if (typeof mdContent != 'string') return null
 
       const mdElement = compiler(mdContent, {
+        slugify,
         doNotProcessHtmlElements: ['tab', 'style', 'script'] as any[],
         wrapper: null,
-        // @ts-ignore
+
         overrides: {
           p: MParagraph,
 
@@ -115,7 +129,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
 
           LinkCard,
           Gallery,
-          script: allowsScript ? Script : undefined,
+          script: allowsScript ? Script : undefined!,
 
           ...overrides,
         },
@@ -157,14 +171,14 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
               }
 
               return (
-                <MLink
+                <MarkdownLink
                   href={sanitizeUrl(target)!}
                   title={title}
                   key={state?.key}
                   text={realText}
                 >
                   {output(node.content, state!)}
-                </MLink>
+                </MarkdownLink>
               )
             },
           },
@@ -213,7 +227,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
                     }
                     type="tooltip"
                   >
-                    {footnote?.footnote?.substring(1)}
+                    {footnote?.footnote?.slice(1)}
                   </FloatPopover>
                   {linkCardId && (
                     <LinkCard
@@ -324,20 +338,22 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
     if (removeWrapper) return <Suspense>{node}</Suspense>
 
     return (
-      <Suspense>
-        <As
-          style={style}
-          {...wrapperProps}
-          ref={ref}
-          className={clsx(
-            styles['md'],
-            codeBlockFully ? styles['code-fully'] : undefined,
-            className,
-          )}
-        >
-          {node}
-        </As>
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense>
+          <As
+            style={style}
+            {...wrapperProps}
+            ref={ref}
+            className={clsx(
+              styles['md'],
+              codeBlockFully ? styles['code-fully'] : undefined,
+              className,
+            )}
+          >
+            {node}
+          </As>
+        </Suspense>
+      </ErrorBoundary>
     )
   })
 Markdown.displayName = 'Markdown'
@@ -358,5 +374,28 @@ export const MainMarkdown: FC<
         [wrapperProps],
       )}
     />
+  )
+}
+
+// not complete, but probably good enough
+function slugify(str: string) {
+  return (
+    str
+      .replaceAll(/[ÀÁÂÃÄÅæ]/gi, 'a')
+      .replaceAll(/ç/gi, 'c')
+      .replaceAll(/ð/gi, 'd')
+      .replaceAll(/[ÈÉÊË]/gi, 'e')
+      .replaceAll(/[ÏÎÍÌ]/gi, 'i')
+      .replaceAll(/Ñ/gi, 'n')
+      .replaceAll(/[øœÕÔÓÒ]/gi, 'o')
+      .replaceAll(/[ÜÛÚÙ]/gi, 'u')
+      .replaceAll(/[ŸÝ]/gi, 'y')
+      // remove non-chinese, non-latin, non-number, non-space
+      .replaceAll(
+        /[^\u4E00-\u9FFF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AFa-z0-9- ]/gi,
+        '',
+      )
+      .replaceAll(' ', '-')
+      .toLowerCase()
   )
 }
