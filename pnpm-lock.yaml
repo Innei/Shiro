@@ -136,6 +136,9 @@ importers:
       es-toolkit:
         specifier: 1.37.2
         version: 1.37.2
+      exif-js:
+        specifier: 2.3.0
+        version: 2.3.0
       foxact:
         specifier: 0.2.45
         version: 0.2.45(react@18.3.1)
@@ -217,6 +220,9 @@ importers:
       react:
         specifier: 18.3.1
         version: 18.3.1
+      react-blurhash:
+        specifier: 0.3.0
+        version: 0.3.0(blurhash@2.0.5)(react@18.3.1)
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
@@ -3963,6 +3969,9 @@ packages:
     resolution: {integrity: sha512-CRT1WTyuQoD771GW56XEZFQ/ZoSfWid1alKGDYMmkt2yl8UXrVR4pspqWNEcqKvVIzg6PAltWjxcSSPrboA4iA==}
     engines: {node: '>=18.0.0'}
 
+  exif-js@2.3.0:
+    resolution: {integrity: sha512-1Og9pAzG2FZRVlaavH8bB8BTeHcjMdJhKmeQITkX+uLRCD0xPtKAdZ2clZmQdJ56p9adXtJ8+jwrGp/4505lYg==}
+
   exponential-backoff@3.1.2:
     resolution: {integrity: sha512-8QxYTVXUkuy7fIIoitQkPwGonB8F3Zj8eEO8Sqg9Zv/bkI7RJAzowee4gr81Hak/dUTpA2Z7VfQgoijjPNlUZA==}
 
@@ -5660,6 +5669,12 @@ packages:
   raw-body@3.0.0:
     resolution: {integrity: sha512-RmkhL8CAyCRPXCE28MMH0z2PNWQBNk2Q09ZdxM9IOOXwxwZbN+qbWaatPkdkWIKL2ZVDImrN/pK5HTRz2PcS4g==}
     engines: {node: '>= 0.8'}
+
+  react-blurhash@0.3.0:
+    resolution: {integrity: sha512-XlKr4Ns1iYFRnk6DkAblNbAwN/bTJvxTVoxMvmTcURdc5oLoXZwqAF9N3LZUh/HT+QFlq5n6IS6VsDGsviYAiQ==}
+    peerDependencies:
+      blurhash: ^2.0.3
+      react: '>=15'
 
   react-dom@18.3.1:
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
@@ -10996,6 +11011,8 @@ snapshots:
     dependencies:
       eventsource-parser: 3.0.1
 
+  exif-js@2.3.0: {}
+
   exponential-backoff@3.1.2: {}
 
   express-rate-limit@7.5.0(express@5.1.0):
@@ -12856,6 +12873,11 @@ snapshots:
       http-errors: 2.0.0
       iconv-lite: 0.6.3
       unpipe: 1.0.0
+
+  react-blurhash@0.3.0(blurhash@2.0.5)(react@18.3.1):
+    dependencies:
+      blurhash: 2.0.5
+      react: 18.3.1
 
   react-dom@18.3.1(react@18.3.1):
     dependencies:
