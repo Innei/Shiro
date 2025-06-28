@@ -119,7 +119,7 @@ const LikeButton = () => {
                 scale: 1.22,
               }}
               transition={{
-                easings: ['easeInOut'],
+                ease: 'easeInOut',
                 delay: 0.3,
                 repeat: 5,
                 repeatDelay: 0.3,
@@ -143,7 +143,7 @@ const LikeButton = () => {
           },
         }}
         transition={{
-          easings: ['easeInOut'],
+          ease: 'easeInOut',
         }}
       />
       {!!likeCount && (

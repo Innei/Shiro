@@ -287,10 +287,10 @@ const RealFloatPopover = function FloatPopover<T extends {}>(
                   popoverClassNames,
                 )}
                 ref={refs.setFloating}
-                initial={{ translateY: '10px', opacity: 0 }}
-                animate={{ translateY: '0px', opacity: 1 }}
+                initial={{ y: '10px', opacity: 0 }}
+                animate={{ y: '0px', opacity: 1 }}
                 exit={{
-                  translateY: '10px',
+                  y: '10px',
                   opacity: 0,
                   transition: { type: 'tween', duration: 0.2 },
                 }}

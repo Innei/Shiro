@@ -3,9 +3,8 @@
 import type {
   HTMLMotionProps,
   MotionProps,
-  Spring,
-  Target,
   TargetAndTransition,
+  Transition,
 } from 'motion/react'
 import { m } from 'motion/react'
 import type {
@@ -21,10 +20,10 @@ import { microReboundPreset } from '~/constants/spring'
 import type { BaseTransitionProps } from './typings'
 
 interface TransitionViewParams {
-  from: Target
-  to: Target
-  initial?: Target
-  preset?: Spring
+  from: TargetAndTransition
+  to: TargetAndTransition
+  initial?: TargetAndTransition
+  preset?: Transition
 }
 
 export const createTransitionView = (params: TransitionViewParams) => {

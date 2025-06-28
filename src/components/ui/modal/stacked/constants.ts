@@ -1,17 +1,17 @@
-import type { Target } from 'motion/react'
+import type { MotionProps, TargetAndTransition } from 'motion/react'
 
 import { microReboundPreset } from '~/constants/spring'
 
-const enterStyle: Target = {
+const enterStyle: TargetAndTransition = {
   scale: 1,
   opacity: 1,
 }
-const initialStyle: Target = {
+const initialStyle: TargetAndTransition = {
   scale: 0.96,
   opacity: 0,
 }
 
-export const modalMontionConfig = {
+export const modalMontionConfig: MotionProps = {
   initial: initialStyle,
   animate: enterStyle,
   exit: initialStyle,

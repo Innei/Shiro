@@ -4,11 +4,11 @@ import { createTransitionView } from '~/components/ui/transition/factor'
 
 export const Transition = createTransitionView({
   from: {
-    translateY: 80,
+    y: 80,
     opacity: 0.001,
   },
   to: {
-    translateY: 0,
+    y: 0,
     opacity: 1,
   },
   preset: {

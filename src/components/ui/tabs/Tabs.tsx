@@ -126,9 +126,7 @@ export const Pager: Component<PagerProps & MotionProps> = ({
         x: `${-100 * index}%`,
       }}
       transition={{
-        tension: 190,
-        friction: 70,
-        mass: 0.4,
+        type: 'spring',
       }}
       {...rest}
     >
