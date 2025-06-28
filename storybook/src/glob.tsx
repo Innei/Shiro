@@ -2,12 +2,12 @@ import type { FC, ReactNode } from 'react'
 import * as React from 'react'
 import { createElement, Fragment } from 'react'
 
-import { GLOB_PATH } from '../config' with { type: 'macro' }
 import type { DocumentComponent, DocumentPageMeta } from '../typings'
 import { Markdown } from './components/Markdown'
 
-// TODO find project root
-const modulesPath2PromiseMapping = import.meta.glob(GLOB_PATH)
+const modulesPath2PromiseMapping = import.meta.glob(
+  '../../src/components/ui/*/index.demo.(tsx|mdx)',
+)
 
 // const mdxPath2PromiseMapping = import.meta.glob('../../*/index.demo.mdx', {
 //   as: 'raw',

@@ -23,7 +23,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: lts
+          node-version: lts/*
 
       # If pnpm is used, you need to switch the previous step with the following one. pnpm does not create a package-lock.json
       # so the step above will fail to pull dependencies

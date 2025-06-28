@@ -25,7 +25,7 @@ const options = {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    Macros.vite(),
+    // Macros.vite(),
     react(),
     tsConfigPaths(),
     nodePolyfills({
@@ -76,9 +76,9 @@ export default defineConfig({
     },
   },
 
-  optimizeDeps: {
-    esbuildOptions: {
-      plugins: [Macros.esbuild()],
-    },
-  },
+  // optimizeDeps: {
+  //   esbuildOptions: {
+  //     plugins: [Macros.esbuild()],
+  //   },
+  // },
 })

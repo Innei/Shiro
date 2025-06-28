@@ -1,4 +1,6 @@
 {
+  "name": "storybook",
+  "type": "module",
   "scripts": {
     "build": "vite build",
     "dev": "vite"
@@ -22,7 +24,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "buffer": "6.0.3",
     "concurrently": "^9.1.2",
-    "unplugin-macros": "0.16.3",
+    "unplugin-macros": "0.17.0",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }
