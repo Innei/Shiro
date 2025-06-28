@@ -31,10 +31,11 @@ jobs:
 
       - uses: pnpm/action-setup@v4.1.0
         with:
-          run_install: true
+          run_install: false
       - name: Build project
         run: |
           cd storybook
+          pnpm i
           npm run build
           mkdir -p dist/scripts
           wget https://github.com/Innei/Shiro/raw/main/scripts/vercel-build-pre.sh > dist/scripts/vercel-build-pre.sh
