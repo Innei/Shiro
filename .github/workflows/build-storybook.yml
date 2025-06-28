@@ -34,7 +34,7 @@ jobs:
           run_install: false
       - name: Build project
         run: |
-          cp .env.example .env
+          cp .env.template .env
           cd storybook
           pnpm i
           npm run build
