@@ -1,7 +1,6 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { sleep } from 'openai/core'
 
 import { useOnlineCount } from '~/atoms'
 import { useSocketIsConnect } from '~/atoms/hooks'
@@ -120,7 +119,7 @@ const RoomsInfo = () => {
     refetchOnMount: true,
     staleTime: 1000 * 10,
     queryFn: async () => {
-      await sleep(1000)
+      await new Promise((resolve) => setTimeout(resolve, 1000))
       const res = await apiClient.activity.getRoomsInfo()
       const data = res.$serialized
       const result = [] as {
