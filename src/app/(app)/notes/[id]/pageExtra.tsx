@@ -12,7 +12,7 @@ import { GoToAdminEditingButton } from '~/components/modules/shared/GoToAdminEdi
 import { WithArticleSelectionAction } from '~/components/modules/shared/WithArticleSelectionAction'
 import { FloatPopover } from '~/components/ui/float-popover'
 import type { MarkdownToJSX } from '~/components/ui/markdown'
-import { MainMarkdown } from '~/components/ui/markdown'
+import { MainMarkdown, RuleType } from '~/components/ui/markdown'
 import { parseDate } from '~/lib/datetime'
 import { noopArr } from '~/lib/noop'
 import { MarkdownImageRecordProvider } from '~/providers/article/MarkdownImageRecordProvider'
@@ -143,10 +143,11 @@ export const NoteHeaderMetaInfoSetting = () => {
 
   return null
 }
-const MarkdownRenderers: Record<string, Partial<MarkdownToJSX.Rule>> = {
-  text: {
-    react(node, _, state) {
-      return <span key={state?.key}>{node.content}</span>
+
+const MarkdownRenderers: Partial<MarkdownToJSX.PartialRules> = {
+  [RuleType.text]: {
+    render(node: MarkdownToJSX.TextNode, _: any, state?: MarkdownToJSX.State) {
+      return <span key={state?.key}>{node.text}</span>
     },
   },
 }

@@ -3,29 +3,33 @@
 import 'katex/dist/katex.min.css'
 
 import type { MarkdownToJSX } from 'markdown-to-jsx'
-import { blockRegex, Priority, simpleInlineRegex } from 'markdown-to-jsx'
+import { Priority } from 'markdown-to-jsx'
 
 import { KateX } from '../../katex'
+import { blockRegex, simpleInlineRegex } from '../utils/parser'
+
+const INLINE_SKIP_R =
+  '((?:\\[.*?\\][([].*?[)\\]]|<.*?>(?:.*?<.*?>)?|`.*?`|\\\\\\1|[\\s\\S])+?)'
 
 //  $ c = \pm\sqrt{a^2 + b^2} $
-export const KateXRule: MarkdownToJSX.Rule = {
-  match: (source) => {
-    return simpleInlineRegex(
-      /^(?!\\)\$\s*((?:\[(?:[^$]|(?=\\)\$)*?\]|<(?:[^$]|(?=\\)\$)*?>(?:(?:[^$]|(?=\\)\$)*?<(?:[^$]|(?=\\)\$)*?>)?|`(?:[^$]|(?=\\)\$)*?`|[^$]|(?=\\)\$)*?)\s*(?!\\)\$/,
-    )(source, { inline: true })
-  },
+export const KateXRule: MarkdownToJSX.Rule<{
+  katex: string
+}> = {
+  match: simpleInlineRegex(new RegExp(`^(\\$)(${INLINE_SKIP_R})\\1`)),
   order: Priority.LOW,
   parse(capture) {
     return {
       type: 'kateX',
-      katex: capture[1],
+      katex: capture[2],
     }
   },
-  react(node, output, state) {
+  render(node, output, state) {
     return <KateX key={state?.key}>{node.katex}</KateX>
   },
 }
-export const KateXBlockRule: MarkdownToJSX.Rule = {
+export const KateXBlockRule: MarkdownToJSX.Rule<{
+  groups: Record<string, string> | undefined
+}> = {
   match: blockRegex(
     new RegExp(`^\\s*\\$\\$ *(?<content>[\\s\\S]+?)\\s*\\$\\$ *(?:\n *)+\n?`),
   ),
@@ -37,10 +41,13 @@ export const KateXBlockRule: MarkdownToJSX.Rule = {
       groups: capture.groups,
     }
   },
-  react(node, _, state?) {
+  render(node, _, state?) {
+    if (!node.groups) {
+      return null
+    }
     return (
       <div className="scrollbar-none overflow-auto" key={state?.key}>
-        <KateX mode="display">{node.groups.content}</KateX>
+        <KateX mode="display">{node.groups?.content}</KateX>
       </div>
     )
   },

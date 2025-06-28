@@ -2,7 +2,6 @@
 
 import { m } from 'motion/react'
 import type { FC, JSX } from 'react'
-import * as React from 'react'
 
 import { microReboundPreset } from '~/constants/spring'
 

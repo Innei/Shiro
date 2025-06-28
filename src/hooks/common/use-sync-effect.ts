@@ -5,9 +5,7 @@ const noop = () => {}
 export const useSyncEffectOnce = (effect: (() => CleanupFn) | (() => void)) => {
   const ref = useRef(false)
   const cleanupRef = useRef<(() => void) | null>(null)
-  useEffect(() => {
-    return cleanupRef.current || noop
-  }, [])
+  useEffect(() => cleanupRef.current || noop, [])
 
   if (ref.current) return
   cleanupRef.current = effect() || null

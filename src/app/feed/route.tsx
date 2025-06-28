@@ -1,14 +1,12 @@
 import type { Image } from '@mx-space/api-client'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
-import { compiler } from 'markdown-to-jsx'
+import { compiler, RuleType } from 'markdown-to-jsx'
 import RSS from 'rss'
 import xss from 'xss'
 
 import { CDN_HOST } from '~/app.static.config'
-import { AlertsRule as __AlertsRule } from '~/components/ui/markdown/parsers/alert'
 import { ContainerRule as __ContainerRule } from '~/components/ui/markdown/parsers/container'
 import { InsertRule } from '~/components/ui/markdown/parsers/ins'
-import { MarkRule } from '~/components/ui/markdown/parsers/mark'
 import { MentionRule } from '~/components/ui/markdown/parsers/mention'
 import { SpoilerRule } from '~/components/ui/markdown/parsers/spoiler'
 import { get } from '~/lib/lodash'
@@ -116,9 +114,20 @@ export async function GET() {
                   )
                 },
               },
-              extendsRules: {
-                codeBlock: {
-                  react(node, output, state) {
+              overrideRules: {
+                [RuleType.textMarked]: {
+                  render(node, output, state) {
+                    return (
+                      <mark key={state?.key} className="rounded-md">
+                        <span className="px-1">
+                          {output(node.children, state!)}
+                        </span>
+                      </mark>
+                    )
+                  },
+                },
+                [RuleType.codeBlock]: {
+                  render(node, output, state) {
                     if (
                       node.lang === 'mermaid' ||
                       node.lang === 'excalidraw' ||
@@ -128,7 +137,7 @@ export async function GET() {
                     }
                     return (
                       <pre
-                        key={state.key}
+                        key={state?.key}
                         className={
                           node.lang
                             ? `language-${node.lang} lang-${node.lang}`
@@ -142,24 +151,22 @@ export async function GET() {
                               : ''
                           }
                         >
-                          {node.content}
+                          {node.text}
                         </code>
                       </pre>
                     )
                   },
                 },
               },
-              additionalParserRules: {
+              extendsRules: {
                 spoilder: SpoilerRule,
                 mention: MentionRule,
 
-                mark: MarkRule,
                 ins: InsertRule,
 
                 // kateX: KateXRule,
                 // kateXBlock: KateXBlockRule,
                 container: ContainerRule,
-                alerts: AlertsRule,
               },
             })}
             <p
@@ -217,33 +224,10 @@ const NotSupportRender = () => {
   )
 }
 
-// const KateXRule: MarkdownToJSX.Rule = {
-//   ...__KateXRule,
-//   react(node, _, state?) {
-//     return node
-//   },
-// }
-// const KateXBlockRule: MarkdownToJSX.Rule = {
-//   ...__KateXBlockRule,
-//   react(node, _, state?) {
-//     return <NotSupportRender key={state?.key} />
-//   },
-// }
-
-const AlertsRule: MarkdownToJSX.Rule = {
-  ...__AlertsRule,
-  react(node, output, state) {
-    const { body } = node.parsed
-    const bodyClean = body.replaceAll(/^> */gm, '').trim()
-
-    return <blockquote key={state.key}>{compiler(bodyClean)}</blockquote>
-  },
-}
-
 const ContainerRule: MarkdownToJSX.Rule = {
   ...__ContainerRule,
-  // @ts-ignore
-  react(node, _, state) {
+
+  render(node, _, state) {
     return <NotSupportRender key={state?.key} />
   },
 }

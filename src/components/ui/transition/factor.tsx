@@ -7,12 +7,8 @@ import type {
   Transition,
 } from 'motion/react'
 import { m } from 'motion/react'
-import type {
-  ForwardRefExoticComponent,
-  PropsWithChildren,
-  RefAttributes,
-} from 'react'
-import { forwardRef, memo, useState } from 'react'
+import type { FC, PropsWithChildren } from 'react'
+import { memo, useState } from 'react'
 
 import { isHydrationEnded } from '~/components/common/HydrationEndDetector'
 import { microReboundPreset } from '~/constants/spring'
@@ -29,10 +25,12 @@ interface TransitionViewParams {
 export const createTransitionView = (params: TransitionViewParams) => {
   const { from, to, initial, preset } = params
 
-  const TransitionView = forwardRef<
-    HTMLElement,
-    PropsWithChildren<BaseTransitionProps>
-  >((props, ref) => {
+  const TransitionView = ({
+    ref,
+    ...props
+  }: PropsWithChildren<BaseTransitionProps> & {
+    ref?: React.RefObject<HTMLElement | null>
+  }) => {
     const {
       timeout = {},
       duration = 0.5,
@@ -46,8 +44,8 @@ export const createTransitionView = (params: TransitionViewParams) => {
 
     const { enter = delay, exit = delay } = timeout
 
-    const MotionComponent = m[as] as ForwardRefExoticComponent<
-      HTMLMotionProps<any> & RefAttributes<HTMLElement>
+    const MotionComponent = m[as] as FC<
+      HTMLMotionProps<any> & { ref?: React.Ref<HTMLElement | null> }
     >
 
     const [stableIsHydrationEnded] = useState(isHydrationEnded)
@@ -85,7 +83,7 @@ export const createTransitionView = (params: TransitionViewParams) => {
         {props.children}
       </MotionComponent>
     )
-  })
+  }
   TransitionView.displayName = `forwardRef(TransitionView)`
   const MemoedTransitionView = memo(TransitionView)
   MemoedTransitionView.displayName = `MemoedTransitionView`

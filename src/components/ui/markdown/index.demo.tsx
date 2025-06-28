@@ -1,5 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useIsomorphicLayoutEffect } from 'foxact/use-isomorphic-layout-effect'
+import type { MarkdownToJSX } from 'markdown-to-jsx'
+import { RuleType } from 'markdown-to-jsx'
 import { ThemeProvider } from 'next-themes'
 import type { ReactNode } from 'react'
 import * as React from 'react'
@@ -78,13 +80,13 @@ export const MarkdownCustomize: DocumentComponent = () => (
       <main className="relative m-auto mt-6 max-w-[800px]">
         <Markdown
           value={customize}
-          extendsRules={{
-            codeBlock: {
-              react(node, output, state) {
+          overrideRules={{
+            [RuleType.codeBlock]: {
+              render(node: MarkdownToJSX.CodeBlockNode, output, state) {
                 return (
                   <CodeBlockRender
                     key={state?.key}
-                    content={node.content}
+                    content={node.text}
                     lang={node.lang}
                   />
                 )
