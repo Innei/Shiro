@@ -31,7 +31,7 @@ const iconSet: Record<
     '#1DA1F2',
     (id) => `https://twitter.com/${id}`,
   ],
-  x: ['x', <XIcon />, 'rgba(36,46,54,1.00)', (id) => `https://x.com/${id}`],
+  x: ['X', <XIcon />, 'rgba(36,46,54,1.00)', (id) => `https://x.com/${id}`],
   telegram: [
     'Telegram',
     <i className="i-mingcute-telegram-line" />,
