@@ -68,13 +68,17 @@ export async function GET() {
     ]
   }
 
+  const imageUrl = agg.theme?.config?.site?.favicon.startsWith('/')
+    ? `${url}${agg.theme?.config?.site?.favicon}`
+    : agg.theme?.config?.site?.favicon
+
   const feed = new RSS({
     title,
     description,
     site_url: url,
     feed_url: `${url}/feed`,
     language: 'zh-CN',
-    image_url: `${url}${agg?.theme?.config?.site?.favicon}`,
+    image_url: imageUrl,
     generator: 'Shiro (https://github.com/Innei/Shiro)',
     pubDate: now.toUTCString(),
 
