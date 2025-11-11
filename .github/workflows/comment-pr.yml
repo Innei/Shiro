@@ -16,7 +16,7 @@ jobs:
       github.event.workflow_run.conclusion == 'success'
     steps:
       - name: download pr artifact
-        uses: dawidd6/action-download-artifact@v10
+        uses: dawidd6/action-download-artifact@v11
         with:
           workflow: ${{ github.event.workflow_run.workflow_id }}
           name: pr
@@ -26,7 +26,7 @@ jobs:
         run: echo "::set-output name=id::$(<pr-id.txt)"
 
       - name: download analysis comment
-        uses: dawidd6/action-download-artifact@v10
+        uses: dawidd6/action-download-artifact@v11
         with:
           workflow: ${{ github.event.workflow_run.workflow_id }}
           name: analysis_comment
