@@ -2,11 +2,12 @@ import 'server-only'
 
 import { RequestError } from '@mx-space/api-client'
 import { notFound } from 'next/navigation'
-import type { ReactNode } from 'react'
+import type { FC, ReactNode } from 'react'
 import { createElement } from 'react'
 
 import { BizErrorPage } from '~/components/common/BizErrorPage'
 import { NormalContainer } from '~/components/layout/container/Normal'
+import { API_URL } from '~/constants/env'
 
 import { attachServerFetch } from './attach-fetch'
 import { getErrorMessageFromRequestError } from './request.shared'
@@ -21,23 +22,18 @@ export const requestErrorHandler = (error: Error | RequestError) => {
   throw error
 }
 
-const defaultErrorRenderer = (error: any) => {
-  return createElement(
+const defaultErrorRenderer = (error: any) =>
+  createElement(
     NormalContainer,
     null,
     createElement(
       'p',
       {
-        className: 'text-center text-red-500',
+        className: 'text-center',
       },
-      error.message,
+      error.message?.replace(API_URL, '<API_URL>'),
     ),
   )
-}
-
-type ResolvedNextPageParams<P extends {}, Props = {}> = {
-  params: P
-} & Props
 
 export const definePrerenderPage =
   <Params extends {}>() =>
@@ -52,9 +48,14 @@ export const definePrerenderPage =
       },
       params: Params,
     ) => ReactNode | void
-    Component: (
-      props: ResolvedNextPageParams<Params> & { data: T; children?: ReactNode },
-    ) => ReactNode | Promise<ReactNode>
+    Component: FC<
+      NextPageExtractedParams<Params> & {
+        data: T
+        fetchedAt: string
+        searchParams: any
+      }
+    >
+
     handleNotFound?: boolean
   }) => {
     const {
@@ -64,8 +65,10 @@ export const definePrerenderPage =
       handleNotFound = true,
     } = options
     return async (props: any) => {
-      const params = await props.params
-      const searchParams = props.searchParams ? await props.searchParams : {}
+      const { params: params_, searchParams: searchParams_ } =
+        props as NextPageParams<Params, any>
+      const params = await params_
+      const searchParams = await searchParams_
 
       try {
         await attachServerFetch()
@@ -74,18 +77,24 @@ export const definePrerenderPage =
           ...searchParams,
         })
 
-        return await Component({
-          data,
-          ...props,
-          params,
-          searchParams,
-          children: props.children,
-        })
+        return createElement(
+          await Component,
+          {
+            data,
+            fetchedAt: new Date().toISOString(),
+            ...props,
+            params: {
+              ...params,
+              ...searchParams,
+            },
+          },
+          props.children,
+        )
       } catch (error: any) {
         // 如果在内部已经处理了 NEXT_NOT_FOUND，就不再处理
-
-        if (error?.message === 'NEXT_NOT_FOUND') {
-          notFound()
+        // @see next/packages/next/src/client/components/http-access-fallback/http-access-fallback.ts
+        if (error?.message === 'NEXT_HTTP_ERROR_FALLBACK;404') {
+          throw error
         }
 
         if (error instanceof RequestError) {
