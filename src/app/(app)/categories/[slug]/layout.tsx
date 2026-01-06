@@ -10,7 +10,8 @@ export const generateMetadata = async (
     slug: string
   }>,
 ) => {
-  const data = await getData(props.params).catch(() => null)
+  const params = await props.params
+  const data = await getData(params).catch(() => null)
 
   if (!data) {
     return {}

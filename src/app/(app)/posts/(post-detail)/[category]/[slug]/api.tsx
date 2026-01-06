@@ -11,7 +11,7 @@ export interface PageParams {
 }
 export const getData = cache(async (params: PageParams) => {
   const { category, slug } = params
-  attachServerFetch()
+  await attachServerFetch()
   const data = await getQueryClient()
     .fetchQuery(queries.post.bySlug(category, slug))
     .catch(requestErrorHandler)

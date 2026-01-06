@@ -6,15 +6,15 @@ import PKG from '../../package.json'
 import { AuthKeyNames } from './cookie'
 import { attachFetchHeader } from './request'
 
-export const attachServerFetch = () => {
-  const { get } = headers()
+export const attachServerFetch = async () => {
+  const requestHeaders = await headers()
 
-  const ua = get('user-agent')
+  const ua = requestHeaders.get('user-agent')
   const ip =
-    get('x-real-ip') ||
-    get('x-forwarded-for') ||
-    get('remote-addr') ||
-    get('cf-connecting-ip')
+    requestHeaders.get('x-real-ip') ||
+    requestHeaders.get('x-forwarded-for') ||
+    requestHeaders.get('remote-addr') ||
+    requestHeaders.get('cf-connecting-ip')
 
   if (ip) {
     attachFetchHeader('x-real-ip', ip)
@@ -26,8 +26,8 @@ export const attachServerFetch = () => {
   )
 }
 
-export const getAuthFromCookie = () => {
-  const cookie = cookies()
+export const getAuthFromCookie = async () => {
+  const cookie = await cookies()
   const jwt = cookie.get(AuthKeyNames[0])
 
   return jwt?.value || ''

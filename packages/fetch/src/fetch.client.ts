@@ -1,10 +1,11 @@
 import 'client-only'
 
+import Cookies from 'js-cookie'
 import { nanoid } from 'nanoid'
 import { createFetch } from 'ofetch'
 
 import PKG from '../../../package.json'
-import { createApiClient, createFetchAdapter, getToken } from './shared'
+import { createApiClient, createFetchAdapter, TokenKey } from './shared'
 
 const isDev = process.env.NODE_ENV === 'development'
 const isServerSide = typeof window === 'undefined'
@@ -14,6 +15,12 @@ const uuid = nanoid()
 const globalConfigureHeader = {} as any
 const globalConfigureSearchParams = {} as any
 
+export function getAuthToken(): string | null {
+  const token = Cookies.get(TokenKey)
+
+  return token || null
+}
+
 if (isServerSide) {
   globalConfigureHeader['User-Agent'] =
     `NextJS/v${PKG.dependencies.next} ${PKG.name}/${PKG.version}`
@@ -22,10 +29,11 @@ if (isServerSide) {
 export const $fetch = createFetch({
   defaults: {
     timeout: 8000,
+    credentials: 'include',
     // next: { revalidate: 3 },
     headers: globalConfigureHeader,
     onRequest(context) {
-      const token = getToken()
+      const token = getAuthToken()
       // eslint-disable-next-line prefer-destructuring
       let headers: any = context.options.headers
       if (headers && headers instanceof Headers) {
@@ -90,3 +98,11 @@ export const clearGlobalSearchParams = () => {
   })
 }
 export const isReactClient = true
+
+if (typeof window !== 'undefined') {
+  Object.defineProperty(window, 'api', {
+    get() {
+      return apiClient
+    },
+  })
+}

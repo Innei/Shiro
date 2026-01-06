@@ -20,8 +20,6 @@ import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvide
 import { queries } from '~/queries/definition'
 
 import { PostOutdate } from '../post'
-import { XLogSummary } from '../xlog'
-import { getCidForBaseModel } from '../xlog/utils'
 
 interface PostPreviewProps {
   category: string
@@ -45,7 +43,6 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
           <header className="mb-8">
             <h1 className="text-balance text-center">{data.title}</h1>
             <PostMetaBarInternal className="mb-8 justify-center" />
-            <XLogSummary cid={getCidForBaseModel(data)} />
             <PostOutdate />
           </header>
           <WrappedElementProvider eoaDetect>

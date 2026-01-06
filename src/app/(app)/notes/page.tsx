@@ -9,23 +9,22 @@ import { definePrerenderPage } from '~/lib/request.server'
 
 export default definePrerenderPage()({
   async fetcher() {
+    const auth = await getAuthFromCookie()
     const latest =
       await apiClient.note.proxy.latest.get<NoteWrappedWithLikedPayload>({
         params: {
-          token: getAuthFromCookie()
-            ? `bearer ${getAuthFromCookie()}`
-            : undefined,
+          token: auth ? `bearer ${auth}` : undefined,
         },
       })
 
     return latest?.data
   },
-  Component: ({ data: nullableData }) => {
+  Component: async ({ data: nullableData }) => {
     if (!nullableData) {
       notFound()
     }
     const { nid, hide } = nullableData
-    const jwt = cookies().get(AuthKeyNames[0])?.value
+    const jwt = (await cookies()).get(AuthKeyNames[0])?.value
     if (hide) {
       return redirect(`/notes/${nid}?token=${jwt}`)
     } else {

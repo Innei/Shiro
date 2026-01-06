@@ -9,11 +9,11 @@ import {
   REQUEST_QUERY,
 } from './constants/system'
 
-export default async function middleware(req: NextRequest) {
+export default async function proxy(req: NextRequest) {
   const { pathname, search } = req.nextUrl
-  let { geo } = req
+  let geo = (req as any).geo as any
   const { headers } = req
-  let ip = req.ip ?? headers.get('x-real-ip')
+  let ip = ((req as any).ip as string | undefined) ?? headers.get('x-real-ip')
   const forwardedFor = headers.get('x-forwarded-for')
   if (!ip && forwardedFor) {
     ip = forwardedFor.split(',').at(0) ?? ''

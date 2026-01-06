@@ -25,8 +25,6 @@ import { queries } from '~/queries/definition'
 import { NoteHideIfSecret, NoteMetaBar, NoteRootBanner } from '../note'
 import { NoteHeadCover } from '../note/NoteHeadCover'
 import { BanCopyWrapper } from '../shared/BanCopyWrapper'
-import { XLogSummary } from '../xlog'
-import { getCidForBaseModel } from '../xlog/utils'
 
 interface NotePreviewProps {
   noteId: number
@@ -60,7 +58,6 @@ export const NotePreview: FC<NotePreviewProps> = (props) => {
           </header>
 
           <NoteHideIfSecret>
-            <XLogSummary cid={getCidForBaseModel(data)} />
             <WrappedElementProvider eoaDetect>
               <BanCopyWrapper>
                 <NoteMarkdownImageRecordProvider>

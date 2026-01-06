@@ -16,7 +16,6 @@ import { GoToAdminEditingButton } from '~/components/modules/shared/GoToAdminEdi
 import { ReadIndicatorForMobile } from '~/components/modules/shared/ReadIndicator'
 import { SummarySwitcher } from '~/components/modules/shared/SummarySwitcher'
 import { TocFAB } from '~/components/modules/toc/TocFAB'
-import { XLogInfoForPost } from '~/components/modules/xlog'
 import {
   BottomToUpSoftScaleTransitionView,
   BottomToUpTransitionView,
@@ -49,11 +48,12 @@ export const dynamic = 'force-dynamic'
 export const generateMetadata = async ({
   params,
 }: {
-  params: PageParams
+  params: Promise<PageParams>
 }): Promise<Metadata> => {
-  const { slug } = params
+  const resolvedParams = await params
+  const { slug } = resolvedParams
   try {
-    const data = await getData(params)
+    const data = await getData(resolvedParams)
     const {
       title,
       category: { slug: categorySlug },
@@ -62,7 +62,7 @@ export const generateMetadata = async ({
     } = data
     const description = getSummaryFromMd(text ?? '')
 
-    const ogImage = getOgUrl('post', {
+    const ogImage = await getOgUrl('post', {
       category: categorySlug,
       slug,
     })
@@ -138,7 +138,6 @@ const PostPage = ({ data }: { data: ModelWithLiked<PostModel> }) => {
         <PostCopyright />
 
         {/* <SubscribeBell defaultType="post_c" /> */}
-        <XLogInfoForPost />
         <PostBottomBarAction />
       </ClientOnly>
     </div>

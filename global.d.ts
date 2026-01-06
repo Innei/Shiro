@@ -7,7 +7,7 @@ declare global {
   }
   export type NextPageParams<P extends {}, Props = {}> = PropsWithChildren<
     {
-      params: P
+      params: Promise<P>
     } & Props
   >
 

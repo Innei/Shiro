@@ -9,12 +9,20 @@ import PKG from '~/../package.json'
 import { createApiClient, createFetchAdapter, TokenKey } from './shared'
 
 const isDev = process.env.NODE_ENV === 'development'
+
+export const getAuthToken = async () => {
+  const cookie = await cookies()
+
+  const token = cookie.get(TokenKey)?.value
+
+  return token
+}
 export const $fetch = createFetch({
   defaults: {
     timeout: 8000,
-
-    onRequest(context) {
-      const cookie = cookies()
+    credentials: 'include',
+    async onRequest(context) {
+      const cookie = await cookies()
 
       const token = cookie.get(TokenKey)?.value
 
@@ -42,14 +50,14 @@ export const $fetch = createFetch({
         console.info(`[Request/Server]: ${context.request}`)
       }
 
-      const { get } = nextHeaders()
+      const requestHeaders = await nextHeaders()
 
-      const ua = get('user-agent')
+      const ua = requestHeaders.get('user-agent')
       const ip =
-        get('x-real-ip') ||
-        get('x-forwarded-for') ||
-        get('remote-addr') ||
-        get('cf-connecting-ip')
+        requestHeaders.get('x-real-ip') ||
+        requestHeaders.get('x-forwarded-for') ||
+        requestHeaders.get('remote-addr') ||
+        requestHeaders.get('cf-connecting-ip')
 
       if (ip) {
         headers['x-real-ip'] = ip

@@ -12,7 +12,7 @@ const cacheTime = appStaticConfig.cache.enabled
   ? appStaticConfig.cache.ttl.aggregation
   : 1
 export const fetchAggregationData = cache(async () => {
-  attachServerFetch()
+  await attachServerFetch()
   const queryClient = getQueryClient()
   const fetcher = async () =>
     (await $fetch<

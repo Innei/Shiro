@@ -25,8 +25,13 @@ export function escapeXml(unsafe: string) {
   })
 }
 
-export const getOgUrl = (type: 'post' | 'note' | 'page', data: any) => {
-  const host = headers().get('host')
+export const getOgUrl = async (type: 'post' | 'note' | 'page', data: any) => {
+  const host =
+    (await headers()).get('host') ||
+    process.env.VERCEL_URL ||
+    process.env.NEXT_PUBLIC_VERCEL_URL ||
+    'localhost:3000'
+
   const ogUrl = new URL(`${isDev ? 'http' : 'https'}://${host}/og`)
   ogUrl.searchParams.set(
     'data',

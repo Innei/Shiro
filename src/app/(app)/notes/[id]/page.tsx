@@ -23,7 +23,6 @@ import { BanCopyWrapper } from '~/components/modules/shared/BanCopyWrapper'
 import { ReadIndicatorForMobile } from '~/components/modules/shared/ReadIndicator'
 import { SummarySwitcher } from '~/components/modules/shared/SummarySwitcher'
 import { TocFAB } from '~/components/modules/toc/TocFAB'
-import { XLogInfoForNote } from '~/components/modules/xlog'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition'
 import { OnlyMobile } from '~/components/ui/viewport/OnlyMobile'
 import { getOgUrl } from '~/lib/helper.server'
@@ -106,7 +105,6 @@ function PageInner({ data }: { data: NoteModel }) {
         <div className="mt-8" data-hide-print />
         <NoteBottomBarAction />
         <NoteBottomTopic />
-        <XLogInfoForNote />
         <NoteFooterNavigationBarForMobile />
       </ClientOnly>
     </>
@@ -122,17 +120,18 @@ type NoteDetailPageParams = {
 export const generateMetadata = async ({
   params,
 }: {
-  params: NoteDetailPageParams
+  params: Promise<NoteDetailPageParams>
 }): Promise<Metadata> => {
   try {
-    const res = await getData(params)
+    const resolvedParams = await params
+    const res = await getData(resolvedParams)
 
     const { data } = res
     const { title, text } = data
     const description = getSummaryFromMd(text ?? '')
 
-    const ogUrl = getOgUrl('note', {
-      nid: params.id,
+    const ogUrl = await getOgUrl('note', {
+      nid: resolvedParams.id,
     })
 
     return {

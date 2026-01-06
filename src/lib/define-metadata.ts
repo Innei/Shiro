@@ -13,15 +13,20 @@ export const defineMetadata = <T extends Record<string, string>>(
     getAggregationData: () => Promise<AggregateRoot & { theme: any }>,
   ) => Promise<Partial<Metadata>>,
 ) => {
-  const handler = async ({ params }: { params: T }): Promise<Metadata> => {
+  const handler = async ({
+    params,
+  }: {
+    params: Promise<T>
+  }): Promise<Metadata> => {
+    const resolvedParams = await params
     const getData = async () => {
       const queryClient = getQueryClient()
-      attachServerFetch()
+      await attachServerFetch()
       return await queryClient.fetchQuery({
         ...queries.aggregation.root(),
       })
     }
-    const result = await fn(params, getData).catch((err) => {
+    const result = await fn(resolvedParams, getData).catch((err) => {
       // captureException(err)
       return {}
     })

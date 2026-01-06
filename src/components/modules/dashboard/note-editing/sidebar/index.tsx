@@ -1,4 +1,3 @@
-import { XLogEnable } from '../../crossbell/XLogEnabled'
 import { CoverInput } from '../../writing/CoverInput'
 import { ImageDetailSection } from '../../writing/ImageDetailSection'
 import { MetaKeyValueEditSection } from '../../writing/MetaKeyValueEditSection'
@@ -14,7 +13,6 @@ const Sidebar = () => (
     <NoteWeatherAndMood />
     <TopicSelector />
     <NoteCombinedSwitch />
-    <XLogEnable />
     <NoteCoverInput />
     <ImageSection />
     <MetaSection />

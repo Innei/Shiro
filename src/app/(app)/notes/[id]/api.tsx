@@ -12,7 +12,9 @@ export const getData = cache(
     token?: string
     password?: string
   }) => {
-    attachServerFetch()
+    await attachServerFetch()
+
+    const auth = await getAuthFromCookie()
 
     const { id, password, token } = params
 
@@ -25,7 +27,7 @@ export const getData = cache(
     const data = await getQueryClient()
       .fetchQuery({
         ...query,
-        staleTime: getAuthFromCookie() ? 0 : undefined,
+        staleTime: auth ? 0 : undefined,
       })
       .catch(requestErrorHandler)
     return data

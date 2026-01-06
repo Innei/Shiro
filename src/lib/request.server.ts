@@ -2,7 +2,7 @@ import 'server-only'
 
 import { RequestError } from '@mx-space/api-client'
 import { notFound } from 'next/navigation'
-import type { FC, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { createElement } from 'react'
 
 import { BizErrorPage } from '~/components/common/BizErrorPage'
@@ -35,6 +35,10 @@ const defaultErrorRenderer = (error: any) => {
   )
 }
 
+type ResolvedNextPageParams<P extends {}, Props = {}> = {
+  params: P
+} & Props
+
 export const definePrerenderPage =
   <Params extends {}>() =>
   <T = {}>(options: {
@@ -48,7 +52,9 @@ export const definePrerenderPage =
       },
       params: Params,
     ) => ReactNode | void
-    Component: FC<NextPageParams<Params> & { data: T }>
+    Component: (
+      props: ResolvedNextPageParams<Params> & { data: T; children?: ReactNode },
+    ) => ReactNode | Promise<ReactNode>
     handleNotFound?: boolean
   }) => {
     const {
@@ -58,23 +64,23 @@ export const definePrerenderPage =
       handleNotFound = true,
     } = options
     return async (props: any) => {
-      const { params, searchParams } = props as NextPageParams<Params, any>
+      const params = await props.params
+      const searchParams = props.searchParams ? await props.searchParams : {}
 
       try {
-        attachServerFetch()
+        await attachServerFetch()
         const data = await fetcher({
           ...params,
           ...searchParams,
         })
 
-        return createElement(
-          Component,
-          {
-            data,
-            ...props,
-          },
-          props.children,
-        )
+        return await Component({
+          data,
+          ...props,
+          params,
+          searchParams,
+          children: props.children,
+        })
       } catch (error: any) {
         // 如果在内部已经处理了 NEXT_NOT_FOUND，就不再处理
 

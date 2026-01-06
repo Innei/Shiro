@@ -8,7 +8,7 @@ const hexToRbg = (hex: string) => {
   const b = Number.parseInt(hex.slice(5, 7), 16)
   return { r, g, b }
 }
-export const createPngNoiseBackground = (hex: string) => {
+export const createPngNoiseBackground = async (hex: string) => {
   const { b, g, r } = hexToRbg(hex)
   const width = 72
   const height = 72
