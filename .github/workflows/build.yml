@@ -37,7 +37,7 @@ jobs:
         run: |
           sh ./ci-release-build.sh
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: artifact
           path: assets/release.zip
