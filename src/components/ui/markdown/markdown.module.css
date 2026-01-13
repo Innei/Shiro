@@ -9,13 +9,6 @@
     scroll-margin-top: 100px;
   }
 
-  p,
-  figcaption {
-    text-box-trim: trim-both;
-    text-box-edge: cap alphabetic;
-  }
-
-
   :global {
     kbd {
       @apply kbd kbd-sm bg-base-100 text-base-content;
