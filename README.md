@@ -100,6 +100,101 @@ docker compose pull
 
 了解更多 Markdown 扩展语法，请访问：https://shiro.innei.in/#/markdown
 
+## :star: 白い (Shiroi) - 赞助版
+
+[白い](https://github.com/innei-dev/Shiroi) 是 Shiro 的付费赞助版本，包含更多功能和持续更新。以下是赞助版相对于开源版的新增功能：
+
+### :globe_with_meridians: 国际化系统
+
+- 路由级本地化支持（`/[locale]/...`）
+- 内容翻译状态展示和原文/翻译切换
+- 翻译标记徽章
+- 多语言消息文件（中文、英文、日文）
+- dayjs 本地化同步
+
+### :robot: AI 智能功能
+
+- AI 智能摘要生成
+- AI 内容翻译系统（支持实时翻译推送）
+- AI 生成标记系统（支持标记翻译、摘要、自动生成等内容来源）
+
+### :sparkles: 高级视觉效果
+
+- WebGPU 雪花背景效果（高级粒子物理系统）
+- 萤火虫粒子效果
+- 纹理背景系统
+- OKLCH 颜色空间主题生成
+- 噪声背景生成
+
+### :busts_in_silhouette: 实时协作
+
+- Socket.IO 房间管理
+- 在线用户实时展示（Presence 组件）
+- 活动流实时更新
+- 访客信息追踪
+
+### :bulb: 思考（Recently）系统增强
+
+- 独立的思考详情页
+- 思考内容支持评论
+- 点赞/点踩交互
+- 思考 RSS Feed
+- 思考内容引用其他文章功能
+
+### :bookmark_tabs: 分类和标签
+
+- 分类浏览主页 `/categories`
+- 分类详情页 `/categories/[slug]`
+- 按标签浏览文章 `/posts/tag/[name]`
+
+### :house: 首页增强
+
+- 精心设计的 Hero 区域（动画文本、一言、社交图标）
+- 风向标导航组件
+- 首页时间线展示
+- 活动流屏幕
+- 响应式两栏布局
+
+### :lock: 认证系统
+
+- Passkey 无密码认证支持
+- Passkey 管理页面（创建、列表）
+- 密码认证
+- 完整的登录页面
+
+### :speech_balloon: 评论系统增强
+
+- 评论内联编辑功能
+- 评论操作按钮组（编辑/回复）
+- 更细粒度的权限控制（所有者/原评论者可编辑）
+- 平滑的高度动画过渡
+
+
+### :bar_chart: 后台系统增强
+
+- 完整的仪表盘界面
+- Lexical 富文本编辑器
+- 文章/笔记编辑器增强
+- IP 信息展示
+- 每日诗词展示（今日诗词 API）
+- AI 生成标记编辑
+- 封面图输入增强
+- 元数据 KV 编辑
+- 新版表情选择器
+
+### :chart_with_upwards_trend: 分析集成
+
+- OpenPanel 用户行为分析
+- 屏幕视图追踪
+- 外链点击追踪
+
+### :x: 移除的功能
+
+赞助版为了专注核心功能，移除了以下开源版特性：
+
+- Crossbell Web3 发布集成
+- S3 云存储 API
+
 ## :heart: 致谢与许可
 
 **© 2024 Innei** - 本项目采用 AGPLv3 许可证，并附加特定的商业使用条件。
@@ -109,8 +204,6 @@ docker compose pull
 **特别鸣谢：**
 - 部分代码参考了 GPT-4 和 [cali.so](https://github.com/CaliCastle/cali.so)
 - 感谢 Mix Space Team 和社区贡献者们的持续支持
-
-**赞助版本：** [白い (Shiroi)](https://github.com/innei-dev/Shiroi) - 获得更多功能和持续更新
 
 ---
 
