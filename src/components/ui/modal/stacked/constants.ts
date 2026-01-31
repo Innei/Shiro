@@ -11,7 +11,7 @@ const initialStyle: TargetAndTransition = {
   opacity: 0,
 }
 
-export const modalMontionConfig: MotionProps = {
+export const modalMotionConfig: MotionProps = {
   initial: initialStyle,
   animate: enterStyle,
   exit: initialStyle,
