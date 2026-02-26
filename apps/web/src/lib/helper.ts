@@ -1,0 +1,25 @@
+import clsx from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
+export const clsxm = (...args: any[]) => twMerge(clsx(args))
+
+export const escapeHTMLTag = (html: string) => {
+  const lt = /</g,
+    gt = />/g,
+    ap = /'/g,
+    ic = /"/g
+  return html
+    .toString()
+    .replaceAll(lt, '&lt;')
+    .replaceAll(gt, '&gt;')
+    .replaceAll(ap, '&#39;')
+    .replaceAll(ic, '&#34;')
+}
+
+export const safeJsonParse = (str: string) => {
+  try {
+    return JSON.parse(str)
+  } catch {
+    return null
+  }
+}

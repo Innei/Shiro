@@ -1,0 +1,51 @@
+@reference "tailwindcss";
+
+@layer base {
+  .uk-material-thick {
+    background: rgba(153, 153, 153, 0.97);
+
+    backdrop-filter: blur(20px);
+  }
+
+  [data-theme='dark'] .uk-material-thick {
+    background: rgba(37, 37, 37, 0.9);
+
+    backdrop-filter: blur(50px);
+  }
+
+  .uk-material-default {
+    background: rgba(179, 179, 179, 0.82);
+
+    backdrop-filter: blur(17.5px);
+  }
+
+  [data-theme='dark'] .uk-material-default {
+    background: rgba(37, 37, 37, 0.82);
+
+    backdrop-filter: blur(50px);
+  }
+
+  .uk-material-thin {
+    background: rgba(166, 166, 166, 0.7);
+
+    backdrop-filter: blur(15px);
+  }
+
+  [data-theme='dark'] .uk-material-thin {
+    background: rgba(37, 37, 37, 0.7);
+
+    backdrop-filter: blur(50px);
+  }
+
+  .uk-material-ultrathin {
+    background: rgba(191, 191, 191, 0.44);
+
+    backdrop-filter: blur(15px);
+  }
+
+  [data-theme='dark'] .uk-material-ultrathin {
+    background: rgba(37, 37, 37, 0.44);
+
+    backdrop-filter: blur(50px);
+  }
+}

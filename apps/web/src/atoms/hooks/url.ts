@@ -1,0 +1,32 @@
+import { useAtomValue } from 'jotai'
+import { useCallback } from 'react'
+
+import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
+
+import { adminUrlAtom } from '../url'
+
+export const useAppUrl = () => {
+  const url = useAggregationSelector((a) => a.url)
+  const adminUrl = useAtomValue(adminUrlAtom)
+  return {
+    adminUrl,
+    ...url,
+  }
+}
+
+export const useResolveAdminUrl = () => {
+  const { adminUrl } = useAppUrl()
+  return useCallback(
+    (path?: string) => {
+      if (!adminUrl) {
+        return ''
+      }
+      const parsedUrl = new URL(adminUrl.replace(/\/$/, ''))
+
+      return `${parsedUrl.protocol}//${parsedUrl.host}${parsedUrl.pathname}${
+        path || ''
+      }${parsedUrl.search}`
+    },
+    [adminUrl],
+  )
+}

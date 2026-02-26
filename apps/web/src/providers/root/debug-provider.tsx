@@ -1,0 +1,21 @@
+'use client'
+
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import type { PropsWithChildren, ReactElement } from 'react'
+import { Suspense } from 'react'
+
+import { DevIndicator } from '~/components/common/DevIndicator'
+
+export const DebugProvider = ({
+  children,
+}: PropsWithChildren): ReactElement<any> => (
+  <>
+    <Suspense>
+      <div data-hide-print className="hidden md:contents">
+        <ReactQueryDevtools buttonPosition="top-left" />
+        <DevIndicator />
+      </div>
+    </Suspense>
+    {children}
+  </>
+)

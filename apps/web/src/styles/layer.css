@@ -1,0 +1,494 @@
+@layer components {
+  .cover-mask-b {
+    mask-image: linear-gradient(180deg, #fff -17.19%, #00000000 92.43%);
+  }
+}
+
+@layer components {
+  .border-border {
+    @apply border-zinc-900/10 dark:border-zinc-700;
+  }
+}
+
+@layer utilities {
+  .scrollbar-none::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+  }
+  .shiro-timeline a {
+    @apply no-underline!;
+  }
+  .shiro-link--underline,
+  .shiro-timeline a {
+    color: currentColor;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
+    @apply decoration-neutral/20 hover:no-underline;
+
+    background-image: linear-gradient(var(--color-accent), var(--color-accent));
+    background-size: 0% 1.5px;
+    background-repeat: no-repeat;
+    /* NOTE: this won't work with background images   */
+
+    transition: all 500ms ease;
+
+    @apply border-0;
+
+    background-position: left 1.2em;
+
+    &:hover {
+      background-size: 100% 1.5px;
+      text-shadow:
+        0.05em 0 var(--color-base-100),
+        -0.05em 0 var(--color-base-100);
+
+      transition: all 250ms ease;
+    }
+
+    &::selection {
+      text-shadow: none;
+    }
+
+    &.no-shadow {
+      text-shadow: none;
+    }
+  }
+
+  .shiro-timeline {
+    position: relative;
+
+    & a {
+      line-height: 1.6;
+    }
+
+    @apply min-w-0 flex-1 list-inside justify-between;
+
+    & > li::before {
+      content: '';
+      position: absolute;
+      left: -17px;
+      bottom: 0;
+      border-left: 2px solid var(--color-accent);
+    }
+
+    & > li:first-child:last-child::before {
+      border-left: 0;
+    }
+
+    & > li:not(:first-child):not(:last-child)::before {
+      top: 0;
+    }
+
+    & > li:first-child::before {
+      top: 50%;
+    }
+
+    & > li:last-child::before {
+      bottom: 50%;
+      top: 0;
+    }
+
+    & > li {
+      position: relative;
+      list-style-type: none;
+
+      line-height: 1.6;
+      padding: 3px 0;
+      margin: 0 0 0 1rem;
+    }
+
+    & > li::after {
+      content: '';
+      left: calc(-1rem - 6px);
+      top: 50%;
+      transform: translateY(-50%);
+      height: 8px;
+      width: 8px;
+      border-radius: 50%;
+      position: absolute;
+      background-color: var(--color-accent);
+    }
+  }
+}
+
+@layer components {
+  .mask-cover {
+    mask-image: linear-gradient(to right, transparent, rgb(0 0 0 / 100%) 90%);
+    opacity: 0.3;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .group:hover .mask-cover {
+    opacity: 0.5;
+  }
+
+  .animation-blink {
+    animation: blink 1.2s linear infinite;
+  }
+
+  .mask-top {
+    mask-image: linear-gradient(to top, transparent, rgb(0 0 0 / 100%) 90%);
+    opacity: 0.3;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  @keyframes blink {
+    0% {
+      opacity: 0;
+    }
+    40% {
+      opacity: 0;
+    }
+    40.1% {
+      opacity: 1;
+    }
+    99.9% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  /* 404 */
+  .hit-the-floor {
+    font-size: 12em;
+    font-weight: bold;
+    font-family: Helvetica;
+    text-shadow:
+      0 1px 0 #ccc,
+      0 2px 0 #c9c9c9,
+      0 3px 0 #bbb,
+      0 4px 0 #b9b9b9,
+      0 5px 0 #aaa,
+      0 6px 1px rgba(0, 0, 0, 0.1),
+      0 0 5px rgba(0, 0, 0, 0.1),
+      0 1px 3px rgba(0, 0, 0, 0.3),
+      0 3px 5px rgba(0, 0, 0, 0.2),
+      0 5px 10px rgba(0, 0, 0, 0.25),
+      0 10px 10px rgba(0, 0, 0, 0.2),
+      0 20px 20px rgba(0, 0, 0, 0.15);
+  }
+}
+
+@layer components {
+  .page-head-gradient {
+    @apply pointer-events-none absolute inset-x-0 top-0 h-[500px] w-full;
+
+    overflow: hidden;
+    animation: fade-in 0.8s ease 0.2s both;
+  }
+
+  .page-head-gradient::before,
+  .page-head-gradient::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    animation:
+      blob-entrance 2s ease-out 0.5s both,
+      blob-float 20s ease-in-out 2.5s infinite;
+  }
+
+  .page-head-gradient::before {
+    width: 350px;
+    height: 350px;
+    background: rgb(var(--gradient-from) / 0.2);
+    top: -120px;
+    left: 5%;
+    animation-delay: 0.5s, 3s;
+  }
+
+  .page-head-gradient::after {
+    width: 250px;
+    height: 250px;
+    background: rgb(var(--gradient-to) / 0.25);
+    top: -80px;
+    right: 15%;
+    animation:
+      blob-entrance-alt 2.2s ease-out 1s both,
+      blob-float 25s ease-in-out 3.5s infinite;
+  }
+
+  [data-theme='dark'] .page-head-gradient::before {
+    background: rgb(var(--gradient-from) / 0.15);
+  }
+
+  [data-theme='dark'] .page-head-gradient::after {
+    background: rgb(var(--gradient-to) / 0.18);
+  }
+
+  @keyframes blob-entrance {
+    0% {
+      opacity: 0;
+      transform: translate(-50px, -100px) scale(0.3);
+      filter: blur(120px);
+    }
+    30% {
+      opacity: 0.3;
+      transform: translate(-20px, -50px) scale(0.6);
+      filter: blur(90px);
+    }
+    70% {
+      opacity: 0.8;
+      transform: translate(-5px, -10px) scale(0.9);
+      filter: blur(70px);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+      filter: blur(60px);
+    }
+  }
+
+  @keyframes blob-entrance-alt {
+    0% {
+      opacity: 0;
+      transform: translate(80px, -120px) scale(0.2) rotate(45deg);
+      filter: blur(140px);
+    }
+    25% {
+      opacity: 0.2;
+      transform: translate(40px, -80px) scale(0.5) rotate(22deg);
+      filter: blur(100px);
+    }
+    60% {
+      opacity: 0.7;
+      transform: translate(15px, -25px) scale(0.85) rotate(8deg);
+      filter: blur(75px);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(0, 0) scale(1) rotate(0deg);
+      filter: blur(60px);
+    }
+  }
+
+  @keyframes blob-float {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+    25% {
+      transform: translate(40px, -30px) scale(1.15) rotate(90deg);
+    }
+    50% {
+      transform: translate(-10px, 20px) scale(0.85) rotate(180deg);
+    }
+    75% {
+      transform: translate(-35px, -5px) scale(1.05) rotate(270deg);
+    }
+  }
+
+  .signature-animated path {
+    stroke-dasharray: 2400;
+    stroke-dashoffset: 2400;
+    fill: transparent;
+    animation: drawSignature 8s linear infinite both;
+    stroke-width: 2px;
+    stroke: var(--color-base-content);
+  }
+
+  @keyframes drawSignature {
+    0% {
+      stroke-dashoffset: 2400;
+    }
+
+    15% {
+      fill: transparent;
+    }
+
+    35%,
+    75% {
+      stroke-dashoffset: 0;
+      fill: var(--color-base-content);
+    }
+
+    90%,
+    100% {
+      stroke-dashoffset: 2400;
+      fill: transparent;
+    }
+  }
+
+  .animation-wave {
+    animation: wave 2s infinite;
+  }
+
+  .hover-shake:hover {
+    animation: shake 0.4s ease-in-out;
+  }
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-5deg);
+    }
+    75% {
+      transform: rotate(5deg);
+    }
+  }
+
+  @keyframes wave {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(20deg);
+    }
+  }
+}
+
+@layer components {
+  .content-auto {
+    content-visibility: auto;
+  }
+
+  .shadow-out-sm {
+    box-shadow:
+      0 0 10px rgba(120, 120, 120, 0.1),
+      0 5px 20px rgba(120, 120, 120, 0.2);
+  }
+
+  .backface-hidden {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+  }
+
+  .center {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .fill-content {
+    min-height: calc(100vh - 17.5rem);
+  }
+
+  .card-shadow {
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.08),
+      0 4px 6px rgba(0, 0, 0, 0.04);
+  }
+
+  .card-shadow:hover {
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.08),
+      0 6px 14px rgba(0, 0, 0, 0.08);
+  }
+}
+
+@layer components {
+  .shadow-perfect {
+    /* https://codepen.io/jh3y/pen/yLWgjpd */
+    --tint: 214;
+    --alpha: 3;
+    --base: hsl(var(--tint, 214) 80% 27% / calc(var(--alpha, 4) * 1%));
+    /**
+      * Use relative syntax to get to: hsl(221 25% 22% / 40%)
+    */
+    --shade: hsl(from var(--base) calc(h + 8) 25 calc(l - 5));
+    --perfect-shadow:
+      0 0 0 1px var(--base), 0 1px 1px -0.5px var(--shade),
+      0 3px 3px -1.5px var(--shade), 0 6px 6px -3px var(--shade),
+      0 12px 12px -6px var(--base), 0 24px 24px -12px var(--base);
+    box-shadow: var(--perfect-shadow);
+  }
+
+  .perfect-sm {
+    --alpha: 1;
+  }
+
+  .perfect-md {
+    --alpha: 2;
+  }
+
+  [theme='dark'] .shadow-perfect {
+    --tint: 221;
+  }
+}
+
+@property --mask-top {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --mask-bottom {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 30px;
+}
+
+@layer components {
+  .mask-scroller {
+    --mask-top: 0px;
+    --mask-bottom: 30px;
+    mask: linear-gradient(
+      to bottom,
+      transparent calc(var(--mask-top) - 30px),
+      black var(--mask-top),
+      black calc(100% - var(--mask-bottom)),
+      transparent calc(100% - var(--mask-bottom) + 30px)
+    );
+  }
+
+  @supports (animation-timeline: scroll(self block)) {
+    .mask-scroller {
+      animation-name: mask-up, mask-down;
+      animation-duration: 1s, 1s;
+      animation-timing-function: linear, linear;
+      animation-fill-mode: both, both;
+      animation-timeline:
+        scroll(self block),
+        scroll(self block);
+      animation-range:
+        0 50px,
+        calc(100% - 50px) 100%;
+    }
+  }
+  @supports (animation-timeline: scroll()) and (not (animation-timeline: scroll(self block))) {
+    .mask-scroller {
+      animation-name: mask-up, mask-down;
+      animation-duration: 1s, 1s;
+      animation-timing-function: linear, linear;
+      animation-fill-mode: both, both;
+      animation-timeline: scroll(), scroll();
+      animation-range:
+        0 50px,
+        calc(100% - 50px) 100%;
+    }
+  }
+  @keyframes mask-up {
+    to {
+      --mask-top: 30px;
+    }
+  }
+  @keyframes mask-down {
+    to {
+      --mask-bottom: 0px;
+    }
+  }
+}
+
+@layer components {
+  .shadow-context-menu {
+    box-shadow:
+      rgba(0, 0, 0, 0.067) 0px 3px 8px,
+      rgba(0, 0, 0, 0.067) 0px 2px 5px,
+      rgba(0, 0, 0, 0.067) 0px 1px 1px;
+  }
+}
+
+/* Tailwind 4 Extensions */
+@layer components {
+  .field-sizing-content {
+    field-sizing: content;
+  }
+}

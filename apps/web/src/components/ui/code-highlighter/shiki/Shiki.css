@@ -1,0 +1,88 @@
+@reference "../../../../styles/tailwindcss.css";
+
+.shiki-code-card {
+  @apply relative my-6 overflow-hidden rounded-md;
+
+  font-size: 14px;
+}
+
+.shiki-code-card pre {
+  @apply m-0! p-0! rounded-none;
+
+  font-size: min(1em, 16px);
+}
+
+.shiki-code-card pre code {
+  @apply flex flex-col;
+}
+
+.shiki-code-card .shiki,
+.shiki-code-card code {
+  @apply bg-transparent!;
+}
+
+.shiki-code-card .line {
+  @apply block px-5;
+
+  & > span:last-child {
+    @apply mr-5;
+  }
+
+  /* 撑开没有内容的行 */
+  &::after {
+    content: ' ';
+  }
+}
+
+.shiki-code-card .highlighted,
+.shiki-code-card .diff {
+  @apply relative break-all;
+
+  &::before {
+    @apply absolute left-0 top-0 h-full w-[2px];
+    content: '';
+  }
+}
+
+.shiki-code-card .diff.add {
+  @apply bg-green-100 dark:bg-green-900;
+
+  &::before {
+    @apply bg-green-500;
+  }
+
+  &::after {
+    content: ' +';
+    @apply absolute left-0 text-green-500;
+  }
+}
+
+.shiki-code-card .diff.remove {
+  @apply bg-red-100 dark:bg-red-900;
+
+  &::before {
+    @apply bg-red-500;
+  }
+
+  &::after {
+    content: ' -';
+    @apply absolute left-0 text-red-500;
+  }
+}
+
+.shiki-code-card .highlighted {
+  @apply bg-accent/20;
+
+  &::before {
+    @apply bg-accent;
+  }
+}
+
+.shiki-code-card .shiki-scroll-container pre::-webkit-scrollbar-track {
+  margin-left: 1rem;
+  margin-right: var(--sr-margin, 0);
+}
+
+.shiki-code-card .shiki-scroll-container pre::-webkit-scrollbar {
+  background-color: transparent !important;
+}

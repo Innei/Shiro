@@ -1,0 +1,161 @@
+@reference "../../../styles/tailwindcss.css";
+
+.markdown {
+  @apply relative;
+
+  ruby rt {
+    font-size: 0.6em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    scroll-margin-top: 100px;
+  }
+
+  /* p,
+  figcaption {
+    text-box-trim: trim-both;
+    text-box-edge: cap alphabetic;
+  } */
+
+  kbd {
+    @apply shadow-none border border-zinc-200 rounded-lg border-b-2 text-sm;
+  }
+
+  & .spoiler {
+    position: relative;
+
+    transition: background 0.5s;
+    text-decoration: none;
+    border-radius: 3px;
+
+    @apply bg-current text-stone-700 dark:text-neutral-500 print:bg-transparent! print:line-through;
+
+    &:hover {
+      background: transparent;
+    }
+
+    &:not(:hover) * {
+      @apply text-inherit!;
+    }
+  }
+
+  &.markdown--code-fully pre > code {
+    max-height: unset !important;
+  }
+
+  summary {
+    list-style: none;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  summary::marker {
+    display: none;
+  }
+
+  details summary::before {
+    content: '+ ';
+  }
+
+  details[open] summary::before {
+    content: '- ';
+  }
+
+  details[open] summary::before,
+  details summary::before {
+    font-weight: 800;
+    font-family: var(--mono-font);
+  }
+
+  sub span,
+  sup span {
+    border: 0 !important;
+  }
+
+  sub,
+  sup {
+    & > a {
+      @apply inline-block;
+    }
+
+    & > a::first-letter {
+      @apply hidden;
+    }
+  }
+
+  li {
+    margin: 0.5em 0;
+  }
+
+  a.is-link {
+    @apply break-all border-b-[0.5px] border-current text-inherit no-underline duration-200 hover:text-accent;
+  }
+
+  hr {
+    @apply mx-auto w-[60px];
+  }
+
+  input[type='checkbox'] {
+    @apply checkbox checkbox-xs my-0 mr-2 align-text-bottom;
+
+    vertical-align: inherit;
+  }
+
+  input[type='checkbox']:disabled,
+  input[type='checkbox']:read-only {
+    @apply cursor-not-allowed;
+  }
+
+  /* pre {
+    @apply min-w-0 max-w-full flex-shrink flex-grow overflow-x-auto;
+  } */
+
+  p {
+    @apply break-words;
+  }
+
+  mark {
+    --lightness: 0.3;
+    --highlighted: 1;
+    --highlight: oklch(from var(--color-accent) l c h / var(--lightness));
+    background: var(--color-accent);
+    color: var(--tw-prose-body);
+  }
+
+  @supports (animation-timeline: view()) {
+    mark {
+      --highlighted: 0;
+      background: transparent;
+      animation: highlight steps(1) both;
+      animation-timeline: view();
+      animation-range: entry 100% cover 10%;
+    }
+  }
+
+  [data-theme='dark'] mark {
+    --lightness: 0.35;
+  }
+
+  mark span {
+    background: linear-gradient(
+        120deg,
+        var(--highlight, lightblue) 50%,
+        transparent 50%
+      )
+      110% 0 / 200% 100% no-repeat;
+    background-position: calc((1 - var(--highlighted)) * 110%) 0;
+    transition: background-position 1s;
+  }
+}
+
+@keyframes highlight {
+  to {
+    --highlighted: 1;
+  }
+}

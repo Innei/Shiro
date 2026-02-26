@@ -1,0 +1,66 @@
+html {
+  /* Accent color for form controls */
+  accent-color: var(--color-accent);
+
+  /* make app like native app in mobile */
+  -webkit-tap-highlight-color: transparent;
+
+  font-family: var(--font-sans);
+}
+
+a,
+details summary {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+:root {
+  --bg-opacity: rgba(255, 255, 255, 0.72);
+  --color-border: rgba(24, 24, 27, 0.1);
+}
+
+[data-theme='dark'] {
+  --bg-opacity: rgba(29, 29, 31, 0.72);
+  --color-border: #3f3f46;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-white) !important;
+  text-shadow: none;
+}
+
+[data-theme='dark'] ::selection {
+  background-color: oklch(from var(--color-accent) l c h / 0.3);
+}
+
+::view-transition-new(root) {
+  animation: turnOff 800ms ease-in-out;
+}
+::view-transition-old(root) {
+  animation: none;
+}
+
+@keyframes turnOn {
+  0% {
+    clip-path: polygon(0% 0%, 100% 0, 100% 0, 0 0);
+  }
+  100% {
+    clip-path: polygon(0% 0%, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+[data-theme='dark']::view-transition-new(root) {
+  animation: turnOn 800ms ease-in-out;
+}
+::view-transition-old(root) {
+  animation: none;
+}
+
+@keyframes turnOff {
+  0% {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+  }
+  100% {
+    clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 0);
+  }
+}

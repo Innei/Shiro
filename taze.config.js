@@ -2,7 +2,13 @@ import { defineConfig } from 'taze'
 
 export default defineConfig({
   // ignore packages from bumping
-  exclude: ['tailwindcss', '@excalidraw/excalidraw'],
+  exclude: [
+    'tailwindcss',
+    'crossbell',
+    '@excalidraw/excalidraw',
+    'tailwind-variants',
+    'daisyui',
+  ],
   // fetch latest package info from registry without cache
   force: true,
   // write to package.json

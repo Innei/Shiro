@@ -1,0 +1,26 @@
+{
+  "name": "shiro-types",
+  "version": "0.0.38",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs"
+    },
+    "./sandbox": {
+      "import": "./dist/sandbox.mjs"
+    },
+    "./styles": "./dist/styles.css"
+  },
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "scripts": {
+    "build": "tsdown && cd ../../apps/web && tailwindcss -i src/styles/index.css -o ../../packages/types/dist/styles.css"
+  },
+  "devDependencies": {
+    "@types/node": "25.0.10",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "tsdown": "0.14.0"
+  }
+}

@@ -1,0 +1,7 @@
+@reference "../../../styles/tailwindcss.css";
+
+.comment__message {
+  * {
+    @apply break-words leading-6;
+  }
+}

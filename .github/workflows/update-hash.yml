@@ -1,0 +1,69 @@
+name: Update Hash in shiroi-vercel
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  update-hash:
+    runs-on: ubuntu-latest
+    # 只在 innei-dev/shiroi 仓库中运行
+    if: github.repository == 'innei-dev/shiroi'
+
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get current commit info
+        id: commit_info
+        run: |
+          # 获取当前提交的哈希值
+          current_hash=$(git rev-parse HEAD)
+          echo "hash=$current_hash" >> $GITHUB_OUTPUT
+
+          # 获取当前提交的消息
+          commit_message=$(git log -1 --pretty=format:"%s")
+          echo "message=$commit_message" >> $GITHUB_OUTPUT
+
+          echo "Current commit hash: $current_hash"
+          echo "Current commit message: $commit_message"
+
+      - name: Clone shiroi-vercel repository
+        run: |
+          # 使用 PAT 克隆目标仓库
+          git clone https://${{ secrets.PAT }}@github.com/innei-dev/shiroi-vercel.git shiroi-vercel-repo
+          cd shiroi-vercel-repo
+
+          # 配置 git 用户信息
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Update HASH file
+        run: |
+          cd shiroi-vercel-repo
+
+          # 更新 HASH 文件内容为当前仓库的 commit hash
+          echo "${{ steps.commit_info.outputs.hash }}" > HASH
+
+          # 检查是否有变更
+          if git diff --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          # 添加变更并提交
+          git add HASH
+          git commit -m "${{ steps.commit_info.outputs.message }}"
+
+          # 推送到远程仓库
+          git push origin main
+
+      - name: Summary
+        run: |
+          echo "✅ Successfully updated HASH in shiroi-vercel repository"
+          echo "📝 Updated hash: ${{ steps.commit_info.outputs.hash }}"
+          echo "💬 Commit message: ${{ steps.commit_info.outputs.message }}"

@@ -1,0 +1,122 @@
+'use client'
+
+import clsx from 'clsx'
+import { useAtom } from 'jotai'
+import Image from 'next/image'
+import { useTranslations } from 'next-intl'
+import { useMemo } from 'react'
+
+import { useIsOwnerLogged } from '~/atoms/hooks/owner'
+import { UserAuthFromIcon } from '~/components/layout/header/internal/UserAuthFromIcon'
+import { Form, FormInput as FInput } from '~/components/ui/form'
+import { useAggregationSelector } from '~/providers/root/aggregation-data-provider'
+
+import { CommentBoxActionBar } from './ActionBar'
+import { useGetCommentBoxAtomValues } from './hooks'
+import { UniversalTextArea } from './UniversalTextArea'
+
+export const CommentBoxLegacyForm: Component<{ autoFocus?: boolean }> = ({
+  autoFocus,
+}) => {
+  const isLogger = useIsOwnerLogged()
+  if (isLogger) return <LoggedForm autoFocus={autoFocus} />
+  return <FormWithUserInfo autoFocus={autoFocus} />
+}
+
+const taClassName =
+  'relative h-[150px] w-full rounded-xl bg-zinc-200/50 dark:bg-zinc-800/50'
+type FormKey = 'author' | 'mail' | 'url'
+
+const FormInput = (props: { fieldKey: FormKey; required?: boolean }) => {
+  const { fieldKey: key, required } = props
+  const [value, setValue] = useAtom(useGetCommentBoxAtomValues()[key])
+  const t = useTranslations('comment')
+
+  const placeholderMap = useMemo(
+    () =>
+      ({
+        author: t('form_nickname'),
+        mail: t('form_email'),
+        url: t('form_url'),
+      }) as const,
+    [t],
+  )
+
+  const validatorMap = useMemo(
+    () => ({
+      author: {
+        validator: (v: string) => v.length > 0 && v.length <= 20,
+        message: t('validation_nicknameLength'),
+      },
+      mail: {
+        validator: (v: string) => /^[\w-]+@[\w-]+(?:\.[\w-]+)+$/.test(v),
+        message: t('validation_invalidEmail'),
+      },
+      url: {
+        validator: (v: string) =>
+          /^https?:\/\/[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/.test(v),
+        message: t('validation_invalidUrl'),
+      },
+    }),
+    [t],
+  )
+
+  return (
+    <FInput
+      type="text"
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      required={required}
+      placeholder={placeholderMap[key] + (required ? ' *' : '')}
+      name={key}
+      className="bg-zinc-200/50 dark:bg-zinc-800/50"
+      rules={[validatorMap[key]]}
+    />
+  )
+}
+const FormWithUserInfo: Component<{ autoFocus?: boolean }> = ({
+  autoFocus,
+}) => (
+  <Form className="flex flex-col space-y-4 px-2 pt-2" showErrorMessage={false}>
+    <div className="flex flex-col space-x-0 space-y-4 md:flex-row md:space-x-4 md:space-y-0">
+      <FormInput fieldKey="author" required />
+      <FormInput fieldKey="mail" required />
+      <FormInput fieldKey="url" />
+    </div>
+    <div className={taClassName}>
+      <UniversalTextArea className="pb-8" autoFocus={autoFocus} />
+    </div>
+
+    <CommentBoxActionBar className="absolute bottom-4 left-0 right-4 mb-2 ml-2 w-auto px-4" />
+  </Form>
+)
+
+const LoggedForm: Component<{ autoFocus?: boolean }> = ({ autoFocus }) => {
+  const user = useAggregationSelector((v) => v.user)!
+
+  return (
+    <div className="flex gap-4">
+      <div
+        className={clsx(
+          'relative mb-2 size-[48px] shrink-0 select-none self-end rounded-full',
+          'ring-2 ring-accent',
+          'backface-hidden ml-[2px]',
+        )}
+      >
+        <Image
+          className="rounded-full object-cover"
+          src={user.avatar}
+          alt={`${user.name || user.username}'s avatar`}
+          width={48}
+          height={48}
+        />
+        <UserAuthFromIcon className="absolute -bottom-1 right-0" />
+      </div>
+      <div className={taClassName}>
+        <UniversalTextArea className="pb-5" autoFocus={autoFocus} />
+      </div>
+
+      <CommentBoxActionBar className="absolute bottom-0 left-14 right-0 mb-2 ml-4 w-auto px-4" />
+    </div>
+  )
+}

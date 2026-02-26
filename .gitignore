@@ -1,13 +1,13 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules
 
 # testing
 /coverage
 
 # next.js
-/.next/
+.next/
 /out/
 
 # production
@@ -38,7 +38,15 @@ next-env.d.ts
 
 .vscode/sftp.json
 
-src/app/dev
+apps/web/src/app/dev
 
-/public/static
-/public/pusher-sw.js
+apps/web/public/static
+apps/web/public/pusher-sw.js
+
+dev
+
+# turbo
+.turbo
+
+# benchmark compiled output
+_bench_compiled*

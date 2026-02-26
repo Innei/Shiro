@@ -1,0 +1,156 @@
+@reference "../../../styles/tailwindcss.css";
+
+.link-card {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  align-items: center;
+  width: 32rem;
+  min-height: 6.5rem;
+  border-radius: 0.75rem;
+  max-width: 100%;
+  overflow: hidden;
+  margin: 1.25rem auto;
+  padding: 1rem 1.5rem;
+  backdrop-filter: blur(20px) saturate(180%);
+  transition: background-color 0.2s ease-in-out;
+  text-indent: 0;
+  gap: 1.25rem;
+  min-width: 0;
+
+  @apply cursor-pointer border font-sans no-underline;
+  @apply [&_*]:!not-italic;
+  @apply border border-slate-200/80 bg-slate-50/80 dark:border-neutral-700 dark:bg-zinc-800;
+  @apply transition-colors duration-200;
+
+  & span {
+    border-bottom: 0 !important;
+  }
+}
+
+.link-card__contents {
+  flex: 1 1 auto;
+  position: relative;
+  display: block;
+  min-width: 0;
+
+  z-index: 1;
+}
+
+.link-card__title {
+  line-height: 1.5rem;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.link-card__desc {
+  @apply text-neutral-500 dark:text-neutral-400;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 0.5rem;
+  min-width: 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.link-card__image {
+  @apply aspect-square shrink-0 bg-cover bg-center bg-no-repeat;
+  @apply z-[1] bg-zinc-50 dark:bg-neutral-700;
+
+  height: 3.5rem;
+  width: 3.5rem;
+  margin-left: 0.125rem;
+  border-radius: 0.5rem;
+}
+
+.link-card--skeleton {
+  & .link-card__title,
+  & .link-card__desc {
+    border-radius: 0.5rem;
+  }
+
+  & .link-card__title {
+    width: 8rem;
+    height: 1.5rem;
+
+    @apply bg-zinc-200 dark:bg-neutral-700;
+  }
+
+  & .link-card__desc {
+    width: 100%;
+    margin-top: 0.75rem;
+    height: 1rem;
+
+    @apply bg-zinc-200 dark:bg-neutral-700;
+  }
+
+  & .link-card__image {
+    height: 3.5rem;
+    width: 3.5rem;
+
+    @apply bg-zinc-200 dark:bg-neutral-700;
+  }
+
+  &.link-card--error {
+    background-color: #e1534a20 !important;
+
+    & .link-card__title,
+    & .link-card__desc,
+    & .link-card__image {
+      background-color: #e1534a79;
+      color: transparent;
+    }
+
+    & .link-card__image {
+      background-image: none !important;
+    }
+  }
+}
+
+/* Type-specific width modifiers */
+.link-card--wide {
+  width: 100%;
+  max-width: 40rem;
+}
+
+.link-card--full {
+  width: 100%;
+}
+
+/* Media type cards (TMDB, Bangumi) - show more description */
+.link-card--media {
+  width: 100%;
+
+  & .link-card__desc {
+    -webkit-line-clamp: 4;
+  }
+}
+
+/* GitHub cards - medium width for repo info */
+.link-card--github {
+  width: 36rem;
+
+  @media (max-width: 640px) {
+    width: 100%;
+  }
+}
+
+/* Academic cards (Arxiv) - wider for paper titles */
+.link-card--academic {
+  width: 38rem;
+
+  & .link-card__desc {
+    -webkit-line-clamp: 3;
+  }
+}

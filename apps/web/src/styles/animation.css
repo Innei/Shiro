@@ -1,0 +1,36 @@
+@layer components {
+  .animate-scale-in {
+    animation: scale-in 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes scale-in {
+    0% {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .timeline-hidden {
+    mask: linear-gradient(90deg, #000 25%, #000000e6 50%, #00000000) 150% 0 /
+      400% no-repeat;
+  }
+
+  .timeline-reveal {
+    animation: timeline-reveal 3s ease-in-out forwards;
+  }
+
+  @keyframes timeline-reveal {
+    0% {
+      mask: linear-gradient(90deg, #000 25%, #000000e6 50%, #00000000) 150% 0 /
+        400% no-repeat;
+    }
+    100% {
+      mask: linear-gradient(90deg, #000 25%, #000000e6 50%, #00000000) 0 / 400%
+        no-repeat;
+    }
+  }
+}

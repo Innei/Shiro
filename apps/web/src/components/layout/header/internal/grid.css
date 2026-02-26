@@ -1,0 +1,13 @@
+.header--grid {
+  grid-template-areas: 'left center right';
+}
+
+.header--grid__logo {
+  grid-area: center;
+}
+
+@media (width >= 1024px) {
+  .header--grid__logo {
+    grid-area: left;
+  }
+}

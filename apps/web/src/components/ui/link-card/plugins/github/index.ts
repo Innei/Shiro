@@ -1,0 +1,5 @@
+export { githubCommitPlugin } from './commit'
+export { githubDiscussionPlugin } from './discussion'
+export { githubIssuePlugin } from './issue'
+export { githubPrPlugin } from './pr'
+export { githubRepoPlugin } from './repo'

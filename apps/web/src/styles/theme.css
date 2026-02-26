@@ -1,0 +1,54 @@
+html.noise body::before {
+  position: fixed;
+  inset: 0;
+  content: '';
+  opacity: 0.04;
+  background-repeat: repeat;
+  /* filter: blur(3px); */
+}
+
+html[data-theme='dark'].noise body::before {
+  opacity: 0.01;
+}
+
+@media print {
+  /* styles for print */
+  html.noise body::before {
+    display: none;
+  }
+}
+
+.code-wrap {
+  white-space: break-spaces !important;
+  overflow: auto !important;
+  word-break: break-word !important;
+
+  pre[class*='language-'],
+  code[class*='language-'] {
+    white-space: break-spaces !important;
+    overflow: auto !important;
+    word-break: break-word !important;
+  }
+}
+
+.excalidraw .Modal__content {
+  pointer-events: auto;
+}
+
+html[data-theme='dark'] .shiki,
+html[data-theme='dark'] .shiki span {
+  color: var(--shiki-dark) !important;
+  /* Optional, if you also want font styles */
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+/* https://stackoverflow.com/questions/10826784/make-html5-video-poster-be-same-size-as-video-itself */
+video.fit {
+  --video-width: 426;
+  --video-height: 240;
+  aspect-ratio: var(--video-width) / var(--video-height);
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}

@@ -1,0 +1,203 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@source "./src/**/*.{js,jsx,ts,tsx}";
+@source "./node_modules/@ferrucc-io/emoji-picker/dist/**/*.{js,jsx,ts,tsx}";
+@source inline("font-light text-3xl rounded p-1 bg-zinc-200 dark:bg-zinc-800/0 hover:dark:bg-zinc-800/100 bg-opacity-0 hover:bg-opacity-100 transition-background w-[1px] h-8 -bottom-2 bg-zinc-800/80 dark:bg-zinc-200/80 group-hover:opacity-100 transition-opacity group-hover:animation-blink w-full! w-full");
+
+@plugin "@tailwindcss/typography";
+@plugin "@egoist/tailwindcss-icons";
+
+@import './layer.css';
+@import './animation.css';
+@import './image-zoom.css';
+
+@plugin "daisyui" {
+  themes:
+    light --default,
+    dark --prefersdark;
+  logs: false;
+}
+
+@plugin "daisyui/theme" {
+  name: 'light';
+  default: true;
+  color-scheme: light;
+
+  --color-primary: #33a6b8;
+  --color-secondary: #a8d8b9;
+  --color-accent: #33a6b8;
+  --color-accent-content: #fafafa;
+  --color-neutral: #c7c7cc;
+  --color-base-100: #ffffff;
+  --color-base-content: #000000;
+  --color-info: #007aff;
+  --color-success: #34c759;
+  --color-warning: #ff9500;
+  --color-error: #ff3b30;
+
+  --rounded-btn: 1.9rem;
+  --tab-border: 2px;
+  --tab-radius: 0.5rem;
+}
+
+@plugin "daisyui/theme" {
+  name: 'dark';
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-primary: #f596aa;
+  --color-secondary: #fb966e;
+  --color-accent: #f596aa;
+  --color-neutral: #c7c7cc;
+  --color-base-100: #1c1c1e;
+  --color-base-content: #ffffff;
+  --color-info: #0a84ff;
+  --color-success: #30d158;
+  --color-warning: #ff9f0a;
+  --color-error: #ff453a;
+
+  --rounded-btn: 1.9rem;
+  --tab-border: 2px;
+  --tab-radius: 0.5rem;
+}
+
+@theme inline {
+  --font-sans:
+    var(--app-font-sans), system-ui, -apple-system, 'PingFang SC',
+    'Microsoft YaHei', 'Segoe UI', Roboto, Helvetica, 'noto sans sc',
+    'hiragino sans gb', 'sans-serif', Apple Color Emoji, Segoe UI Emoji,
+    Not Color Emoji;
+  --font-serif:
+    'Noto Serif CJK SC', 'Noto Serif SC', var(--app-font-serif),
+    'Source Han Serif SC', 'Source Han Serif', source-han-serif-sc, SongTi SC,
+    SimSum, 'Hiragino Sans GB', system-ui, -apple-system, Segoe UI, Roboto,
+    Helvetica, 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
+  --font-mono:
+    'OperatorMonoSSmLig Nerd Font', 'Cascadia Code PL',
+    'FantasqueSansMono Nerd Font', 'operator mono', JetBrainsMono,
+    'Fira code Retina', 'Fira code', 'Consolas', Monaco, 'Hannotate SC',
+    monospace, -apple-system;
+}
+
+@theme {
+  /* border-border utility - 值在 variables.css 中被 :root/[data-theme='dark'] 覆盖 */
+  --color-border: rgba(24, 24, 27, 0.1);
+
+  --color-muted-50: #fafafa;
+  --color-muted-100: #f5f5f5;
+  --color-muted-200: #e5e5e5;
+  --color-muted-300: #d4d4d4;
+  --color-muted-400: #a3a3a3;
+  --color-muted-500: #737373;
+  --color-muted-600: #525252;
+  --color-muted-700: #404040;
+  --color-muted-800: #262626;
+  --color-muted-900: #171717;
+  --color-muted-950: #0a0a0a;
+
+  --color-themed-bg_opacity: var(--bg-opacity);
+}
+
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+
+html {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+html body {
+  @apply max-w-screen overflow-x-hidden;
+}
+
+@media print {
+  html {
+    font-size: 12px;
+  }
+}
+
+/* @media (min-width: 2160px) {
+  html {
+    font-size: 15px;
+  }
+} */
+
+.prose {
+  max-width: 100% !important;
+  font-size: 1.1rem;
+  text-autospace: normal;
+
+  p {
+    @apply break-words;
+  }
+
+  figure img {
+    @apply mb-0 mt-0;
+  }
+}
+
+*:focus {
+  outline: none;
+}
+
+*:not(input):not(textarea):not([contenteditable='true']):focus-visible {
+  /* outline: 0 !important; */
+  /* box-shadow: var(--color-accent) 0px 0px 0px 1px; */
+}
+* {
+  tab-size: 2;
+
+  @apply border-zinc-900/10 dark:border-zinc-700;
+  &:hover {
+    scrollbar-color: auto;
+  }
+}
+
+.animate-ping {
+  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* input,
+textarea {
+  font-size: max(16px, 1rem);
+} */
+
+a {
+  @apply break-all;
+}
+
+@media (width >= 1024px) {
+  input,
+  textarea {
+    font-size: 1rem;
+  }
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+.prose
+  :where(blockquote):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+  @apply relative border-0;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 3px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 1em;
+    background-color: var(--color-accent);
+  }
+}

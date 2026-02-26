@@ -41,15 +41,15 @@ steps:
     commands:
       - 'npm i -g pnpm'
       - 'pnpm install --no-frozen-lockfile'
-      - 'npm run build:ci'
+      - 'pnpm --filter @shiro/web build:ci'
 
     depends_on:
       - restore-cache
     volumes:
       - name: shiro-env
-        path: /drone/src/.env
+        path: /drone/src/apps/web/.env
       - name: cache
-        path: /drone/src/.next
+        path: /drone/src/apps/web/.next
 
   - name: rebuild-cache
     image: drillster/drone-volume-cache
@@ -69,14 +69,14 @@ steps:
     commands:
       - 'pwd'
       - 'ls -a'
-      - 'ls .next'
+      - 'ls apps/web/.next'
       - 'apk add zip'
-      - 'sh ./standalone-bundle.sh'
+      - 'cd apps/web && sh ./standalone-bundle.sh'
     volumes:
       - name: shiro-dist
         path: /drone/src/assets
       - name: cache
-        path: /drone/src/.next
+        path: /drone/src/apps/web/.next
 
     depends_on:
       - build

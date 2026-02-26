@@ -1,0 +1,56 @@
+body::-webkit-scrollbar {
+  height: 0;
+}
+
+html {
+  /*  for firefox */
+  scrollbar-color: var(--color-gray-300);
+  scrollbar-width: thin;
+}
+
+html[data-theme='dark'] {
+  scrollbar-color: var(--color-muted-500);
+}
+
+body {
+  overflow: overlay;
+  /* scrollbar-gutter: stable; */
+}
+
+[data-theme='dark'] {
+  *::-webkit-scrollbar-thumb {
+    border: 3px solid var(--color-muted-500);
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: oklch(from var(--color-muted-500) l c h / 0.5);
+  }
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border: 3px solid var(--color-gray-300);
+  @apply rounded-xl;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  border-color: oklch(from var(--color-muted-500) l c h / 0.8);
+}
+
+*::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--color-muted-500);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: oklch(from var(--color-muted-500) l c h / 0.8);
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--color-zinc-100);
+}

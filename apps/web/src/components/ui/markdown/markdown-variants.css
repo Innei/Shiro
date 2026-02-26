@@ -1,0 +1,258 @@
+@reference "../../../styles/tailwindcss.css";
+
+/* Markdown Variant Styles */
+
+/* Note variant - 日记形态 */
+.markdown--note {
+  @apply font-serif text-lg leading-[1.8];
+
+  --padding-h: -1rem;
+
+  @media (width >= 1024px) {
+    --padding-h: -45px;
+  }
+
+  strong,
+  b {
+    @apply font-sans;
+  }
+
+  .paragraph:not(
+      :where([class~='not-prose'], [class~='not-prose'] *)
+    ):first-child {
+    margin-bottom: 4rem;
+  }
+
+  blockquote:not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+    &::before {
+      display: none !important;
+    }
+    & {
+      .paragraph:not(:where([class~='not-prose'], [class~='not-prose'] *))
+        > span {
+        margin-left: 0 !important;
+      }
+
+      .paragraph:not(
+          :where([class~='not-prose'], [class~='not-prose'] *)
+        ):first-child::first-letter {
+        float: none !important;
+        font-size: inherit !important;
+        margin: 0;
+      }
+
+      .paragraph:not(:where([class~='not-prose'], [class~='not-prose'] *)),
+      blockquote > ph {
+        padding: 10px 0;
+        margin: 0;
+      }
+
+      .paragraph:not(
+          :where([class~='not-prose'], [class~='not-prose'] *)
+        ):first-child {
+        margin-bottom: 0;
+      }
+    }
+
+    margin-left: var(--padding-h);
+    margin-right: var(--padding-h);
+
+    line-height: 1.8;
+    padding: 1em 1em 1em 2em;
+
+    @apply bg-accent/10 font-normal dark:bg-accent/5;
+    @apply border-none px-12 outline-hidden!;
+
+    & span::first-letter {
+      @apply float-none! text-[1em]!;
+    }
+
+    @media screen and (max-width: 599px) {
+      max-width: 100vw;
+      margin-left: -1.25em;
+      margin-right: -1.25em;
+      padding: 1em 3em;
+    }
+  }
+
+  .paragraph:not(:where([class~='not-prose'], [class~='not-prose'] *)):not(
+      :nth-child(1)
+    ) {
+    text-indent: 2rem;
+  }
+
+  > p:not(:where([class~='not-prose'], [class~='not-prose'] *)):first-child {
+    margin-bottom: 2rem;
+  }
+
+  > .paragraph:not(
+      :where([class~='not-prose'], [class~='not-prose'] *)
+    ):first-child::first-letter {
+    float: left;
+    font-size: 2.4em;
+    margin: 0 0.2em 0 0;
+  }
+}
+
+/* Comment variant - 评论形态 */
+.markdown--comment {
+  @apply text-[0.95rem] leading-[1.65];
+
+  /* 段落间距 */
+  p {
+    @apply my-0;
+  }
+
+  /* 链接样式 */
+  a {
+    @apply text-accent underline-offset-2;
+  }
+
+  a:hover {
+    @apply underline;
+  }
+
+  /* 行内代码 */
+  code {
+    @apply rounded-md bg-zinc-900/5 px-1.5 py-0.5 font-mono text-[0.85em] text-zinc-700 dark:bg-zinc-50/10 dark:text-zinc-200;
+  }
+
+  /* 代码块 */
+  pre {
+    @apply my-2 overflow-x-auto rounded-lg bg-zinc-900/10 p-3 font-mono text-[0.85em] leading-relaxed text-zinc-800 dark:bg-zinc-50/10 dark:text-zinc-100;
+  }
+
+  /* 标题层级 - 评论中标题应紧凑 */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply mt-3 mb-1.5 font-semibold leading-snug tracking-tight;
+  }
+
+  h1 {
+    @apply text-[1.125rem] font-bold;
+  }
+
+  h2 {
+    @apply text-[1.0625rem] font-bold;
+  }
+
+  h3 {
+    @apply text-[1rem] font-semibold;
+  }
+
+  h4,
+  h5,
+  h6 {
+    @apply text-[0.95rem] font-medium;
+  }
+
+  /* 分割线 */
+  hr {
+    @apply my-2 border-zinc-400 opacity-20;
+  }
+
+  /* 列表 */
+  ul {
+    @apply my-1.5 list-disc space-y-0.5 pl-4;
+  }
+
+  ol {
+    @apply my-1.5 list-decimal space-y-0.5 pl-4;
+  }
+
+  li {
+    @apply leading-[1.6];
+  }
+
+  /* 嵌套列表 */
+  ul ul,
+  ol ol,
+  ul ol,
+  ol ul {
+    @apply my-0.5;
+  }
+
+  /* 引用块 */
+  blockquote {
+    @apply relative my-2 border-0 pl-3 text-base-content/60;
+    @apply leading-[1.6];
+
+    &::before {
+      content: '';
+      display: block;
+      width: 3px;
+      bottom: 5px;
+      position: absolute;
+      left: 0;
+      top: 5px;
+      border-radius: 24px;
+      background-color: var(--color-accent);
+    }
+
+    p {
+      @apply my-1;
+    }
+  }
+
+  /* 媒体元素 */
+  img,
+  video {
+    @apply my-2 rounded-md;
+    max-height: 350px;
+  }
+
+  /* 代码高亮块 */
+  .shiki-block {
+    @apply my-1.5;
+  }
+
+  /* 表格 */
+  table {
+    @apply my-2 w-full text-[0.9em];
+  }
+
+  th,
+  td {
+    @apply border border-zinc-200 px-2 py-1 dark:border-zinc-700;
+  }
+
+  th {
+    @apply bg-zinc-100 font-medium dark:bg-zinc-800;
+  }
+
+  /* 强调文本 */
+  strong,
+  b {
+    @apply font-semibold;
+  }
+
+  em,
+  i {
+    @apply italic;
+  }
+
+  /* 删除线 */
+  del,
+  s {
+    @apply text-base-content/50 line-through;
+  }
+
+  /* 标记高亮 */
+  mark {
+    @apply rounded bg-yellow-200/60 px-0.5 dark:bg-yellow-500/30;
+  }
+}
+
+[data-theme='dark'] .markdown--comment {
+  hr {
+    @apply border-zinc-100 opacity-20;
+  }
+
+  blockquote {
+    @apply border-zinc-50/50;
+  }
+}
