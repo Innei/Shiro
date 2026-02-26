@@ -12,7 +12,7 @@
 
 - [静かな森](https://innei.in)
 - [可愛い松](https://blog.wibus.ren/)
-- [启动台の博客](https://www.launchpadx.top/)
+
 
 欢迎体验 Shiro 带来的极简之美！
 
