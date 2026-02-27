@@ -5,7 +5,8 @@ services:
     container_name: shiro
     image: innei/shiro:latest
     volumes:
-      - ./.env:/app/.env
+      - ./.env:/app/apps/web/.env
+      - ./public:/app/apps/web/public
     restart: always
     ports:
       - 2323:2323
