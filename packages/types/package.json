@@ -18,9 +18,9 @@
     "build": "tsdown && cd ../../apps/web && tailwindcss -i src/styles/index.css -o ../../packages/types/dist/styles.css"
   },
   "devDependencies": {
-    "@types/node": "25.0.10",
+    "@types/node": "25.3.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "tsdown": "0.14.0"
+    "tsdown": "0.14.2"
   }
 }
