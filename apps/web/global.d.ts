@@ -34,6 +34,13 @@ declare global {
   } & PropsWithChildren &
     P
 
+  interface Window {
+    Prism?: {
+      highlightElement(element: Element): void
+      highlightAll(): void
+    }
+  }
+
   // TODO should remove in next TypeScript version
   interface Document {
     startViewTransition(callback?: () => void | Promise<void>): ViewTransition

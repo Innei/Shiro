@@ -15,6 +15,10 @@ export const SpoilerRule: MarkdownToJSX.Rule<{
   order: Priority.LOW,
   parse: parseCaptureInline,
   render(node, output, state?) {
-    return <Spoiler key={state?.key}>{output(node.children, state!)}</Spoiler>
+    return (
+      <Spoiler key={state?.key as React.Key}>
+        {output(node.children, state!)}
+      </Spoiler>
+    )
   },
 }

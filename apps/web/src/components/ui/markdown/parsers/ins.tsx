@@ -15,6 +15,8 @@ export const InsertRule: MarkdownToJSX.Rule<{
   order: Priority.MED,
   parse: parseCaptureInline,
   render(node, output, state?) {
-    return <ins key={state?.key}>{output(node.children, state!)}</ins>
+    return (
+      <ins key={state?.key as React.Key}>{output(node.children, state!)}</ins>
+    )
   },
 }

@@ -151,7 +151,11 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           [RuleType.heading]: {
             render(node, output, state) {
               return (
-                <MHeader id={node.id} level={node.level} key={state?.key}>
+                <MHeader
+                  id={node.id}
+                  level={node.level}
+                  key={state?.key as React.Key}
+                >
                   {output(node.children, state!)}
                 </MHeader>
               )
@@ -160,7 +164,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           [RuleType.textMarked]: {
             render(node, output, state) {
               return (
-                <mark key={state?.key} className="rounded-md">
+                <mark key={state?.key as React.Key} className="rounded-md">
                   <span className="px-1">{output(node.children, state!)}</span>
                 </mark>
               )
@@ -171,7 +175,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
               return (
                 <input
                   type="checkbox"
-                  key={state?.key}
+                  key={state?.key as React.Key}
                   checked={node.completed}
                   readOnly
                   className="size-[1em]!"
@@ -196,7 +200,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
                 <MarkdownLink
                   href={sanitizer(target)!}
                   title={title}
-                  key={state?.key}
+                  key={state?.key as React.Key}
                   text={realText}
                 >
                   {output(node.children, state!)}
@@ -208,7 +212,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           [RuleType.blockQuote]: {
             render(node, output, state) {
               return (
-                <MBlockQuote key={state?.key} alert={node.alert}>
+                <MBlockQuote key={state?.key as React.Key} alert={node.alert}>
                   {output(node.children, state!)}
                 </MBlockQuote>
               )
@@ -237,7 +241,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
               })()
 
               return (
-                <Fragment key={state?.key}>
+                <Fragment key={state?.key as React.Key}>
                   <FloatPopover
                     wrapperClassName="inline"
                     as="span"
@@ -278,7 +282,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
             render(node, output, state) {
               return (
                 <CodeBlockRender
-                  key={state?.key}
+                  key={state?.key as React.Key}
                   content={node.text}
                   lang={node.lang}
                   attrs={node?.rawAttrs}
@@ -290,7 +294,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
             render(node, output, state) {
               return (
                 <code
-                  key={state?.key}
+                  key={state?.key as React.Key}
                   className="rounded-md bg-zinc-200 px-2 font-mono dark:bg-neutral-800"
                 >
                   {node.text}
@@ -410,7 +414,7 @@ const listRule: Partial<
 
     return (
       <Tag
-        key={state?.key}
+        key={state?.key as React.Key}
         start={node.type === RuleType.orderedList ? node.start : undefined}
       >
         {node.items.map((item: any, i: number) => {

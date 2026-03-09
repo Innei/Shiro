@@ -42,7 +42,7 @@ export const MentionRule: MarkdownToJSX.Rule<{
       <SocialSourceLink
         name={displayName || name}
         source={prefix}
-        key={state?.key}
+        key={state?.key as React.Key}
       />
     )
   },

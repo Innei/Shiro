@@ -24,7 +24,7 @@ export const KateXRule: MarkdownToJSX.Rule<{
     }
   },
   render(node, output, state) {
-    return <KateX key={state?.key}>{node.katex}</KateX>
+    return <KateX key={state?.key as React.Key}>{node.katex}</KateX>
   },
 }
 export const KateXBlockRule: MarkdownToJSX.Rule<{
@@ -46,7 +46,10 @@ export const KateXBlockRule: MarkdownToJSX.Rule<{
       return null
     }
     return (
-      <div className="scrollbar-none overflow-auto" key={state?.key}>
+      <div
+        className="scrollbar-none overflow-auto"
+        key={state?.key as React.Key}
+      >
         <KateX mode="display">{node.groups?.content}</KateX>
       </div>
     )

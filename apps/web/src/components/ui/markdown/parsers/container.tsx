@@ -64,7 +64,10 @@ export const ContainerRule: MarkdownToJSX.Rule<{
       case 'carousel':
       case 'gallery': {
         return (
-          <Gallery key={state?.key} images={pickImagesFromMarkdown(content)} />
+          <Gallery
+            key={state?.key as React.Key}
+            images={pickImagesFromMarkdown(content)}
+          />
         )
       }
       case 'warn':
@@ -83,7 +86,7 @@ export const ContainerRule: MarkdownToJSX.Rule<{
           <Banner
             type={(transformMap as any)[type] || type}
             className="my-4"
-            key={state?.key}
+            key={state?.key as React.Key}
           >
             <WrappedElementProvider className="w-full">
               <Markdown
@@ -104,7 +107,7 @@ export const ContainerRule: MarkdownToJSX.Rule<{
           <Banner
             type={params as 'warn' | 'error' | 'info' | 'success' | 'warning'}
             className="my-4"
-            key={state?.key}
+            key={state?.key as React.Key}
           >
             <WrappedElementProvider className="w-full">
               <Markdown
@@ -141,7 +144,7 @@ export const ContainerRule: MarkdownToJSX.Rule<{
         switch (type) {
           case 'normal': {
             return (
-              <Grid key={state?.key}>
+              <Grid key={state?.key as React.Key}>
                 <Markdown
                   overrides={{
                     img: GridMarkdownImage,
@@ -160,7 +163,7 @@ export const ContainerRule: MarkdownToJSX.Rule<{
             return (
               <GridMarkdownImages
                 height={rows && cols ? +rows / +cols : 1}
-                key={state?.key}
+                key={state?.key as React.Key}
                 imagesSrc={imagesSrc}
                 Wrapper={Grid}
               />
@@ -193,7 +196,7 @@ export const ContainerRule: MarkdownToJSX.Rule<{
     }
 
     return (
-      <div key={state?.key}>
+      <div key={state?.key as React.Key}>
         <p>{content}</p>
       </div>
     )
