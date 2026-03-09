@@ -10,7 +10,6 @@ import { getTranslations } from 'next-intl/server'
 
 import { AckRead } from '~/components/common/AckRead'
 import { ClientOnly } from '~/components/common/ClientOnly'
-
 import { CommentAreaRootLazy } from '~/components/modules/comment'
 import {
   NoteActionAside,
@@ -28,7 +27,6 @@ import { NoteFontSettingFab } from '~/components/modules/note/NoteFontFab'
 import { NoteMainContainer } from '~/components/modules/note/NoteMainContainer'
 import { BanCopyWrapper } from '~/components/modules/shared/BanCopyWrapper'
 import { ReadIndicatorForMobile } from '~/components/modules/shared/ReadIndicator'
-
 import { TocFAB } from '~/components/modules/toc/TocFAB'
 import { TocHeadingStrategyProvider } from '~/components/modules/toc/TocHeadingStrategy'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition'
@@ -83,7 +81,6 @@ function PageInner({
       <AckRead id={data.id} type="note" />
 
       <NoteHeadCover image={data.meta?.cover} />
-
 
       <div>
         <NoteTitle />

@@ -3,6 +3,7 @@ import type { ScriptProps } from 'next/script'
 declare global {
   export interface AppThemeConfig {
     config: AppConfig
+    header?: HeaderConfig
     footer: FooterConfig
   }
 
@@ -98,7 +99,26 @@ declare global {
     posts: {
       mode: 'loose' | 'compact'
     }
+
+    categoryPostList: CategoryPostListConfig
   }
+
+  export interface CategoryPostListConfig {
+    // 全局默认配置
+    default: {
+      sticky: boolean // 是否启用粘性
+    }
+    // 分类级别的配置
+    categories?: Record<string, CategoryPostListCategoryConfig>
+  }
+
+  export interface CategoryPostListCategoryConfig {
+    // 是否启用该分类的文章列表（必须为 true 才会显示）
+    enabled?: boolean
+    // 是否启用粘性（可选，默认使用全局配置）
+    sticky?: boolean
+  }
+
   export interface Donate {
     enable: boolean
     link: string
@@ -111,5 +131,20 @@ declare global {
   export interface Signature {
     svg: string
     animated?: boolean
+  }
+
+  export interface HeaderConfig {
+    menu: HeaderMenuItem[]
+  }
+
+  export interface HeaderMenuItem {
+    title: string
+    titleKey?: string
+    path: string
+    type?: string
+    icon?: string
+    subMenu?: HeaderMenuItem[]
+    exclude?: string[]
+    external?: boolean
   }
 }

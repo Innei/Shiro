@@ -6,7 +6,6 @@ import { m, useAnimationControls, useDragControls } from 'motion/react'
 import type { SyntheticEvent } from 'react'
 import {
   createElement,
-  Fragment,
   memo,
   useCallback,
   useEffect,
@@ -33,6 +32,11 @@ import type {
 } from './context'
 import { CurrentModalContext, modalStackAtom } from './context'
 import type { ModalProps } from './types'
+
+// 创建一个接受任意属性的透明包装组件
+const TransparentWrapper = ({ children }: { children?: React.ReactNode }) => (
+  <>{children}</>
+)
 
 export const ModalInternal: Component<{
   item: ModalProps & { id: string }
@@ -85,7 +89,7 @@ export const ModalInternal: Component<{
     title,
     clickOutsideToDismiss,
     modalContainerClassName,
-    wrapper: Wrapper = Fragment,
+    wrapper: Wrapper = TransparentWrapper,
     max,
   } = item
   const zIndexStyle = useMemo(

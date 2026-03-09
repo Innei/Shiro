@@ -1,0 +1,157 @@
+'use client'
+
+import { useAtomValue } from 'jotai'
+import { AnimatePresence, m } from 'motion/react'
+import { useMemo } from 'react'
+
+import { currentReadingAtom } from '~/atoms/current-reading'
+import { RootPortal } from '~/components/ui/portal'
+import { useIsClient } from '~/hooks/common/use-is-client'
+import useDebounceValue from '~/hooks/common/use-debounce-value'
+import { Link, usePathname } from '~/i18n/navigation'
+import { clsxm } from '~/lib/helper'
+import { usePageScrollLocation } from '~/providers/root/page-scroll-info-provider'
+
+/**
+ * 阅读进度头部组件
+ * 当用户在文章/笔记页面下滑后，常驻显示当前阅读的文章标题和路径
+ */
+export const ReadingProgressHeader = () => {
+  const isClient = useIsClient()
+  const scrollLocation = usePageScrollLocation()
+  const readingMeta = useAtomValue(currentReadingAtom)
+  const pathname = usePathname()
+
+  // 检测是否在文章/笔记详情页面
+  const isDetailPage = pathname.includes('/posts/') || pathname.includes('/notes/')
+
+  // 滚动超过 200px 后显示，常驻不消失（仅在客户端）
+  const showHeader = useDebounceValue(
+    isClient && scrollLocation > 200 && isDetailPage,
+    100
+  )
+
+  // 构建面包屑路径
+  const breadcrumb = useMemo(() => {
+    if (!readingMeta) return []
+
+    if (readingMeta.type === 'post') {
+      const items = [{ name: '文章', path: '/posts' }]
+      if (readingMeta.categoryName && readingMeta.categorySlug) {
+        items.push({
+          name: readingMeta.categoryName,
+          path: `/posts/${readingMeta.categorySlug}`,
+        })
+      }
+      return items
+    }
+
+    if (readingMeta.type === 'note') {
+      const items = [{ name: '手记', path: '/notes' }]
+      if (readingMeta.topicName && readingMeta.topicSlug) {
+        items.push({
+          name: readingMeta.topicName,
+          path: `/notes/topics/${readingMeta.topicSlug}`,
+        })
+      }
+      return items
+    }
+
+    return []
+  }, [readingMeta])
+
+  const title = readingMeta?.title
+  const tags = readingMeta?.tags || []
+
+  // 不在详情页面时返回 null
+  if (!isDetailPage) return null
+
+  // 服务端渲染时不显示
+  if (!isClient) return null
+
+  return (
+    <RootPortal>
+      <AnimatePresence>
+        {showHeader && title && (
+          <m.div
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -20, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className={clsxm(
+              'pointer-events-auto fixed inset-x-0 top-0 z-[10] mr-[var(--removed-body-scroll-bar-size)]',
+            )}
+          >
+            <div
+              className={clsxm(
+                'mx-auto h-[4.5rem] max-w-7xl px-4 lg:px-8',
+                'flex items-center justify-between',
+              )}
+            >
+              <div
+                className={clsxm(
+                  'flex h-full w-full items-center justify-between',
+                  'rounded-xl',
+                  'bg-white/60 backdrop-blur-2xl',
+                  'shadow-lg shadow-zinc-800/5',
+                  'ring-1 ring-zinc-900/5',
+                  'dark:bg-zinc-900/60 dark:ring-zinc-100/10',
+                  'px-6',
+                  'transition-all duration-300',
+                )}
+              >
+                {/* 左侧：标题和标签 */}
+                <div className="flex min-w-0 flex-1 items-center">
+                  <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                    <h1 className="text-base font-semibold text-zinc-800 dark:text-zinc-100 truncate leading-tight">
+                      {title}
+                    </h1>
+                    {tags.length > 0 && (
+                      <div className="flex flex-wrap items-center gap-1">
+                        {tags.slice(0, 3).map((tag) => (
+                          <span
+                            key={tag}
+                            className={clsxm(
+                              'inline-flex items-center px-2 py-0.5 rounded-full text-[10px]',
+                              'bg-zinc-100/80 text-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-300',
+                              'whitespace-nowrap',
+                            )}
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                        {tags.length > 3 && (
+                          <span className="text-[10px] text-zinc-400 dark:text-zinc-500">
+                            +{tags.length - 3}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* 右侧：面包屑路径 */}
+                {breadcrumb.length > 0 && (
+                  <div className="hidden lg:flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400 ml-6">
+                    {breadcrumb.map((item, index) => (
+                      <span key={item.path} className="flex items-center gap-1.5">
+                        {index > 0 && (
+                          <span className="text-zinc-300 dark:text-zinc-600">/</span>
+                        )}
+                        <Link
+                          href={item.path}
+                          className="hover:text-accent transition-colors"
+                        >
+                          {item.name}
+                        </Link>
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </m.div>
+        )}
+      </AnimatePresence>
+     )
+}

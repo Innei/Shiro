@@ -305,7 +305,7 @@ export const Markdown: FC<MdProps & MarkdownToJSX.Options & PropsWithChildren> =
           ...renderers,
         },
         extendsRules: {
-          spoilder: SpoilerRule,
+          spoiler: SpoilerRule,
           mention: MentionRule,
 
           ins: InsertRule,

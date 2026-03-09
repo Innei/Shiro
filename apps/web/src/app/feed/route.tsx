@@ -172,7 +172,7 @@ export async function GET() {
                 },
               },
               extendsRules: {
-                spoilder: SpoilerRule,
+                spoiler: SpoilerRule,
                 mention: MentionRule,
 
                 ins: InsertRule,

@@ -1,10 +1,9 @@
-import { clsx } from 'clsx'
 import type { Metadata } from 'next'
 import type { Article, WithContext } from 'schema-dts'
 
 import { AckRead } from '~/components/common/AckRead'
 import { ClientOnly } from '~/components/common/ClientOnly'
-
+import { ArticleReadingHeader } from '~/components/modules/article/ArticleReadingHeader'
 import { CommentAreaRootLazy } from '~/components/modules/comment'
 import {
   PostActionAside,
@@ -13,6 +12,7 @@ import {
   PostOutdate,
   PostRelated,
 } from '~/components/modules/post'
+import { CategoryPostList } from '~/components/modules/post/CategoryPostList'
 import { GoToAdminEditingButton } from '~/components/modules/shared/GoToAdminEditingButton'
 import { ReadIndicatorForMobile } from '~/components/modules/shared/ReadIndicator'
 import { TocFAB } from '~/components/modules/toc/TocFAB'
@@ -143,9 +143,7 @@ const PostPage = ({ data }: { data: PostWithTranslation }) => {
           <ReadIndicatorForMobile />
           <PostMarkdownImageRecordProvider>
             <MarkdownSelection>
-              <article
-                className={'prose'}
-              >
+              <article className={'prose prose-xl'}>
                 <div className="sr-only">
                   <PostTitle />
                 </div>
@@ -201,6 +199,7 @@ export default definePrerenderPage<PageParams>()<PostDataResult>({
         contentFormat={data.contentFormat}
         content={data.content}
       >
+        <ArticleReadingHeader />
         {currentPath !== fullPath && <SlugReplacer to={fullPath} />}
         <LdJsonWithAuthor baseLdJson={jsonLd} />
 
@@ -208,9 +207,19 @@ export default definePrerenderPage<PageParams>()<PostDataResult>({
         <PostDataReValidate fetchedAt={fetchedAt} />
         <div
           data-server-fetched-at={fetchedAt}
-          className="relative flex min-h-[120px] grid-cols-[auto_200px] lg:grid"
+          className="relative flex min-h-[120px] gap-4 lg:grid lg:grid-cols-[200px_1fr_200px]"
         >
-          <BottomToUpTransitionView lcpOptimization className="min-w-0">
+          {/* 左侧分类文章列表 */}
+          <div className="relative hidden shrink-0 lg:block">
+            <CategoryPostList
+              categoryPosts={fetchedData.categoryPosts}
+              minPostsToShow={1}
+              sticky={fetchedData.categoryPostListConfig?.sticky ?? true}
+              enabled={fetchedData.categoryPostListConfig?.enabled}
+            />
+          </div>
+
+          <BottomToUpTransitionView lcpOptimization className="min-w-0 flex-1">
             <PostPage data={data} />
 
             <BottomToUpSoftScaleTransitionView delay={500}>

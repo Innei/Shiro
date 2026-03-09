@@ -22,10 +22,37 @@ export interface IHeaderMenu {
   path: string
   type?: string
   icon?: ReactNode
+  iconKey?: string
   subMenu?: Omit<IHeaderMenu, 'exclude'>[]
   exclude?: string[]
   search?: Record<string, string>
   do?: () => void
+  external?: boolean
+}
+
+// 图标名称到组件的映射
+export const iconMap: Record<string, ReactNode> = {
+  home: h(FaSolidDotCircle),
+  posts: h(IcTwotoneSignpost),
+  notes: h(FaSolidFeatherAlt),
+  timeline: h(FaSolidHistory),
+  thinking: h(MdiLightbulbOn20),
+  more: h(FaSolidCircleNotch),
+  friends: h(FaSolidUserFriends),
+  projects: h(MdiFlask),
+  says: h(FaSolidComments),
+  travel: h(RMixPlanet),
+  circle: h(FaSolidCircle),
+  book: h(IonBook),
+  topics: h('i', {
+    className: 'i-mingcute-align-bottom-fill flex center',
+  }),
+}
+
+// 从图标键名获取图标组件
+export const getIconByKey = (key?: string): ReactNode | undefined => {
+  if (!key) return undefined
+  return iconMap[key]
 }
 export const headerMenuConfig: IHeaderMenu[] = [
   {

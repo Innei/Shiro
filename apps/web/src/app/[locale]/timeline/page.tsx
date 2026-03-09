@@ -93,6 +93,10 @@ export default function TimelinePage() {
 
   const { data: initialData } = useQuery<TimelineData>({
     queryKey: ['timeline'],
+    queryFn: async () => {
+      // 占位函数，这个 query 不会实际执行（enabled: false）
+      return {} as TimelineData
+    },
     enabled: false,
   })
   const { data, refetch } = useQuery<TimelineData>({

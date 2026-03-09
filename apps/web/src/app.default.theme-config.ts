@@ -10,6 +10,10 @@ export const defaultThemeConfig: AppThemeConfig = {
       },
       description: '',
     },
+    color: {
+      light: [],
+      dark: [],
+    },
     module: {
       subscription: {},
       og: {},
@@ -41,7 +45,15 @@ export const defaultThemeConfig: AppThemeConfig = {
       posts: {
         mode: 'loose',
       },
+      categoryPostList: {
+        default: {
+          sticky: true,
+        },
+      },
     },
+  },
+  header: {
+    menu: [],
   },
   footer: {
     linkSections: [],

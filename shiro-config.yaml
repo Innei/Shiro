@@ -1,0 +1,207 @@
+# Shiro 主题配置文件
+# 将此文件内容复制到后端的 /theme/shiro 配置中
+
+config:
+  # 网站基本信息
+  site:
+    favicon: '/favicon.ico'
+    faviconDark: '/favicon.ico'  # 深色模式下的 favicon
+
+  # 首页 Hero 区域配置
+  hero:
+    # 标题模板 - type 可以是 'span', 'h1', 'div' 等 HTML 元素
+    title:
+      template:
+        - type: 'span'
+          text: '嗨！我是'
+          class: 'mr-2 text-xl font-bold'
+        - type: 'span'
+          text: 'Shiro'
+          class: 'text-3xl font-bold text-brand'
+    # 副标题描述
+    description: '欢迎来到我的个人空间'
+    # 一言配置
+    hitokoto:
+      random: false  # 是否使用随机一言 API
+      custom: '当第一颗卫星飞向大气层外，我们便以为自己终有一日会征服宇宙。'  # 自定义一言，留空则使用默认值
+
+  # 主题颜色配置（可选）
+  color:
+    light:  # 浅色模式主题色
+      - '#3b82f6'
+      - '#60a5fa'
+    dark:  # 深色模式主题色
+      - '#818cf8'
+      - '#a5b4fc'
+
+  # 各功能模块配置
+  module:
+    # 订阅功能
+    subscription:
+      tg: ''  # Telegram 订阅链接，例如 'https://t.me/your_channel'
+
+    # Open Graph 预览图头像
+    og:
+      avatar: ''  # 自定义 OG 预览图头像 URL，留空则使用用户头像
+
+    # 赞助功能
+    donate:
+      enable: false  # 是否启用赞助功能
+      link: ''  # 赞助链接（例如爱发电）
+      qrcode:  # 赞助二维码图片地址列表
+        - 'https://example.com/donate-qrcode.png'
+
+    # B 站直播功能
+    bilibili:
+      liveId: 0  # B 站直播间 ID，0 表示不显示
+
+    # 最近动态功能
+    activity:
+      enable: false  # 是否启用最近动态
+      endpoint: ''  # 动态数据 API 地址
+
+    # Open Panel 面板
+    openpanel:
+      enable: false  # 是否启用 Open Panel
+      id: ''  # Panel ID
+      url: ''  # Panel URL
+
+    # RSS 自定义元素
+    rss:
+      custom_elements: []  # RSS 自定义元素
+      noRSS: false  # 是否禁用 RSS
+
+    # 签名配置
+    signature:
+      svg: ''  # 签名 SVG 代码
+      animated: true  # 是否启用签名动画
+
+    # 文章列表展示模式
+    posts:
+      mode: 'loose'  # 'loose'（宽松）或 'compact'（紧凑）
+
+    # 分类文章列表配置
+    categoryPostList:
+      default:
+        sticky: true  # 默认是否启用粘性
+      # 分类级别配置（可选）
+      categories:
+        # 示例：为特定分类配置
+        # linux:
+        #   enabled: true  # 是否启用该分类的文章列表（必须设置为 true 才会显示）
+        #   sticky: true  # 该分类是否启用粘性
+
+  # 自定义资源（可选）
+  custom:
+    css:  # 自定义 CSS 文件列表
+      - '/custom.css'
+    js:  # 自定义 JS 文件列表
+      - '/custom.js'
+    styles:  # 内联样式列表
+      - 'body { font-size: 16px; }'
+    scripts:  # 自定义脚本配置
+      - src: 'https://example.com/analytics.js'
+        strategy: 'afterInteractive'
+
+  # Powered By 显示配置
+  poweredBy:
+    vercel: false  # 是否显示 Vercel Logo
+
+# 顶栏菜单配置（可选，留空使用默认配置）
+# icon 可选值: home, posts, notes, timeline, thinking, more, friends, projects, says, travel, circle, book, topics
+header:
+  menu:
+    - title: '首页'
+      titleKey: 'nav_home'
+      path: '/'
+      type: 'Home'
+      icon: 'home'
+      subMenu: []  # 子菜单会自动从后端页面数据填充
+    - title: '文稿'
+      titleKey: 'nav_posts'
+      path: '/posts'
+      type: 'Post'
+      icon: 'posts'
+      subMenu: []
+    - title: '手记'
+      titleKey: 'nav_notes'
+      type: 'Note'
+      path: '/notes'
+      icon: 'notes'
+      exclude:
+        - '/notes/topics'
+    - title: '时光'
+      titleKey: 'nav_timeline'
+      icon: 'timeline'
+      path: '/timeline'
+      subMenu:
+        - title: '手记'
+          titleKey: 'nav_notes'
+          icon: 'notes'
+          path: '/timeline?type=note'
+        - title: '文稿'
+          titleKey: 'nav_posts'
+          icon: 'book'
+          path: '/timeline?type=post'
+        - title: '回忆'
+          titleKey: 'nav_memories'
+          icon: 'circle'
+          path: '/timeline?memory=1'
+        - title: '专栏'
+          titleKey: 'nav_topics'
+          path: '/notes/topics'
+          icon: 'topics'
+    - title: '思考'
+      titleKey: 'nav_thinking'
+      icon: 'thinking'
+      path: '/thinking'
+    - title: '更多'
+      titleKey: 'nav_more'
+      icon: 'more'
+      path: '#'
+      subMenu:
+        - title: '友链'
+          titleKey: 'nav_friends'
+          icon: 'friends'
+          path: '/friends'
+        - title: '项目'
+          titleKey: 'nav_projects'
+          icon: 'projects'
+          path: '/projects'
+        - title: '一言'
+          titleKey: 'nav_says'
+          path: '/says'
+          icon: 'says'
+        - title: '跃迁'
+          titleKey: 'nav_travel'
+          icon: 'travel'
+          path: 'https://travel.moe/go.html'
+          external: true
+
+# 页脚配置
+footer:
+  # 链接区块
+  linkSections:
+    - name: '关于'
+      links:
+        - name: '关于我'
+          href: '/about'
+        - name: '友情链接'
+          href: '/friends'
+    - name: '项目'
+      links:
+        - name: 'GitHub'
+          href: 'https://github.com/yourusername'
+          external: true
+    - name: '其他'
+      links:
+        - name: 'RSS 订阅'
+          href: '/feed'
+          external: true
+
+  # 其他信息
+  otherInfo:
+    date: '2024'  # 版权年份
+    icp:  # ICP 备案信息（可选）
+      text: 'ICP 备案号'
+      link: 'https://beian.miit.gov.cn'

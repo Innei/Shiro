@@ -1,9 +1,7 @@
-import Prism from 'prismjs';
+import type Prism from 'prismjs'
 
 declare global {
   interface Window {
-    Prism: typeof Prism;
+    Prism: typeof Prism
   }
 }
-
-export {};

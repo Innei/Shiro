@@ -1,7 +1,5 @@
-import type {
-  NoteModel,
-  NoteWrappedWithLikedAndTranslationPayload,
-} from '@mx-space/api-client'
+import type { NoteWrappedWithLikedAndTranslationPayload } from '@mx-space/api-client'
+
 import { apiClient } from '~/lib/request'
 
 import { defineQuery } from '../helper'
@@ -21,11 +19,9 @@ export const note = {
         const data = await apiClient.note.getNoteByNid(Number(id), {
           password: password || undefined,
           lang: lang || undefined,
-      
         })
 
         return data.$serialized as NoteWrappedWithLikedAndTranslationPayload
       },
     }),
 }
-

@@ -1,7 +1,6 @@
-import { clsx } from 'clsx'
 import type { Metadata } from 'next'
 
-
+import { ArticleReadingHeader } from '~/components/modules/article/ArticleReadingHeader'
 import { CommentAreaRootLazy } from '~/components/modules/comment'
 import { TocFAB } from '~/components/modules/toc/TocFAB'
 import { TocHeadingStrategyProvider } from '~/components/modules/toc/TocHeadingStrategy'
@@ -79,18 +78,14 @@ export default definePrerenderPage<PageParams>()({
       content={data.content}
     >
       <CurrentPageDataProvider data={data} />
+      <ArticleReadingHeader />
       <div className="relative flex min-h-[120px] w-full">
         <PageLoading>
           <div className="relative w-full min-w-0">
             <WrappedElementProvider eoaDetect>
-              <article
-                className={'prose'}
-              >
+              <article className={'prose prose-xl'}>
                 <header className="mb-8">
-                  <BottomToUpSoftScaleTransitionView
-                    lcpOptimization
-                    delay={0}
-                  >
+                  <BottomToUpSoftScaleTransitionView lcpOptimization delay={0}>
                     <PageTitle />
                   </BottomToUpSoftScaleTransitionView>
 
