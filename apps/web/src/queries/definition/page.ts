@@ -11,7 +11,7 @@ export const page = {
         const [, slug] = queryKey
 
         const data = await apiClient.page.getBySlug(slug, {
-      
+          prefer: 'lexical',
         })
 
         return data.$serialized

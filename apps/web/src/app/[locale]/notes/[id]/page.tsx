@@ -10,7 +10,6 @@ import { getTranslations } from 'next-intl/server'
 
 import { AckRead } from '~/components/common/AckRead'
 import { ClientOnly } from '~/components/common/ClientOnly'
-
 import { CommentAreaRootLazy } from '~/components/modules/comment'
 import {
   NoteActionAside,
@@ -28,7 +27,6 @@ import { NoteFontSettingFab } from '~/components/modules/note/NoteFontFab'
 import { NoteMainContainer } from '~/components/modules/note/NoteMainContainer'
 import { BanCopyWrapper } from '~/components/modules/shared/BanCopyWrapper'
 import { ReadIndicatorForMobile } from '~/components/modules/shared/ReadIndicator'
-
 import { TocFAB } from '~/components/modules/toc/TocFAB'
 import { TocHeadingStrategyProvider } from '~/components/modules/toc/TocHeadingStrategy'
 import { BottomToUpSoftScaleTransitionView } from '~/components/ui/transition'
@@ -76,14 +74,11 @@ function PageInner({
   data: NoteWithTranslation
   privateLoginOnlyMessage: string
 }) {
-  const coverImage = data.images?.find((i) => i.src === data.meta?.cover)
-
   return (
     <>
       <AckRead id={data.id} type="note" />
 
       <NoteHeadCover image={data.meta?.cover} />
-
 
       <div>
         <NoteTitle />
@@ -111,10 +106,7 @@ function PageInner({
                   <header className="sr-only">
                     <NoteTitle />
                   </header>
-                  <NoteContent
-                    contentFormat={data.contentFormat}
-                    content={data.content}
-                  />
+                  <NoteContent contentFormat={data.contentFormat} />
                 </IndentArticleContainer>
               </MarkdownSelection>
             </BanCopyWrapper>
@@ -236,7 +228,7 @@ export default definePrerenderPage<NoteDetailPageParams>()<NoteDataResult>({
     return (
       <TocHeadingStrategyProvider
         contentFormat={data.data.contentFormat}
-        content={data.data.content}
+        hasContent={!!data.data.content}
       >
         <CurrentNoteNidProvider nid={nid} />
         <CurrentNoteDataProvider data={data} />

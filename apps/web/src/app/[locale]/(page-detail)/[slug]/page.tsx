@@ -1,7 +1,6 @@
 import { PageActionAside } from '~/components/modules/page/PageActionAside'
 import { ArticleRightAside } from '~/components/modules/shared/ArticleRightAside'
 import { ReadIndicatorForMobile } from '~/components/modules/shared/ReadIndicator'
-
 import { LayoutRightSidePortal } from '~/providers/shared/LayoutRightSideProvider'
 import { WrappedElementProvider } from '~/providers/shared/WrappedElementProvider'
 
@@ -31,10 +30,7 @@ export default async function PageDetail({
           {data.meta?.style === 'equipment' ? (
             <EquipmentPage />
           ) : (
-            <PageContent
-              contentFormat={data.contentFormat}
-              content={data.content}
-            />
+            <PageContent contentFormat={data.contentFormat} />
           )}
         </MarkdownSelection>
       </MarkdownImageRecordProviderInternal>

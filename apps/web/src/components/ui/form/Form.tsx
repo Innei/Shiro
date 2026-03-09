@@ -121,7 +121,7 @@ const FormInternal = (
         }
       }
 
-      onSubmit?.(e)
+      onSubmit?.(e as any)
     },
     [onSubmit],
   )

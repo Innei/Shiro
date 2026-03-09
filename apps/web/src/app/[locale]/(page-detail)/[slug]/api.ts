@@ -11,7 +11,7 @@ export interface PageParams extends LocaleParams {
 export const getData = cache(async (slug: string) => {
   await attachServerFetch()
   const data = await apiClient.page
-    .getBySlug(slug, )
+    .getBySlug(slug, { prefer: 'lexical' })
     .catch(requestErrorHandler)
   return data.$serialized
 })

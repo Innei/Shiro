@@ -73,15 +73,15 @@ export const useTocHeadingStrategy = () => use(TocHeadingStrategyContext)
 
 export function TocHeadingStrategyProvider({
   contentFormat,
-  content,
+  hasContent,
   children,
-}: PropsWithChildren<{ contentFormat?: string; content?: string | null }>) {
+}: PropsWithChildren<{ contentFormat?: string; hasContent?: boolean }>) {
   const strategy = useMemo(
     () =>
-      contentFormat === 'lexical' && content
+      contentFormat === 'lexical' && hasContent
         ? lexicalHeadingStrategy
         : markdownHeadingStrategy,
-    [contentFormat, content],
+    [contentFormat, hasContent],
   )
   return (
     <TocHeadingStrategyContext.Provider value={strategy}>

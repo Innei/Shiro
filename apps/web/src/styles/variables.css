@@ -6,6 +6,7 @@ html {
   -webkit-tap-highlight-color: transparent;
 
   font-family: var(--font-sans);
+  background-color: var(--color-root-bg);
 }
 
 a,
@@ -15,11 +16,13 @@ details summary {
 
 :root {
   --bg-opacity: rgba(255, 255, 255, 0.72);
+  --color-root-bg: rgb(255, 255, 255);
   --color-border: rgba(24, 24, 27, 0.1);
 }
 
 [data-theme='dark'] {
   --bg-opacity: rgba(29, 29, 31, 0.72);
+  --color-root-bg: rgb(28, 28, 30);
   --color-border: #3f3f46;
 }
 

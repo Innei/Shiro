@@ -38,8 +38,8 @@ export function generateStaticParams() {
 export function generateViewport(): Viewport {
   return {
     themeColor: [
-      { media: '(prefers-color-scheme: dark)', color: '#000212' },
-      { media: '(prefers-color-scheme: light)', color: '#fafafa' },
+      { media: '(prefers-color-scheme: dark)', color: '#1c1c1e' },
+      { media: '(prefers-color-scheme: light)', color: '#ffffff' },
     ],
     width: 'device-width',
     initialScale: 1,

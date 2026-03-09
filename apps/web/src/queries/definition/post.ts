@@ -1,10 +1,9 @@
 import type {
   ModelWithLiked,
   ModelWithTranslation,
-  PaginateResult,
   PostModel,
-  TagModel,
 } from '@mx-space/api-client'
+
 import { apiClient } from '~/lib/request'
 
 import { defineQuery } from '../helper'
@@ -28,11 +27,10 @@ export const post = {
 
         const data = await apiClient.post.getPost(category, slug, {
           lang: lang || undefined,
-      
+          prefer: 'lexical',
         })
 
         return data.$serialized as PostWithTranslation
       },
     }),
 }
-

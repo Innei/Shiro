@@ -1,10 +1,9 @@
-import { clsx } from 'clsx'
+import clsx from 'clsx'
 import type { Metadata } from 'next'
 import type { Article, WithContext } from 'schema-dts'
 
 import { AckRead } from '~/components/common/AckRead'
 import { ClientOnly } from '~/components/common/ClientOnly'
-
 import { CommentAreaRootLazy } from '~/components/modules/comment'
 import {
   PostActionAside,
@@ -144,16 +143,13 @@ const PostPage = ({ data }: { data: PostWithTranslation }) => {
           <PostMarkdownImageRecordProvider>
             <MarkdownSelection>
               <article
-                className={'prose'}
+                className={clsx(data.contentFormat !== 'lexical' && 'prose')}
               >
                 <div className="sr-only">
                   <PostTitle />
                 </div>
                 <FocusReadingEffect />
-                <PostContent
-                  contentFormat={data.contentFormat}
-                  content={data.content}
-                />
+                <PostContent contentFormat={data.contentFormat} />
               </article>
             </MarkdownSelection>
           </PostMarkdownImageRecordProvider>
@@ -199,7 +195,7 @@ export default definePrerenderPage<PageParams>()<PostDataResult>({
     return (
       <TocHeadingStrategyProvider
         contentFormat={data.contentFormat}
-        content={data.content}
+        hasContent={!!data.content}
       >
         {currentPath !== fullPath && <SlugReplacer to={fullPath} />}
         <LdJsonWithAuthor baseLdJson={jsonLd} />

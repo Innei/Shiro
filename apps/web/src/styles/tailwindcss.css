@@ -123,6 +123,8 @@ html body {
 } */
 
 .prose {
+  @apply dark:prose-invert;
+
   max-width: 100% !important;
   font-size: 1.1rem;
   text-autospace: normal;

@@ -1,6 +1,5 @@
-import { clsx } from 'clsx'
+import clsx from 'clsx'
 import type { Metadata } from 'next'
-
 
 import { CommentAreaRootLazy } from '~/components/modules/comment'
 import { TocFAB } from '~/components/modules/toc/TocFAB'
@@ -76,7 +75,7 @@ export default definePrerenderPage<PageParams>()({
   Component: ({ data, children }) => (
     <TocHeadingStrategyProvider
       contentFormat={data.contentFormat}
-      content={data.content}
+      hasContent={!!data.content}
     >
       <CurrentPageDataProvider data={data} />
       <div className="relative flex min-h-[120px] w-full">
@@ -84,13 +83,10 @@ export default definePrerenderPage<PageParams>()({
           <div className="relative w-full min-w-0">
             <WrappedElementProvider eoaDetect>
               <article
-                className={'prose'}
+                className={clsx(data.contentFormat !== 'lexical' && 'prose')}
               >
                 <header className="mb-8">
-                  <BottomToUpSoftScaleTransitionView
-                    lcpOptimization
-                    delay={0}
-                  >
+                  <BottomToUpSoftScaleTransitionView lcpOptimization delay={0}>
                     <PageTitle />
                   </BottomToUpSoftScaleTransitionView>
 
