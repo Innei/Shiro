@@ -57,6 +57,9 @@
       "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@^1.0.44",
       "@types/react": "19.2.9",
       "@types/react-dom": "19.2.3"
+    },
+    "patchedDependencies": {
+      "@innei/markdown-to-jsx-yet": "patches/@innei__markdown-to-jsx-yet.patch"
     }
   }
 }
