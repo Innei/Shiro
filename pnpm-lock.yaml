@@ -133,9 +133,9 @@ importers:
       daisyui:
         specifier: 5.5.18
         version: 5.5.18
-      dayjs:
-        specifier: 1.11.19
-        version: 1.11.19
+      date-fns:
+        specifier: ^4.1.0
+        version: 4.1.0
       emoji-mart:
         specifier: 5.6.0
         version: 5.6.0
@@ -3737,6 +3737,9 @@ packages:
 
   daisyui@5.5.18:
     resolution: {integrity: sha512-VVzjpOitMGB6DWIBeRSapbjdOevFqyzpk9u5Um6a4tyId3JFrU5pbtF0vgjXDth76mJZbueN/j9Ok03SPrh/og==}
+
+  date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
   dayjs@1.11.19:
     resolution: {integrity: sha512-t5EcLVS6QPBNqM2z8fakk/NKel+Xzshgt8FFKAn+qwlD1pzZWxh0nVCrvFK7ZDb6XucZeF9z8C7CBWTRIVApAw==}
@@ -10301,6 +10304,8 @@ snapshots:
       lodash-es: 4.17.23
 
   daisyui@5.5.18: {}
+
+  date-fns@4.1.0: {}
 
   dayjs@1.11.19: {}
 
