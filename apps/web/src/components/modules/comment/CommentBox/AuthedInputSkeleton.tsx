@@ -3,7 +3,7 @@
 import clsx from 'clsx'
 
 export const CommentBoxAuthedInputSkeleton = () => {
-  const color = 'bg-zinc-200/50 dark:bg-zinc-800/50'
+  const color = 'bg-neutral-200/50 dark:bg-neutral-800/50'
   return (
     <div className="flex animate-pulse gap-4">
       <div

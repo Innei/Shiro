@@ -1,9 +1,11 @@
 import './Comment.css'
 
 import type { CommentModel } from '@mx-space/api-client'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import clsx from 'clsx'
 import { atom, useAtomValue } from 'jotai'
 import { m } from 'motion/react'
+import { useTranslations } from 'next-intl'
 import type { FC, PropsWithChildren } from 'react'
 import {
   createContext,
@@ -13,6 +15,7 @@ import {
   useLayoutEffect,
   useMemo,
   useRef,
+  useState,
 } from 'react'
 import { createPortal } from 'react-dom'
 
@@ -26,9 +29,12 @@ import {
 } from '~/components/ui/user/UserAuthStrategyIcon'
 import { softSpringPreset } from '~/constants/spring'
 import type { AuthSocialProviders } from '~/lib/authjs'
+import { apiClient } from '~/lib/request'
 import { jotaiStore } from '~/lib/store'
+import { buildCommentsQueryKey } from '~/queries/keys'
 
 import { CommentActionButtonGroup } from './CommentActionButtonGroup'
+import { useCommentBoxRefIdValue } from './CommentBox/hooks'
 import { CommentMarkdown } from './CommentMarkdown'
 import { CommentPinButton, OcticonGistSecret } from './CommentPinButton'
 import {
@@ -38,6 +44,12 @@ import {
   useCommentMarkdownContainerRef,
   useCommentReader,
 } from './CommentProvider'
+import {
+  type CommentThreadInfiniteData,
+  type CommentThreadViewItem,
+  mergeThreadRepliesIntoPages,
+} from './thread'
+import type { CommentAnchor } from './types'
 
 export const Comment: Component<{
   commentId: string
@@ -49,12 +61,13 @@ export const Comment: Component<{
   if (!comment) return null
   // FIXME 兜一下后端给的脏数据
   if (typeof comment === 'string') return null
-  return <CommentRender comment={comment} className={className} />
+  return <CommentRender className={className} comment={comment} />
 })
 const CommentRender: Component<{
-  comment: CommentModel & { new?: boolean }
+  comment: CommentThreadViewItem
 }> = (props) => {
   const { comment, className } = props
+  const t = useTranslations('comment')
 
   const elAtom = useMemo(() => atom<HTMLDivElement | null>(null), [])
   const isSingleLinkContent = useMemo(() => {
@@ -71,7 +84,6 @@ const CommentRender: Component<{
     id: cid,
 
     text,
-    key,
     location,
     isWhispers,
     url,
@@ -80,8 +92,8 @@ const CommentRender: Component<{
 
   const avatar = reader?.image || comment.avatar
   const author = reader?.name || comment.author
-  const parentId =
-    typeof comment.parent === 'string' ? comment.parent : comment.parent?.id
+  const parentId = comment.parentCommentId ?? null
+  const displayText = comment.isDeleted ? t('deleted_placeholder') : text
 
   const authorUrl = useMemo(() => {
     if (url) return url
@@ -93,10 +105,10 @@ const CommentRender: Component<{
 
   const authorElement = authorUrl ? (
     <a
-      href={authorUrl}
       className="max-w-full shrink-0 break-all"
-      target="_blank"
+      href={authorUrl}
       rel="noreferrer"
+      target="_blank"
     >
       {author}
     </a>
@@ -104,20 +116,35 @@ const CommentRender: Component<{
     <span className="max-w-full shrink-0 break-all">{author}</span>
   )
 
+  const { anchor } = comment as CommentModel & { anchor?: CommentAnchor }
+
   const CommentNormalContent = (
     <div
       className={clsx(
         'comment__message',
-        'relative inline-block rounded-xl text-zinc-800 dark:text-zinc-200',
-        'bg-zinc-600/5 dark:bg-zinc-500/20',
+        'relative inline-block rounded-xl text-neutral-9',
+        'bg-neutral-600/5 dark:bg-neutral-500/20',
         'max-w-[calc(100%-3rem)]',
         'rounded-tl-sm md:rounded-bl-sm md:rounded-tl-xl',
         'ml-4 px-3 py-2 md:ml-0',
-        // 'prose-ol:list-inside prose-ul:list-inside',
       )}
     >
+      {anchor?.mode === 'range' && (
+        <div className="mb-1.5 border-l-2 border-accent/40 pl-2 text-xs italic text-neutral-400 dark:text-neutral-500">
+          {anchor.quote}
+        </div>
+      )}
+      {anchor?.mode === 'block' && (
+        <div className="mb-1.5 text-xs text-neutral-400 dark:text-neutral-500">
+          <span>
+            {t('commented_on_block', {
+              text: `${anchor.snapshotText.slice(0, 40)}${anchor.snapshotText.length > 40 ? '…' : ''}`,
+            })}
+          </span>
+        </div>
+      )}
       <CommentMarkdownContainerRefContext>
-        <CommentMarkdown>{text}</CommentMarkdown>
+        <CommentMarkdown>{displayText}</CommentMarkdown>
 
         <EditedCommentFooter commentId={comment.id} />
       </CommentMarkdownContainerRefContext>
@@ -129,6 +156,16 @@ const CommentRender: Component<{
     <>
       <CommentHolderContext value={elAtom}>
         <m.li
+          className={clsx('relative my-2', className)}
+          data-comment-id={cid}
+          data-parent-id={parentId}
+          data-reader-id={comment.readerId}
+          transition={softSpringPreset}
+          animate={{
+            opacity: 1,
+            y: 0,
+            scale: 1,
+          }}
           initial={
             comment['new']
               ? {
@@ -138,16 +175,6 @@ const CommentRender: Component<{
                 }
               : true
           }
-          transition={softSpringPreset}
-          animate={{
-            opacity: 1,
-            y: 0,
-            scale: 1,
-          }}
-          data-comment-id={cid}
-          data-reader-id={comment.readerId}
-          data-parent-id={parentId}
-          className={clsx('relative my-2', className)}
         >
           <div className="group flex w-full items-stretch gap-4">
             <div
@@ -157,17 +184,17 @@ const CommentRender: Component<{
               )}
             >
               <Avatar
-                shadow={false}
+                alt={t('avatar_alt', { author })}
+                className="size-6 select-none rounded-full bg-neutral-200 ring-2 ring-neutral-200 dark:bg-neutral-800 dark:ring-neutral-800 md:size-9"
                 imageUrl={avatar}
-                alt={`${author}'s avatar`}
-                className="size-6 select-none rounded-full bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800 dark:ring-zinc-800 md:size-9"
+                shadow={false}
               />
               {source &&
                 !!getStrategyIconComponent(source as AuthSocialProviders) && (
-                  <div className="center absolute -right-1.5 bottom-1 flex size-3.5 rounded-full bg-white ring-[1.5px] ring-zinc-200 dark:bg-zinc-800 dark:ring-black">
+                  <div className="center absolute -right-1.5 bottom-1 flex size-3.5 rounded-full bg-neutral-50 ring-[1.5px] ring-neutral-200 dark:bg-neutral-800 dark:ring-neutral-950">
                     <UserAuthStrategyIcon
-                      strategy={source as AuthSocialProviders}
                       className="size-3"
+                      strategy={source as AuthSocialProviders}
                     />
                   </div>
                 )}
@@ -182,7 +209,7 @@ const CommentRender: Component<{
             >
               <span
                 className={clsx(
-                  'flex items-center gap-2 font-semibold text-zinc-800 dark:text-zinc-200',
+                  'flex items-center gap-2 font-semibold text-neutral-9',
                   'relative w-full min-w-0 justify-center',
                   'mb-2 pl-7 md:pl-0',
                 )}
@@ -193,12 +220,9 @@ const CommentRender: Component<{
                     <span className="inline-flex shrink-0 text-[0.71rem] font-medium opacity-40">
                       <RelativeTime date={comment.created} />
                     </span>
-                    <span className="break-all text-[0.71rem] opacity-30">
-                      {key}
-                    </span>
                     {!!location && (
                       <span className="min-w-0 max-w-full truncate break-all text-[0.71rem] opacity-35">
-                        来自：{location}
+                        {t('from_location', { location })}
                       </span>
                     )}
                     {!!isWhispers && <OcticonGistSecret />}
@@ -214,14 +238,14 @@ const CommentRender: Component<{
               {isSingleLinkContent ? (
                 <div className="relative inline-block">
                   <BlockLinkRenderer
+                    fallback={CommentNormalContent}
                     href={text}
                     accessory={
                       <CommentActionButtonGroup
-                        commentId={comment.id}
                         className="bottom-4"
+                        commentId={comment.id}
                       />
                     }
-                    fallback={CommentNormalContent}
                   />
                 </div>
               ) : (
@@ -233,14 +257,82 @@ const CommentRender: Component<{
 
         <CommentBoxHolderProvider />
       </CommentHolderContext>
-      {comment.children && comment.children.length > 0 && (
+      {comment.replyWindow?.hasHidden && (
+        <LoadMoreRepliesButton comment={comment} />
+      )}
+      {comment.children.length > 0 && (
         <ul className="my-2 space-y-2">
           {comment.children.map((child) => (
-            <Comment key={child.id} commentId={child.id} className="ml-9" />
+            <Comment className="ml-9" commentId={child.id} key={child.id} />
           ))}
         </ul>
       )}
     </>
+  )
+}
+
+const LoadMoreRepliesButton: FC<{
+  comment: CommentThreadViewItem
+}> = ({ comment }) => {
+  const t = useTranslations('comment')
+  const queryClient = useQueryClient()
+  const refId = useCommentBoxRefIdValue()
+  const [remaining, setRemaining] = useState(
+    comment.replyWindow?.hiddenCount ?? 0,
+  )
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: async () => {
+      return apiClient.comment.getThreadReplies(comment.id, {
+        cursor: comment.replyWindow?.nextCursor,
+        size: 10,
+      })
+    },
+    onSuccess: (result) => {
+      const replyWindow = {
+        total:
+          comment.replyWindow?.total ??
+          comment.replyCount ??
+          result.replies.length,
+        returned: (comment.replies?.length ?? 0) + result.replies.length,
+        threshold: comment.replyWindow?.threshold ?? 20,
+        hasHidden: !result.done,
+        hiddenCount: result.remaining,
+        nextCursor: result.nextCursor,
+      }
+
+      queryClient.setQueryData<CommentThreadInfiniteData>(
+        buildCommentsQueryKey(refId),
+        (oldData) => {
+          if (!oldData) return oldData
+          return mergeThreadRepliesIntoPages(oldData, {
+            rootCommentId: comment.id,
+            replies: result.replies,
+            replyWindow,
+          })
+        },
+      )
+      setRemaining(result.remaining)
+    },
+  })
+
+  if (!comment.replyWindow?.hasHidden) return null
+
+  return (
+    <div className="ml-13 mt-2">
+      <button
+        className="cursor-pointer rounded-full border border-neutral-200 px-3 py-1 text-xs text-neutral-500 transition-colors hover:border-neutral-300 hover:text-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:hover:border-neutral-600 dark:hover:text-neutral-200"
+        disabled={isPending}
+        type="button"
+        onClick={() => mutateAsync()}
+      >
+        {isPending
+          ? t('loading_more_replies')
+          : t('load_more_replies', {
+              count: remaining || comment.replyWindow.hiddenCount,
+            })}
+      </button>
+    </div>
   )
 }
 
@@ -270,6 +362,7 @@ export const CommentBoxHolderPortal = (props: PropsWithChildren) => {
 const EditedCommentFooter: FC<{
   commentId: string
 }> = ({ commentId }) => {
+  const t = useTranslations('common')
   const editedAt = useCommentByIdSelector(
     commentId,
     useCallback((comment) => comment?.editedAt, []),
@@ -291,12 +384,11 @@ const EditedCommentFooter: FC<{
     <FloatPopover
       type="tooltip"
       triggerElement={
-        <span className="ml-2 text-xs text-zinc-500">(已编辑)</span>
+        <span className="ml-2 text-xs text-neutral-500">{t('edited')}</span>
       }
     >
       <div>
-        <span>编辑于</span>
-        <RelativeTime date={editedAt} />
+        <span>{t('edited_at')}</span> <RelativeTime date={editedAt} />
       </div>
     </FloatPopover>
   )

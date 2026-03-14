@@ -12,12 +12,20 @@ import type { CommentBaseProps } from '../types'
 import { CommentBoxAuthedInput } from './AuthedInput'
 import { CommentBoxLegacyForm } from './CommentBoxLegacyForm'
 import { CommentBoxMode, setCommentMode, useCommentMode } from './hooks'
-import { CommentBoxProvider } from './providers'
+import { CommentBoxProvider, CommentCompactContext } from './providers'
 import { CommentBoxSignedOutContent } from './SignedOutContent'
 import { SwitchCommentMode } from './SwitchCommentMode'
 
 export const CommentBoxRoot: Component<CommentBaseProps> = (props) => {
-  const { refId, className, afterSubmit, initialValue, autoFocus } = props
+  const {
+    refId,
+    className,
+    afterSubmit,
+    initialValue,
+    autoFocus,
+    anchor,
+    compact,
+  } = props
 
   const mode = useCommentMode()
 
@@ -33,28 +41,31 @@ export const CommentBoxRoot: Component<CommentBaseProps> = (props) => {
 
   return (
     <ErrorBoundary>
-      <CommentBoxProvider
-        refId={refId}
-        afterSubmit={afterSubmit}
-        initialValue={initialValue}
-      >
-        <div
-          className={clsxm('group relative w-full min-w-0', className)}
-          data-hide-print
+      <CommentCompactContext value={!!compact}>
+        <CommentBoxProvider
+          afterSubmit={afterSubmit}
+          anchor={anchor}
+          initialValue={initialValue}
+          refId={refId}
         >
-          <SwitchCommentMode />
+          <div
+            data-hide-print
+            className={clsxm('group relative w-full min-w-0', className)}
+          >
+            {!compact && <SwitchCommentMode />}
 
-          <div className="relative w-full">
-            {isLogged ? (
-              <CommentBoxLegacy autoFocus={autoFocus} />
-            ) : mode === CommentBoxMode.legacy ? (
-              <CommentBoxLegacy autoFocus={autoFocus} />
-            ) : (
-              <CommentBoxWithAuth autoFocus={autoFocus} />
-            )}
+            <div className="relative w-full">
+              {isLogged ? (
+                <CommentBoxLegacy autoFocus={autoFocus} />
+              ) : mode === CommentBoxMode.legacy ? (
+                <CommentBoxLegacy autoFocus={autoFocus} />
+              ) : (
+                <CommentBoxWithAuth autoFocus={autoFocus} />
+              )}
+            </div>
           </div>
-        </div>
-      </CommentBoxProvider>
+        </CommentBoxProvider>
+      </CommentCompactContext>
     </ErrorBoundary>
   )
 }

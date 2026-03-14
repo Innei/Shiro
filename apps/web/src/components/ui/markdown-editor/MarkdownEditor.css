@@ -1,0 +1,93 @@
+@reference "../../../styles/tailwindcss.css";
+
+.markdown-editor {
+  @apply relative h-full w-full rounded-xl border border-border bg-transparent;
+}
+
+.markdown-editor:focus-within {
+  @apply border-accent/80! bg-accent/5! ring-2 ring-accent/20;
+}
+
+.markdown-editor__content {
+  @apply size-full min-h-[150px] resize-none bg-transparent px-3 py-4 text-neutral-800 outline-hidden dark:text-neutral-200;
+  @apply leading-7 tracking-[0.01em];
+}
+
+.markdown-editor__content a {
+  @apply text-accent underline-offset-2;
+}
+
+.markdown-editor__content a:hover {
+  @apply underline;
+}
+
+.markdown-editor__content code {
+  @apply rounded-md bg-neutral-900/5 px-1.5 py-0.5 font-mono text-[0.85em] text-neutral-700 dark:bg-neutral-50/10 dark:text-neutral-200;
+}
+
+.markdown-editor__content pre {
+  @apply my-2 rounded-lg bg-neutral-900/10 p-3 font-mono text-[0.85em] leading-6 text-neutral-800 dark:bg-neutral-50/10 dark:text-neutral-100;
+}
+
+.markdown-editor__content blockquote {
+  @apply relative my-2 border-l-2 border-accent/60 pl-3 text-neutral-700 dark:text-neutral-300;
+}
+
+.markdown-editor__content h1,
+.markdown-editor__content h2,
+.markdown-editor__content h3,
+.markdown-editor__content h4,
+.markdown-editor__content h5,
+.markdown-editor__content h6 {
+  @apply font-semibold tracking-tight text-neutral-900 dark:text-neutral-100;
+}
+
+.markdown-editor__content h1 {
+  @apply text-lg;
+}
+
+.markdown-editor__content h2 {
+  @apply text-base;
+}
+
+.markdown-editor__content ul,
+.markdown-editor__content ol {
+  @apply my-2 pl-5;
+}
+
+.markdown-editor__content ul {
+  @apply list-disc;
+}
+
+.markdown-editor__content ol {
+  @apply list-decimal;
+}
+
+.markdown-editor__content li {
+  @apply my-1;
+}
+
+.markdown-editor__content p {
+  @apply my-0;
+}
+
+.markdown-editor__placeholder {
+  @apply pointer-events-none absolute left-3 top-4 text-neutral-400;
+}
+
+.markdown-editor__content .lexical-code {
+  @apply font-mono text-[0.85em] leading-6;
+}
+
+.markdown-editor__content .lexical-quote {
+  @apply text-neutral-700 dark:text-neutral-300;
+}
+
+.markdown-editor__content .lexical-list-ol,
+.markdown-editor__content .lexical-list-ul {
+  @apply pl-5;
+}
+
+.markdown-editor__content .lexical-link {
+  @apply text-accent underline-offset-2;
+}

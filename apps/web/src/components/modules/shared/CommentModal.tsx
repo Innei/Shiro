@@ -3,18 +3,20 @@ import { useCurrentModal } from '~/components/ui/modal'
 
 import { CommentsLazy } from '../comment'
 import { CommentBoxRoot } from '../comment/CommentBox'
+import type { CommentAnchor } from '../comment/types'
 
 export interface CommentModalProps {
-  title: string
-  refId: string
-
+  anchor?: CommentAnchor | null
   initialValue?: string
+
+  refId: string
+  title: string
 }
 
 export const CommentModal: ModalContentComponent<CommentModalProps> = (
   props,
 ) => {
-  const { refId, title, initialValue } = props
+  const { refId, title, initialValue, anchor } = props
   const { dismiss } = useCurrentModal()
 
   return (
@@ -23,13 +25,25 @@ export const CommentModal: ModalContentComponent<CommentModalProps> = (
         回复： <h1 className="mt-4 text-lg font-medium">{title}</h1>
       </span>
 
+      {anchor && anchor.mode === 'range' && (
+        <blockquote className="my-3 border-l-2 border-accent/40 pl-3 text-sm italic text-neutral-7">
+          {anchor.quote}
+        </blockquote>
+      )}
+
+      {anchor && anchor.mode === 'block' && (
+        <div className="my-3 text-sm text-neutral-7">
+          <span>{`评论了「${anchor.snapshotText.slice(0, 60)}${anchor.snapshotText.length > 60 ? '…' : ''}」`}</span>
+        </div>
+      )}
+
       <CommentBoxRoot
-        initialValue={initialValue}
-        className="mb-12 mt-6"
-        refId={refId}
         autoFocus
+        anchor={anchor}
+        className="mb-12 mt-6"
+        initialValue={initialValue}
+        refId={refId}
         afterSubmit={() => {
-          // FIXME: framer motion bug, if re-render trigger and do dimiss same time, dom will don't remove after exit animation
           setTimeout(dismiss, 1000)
         }}
       />

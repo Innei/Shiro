@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import type { FC } from 'react'
 
 import { LazyLoad } from '~/components/common/Lazyload'
@@ -12,6 +13,7 @@ export const CommentAreaRoot: FC<
     allowComment: boolean
   }
 > = (props) => {
+  const t = useTranslations('comment')
   // const header = headers()
   // const geo = header.get(REQUEST_GEO)
 
@@ -23,7 +25,9 @@ export const CommentAreaRoot: FC<
   // 兜下后端的数据，默认开
   if (!allowComment && allowComment !== undefined) {
     return (
-      <p className="mt-[7.1rem] text-center text-xl font-medium">评论已关闭</p>
+      <p className="mt-[7.1rem] text-center text-xl font-medium">
+        {t('comments_closed')}
+      </p>
     )
   }
 
@@ -32,7 +36,7 @@ export const CommentAreaRoot: FC<
       <CommentBoxRoot refId={refId} />
 
       <div className="h-12" />
-      <LazyLoad placeholder={<CommentSkeleton />} triggerOnce>
+      <LazyLoad triggerOnce placeholder={<CommentSkeleton />}>
         <Comments refId={refId} />
       </LazyLoad>
     </div>
