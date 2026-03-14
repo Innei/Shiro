@@ -1,5 +1,4 @@
 import { execSync } from 'node:child_process'
-import { fileURLToPath } from 'node:url'
 
 import NextBundleAnalyzer from '@next/bundle-analyzer'
 import { codeInspectorPlugin } from 'code-inspector-plugin'
@@ -12,8 +11,6 @@ process.title = 'Shiro (NextJS)'
 
 const env = config().parsed || {}
 const isProd = process.env.NODE_ENV === 'production'
-
-const __filename = fileURLToPath(import.meta.url)
 
 let commitHash = ''
 let commitUrl = ''
@@ -65,6 +62,31 @@ let nextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy:
       "default-src 'self'; script-src 'none'; sandbox; style-src 'unsafe-inline';",
+  },
+
+  async redirects() {
+    return [
+      {
+        source: '/notes/topics',
+        destination: '/notes/series',
+        permanent: true,
+      },
+      {
+        source: '/notes/topics/:slug',
+        destination: '/notes/series/:slug',
+        permanent: true,
+      },
+      {
+        source: '/:locale/notes/topics',
+        destination: '/:locale/notes/series',
+        permanent: true,
+      },
+      {
+        source: '/:locale/notes/topics/:slug',
+        destination: '/:locale/notes/series/:slug',
+        permanent: true,
+      },
+    ]
   },
 
   async rewrites() {
