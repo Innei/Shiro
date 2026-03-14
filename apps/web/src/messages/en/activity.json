@@ -1,10 +1,10 @@
 {
-  "name_prompt": "Enter your name to better track your reading progress.",
+  "name_prompt": "Leave your name so your reading progress on this article can be tracked more accurately.",
   "name_local_only": "Your name is only saved locally.",
-  "name_validation": "Name cannot be empty and must be less than 20 characters",
+  "name_validation": "Name cannot be empty and must be no longer than 20 characters",
   "save": "Save",
-  "or_login": "Or, login to ",
-  "auto_use_account": " and your account name will be used automatically.",
+  "or_login": "Or sign in to ",
+  "auto_use_account": ", and your account name will be filled in automatically.",
   "tell_me_name": "Tell me your name",
   "you_are_here": "You are here.",
   "readers": " readers",
@@ -12,6 +12,12 @@
   "reading_progress": "Reading progress",
   "has_read": "has read",
   "current_readers": "Currently ",
-  "reading_now": " reading",
-  "realtime_tooltip": "Real-time reader count. View others' reading progress on the left timeline (not available on mobile)"
+  "reading_now": " people are reading",
+  "realtime_tooltip": "Real-time reader count. View others' reading progress on the left timeline (not available on mobile)",
+  "presence_you": "You",
+  "presence_me": "Me",
+  "presence_reader": "Reader",
+  "presence_list_sep": ", ",
+  "presence_and_more": "and {count} more",
+  "presence_read_progress": "Read {percent}%"
 }
