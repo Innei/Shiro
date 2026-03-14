@@ -6,8 +6,8 @@ export const enum Routes {
 
   Notes = '/notes',
   Note = '/notes/',
-  NoteTopics = '/notes/topics',
-  NoteTopic = '/notes/topics/',
+  NoteTopics = '/notes/series',
+  NoteTopic = '/notes/series/',
 
   Timelime = '/timeline',
 
