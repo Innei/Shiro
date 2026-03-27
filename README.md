@@ -86,7 +86,7 @@ node server.js
 ```bash
 mkdir shiro && cd shiro
 wget https://raw.githubusercontent.com/Innei/Shiro/main/docker-compose.yml
-wget https://raw.githubusercontent.com/Innei/Shiro/main/.env.template .env
+wget https://raw.githubusercontent.com/Innei/Shiro/main/apps/web/.env.template .env
 
 vim .env # 配置环境变量
 mkdir public # 放置自定义 Favicon
