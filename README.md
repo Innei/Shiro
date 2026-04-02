@@ -1,10 +1,15 @@
 # Shiro
 
+> [!IMPORTANT]
+> **Shiro 已进入维护模式，不再添加新功能。** 推荐使用下一代项目 **[余白 / Yohaku](https://github.com/Innei/Yohaku)**，基于 Shiro 深度重构，提供更精致的视觉设计与更多功能。
+>
+> - Yohaku 开源仓库为设计语言存档，完整代码需 [赞助](https://github.com/sponsors/Innei) 获取访问权限。
+> - Shiro 将停留在当前版本，仅修复关键 Bug。
+> - **Shiro 要求 Mix Space Core 版本 == 10.x**，不兼容更高版本。
+
 一个极简主义的个人网站主题，如纸的纯净，似雪的清新。
 
 专为 [Mix Space](https://github.com/mx-space) 生态系统设计的现代化个人站点前端。
-
-> 本仓库代码与赞助版 [白い](https://github.com/innei-dev/Shiroi) 同源，移除了部分高级功能。
 
 ## :sparkles: 示例站点
 
@@ -100,9 +105,13 @@ docker compose pull
 
 了解更多 Markdown 扩展语法，请访问：https://shiro.innei.in/#/markdown
 
-## :star: 白い (Shiroi) - 赞助版
+## :star: 余白 / Yohaku - 下一代
 
-[白い](https://github.com/innei-dev/Shiroi) 是 Shiro 的付费赞助版本，包含更多高级功能和持续更新。以下是赞助版相对于开源版的新增功能：
+[余白 / Yohaku](https://github.com/Innei/Yohaku) 是 Shiro 的下一代演进，基于 Shiro 深度重构。赞助后可获取完整代码的访问权限。
+
+[![Sponsor](https://img.shields.io/badge/Sponsor-Innei-ea4aaa?logo=github-sponsors&logoColor=white)](https://github.com/sponsors/Innei)
+
+相比 Shiro，Yohaku 新增了以下功能：
 
 ### :robot: AI 智能功能
 
