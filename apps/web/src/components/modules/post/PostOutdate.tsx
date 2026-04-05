@@ -1,6 +1,6 @@
 'use client'
 
-import { differenceInDays } from 'date-fns'
+import dayjs from 'dayjs'
 import { useTranslations } from 'next-intl'
 
 import { Banner } from '~/components/ui/banner'
@@ -13,8 +13,8 @@ export const PostOutdate = () => {
   if (!time) {
     return null
   }
-  return differenceInDays(new Date(), new Date(time)) > 60 ? (
-    <Banner className="my-10" type="warning">
+  return dayjs().diff(dayjs(time), 'day') > 60 ? (
+    <Banner type="warning" className="my-10">
       <span className="leading-[1.8]">
         {t('outdated_prefix')}
         <RelativeTime date={time} />

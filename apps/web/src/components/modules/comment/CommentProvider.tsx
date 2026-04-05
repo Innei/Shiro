@@ -26,15 +26,10 @@ import { jotaiStore } from '~/lib/store'
 import { LoadMoreIndicator } from '../shared/LoadMoreIndicator'
 import { CommentSkeleton } from './CommentSkeleton'
 import { useCommentsQuery } from './hooks'
-import {
-  buildCommentTreeItem,
-  type CommentThreadInfiniteData,
-  type CommentThreadViewItem,
-} from './thread'
 
 const CommentReaderMapContext = createContext<Record<string, ReaderModel>>({})
 const CommentListContext = createReactContext<
-  PrimitiveAtom<Record<string, CommentThreadViewItem>>
+  PrimitiveAtom<Record<string, CommentModel & { new?: boolean }>>
 >(null!)
 
 export const [
@@ -47,16 +42,22 @@ export const CommentProvider: FC<{
   refId: string
   children: (
     data: InfiniteData<
-      PaginateResult<CommentModel & { ref: string }> & {
+      PaginateResult<
+        CommentModel & {
+          ref: string
+        }
+      > & {
         readers: Record<string, ReaderModel>
       }
     >,
-    commentAtom: PrimitiveAtom<Record<string, CommentThreadViewItem>>,
+    commentAtom: PrimitiveAtom<
+      Record<string, CommentModel & { new?: boolean }>
+    >,
   ) => ReactNode
 }> = ({ children, refId }) => {
   const t = useTranslations('comment')
   const commentAtom = useRefValue(() =>
-    atom({} as Record<string, CommentThreadViewItem>),
+    atom({} as Record<string, CommentModel & { new?: boolean }>),
   )
 
   const { data, isLoading, fetchNextPage, hasNextPage } =
@@ -64,19 +65,18 @@ export const CommentProvider: FC<{
 
   useEffect(() => {
     if (!data) return
-    const commentsMap = {} as Record<string, CommentThreadViewItem>
-    function dts(comments: CommentThreadViewItem[]) {
+    const commentsMap = Object.assign({}, jotaiStore.get(commentAtom))
+    function dts(comments: CommentModel[]) {
       for (const comment of comments) {
         commentsMap[comment.id] = comment
-        dts(comment.children)
+
+        if (comment.children) {
+          dts(comment.children)
+        }
       }
     }
 
-    dts(
-      (data as CommentThreadInfiniteData).pages.flatMap((page) =>
-        page.data.map((comment) => buildCommentTreeItem(comment)),
-      ),
-    )
+    dts(data.pages.flatMap((page) => page.data))
 
     jotaiStore.set(commentAtom, commentsMap)
   }, [commentAtom, data])
@@ -101,7 +101,7 @@ export const CommentProvider: FC<{
 
   return (
     <CommentReaderMapContext.Provider value={readers}>
-      <CommentListContext.Provider value={commentAtom}>
+      <CommentListContext value={commentAtom}>
         {children(data, commentAtom)}
 
         {hasNextPage && (
@@ -109,7 +109,7 @@ export const CommentProvider: FC<{
             <CommentSkeleton />
           </LoadMoreIndicator>
         )}
-      </CommentListContext.Provider>
+      </CommentListContext>
     </CommentReaderMapContext.Provider>
   )
 }
@@ -122,7 +122,7 @@ export const useCommentReader = (readerId?: string) => {
 
 export const useCommentByIdSelector = <T,>(
   commentId: string,
-  selector: (comment?: CommentThreadViewItem) => T,
+  selector: (comment?: CommentModel) => T,
 ): T => {
   const commentsAtom = use(CommentListContext)
   return useAtomValue(

@@ -3,13 +3,15 @@
 import type {
   CommentDto,
   CommentModel,
+  PaginateResult,
   RequestError,
 } from '@mx-space/api-client'
+import type { InfiniteData } from '@tanstack/react-query'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { produce } from 'immer'
 import type { ExtractAtomValue } from 'jotai'
 import { atom, useAtomValue } from 'jotai'
 import { atomWithStorage, selectAtom } from 'jotai/utils'
-import { useTranslations } from 'next-intl'
 import type { PropsWithChildren } from 'react'
 import { use, useCallback } from 'react'
 
@@ -20,19 +22,16 @@ import { jotaiStore } from '~/lib/store'
 import { toast } from '~/lib/toast'
 import { buildCommentsQueryKey } from '~/queries/keys'
 
-import type { CommentAnchor } from '../types'
 import { MAX_COMMENT_TEXT_LENGTH } from './constants'
 import type { createInitialValue } from './providers'
 import {
   CommentBoxContext,
   CommentBoxLifeCycleContext,
-  CommentCompactContext,
   CommentCompletedCallbackContext,
   CommentIsReplyContext,
   CommentOriginalRefIdContext,
 } from './providers'
 
-export const useCommentCompact = () => use(CommentCompactContext)
 export const useUseCommentReply = () => use(CommentIsReplyContext)
 
 export const useCommentOriginalRefId = () => {
@@ -108,7 +107,6 @@ export const setCommentMode = (mode: CommentBoxMode) =>
   jotaiStore.set(commentModeAtom, mode)
 
 export const useSendComment = () => {
-  const t = useTranslations('comment')
   const commentRefId = useCommentBoxRefIdValue()
   const {
     text: textAtom,
@@ -118,8 +116,6 @@ export const useSendComment = () => {
 
     source: sourceAtom,
     avatar: avatarAtom,
-
-    anchor: anchorAtom,
 
     isWhisper: isWhisperAtom,
     syncToRecently: syncToRecentlyAtom,
@@ -144,17 +140,8 @@ export const useSendComment = () => {
       const avatar = jotaiStore.get(avatarAtom)
       const source = jotaiStore.get(sourceAtom) as any
       const url = jotaiStore.get(urlAtom)
-      const anchor = jotaiStore.get(anchorAtom)
 
-      const commentDto: CommentDto & { anchor?: CommentAnchor } = {
-        text,
-        author,
-        mail,
-        avatar,
-        source,
-        url,
-      }
-      if (anchor) commentDto.anchor = anchor
+      const commentDto: CommentDto = { text, author, mail, avatar, source, url }
 
       if (isLogged) {
         delete commentDto.avatar
@@ -193,7 +180,7 @@ export const useSendComment = () => {
         return apiClient.comment.proxy.owner
           .comment(refId)
           .post<CommentModel>({
-            data: { text, source, ...(anchor ? { anchor } : {}) },
+            data: { text, source },
           })
           .then(async (res) => {
             if (syncToRecently)
@@ -205,7 +192,7 @@ export const useSendComment = () => {
                   },
                 })
                 .then(() => {
-                  toast.success(t('synced_to_thinking'))
+                  toast.success('已同步到碎碎念')
                 })
 
             return res
@@ -222,22 +209,82 @@ export const useSendComment = () => {
     onError(error: RequestError) {
       toast.error(getErrorMessageFromRequestError(error))
     },
-    onSuccess() {
+    onSuccess(data) {
       afterSubmit?.()
 
       const toastCopy = isLogged
-        ? t('submit_success')
+        ? '发表成功啦~'
         : isReply
-          ? t('reply_success')
-          : t('comment_success')
+          ? '感谢你的回复！'
+          : '感谢你的评论！'
 
       const commentListQueryKey = buildCommentsQueryKey(originalRefId)
 
       toast.success(toastCopy)
       jotaiStore.set(textAtom, '')
-      jotaiStore.set(anchorAtom, null)
-      queryClient.invalidateQueries({
-        queryKey: commentListQueryKey,
+
+      queryClient.setQueryData<
+        InfiniteData<
+          PaginateResult<
+            CommentModel & {
+              ref: string
+            }
+          >
+        >
+      >(commentListQueryKey, (oldData) => {
+        if (!oldData) return oldData
+        if (isReply) {
+          // find the reply refed comment
+
+          return produce(oldData, (draft) => {
+            const dfs = (
+              data: CommentModel,
+              commentRefId: string,
+              newData: CommentModel & { new?: boolean },
+            ) => {
+              if (data.id === commentRefId) {
+                if (!data.children) {
+                  data.children = []
+                }
+                ;(data.children as (CommentModel & { new: boolean })[]).push({
+                  ...newData,
+                  new: true,
+                })
+                return true
+              }
+              if (!data.children) {
+                return
+              }
+              for (const child of data.children) {
+                if (dfs(child, commentRefId, newData)) {
+                  return true
+                }
+              }
+              return false
+            }
+
+            const dataToAdd = {
+              ...data,
+              new: true,
+            }
+
+            for (const page of draft.pages) {
+              for (const item of page.data) {
+                if (dfs(item, commentRefId, dataToAdd)) {
+                  break
+                }
+              }
+            }
+          })
+        }
+
+        return produce(oldData, (draft) => {
+          draft.pages[0].data.unshift({
+            ...data,
+            // @ts-ignore
+            new: true,
+          })
+        })
       })
     },
   })

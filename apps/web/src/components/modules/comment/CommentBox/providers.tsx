@@ -9,7 +9,6 @@ import { createContext, memo, useEffect, useMemo } from 'react'
 import { useBeforeMounted } from '~/hooks/common/use-before-mounted'
 import { jotaiStore } from '~/lib/store'
 
-import type { CommentAnchor } from '../types'
 import { setCommentActionLeftSlot, useCommentActionLeftSlot } from './hooks'
 
 export const commentStoragePrefix = 'comment-'
@@ -23,8 +22,6 @@ export const createInitialValue = () => ({
 
   avatar: atom(''),
   source: atom(''),
-
-  anchor: atom<CommentAnchor | null>(null),
 
   // settings
   isWhisper: atomWithStorage(`${commentStoragePrefix}is-whisper`, false),
@@ -46,10 +43,9 @@ export const CommentBoxProvider = (
     refId: string
     afterSubmit?: () => void
     initialValue?: string
-    anchor?: CommentAnchor | null
   },
 ) => {
-  const { refId, children, afterSubmit, initialValue, anchor } = props
+  const { refId, children, afterSubmit, initialValue } = props
 
   const ctxValue = useMemo(
     () => ({
@@ -62,9 +58,6 @@ export const CommentBoxProvider = (
     if (initialValue) {
       jotaiStore.set(ctxValue.text, initialValue)
     }
-    if (anchor) {
-      jotaiStore.set(ctxValue.anchor, anchor)
-    }
   })
   return (
     <CommentBoxContext key={refId} value={ctxValue}>
@@ -76,8 +69,6 @@ export const CommentBoxProvider = (
     </CommentBoxContext>
   )
 }
-
-export const CommentCompactContext = createContext(false)
 
 export const CommentIsReplyContext = createContext(false)
 export const CommentOriginalRefIdContext = createContext('')

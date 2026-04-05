@@ -1,17 +1,17 @@
 'use client'
 
-import type { LexicalEditor } from 'lexical'
-import { $getSelection, $isRangeSelection } from 'lexical'
 import dynamic from 'next/dynamic'
 import { useTranslations } from 'next-intl'
-import { useCallback, useMemo, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 
 import { useIsMobile } from '~/atoms/hooks/viewport'
 import { FloatPopover } from '~/components/ui/float-popover'
-import { MarkdownEditor } from '~/components/ui/markdown-editor'
 import { useRefValue } from '~/hooks/common/use-ref-value'
 import { clsxm } from '~/lib/helper'
+import { sample } from '~/lib/lodash'
 
+import { KAOMOJI_LIST } from '../../shared/kaomoji'
+import { KaomojiPanel } from '../../shared/KaomojiPanel'
 import { getRandomPlaceholder } from './constants'
 import {
   useCommentBoxTextValue,
@@ -35,66 +35,96 @@ export const UniversalTextArea: Component<{ autoFocus?: boolean }> = ({
   const [sendComment] = useSendComment()
   const isMobile = useIsMobile()
 
-  const editorRef = useRef<LexicalEditor | null>(null)
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const shouldAutoFocusByHash =
     typeof location !== 'undefined' && location.hash === '#comment'
   const shouldAutoFocus = !!autoFocus || shouldAutoFocusByHash
 
-  const handleInsertText = useCallback((text: string) => {
-    const editor = editorRef.current
-    if (!editor) return
-    editor.focus()
-    editor.update(() => {
-      const selection = $getSelection()
-      if ($isRangeSelection(selection)) {
-        selection.insertText(` ${text} `)
-      }
-    })
-  }, [])
+  useEffect(() => {
+    if (shouldAutoFocus) {
+      textareaRef.current?.focus()
+    }
+    if (shouldAutoFocusByHash) {
+      textareaRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [shouldAutoFocus, shouldAutoFocusByHash])
 
-  const contentClassName = useMemo(
-    () => clsxm(className, 'overflow-auto flex-1 h-0! min-h-0!'),
-    [className],
+  const handleInsertText = useCallback((text: string) => {
+    const $ta = textareaRef.current
+    if (!$ta) return
+    $ta.focus()
+    const start = $ta.selectionStart
+    const end = $ta.selectionEnd
+    const before = $ta.value.slice(0, start)
+    const after = $ta.value.slice(end)
+    const inserted = ` ${text} `
+    const newValue = before + inserted + after
+    setter('text', newValue)
+
+    requestAnimationFrame(() => {
+      const pos = start + inserted.length
+      $ta.selectionStart = pos
+      $ta.selectionEnd = pos
+      $ta.focus()
+    })
+  }, [setter])
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+        e.preventDefault()
+        sendComment()
+      }
+    },
+    [sendComment],
   )
 
   return (
-    <MarkdownEditor
-      autoFocus={shouldAutoFocus}
-      className="relative flex flex-col overflow-hidden pb-8"
-      contentClassName={contentClassName}
-      placeholder={placeholder}
-      scrollIntoView={shouldAutoFocusByHash}
-      value={value}
-      actions={
-        <CommentBoxSlotPortal>
-          {!isMobile && (
-            <FloatPopover
-              headless
-              mobileAsSheet
-              popoverClassNames="pointer-events-auto"
-              popoverWrapperClassNames="z-[999]"
-              trigger="click"
-              triggerElement={
-                <div
-                  className={'center inline-flex size-5 text-base'}
-                  role="button"
-                  tabIndex={0}
-                >
-                  <i className="i-mingcute-emoji-2-line" />
-                  <span className="sr-only">{t('emoji_label')}</span>
-                </div>
-              }
-            >
-              <EmojiPicker onEmojiSelect={handleInsertText} />
-            </FloatPopover>
-          )}
-        </CommentBoxSlotPortal>
-      }
-      onChange={(next) => setter('text', next)}
-      onSubmit={sendComment}
-      onEditorReady={(editor) => {
-        editorRef.current = editor
-      }}
-    />
+    <div className="relative flex flex-col overflow-hidden pb-8">
+      <textarea
+        ref={textareaRef}
+        value={value}
+        onChange={(e) => setter('text', e.target.value)}
+        onKeyDown={handleKeyDown}
+        placeholder={placeholder}
+        className={clsxm(
+          'overflow-auto flex-1 h-0! min-h-0! w-full resize-none bg-transparent p-2 text-sm outline-none',
+          className,
+        )}
+      />
+      <CommentBoxSlotPortal>
+        {!isMobile && (
+          <FloatPopover
+            mobileAsSheet
+            trigger="click"
+            triggerElement={
+              <div
+                className="center ml-0 inline-flex size-5 translate-y-1 text-base md:ml-4"
+                role="button"
+                tabIndex={0}
+              >
+                <i className="i-mingcute-emoji-2-line" />
+                <span className="sr-only">{t('emoji_label')}</span>
+              </div>
+            }
+            headless
+            popoverWrapperClassNames="z-[999]"
+            popoverClassNames="pointer-events-auto"
+          >
+            <EmojiPicker onEmojiSelect={handleInsertText} />
+          </FloatPopover>
+        )}
+        <KaomojiPanel placement="bottom" onInsert={handleInsertText}>
+          <div
+            role="button"
+            tabIndex={0}
+            className="center ml-0 inline-flex shrink-0 text-xs md:ml-4"
+          >
+            {useMemo(() => sample(KAOMOJI_LIST), [])}
+            <span className="sr-only">{t('kaomoji_label')}</span>
+          </div>
+        </KaomojiPanel>
+      </CommentBoxSlotPortal>
+    </div>
   )
 }

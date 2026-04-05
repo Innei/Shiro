@@ -1,7 +1,6 @@
 'use client'
 
 import clsx from 'clsx'
-import { useTranslations } from 'next-intl'
 import { useEffect } from 'react'
 
 import { useSessionReader } from '~/atoms/hooks/reader'
@@ -11,7 +10,6 @@ import { AuthProvidersRender, useAuthProviders } from '~/queries/hooks/authjs'
 import { CommentBoxMode, setCommentMode } from './hooks'
 
 export function CommentBoxSignedOutContent() {
-  const t = useTranslations('comment')
   const isReaderLogin = !!useSessionReader()
   const providers = useAuthProviders()
   const hasProviders = providers && Object.keys(providers).length > 0
@@ -26,23 +24,23 @@ export function CommentBoxSignedOutContent() {
   if (isReaderLogin) return null
 
   return (
-    <div className="center flex h-[150px] w-full flex-col rounded-lg bg-neutral-100/80 dark:bg-neutral-900/80">
+    <div className="center flex h-[150px] w-full flex-col rounded-lg bg-zinc-100/80 dark:bg-zinc-900/80">
       {hasProviders && (
         <>
-          <p className="mb-4 text-sm">{t('signIn_social')}</p>
+          <p className="mb-4 text-sm">使用社交账号登录</p>
           <AuthProvidersRender />
         </>
       )}
 
       <StyledButton
         className={clsx(hasProviders ? 'mt-6' : '')}
-        type="button"
         variant="secondary"
+        type="button"
         onClick={() => {
           setCommentMode(CommentBoxMode.legacy)
         }}
       >
-        {t('guest_comment')}
+        免登录评论
       </StyledButton>
     </div>
   )

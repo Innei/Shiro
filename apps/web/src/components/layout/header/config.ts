@@ -53,7 +53,7 @@ export const headerMenuConfig: IHeaderMenu[] = [
     type: 'Note',
     path: '/notes',
     icon: h(FaSolidFeatherAlt),
-    exclude: ['/notes/series'],
+    exclude: ['/notes/topics'],
   },
 
   {
@@ -83,7 +83,7 @@ export const headerMenuConfig: IHeaderMenu[] = [
       {
         title: '专栏',
         titleKey: 'nav_topics',
-        path: '/notes/series',
+        path: '/notes/topics',
         icon: h('i', {
           className: 'i-mingcute-align-bottom-fill flex center',
         }),

@@ -8,6 +8,7 @@ import { fetch } from 'ofetch'
 import type { PropsWithChildren } from 'react'
 
 import PKG from '~/../package.json'
+import { DayjsLocaleSync } from '~/components/common/DayjsLocaleSync'
 import { ErrorBoundary } from '~/components/common/ErrorBoundary'
 import { Global } from '~/components/common/Global'
 import { HydrationEndDetector } from '~/components/common/HydrationEndDetector'
@@ -237,6 +238,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             className={`${sansFont.variable} ${serifFont.variable} m-0 h-full p-0 font-sans`}
           >
             <NextIntlClientProvider messages={messages}>
+              <DayjsLocaleSync />
               <ErrorBoundary>
                 <WebAppProviders>
                   <AggregationProvider

@@ -27,11 +27,11 @@ export const CommentMarkdown: FC<{
       )}
     >
       <Markdown
+        variant="comment"
+        disabledTypes={disabledTypes}
         disableParsingRawHTML
         forceBlock
-        disabledTypes={disabledTypes}
         value={children}
-        variant="comment"
       />
     </div>
   )

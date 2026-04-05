@@ -1,4 +1,4 @@
-import { addDays, set } from 'date-fns'
+import dayjs from 'dayjs'
 import Cookies from 'js-cookie'
 
 const LikePrefix = 'mx-like'
@@ -34,10 +34,5 @@ export function isLikedBefore(id: string) {
 }
 
 function getTomorrow() {
-  return set(addDays(new Date(), 1), {
-    hours: 2,
-    minutes: 0,
-    seconds: 0,
-    milliseconds: 0,
-  })
+  return dayjs().add(1, 'd').set('h', 2).set('m', 0).toDate()
 }
