@@ -15,7 +15,7 @@
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
   "scripts": {
-    "build": "tsdown && cd ../../apps/web && tailwindcss -i src/styles/index.css -o ../../packages/types/dist/styles.css"
+    "build": "tsdown && cd ../../apps/web && npx tailwindcss -i src/styles/index.css -o ../../packages/types/dist/styles.css"
   },
   "devDependencies": {
     "@types/node": "25.0.10",
