@@ -40,9 +40,6 @@ importers:
       lint-staged:
         specifier: 16.2.7
         version: 16.2.7
-      node:
-        specifier: '>=20'
-        version: 26.7.0
       simple-git-hooks:
         specifier: 2.13.1
         version: 2.13.1
@@ -5185,9 +5182,6 @@ packages:
   node-addon-api@7.1.1:
     resolution: {integrity: sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==}
 
-  node-bin-setup@1.1.4:
-    resolution: {integrity: sha512-vWNHOne0ZUavArqPP5LJta50+S8R261Fr5SvGul37HbEDcowvLjwdvd0ZeSr0r2lTSrPxl6okq9QUw8BFGiAxA==}
-
   node-emoji@2.2.0:
     resolution: {integrity: sha512-Z3lTE9pLaJF47NyMhd4ww1yFTAP8YhYI8SleJiHzM46Fgpm5cnNzSl9XfzFNqbaz+VlJrIj3fXQ4DeN1Rjm6cw==}
     engines: {node: '>=18'}
@@ -5197,11 +5191,6 @@ packages:
 
   node-releases@2.0.27:
     resolution: {integrity: sha512-nmh3lCkYZ3grZvqcCH+fjmQ7X+H0OeZgP40OierEaAptX4XofMh5kwNbWh7lBduUzCcV/8kZ+NDLCwm2iorIlA==}
-
-  node@26.7.0:
-    resolution: {integrity: sha512-ti5ikv+YT+5+kSxcuu7K86ED/Cv5R1N8WylDenxzjPL6FUSGNI5WEEOcILFxWr9qKRj+q/BPJ82hKNrPPZKzLw==}
-    engines: {npm: '>=5.0.0'}
-    hasBin: true
 
   normalize-package-data@8.0.0:
     resolution: {integrity: sha512-RWk+PI433eESQ7ounYxIp67CYuVsS1uYSonX3kA6ps/3LWfjVQa/ptEg6Y3T6uAMq1mWpX9PQ+qx+QaHpsc7gQ==}
@@ -12203,8 +12192,6 @@ snapshots:
 
   node-addon-api@7.1.1: {}
 
-  node-bin-setup@1.1.4: {}
-
   node-emoji@2.2.0:
     dependencies:
       '@sindresorhus/is': 4.6.0
@@ -12215,10 +12202,6 @@ snapshots:
   node-fetch-native@1.6.7: {}
 
   node-releases@2.0.27: {}
-
-  node@26.7.0:
-    dependencies:
-      node-bin-setup: 1.1.4
 
   normalize-package-data@8.0.0:
     dependencies:
