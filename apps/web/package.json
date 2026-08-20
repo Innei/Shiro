@@ -13,7 +13,7 @@
   "scripts": {
     "analyze": "cross-env NODE_ENV=production ANALYZE=true BUNDLE_ANALYZE=browser next build",
     "prebuild": "rimraf .next || exit 0",
-    "build": "tsc --noEmit && cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 next build",
+    "build": "tsc --noEmit && cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 next build --webpack",
     "build:ci": "tsc --noEmit && cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 NEXT_TELEMETRY_DISABLED=1 CI=true next build",
     "dev": "cross-env NODE_ENV=development next dev -p 2323 --turbo",
     "dev:turbo": "cross-env NODE_ENV=development next dev -p 2323 --turbo",
