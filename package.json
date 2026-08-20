@@ -6,12 +6,12 @@
     "build": "turbo build",
     "dev": "turbo dev --filter @shiro/web",
     "lint": "turbo lint",
-    "prepare": "pnpm exec simple-git-hooks",
+    "prepare": "simple-git-hooks",
     "release": "bumpp -r",
     "release:dry": "bumpp -r --no-commit --no-tag --no-push"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm exec lint-staged"
+    "pre-commit": "npx lint-staged"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -28,7 +28,7 @@
     "simple-git-hooks": "2.13.1",
     "turbo": "^2.8.10"
   },
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "npm",
   "engines": {
     "node": ">=20"
   },
