@@ -60,7 +60,7 @@ importers:
         version: 0.17.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@ferrucc-io/emoji-picker':
         specifier: 0.0.48
-        version: 0.0.48(@babel/core@7.29.7)(@babel/template@7.29.7)(@types/react@19.2.9)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(tailwindcss@4.0.17)
+        version: 0.0.48(@babel/core@7.29.7)(@babel/template@7.29.7)(@types/react@19.2.9)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(tailwindcss@4.1.18)
       '@floating-ui/react-dom':
         specifier: 2.1.6
         version: 2.1.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -306,7 +306,7 @@ importers:
         version: 3.4.0
       tailwind-variants:
         specifier: 3.2.2
-        version: 3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.0.17)
+        version: 3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.1.18)
       unified:
         specifier: ^11.0.5
         version: 11.0.5
@@ -331,7 +331,7 @@ importers:
     devDependencies:
       '@egoist/tailwindcss-icons':
         specifier: 1.9.0
-        version: 1.9.0(tailwindcss@4.0.17)
+        version: 1.9.0(tailwindcss@4.1.18)
       '@iconify-json/material-symbols':
         specifier: 1.2.53
         version: 1.2.53
@@ -348,11 +348,11 @@ importers:
         specifier: 16.1.5
         version: 16.1.5
       '@tailwindcss/postcss':
-        specifier: ^4.0.0
+        specifier: ^4.2.1
         version: 4.3.3
       '@tailwindcss/typography':
         specifier: 0.5.19
-        version: 0.5.19(tailwindcss@4.0.17)
+        version: 0.5.19(tailwindcss@4.1.18)
       '@types/chroma-js':
         specifier: 3.1.2
         version: 3.1.2
@@ -441,8 +441,8 @@ importers:
         specifier: 3.21.0
         version: 3.21.0
       tailwindcss:
-        specifier: ^4.0.0
-        version: 4.0.17
+        specifier: 4.1.18
+        version: 4.1.18
       taze:
         specifier: 19.9.2
         version: 19.9.2
@@ -6240,6 +6240,9 @@ packages:
   tailwindcss@4.0.17:
     resolution: {integrity: sha512-OErSiGzRa6rLiOvaipsDZvLMSpsBZ4ysB4f0VKGXUrjw2jfkJRd6kjRKV2+ZmTCNvwtvgdDam5D7w6WXsdLJZw==}
 
+  tailwindcss@4.1.18:
+    resolution: {integrity: sha512-4+Z+0yiYyEtUVCScyfHCxOYP06L5Ne+JiHhY2IjR2KWMIWhJOYZKLSGZaP5HkZ8+bY0cxfzwDE5uOmzFXyIwxw==}
+
   tailwindcss@4.3.3:
     resolution: {integrity: sha512-gOhV3P7ufE62QDGg1zVaTgCR+EtPv92k2nIhVcVKcLmxT1sUBsQGhnZj175j+MqRt4zLF7ic+sCYjfhxMxj7YQ==}
 
@@ -7536,10 +7539,10 @@ snapshots:
       react: 19.2.4
       tslib: 2.8.1
 
-  '@egoist/tailwindcss-icons@1.9.0(tailwindcss@4.0.17)':
+  '@egoist/tailwindcss-icons@1.9.0(tailwindcss@4.1.18)':
     dependencies:
       '@iconify/utils': 2.3.0
-      tailwindcss: 4.0.17
+      tailwindcss: 4.1.18
     transitivePeerDependencies:
       - supports-color
 
@@ -7695,7 +7698,7 @@ snapshots:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
 
-  '@ferrucc-io/emoji-picker@0.0.48(@babel/core@7.29.7)(@babel/template@7.29.7)(@types/react@19.2.9)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(tailwindcss@4.0.17)':
+  '@ferrucc-io/emoji-picker@0.0.48(@babel/core@7.29.7)(@babel/template@7.29.7)(@types/react@19.2.9)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(tailwindcss@4.1.18)':
     dependencies:
       '@tanstack/react-virtual': 3.14.10(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       clsx: 2.1.1
@@ -7704,7 +7707,7 @@ snapshots:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
       tailwind-merge: 2.6.1
-      tailwindcss: 4.0.17
+      tailwindcss: 4.1.18
       unicode-emoji-json: 0.8.0
     transitivePeerDependencies:
       - '@babel/core'
@@ -10137,10 +10140,10 @@ snapshots:
       postcss: 8.5.26
       tailwindcss: 4.3.3
 
-  '@tailwindcss/typography@0.5.19(tailwindcss@4.0.17)':
+  '@tailwindcss/typography@0.5.19(tailwindcss@4.1.18)':
     dependencies:
       postcss-selector-parser: 6.0.10
-      tailwindcss: 4.0.17
+      tailwindcss: 4.1.18
 
   '@tanstack/query-async-storage-persister@5.90.22':
     dependencies:
@@ -13321,13 +13324,15 @@ snapshots:
 
   tailwind-merge@3.4.0: {}
 
-  tailwind-variants@3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.0.17):
+  tailwind-variants@3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.1.18):
     dependencies:
-      tailwindcss: 4.0.17
+      tailwindcss: 4.1.18
     optionalDependencies:
       tailwind-merge: 3.4.0
 
   tailwindcss@4.0.17: {}
+
+  tailwindcss@4.1.18: {}
 
   tailwindcss@4.3.3: {}
 
