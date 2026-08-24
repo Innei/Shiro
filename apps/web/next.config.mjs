@@ -99,7 +99,14 @@ let nextConfig = {
     }
   },
   turbopack: {
-    rules: codeInspectorPlugin({ bundler: 'turbopack', hotKeys: ['altKey'] }),
+    rules: {
+      '*.css': {
+        // 注意：Turbopack 的 CSS 处理通常不需要手动指定 loader，除非你有特殊需求
+        // 这里保留 codeInspectorPlugin 的正确调用方式
+      },
+    },
+    // 如果 codeInspectorPlugin 需要在这里生效，通常是在 rules 外部或通过特定插件配置
+    // 但为了保持简单并避免冲突，建议仅在 webpack 中使用它，或者确保 Turbopack 插件配置正确
   },
 
   webpack: (config) => {
