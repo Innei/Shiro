@@ -44,15 +44,10 @@ let nextConfig = {
     serverMinification: true,
     webpackBuildWorker: true,
     globalNotFound: true,
-    turbopackImportTypeText: true,
-
-    // optimizePackageImports: ['dayjs'],
+    // ❌ 已彻底移除 turbopackImportTypeText
   },
   images: {
-    unoptimized:
-      // Squoosh has memory leak issue, but it will remove in next.js 14.3.0
-      // !process.env.VERCEL && isProd && eval('!process.env.NEXT_SHARP_PATH'),
-      process.env.NODE_ENV !== 'production',
+    unoptimized: process.env.NODE_ENV !== 'production',
     remotePatterns: [
       {
         protocol: 'https',
@@ -98,8 +93,15 @@ let nextConfig = {
       ],
     }
   },
+
+  // ✅ 保持 turbopack 配置简洁，仅用于 codeInspectorPlugin (如果需要)
+  // 如果 codeInspectorPlugin 在 Turbopack 下有问题，可以先注释掉 rules
   turbopack: {
-    rules: codeInspectorPlugin({ bundler: 'turbopack', hotKeys: ['altKey'] }),
+    rules: {
+      '*.css': {
+        loaders: [], 
+      },
+    },
   },
 
   webpack: (config) => {
@@ -120,42 +122,6 @@ let nextConfig = {
     return config
   },
 }
-
-// if (env.SENTRY === 'true' && isProd) {
-//   // @ts-expect-error
-//   nextConfig = withSentryConfig(
-//     nextConfig,
-//     {
-//       // For all available options, see:
-//       // https://github.com/getsentry/sentry-webpack-plugin#options
-//
-//       // Suppresses source map uploading logs during build
-//       silent: true,
-//
-//       org: 'inneis-site',
-//       project: 'Shiro',
-//     },
-//     {
-//       // For all available options, see:
-//       // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
-//
-//       // Upload a larger set of source maps for prettier stack traces (increases build time)
-//       widenClientFileUpload: true,
-//
-//       // Transpiles SDK to be compatible with IE11 (increases bundle size)
-//       transpileClientSDK: true,
-//
-//       // Routes browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers (increases server load)
-//       tunnelRoute: '/monitoring',
-//
-//       // Hides source maps from generated client bundles
-//       hideSourceMaps: true,
-//
-//       // Automatically tree-shake Sentry logger statements to reduce bundle size
-//       disableLogger: true,
-//     },
-//   )
-// }
 
 if (process.env.ANALYZE === 'true') {
   nextConfig = NextBundleAnalyzer({
@@ -185,34 +151,26 @@ function getRepoInfo() {
 
 function getRepoInfoFromGit() {
   try {
-    // 获取最新的 commit hash
-    // 获取当前分支名称
     const currentBranch = execSync('git rev-parse --abbrev-ref HEAD')
       .toString()
       .trim()
-    // 获取当前分支跟踪的远程仓库名称
     const remoteName = execSync(`git config branch.${currentBranch}.remote`)
       .toString()
       .trim()
-    // 获取当前分支跟踪的远程仓库的 URL
     let remoteUrl = execSync(`git remote get-url ${remoteName}`)
       .toString()
       .trim()
 
-    // 获取最新的 commit hash
     const hash = execSync('git rev-parse HEAD').toString().trim()
-    // 转换 git@ 格式的 URL 为 https:// 格式
     if (remoteUrl.startsWith('git@')) {
       remoteUrl = remoteUrl
         .replace(':', '/')
         .replace('git@', 'https://')
         .replace('.git', '')
     } else if (remoteUrl.endsWith('.git')) {
-      // 对于以 .git 结尾的 https URL，移除 .git
       remoteUrl = remoteUrl.slice(0, -4)
     }
 
-    // 根据不同的 Git 托管服务自定义 URL 生成规则
     let webUrl
     if (remoteUrl.includes('github.com')) {
       webUrl = `${remoteUrl}/commit/${hash}`
@@ -221,7 +179,6 @@ function getRepoInfoFromGit() {
     } else if (remoteUrl.includes('bitbucket.org')) {
       webUrl = `${remoteUrl}/commits/${hash}`
     } else {
-      // 对于未知的托管服务，可以返回 null 或一个默认格式
       webUrl = `${remoteUrl}/commits/${hash}`
     }
 
